@@ -26,6 +26,10 @@ static func _find(list: Array, id: String) -> Dictionary:
 
 ## Returns {"pos": Vector3, "forward": Vector3} or {"error": String}.
 static func resolve(L: Dictionary, ref: String) -> Dictionary:
+	# Actors (posed for the current moment) are anchors too: "you", "you.head".
+	var actor_anchors: Dictionary = L.get("actor_anchors", {})
+	if actor_anchors.has(ref):
+		return actor_anchors[ref]
 	var parts := ref.split(".")
 	var entity := parts[0]
 	var sub := parts[1] if parts.size() > 1 else ""

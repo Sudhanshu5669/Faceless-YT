@@ -1,0 +1,256 @@
+{
+  "_comment": "Action vocabulary for actors. 'anim' is the animation in the UAL library. 'loop': false holds the last frame (death, sitting down). 'gait' actions move along routes; 'speed' (m/s) is measured by tools/locomotion_probe.gd so feet do not slide.",
+  "actions": {
+    "idle": {
+      "anim": "Idle",
+      "loop": true,
+      "description": "Standing, breathing."
+    },
+    "idle_formal": {
+      "anim": "Idle_Rail",
+      "loop": true,
+      "description": "Standing still, hands resting forward, like on a railing."
+    },
+    "fold_arms": {
+      "anim": "Idle_FoldArms",
+      "loop": true,
+      "description": "Arms crossed, waiting, judging."
+    },
+    "talk": {
+      "anim": "Idle_Talking",
+      "loop": true,
+      "description": "Talking with hand gestures."
+    },
+    "phone": {
+      "anim": "Idle_TalkingPhone",
+      "loop": true,
+      "description": "On the phone."
+    },
+    "call_out": {
+      "anim": "Idle_Rail_Call",
+      "loop": true,
+      "description": "Calling out to someone far away."
+    },
+    "shake_head": {
+      "anim": "Idle_No",
+      "loop": true,
+      "description": "Shaking head: no."
+    },
+    "nod": {
+      "anim": "Yes",
+      "loop": true,
+      "description": "Nodding: yes."
+    },
+    "lantern": {
+      "anim": "Idle_Lantern",
+      "loop": true,
+      "description": "Holding a lantern up to see."
+    },
+    "torch": {
+      "anim": "Idle_Torch",
+      "loop": true,
+      "description": "Holding a torch/flashlight forward."
+    },
+    "crouch": {
+      "anim": "Crouch_Idle",
+      "loop": true,
+      "description": "Crouched, hiding."
+    },
+    "sit": {
+      "anim": "Sitting_Idle",
+      "loop": true,
+      "description": "Sitting (place on a chair, step, bench)."
+    },
+    "sit_talk": {
+      "anim": "Sitting_Talking",
+      "loop": true,
+      "description": "Sitting and talking."
+    },
+    "sit_down": {
+      "anim": "Sitting_Enter",
+      "loop": false,
+      "description": "Sitting down (one-shot)."
+    },
+    "stand_up": {
+      "anim": "Sitting_Exit",
+      "loop": false,
+      "description": "Getting up from sitting (one-shot)."
+    },
+    "dance": {
+      "anim": "Dance",
+      "loop": true,
+      "description": "Dancing."
+    },
+    "interact": {
+      "anim": "Interact",
+      "loop": false,
+      "description": "Reaching out to press/open something."
+    },
+    "pick_up": {
+      "anim": "PickUp_Table",
+      "loop": false,
+      "description": "Picking something up from a table."
+    },
+    "open_chest": {
+      "anim": "Chest_Open",
+      "loop": false,
+      "description": "Opening a box/chest/trunk."
+    },
+    "push": {
+      "anim": "Push",
+      "loop": true,
+      "description": "Pushing something heavy."
+    },
+    "fix": {
+      "anim": "Fixing_Kneeling",
+      "loop": true,
+      "description": "Kneeling and repairing something."
+    },
+    "drive": {
+      "anim": "Driving",
+      "loop": true,
+      "description": "Seated, hands on a steering wheel."
+    },
+    "eat": {
+      "anim": "Consume",
+      "loop": true,
+      "description": "Eating or drinking."
+    },
+    "throw": {
+      "anim": "OverhandThrow",
+      "loop": false,
+      "description": "Throwing something overhand."
+    },
+    "chop": {
+      "anim": "TreeChopping",
+      "loop": true,
+      "description": "Chopping with an axe."
+    },
+    "punch": {
+      "anim": "Punch_Jab",
+      "loop": true,
+      "description": "Jabbing."
+    },
+    "hit": {
+      "anim": "Hit_Chest",
+      "loop": false,
+      "description": "Recoiling from a hit."
+    },
+    "knocked_back": {
+      "anim": "Hit_Knockback",
+      "loop": false,
+      "description": "Thrown backwards."
+    },
+    "die": {
+      "anim": "Death01",
+      "loop": false,
+      "description": "Collapsing to the ground (holds the final pose)."
+    },
+    "get_up": {
+      "anim": "LayToIdle",
+      "loop": false,
+      "description": "Getting up from lying on the ground. Freeze at 0 to lie flat."
+    },
+    "jump": {
+      "anim": "Jump",
+      "loop": false,
+      "description": "Jumping in place."
+    },
+    "climb": {
+      "anim": "ClimbUp_1m",
+      "loop": false,
+      "description": "Climbing up a 1 m ledge."
+    },
+    "swim": {
+      "anim": "Swim_Idle",
+      "loop": true,
+      "description": "Treading water."
+    },
+    "pistol_aim": {
+      "anim": "Pistol_Idle",
+      "loop": true,
+      "description": "Holding a pistol ready."
+    },
+    "sword_idle": {
+      "anim": "Sword_Idle",
+      "loop": true,
+      "description": "Holding a sword ready."
+    },
+    "spell": {
+      "anim": "Spell_Simple_Idle",
+      "loop": true,
+      "description": "Hands raised, channelling something."
+    },
+    "tpose": {
+      "anim": "A_TPose",
+      "loop": true,
+      "description": "Arms straight out, motionless. Deeply uncanny."
+    },
+    "zombie_idle": {
+      "anim": "Zombie_Idle",
+      "loop": true,
+      "description": "Zombie swaying in place."
+    },
+    "zombie_scratch": {
+      "anim": "Zombie_Scratch",
+      "loop": true,
+      "description": "Zombie clawing at a door or window."
+    },
+    "walk": {
+      "anim": "Walk",
+      "loop": true,
+      "gait": true,
+      "speed": 0.92,
+      "description": "Normal walk."
+    },
+    "walk_formal": {
+      "anim": "Walk_Formal",
+      "loop": true,
+      "gait": true,
+      "speed": 0.92,
+      "description": "Upright, stiff walk."
+    },
+    "walk_carry": {
+      "anim": "Walk_Carry",
+      "loop": true,
+      "gait": true,
+      "speed": 0.58,
+      "description": "Walking while carrying something heavy."
+    },
+    "jog": {
+      "anim": "Jog_Fwd",
+      "loop": true,
+      "gait": true,
+      "speed": 5.63,
+      "description": "Jogging."
+    },
+    "run": {
+      "anim": "Sprint",
+      "loop": true,
+      "gait": true,
+      "speed": 8.33,
+      "description": "Sprinting, running for your life."
+    },
+    "sneak": {
+      "anim": "Crouch_Fwd",
+      "loop": true,
+      "gait": true,
+      "speed": 0.58,
+      "description": "Crouch-walking, sneaking."
+    },
+    "zombie_walk": {
+      "anim": "Zombie_Walk_Fwd",
+      "loop": true,
+      "gait": true,
+      "speed": 0.66,
+      "description": "Zombie shamble."
+    },
+    "swim_forward": {
+      "anim": "Swim_Fwd",
+      "loop": true,
+      "gait": true,
+      "speed": 0.23,
+      "description": "Swimming forward."
+    }
+  }
+}

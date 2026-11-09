@@ -10,6 +10,7 @@ Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary
 - `docs/LOOK_SPEC.md`: time, weather, light, sky, palette, grade (incl. absurd looks)
 - `docs/CAMERA_SPEC.md`: anchors, shots, lenses, shot templates
 - `docs/ASSET_PIPELINE.md`: importing packs, the model catalog, kits
+- `docs/ACTOR_SPEC.md`: characters, actions, routes, crowds, actor anchors
 
 ## Commands
 
@@ -77,7 +78,10 @@ library/shots/            saved shot templates (JSON)
 library/kits/             curated model roles per kit (JSON)
 library/catalog.json      generated model catalog (sizes, categories, animations)
 godot/assets/             imported packs (git-ignored, rebuilt from incoming/)
-godot/tools/              catalog + thumbnail builder, atlas swatch probe
+godot/scripts/actors/     cast (bodies, merged animations), actor (pose_at(t)), director (plans, crowds)
+library/characters/       character definitions (JSON)
+library/actions.json      action vocabulary -> animations, measured gait speeds
+godot/tools/              catalog + thumbnails, atlas swatch probe, locomotion probe, character probe
 specs/sets/               set specs (JSON)
 pipeline/tf.py            pipeline CLI
 output/                   renders and previews (git-ignored)

@@ -1,0 +1,17 @@
+{
+  "id": "neighbor_b",
+  "description": "Neighbour, broad man in tan. Background townsperson.",
+  "tags": [
+    "townsperson",
+    "human"
+  ],
+  "body": "male",
+  "colors": {
+    "body": "#c49a6c",
+    "joints": "#5a3a28"
+  },
+  "height": 1.86,
+  "width": 1.12,
+  "idle": "idle",
+  "gait": "walk"
+}

@@ -45,9 +45,9 @@ def load_config() -> dict:
 
 
 def run_godot(cfg: dict, user_args: list[str], *, headless: bool = False,
-              script: str | None = None) -> int:
+              script: str | None = None, pre_args: list[str] | None = None) -> int:
     """Run Godot, stream its [TownForge] lines and errors, return the exit code."""
-    cmd = [cfg["godot"], "--path", str(GODOT_PROJECT)]
+    cmd = [cfg["godot"], "--path", str(GODOT_PROJECT), *(pre_args or [])]
     if headless:
         cmd.append("--headless")
     if script:
@@ -63,7 +63,9 @@ def run_godot(cfg: dict, user_args: list[str], *, headless: bool = False,
         return 124
     output = proc.stdout + proc.stderr
     for line in output.splitlines():
-        if ("[TownForge]" in line or "ERROR" in line or "SCRIPT" in line
+        if "Unreferenced static string" in line or "string_name.cpp" in line:
+            continue  # engine shutdown noise
+        if ("[TownForge]" in line or "ERROR" in line or "SCRIPT" in line or line.startswith("   at:")
                 or line.startswith("  PASS") or line.startswith("  FAIL")
                 or line.startswith("        ")):
             print(line)
@@ -149,6 +151,17 @@ def cmd_library(_cfg: dict, _args) -> int:
         models = _read_json(cat_path)["models"]
         counts = Counter(m["category"] for m in models)
         print(f"\nCATALOG (library/catalog.json) - {len(models)} models: " + ", ".join(f"{k} {v}" for k, v in counts.most_common()))
+    print("\nCHARACTERS (library/characters) - actor \"character\": \"<id>\"")
+    for path in sorted((ROOT / "library" / "characters").glob("*.json")):
+        print(f"  {path.stem:<18} {_read_json(path).get('description', '')}")
+    acts_path = ROOT / "library" / "actions.json"
+    if acts_path.exists():
+        acts = _read_json(acts_path)["actions"]
+        moving = [f"{k} ({v['speed']} m/s)" for k, v in acts.items() if v.get("gait")]
+        standing = [k for k, v in acts.items() if not v.get("gait")]
+        print("\nACTIONS (library/actions.json)")
+        print("  standing: " + ", ".join(standing))
+        print("  moving (route gaits): " + ", ".join(moving))
     print("\nNAMED VIEWS - use as \"<view>\" or {\"view\": \"<view>\", ...overrides}")
     print("  aerial, street, house[:house_N], intersection, entrance")
     return 0
@@ -237,10 +250,18 @@ def cmd_preview_set(cfg: dict, args) -> int:
     out.mkdir(parents=True, exist_ok=True)
     for old in out.glob("*.png"):
         old.unlink()
-    code = run_godot(cfg, ["--spec", str(spec_path), "--stills", str(out), *_overrides(args)])
+    views = spec.get("preview", {}).get("views", ["aerial", "street", "house", "intersection", "entrance"])
+    # Frame budget: if a script error stops the run before it quits, Godot
+    # still exits instead of leaving a window open.
+    budget = 600 + 60 * len(views)
+    code = run_godot(cfg, ["--spec", str(spec_path), "--stills", str(out), *_overrides(args)],
+                     pre_args=["--quit-after", str(budget)])
     if code != 0:
         return code
     stills = sorted(p for p in out.glob("[0-9][0-9]_*.png"))
+    if len(stills) != len(views):
+        print(f"ERROR: expected {len(views)} stills, got {len(stills)} (see errors above)", file=sys.stderr)
+        return 1
     sheet = out / "contact_sheet.png"
     contact_sheet(cfg, stills, sheet)
     print(f"[TownForge] contact sheet -> {sheet}")

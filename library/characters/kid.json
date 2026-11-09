@@ -1,0 +1,17 @@
+{
+  "id": "kid",
+  "description": "A child in yellow. Small, curious.",
+  "tags": [
+    "townsperson",
+    "human",
+    "child"
+  ],
+  "body": "male",
+  "colors": {
+    "body": "#e8c84a",
+    "joints": "#8a5a1a"
+  },
+  "height": 1.25,
+  "idle": "idle",
+  "gait": "jog"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "stranger",
+  "description": "The Stranger: impossibly tall, thin, pitch black, joints glowing red. Moves stiffly. Pure horror.",
+  "tags": [
+    "monster",
+    "uncanny"
+  ],
+  "body": "male",
+  "colors": {
+    "body": "#0c0c0e",
+    "joints": "#ff2a2a"
+  },
+  "glow": 4.0,
+  "height": 2.3,
+  "width": 0.82,
+  "idle": "idle_formal",
+  "gait": "walk_formal"
+}

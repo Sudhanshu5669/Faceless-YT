@@ -1,0 +1,189 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "blackwood",
+    "generator": "town",
+    "seed": 333,
+    "params": {
+      "blocks_x": 3,
+      "blocks_z": 2
+    }
+  },
+  "look": {
+    "base": "night_fog",
+    "time": "03:33"
+  },
+  "actors": [
+    {
+      "id": "you",
+      "character": "you",
+      "at": "house_9.front_door",
+      "action": "phone"
+    },
+    {
+      "id": "walker",
+      "character": "neighbor_a",
+      "at": {
+        "anchor": "house_9.curb",
+        "offset": [
+          -5,
+          0,
+          0.6
+        ]
+      },
+      "facing": 90,
+      "action": "walk",
+      "freeze": 0.3
+    },
+    {
+      "id": "jogger",
+      "character": "neighbor_b",
+      "at": {
+        "anchor": "main_street_mid",
+        "offset": [
+          6,
+          0,
+          -1.8
+        ]
+      },
+      "facing": -90,
+      "action": "jog",
+      "freeze": 0.55
+    },
+    {
+      "id": "kid",
+      "character": "kid",
+      "at": {
+        "anchor": "house_9.lawn",
+        "offset": [
+          0,
+          0,
+          1
+        ]
+      },
+      "action": "jump",
+      "freeze": 0.42
+    },
+    {
+      "id": "stranger",
+      "character": "stranger",
+      "at": {
+        "anchor": "house_9.curb",
+        "offset": [
+          -24,
+          0,
+          1.5
+        ]
+      },
+      "facing": "you",
+      "action": "idle_formal"
+    },
+    {
+      "id": "horde",
+      "character": "zombie",
+      "at": {
+        "anchor": "main_street_east",
+        "offset": [
+          -10,
+          0,
+          0
+        ]
+      },
+      "crowd": {
+        "count": 14,
+        "radius": 6,
+        "characters": [
+          "zombie",
+          "zombie_f"
+        ],
+        "start_spread": 3
+      },
+      "route": {
+        "via": [
+          "main_street_mid"
+        ],
+        "gait": "zombie_walk",
+        "start": 0
+      }
+    }
+  ],
+  "preview": {
+    "resolution": [
+      540,
+      960
+    ],
+    "views": [
+      {
+        "name": "you_on_the_porch",
+        "t": 2,
+        "at": {
+          "anchor": "you",
+          "offset": [
+            1.4,
+            1.4,
+            3.4
+          ]
+        },
+        "look_at": "you.head",
+        "lens_mm": 35,
+        "dof": {
+          "strength": 0.4
+        }
+      },
+      {
+        "name": "frozen_street",
+        "t": 2,
+        "at": {
+          "anchor": "walker",
+          "offset": [
+            2.8,
+            1.2,
+            4.2
+          ]
+        },
+        "look_at": "walker.chest",
+        "lens_mm": 28
+      },
+      {
+        "name": "kid_mid_jump",
+        "t": 2,
+        "template": "dutch_dread",
+        "subject": "kid"
+      },
+      {
+        "name": "pov_the_stranger",
+        "t": 2,
+        "at": "you.eyes",
+        "look_at": "stranger.head",
+        "lens_mm": 60
+      },
+      {
+        "name": "horde_low",
+        "t": 12,
+        "template": "low_hero",
+        "subject": "horde_0"
+      },
+      {
+        "name": "horde_arrives",
+        "t": 100,
+        "at": {
+          "anchor": "main_street_mid",
+          "offset": [
+            0,
+            1.7,
+            3
+          ]
+        },
+        "look_at": {
+          "anchor": "horde_0",
+          "offset": [
+            0,
+            1.4,
+            0
+          ]
+        },
+        "lens_mm": 70
+      }
+    ]
+  }
+}

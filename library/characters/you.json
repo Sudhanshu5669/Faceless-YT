@@ -1,0 +1,16 @@
+{
+  "id": "you",
+  "description": "The viewer: second-person protagonist ('what if YOU...'). Calm blue, average build.",
+  "tags": [
+    "protagonist",
+    "human"
+  ],
+  "body": "male",
+  "colors": {
+    "body": "#3d6fb6",
+    "joints": "#1b2a44"
+  },
+  "height": 1.8,
+  "idle": "idle",
+  "gait": "walk"
+}

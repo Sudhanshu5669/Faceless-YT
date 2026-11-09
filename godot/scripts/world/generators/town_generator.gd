@@ -677,6 +677,27 @@ static func _add_anchors(L: Dictionary, p: Dictionary) -> void:
 	L["anchors"] = anchors
 
 
+## Height of the walkable surface at (x, z): what an actor's feet stand on.
+## Matches the builder: road 0.02, sidewalk 0.15, lawn 0.17, driveway/path 0.18.
+static func ground_height(L: Dictionary, x: float, z: float) -> float:
+	for blk in L["blocks"]:
+		if in_rect(x, z, blk["rect"]):
+			for d in L["driveways"]:
+				if in_rect(x, z, d["rect"]):
+					return 0.18
+			for w in L["walkways"]:
+				if in_rect(x, z, w["rect"]):
+					return 0.18
+			return 0.17 if in_rect(x, z, blk["grass"]) else 0.15
+	var b: Array = L["bounds"]
+	if in_rect(x, z, b):
+		return 0.02
+	for s in L["streets"]:
+		if s["main"] and absf(z - float(s["from"][2])) <= float(s["width"]) / 2.0 and x >= float(s["from"][0]) and x <= float(s["to"][0]):
+			return 0.02
+	return 0.0
+
+
 ## What the director (LLM) needs: named places and addresses, not geometry.
 static func manifest(L: Dictionary) -> Dictionary:
 	var houses := []

@@ -1,0 +1,17 @@
+{
+  "id": "zombie",
+  "description": "Shambling zombie: sickly grey-green skin, blood-dark joints.",
+  "tags": [
+    "monster",
+    "zombie",
+    "horde"
+  ],
+  "body": "male",
+  "colors": {
+    "body": "#7f9470",
+    "joints": "#5a1e1e"
+  },
+  "height": 1.78,
+  "idle": "zombie_idle",
+  "gait": "zombie_walk"
+}

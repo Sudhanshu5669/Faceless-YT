@@ -1,0 +1,33 @@
+{
+  "id": "night_watch",
+  "description": "Night watchman in slate grey, carrying a lantern.",
+  "tags": [
+    "townsperson",
+    "human"
+  ],
+  "body": "male",
+  "colors": {
+    "body": "#5a6a7a",
+    "joints": "#2a323a"
+  },
+  "height": 1.82,
+  "idle": "lantern",
+  "gait": "walk",
+  "props": [
+    {
+      "model": "quaternius_fantasy_props/Lantern_Wall",
+      "bone": "hand_r",
+      "size": 0.35,
+      "offset": [
+        0,
+        -0.12,
+        0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

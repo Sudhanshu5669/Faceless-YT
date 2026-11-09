@@ -22,7 +22,7 @@ const Paths = preload("res://scripts/core/paths.gd")
 const Anchors = preload("res://scripts/camera/anchors.gd")
 const Views = preload("res://scripts/camera/views.gd")
 
-const KEYS := ["name", "view", "template", "subject", "at", "look_at", "direction", "height",
+const KEYS := ["name", "t", "view", "template", "subject", "at", "look_at", "direction", "height",
 	"lens_mm", "fov", "roll", "pan", "tilt", "dof", "exposure", "orthographic"]
 
 
@@ -194,6 +194,7 @@ static func resolve(entry, L: Dictionary, look: Dictionary = {}) -> Dictionary:
 	if dof.has("focus") and typeof(dof["focus"]) != TYPE_STRING:
 		focus = float(dof["focus"])
 	return {
+		"blocked_by": blockers(L, pos, target) if pos.distance_to(target) < 400.0 else [],
 		"transform": xf,
 		"fov": clampf(fov, 1.0, 170.0),
 		"orthographic": float(spec.get("orthographic", 0.0)),
@@ -201,6 +202,40 @@ static func resolve(entry, L: Dictionary, look: Dictionary = {}) -> Dictionary:
 		"focus_distance": focus,
 		"exposure": float(spec.get("exposure", 0.0)),
 	}
+
+
+## What blocks the straight line from the camera to its subject? Samples the
+## line against yard-tree canopies and house volumes. Returns descriptions like
+## "tree at (12, -30)" or "house_4"; empty = clear line of sight.
+static func blockers(L: Dictionary, from: Vector3, to: Vector3) -> Array:
+	var out := []
+	var length := from.distance_to(to)
+	if length < 1.0:
+		return out
+	var steps := int(length / 0.5)
+	for i in range(1, steps):
+		var d := i * 0.5
+		if d < 0.5 or d > length - 1.5:
+			continue
+		var p := from.lerp(to, d / length)
+		for t in L.get("trees", []):
+			if t["ground"] != "grass":
+				continue
+			var sc := float(t["scale"])
+			var dx := p.x - float(t["pos"][0])
+			var dz := p.z - float(t["pos"][2])
+			# Canopy radius per variant (kit trees are wide and low-hanging).
+			var rad: float = {"round": 3.0, "tall": 1.8, "pine": 2.2}.get(t["variant"], 2.5) * sc
+			if dx * dx + dz * dz < rad * rad and p.y > 1.3 * sc and p.y < 9.0 * sc:
+				var desc := "tree at (%d, %d)" % [roundi(float(t["pos"][0])), roundi(float(t["pos"][2]))]
+				if not (desc in out):
+					out.append(desc)
+		for h in L.get("houses", []):
+			var r: Array = h["rect"]
+			if p.x > float(r[0]) and p.x < float(r[2]) and p.z > float(r[1]) and p.z < float(r[3]) 					and p.y < float(h["wall_h"]) + float(h["roof"]["h"]):
+				if not (h["id"] in out):
+					out.append(h["id"])
+	return out
 
 
 static func apply(camera: Camera3D, s: Dictionary) -> void:

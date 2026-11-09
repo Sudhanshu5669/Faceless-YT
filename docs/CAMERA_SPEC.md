@@ -23,6 +23,7 @@ Listed in `manifest.json` next to every preview render.
 | `int_I_J` | an intersection | +X |
 | `light_N` / `light_N.lamp` | a streetlight / its lamp head | over the road |
 | `vacant_N` | an empty lot | toward its street |
+| `<actor>`, `<actor>.head`, `.eyes`, `.chest`, `.hand` | an actor at the shot's moment `t` | the way the actor faces (see ACTOR_SPEC.md) |
 
 ## Points (`at`, `look_at`)
 
@@ -49,6 +50,7 @@ Listed in `manifest.json` next to every preview render.
 | `exposure` | EV offset: +1 = twice as bright, −1 = half. |
 | `orthographic` | View height in metres. Switches to a flat map-like projection. |
 | `name` | Used for the output file name. |
+| `t` | Scene time in seconds for this still (actors are posed at `t`). |
 
 ## Shot templates
 

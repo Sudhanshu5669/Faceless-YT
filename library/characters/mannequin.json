@@ -1,0 +1,15 @@
+{
+  "id": "mannequin",
+  "description": "A store mannequin come alive: the original orange and violet.",
+  "tags": [
+    "uncanny"
+  ],
+  "body": "male",
+  "colors": {
+    "body": "#e7aa3a",
+    "joints": "#aa66db"
+  },
+  "height": 1.83,
+  "idle": "tpose",
+  "gait": "walk_formal"
+}

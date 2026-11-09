@@ -1,0 +1,17 @@
+{
+  "id": "zombie_f",
+  "description": "Female zombie, paler and greyer.",
+  "tags": [
+    "monster",
+    "zombie",
+    "horde"
+  ],
+  "body": "female",
+  "colors": {
+    "body": "#8a9a86",
+    "joints": "#4a1a1e"
+  },
+  "height": 1.66,
+  "idle": "zombie_idle",
+  "gait": "zombie_walk"
+}

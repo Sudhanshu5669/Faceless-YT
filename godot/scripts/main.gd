@@ -21,6 +21,7 @@ const LookCompiler = preload("res://scripts/look/look_compiler.gd")
 const Views = preload("res://scripts/camera/views.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
 const FlyCamera = preload("res://scripts/camera/fly_camera.gd")
+const ActorDirector = preload("res://scripts/actors/actor_director.gd")
 
 const DEFAULT_SPEC := "specs/sets/blackwood.json"
 const SETTLE_FRAMES := 30
@@ -33,6 +34,9 @@ var look_overrides := {}   # {"time": ..., "weather": {...}} layered over the sp
 var look: Dictionary       # compiled
 var layout: Dictionary
 var set_node: Node3D
+var actors_node: Node3D
+var clock := 0.0          # scene time in seconds (actors are posed from it)
+var playing := true
 var camera: Camera3D
 var hud: Label
 var seed_value := 0
@@ -114,7 +118,31 @@ func _build() -> bool:
 	layout = SetBuilder.generate(set_spec)
 	set_node = SetBuilder.build(layout, look)
 	add_child(set_node)
+	if actors_node:
+		remove_child(actors_node)
+		actors_node.queue_free()
+		actors_node = null
+	var planned := ActorDirector.plan_all(spec.get("actors"), layout)
+	if planned.has("error"):
+		_fail(planned["error"])
+		return false
+	actors_node = ActorDirector.build(planned["plans"], layout)
+	add_child(actors_node)
+	ActorDirector.pose_all(actors_node, clock)
 	return true
+
+
+## Pose every actor at time t and return the layout with their anchors added,
+## so shots can target "you" or "you.head" at that moment.
+func _at_time(t: float) -> Dictionary:
+	ActorDirector.pose_all(actors_node, t)
+	var L := layout.duplicate(false)
+	L["actor_anchors"] = ActorDirector.anchors(actors_node)
+	return L
+
+
+func _entry_time(entry) -> float:
+	return float(entry.get("t", 0.0)) if typeof(entry) == TYPE_DICTIONARY else 0.0
 
 
 # --- stills -----------------------------------------------------------------
@@ -137,12 +165,15 @@ func _run_stills(out_dir: String) -> void:
 	# Resolve every shot first, so a bad anchor fails before any rendering.
 	var shots := []
 	for i in entries.size():
-		var s := Shot.resolve(entries[i], layout, look)
+		var s := Shot.resolve(entries[i], _at_time(_entry_time(entries[i])), look)
 		if s.has("error"):
 			_fail("shot %d (%s): %s" % [i, _shot_name(entries[i], i), s["error"]])
 			return
+		if not s["blocked_by"].is_empty():
+			_log("WARN shot %s: subject hidden behind %s" % [_shot_name(entries[i], i), ", ".join(PackedStringArray(s["blocked_by"]))])
 		shots.append(s)
 	for i in shots.size():
+		_at_time(_entry_time(entries[i]))
 		Shot.apply(camera, shots[i])
 		for k in SETTLE_FRAMES:
 			await get_tree().process_frame
@@ -174,7 +205,7 @@ func _start_explore() -> void:
 
 func _goto_view(i: int) -> void:
 	view_idx = clampi(i, 0, Views.NAMES.size() - 1)
-	var s := Shot.resolve(Views.NAMES[view_idx], layout, look)
+	var s := Shot.resolve(Views.NAMES[view_idx], _at_time(clock), look)
 	if s.has("error"):
 		_log(s["error"])
 		return
@@ -208,7 +239,16 @@ func _update_hud() -> void:
 		+ "time %s  ·  fog %.2f  clouds %.2f  rain %.2f  snow %.2f\n" % [LookCompiler.format_time(look["time"]), float(look["ground_fog"]["density"]) * 10.0, float(look["sky"]["clouds"]), float(w["rain"]), float(w["snow"])] \
 		+ "[1-5] views  [RMB+mouse] look  [WASD QE] fly  [Shift] fast  [wheel] speed\n" \
 		+ "[T]/[Y] time ±1h  [F] fog  [C] clouds  [R] rain  [X] snow  [0] reset weather\n" \
-		+ "[N]/[B] seed ±1  [L] next look  [P] screenshot  [H] hide"
+		+ "[N]/[B] seed ±1  [L] next look  [P] screenshot  [H] hide
+" 		+ "[Space] %s  [Backspace] restart   t = %.1fs  ·  %d actors" % ["pause" if playing else "play", clock, actors_node.get_child_count() if actors_node else 0]
+
+
+func _process(delta: float) -> void:
+	if exploring and playing:
+		clock += delta
+		ActorDirector.pose_all(actors_node, clock)
+		if Engine.get_process_frames() % 10 == 0:
+			_update_hud()
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -253,6 +293,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			_log("screenshot -> %s" % path)
 		KEY_H:
 			hud.visible = not hud.visible
+		KEY_SPACE:
+			playing = not playing
+			_update_hud()
+		KEY_BACKSPACE:
+			clock = 0.0
+			ActorDirector.pose_all(actors_node, clock)
+			_update_hud()
 		KEY_ESCAPE:
 			get_tree().quit()
 

@@ -1,0 +1,16 @@
+{
+  "id": "neighbor_a",
+  "description": "Neighbour, woman in sage green. Background townsperson.",
+  "tags": [
+    "townsperson",
+    "human"
+  ],
+  "body": "female",
+  "colors": {
+    "body": "#8fa37a",
+    "joints": "#3a4630"
+  },
+  "height": 1.68,
+  "idle": "fold_arms",
+  "gait": "walk"
+}

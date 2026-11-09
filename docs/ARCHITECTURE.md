@@ -16,9 +16,11 @@ prompt → ① pitch ◆ → ② script ◆ → ③ casting & sets → ④ voice
 ```
 
 Status: built so far are the **set layer** (procedural towns), the **look layer**
-(time and weather models plus free-form overrides, see LOOK_SPEC.md), and the
-**camera layer** (anchors, shots and templates, see CAMERA_SPEC.md). Characters,
-timelines, video rendering and audio are planned.
+(time and weather models plus free-form overrides, see LOOK_SPEC.md), the **camera
+layer** (anchors, shots and templates, see CAMERA_SPEC.md), the **asset layer**
+(catalog and kits, see ASSET_PIPELINE.md) and the **actor layer** (characters,
+actions, routes and crowds, posed as a pure function of time, see ACTOR_SPEC.md).
+Timelines, video rendering and audio are next.
 
 ## Layers
 

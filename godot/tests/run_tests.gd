@@ -11,6 +11,8 @@ const Views = preload("res://scripts/camera/views.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
 const Anchors = preload("res://scripts/camera/anchors.gd")
 const KitDB = preload("res://scripts/world/kit_db.gd")
+const Cast = preload("res://scripts/actors/cast.gd")
+const ActorDirector = preload("res://scripts/actors/actor_director.gd")
 
 const SEEDS := [1, 333, 9001]
 const PARAM_SETS := [
@@ -25,7 +27,18 @@ var _passed := 0
 var _failed := 0
 
 
-func _init() -> void:
+var _started := false
+
+
+func _process(_delta: float) -> bool:
+	if _started:
+		return false
+	_started = true
+	_run_all()
+	return false
+
+
+func _run_all() -> void:
 	print("[TownForge] running Godot tests")
 	_run("layout is identical for the same seed", _t_deterministic)
 	_run("different seeds give different towns", _t_seed_changes)
@@ -48,6 +61,13 @@ func _init() -> void:
 	_run("kits reference only catalogued models", _t_kits)
 	_run("kit houses take their size from the model", _t_kit_houses)
 	_run("primitive kit still builds without assets", _t_primitive_kit)
+	_run("every action maps to an animation; gaits have speeds", _t_actions)
+	_run("all characters are valid", _t_characters)
+	_run("actor validation catches bad characters, actions, keys", _t_actor_validation)
+	_run("pose_at(t) is a pure function of t", _t_actor_pose_deterministic)
+	_run("routes: wait, walk at speed, arrive and switch action", _t_actor_route)
+	_run("crowds expand deterministically with unique ids", _t_crowd)
+	_run("actor anchors work as camera targets", _t_actor_anchors_for_cameras)
 	print("[TownForge] tests: %d passed, %d failed" % [_passed, _failed])
 	quit(1 if _failed > 0 else 0)
 
@@ -419,3 +439,151 @@ func _t_primitive_kit() -> Array:
 	root.free()
 	Kit.configure({})
 	return [] if ok else ["primitive kit did not build procedural houses"]
+
+
+# --- actors ------------------------------------------------------------------
+
+func _t_actions() -> Array:
+	var e := []
+	var lib := Cast.anim_library()
+	for id in Cast.actions():
+		var a: Dictionary = Cast.action(id)
+		if not lib.has_animation(String(a["anim"])):
+			e.append("action %s -> animation '%s' not in the library" % [id, a["anim"]])
+		if a.get("gait", false) and float(a.get("speed", 0.0)) <= 0.0:
+			e.append("gait %s has no measured speed" % id)
+	return e
+
+
+func _t_characters() -> Array:
+	var e := []
+	var chars := Cast.list_characters()
+	if chars.size() < 3:
+		return ["expected at least 3 characters"]
+	for c in chars:
+		e.append_array(Cast.validate_character(c))
+	return e
+
+
+func _actor_layout() -> Dictionary:
+	return TownGen.generate({"kit": "primitive"}, 333)
+
+
+func _t_actor_validation() -> Array:
+	var e := []
+	var cases := [
+		[[{"id": "a", "character": "nobody", "at": "town_center"}], "unknown character"],
+		[[{"id": "a", "character": "you", "at": "town_center", "action": "moonwalk"}], "unknown action"],
+		[[{"id": "a", "character": "you", "at": "town_center", "spin": 1}], "unknown key"],
+		[[{"id": "a", "character": "you", "at": "town_center"}, {"id": "a", "character": "you", "at": "town_center"}], "duplicate id"],
+		[[{"id": "a", "character": "you", "at": "town_center", "route": {"via": ["int_0_0"], "gait": "idle"}}], "non-moving gait"],
+	]
+	for c in cases:
+		if ActorDirector.validate(c[0]).is_empty():
+			e.append("not reported: " + c[1])
+	return e
+
+
+func _t_actor_pose_deterministic() -> Array:
+	var L := _actor_layout()
+	var res := ActorDirector.plan_all([{"id": "w", "character": "you", "at": "town_center",
+		"route": {"via": ["int_0_0"], "gait": "walk", "start": 1.0}}], L)
+	if res.has("error"):
+		return [res["error"]]
+	var node := ActorDirector.build(res["plans"], L)
+	root.add_child(node)
+	var actor = node.get_child(0)
+	var sk: Skeleton3D = actor.skeleton
+	var snap := func() -> Array:
+		var out := [actor.position]
+		for b in [sk.find_bone("thigh_l"), sk.find_bone("hand_r"), sk.find_bone("Head")]:
+			out.append(sk.get_bone_pose(b))
+		return out
+	actor.pose_at(3.7)
+	var a: Array = snap.call()
+	actor.pose_at(11.0)
+	actor.pose_at(0.2)
+	actor.pose_at(3.7)
+	var b: Array = snap.call()
+	node.free()
+	var e := []
+	for i in a.size():
+		if a[i] != b[i]:
+			e.append("pose_at(3.7) differs after other poses: item %d %s vs %s" % [i, a[i], b[i]])
+	return e
+
+
+func _t_actor_route() -> Array:
+	var L := _actor_layout()
+	var res := ActorDirector.plan_all([{"id": "w", "character": "you", "at": "int_0_0",
+		"route": {"via": ["int_1_0"], "gait": "walk", "start": 2.0, "then": "phone"}}], L)
+	if res.has("error"):
+		return [res["error"]]
+	var node := ActorDirector.build(res["plans"], L)
+	root.add_child(node)
+	var actor = node.get_child(0)
+	var plan: Dictionary = res["plans"][0]
+	var r: Dictionary = plan["route"]
+	var a: Vector3 = r["points"][0]
+	var b: Vector3 = r["points"][-1]
+	var e := []
+	var s0: Dictionary = actor.state_at(1.0)
+	if Vector2(s0["pos"].x, s0["pos"].z).distance_to(Vector2(a.x, a.z)) > 0.01 or s0["action"] == "walk":
+		e.append("before start the actor should stand at the start, not walk")
+	var s1: Dictionary = actor.state_at(2.0 + 5.0)
+	var walked := Vector2(s1["pos"].x, s1["pos"].z).distance_to(Vector2(a.x, a.z))
+	if absf(walked - 5.0 * float(r["speed"])) > 0.05 or s1["action"] != "walk":
+		e.append("after 5 s of walking at %.2f m/s the actor moved %.2f m" % [r["speed"], walked])
+	var s2: Dictionary = actor.state_at(10000.0)
+	if Vector2(s2["pos"].x, s2["pos"].z).distance_to(Vector2(b.x, b.z)) > 0.01 or s2["action"] != "phone":
+		e.append("after arriving the actor should stand at the end doing 'phone'")
+	node.free()
+	return e
+
+
+func _t_crowd() -> Array:
+	var L := _actor_layout()
+	var spec := [{"id": "horde", "character": "zombie", "at": "town_center",
+		"crowd": {"count": 9, "radius": 5, "characters": ["zombie", "zombie_f"]},
+		"route": {"via": ["int_0_0"], "gait": "zombie_walk"}}]
+	var a := ActorDirector.plan_all(spec, L)
+	var b := ActorDirector.plan_all(spec, L)
+	if a.has("error"):
+		return [a["error"]]
+	var e := []
+	if a["plans"].size() != 9:
+		e.append("crowd of 9 produced %d actors" % a["plans"].size())
+	var ids := {}
+	for i in a["plans"].size():
+		var p: Dictionary = a["plans"][i]
+		ids[p["id"]] = true
+		if p["pos"] != b["plans"][i]["pos"] or p["character"] != b["plans"][i]["character"]:
+			e.append("crowd member %d differs between two expansions" % i)
+	if ids.size() != a["plans"].size():
+		e.append("crowd ids are not unique")
+	return e
+
+
+func _t_actor_anchors_for_cameras() -> Array:
+	var L := _actor_layout()
+	var res := ActorDirector.plan_all([{"id": "you", "character": "you", "at": "house_0.front_door"}], L)
+	if res.has("error"):
+		return [res["error"]]
+	var node := ActorDirector.build(res["plans"], L)
+	root.add_child(node)
+	ActorDirector.pose_all(node, 1.0)
+	var LA := L.duplicate(false)
+	LA["actor_anchors"] = ActorDirector.anchors(node)
+	var e := []
+	for ref in ["you", "you.head", "you.eyes", "you.chest", "you.hand"]:
+		if Anchors.resolve(LA, ref).has("error"):
+			e.append("anchor %s does not resolve" % ref)
+	var head: Vector3 = LA["actor_anchors"]["you.head"]["pos"]
+	var feet: Vector3 = LA["actor_anchors"]["you"]["pos"]
+	if head.y - feet.y < 1.4 or head.y - feet.y > 2.1:
+		e.append("head is %.2f m above the feet for a 1.8 m character" % (head.y - feet.y))
+	var shot := Shot.resolve({"at": {"anchor": "you", "offset": [0, 1.6, 3]}, "look_at": "you.head"}, LA)
+	if shot.has("error"):
+		e.append("shot on an actor failed: " + shot["error"])
+	node.free()
+	return e
