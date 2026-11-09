@@ -1,0 +1,16 @@
+{
+  "id": "god_view",
+  "description": "Orthographic straight-down map view, like a blueprint of the neighbourhood.",
+  "camera": {
+    "at": {
+      "anchor": "$subject",
+      "offset": [
+        0,
+        140,
+        0
+      ]
+    },
+    "look_at": "$subject",
+    "orthographic": 90
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "_comment": "Which files to take from each downloaded zip in incoming/. 'zip' is a glob; 'files' are [zip folder, glob, destination subfolder]. Everything lands in godot/assets/<id>/.",
+  "packs": [
+    {
+      "id": "kenney_suburban", "author": "Kenney", "license": "CC0", "url": "https://kenney.nl/assets/city-kit-suburban",
+      "zip": "kenney_city-kit-suburban*.zip",
+      "files": [["Models/GLB format/", "*.glb", ""], ["Models/GLB format/Textures/", "*.png", "Textures/"]]
+    },
+    {
+      "id": "kenney_cars", "author": "Kenney", "license": "CC0", "url": "https://kenney.nl/assets/car-kit",
+      "zip": "kenney_car-kit*.zip",
+      "files": [["Models/GLB format/", "*.glb", ""], ["Models/GLB format/Textures/", "*.png", "Textures/"]]
+    },
+    {
+      "id": "quaternius_nature", "author": "Quaternius", "license": "CC0", "url": "https://quaternius.com",
+      "zip": "Ultimate Nature Pack*.zip",
+      "files": [["FBX/", "*.fbx", ""]]
+    },
+    {
+      "id": "quaternius_downtown", "author": "Quaternius", "license": "CC0", "url": "https://quaternius.com",
+      "zip": "Downtown City MegaKit*.zip",
+      "files": [["Exports/glTF (Godot)/", "*.gltf", ""], ["Exports/glTF (Godot)/", "*.bin", ""], ["Textures/", "*.png", ""]]
+    },
+    {
+      "id": "quaternius_fantasy_props", "author": "Quaternius", "license": "CC0", "url": "https://quaternius.com",
+      "zip": "Fantasy Props MegaKit*.zip",
+      "files": [["Exports/glTF/", "*.gltf", ""], ["Exports/glTF/", "*.bin", ""], ["Textures/", "*.png", ""]]
+    },
+    {
+      "id": "quaternius_ual", "author": "Quaternius", "license": "CC0", "url": "https://quaternius.com",
+      "zip": "Universal Animation Library*.zip",
+      "files": [
+        ["Universal Animation Library[Standard]/Unreal-Godot/", "UAL1_Standard.glb", ""],
+        ["Universal Animation Library 2[Standard]/Unreal-Godot/", "UAL2_Standard.glb", ""],
+        ["Universal Animation Library 2[Standard]/Female Mannequin/Unreal-Godot/", "Mannequin_F.glb", ""]
+      ]
+    },
+    {
+      "id": "kenney_characters", "author": "Kenney", "license": "CC0", "url": "https://kenney.nl/assets/animated-characters-retro",
+      "zip": "kenney_animated-characters-*.zip",
+      "files": [["Model/", "*.fbx", ""], ["Animations/", "*.fbx", "Animations/"], ["Skins/", "*.png", "Skins/"]]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+# Godot
+godot/.godot/
+*.translation
+
+# Generated output (renders, previews, episodes' heavy media)
+output/
+episodes/*/renders/
+episodes/*/preview/
+episodes/*/final/
+
+# Local machine config
+config.local.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Raw downloaded asset packs (imported copies live in library/)
+incoming/
+
+# Imported asset packs: rebuild with `python pipeline/tf.py assets import`
+godot/assets/
+library/thumbs/

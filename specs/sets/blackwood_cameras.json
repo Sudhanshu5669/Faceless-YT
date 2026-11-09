@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "blackwood",
+    "generator": "town",
+    "seed": 333,
+    "params": { "blocks_x": 3, "blocks_z": 2 }
+  },
+  "look": "storm_night",
+  "preview": {
+    "resolution": [540, 960],
+    "views": [
+      { "name": "drone", "template": "establishing_drone", "subject": "town_center" },
+      { "name": "hero_door", "template": "low_hero", "subject": "house_9.front_door" },
+      { "name": "dread", "template": "dutch_dread", "subject": "house_9.front_door" },
+      { "name": "watcher", "template": "long_lens_watcher", "subject": "house_9.front_door" },
+      { "name": "under_the_lamp", "at": { "anchor": "light_3.lamp", "offset": [0.6, -4.4, -3.5] },
+        "look_at": { "anchor": "light_3.lamp" }, "lens_mm": 16, "roll": -8 },
+      { "name": "map", "template": "god_view", "subject": "town_center" }
+    ]
+  }
+}

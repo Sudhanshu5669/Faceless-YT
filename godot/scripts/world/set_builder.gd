@@ -1,0 +1,45 @@
+## Registry of set generators. Each generator is a pair:
+##   generator: pure layout data (params + seed -> Dictionary), testable headless
+##   builder:   layout + look -> Godot nodes
+## To add a new kind of location (supermarket, school...), add a pair here.
+extends RefCounted
+
+const TownGenerator = preload("res://scripts/world/generators/town_generator.gd")
+const TownBuilder = preload("res://scripts/world/builders/town_builder.gd")
+
+const GENERATORS := {
+	"town": {"generator": TownGenerator, "builder": TownBuilder},
+}
+
+
+static func validate(set_spec: Dictionary) -> Array:
+	var e := []
+	var g = set_spec.get("generator")
+	if not GENERATORS.has(g):
+		e.append("set.generator must be one of %s (got %s)" % [GENERATORS.keys(), g])
+		return e
+	var sd = set_spec.get("seed")
+	if typeof(sd) != TYPE_INT and typeof(sd) != TYPE_FLOAT:
+		e.append("set.seed must be a number")
+	var params = set_spec.get("params", {})
+	if typeof(params) != TYPE_DICTIONARY:
+		e.append("set.params must be an object")
+	else:
+		e.append_array(GENERATORS[g]["generator"].validate_params(params))
+	return e
+
+
+static func generate(set_spec: Dictionary) -> Dictionary:
+	var entry: Dictionary = GENERATORS[set_spec["generator"]]
+	return entry["generator"].generate(set_spec.get("params", {}), int(set_spec["seed"]))
+
+
+static func build(layout: Dictionary, look: Dictionary) -> Node3D:
+	var entry: Dictionary = GENERATORS[layout["generator"]]
+	return entry["builder"].build(layout, look)
+
+
+## Compact description of a layout for the director (LLM): named places, not geometry.
+static func manifest(layout: Dictionary) -> Dictionary:
+	var entry: Dictionary = GENERATORS[layout["generator"]]
+	return entry["generator"].manifest(layout)

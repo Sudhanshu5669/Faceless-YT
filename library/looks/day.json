@@ -1,0 +1,13 @@
+{
+  "id": "day",
+  "tags": [
+    "day",
+    "normal",
+    "baseline"
+  ],
+  "description": "Ordinary sunny afternoon: the 'everything is normal' baseline before things go wrong.",
+  "time": "13:00",
+  "weather": {
+    "clouds": 0.25
+  }
+}

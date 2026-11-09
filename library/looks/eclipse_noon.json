@@ -1,0 +1,54 @@
+{
+  "id": "eclipse_noon",
+  "tags": [
+    "day",
+    "absurd",
+    "uncanny"
+  ],
+  "time": "12:30",
+  "weather": {
+    "fog": 0.0
+  },
+  "sun": {
+    "elevation": 38,
+    "azimuth": 15,
+    "size": 4.5,
+    "disc_color": "#000000",
+    "glow": 1.6,
+    "glow_color": "#f4f0ff",
+    "color": "#c8d0ff",
+    "energy": 0.18
+  },
+  "sky": {
+    "top": "#04060e",
+    "horizon": "#8a5a46",
+    "stars": 0.8,
+    "bodies": [
+      {
+        "kind": "planet",
+        "elevation": 22,
+        "azimuth": -40,
+        "size": 9,
+        "color": "#9aa8c8",
+        "glow": 0.4
+      }
+    ]
+  },
+  "ambient": {
+    "color": "#3a4258",
+    "energy": 0.55
+  },
+  "exposure": 1.4,
+  "practical_lights": {
+    "level": 1.0,
+    "window_lit_chance": 0.5,
+    "porch_light_chance": 0.6
+  },
+  "grade": {
+    "saturation": 0.7,
+    "contrast": 1.15,
+    "vignette": 0.4,
+    "grain": 0.25
+  },
+  "description": "Total eclipse at noon: black sun with a white corona, stars at midday, streetlights flickering on, a pale planet overhead."
+}

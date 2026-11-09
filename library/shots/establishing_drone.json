@@ -1,0 +1,23 @@
+{
+  "id": "establishing_drone",
+  "description": "High three-quarter drone view looking down at the subject and its surroundings.",
+  "camera": {
+    "at": {
+      "anchor": "$subject",
+      "orbit": {
+        "distance": 38,
+        "angle": 35,
+        "height": 26
+      }
+    },
+    "look_at": {
+      "anchor": "$subject",
+      "offset": [
+        0,
+        2,
+        0
+      ]
+    },
+    "lens_mm": 28
+  }
+}

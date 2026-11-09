@@ -1,0 +1,6 @@
+{
+  "schema_version": "0.1",
+  "set": { "id": "hollow", "generator": "town", "seed": 66, "params": { "blocks_x": 3, "blocks_z": 2, "season": "dead", "house_density": 0.75 } },
+  "look": { "base": "dusk", "weather": { "fog": 0.45, "clouds": 0.6 }, "grade": { "saturation": 0.6, "vignette": 0.4 } },
+  "preview": { "resolution": [540, 960], "views": ["aerial", "street", "house"] }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "storm_night",
+  "tags": [
+    "night",
+    "rain",
+    "tense"
+  ],
+  "description": "Heavy rain at night: wet reflective streets, low cloud, streetlights smeared through the downpour.",
+  "time": "23:30",
+  "weather": {
+    "rain": 0.9,
+    "wind": 0.5,
+    "fog": 0.4
+  }
+}

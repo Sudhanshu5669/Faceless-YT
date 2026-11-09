@@ -1,0 +1,24 @@
+{
+  "id": "low_hero",
+  "description": "Low angle, wide lens, slight tilt: the subject looms over the viewer.",
+  "camera": {
+    "at": {
+      "anchor": "$subject",
+      "offset": [
+        1.5,
+        0.35,
+        5.0
+      ]
+    },
+    "look_at": {
+      "anchor": "$subject",
+      "offset": [
+        0,
+        2.6,
+        0
+      ]
+    },
+    "lens_mm": 18,
+    "roll": -4
+  }
+}

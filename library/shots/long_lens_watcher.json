@@ -1,0 +1,26 @@
+{
+  "id": "long_lens_watcher",
+  "description": "Long telephoto from far away, shallow focus: someone is watching the subject.",
+  "camera": {
+    "at": {
+      "anchor": "$subject",
+      "orbit": {
+        "distance": 42,
+        "angle": 28,
+        "height": 1.7
+      }
+    },
+    "look_at": {
+      "anchor": "$subject",
+      "offset": [
+        0,
+        1.6,
+        0
+      ]
+    },
+    "lens_mm": 135,
+    "dof": {
+      "strength": 0.7
+    }
+  }
+}

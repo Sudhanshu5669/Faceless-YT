@@ -1,0 +1,39 @@
+{
+  "id": "blood_moon",
+  "base": "night_fog",
+  "tags": [
+    "night",
+    "horror",
+    "absurd"
+  ],
+  "description": "Huge blood-red moon hanging low over a town drowned in crimson fog.",
+  "moon": {
+    "elevation": 16,
+    "azimuth": 20,
+    "size": 11,
+    "color": "#ff5a3a",
+    "energy": 0.9,
+    "disc_color": "#d8402a",
+    "glow": 1.6,
+    "glow_color": "#ff3a1a"
+  },
+  "sky": {
+    "top": "#0e0206",
+    "horizon": "#3a0c10",
+    "star_color": "#ffb0a0"
+  },
+  "ambient": {
+    "color": "#5a2028",
+    "energy": 0.8
+  },
+  "ground_fog": {
+    "color": "#8a3a3a"
+  },
+  "practical_lights": {
+    "street_light_color": "#ff8a5a"
+  },
+  "grade": {
+    "saturation": 1.15,
+    "vignette": 0.45
+  }
+}

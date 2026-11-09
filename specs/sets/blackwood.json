@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "blackwood",
+    "generator": "town",
+    "seed": 333,
+    "params": { "blocks_x": 3, "blocks_z": 2 }
+  },
+  "look": "night_fog",
+  "preview": {
+    "resolution": [540, 960],
+    "views": ["aerial", "street", "house", "intersection", "entrance"]
+  }
+}

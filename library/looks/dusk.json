@@ -1,0 +1,14 @@
+{
+  "id": "dusk",
+  "tags": [
+    "evening",
+    "warm",
+    "nostalgic"
+  ],
+  "description": "Golden hour sliding into evening: low warm sun, long shadows, streetlights just coming on.",
+  "time": "19:10",
+  "weather": {
+    "fog": 0.15,
+    "clouds": 0.25
+  }
+}

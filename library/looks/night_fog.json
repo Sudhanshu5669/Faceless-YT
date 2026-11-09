@@ -1,0 +1,18 @@
+{
+  "id": "night_fog",
+  "tags": [
+    "night",
+    "horror",
+    "liminal"
+  ],
+  "description": "3 AM liminal night: cold moonlight, sodium streetlights cutting through low ground fog, a few lit windows.",
+  "time": "03:00",
+  "weather": {
+    "fog": 0.7,
+    "wind": 0.1
+  },
+  "grade": {
+    "contrast": 1.1,
+    "vignette": 0.35
+  }
+}

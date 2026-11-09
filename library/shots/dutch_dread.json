@@ -1,0 +1,27 @@
+{
+  "id": "dutch_dread",
+  "description": "Tilted horizon, normal lens, shallow focus: something is wrong here.",
+  "camera": {
+    "at": {
+      "anchor": "$subject",
+      "offset": [
+        -3.0,
+        1.5,
+        10.0
+      ]
+    },
+    "look_at": {
+      "anchor": "$subject",
+      "offset": [
+        0,
+        1.6,
+        0
+      ]
+    },
+    "lens_mm": 45,
+    "roll": 14,
+    "dof": {
+      "strength": 0.5
+    }
+  }
+}
