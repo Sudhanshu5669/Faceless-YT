@@ -7,6 +7,9 @@
   python pipeline/tf.py explore [SPEC] [options]     open the fly-through window
   python pipeline/tf.py storyboard EPISODE           start/mid/end still of every shot -> storyboard.png
   python pipeline/tf.py voice EPISODE                narration (Gemini TTS, cached) + timing table, no render
+  python pipeline/tf.py review prepare EPISODE       render the approval board (environment, characters, voice, shots)
+  python pipeline/tf.py review serve EPISODE         open the approval page in the browser
+  python pipeline/tf.py review notes EPISODE         what the user approved / asked to change
   python pipeline/tf.py render EPISODE [--draft]     render an episode to MP4 with sound and captions (--draft: half size, 15 fps)
   python pipeline/tf.py library                      list looks, shot templates and views
   python pipeline/tf.py look save NAME FILE          validate a look and save it to library/looks/
@@ -174,6 +177,14 @@ def concat_videos(cfg: dict, parts: list[Path], out: Path) -> None:
 
 def cmd_render(cfg: dict, args) -> int:
     path = episode_path(args.episode)
+    if not args.draft and not getattr(args, "force", False):
+        import review
+        missing = review.unapproved(path)
+        if missing:
+            print("ERROR: the final render needs every review item approved (tf review serve). Not yet:\n  - "
+                  + "\n  - ".join(missing[:20]) + ("\n  ..." if len(missing) > 20 else "")
+                  + "\n(--draft renders anyway; --force skips this check)", file=sys.stderr)
+            return 1
     resolved, res = resolve_episode(path)
     ep = _read_json(resolved)
     ep_id = ep.get("id", path.parent.name)
@@ -255,6 +266,20 @@ def _remix(cfg: dict, res: dict, root: Path, ep_id: str, fps: int, draft: bool) 
           f"{len(res['ambience'])} beds, {lufs:.1f} LUFS" + (", captions burned in" if captions else ""))
     print(f"[TownForge] video -> {out} ({timeline['resolution'][0]}x{timeline['resolution'][1]}, "
           f"{fps} fps, {pic_secs + res['end_black']:.1f} s)")
+    return 0
+
+
+def cmd_review(cfg: dict, args) -> int:
+    import review
+    path = episode_path(args.episode)
+    if args.action == "prepare":
+        gates = [g for g in (args.gate or "").split(",") if g] or None
+        review.prepare(cfg, path, gates)
+        return 0
+    if args.action == "serve":
+        review.serve(path, args.port, not args.no_browser)
+        return 0
+    print(review.notes(path))
     return 0
 
 
@@ -483,6 +508,13 @@ def main(argv: list[str] | None = None) -> int:
     rp.add_argument("--draft", action="store_true", help="half resolution, 15 fps animatic in preview/")
     rp.add_argument("--shots", help="re-render only these shots (comma-separated names)")
     rp.add_argument("--remix", action="store_true", help="rebuild only the sound and captions over the rendered picture")
+    rp.add_argument("--force", action="store_true", help="final render even if review items are not approved")
+    rv = sub.add_parser("review", help="approval board: prepare, serve, notes")
+    rv.add_argument("action", choices=["prepare", "serve", "notes"])
+    rv.add_argument("episode", help="episodes/<id>/episode.json or <id>")
+    rv.add_argument("--gate", help="prepare only these gates: env,cast,voice,shots")
+    rv.add_argument("--port", type=int, default=8765)
+    rv.add_argument("--no-browser", action="store_true")
     vp = sub.add_parser("voice", help="synthesize + time the narration, print the timing table")
     vp.add_argument("episode", help="episodes/<id>/episode.json or <id>")
     sb = sub.add_parser("storyboard", help="start/mid/end stills of every shot")
@@ -508,7 +540,7 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_look_save(cfg, args)
     handlers = {"test": cmd_test, "validate": cmd_validate, "library": cmd_library,
                 "preview-set": cmd_preview_set, "explore": cmd_explore,
-                "render": cmd_render, "storyboard": cmd_storyboard, "voice": cmd_voice}
+                "render": cmd_render, "storyboard": cmd_storyboard, "voice": cmd_voice, "review": cmd_review}
     return handlers[args.command](cfg, args)
 
 

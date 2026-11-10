@@ -8,6 +8,10 @@ episodes/*/renders/
 episodes/*/preview/
 episodes/*/final/
 episodes/*/build/
+# Review media is regenerated; the decisions and Claude's suggestions are the record.
+episodes/*/review/*
+!episodes/*/review/decisions.json
+!episodes/*/review/suggestions.json
 
 # Local machine config and secrets (API keys)
 config.local.json

@@ -137,38 +137,14 @@
         "lens_mm": 28
       },
       {
-        "name": "toy_close",
-        "t": 2,
-        "at": {
-          "anchor": "toy_hero",
-          "offset": [
-            0.08,
-            0.2,
-            0.75
-          ]
-        },
-        "look_at": {
-          "anchor": "toy_hero",
-          "offset": [
-            0,
-            0.17,
-            0
-          ]
-        },
-        "lens_mm": 50,
-        "dof": {
-          "strength": 0.6
-        }
-      },
-      {
         "name": "overview",
         "t": 2,
         "at": {
           "anchor": "back_aisle",
           "offset": [
-            -14,
+            1.0,
             3.9,
-            1.0
+            -15
           ]
         },
         "look_at": {

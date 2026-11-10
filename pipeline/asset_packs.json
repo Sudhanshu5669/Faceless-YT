@@ -2,43 +2,269 @@
   "_comment": "Which files to take from each downloaded zip in incoming/. 'zip' is a glob; 'files' are [zip folder, glob, destination subfolder]. Everything lands in godot/assets/<id>/.",
   "packs": [
     {
-      "id": "kenney_suburban", "author": "Kenney", "license": "CC0", "url": "https://kenney.nl/assets/city-kit-suburban",
+      "id": "kenney_suburban",
+      "author": "Kenney",
+      "license": "CC0",
+      "url": "https://kenney.nl/assets/city-kit-suburban",
       "zip": "kenney_city-kit-suburban*.zip",
-      "files": [["Models/GLB format/", "*.glb", ""], ["Models/GLB format/Textures/", "*.png", "Textures/"]]
-    },
-    {
-      "id": "kenney_cars", "author": "Kenney", "license": "CC0", "url": "https://kenney.nl/assets/car-kit",
-      "zip": "kenney_car-kit*.zip",
-      "files": [["Models/GLB format/", "*.glb", ""], ["Models/GLB format/Textures/", "*.png", "Textures/"]]
-    },
-    {
-      "id": "quaternius_nature", "author": "Quaternius", "license": "CC0", "url": "https://quaternius.com",
-      "zip": "Ultimate Nature Pack*.zip",
-      "files": [["FBX/", "*.fbx", ""]]
-    },
-    {
-      "id": "quaternius_downtown", "author": "Quaternius", "license": "CC0", "url": "https://quaternius.com",
-      "zip": "Downtown City MegaKit*.zip",
-      "files": [["Exports/glTF (Godot)/", "*.gltf", ""], ["Exports/glTF (Godot)/", "*.bin", ""], ["Textures/", "*.png", ""]]
-    },
-    {
-      "id": "quaternius_fantasy_props", "author": "Quaternius", "license": "CC0", "url": "https://quaternius.com",
-      "zip": "Fantasy Props MegaKit*.zip",
-      "files": [["Exports/glTF/", "*.gltf", ""], ["Exports/glTF/", "*.bin", ""], ["Textures/", "*.png", ""]]
-    },
-    {
-      "id": "quaternius_ual", "author": "Quaternius", "license": "CC0", "url": "https://quaternius.com",
-      "zip": "Universal Animation Library*.zip",
       "files": [
-        ["Universal Animation Library[Standard]/Unreal-Godot/", "UAL1_Standard.glb", ""],
-        ["Universal Animation Library 2[Standard]/Unreal-Godot/", "UAL2_Standard.glb", ""],
-        ["Universal Animation Library 2[Standard]/Female Mannequin/Unreal-Godot/", "Mannequin_F.glb", ""]
+        [
+          "Models/GLB format/",
+          "*.glb",
+          ""
+        ],
+        [
+          "Models/GLB format/Textures/",
+          "*.png",
+          "Textures/"
+        ]
       ]
     },
     {
-      "id": "kenney_characters", "author": "Kenney", "license": "CC0", "url": "https://kenney.nl/assets/animated-characters-retro",
+      "id": "kenney_cars",
+      "author": "Kenney",
+      "license": "CC0",
+      "url": "https://kenney.nl/assets/car-kit",
+      "zip": "kenney_car-kit*.zip",
+      "files": [
+        [
+          "Models/GLB format/",
+          "*.glb",
+          ""
+        ],
+        [
+          "Models/GLB format/Textures/",
+          "*.png",
+          "Textures/"
+        ]
+      ]
+    },
+    {
+      "id": "quaternius_nature",
+      "author": "Quaternius",
+      "license": "CC0",
+      "url": "https://quaternius.com",
+      "zip": "Ultimate Nature Pack*.zip",
+      "files": [
+        [
+          "FBX/",
+          "*.fbx",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "quaternius_downtown",
+      "author": "Quaternius",
+      "license": "CC0",
+      "url": "https://quaternius.com",
+      "zip": "Downtown City MegaKit*.zip",
+      "files": [
+        [
+          "Exports/glTF (Godot)/",
+          "*.gltf",
+          ""
+        ],
+        [
+          "Exports/glTF (Godot)/",
+          "*.bin",
+          ""
+        ],
+        [
+          "Textures/",
+          "*.png",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "quaternius_fantasy_props",
+      "author": "Quaternius",
+      "license": "CC0",
+      "url": "https://quaternius.com",
+      "zip": "Fantasy Props MegaKit*.zip",
+      "files": [
+        [
+          "Exports/glTF/",
+          "*.gltf",
+          ""
+        ],
+        [
+          "Exports/glTF/",
+          "*.bin",
+          ""
+        ],
+        [
+          "Textures/",
+          "*.png",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "quaternius_ual",
+      "author": "Quaternius",
+      "license": "CC0",
+      "url": "https://quaternius.com",
+      "zip": "Universal Animation Library*.zip",
+      "files": [
+        [
+          "Universal Animation Library[Standard]/Unreal-Godot/",
+          "UAL1_Standard.glb",
+          ""
+        ],
+        [
+          "Universal Animation Library 2[Standard]/Unreal-Godot/",
+          "UAL2_Standard.glb",
+          ""
+        ],
+        [
+          "Universal Animation Library 2[Standard]/Female Mannequin/Unreal-Godot/",
+          "Mannequin_F.glb",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "kenney_characters",
+      "author": "Kenney",
+      "license": "CC0",
+      "url": "https://kenney.nl/assets/animated-characters-retro",
       "zip": "kenney_animated-characters-*.zip",
-      "files": [["Model/", "*.fbx", ""], ["Animations/", "*.fbx", "Animations/"], ["Skins/", "*.png", "Skins/"]]
+      "files": [
+        [
+          "Model/",
+          "*.fbx",
+          ""
+        ],
+        [
+          "Animations/",
+          "*.fbx",
+          "Animations/"
+        ],
+        [
+          "Skins/",
+          "*.png",
+          "Skins/"
+        ]
+      ]
+    },
+    {
+      "id": "fab_store_racks",
+      "author": "3dShowdown",
+      "license": "Fab Standard",
+      "url": "https://www.fab.com/listings/c14400d4-69cc-41ab-898b-c5b359de727b",
+      "zip": "fab_store_racks_3dshowdown.zip",
+      "files": [
+        [
+          "",
+          "*.gltf",
+          ""
+        ],
+        [
+          "",
+          "*.bin",
+          ""
+        ]
+      ],
+      "split_roots": true
+    },
+    {
+      "id": "fab_cartoon_food",
+      "author": "Mnostva Art",
+      "license": "Fab Standard",
+      "url": "https://www.fab.com/listings/6d96a809-eb62-4779-a161-d8859c3f1eeb",
+      "zip": "fab_cartoon_food*_mnostva.zip",
+      "files": [
+        [
+          "FBX/",
+          "*.fbx",
+          ""
+        ],
+        [
+          "Textures/",
+          "Color_Texture_2048.png",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "fab_lowpoly_food",
+      "author": "IZIGAMES",
+      "license": "Fab Standard",
+      "url": "https://www.fab.com/listings/16542c30-f48c-46a0-883a-14d1145176de",
+      "zip": "fab_lowpoly_food_izigames.zip",
+      "files": [
+        [
+          "GLB/",
+          "*.glb",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "fab_shopping_cart",
+      "author": "PabloStudio1",
+      "license": "Fab Standard",
+      "url": "https://www.fab.com/listings/e31c711b-ca0b-4851-905f-373a6169cf0c",
+      "zip": "fab_shopping_cart_pablostudio1.zip",
+      "files": [
+        [
+          "",
+          "*.glb",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "fab_shopping_basket",
+      "author": "dimension Dazzle",
+      "license": "CC-BY-4.0",
+      "url": "https://www.fab.com/listings/d59b7eb8-7943-421f-8224-1a75603ab39c",
+      "zip": "fab_shopping_basket_dimensiondazzle.zip",
+      "files": [
+        [
+          "FBX/",
+          "*.fbx",
+          ""
+        ],
+        [
+          "FBX/Textures/",
+          "*.png",
+          "Textures/"
+        ]
+      ],
+      "credit": "\"Shopping Basket\" by dimension Dazzle (Fab), licensed under CC BY 4.0"
+    },
+    {
+      "id": "fab_garbage_bin",
+      "author": "Glowbox3D",
+      "license": "CC-BY-4.0",
+      "url": "https://www.fab.com/library/assets/efd369f9-b9b8-4ceb-97aa-506e8f6ed9be",
+      "zip": "fab_garbage_bin_glowbox3d.zip",
+      "files": [
+        [
+          "",
+          "*.glb",
+          ""
+        ]
+      ],
+      "credit": "\"Garbage Bin & Trash Bags\" by Glowbox3D (Fab), licensed under CC BY 4.0"
+    },
+    {
+      "id": "fab_cardboard_box",
+      "author": "macriciox",
+      "license": "CC-BY-4.0",
+      "url": "https://www.fab.com/listings/dcb7339a-a32f-4071-b011-38be856a847a",
+      "zip": "fab_cardboard_box_macriciox.zip",
+      "files": [
+        [
+          "",
+          "*.glb",
+          ""
+        ]
+      ],
+      "credit": "\"Cardboard box\" by macriciox (Fab), licensed under CC BY 4.0"
     }
   ]
 }

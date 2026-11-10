@@ -1,6 +1,3144 @@
 {
-  "count": 494,
+  "count": 606,
   "models": [
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_cardboard_box/cardboard_box",
+      "min": [
+        -0.22,
+        -0.132,
+        -0.158
+      ],
+      "name": "cardboard_box",
+      "pack": "fab_cardboard_box",
+      "path": "res://assets/fab_cardboard_box/cardboard_box.glb",
+      "rigged": false,
+      "size": [
+        0.52,
+        0.264,
+        0.43
+      ],
+      "tags": [
+        "prop",
+        "cardboard",
+        "box"
+      ],
+      "thumb": "library/thumbs/fab_cardboard_box/cardboard_box.png",
+      "tris": 216.0
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/All_Food",
+      "min": [
+        -2.042,
+        -0.013,
+        -1.385
+      ],
+      "name": "All_Food",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/All_Food.fbx",
+      "rigged": false,
+      "size": [
+        4.157,
+        0.579,
+        2.845
+      ],
+      "tags": [
+        "prop",
+        "all",
+        "food"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/All_Food.png",
+      "tris": 91631
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Apple_Red",
+      "min": [
+        -0.067,
+        0.0,
+        -0.067
+      ],
+      "name": "Apple_Red",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Apple_Red.fbx",
+      "rigged": false,
+      "size": [
+        0.135,
+        0.143,
+        0.135
+      ],
+      "tags": [
+        "prop",
+        "apple",
+        "red"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Apple_Red.png",
+      "tris": 1040
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Apple_Red_Half_1",
+      "min": [
+        -0.067,
+        0.0,
+        -0.067
+      ],
+      "name": "Apple_Red_Half_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Apple_Red_Half_1.fbx",
+      "rigged": false,
+      "size": [
+        0.134,
+        0.143,
+        0.069
+      ],
+      "tags": [
+        "prop",
+        "apple",
+        "red",
+        "half"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Apple_Red_Half_1.png",
+      "tris": 1212
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Apple_Red_Half_2",
+      "min": [
+        -0.067,
+        0.0,
+        -0.067
+      ],
+      "name": "Apple_Red_Half_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Apple_Red_Half_2.fbx",
+      "rigged": false,
+      "size": [
+        0.134,
+        0.116,
+        0.068
+      ],
+      "tags": [
+        "prop",
+        "apple",
+        "red",
+        "half"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Apple_Red_Half_2.png",
+      "tris": 940
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bell_Pepper_Yellow",
+      "min": [
+        -0.06,
+        0.0,
+        -0.053
+      ],
+      "name": "Bell_Pepper_Yellow",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bell_Pepper_Yellow.fbx",
+      "rigged": false,
+      "size": [
+        0.119,
+        0.191,
+        0.105
+      ],
+      "tags": [
+        "prop",
+        "bell",
+        "pepper",
+        "yellow"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bell_Pepper_Yellow.png",
+      "tris": 1520
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bell_Pepper_Yellow_Pice",
+      "min": [
+        -0.054,
+        0.0,
+        -0.048
+      ],
+      "name": "Bell_Pepper_Yellow_Pice",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bell_Pepper_Yellow_Pice.fbx",
+      "rigged": false,
+      "size": [
+        0.109,
+        0.009,
+        0.096
+      ],
+      "tags": [
+        "prop",
+        "bell",
+        "pepper",
+        "yellow",
+        "pice"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bell_Pepper_Yellow_Pice.png",
+      "tris": 768
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bottle_1",
+      "min": [
+        -0.065,
+        0.0,
+        -0.065
+      ],
+      "name": "Bottle_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bottle_1.fbx",
+      "rigged": false,
+      "size": [
+        0.131,
+        0.288,
+        0.134
+      ],
+      "tags": [
+        "prop",
+        "bottle"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bottle_1.png",
+      "tris": 576
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bottle_2",
+      "min": [
+        -0.073,
+        0.0,
+        -0.073
+      ],
+      "name": "Bottle_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bottle_2.fbx",
+      "rigged": false,
+      "size": [
+        0.146,
+        0.399,
+        0.146
+      ],
+      "tags": [
+        "prop",
+        "bottle"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bottle_2.png",
+      "tris": 1400
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bottle_3",
+      "min": [
+        -0.076,
+        0.0,
+        -0.076
+      ],
+      "name": "Bottle_3",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bottle_3.fbx",
+      "rigged": false,
+      "size": [
+        0.151,
+        0.415,
+        0.154
+      ],
+      "tags": [
+        "prop",
+        "bottle"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bottle_3.png",
+      "tris": 1374
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bottle_4",
+      "min": [
+        -0.064,
+        0.0,
+        -0.064
+      ],
+      "name": "Bottle_4",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bottle_4.fbx",
+      "rigged": false,
+      "size": [
+        0.128,
+        0.44,
+        0.128
+      ],
+      "tags": [
+        "prop",
+        "bottle"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bottle_4.png",
+      "tris": 1032
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bottle_5",
+      "min": [
+        -0.069,
+        0.0,
+        -0.069
+      ],
+      "name": "Bottle_5",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bottle_5.fbx",
+      "rigged": false,
+      "size": [
+        0.139,
+        0.436,
+        0.146
+      ],
+      "tags": [
+        "prop",
+        "bottle"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bottle_5.png",
+      "tris": 780
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bottle_6",
+      "min": [
+        -0.047,
+        0.0,
+        -0.047
+      ],
+      "name": "Bottle_6",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bottle_6.fbx",
+      "rigged": false,
+      "size": [
+        0.094,
+        0.327,
+        0.094
+      ],
+      "tags": [
+        "prop",
+        "bottle"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bottle_6.png",
+      "tris": 700
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bowl",
+      "min": [
+        -0.154,
+        0.0,
+        -0.154
+      ],
+      "name": "Bowl",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bowl.fbx",
+      "rigged": false,
+      "size": [
+        0.308,
+        0.202,
+        0.308
+      ],
+      "tags": [
+        "prop",
+        "bowl"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bowl.png",
+      "tris": 1104
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bread_1",
+      "min": [
+        -0.165,
+        0.0,
+        -0.165
+      ],
+      "name": "Bread_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bread_1.fbx",
+      "rigged": false,
+      "size": [
+        0.33,
+        0.17,
+        0.33
+      ],
+      "tags": [
+        "prop",
+        "bread"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bread_1.png",
+      "tris": 1968
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bread_1_Slice",
+      "min": [
+        -0.166,
+        0.0,
+        0.0
+      ],
+      "name": "Bread_1_Slice",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bread_1_Slice.fbx",
+      "rigged": false,
+      "size": [
+        0.331,
+        0.166,
+        0.021
+      ],
+      "tags": [
+        "prop",
+        "bread",
+        "slice"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bread_1_Slice.png",
+      "tris": 544
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bread_2",
+      "min": [
+        -0.09,
+        0.0,
+        -0.168
+      ],
+      "name": "Bread_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bread_2.fbx",
+      "rigged": false,
+      "size": [
+        0.181,
+        0.155,
+        0.336
+      ],
+      "tags": [
+        "prop",
+        "bread"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bread_2.png",
+      "tris": 1232
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bread_2_Slice",
+      "min": [
+        -0.089,
+        0.0,
+        0.0
+      ],
+      "name": "Bread_2_Slice",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bread_2_Slice.fbx",
+      "rigged": false,
+      "size": [
+        0.177,
+        0.155,
+        0.025
+      ],
+      "tags": [
+        "prop",
+        "bread",
+        "slice"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bread_2_Slice.png",
+      "tris": 212
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bread_3",
+      "min": [
+        -0.133,
+        0.0,
+        -0.133
+      ],
+      "name": "Bread_3",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bread_3.fbx",
+      "rigged": false,
+      "size": [
+        0.265,
+        0.148,
+        0.265
+      ],
+      "tags": [
+        "prop",
+        "bread"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bread_3.png",
+      "tris": 1296
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Bread_3_Slice",
+      "min": [
+        -0.132,
+        0.0,
+        0.0
+      ],
+      "name": "Bread_3_Slice",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Bread_3_Slice.fbx",
+      "rigged": false,
+      "size": [
+        0.265,
+        0.148,
+        0.022
+      ],
+      "tags": [
+        "prop",
+        "bread",
+        "slice"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Bread_3_Slice.png",
+      "tris": 528
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Burger",
+      "min": [
+        -0.08,
+        0.0,
+        -0.08
+      ],
+      "name": "Burger",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Burger.fbx",
+      "rigged": false,
+      "size": [
+        0.162,
+        0.13,
+        0.16
+      ],
+      "tags": [
+        "prop",
+        "burger"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Burger.png",
+      "tris": 4060
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Carton_Box_1",
+      "min": [
+        -0.077,
+        0.0,
+        -0.077
+      ],
+      "name": "Carton_Box_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Carton_Box_1.fbx",
+      "rigged": false,
+      "size": [
+        0.155,
+        0.378,
+        0.155
+      ],
+      "tags": [
+        "prop",
+        "carton",
+        "box"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Carton_Box_1.png",
+      "tris": 196
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Carton_Box_2",
+      "min": [
+        -0.071,
+        0.0,
+        -0.074
+      ],
+      "name": "Carton_Box_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Carton_Box_2.fbx",
+      "rigged": false,
+      "size": [
+        0.143,
+        0.314,
+        0.147
+      ],
+      "tags": [
+        "prop",
+        "carton",
+        "box"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Carton_Box_2.png",
+      "tris": 394
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Champignon_Mushroom",
+      "min": [
+        -0.058,
+        0.0,
+        -0.058
+      ],
+      "name": "Champignon_Mushroom",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Champignon_Mushroom.fbx",
+      "rigged": false,
+      "size": [
+        0.116,
+        0.105,
+        0.116
+      ],
+      "tags": [
+        "prop",
+        "champignon",
+        "mushroom"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Champignon_Mushroom.png",
+      "tris": 528
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Champignon_Mushroom_Half",
+      "min": [
+        -0.058,
+        0.0,
+        -0.058
+      ],
+      "name": "Champignon_Mushroom_Half",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Champignon_Mushroom_Half.fbx",
+      "rigged": false,
+      "size": [
+        0.116,
+        0.104,
+        0.058
+      ],
+      "tags": [
+        "prop",
+        "champignon",
+        "mushroom",
+        "half"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Champignon_Mushroom_Half.png",
+      "tris": 400
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Champignon_Mushroom_Quarter",
+      "min": [
+        -0.059,
+        0.0,
+        -0.058
+      ],
+      "name": "Champignon_Mushroom_Quarter",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Champignon_Mushroom_Quarter.fbx",
+      "rigged": false,
+      "size": [
+        0.059,
+        0.104,
+        0.058
+      ],
+      "tags": [
+        "prop",
+        "champignon",
+        "mushroom",
+        "quarter"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Champignon_Mushroom_Quarter.png",
+      "tris": 281
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Chips_1",
+      "min": [
+        -0.11,
+        0.0,
+        -0.185
+      ],
+      "name": "Chips_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Chips_1.fbx",
+      "rigged": false,
+      "size": [
+        0.219,
+        0.099,
+        0.371
+      ],
+      "tags": [
+        "prop",
+        "chips"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Chips_1.png",
+      "tris": 380
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Chips_2",
+      "min": [
+        -0.068,
+        0.0,
+        -0.068
+      ],
+      "name": "Chips_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Chips_2.fbx",
+      "rigged": false,
+      "size": [
+        0.137,
+        0.333,
+        0.141
+      ],
+      "tags": [
+        "prop",
+        "chips"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Chips_2.png",
+      "tris": 546
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Coffee_Cup_To_Go",
+      "min": [
+        -0.067,
+        0.0,
+        -0.067
+      ],
+      "name": "Coffee_Cup_To_Go",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Coffee_Cup_To_Go.fbx",
+      "rigged": false,
+      "size": [
+        0.134,
+        0.17,
+        0.134
+      ],
+      "tags": [
+        "prop",
+        "coffee",
+        "cup",
+        "to",
+        "go"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Coffee_Cup_To_Go.png",
+      "tris": 936
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Coffee_Cup_To_Go_1",
+      "min": [
+        -0.064,
+        0.0,
+        -0.064
+      ],
+      "name": "Coffee_Cup_To_Go_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Coffee_Cup_To_Go_1.fbx",
+      "rigged": false,
+      "size": [
+        0.128,
+        0.13,
+        0.128
+      ],
+      "tags": [
+        "prop",
+        "coffee",
+        "cup",
+        "to",
+        "go"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Coffee_Cup_To_Go_1.png",
+      "tris": 520
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Coffee_Lid",
+      "min": [
+        -0.067,
+        0.0,
+        -0.067
+      ],
+      "name": "Coffee_Lid",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Coffee_Lid.fbx",
+      "rigged": false,
+      "size": [
+        0.134,
+        0.047,
+        0.134
+      ],
+      "tags": [
+        "prop",
+        "coffee",
+        "lid"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Coffee_Lid.png",
+      "tris": 842
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Cookie_1",
+      "min": [
+        -0.077,
+        0.0,
+        -0.077
+      ],
+      "name": "Cookie_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Cookie_1.fbx",
+      "rigged": false,
+      "size": [
+        0.155,
+        0.039,
+        0.155
+      ],
+      "tags": [
+        "prop",
+        "cookie"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Cookie_1.png",
+      "tris": 648
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Cookie_2",
+      "min": [
+        -0.077,
+        0.0,
+        -0.077
+      ],
+      "name": "Cookie_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Cookie_2.fbx",
+      "rigged": false,
+      "size": [
+        0.155,
+        0.039,
+        0.155
+      ],
+      "tags": [
+        "prop",
+        "cookie"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Cookie_2.png",
+      "tris": 712
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Cookie_3",
+      "min": [
+        -0.061,
+        0.0,
+        -0.061
+      ],
+      "name": "Cookie_3",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Cookie_3.fbx",
+      "rigged": false,
+      "size": [
+        0.123,
+        0.009,
+        0.123
+      ],
+      "tags": [
+        "prop",
+        "cookie"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Cookie_3.png",
+      "tris": 2640
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Croissant",
+      "min": [
+        -0.163,
+        0.0,
+        -0.086
+      ],
+      "name": "Croissant",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Croissant.fbx",
+      "rigged": false,
+      "size": [
+        0.327,
+        0.13,
+        0.172
+      ],
+      "tags": [
+        "prop",
+        "croissant"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Croissant.png",
+      "tris": 1728
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Donut",
+      "min": [
+        -0.071,
+        0.0,
+        -0.071
+      ],
+      "name": "Donut",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Donut.fbx",
+      "rigged": false,
+      "size": [
+        0.142,
+        0.063,
+        0.142
+      ],
+      "tags": [
+        "prop",
+        "donut"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Donut.png",
+      "tris": 1472
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Eclair",
+      "min": [
+        -0.028,
+        0.0,
+        -0.102
+      ],
+      "name": "Eclair",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Eclair.fbx",
+      "rigged": false,
+      "size": [
+        0.057,
+        0.07,
+        0.204
+      ],
+      "tags": [
+        "prop",
+        "eclair"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Eclair.png",
+      "tris": 952
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Fork",
+      "min": [
+        -0.024,
+        -0.013,
+        -0.25
+      ],
+      "name": "Fork",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Fork.fbx",
+      "rigged": false,
+      "size": [
+        0.048,
+        0.025,
+        0.25
+      ],
+      "tags": [
+        "prop",
+        "fork"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Fork.png",
+      "tris": 1408
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Green_Onion",
+      "min": [
+        -0.171,
+        0.0,
+        -0.028
+      ],
+      "name": "Green_Onion",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Green_Onion.fbx",
+      "rigged": false,
+      "size": [
+        0.31,
+        0.566,
+        0.056
+      ],
+      "tags": [
+        "prop",
+        "green",
+        "onion"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Green_Onion.png",
+      "tris": 1386
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Juice_Box",
+      "min": [
+        -0.06,
+        0.0,
+        -0.03
+      ],
+      "name": "Juice_Box",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Juice_Box.fbx",
+      "rigged": false,
+      "size": [
+        0.12,
+        0.206,
+        0.06
+      ],
+      "tags": [
+        "prop",
+        "juice",
+        "box"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Juice_Box.png",
+      "tris": 380
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Ketchup",
+      "min": [
+        -0.038,
+        0.0,
+        -0.038
+      ],
+      "name": "Ketchup",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Ketchup.fbx",
+      "rigged": false,
+      "size": [
+        0.076,
+        0.286,
+        0.076
+      ],
+      "tags": [
+        "prop",
+        "ketchup"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Ketchup.png",
+      "tris": 432
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Knife",
+      "min": [
+        -0.02,
+        0.0,
+        -0.265
+      ],
+      "name": "Knife",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Knife.fbx",
+      "rigged": false,
+      "size": [
+        0.033,
+        0.025,
+        0.265
+      ],
+      "tags": [
+        "prop",
+        "knife"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Knife.png",
+      "tris": 462
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Macaron",
+      "min": [
+        -0.026,
+        0.0,
+        -0.026
+      ],
+      "name": "Macaron",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Macaron.fbx",
+      "rigged": false,
+      "size": [
+        0.052,
+        0.041,
+        0.052
+      ],
+      "tags": [
+        "prop",
+        "macaron"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Macaron.png",
+      "tris": 920
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Meat_Steak_1",
+      "min": [
+        -0.123,
+        -0.012,
+        -0.188
+      ],
+      "name": "Meat_Steak_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Meat_Steak_1.fbx",
+      "rigged": false,
+      "size": [
+        0.246,
+        0.062,
+        0.377
+      ],
+      "tags": [
+        "prop",
+        "meat",
+        "steak"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Meat_Steak_1.png",
+      "tris": 800
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Meat_Steak_2",
+      "min": [
+        -0.217,
+        -0.005,
+        -0.141
+      ],
+      "name": "Meat_Steak_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Meat_Steak_2.fbx",
+      "rigged": false,
+      "size": [
+        0.435,
+        0.075,
+        0.282
+      ],
+      "tags": [
+        "prop",
+        "meat",
+        "steak"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Meat_Steak_2.png",
+      "tris": 1064
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Meat_on_Bone",
+      "min": [
+        -0.07,
+        0.0,
+        -0.153
+      ],
+      "name": "Meat_on_Bone",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Meat_on_Bone.fbx",
+      "rigged": false,
+      "size": [
+        0.14,
+        0.14,
+        0.306
+      ],
+      "tags": [
+        "prop",
+        "meat",
+        "on",
+        "bone"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Meat_on_Bone.png",
+      "tris": 1132
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Mug_1",
+      "min": [
+        -0.078,
+        0.0,
+        -0.078
+      ],
+      "name": "Mug_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Mug_1.fbx",
+      "rigged": false,
+      "size": [
+        0.222,
+        0.14,
+        0.156
+      ],
+      "tags": [
+        "prop",
+        "mug"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Mug_1.png",
+      "tris": 1056
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Mug_2",
+      "min": [
+        -0.078,
+        0.0,
+        -0.078
+      ],
+      "name": "Mug_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Mug_2.fbx",
+      "rigged": false,
+      "size": [
+        0.222,
+        0.14,
+        0.156
+      ],
+      "tags": [
+        "prop",
+        "mug"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Mug_2.png",
+      "tris": 966
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Mustard",
+      "min": [
+        -0.038,
+        0.0,
+        -0.038
+      ],
+      "name": "Mustard",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Mustard.fbx",
+      "rigged": false,
+      "size": [
+        0.076,
+        0.286,
+        0.076
+      ],
+      "tags": [
+        "prop",
+        "mustard"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Mustard.png",
+      "tris": 432
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Orange",
+      "min": [
+        -0.067,
+        0.0,
+        -0.067
+      ],
+      "name": "Orange",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Orange.fbx",
+      "rigged": false,
+      "size": [
+        0.133,
+        0.166,
+        0.133
+      ],
+      "tags": [
+        "prop",
+        "orange"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Orange.png",
+      "tris": 444
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Orange_Slice",
+      "min": [
+        -0.066,
+        0.0,
+        -0.066
+      ],
+      "name": "Orange_Slice",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Orange_Slice.fbx",
+      "rigged": false,
+      "size": [
+        0.133,
+        0.015,
+        0.133
+      ],
+      "tags": [
+        "prop",
+        "orange",
+        "slice"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Orange_Slice.png",
+      "tris": 800
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Pie",
+      "min": [
+        -0.209,
+        0.0,
+        -0.2
+      ],
+      "name": "Pie",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Pie.fbx",
+      "rigged": false,
+      "size": [
+        0.418,
+        0.122,
+        0.399
+      ],
+      "tags": [
+        "prop",
+        "pie"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Pie.png",
+      "tris": 2012
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Pie_Piece",
+      "min": [
+        -0.208,
+        0.0,
+        -0.2
+      ],
+      "name": "Pie_Piece",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Pie_Piece.fbx",
+      "rigged": false,
+      "size": [
+        0.208,
+        0.122,
+        0.2
+      ],
+      "tags": [
+        "prop",
+        "pie",
+        "piece"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Pie_Piece.png",
+      "tris": 754
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Pizza",
+      "min": [
+        -0.26,
+        0.0,
+        -0.26
+      ],
+      "name": "Pizza",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Pizza.fbx",
+      "rigged": false,
+      "size": [
+        0.52,
+        0.055,
+        0.52
+      ],
+      "tags": [
+        "prop",
+        "pizza"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Pizza.png",
+      "tris": 6352
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Pizza_Slice",
+      "min": [
+        -0.261,
+        0.0,
+        -0.26
+      ],
+      "name": "Pizza_Slice",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Pizza_Slice.fbx",
+      "rigged": false,
+      "size": [
+        0.261,
+        0.055,
+        0.26
+      ],
+      "tags": [
+        "prop",
+        "pizza",
+        "slice"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Pizza_Slice.png",
+      "tris": 1464
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Plate",
+      "min": [
+        -0.132,
+        0.0,
+        -0.132
+      ],
+      "name": "Plate",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Plate.fbx",
+      "rigged": false,
+      "size": [
+        0.265,
+        0.047,
+        0.265
+      ],
+      "tags": [
+        "prop",
+        "plate"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Plate.png",
+      "tris": 480
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Pumpkin",
+      "min": [
+        -0.154,
+        0.0,
+        -0.165
+      ],
+      "name": "Pumpkin",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Pumpkin.fbx",
+      "rigged": false,
+      "size": [
+        0.308,
+        0.258,
+        0.33
+      ],
+      "tags": [
+        "prop",
+        "pumpkin"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Pumpkin.png",
+      "tris": 1168
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Pumpkin_Quarter",
+      "min": [
+        -0.163,
+        -0.001,
+        -0.15
+      ],
+      "name": "Pumpkin_Quarter",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Pumpkin_Quarter.fbx",
+      "rigged": false,
+      "size": [
+        0.17,
+        0.21,
+        0.157
+      ],
+      "tags": [
+        "prop",
+        "pumpkin",
+        "quarter"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Pumpkin_Quarter.png",
+      "tris": 852
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Salmon_Steak",
+      "min": [
+        -0.102,
+        -0.005,
+        -0.132
+      ],
+      "name": "Salmon_Steak",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Salmon_Steak.fbx",
+      "rigged": false,
+      "size": [
+        0.205,
+        0.068,
+        0.254
+      ],
+      "tags": [
+        "prop",
+        "salmon",
+        "steak"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Salmon_Steak.png",
+      "tris": 1148
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Sandwich",
+      "min": [
+        -0.081,
+        0.0,
+        -0.094
+      ],
+      "name": "Sandwich",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Sandwich.fbx",
+      "rigged": false,
+      "size": [
+        0.161,
+        0.05,
+        0.188
+      ],
+      "tags": [
+        "prop",
+        "sandwich"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Sandwich.png",
+      "tris": 4308
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Sandwich_Half_1",
+      "min": [
+        -0.081,
+        0.0,
+        -0.18
+      ],
+      "name": "Sandwich_Half_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Sandwich_Half_1.fbx",
+      "rigged": false,
+      "size": [
+        0.081,
+        0.05,
+        0.188
+      ],
+      "tags": [
+        "prop",
+        "sandwich",
+        "half"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Sandwich_Half_1.png",
+      "tris": 2388
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Sandwich_Half_2",
+      "min": [
+        0.0,
+        0.0,
+        -0.18
+      ],
+      "name": "Sandwich_Half_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Sandwich_Half_2.fbx",
+      "rigged": false,
+      "size": [
+        0.08,
+        0.05,
+        0.188
+      ],
+      "tags": [
+        "prop",
+        "sandwich",
+        "half"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Sandwich_Half_2.png",
+      "tris": 2388
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Sardine",
+      "min": [
+        -0.145,
+        -0.001,
+        -0.056
+      ],
+      "name": "Sardine",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Sardine.fbx",
+      "rigged": false,
+      "size": [
+        0.321,
+        0.041,
+        0.112
+      ],
+      "tags": [
+        "prop",
+        "sardine"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Sardine.png",
+      "tris": 3204
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Sardine_Half_1",
+      "min": [
+        -0.145,
+        -0.001,
+        -0.063
+      ],
+      "name": "Sardine_Half_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Sardine_Half_1.fbx",
+      "rigged": false,
+      "size": [
+        0.153,
+        0.041,
+        0.112
+      ],
+      "tags": [
+        "prop",
+        "sardine",
+        "half"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Sardine_Half_1.png",
+      "tris": 2725
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Sardine_Half_2",
+      "min": [
+        -0.001,
+        0.0,
+        -0.047
+      ],
+      "name": "Sardine_Half_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Sardine_Half_2.fbx",
+      "rigged": false,
+      "size": [
+        0.177,
+        0.039,
+        0.088
+      ],
+      "tags": [
+        "prop",
+        "sardine",
+        "half"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Sardine_Half_2.png",
+      "tris": 1089
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Sardine_Slice",
+      "min": [
+        -0.02,
+        0.0,
+        -0.001
+      ],
+      "name": "Sardine_Slice",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Sardine_Slice.fbx",
+      "rigged": false,
+      "size": [
+        0.039,
+        0.049,
+        0.022
+      ],
+      "tags": [
+        "prop",
+        "sardine",
+        "slice"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Sardine_Slice.png",
+      "tris": 844
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Sausage",
+      "min": [
+        -0.021,
+        0.0,
+        -0.095
+      ],
+      "name": "Sausage",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Sausage.fbx",
+      "rigged": false,
+      "size": [
+        0.042,
+        0.042,
+        0.19
+      ],
+      "tags": [
+        "prop",
+        "sausage"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Sausage.png",
+      "tris": 1608
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Shrimp",
+      "min": [
+        -0.071,
+        0.0,
+        -0.054
+      ],
+      "name": "Shrimp",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Shrimp.fbx",
+      "rigged": false,
+      "size": [
+        0.142,
+        0.039,
+        0.108
+      ],
+      "tags": [
+        "prop",
+        "shrimp"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Shrimp.png",
+      "tris": 1024
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Soda_Can_1",
+      "min": [
+        -0.055,
+        0.0,
+        -0.055
+      ],
+      "name": "Soda_Can_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Soda_Can_1.fbx",
+      "rigged": false,
+      "size": [
+        0.11,
+        0.153,
+        0.11
+      ],
+      "tags": [
+        "prop",
+        "soda",
+        "can"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Soda_Can_1.png",
+      "tris": 2036
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Soda_Can_2",
+      "min": [
+        -0.052,
+        0.0,
+        -0.052
+      ],
+      "name": "Soda_Can_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Soda_Can_2.fbx",
+      "rigged": false,
+      "size": [
+        0.104,
+        0.146,
+        0.104
+      ],
+      "tags": [
+        "prop",
+        "soda",
+        "can"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Soda_Can_2.png",
+      "tris": 1260
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Soda_Cup_with_Straw_1",
+      "min": [
+        -0.072,
+        0.0,
+        -0.072
+      ],
+      "name": "Soda_Cup_with_Straw_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Soda_Cup_with_Straw_1.fbx",
+      "rigged": false,
+      "size": [
+        0.144,
+        0.278,
+        0.144
+      ],
+      "tags": [
+        "prop",
+        "soda",
+        "cup",
+        "with",
+        "straw"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Soda_Cup_with_Straw_1.png",
+      "tris": 620
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Soda_Cup_with_Straw_2",
+      "min": [
+        -0.057,
+        0.0,
+        -0.057
+      ],
+      "name": "Soda_Cup_with_Straw_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Soda_Cup_with_Straw_2.fbx",
+      "rigged": false,
+      "size": [
+        0.129,
+        0.197,
+        0.114
+      ],
+      "tags": [
+        "prop",
+        "soda",
+        "cup",
+        "with",
+        "straw"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Soda_Cup_with_Straw_2.png",
+      "tris": 1912
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Tomato",
+      "min": [
+        -0.071,
+        0.0,
+        -0.071
+      ],
+      "name": "Tomato",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Tomato.fbx",
+      "rigged": false,
+      "size": [
+        0.142,
+        0.11,
+        0.142
+      ],
+      "tags": [
+        "prop",
+        "tomato"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Tomato.png",
+      "tris": 544
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Tomato_Piece",
+      "min": [
+        -0.071,
+        -0.004,
+        -0.05
+      ],
+      "name": "Tomato_Piece",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Tomato_Piece.fbx",
+      "rigged": false,
+      "size": [
+        0.142,
+        0.017,
+        0.1
+      ],
+      "tags": [
+        "prop",
+        "tomato",
+        "piece"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Tomato_Piece.png",
+      "tris": 1120
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Watermelon",
+      "min": [
+        -0.152,
+        0.0,
+        -0.152
+      ],
+      "name": "Watermelon",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Watermelon.fbx",
+      "rigged": false,
+      "size": [
+        0.304,
+        0.293,
+        0.305
+      ],
+      "tags": [
+        "prop",
+        "watermelon"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Watermelon.png",
+      "tris": 1560
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Watermelon_Slice_1",
+      "min": [
+        -0.151,
+        -0.003,
+        0.0
+      ],
+      "name": "Watermelon_Slice_1",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Watermelon_Slice_1.fbx",
+      "rigged": false,
+      "size": [
+        0.302,
+        0.023,
+        0.159
+      ],
+      "tags": [
+        "prop",
+        "watermelon",
+        "slice"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Watermelon_Slice_1.png",
+      "tris": 1092
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_cartoon_food/Watermelon_Slice_2",
+      "min": [
+        -0.151,
+        -0.003,
+        0.0
+      ],
+      "name": "Watermelon_Slice_2",
+      "node": "",
+      "pack": "fab_cartoon_food",
+      "path": "res://assets/fab_cartoon_food/Watermelon_Slice_2.fbx",
+      "rigged": false,
+      "size": [
+        0.151,
+        0.023,
+        0.151
+      ],
+      "tags": [
+        "prop",
+        "watermelon",
+        "slice"
+      ],
+      "thumb": "library/thumbs/fab_cartoon_food/Watermelon_Slice_2.png",
+      "tris": 536
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_garbage_bin/garbage_bin_trash_bags",
+      "min": [
+        -258.041,
+        -1.034,
+        -252.439
+      ],
+      "name": "garbage_bin_trash_bags",
+      "pack": "fab_garbage_bin",
+      "path": "res://assets/fab_garbage_bin/garbage_bin_trash_bags.glb",
+      "rigged": false,
+      "size": [
+        671.354,
+        277.422,
+        415.952
+      ],
+      "tags": [
+        "prop",
+        "garbage",
+        "bin",
+        "trash",
+        "bags"
+      ],
+      "thumb": "library/thumbs/fab_garbage_bin/garbage_bin_trash_bags.png",
+      "tris": 11360.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Apple_2",
+      "min": [
+        -1.705,
+        0.0,
+        -0.24
+      ],
+      "name": "SM_Apple_2",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Apple_2.glb",
+      "rigged": false,
+      "size": [
+        0.096,
+        0.103,
+        0.096
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "apple"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Apple_2.png",
+      "tris": 252.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Bowl_2.1",
+      "min": [
+        -1.234,
+        0.0,
+        -0.275
+      ],
+      "name": "SM_Bowl_2.1",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Bowl_2.1.glb",
+      "rigged": false,
+      "size": [
+        0.167,
+        0.061,
+        0.167
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "bowl",
+        "2.1"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Bowl_2.1.png",
+      "tris": 252.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Bread_4.3",
+      "min": [
+        -1.163,
+        -0.001,
+        -0.623
+      ],
+      "name": "SM_Bread_4.3",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Bread_4.3.glb",
+      "rigged": false,
+      "size": [
+        0.129,
+        0.024,
+        0.203
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "bread",
+        "4.3"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Bread_4.3.png",
+      "tris": 138.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Candy_3",
+      "min": [
+        -0.216,
+        0.0,
+        -0.198
+      ],
+      "name": "SM_Candy_3",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Candy_3.glb",
+      "rigged": false,
+      "size": [
+        0.094,
+        0.179,
+        0.013
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "candy"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Candy_3.png",
+      "tris": 578.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Cheese_3.3",
+      "min": [
+        -1.665,
+        0.0,
+        -0.673
+      ],
+      "name": "SM_Cheese_3.3",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Cheese_3.3.glb",
+      "rigged": false,
+      "size": [
+        0.232,
+        0.146,
+        0.156
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "cheese",
+        "3.3"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Cheese_3.3.png",
+      "tris": 116.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Chicken_1.3",
+      "min": [
+        -1.813,
+        0.0,
+        -0.628
+      ],
+      "name": "SM_Chicken_1.3",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Chicken_1.3.glb",
+      "rigged": false,
+      "size": [
+        0.098,
+        0.053,
+        0.196
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "chicken",
+        "1.3"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Chicken_1.3.png",
+      "tris": 134.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Corn_Dog_1",
+      "min": [
+        -1.591,
+        0.0,
+        -0.221
+      ],
+      "name": "SM_Corn_Dog_1",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Corn_Dog_1.glb",
+      "rigged": false,
+      "size": [
+        0.058,
+        0.234,
+        0.057
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "corn",
+        "dog"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Corn_Dog_1.png",
+      "tris": 278.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Cucumber_1.1",
+      "min": [
+        -0.876,
+        0.0,
+        -0.561
+      ],
+      "name": "SM_Cucumber_1.1",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Cucumber_1.1.glb",
+      "rigged": false,
+      "size": [
+        0.255,
+        0.065,
+        0.069
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "cucumber",
+        "1.1"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Cucumber_1.1.png",
+      "tris": 156.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Cup_Coffe_9",
+      "min": [
+        -0.093,
+        0.0,
+        -0.233
+      ],
+      "name": "SM_Cup_Coffe_9",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Cup_Coffe_9.glb",
+      "rigged": false,
+      "size": [
+        0.083,
+        0.105,
+        0.083
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "cup",
+        "coffe"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Cup_Coffe_9.png",
+      "tris": 408.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Donut_1.1",
+      "min": [
+        -0.367,
+        0.0,
+        -0.258
+      ],
+      "name": "SM_Donut_1.1",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Donut_1.1.glb",
+      "rigged": false,
+      "size": [
+        0.136,
+        0.049,
+        0.133
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "donut",
+        "1.1"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Donut_1.1.png",
+      "tris": 392.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Goblet_8",
+      "min": [
+        -1.349,
+        0.0,
+        -0.571
+      ],
+      "name": "SM_Goblet_8",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Goblet_8.glb",
+      "rigged": false,
+      "size": [
+        0.097,
+        0.217,
+        0.097
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "goblet"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Goblet_8.png",
+      "tris": 478.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Milk_1.1",
+      "min": [
+        -0.591,
+        0.0,
+        -0.593
+      ],
+      "name": "SM_Milk_1.1",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Milk_1.1.glb",
+      "rigged": false,
+      "size": [
+        0.141,
+        0.292,
+        0.141
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "milk",
+        "1.1"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Milk_1.1.png",
+      "tris": 282.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Pear_1.1",
+      "min": [
+        -1.345,
+        0.0,
+        -0.226
+      ],
+      "name": "SM_Pear_1.1",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Pear_1.1.glb",
+      "rigged": false,
+      "size": [
+        0.067,
+        0.105,
+        0.067
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "pear",
+        "1.1"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Pear_1.1.png",
+      "tris": 220.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Pie_2",
+      "min": [
+        -0.915,
+        0.0,
+        -0.358
+      ],
+      "name": "SM_Pie_2",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Pie_2.glb",
+      "rigged": false,
+      "size": [
+        0.331,
+        0.061,
+        0.331
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "pie"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Pie_2.png",
+      "tris": 614.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Sausage_5.2",
+      "min": [
+        -1.04,
+        0.0,
+        -0.303
+      ],
+      "name": "SM_Sausage_5.2",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Sausage_5.2.glb",
+      "rigged": false,
+      "size": [
+        0.072,
+        0.068,
+        0.222
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "sausage",
+        "5.2"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Sausage_5.2.png",
+      "tris": 346.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Snack_8",
+      "min": [
+        -0.193,
+        0.0,
+        -0.576
+      ],
+      "name": "SM_Snack_8",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Snack_8.glb",
+      "rigged": false,
+      "size": [
+        0.178,
+        0.233,
+        0.098
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "snack"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Snack_8.png",
+      "tris": 190.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Tape_2.1",
+      "min": [
+        -0.43,
+        0.0,
+        -0.637
+      ],
+      "name": "SM_Tape_2.1",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Tape_2.1.glb",
+      "rigged": false,
+      "size": [
+        0.229,
+        0.038,
+        0.229
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "tape",
+        "2.1"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Tape_2.1.png",
+      "tris": 252.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Tomato_1.1",
+      "min": [
+        -0.517,
+        0.0,
+        -0.253
+      ],
+      "name": "SM_Tomato_1.1",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Tomato_1.1.glb",
+      "rigged": false,
+      "size": [
+        0.122,
+        0.13,
+        0.123
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "tomato",
+        "1.1"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Tomato_1.1.png",
+      "tris": 346.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SM_Yogurt_2.4",
+      "min": [
+        -1.474,
+        0.0,
+        -0.238
+      ],
+      "name": "SM_Yogurt_2.4",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SM_Yogurt_2.4.glb",
+      "rigged": false,
+      "size": [
+        0.092,
+        0.207,
+        0.092
+      ],
+      "tags": [
+        "prop",
+        "sm",
+        "yogurt",
+        "2.4"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SM_Yogurt_2.4.png",
+      "tris": 290.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_lowpoly_food/SN_Chocolate_bar_1",
+      "min": [
+        -0.973,
+        0.0,
+        -0.605
+      ],
+      "name": "SN_Chocolate_bar_1",
+      "pack": "fab_lowpoly_food",
+      "path": "res://assets/fab_lowpoly_food/SN_Chocolate_bar_1.glb",
+      "rigged": false,
+      "size": [
+        0.054,
+        0.018,
+        0.164
+      ],
+      "tags": [
+        "prop",
+        "sn",
+        "chocolate",
+        "bar"
+      ],
+      "thumb": "library/thumbs/fab_lowpoly_food/SN_Chocolate_bar_1.png",
+      "tris": 540.0
+    },
+    {
+      "animations": [
+        "Take 001"
+      ],
+      "category": "prop",
+      "id": "fab_shopping_basket/Shopping_Basket",
+      "min": [
+        -0.25,
+        -0.001,
+        -0.258
+      ],
+      "name": "Shopping_Basket",
+      "pack": "fab_shopping_basket",
+      "path": "res://assets/fab_shopping_basket/Shopping_Basket.fbx",
+      "rigged": false,
+      "size": [
+        0.499,
+        0.867,
+        0.454
+      ],
+      "tags": [
+        "prop",
+        "shopping",
+        "basket"
+      ],
+      "thumb": "library/thumbs/fab_shopping_basket/Shopping_Basket.png",
+      "tris": 105778.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_shopping_cart/5_shopping_cart",
+      "min": [
+        -0.39,
+        -0.405,
+        -0.246
+      ],
+      "name": "5_shopping_cart",
+      "pack": "fab_shopping_cart",
+      "path": "res://assets/fab_shopping_cart/5_shopping_cart.glb",
+      "rigged": false,
+      "size": [
+        0.779,
+        0.811,
+        0.494
+      ],
+      "tags": [
+        "prop",
+        "shopping",
+        "cart"
+      ],
+      "thumb": "library/thumbs/fab_shopping_cart/5_shopping_cart.png",
+      "tris": 299999.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube",
+      "min": [
+        -15.285,
+        0.001,
+        -0.828
+      ],
+      "name": "Store Racks Pack#Cube",
+      "node": "Cube",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        1.841,
+        0.914,
+        1.2
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube.png",
+      "tris": 10612.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_005",
+      "min": [
+        -12.693,
+        0.005,
+        -0.569
+      ],
+      "name": "Store Racks Pack#Cube_005",
+      "node": "Cube_005",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        2.406,
+        1.091,
+        1.137
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_005.png",
+      "tris": 2248.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_007",
+      "min": [
+        -9.498,
+        -0.006,
+        -0.591
+      ],
+      "name": "Store Racks Pack#Cube_007",
+      "node": "Cube_007",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        1.8,
+        2.814,
+        1.182
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_007.png",
+      "tris": 2600.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_011",
+      "min": [
+        -7.104,
+        0.0,
+        -0.505
+      ],
+      "name": "Store Racks Pack#Cube_011",
+      "node": "Cube_011",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        1.011,
+        2.104,
+        1.011
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_011.png",
+      "tris": 3084.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_016",
+      "min": [
+        -5.467,
+        0.005,
+        -0.497
+      ],
+      "name": "Store Racks Pack#Cube_016",
+      "node": "Cube_016",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        2.92,
+        2.167,
+        0.895
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_016.png",
+      "tris": 1196.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_018",
+      "min": [
+        -2.144,
+        0.006,
+        -0.648
+      ],
+      "name": "Store Racks Pack#Cube_018",
+      "node": "Cube_018",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        1.877,
+        2.307,
+        1.304
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_018.png",
+      "tris": 1268.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_020",
+      "min": [
+        0.174,
+        0.004,
+        -0.744
+      ],
+      "name": "Store Racks Pack#Cube_020",
+      "node": "Cube_020",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        1.281,
+        2.788,
+        1.389
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_020.png",
+      "tris": 2978.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_027",
+      "min": [
+        2.228,
+        0.004,
+        -0.763
+      ],
+      "name": "Store Racks Pack#Cube_027",
+      "node": "Cube_027",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        2.686,
+        1.347,
+        1.407
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_027.png",
+      "tris": 2162.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_031",
+      "min": [
+        5.458,
+        0.004,
+        -0.637
+      ],
+      "name": "Store Racks Pack#Cube_031",
+      "node": "Cube_031",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        2.686,
+        1.897,
+        1.279
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_031.png",
+      "tris": 1912.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_036",
+      "min": [
+        8.789,
+        0.004,
+        -0.763
+      ],
+      "name": "Store Racks Pack#Cube_036",
+      "node": "Cube_036",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        1.514,
+        1.347,
+        1.407
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_036.png",
+      "tris": 2162.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_040",
+      "min": [
+        10.704,
+        -0.004,
+        -0.574
+      ],
+      "name": "Store Racks Pack#Cube_040",
+      "node": "Cube_040",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        1.658,
+        0.635,
+        0.98
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_040.png",
+      "tris": 3384.0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "fab_store_racks/Store Racks Pack#Cube_049",
+      "min": [
+        12.83,
+        0.0,
+        -0.657
+      ],
+      "name": "Store Racks Pack#Cube_049",
+      "node": "Cube_049",
+      "pack": "fab_store_racks",
+      "path": "res://assets/fab_store_racks/Store Racks Pack.gltf",
+      "rigged": false,
+      "size": [
+        3.202,
+        1.303,
+        1.322
+      ],
+      "tags": [
+        "prop",
+        "store racks pack#cube"
+      ],
+      "thumb": "library/thumbs/fab_store_racks/Store Racks Pack__Cube_049.png",
+      "tris": 1948.0
+    },
     {
       "animations": [],
       "category": "vehicle",
@@ -24,7 +3162,7 @@
         "ambulance"
       ],
       "thumb": "library/thumbs/kenney_cars/ambulance.png",
-      "tris": 2804
+      "tris": 2804.0
     },
     {
       "animations": [],
@@ -49,7 +3187,7 @@
         "box"
       ],
       "thumb": "library/thumbs/kenney_cars/box.png",
-      "tris": 124
+      "tris": 124.0
     },
     {
       "animations": [],
@@ -74,7 +3212,7 @@
         "cone"
       ],
       "thumb": "library/thumbs/kenney_cars/cone.png",
-      "tris": 172
+      "tris": 172.0
     },
     {
       "animations": [],
@@ -100,7 +3238,7 @@
         "flat"
       ],
       "thumb": "library/thumbs/kenney_cars/cone-flat.png",
-      "tris": 172
+      "tris": 172.0
     },
     {
       "animations": [],
@@ -125,7 +3263,7 @@
         "bolt"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-bolt.png",
-      "tris": 36
+      "tris": 36.0
     },
     {
       "animations": [],
@@ -150,7 +3288,7 @@
         "bumper"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-bumper.png",
-      "tris": 116
+      "tris": 116.0
     },
     {
       "animations": [],
@@ -175,7 +3313,7 @@
         "door"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-door.png",
-      "tris": 68
+      "tris": 68.0
     },
     {
       "animations": [],
@@ -201,7 +3339,7 @@
         "window"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-door-window.png",
-      "tris": 74
+      "tris": 74.0
     },
     {
       "animations": [],
@@ -226,7 +3364,7 @@
         "drivetrain"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-drivetrain.png",
-      "tris": 412
+      "tris": 412.0
     },
     {
       "animations": [],
@@ -252,7 +3390,7 @@
         "axle"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-drivetrain-axle.png",
-      "tris": 200
+      "tris": 200.0
     },
     {
       "animations": [],
@@ -277,7 +3415,7 @@
         "nut"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-nut.png",
-      "tris": 40
+      "tris": 40.0
     },
     {
       "animations": [],
@@ -303,7 +3441,7 @@
         "a"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-plate-a.png",
-      "tris": 40
+      "tris": 40.0
     },
     {
       "animations": [],
@@ -329,7 +3467,7 @@
         "b"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-plate-b.png",
-      "tris": 44
+      "tris": 44.0
     },
     {
       "animations": [],
@@ -356,7 +3494,7 @@
         "a"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-plate-small-a.png",
-      "tris": 28
+      "tris": 28.0
     },
     {
       "animations": [],
@@ -383,7 +3521,7 @@
         "b"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-plate-small-b.png",
-      "tris": 44
+      "tris": 44.0
     },
     {
       "animations": [],
@@ -409,7 +3547,7 @@
         "a"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-spoiler-a.png",
-      "tris": 48
+      "tris": 48.0
     },
     {
       "animations": [],
@@ -435,7 +3573,7 @@
         "b"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-spoiler-b.png",
-      "tris": 88
+      "tris": 88.0
     },
     {
       "animations": [],
@@ -460,7 +3598,7 @@
         "tire"
       ],
       "thumb": "library/thumbs/kenney_cars/debris-tire.png",
-      "tris": 288
+      "tris": 288.0
     },
     {
       "animations": [],
@@ -485,7 +3623,7 @@
         "delivery"
       ],
       "thumb": "library/thumbs/kenney_cars/delivery.png",
-      "tris": 2476
+      "tris": 2476.0
     },
     {
       "animations": [],
@@ -511,7 +3649,7 @@
         "flat"
       ],
       "thumb": "library/thumbs/kenney_cars/delivery-flat.png",
-      "tris": 2574
+      "tris": 2574.0
     },
     {
       "animations": [],
@@ -536,7 +3674,7 @@
         "firetruck"
       ],
       "thumb": "library/thumbs/kenney_cars/firetruck.png",
-      "tris": 2767
+      "tris": 2767.0
     },
     {
       "animations": [],
@@ -562,7 +3700,7 @@
         "truck"
       ],
       "thumb": "library/thumbs/kenney_cars/garbage-truck.png",
-      "tris": 3124
+      "tris": 3124.0
     },
     {
       "animations": [],
@@ -588,7 +3726,7 @@
         "sports"
       ],
       "thumb": "library/thumbs/kenney_cars/hatchback-sports.png",
-      "tris": 2088
+      "tris": 2088.0
     },
     {
       "animations": [],
@@ -614,7 +3752,7 @@
         "oobi"
       ],
       "thumb": "library/thumbs/kenney_cars/kart-oobi.png",
-      "tris": 2884
+      "tris": 2884.0
     },
     {
       "animations": [],
@@ -640,7 +3778,7 @@
         "oodi"
       ],
       "thumb": "library/thumbs/kenney_cars/kart-oodi.png",
-      "tris": 2726
+      "tris": 2726.0
     },
     {
       "animations": [],
@@ -666,7 +3804,7 @@
         "ooli"
       ],
       "thumb": "library/thumbs/kenney_cars/kart-ooli.png",
-      "tris": 2706
+      "tris": 2706.0
     },
     {
       "animations": [],
@@ -692,7 +3830,7 @@
         "oopi"
       ],
       "thumb": "library/thumbs/kenney_cars/kart-oopi.png",
-      "tris": 2726
+      "tris": 2726.0
     },
     {
       "animations": [],
@@ -718,7 +3856,7 @@
         "oozi"
       ],
       "thumb": "library/thumbs/kenney_cars/kart-oozi.png",
-      "tris": 2726
+      "tris": 2726.0
     },
     {
       "animations": [],
@@ -743,7 +3881,7 @@
         "police"
       ],
       "thumb": "library/thumbs/kenney_cars/police.png",
-      "tris": 2304
+      "tris": 2304.0
     },
     {
       "animations": [],
@@ -768,7 +3906,7 @@
         "race"
       ],
       "thumb": "library/thumbs/kenney_cars/race.png",
-      "tris": 1952
+      "tris": 1952.0
     },
     {
       "animations": [],
@@ -794,7 +3932,7 @@
         "future"
       ],
       "thumb": "library/thumbs/kenney_cars/race-future.png",
-      "tris": 2068
+      "tris": 2068.0
     },
     {
       "animations": [],
@@ -819,7 +3957,7 @@
         "sedan"
       ],
       "thumb": "library/thumbs/kenney_cars/sedan.png",
-      "tris": 2032
+      "tris": 2032.0
     },
     {
       "animations": [],
@@ -845,7 +3983,7 @@
         "sports"
       ],
       "thumb": "library/thumbs/kenney_cars/sedan-sports.png",
-      "tris": 2088
+      "tris": 2088.0
     },
     {
       "animations": [],
@@ -870,7 +4008,7 @@
         "suv"
       ],
       "thumb": "library/thumbs/kenney_cars/suv.png",
-      "tris": 2474
+      "tris": 2474.0
     },
     {
       "animations": [],
@@ -896,7 +4034,7 @@
         "luxury"
       ],
       "thumb": "library/thumbs/kenney_cars/suv-luxury.png",
-      "tris": 2086
+      "tris": 2086.0
     },
     {
       "animations": [],
@@ -921,7 +4059,7 @@
         "taxi"
       ],
       "thumb": "library/thumbs/kenney_cars/taxi.png",
-      "tris": 2072
+      "tris": 2072.0
     },
     {
       "animations": [],
@@ -946,7 +4084,7 @@
         "tractor"
       ],
       "thumb": "library/thumbs/kenney_cars/tractor.png",
-      "tris": 2044
+      "tris": 2044.0
     },
     {
       "animations": [],
@@ -972,7 +4110,7 @@
         "police"
       ],
       "thumb": "library/thumbs/kenney_cars/tractor-police.png",
-      "tris": 2278
+      "tris": 2278.0
     },
     {
       "animations": [],
@@ -998,7 +4136,7 @@
         "shovel"
       ],
       "thumb": "library/thumbs/kenney_cars/tractor-shovel.png",
-      "tris": 2646
+      "tris": 2646.0
     },
     {
       "animations": [],
@@ -1023,7 +4161,7 @@
         "truck"
       ],
       "thumb": "library/thumbs/kenney_cars/truck.png",
-      "tris": 2082
+      "tris": 2082.0
     },
     {
       "animations": [],
@@ -1049,7 +4187,7 @@
         "flat"
       ],
       "thumb": "library/thumbs/kenney_cars/truck-flat.png",
-      "tris": 2488
+      "tris": 2488.0
     },
     {
       "animations": [],
@@ -1074,7 +4212,7 @@
         "van"
       ],
       "thumb": "library/thumbs/kenney_cars/van.png",
-      "tris": 2082
+      "tris": 2082.0
     },
     {
       "animations": [],
@@ -1100,7 +4238,7 @@
         "dark"
       ],
       "thumb": "library/thumbs/kenney_cars/wheel-dark.png",
-      "tris": 332
+      "tris": 332.0
     },
     {
       "animations": [],
@@ -1126,7 +4264,7 @@
         "default"
       ],
       "thumb": "library/thumbs/kenney_cars/wheel-default.png",
-      "tris": 332
+      "tris": 332.0
     },
     {
       "animations": [],
@@ -1152,7 +4290,7 @@
         "racing"
       ],
       "thumb": "library/thumbs/kenney_cars/wheel-racing.png",
-      "tris": 332
+      "tris": 332.0
     },
     {
       "animations": [],
@@ -1179,7 +4317,7 @@
         "back"
       ],
       "thumb": "library/thumbs/kenney_cars/wheel-tractor-back.png",
-      "tris": 428
+      "tris": 428.0
     },
     {
       "animations": [],
@@ -1207,7 +4345,7 @@
         "back"
       ],
       "thumb": "library/thumbs/kenney_cars/wheel-tractor-dark-back.png",
-      "tris": 428
+      "tris": 428.0
     },
     {
       "animations": [],
@@ -1235,7 +4373,7 @@
         "front"
       ],
       "thumb": "library/thumbs/kenney_cars/wheel-tractor-dark-front.png",
-      "tris": 332
+      "tris": 332.0
     },
     {
       "animations": [],
@@ -1262,7 +4400,7 @@
         "front"
       ],
       "thumb": "library/thumbs/kenney_cars/wheel-tractor-front.png",
-      "tris": 332
+      "tris": 332.0
     },
     {
       "animations": [],
@@ -1288,7 +4426,7 @@
         "truck"
       ],
       "thumb": "library/thumbs/kenney_cars/wheel-truck.png",
-      "tris": 428
+      "tris": 428.0
     },
     {
       "animations": [],
@@ -1313,7 +4451,7 @@
         "charactermedium"
       ],
       "thumb": "library/thumbs/kenney_characters/characterMedium.png",
-      "tris": 1604
+      "tris": 1604.0
     },
     {
       "animations": [
@@ -1323,25 +4461,25 @@
       "category": "animation",
       "id": "kenney_characters/idle",
       "min": [
-        0,
-        0,
-        0
+        0.0,
+        0.0,
+        0.0
       ],
       "name": "idle",
       "pack": "kenney_characters",
       "path": "res://assets/kenney_characters/Animations/idle.fbx",
       "rigged": true,
       "size": [
-        0,
-        0,
-        0
+        0.0,
+        0.0,
+        0.0
       ],
       "tags": [
         "animation",
         "idle"
       ],
       "thumb": "library/thumbs/kenney_characters/idle.png",
-      "tris": 0
+      "tris": 0.0
     },
     {
       "animations": [
@@ -1351,25 +4489,25 @@
       "category": "animation",
       "id": "kenney_characters/jump",
       "min": [
-        0,
-        0,
-        0
+        0.0,
+        0.0,
+        0.0
       ],
       "name": "jump",
       "pack": "kenney_characters",
       "path": "res://assets/kenney_characters/Animations/jump.fbx",
       "rigged": true,
       "size": [
-        0,
-        0,
-        0
+        0.0,
+        0.0,
+        0.0
       ],
       "tags": [
         "animation",
         "jump"
       ],
       "thumb": "library/thumbs/kenney_characters/jump.png",
-      "tris": 0
+      "tris": 0.0
     },
     {
       "animations": [
@@ -1379,25 +4517,25 @@
       "category": "animation",
       "id": "kenney_characters/run",
       "min": [
-        0,
-        0,
-        0
+        0.0,
+        0.0,
+        0.0
       ],
       "name": "run",
       "pack": "kenney_characters",
       "path": "res://assets/kenney_characters/Animations/run.fbx",
       "rigged": true,
       "size": [
-        0,
-        0,
-        0
+        0.0,
+        0.0,
+        0.0
       ],
       "tags": [
         "animation",
         "run"
       ],
       "thumb": "library/thumbs/kenney_characters/run.png",
-      "tris": 0
+      "tris": 0.0
     },
     {
       "animations": [],
@@ -1424,7 +4562,7 @@
         "a"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-a.png",
-      "tris": 1174
+      "tris": 1174.0
     },
     {
       "animations": [],
@@ -1451,7 +4589,7 @@
         "b"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-b.png",
-      "tris": 1748
+      "tris": 1748.0
     },
     {
       "animations": [],
@@ -1478,7 +4616,7 @@
         "c"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-c.png",
-      "tris": 1196
+      "tris": 1196.0
     },
     {
       "animations": [],
@@ -1505,7 +4643,7 @@
         "d"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-d.png",
-      "tris": 1757
+      "tris": 1757.0
     },
     {
       "animations": [],
@@ -1532,7 +4670,7 @@
         "e"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-e.png",
-      "tris": 1731
+      "tris": 1731.0
     },
     {
       "animations": [],
@@ -1559,7 +4697,7 @@
         "f"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-f.png",
-      "tris": 1616
+      "tris": 1616.0
     },
     {
       "animations": [],
@@ -1586,7 +4724,7 @@
         "g"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-g.png",
-      "tris": 1067
+      "tris": 1067.0
     },
     {
       "animations": [],
@@ -1613,7 +4751,7 @@
         "h"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-h.png",
-      "tris": 770
+      "tris": 770.0
     },
     {
       "animations": [],
@@ -1640,7 +4778,7 @@
         "i"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-i.png",
-      "tris": 800
+      "tris": 800.0
     },
     {
       "animations": [],
@@ -1667,7 +4805,7 @@
         "j"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-j.png",
-      "tris": 1210
+      "tris": 1210.0
     },
     {
       "animations": [],
@@ -1694,7 +4832,7 @@
         "k"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-k.png",
-      "tris": 1024
+      "tris": 1024.0
     },
     {
       "animations": [],
@@ -1721,7 +4859,7 @@
         "l"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-l.png",
-      "tris": 1310
+      "tris": 1310.0
     },
     {
       "animations": [],
@@ -1748,7 +4886,7 @@
         "m"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-m.png",
-      "tris": 1112
+      "tris": 1112.0
     },
     {
       "animations": [],
@@ -1775,7 +4913,7 @@
         "n"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-n.png",
-      "tris": 1612
+      "tris": 1612.0
     },
     {
       "animations": [],
@@ -1802,7 +4940,7 @@
         "o"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-o.png",
-      "tris": 1326
+      "tris": 1326.0
     },
     {
       "animations": [],
@@ -1829,7 +4967,7 @@
         "p"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-p.png",
-      "tris": 1282
+      "tris": 1282.0
     },
     {
       "animations": [],
@@ -1856,7 +4994,7 @@
         "q"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-q.png",
-      "tris": 1140
+      "tris": 1140.0
     },
     {
       "animations": [],
@@ -1883,7 +5021,7 @@
         "r"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-r.png",
-      "tris": 1030
+      "tris": 1030.0
     },
     {
       "animations": [],
@@ -1910,7 +5048,7 @@
         "s"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-s.png",
-      "tris": 1212
+      "tris": 1212.0
     },
     {
       "animations": [],
@@ -1937,7 +5075,7 @@
         "t"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-t.png",
-      "tris": 2062
+      "tris": 2062.0
     },
     {
       "animations": [],
@@ -1964,7 +5102,7 @@
         "u"
       ],
       "thumb": "library/thumbs/kenney_suburban/building-type-u.png",
-      "tris": 1332
+      "tris": 1332.0
     },
     {
       "animations": [],
@@ -1990,7 +5128,7 @@
         "long"
       ],
       "thumb": "library/thumbs/kenney_suburban/driveway-long.png",
-      "tris": 12
+      "tris": 12.0
     },
     {
       "animations": [],
@@ -2016,7 +5154,7 @@
         "short"
       ],
       "thumb": "library/thumbs/kenney_suburban/driveway-short.png",
-      "tris": 12
+      "tris": 12.0
     },
     {
       "animations": [],
@@ -2040,7 +5178,7 @@
         "fence"
       ],
       "thumb": "library/thumbs/kenney_suburban/fence.png",
-      "tris": 88
+      "tris": 88.0
     },
     {
       "animations": [],
@@ -2065,7 +5203,7 @@
         "1x2"
       ],
       "thumb": "library/thumbs/kenney_suburban/fence-1x2.png",
-      "tris": 156
+      "tris": 156.0
     },
     {
       "animations": [],
@@ -2090,7 +5228,7 @@
         "1x3"
       ],
       "thumb": "library/thumbs/kenney_suburban/fence-1x3.png",
-      "tris": 204
+      "tris": 204.0
     },
     {
       "animations": [],
@@ -2115,7 +5253,7 @@
         "1x4"
       ],
       "thumb": "library/thumbs/kenney_suburban/fence-1x4.png",
-      "tris": 252
+      "tris": 252.0
     },
     {
       "animations": [],
@@ -2140,7 +5278,7 @@
         "2x2"
       ],
       "thumb": "library/thumbs/kenney_suburban/fence-2x2.png",
-      "tris": 236
+      "tris": 236.0
     },
     {
       "animations": [],
@@ -2165,7 +5303,7 @@
         "2x3"
       ],
       "thumb": "library/thumbs/kenney_suburban/fence-2x3.png",
-      "tris": 284
+      "tris": 284.0
     },
     {
       "animations": [],
@@ -2190,7 +5328,7 @@
         "3x2"
       ],
       "thumb": "library/thumbs/kenney_suburban/fence-3x2.png",
-      "tris": 316
+      "tris": 316.0
     },
     {
       "animations": [],
@@ -2215,7 +5353,7 @@
         "3x3"
       ],
       "thumb": "library/thumbs/kenney_suburban/fence-3x3.png",
-      "tris": 364
+      "tris": 364.0
     },
     {
       "animations": [],
@@ -2240,7 +5378,7 @@
         "low"
       ],
       "thumb": "library/thumbs/kenney_suburban/fence-low.png",
-      "tris": 180
+      "tris": 180.0
     },
     {
       "animations": [],
@@ -2265,7 +5403,7 @@
         "long"
       ],
       "thumb": "library/thumbs/kenney_suburban/path-long.png",
-      "tris": 12
+      "tris": 12.0
     },
     {
       "animations": [],
@@ -2290,7 +5428,7 @@
         "short"
       ],
       "thumb": "library/thumbs/kenney_suburban/path-short.png",
-      "tris": 12
+      "tris": 12.0
     },
     {
       "animations": [],
@@ -2316,7 +5454,7 @@
         "long"
       ],
       "thumb": "library/thumbs/kenney_suburban/path-stones-long.png",
-      "tris": 48
+      "tris": 48.0
     },
     {
       "animations": [],
@@ -2342,7 +5480,7 @@
         "messy"
       ],
       "thumb": "library/thumbs/kenney_suburban/path-stones-messy.png",
-      "tris": 36
+      "tris": 36.0
     },
     {
       "animations": [],
@@ -2368,7 +5506,7 @@
         "short"
       ],
       "thumb": "library/thumbs/kenney_suburban/path-stones-short.png",
-      "tris": 24
+      "tris": 24.0
     },
     {
       "animations": [],
@@ -2393,7 +5531,7 @@
         "planter"
       ],
       "thumb": "library/thumbs/kenney_suburban/planter.png",
-      "tris": 204
+      "tris": 204.0
     },
     {
       "animations": [],
@@ -2418,7 +5556,7 @@
         "large"
       ],
       "thumb": "library/thumbs/kenney_suburban/tree-large.png",
-      "tris": 42
+      "tris": 42.0
     },
     {
       "animations": [],
@@ -2443,7 +5581,7 @@
         "small"
       ],
       "thumb": "library/thumbs/kenney_suburban/tree-small.png",
-      "tris": 42
+      "tris": 42.0
     },
     {
       "animations": [],
@@ -2470,7 +5608,7 @@
         "l"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_90Angle_L.png",
-      "tris": 18
+      "tris": 18.0
     },
     {
       "animations": [],
@@ -2497,7 +5635,7 @@
         "r"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_90Angle_R.png",
-      "tris": 18
+      "tris": 18.0
     },
     {
       "animations": [],
@@ -2523,7 +5661,7 @@
         "bottomtrim"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_BottomTrim.png",
-      "tris": 52
+      "tris": 52.0
     },
     {
       "animations": [],
@@ -2550,7 +5688,7 @@
         "redbricks"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Column_RedBricks.png",
-      "tris": 380
+      "tris": 380.0
     },
     {
       "animations": [],
@@ -2577,7 +5715,7 @@
         "small"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Column_Small.png",
-      "tris": 32
+      "tris": 32.0
     },
     {
       "animations": [],
@@ -2604,7 +5742,7 @@
         "trimbricks"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Column_TrimBricks.png",
-      "tris": 298
+      "tris": 298.0
     },
     {
       "animations": [],
@@ -2631,7 +5769,7 @@
         "bottom"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_CornerColumn_Bottom.png",
-      "tris": 80
+      "tris": 80.0
     },
     {
       "animations": [],
@@ -2658,7 +5796,7 @@
         "cap"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_CornerColumn_Cap.png",
-      "tris": 108
+      "tris": 108.0
     },
     {
       "animations": [],
@@ -2685,7 +5823,7 @@
         "capshort"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_CornerColumn_CapShort.png",
-      "tris": 60
+      "tris": 60.0
     },
     {
       "animations": [],
@@ -2712,7 +5850,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_CornerColumn_Center.png",
-      "tris": 32
+      "tris": 32.0
     },
     {
       "animations": [],
@@ -2740,7 +5878,7 @@
         "half"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_CornerColumn_Center_Half.png",
-      "tris": 32
+      "tris": 32.0
     },
     {
       "animations": [],
@@ -2767,7 +5905,7 @@
         "top"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_CornerColumn_Top.png",
-      "tris": 80
+      "tris": 80.0
     },
     {
       "animations": [],
@@ -2794,7 +5932,7 @@
         "plain"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Corner_Plain.png",
-      "tris": 12
+      "tris": 12.0
     },
     {
       "animations": [],
@@ -2821,7 +5959,7 @@
         "bottom"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_HalfColumn_Bottom.png",
-      "tris": 84
+      "tris": 84.0
     },
     {
       "animations": [],
@@ -2848,7 +5986,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_HalfColumn_Center.png",
-      "tris": 48
+      "tris": 48.0
     },
     {
       "animations": [],
@@ -2875,7 +6013,7 @@
         "top"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_HalfColumn_Top.png",
-      "tris": 84
+      "tris": 84.0
     },
     {
       "animations": [],
@@ -2901,7 +6039,7 @@
         "halftrim"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_HalfTrim.png",
-      "tris": 24
+      "tris": 24.0
     },
     {
       "animations": [],
@@ -2927,7 +6065,7 @@
         "inset"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Inset.png",
-      "tris": 72
+      "tris": 72.0
     },
     {
       "animations": [],
@@ -2954,7 +6092,7 @@
         "window"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Inset_Window.png",
-      "tris": 488
+      "tris": 488.0
     },
     {
       "animations": [],
@@ -2982,7 +6120,7 @@
         "curved"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Inset_Window_Curved.png",
-      "tris": 656
+      "tris": 656.0
     },
     {
       "animations": [],
@@ -3011,7 +6149,7 @@
         "small"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Inset_Window_Curved_Small.png",
-      "tris": 568
+      "tris": 568.0
     },
     {
       "animations": [],
@@ -3037,7 +6175,7 @@
         "interiorwall"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_InteriorWall_1.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -3063,7 +6201,7 @@
         "interiorwall"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_InteriorWall_3.png",
-      "tris": 4
+      "tris": 4.0
     },
     {
       "animations": [],
@@ -3089,7 +6227,7 @@
         "interiorwall"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_InteriorWall_4.png",
-      "tris": 4
+      "tris": 4.0
     },
     {
       "animations": [],
@@ -3116,7 +6254,7 @@
         "horizontal"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Ornament_Horizontal.png",
-      "tris": 312
+      "tris": 312.0
     },
     {
       "animations": [],
@@ -3142,7 +6280,7 @@
         "plain"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Plain_1.png",
-      "tris": 4
+      "tris": 4.0
     },
     {
       "animations": [],
@@ -3168,7 +6306,7 @@
         "plain"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Plain_3.png",
-      "tris": 6
+      "tris": 6.0
     },
     {
       "animations": [],
@@ -3195,7 +6333,7 @@
         "nowear"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Plain_3_noWear.png",
-      "tris": 6
+      "tris": 6.0
     },
     {
       "animations": [],
@@ -3221,7 +6359,7 @@
         "plain"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Plain_4.png",
-      "tris": 8
+      "tris": 8.0
     },
     {
       "animations": [],
@@ -3248,7 +6386,7 @@
         "doublewindow"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_RedWhite_DoubleWindow.png",
-      "tris": 794
+      "tris": 794.0
     },
     {
       "animations": [],
@@ -3274,7 +6412,7 @@
         "toptrim"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_TopTrim.png",
-      "tris": 16
+      "tris": 16.0
     },
     {
       "animations": [],
@@ -3302,7 +6440,7 @@
         "l"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_TopTrim_90Angle_L.png",
-      "tris": 38
+      "tris": 38.0
     },
     {
       "animations": [],
@@ -3330,7 +6468,7 @@
         "r"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_TopTrim_90Angle_R.png",
-      "tris": 38
+      "tris": 38.0
     },
     {
       "animations": [],
@@ -3357,7 +6495,7 @@
         "corner"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_TopTrim_Corner.png",
-      "tris": 24
+      "tris": 24.0
     },
     {
       "animations": [],
@@ -3384,7 +6522,7 @@
         "curveddouble"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Window_CurvedDouble.png",
-      "tris": 1137
+      "tris": 1137.0
     },
     {
       "animations": [],
@@ -3412,7 +6550,7 @@
         "single"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Window_Square_Single.png",
-      "tris": 190
+      "tris": 190.0
     },
     {
       "animations": [],
@@ -3439,7 +6577,7 @@
         "trim"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Window_Trim.png",
-      "tris": 652
+      "tris": 652.0
     },
     {
       "animations": [],
@@ -3467,7 +6605,7 @@
         "single"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Brick_Window_Trim_Single.png",
-      "tris": 426
+      "tris": 426.0
     },
     {
       "animations": [],
@@ -3492,7 +6630,7 @@
         "large"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Building_Large_2.png",
-      "tris": 45122
+      "tris": 45122.0
     },
     {
       "animations": [],
@@ -3517,7 +6655,7 @@
         "medium"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Building_Medium_2_001.png",
-      "tris": 25612
+      "tris": 25612.0
     },
     {
       "animations": [],
@@ -3542,7 +6680,7 @@
         "small"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Building_Small_1.png",
-      "tris": 18344
+      "tris": 18344.0
     },
     {
       "animations": [],
@@ -3570,7 +6708,7 @@
         "l"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Brick_90Angle_L.png",
-      "tris": 29
+      "tris": 29.0
     },
     {
       "animations": [],
@@ -3598,7 +6736,7 @@
         "r"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Brick_90Angle_R.png",
-      "tris": 29
+      "tris": 29.0
     },
     {
       "animations": [],
@@ -3625,7 +6763,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Brick_Center.png",
-      "tris": 6
+      "tris": 6.0
     },
     {
       "animations": [],
@@ -3652,7 +6790,7 @@
         "l"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Brick_L.png",
-      "tris": 6
+      "tris": 6.0
     },
     {
       "animations": [],
@@ -3679,7 +6817,7 @@
         "r"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Brick_R.png",
-      "tris": 6
+      "tris": 6.0
     },
     {
       "animations": [],
@@ -3707,7 +6845,7 @@
         "l"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Metal_90Angle_L.png",
-      "tris": 90
+      "tris": 90.0
     },
     {
       "animations": [],
@@ -3735,7 +6873,7 @@
         "r"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Metal_90Angle_R.png",
-      "tris": 90
+      "tris": 90.0
     },
     {
       "animations": [],
@@ -3762,7 +6900,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Metal_Center.png",
-      "tris": 30
+      "tris": 30.0
     },
     {
       "animations": [],
@@ -3789,7 +6927,7 @@
         "l"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Metal_L.png",
-      "tris": 72
+      "tris": 72.0
     },
     {
       "animations": [],
@@ -3816,7 +6954,7 @@
         "r"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Metal_R.png",
-      "tris": 72
+      "tris": 72.0
     },
     {
       "animations": [],
@@ -3844,7 +6982,7 @@
         "l"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Trim_90Angle_L.png",
-      "tris": 160
+      "tris": 160.0
     },
     {
       "animations": [],
@@ -3872,7 +7010,7 @@
         "r"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Trim_90Angle_R.png",
-      "tris": 160
+      "tris": 160.0
     },
     {
       "animations": [],
@@ -3899,7 +7037,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Trim_Center.png",
-      "tris": 112
+      "tris": 112.0
     },
     {
       "animations": [],
@@ -3926,7 +7064,7 @@
         "l"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Trim_L.png",
-      "tris": 116
+      "tris": 116.0
     },
     {
       "animations": [],
@@ -3953,7 +7091,7 @@
         "r"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Cornice_Trim_R.png",
-      "tris": 116
+      "tris": 116.0
     },
     {
       "animations": [],
@@ -3979,7 +7117,7 @@
         "arrowforwardleft"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_ArrowForwardLeft.png",
-      "tris": 10
+      "tris": 10.0
     },
     {
       "animations": [],
@@ -4005,7 +7143,7 @@
         "arrowforwardright"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_ArrowForwardRight.png",
-      "tris": 10
+      "tris": 10.0
     },
     {
       "animations": [],
@@ -4031,7 +7169,7 @@
         "arrowstraight"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_ArrowStraight.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -4057,7 +7195,7 @@
         "arrowturnleft"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_ArrowTurnLeft.png",
-      "tris": 4
+      "tris": 4.0
     },
     {
       "animations": [],
@@ -4083,7 +7221,7 @@
         "arrowturnright"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_ArrowTurnRight.png",
-      "tris": 4
+      "tris": 4.0
     },
     {
       "animations": [],
@@ -4109,7 +7247,7 @@
         "bikelane"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Bikelane.png",
-      "tris": 8
+      "tris": 8.0
     },
     {
       "animations": [],
@@ -4136,7 +7274,7 @@
         "straight"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_BrokenLine_Straight.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -4162,7 +7300,7 @@
         "crosswalk"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Crosswalk.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -4189,7 +7327,7 @@
         "wide"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Crosswalk_Wide.png",
-      "tris": 4
+      "tris": 4.0
     },
     {
       "animations": [],
@@ -4217,7 +7355,7 @@
         "stripe"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Curve_2Lane_Stripe.png",
-      "tris": 32
+      "tris": 32.0
     },
     {
       "animations": [],
@@ -4244,7 +7382,7 @@
         "4laneshort"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Curve_4LaneShort.png",
-      "tris": 48
+      "tris": 48.0
     },
     {
       "animations": [],
@@ -4272,7 +7410,7 @@
         "doubleyellow"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Curve_4LaneShort_DoubleYellow.png",
-      "tris": 48
+      "tris": 48.0
     },
     {
       "animations": [],
@@ -4300,7 +7438,7 @@
         "stripe"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Curve_4LaneShort_Stripe.png",
-      "tris": 48
+      "tris": 48.0
     },
     {
       "animations": [],
@@ -4327,7 +7465,7 @@
         "straight"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_DoubleYellow_Straight.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -4353,7 +7491,7 @@
         "only"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Only.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -4379,7 +7517,7 @@
         "slow"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Slow.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -4405,7 +7543,7 @@
         "stop"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Decal_Stop.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -4432,7 +7570,7 @@
         "single"
       ],
       "thumb": "library/thumbs/quaternius_downtown/DoorFrame_Metal_Single.png",
-      "tris": 239
+      "tris": 239.0
     },
     {
       "animations": [],
@@ -4458,7 +7596,7 @@
         "trim"
       ],
       "thumb": "library/thumbs/quaternius_downtown/DoorFrame_Trim.png",
-      "tris": 860
+      "tris": 860.0
     },
     {
       "animations": [],
@@ -4484,7 +7622,7 @@
         "wooden"
       ],
       "thumb": "library/thumbs/quaternius_downtown/DoorFrame_Wooden.png",
-      "tris": 438
+      "tris": 438.0
     },
     {
       "animations": [],
@@ -4509,7 +7647,7 @@
         "door"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Door_1.png",
-      "tris": 676
+      "tris": 676.0
     },
     {
       "animations": [],
@@ -4534,7 +7672,7 @@
         "door"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Door_2.png",
-      "tris": 186
+      "tris": 186.0
     },
     {
       "animations": [],
@@ -4559,7 +7697,7 @@
         "door"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Door_3.png",
-      "tris": 278
+      "tris": 278.0
     },
     {
       "animations": [],
@@ -4586,7 +7724,7 @@
         "2x1"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Entrance_Concrete_2x1.png",
-      "tris": 12
+      "tris": 12.0
     },
     {
       "animations": [],
@@ -4613,7 +7751,7 @@
         "2x2"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Entrance_Concrete_2x2.png",
-      "tris": 12
+      "tris": 12.0
     },
     {
       "animations": [],
@@ -4639,7 +7777,7 @@
         "2x2"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Floor_2x2.png",
-      "tris": 4
+      "tris": 4.0
     },
     {
       "animations": [],
@@ -4665,7 +7803,7 @@
         "4x4"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Floor_4x4.png",
-      "tris": 16
+      "tris": 16.0
     },
     {
       "animations": [],
@@ -4691,7 +7829,7 @@
         "inset"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Floor_Inset.png",
-      "tris": 8
+      "tris": 8.0
     },
     {
       "animations": [],
@@ -4718,7 +7856,7 @@
         "bottom"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Column_Bottom.png",
-      "tris": 112
+      "tris": 112.0
     },
     {
       "animations": [],
@@ -4745,7 +7883,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Column_Center.png",
-      "tris": 16
+      "tris": 16.0
     },
     {
       "animations": [],
@@ -4773,7 +7911,7 @@
         "bottom"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Column_Small_Bottom.png",
-      "tris": 112
+      "tris": 112.0
     },
     {
       "animations": [],
@@ -4801,7 +7939,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Column_Small_Center.png",
-      "tris": 16
+      "tris": 16.0
     },
     {
       "animations": [],
@@ -4829,7 +7967,7 @@
         "top"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Column_Small_Top.png",
-      "tris": 120
+      "tris": 120.0
     },
     {
       "animations": [],
@@ -4856,7 +7994,7 @@
         "top"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Column_Top.png",
-      "tris": 120
+      "tris": 120.0
     },
     {
       "animations": [],
@@ -4883,7 +8021,7 @@
         "wall"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_FirstFloor_Wall.png",
-      "tris": 36
+      "tris": 36.0
     },
     {
       "animations": [],
@@ -4910,7 +8048,7 @@
         "wall"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_FirstFloor_Wall_1.png",
-      "tris": 8
+      "tris": 8.0
     },
     {
       "animations": [],
@@ -4937,7 +8075,7 @@
         "window"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_FirstFloor_Window.png",
-      "tris": 156
+      "tris": 156.0
     },
     {
       "animations": [],
@@ -4963,7 +8101,7 @@
         "fullwindow"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_FullWindow.png",
-      "tris": 210
+      "tris": 210.0
     },
     {
       "animations": [],
@@ -4989,7 +8127,7 @@
         "plain"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Plain_1.png",
-      "tris": 6
+      "tris": 6.0
     },
     {
       "animations": [],
@@ -5015,7 +8153,7 @@
         "plain"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Plain_3.png",
-      "tris": 18
+      "tris": 18.0
     },
     {
       "animations": [],
@@ -5041,7 +8179,7 @@
         "window"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Window.png",
-      "tris": 578
+      "tris": 578.0
     },
     {
       "animations": [],
@@ -5068,7 +8206,7 @@
         "half"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Metal_Window_Half.png",
-      "tris": 312
+      "tris": 312.0
     },
     {
       "animations": [],
@@ -5093,7 +8231,7 @@
         "acunit"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Prop_ACUnit.png",
-      "tris": 136
+      "tris": 136.0
     },
     {
       "animations": [],
@@ -5118,7 +8256,7 @@
         "bollard"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Prop_Bollard.png",
-      "tris": 190
+      "tris": 190.0
     },
     {
       "animations": [],
@@ -5143,7 +8281,7 @@
         "drain"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Prop_Drain.png",
-      "tris": 10
+      "tris": 10.0
     },
     {
       "animations": [],
@@ -5168,7 +8306,7 @@
         "manholecover"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Prop_ManholeCover.png",
-      "tris": 118
+      "tris": 118.0
     },
     {
       "animations": [],
@@ -5194,7 +8332,7 @@
         "single"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Prop_Planter_Single.png",
-      "tris": 118
+      "tris": 118.0
     },
     {
       "animations": [],
@@ -5220,7 +8358,7 @@
         "2x2"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_2x2.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -5248,7 +8386,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_2x2_90Angle_Center.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -5276,7 +8414,7 @@
         "l"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_2x2_90Angle_L.png",
-      "tris": 6
+      "tris": 6.0
     },
     {
       "animations": [],
@@ -5304,7 +8442,7 @@
         "r"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_2x2_90Angle_R.png",
-      "tris": 6
+      "tris": 6.0
     },
     {
       "animations": [],
@@ -5330,7 +8468,7 @@
         "4x4"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_4x4.png",
-      "tris": 8
+      "tris": 8.0
     },
     {
       "animations": [],
@@ -5357,7 +8495,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_SlateCornice_Center.png",
-      "tris": 26
+      "tris": 26.0
     },
     {
       "animations": [],
@@ -5384,7 +8522,7 @@
         "corner"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_SlateCornice_Corner.png",
-      "tris": 76
+      "tris": 76.0
     },
     {
       "animations": [],
@@ -5411,7 +8549,7 @@
         "innercorner"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_SlateCornice_InnerCorner.png",
-      "tris": 42
+      "tris": 42.0
     },
     {
       "animations": [],
@@ -5438,7 +8576,7 @@
         "window"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_SlateCornice_Window_1.png",
-      "tris": 390
+      "tris": 390.0
     },
     {
       "animations": [],
@@ -5465,7 +8603,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_Slate_Center.png",
-      "tris": 6
+      "tris": 6.0
     },
     {
       "animations": [],
@@ -5492,7 +8630,7 @@
         "corner"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_Slate_Corner.png",
-      "tris": 44
+      "tris": 44.0
     },
     {
       "animations": [],
@@ -5519,7 +8657,7 @@
         "innercorner"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_Slate_InnerCorner.png",
-      "tris": 10
+      "tris": 10.0
     },
     {
       "animations": [],
@@ -5546,7 +8684,7 @@
         "window"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Roof_Slate_Window_1.png",
-      "tris": 370
+      "tris": 370.0
     },
     {
       "animations": [],
@@ -5574,7 +8712,7 @@
         "3m"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Sidewalk_Corner_Flat_3m.png",
-      "tris": 97
+      "tris": 97.0
     },
     {
       "animations": [],
@@ -5603,7 +8741,7 @@
         "stripe"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Sidewalk_Corner_Flat_3m_Stripe.png",
-      "tris": 14
+      "tris": 14.0
     },
     {
       "animations": [],
@@ -5631,7 +8769,7 @@
         "3m"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Sidewalk_Corner_Round_3m.png",
-      "tris": 177
+      "tris": 177.0
     },
     {
       "animations": [],
@@ -5660,7 +8798,7 @@
         "stripe"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Sidewalk_Corner_Round_3m_Stripe.png",
-      "tris": 24
+      "tris": 24.0
     },
     {
       "animations": [],
@@ -5687,7 +8825,7 @@
         "3m"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Sidewalk_NoCurb_3m.png",
-      "tris": 42
+      "tris": 42.0
     },
     {
       "animations": [],
@@ -5713,7 +8851,7 @@
         "planter"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Sidewalk_Planter.png",
-      "tris": 598
+      "tris": 598.0
     },
     {
       "animations": [],
@@ -5740,7 +8878,7 @@
         "3m"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Sidewalk_Straight_3m.png",
-      "tris": 60
+      "tris": 60.0
     },
     {
       "animations": [],
@@ -5768,7 +8906,7 @@
         "stripe"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Sidewalk_Straight_3m_Stripe.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -5795,7 +8933,7 @@
         "concrete"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Stairs_Entrance_Concrete.png",
-      "tris": 128
+      "tris": 128.0
     },
     {
       "animations": [],
@@ -5822,7 +8960,7 @@
         "metal"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Stairs_Rails_Metal.png",
-      "tris": 564
+      "tris": 564.0
     },
     {
       "animations": [],
@@ -5850,7 +8988,7 @@
         "straight"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Stairs_Rails_Metal_Straight_1.png",
-      "tris": 168
+      "tris": 168.0
     },
     {
       "animations": [],
@@ -5878,7 +9016,7 @@
         "straight"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Stairs_Rails_Metal_Straight_2.png",
-      "tris": 320
+      "tris": 320.0
     },
     {
       "animations": [],
@@ -5903,7 +9041,7 @@
         "2lane"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_2Lane.png",
-      "tris": 220
+      "tris": 220.0
     },
     {
       "animations": [],
@@ -5929,7 +9067,7 @@
         "nosidewalk"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_2Lane_noSidewalk.png",
-      "tris": 16
+      "tris": 16.0
     },
     {
       "animations": [],
@@ -5954,7 +9092,7 @@
         "4lane"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_4Lane.png",
-      "tris": 252
+      "tris": 252.0
     },
     {
       "animations": [],
@@ -5980,7 +9118,7 @@
         "nosidewalk"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_4Lane_noSidewalk.png",
-      "tris": 12
+      "tris": 12.0
     },
     {
       "animations": [],
@@ -6005,7 +9143,7 @@
         "4wayintersection"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_4WayIntersection.png",
-      "tris": 892
+      "tris": 892.0
     },
     {
       "animations": [],
@@ -6031,7 +9169,7 @@
         "6x6"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_Asphalt_6x6.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -6057,7 +9195,7 @@
         "9x9"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_Asphalt_9x9.png",
-      "tris": 2
+      "tris": 2.0
     },
     {
       "animations": [],
@@ -6084,7 +9222,7 @@
         "2lane"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_Asphalt_Curve_2Lane.png",
-      "tris": 48
+      "tris": 48.0
     },
     {
       "animations": [],
@@ -6112,7 +9250,7 @@
         "short"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_Asphalt_Curve_4Lane_Short.png",
-      "tris": 49
+      "tris": 49.0
     },
     {
       "animations": [],
@@ -6138,7 +9276,7 @@
         "2lane"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_Curve_2Lane.png",
-      "tris": 505
+      "tris": 505.0
     },
     {
       "animations": [],
@@ -6165,7 +9303,7 @@
         "curb"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_Curve_2Lane_Curb.png",
-      "tris": 224
+      "tris": 224.0
     },
     {
       "animations": [],
@@ -6191,7 +9329,7 @@
         "4laneshort"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_Curve_4LaneShort.png",
-      "tris": 634
+      "tris": 634.0
     },
     {
       "animations": [],
@@ -6219,7 +9357,7 @@
         "curb"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_Curve_4Lane_Short_Curb.png",
-      "tris": 336
+      "tris": 336.0
     },
     {
       "animations": [],
@@ -6244,7 +9382,7 @@
         "tintersection"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Street_TIntersection.png",
-      "tris": 858
+      "tris": 858.0
     },
     {
       "animations": [],
@@ -6271,7 +9409,7 @@
         "topcover"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_90Angle_TopCover.png",
-      "tris": 10
+      "tris": 10.0
     },
     {
       "animations": [],
@@ -6298,7 +9436,7 @@
         "bottom"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_Column_Bottom.png",
-      "tris": 216
+      "tris": 216.0
     },
     {
       "animations": [],
@@ -6325,7 +9463,7 @@
         "center"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_Column_Center.png",
-      "tris": 64
+      "tris": 64.0
     },
     {
       "animations": [],
@@ -6352,7 +9490,7 @@
         "top"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_Column_Top.png",
-      "tris": 216
+      "tris": 216.0
     },
     {
       "animations": [],
@@ -6378,7 +9516,7 @@
         "corner"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_Corner.png",
-      "tris": 68
+      "tris": 68.0
     },
     {
       "animations": [],
@@ -6405,7 +9543,7 @@
         "wall"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_FirstFloor_Wall.png",
-      "tris": 50
+      "tris": 50.0
     },
     {
       "animations": [],
@@ -6432,7 +9570,7 @@
         "window"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_FirstFloor_Window_001.png",
-      "tris": 160
+      "tris": 160.0
     },
     {
       "animations": [],
@@ -6460,7 +9598,7 @@
         "columns"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_FirstFloor_Window_Columns.png",
-      "tris": 32
+      "tris": 32.0
     },
     {
       "animations": [],
@@ -6486,7 +9624,7 @@
         "plain"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_Plain_3.png",
-      "tris": 34
+      "tris": 34.0
     },
     {
       "animations": [],
@@ -6513,7 +9651,7 @@
         "guard"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_Wall_Guard.png",
-      "tris": 32
+      "tris": 32.0
     },
     {
       "animations": [],
@@ -6539,7 +9677,7 @@
         "window"
       ],
       "thumb": "library/thumbs/quaternius_downtown/Trim_Window.png",
-      "tris": 574
+      "tris": 574.0
     },
     {
       "animations": [],
@@ -6564,7 +9702,7 @@
         "anvil"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Anvil.png",
-      "tris": 750
+      "tris": 750.0
     },
     {
       "animations": [],
@@ -6590,7 +9728,7 @@
         "log"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Anvil_Log.png",
-      "tris": 3808
+      "tris": 3808.0
     },
     {
       "animations": [],
@@ -6616,7 +9754,7 @@
         "bronze"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Axe_Bronze.png",
-      "tris": 826
+      "tris": 826.0
     },
     {
       "animations": [],
@@ -6641,7 +9779,7 @@
         "bag"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Bag.png",
-      "tris": 858
+      "tris": 858.0
     },
     {
       "animations": [],
@@ -6666,7 +9804,7 @@
         "banner"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Banner_1.png",
-      "tris": 448
+      "tris": 448.0
     },
     {
       "animations": [],
@@ -6692,7 +9830,7 @@
         "cloth"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Banner_1_Cloth.png",
-      "tris": 138
+      "tris": 138.0
     },
     {
       "animations": [],
@@ -6717,7 +9855,7 @@
         "banner"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Banner_2.png",
-      "tris": 429
+      "tris": 429.0
     },
     {
       "animations": [],
@@ -6743,7 +9881,7 @@
         "cloth"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Banner_2_Cloth.png",
-      "tris": 119
+      "tris": 119.0
     },
     {
       "animations": [],
@@ -6768,7 +9906,7 @@
         "barrel"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Barrel.png",
-      "tris": 824
+      "tris": 824.0
     },
     {
       "animations": [],
@@ -6794,7 +9932,7 @@
         "apples"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Barrel_Apples.png",
-      "tris": 2480
+      "tris": 2480.0
     },
     {
       "animations": [],
@@ -6820,7 +9958,7 @@
         "holder"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Barrel_Holder.png",
-      "tris": 2676
+      "tris": 2676.0
     },
     {
       "animations": [],
@@ -6846,7 +9984,7 @@
         "twin1"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Bed_Twin1.png",
-      "tris": 1600
+      "tris": 1600.0
     },
     {
       "animations": [],
@@ -6872,7 +10010,7 @@
         "twin2"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Bed_Twin2.png",
-      "tris": 1584
+      "tris": 1584.0
     },
     {
       "animations": [],
@@ -6897,7 +10035,7 @@
         "bench"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Bench.png",
-      "tris": 404
+      "tris": 404.0
     },
     {
       "animations": [],
@@ -6923,7 +10061,7 @@
         "medium"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/BookGroup_Medium_1.png",
-      "tris": 416
+      "tris": 416.0
     },
     {
       "animations": [],
@@ -6949,7 +10087,7 @@
         "medium"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/BookGroup_Medium_2.png",
-      "tris": 468
+      "tris": 468.0
     },
     {
       "animations": [],
@@ -6975,7 +10113,7 @@
         "medium"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/BookGroup_Medium_3.png",
-      "tris": 468
+      "tris": 468.0
     },
     {
       "animations": [],
@@ -7001,7 +10139,7 @@
         "small"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/BookGroup_Small_1.png",
-      "tris": 104
+      "tris": 104.0
     },
     {
       "animations": [],
@@ -7027,7 +10165,7 @@
         "small"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/BookGroup_Small_2.png",
-      "tris": 104
+      "tris": 104.0
     },
     {
       "animations": [],
@@ -7053,7 +10191,7 @@
         "small"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/BookGroup_Small_3.png",
-      "tris": 130
+      "tris": 130.0
     },
     {
       "animations": [],
@@ -7078,7 +10216,7 @@
         "bookstand"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/BookStand.png",
-      "tris": 1526
+      "tris": 1526.0
     },
     {
       "animations": [],
@@ -7103,7 +10241,7 @@
         "book"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Book_5.png",
-      "tris": 96
+      "tris": 96.0
     },
     {
       "animations": [],
@@ -7128,7 +10266,7 @@
         "book"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Book_7.png",
-      "tris": 724
+      "tris": 724.0
     },
     {
       "animations": [],
@@ -7155,7 +10293,7 @@
         "single"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Book_Simplified_Single.png",
-      "tris": 52
+      "tris": 52.0
     },
     {
       "animations": [],
@@ -7181,7 +10319,7 @@
         "stack"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Book_Stack_1.png",
-      "tris": 208
+      "tris": 208.0
     },
     {
       "animations": [],
@@ -7207,7 +10345,7 @@
         "stack"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Book_Stack_2.png",
-      "tris": 446
+      "tris": 446.0
     },
     {
       "animations": [],
@@ -7232,7 +10370,7 @@
         "bookcase"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Bookcase_2.png",
-      "tris": 2148
+      "tris": 2148.0
     },
     {
       "animations": [],
@@ -7257,7 +10395,7 @@
         "bottle"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Bottle_1.png",
-      "tris": 312
+      "tris": 312.0
     },
     {
       "animations": [],
@@ -7283,7 +10421,7 @@
         "metal"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Bucket_Metal.png",
-      "tris": 540
+      "tris": 540.0
     },
     {
       "animations": [],
@@ -7309,7 +10447,7 @@
         "wooden"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Bucket_Wooden_1.png",
-      "tris": 976
+      "tris": 976.0
     },
     {
       "animations": [],
@@ -7334,7 +10472,7 @@
         "cabinet"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Cabinet.png",
-      "tris": 2388
+      "tris": 2388.0
     },
     {
       "animations": [],
@@ -7360,7 +10498,7 @@
         "small"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Cage_Small.png",
-      "tris": 4588
+      "tris": 4588.0
     },
     {
       "animations": [],
@@ -7385,7 +10523,7 @@
         "candlestick"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/CandleStick.png",
-      "tris": 730
+      "tris": 730.0
     },
     {
       "animations": [],
@@ -7411,7 +10549,7 @@
         "stand"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/CandleStick_Stand.png",
-      "tris": 5738
+      "tris": 5738.0
     },
     {
       "animations": [],
@@ -7437,7 +10575,7 @@
         "triple"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/CandleStick_Triple.png",
-      "tris": 2528
+      "tris": 2528.0
     },
     {
       "animations": [],
@@ -7462,7 +10600,7 @@
         "candle"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Candle_1.png",
-      "tris": 212
+      "tris": 212.0
     },
     {
       "animations": [],
@@ -7487,7 +10625,7 @@
         "candle"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Candle_2.png",
-      "tris": 210
+      "tris": 210.0
     },
     {
       "animations": [],
@@ -7512,7 +10650,7 @@
         "carrot"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Carrot.png",
-      "tris": 634
+      "tris": 634.0
     },
     {
       "animations": [],
@@ -7537,7 +10675,7 @@
         "cauldron"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Cauldron.png",
-      "tris": 2020
+      "tris": 2020.0
     },
     {
       "animations": [],
@@ -7563,7 +10701,7 @@
         "coil"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Chain_Coil.png",
-      "tris": 3744
+      "tris": 3744.0
     },
     {
       "animations": [],
@@ -7588,7 +10726,7 @@
         "chair"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Chair_1.png",
-      "tris": 496
+      "tris": 496.0
     },
     {
       "animations": [],
@@ -7613,7 +10751,7 @@
         "chalice"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Chalice.png",
-      "tris": 458
+      "tris": 458.0
     },
     {
       "animations": [],
@@ -7638,7 +10776,7 @@
         "chandelier"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Chandelier.png",
-      "tris": 5680
+      "tris": 5680.0
     },
     {
       "animations": [
@@ -7669,7 +10807,7 @@
         "wood"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Chest_Wood.png",
-      "tris": 2546
+      "tris": 2546.0
     },
     {
       "animations": [],
@@ -7694,7 +10832,7 @@
         "coin"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Coin.png",
-      "tris": 304
+      "tris": 304.0
     },
     {
       "animations": [],
@@ -7720,7 +10858,7 @@
         "pile"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Coin_Pile.png",
-      "tris": 960
+      "tris": 960.0
     },
     {
       "animations": [],
@@ -7746,7 +10884,7 @@
         "pile"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Coin_Pile_2.png",
-      "tris": 1062
+      "tris": 1062.0
     },
     {
       "animations": [],
@@ -7772,7 +10910,7 @@
         "metal"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Crate_Metal.png",
-      "tris": 2738
+      "tris": 2738.0
     },
     {
       "animations": [],
@@ -7798,7 +10936,7 @@
         "wooden"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Crate_Wooden.png",
-      "tris": 1576
+      "tris": 1576.0
     },
     {
       "animations": [],
@@ -7823,7 +10961,7 @@
         "dummy"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Dummy.png",
-      "tris": 2858
+      "tris": 2858.0
     },
     {
       "animations": [],
@@ -7849,7 +10987,7 @@
         "apple"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/FarmCrate_Apple.png",
-      "tris": 4028
+      "tris": 4028.0
     },
     {
       "animations": [],
@@ -7875,7 +11013,7 @@
         "carrot"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/FarmCrate_Carrot.png",
-      "tris": 5262
+      "tris": 5262.0
     },
     {
       "animations": [],
@@ -7901,7 +11039,7 @@
         "empty"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/FarmCrate_Empty.png",
-      "tris": 1928
+      "tris": 1928.0
     },
     {
       "animations": [],
@@ -7927,7 +11065,7 @@
         "gold"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Key_Gold.png",
-      "tris": 1366
+      "tris": 1366.0
     },
     {
       "animations": [],
@@ -7953,7 +11091,7 @@
         "metal"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Key_Metal.png",
-      "tris": 546
+      "tris": 546.0
     },
     {
       "animations": [],
@@ -7979,7 +11117,7 @@
         "wall"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Lantern_Wall.png",
-      "tris": 2822
+      "tris": 2822.0
     },
     {
       "animations": [],
@@ -8004,7 +11142,7 @@
         "mug"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Mug.png",
-      "tris": 268
+      "tris": 268.0
     },
     {
       "animations": [],
@@ -8030,7 +11168,7 @@
         "shelf"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Nightstand_Shelf.png",
-      "tris": 262
+      "tris": 262.0
     },
     {
       "animations": [],
@@ -8056,7 +11194,7 @@
         "rack"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Peg_Rack.png",
-      "tris": 712
+      "tris": 712.0
     },
     {
       "animations": [],
@@ -8082,7 +11220,7 @@
         "bronze"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Pickaxe_Bronze.png",
-      "tris": 776
+      "tris": 776.0
     },
     {
       "animations": [],
@@ -8107,7 +11245,7 @@
         "pot"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Pot_1.png",
-      "tris": 1068
+      "tris": 1068.0
     },
     {
       "animations": [],
@@ -8133,7 +11271,7 @@
         "lid"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Pot_1_Lid.png",
-      "tris": 1292
+      "tris": 1292.0
     },
     {
       "animations": [],
@@ -8158,7 +11296,7 @@
         "potion"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Potion_1.png",
-      "tris": 440
+      "tris": 440.0
     },
     {
       "animations": [],
@@ -8183,7 +11321,7 @@
         "potion"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Potion_2.png",
-      "tris": 472
+      "tris": 472.0
     },
     {
       "animations": [],
@@ -8208,7 +11346,7 @@
         "potion"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Potion_4.png",
-      "tris": 536
+      "tris": 536.0
     },
     {
       "animations": [],
@@ -8234,7 +11372,7 @@
         "large"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Pouch_Large.png",
-      "tris": 730
+      "tris": 730.0
     },
     {
       "animations": [],
@@ -8259,7 +11397,7 @@
         "rope"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Rope_1.png",
-      "tris": 1748
+      "tris": 1748.0
     },
     {
       "animations": [],
@@ -8284,7 +11422,7 @@
         "rope"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Rope_2.png",
-      "tris": 1460
+      "tris": 1460.0
     },
     {
       "animations": [],
@@ -8309,7 +11447,7 @@
         "rope"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Rope_3.png",
-      "tris": 1748
+      "tris": 1748.0
     },
     {
       "animations": [],
@@ -8334,7 +11472,7 @@
         "scroll"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Scroll_1.png",
-      "tris": 512
+      "tris": 512.0
     },
     {
       "animations": [],
@@ -8359,7 +11497,7 @@
         "scroll"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Scroll_2.png",
-      "tris": 672
+      "tris": 672.0
     },
     {
       "animations": [],
@@ -8385,7 +11523,7 @@
         "arch"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Shelf_Arch.png",
-      "tris": 1286
+      "tris": 1286.0
     },
     {
       "animations": [],
@@ -8411,7 +11549,7 @@
         "simple"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Shelf_Simple.png",
-      "tris": 480
+      "tris": 480.0
     },
     {
       "animations": [],
@@ -8438,7 +11576,7 @@
         "bottles"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Shelf_Small_Bottles.png",
-      "tris": 5234
+      "tris": 5234.0
     },
     {
       "animations": [],
@@ -8464,7 +11602,7 @@
         "wooden"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Shield_Wooden.png",
-      "tris": 1404
+      "tris": 1404.0
     },
     {
       "animations": [],
@@ -8489,7 +11627,7 @@
         "smallbottle"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/SmallBottle.png",
-      "tris": 130
+      "tris": 130.0
     },
     {
       "animations": [],
@@ -8514,7 +11652,7 @@
         "smallbottles"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/SmallBottles_1.png",
-      "tris": 486
+      "tris": 486.0
     },
     {
       "animations": [],
@@ -8541,7 +11679,7 @@
         "empty"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Stall_Cart_Empty.png",
-      "tris": 3936
+      "tris": 3936.0
     },
     {
       "animations": [],
@@ -8567,7 +11705,7 @@
         "empty"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Stall_Empty.png",
-      "tris": 1496
+      "tris": 1496.0
     },
     {
       "animations": [],
@@ -8592,7 +11730,7 @@
         "stool"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Stool.png",
-      "tris": 152
+      "tris": 152.0
     },
     {
       "animations": [],
@@ -8618,7 +11756,7 @@
         "bronze"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Sword_Bronze.png",
-      "tris": 1540
+      "tris": 1540.0
     },
     {
       "animations": [],
@@ -8644,7 +11782,7 @@
         "fork"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Table_Fork.png",
-      "tris": 108
+      "tris": 108.0
     },
     {
       "animations": [],
@@ -8670,7 +11808,7 @@
         "knife"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Table_Knife.png",
-      "tris": 54
+      "tris": 54.0
     },
     {
       "animations": [],
@@ -8696,7 +11834,7 @@
         "large"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Table_Large.png",
-      "tris": 986
+      "tris": 986.0
     },
     {
       "animations": [],
@@ -8722,7 +11860,7 @@
         "plate"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Table_Plate.png",
-      "tris": 172
+      "tris": 172.0
     },
     {
       "animations": [],
@@ -8748,7 +11886,7 @@
         "spoon"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Table_Spoon.png",
-      "tris": 164
+      "tris": 164.0
     },
     {
       "animations": [],
@@ -8774,7 +11912,7 @@
         "metal"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Torch_Metal.png",
-      "tris": 970
+      "tris": 970.0
     },
     {
       "animations": [],
@@ -8799,7 +11937,7 @@
         "vase"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Vase_2.png",
-      "tris": 598
+      "tris": 598.0
     },
     {
       "animations": [],
@@ -8824,7 +11962,7 @@
         "vase"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Vase_4.png",
-      "tris": 598
+      "tris": 598.0
     },
     {
       "animations": [],
@@ -8851,7 +11989,7 @@
         "medium"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Vase_Rubble_Medium.png",
-      "tris": 1113
+      "tris": 1113.0
     },
     {
       "animations": [],
@@ -8876,7 +12014,7 @@
         "weaponstand"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/WeaponStand.png",
-      "tris": 2084
+      "tris": 2084.0
     },
     {
       "animations": [],
@@ -8901,7 +12039,7 @@
         "whetstone"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Whetstone.png",
-      "tris": 1100
+      "tris": 1100.0
     },
     {
       "animations": [],
@@ -8926,7 +12064,7 @@
         "workbench"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Workbench.png",
-      "tris": 1368
+      "tris": 1368.0
     },
     {
       "animations": [],
@@ -8952,7 +12090,7 @@
         "drawers"
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Workbench_Drawers.png",
-      "tris": 364
+      "tris": 364.0
     },
     {
       "animations": [],
@@ -8977,7 +12115,7 @@
         "birchtree"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_1.png",
-      "tris": 1704
+      "tris": 1704.0
     },
     {
       "animations": [],
@@ -9002,7 +12140,7 @@
         "birchtree"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_2.png",
-      "tris": 1568
+      "tris": 1568.0
     },
     {
       "animations": [],
@@ -9027,7 +12165,7 @@
         "birchtree"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_3.png",
-      "tris": 1730
+      "tris": 1730.0
     },
     {
       "animations": [],
@@ -9052,7 +12190,7 @@
         "birchtree"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_4.png",
-      "tris": 2338
+      "tris": 2338.0
     },
     {
       "animations": [],
@@ -9077,7 +12215,7 @@
         "birchtree"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_5.png",
-      "tris": 1734
+      "tris": 1734.0
     },
     {
       "animations": [],
@@ -9103,7 +12241,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Autumn_1.png",
-      "tris": 1704
+      "tris": 1704.0
     },
     {
       "animations": [],
@@ -9129,7 +12267,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Autumn_2.png",
-      "tris": 1568
+      "tris": 1568.0
     },
     {
       "animations": [],
@@ -9155,7 +12293,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Autumn_3.png",
-      "tris": 1730
+      "tris": 1730.0
     },
     {
       "animations": [],
@@ -9181,7 +12319,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Autumn_4.png",
-      "tris": 2338
+      "tris": 2338.0
     },
     {
       "animations": [],
@@ -9207,7 +12345,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Autumn_5.png",
-      "tris": 1734
+      "tris": 1734.0
     },
     {
       "animations": [],
@@ -9233,7 +12371,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_1.png",
-      "tris": 820
+      "tris": 820.0
     },
     {
       "animations": [],
@@ -9259,7 +12397,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_2.png",
-      "tris": 1312
+      "tris": 1312.0
     },
     {
       "animations": [],
@@ -9285,7 +12423,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_3.png",
-      "tris": 1346
+      "tris": 1346.0
     },
     {
       "animations": [],
@@ -9311,7 +12449,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_4.png",
-      "tris": 1570
+      "tris": 1570.0
     },
     {
       "animations": [],
@@ -9337,7 +12475,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_5.png",
-      "tris": 1222
+      "tris": 1222.0
     },
     {
       "animations": [],
@@ -9364,7 +12502,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_Snow_1.png",
-      "tris": 876
+      "tris": 876.0
     },
     {
       "animations": [],
@@ -9391,7 +12529,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_Snow_2.png",
-      "tris": 1434
+      "tris": 1434.0
     },
     {
       "animations": [],
@@ -9418,7 +12556,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_Snow_3.png",
-      "tris": 1422
+      "tris": 1422.0
     },
     {
       "animations": [],
@@ -9445,7 +12583,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_Snow_4.png",
-      "tris": 1718
+      "tris": 1718.0
     },
     {
       "animations": [],
@@ -9472,7 +12610,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Dead_Snow_5.png",
-      "tris": 1268
+      "tris": 1268.0
     },
     {
       "animations": [],
@@ -9498,7 +12636,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Snow_1.png",
-      "tris": 1804
+      "tris": 1804.0
     },
     {
       "animations": [],
@@ -9524,7 +12662,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Snow_2.png",
-      "tris": 1612
+      "tris": 1612.0
     },
     {
       "animations": [],
@@ -9550,7 +12688,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Snow_3.png",
-      "tris": 1798
+      "tris": 1798.0
     },
     {
       "animations": [],
@@ -9576,7 +12714,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Snow_4.png",
-      "tris": 2478
+      "tris": 2478.0
     },
     {
       "animations": [],
@@ -9602,7 +12740,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/BirchTree_Snow_5.png",
-      "tris": 1806
+      "tris": 1806.0
     },
     {
       "animations": [],
@@ -9627,7 +12765,7 @@
         "bushberries"
       ],
       "thumb": "library/thumbs/quaternius_nature/BushBerries_1.png",
-      "tris": 892
+      "tris": 892.0
     },
     {
       "animations": [],
@@ -9652,7 +12790,7 @@
         "bushberries"
       ],
       "thumb": "library/thumbs/quaternius_nature/BushBerries_2.png",
-      "tris": 796
+      "tris": 796.0
     },
     {
       "animations": [],
@@ -9676,7 +12814,7 @@
         "bush"
       ],
       "thumb": "library/thumbs/quaternius_nature/Bush_1.png",
-      "tris": 364
+      "tris": 364.0
     },
     {
       "animations": [],
@@ -9700,7 +12838,7 @@
         "bush"
       ],
       "thumb": "library/thumbs/quaternius_nature/Bush_2.png",
-      "tris": 268
+      "tris": 268.0
     },
     {
       "animations": [],
@@ -9725,7 +12863,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Bush_Snow_1.png",
-      "tris": 460
+      "tris": 460.0
     },
     {
       "animations": [],
@@ -9750,7 +12888,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Bush_Snow_2.png",
-      "tris": 340
+      "tris": 340.0
     },
     {
       "animations": [],
@@ -9775,7 +12913,7 @@
         "cactusflower"
       ],
       "thumb": "library/thumbs/quaternius_nature/CactusFlower_1.png",
-      "tris": 2112
+      "tris": 2112.0
     },
     {
       "animations": [],
@@ -9800,7 +12938,7 @@
         "cactusflowers"
       ],
       "thumb": "library/thumbs/quaternius_nature/CactusFlowers_2.png",
-      "tris": 1488
+      "tris": 1488.0
     },
     {
       "animations": [],
@@ -9825,7 +12963,7 @@
         "cactusflowers"
       ],
       "thumb": "library/thumbs/quaternius_nature/CactusFlowers_3.png",
-      "tris": 1184
+      "tris": 1184.0
     },
     {
       "animations": [],
@@ -9850,7 +12988,7 @@
         "cactusflowers"
       ],
       "thumb": "library/thumbs/quaternius_nature/CactusFlowers_4.png",
-      "tris": 1632
+      "tris": 1632.0
     },
     {
       "animations": [],
@@ -9875,7 +13013,7 @@
         "cactusflowers"
       ],
       "thumb": "library/thumbs/quaternius_nature/CactusFlowers_5.png",
-      "tris": 800
+      "tris": 800.0
     },
     {
       "animations": [],
@@ -9899,7 +13037,7 @@
         "cactus"
       ],
       "thumb": "library/thumbs/quaternius_nature/Cactus_1.png",
-      "tris": 434
+      "tris": 434.0
     },
     {
       "animations": [],
@@ -9923,7 +13061,7 @@
         "cactus"
       ],
       "thumb": "library/thumbs/quaternius_nature/Cactus_2.png",
-      "tris": 720
+      "tris": 720.0
     },
     {
       "animations": [],
@@ -9947,7 +13085,7 @@
         "cactus"
       ],
       "thumb": "library/thumbs/quaternius_nature/Cactus_3.png",
-      "tris": 416
+      "tris": 416.0
     },
     {
       "animations": [],
@@ -9971,7 +13109,7 @@
         "cactus"
       ],
       "thumb": "library/thumbs/quaternius_nature/Cactus_4.png",
-      "tris": 1152
+      "tris": 1152.0
     },
     {
       "animations": [],
@@ -9995,7 +13133,7 @@
         "cactus"
       ],
       "thumb": "library/thumbs/quaternius_nature/Cactus_5.png",
-      "tris": 560
+      "tris": 560.0
     },
     {
       "animations": [],
@@ -10020,7 +13158,7 @@
         "commontree"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_1.png",
-      "tris": 2888
+      "tris": 2888.0
     },
     {
       "animations": [],
@@ -10045,7 +13183,7 @@
         "commontree"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_2.png",
-      "tris": 2952
+      "tris": 2952.0
     },
     {
       "animations": [],
@@ -10070,7 +13208,7 @@
         "commontree"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_3.png",
-      "tris": 1584
+      "tris": 1584.0
     },
     {
       "animations": [],
@@ -10095,7 +13233,7 @@
         "commontree"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_4.png",
-      "tris": 1352
+      "tris": 1352.0
     },
     {
       "animations": [],
@@ -10120,7 +13258,7 @@
         "commontree"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_5.png",
-      "tris": 1836
+      "tris": 1836.0
     },
     {
       "animations": [],
@@ -10146,7 +13284,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Autumn_1.png",
-      "tris": 2888
+      "tris": 2888.0
     },
     {
       "animations": [],
@@ -10172,7 +13310,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Autumn_2.png",
-      "tris": 2952
+      "tris": 2952.0
     },
     {
       "animations": [],
@@ -10198,7 +13336,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Autumn_3.png",
-      "tris": 1584
+      "tris": 1584.0
     },
     {
       "animations": [],
@@ -10224,7 +13362,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Autumn_4.png",
-      "tris": 1352
+      "tris": 1352.0
     },
     {
       "animations": [],
@@ -10250,7 +13388,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Autumn_5.png",
-      "tris": 1836
+      "tris": 1836.0
     },
     {
       "animations": [],
@@ -10276,7 +13414,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_1.png",
-      "tris": 2360
+      "tris": 2360.0
     },
     {
       "animations": [],
@@ -10302,7 +13440,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_2.png",
-      "tris": 2360
+      "tris": 2360.0
     },
     {
       "animations": [],
@@ -10328,7 +13466,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_3.png",
-      "tris": 944
+      "tris": 944.0
     },
     {
       "animations": [],
@@ -10354,7 +13492,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_4.png",
-      "tris": 1008
+      "tris": 1008.0
     },
     {
       "animations": [],
@@ -10380,7 +13518,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_5.png",
-      "tris": 1424
+      "tris": 1424.0
     },
     {
       "animations": [],
@@ -10407,7 +13545,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_Snow_1.png",
-      "tris": 2628
+      "tris": 2628.0
     },
     {
       "animations": [],
@@ -10434,7 +13572,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_Snow_2.png",
-      "tris": 2620
+      "tris": 2620.0
     },
     {
       "animations": [],
@@ -10461,7 +13599,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_Snow_3.png",
-      "tris": 1008
+      "tris": 1008.0
     },
     {
       "animations": [],
@@ -10488,7 +13626,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_Snow_4.png",
-      "tris": 1104
+      "tris": 1104.0
     },
     {
       "animations": [],
@@ -10515,7 +13653,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Dead_Snow_5.png",
-      "tris": 1552
+      "tris": 1552.0
     },
     {
       "animations": [],
@@ -10541,7 +13679,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Snow_1.png",
-      "tris": 2966
+      "tris": 2966.0
     },
     {
       "animations": [],
@@ -10567,7 +13705,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Snow_2.png",
-      "tris": 3050
+      "tris": 3050.0
     },
     {
       "animations": [],
@@ -10593,7 +13731,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Snow_3.png",
-      "tris": 1672
+      "tris": 1672.0
     },
     {
       "animations": [],
@@ -10619,7 +13757,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Snow_4.png",
-      "tris": 1406
+      "tris": 1406.0
     },
     {
       "animations": [],
@@ -10645,7 +13783,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/CommonTree_Snow_5.png",
-      "tris": 1916
+      "tris": 1916.0
     },
     {
       "animations": [],
@@ -10670,7 +13808,7 @@
         "corn"
       ],
       "thumb": "library/thumbs/quaternius_nature/Corn_1.png",
-      "tris": 566
+      "tris": 566.0
     },
     {
       "animations": [],
@@ -10695,7 +13833,7 @@
         "corn"
       ],
       "thumb": "library/thumbs/quaternius_nature/Corn_2.png",
-      "tris": 734
+      "tris": 734.0
     },
     {
       "animations": [],
@@ -10720,7 +13858,7 @@
         "flowers"
       ],
       "thumb": "library/thumbs/quaternius_nature/Flowers.png",
-      "tris": 408
+      "tris": 408.0
     },
     {
       "animations": [],
@@ -10745,7 +13883,7 @@
         "grass"
       ],
       "thumb": "library/thumbs/quaternius_nature/Grass.png",
-      "tris": 192
+      "tris": 192.0
     },
     {
       "animations": [],
@@ -10770,7 +13908,7 @@
         "grass"
       ],
       "thumb": "library/thumbs/quaternius_nature/Grass_2.png",
-      "tris": 192
+      "tris": 192.0
     },
     {
       "animations": [],
@@ -10796,7 +13934,7 @@
         "short"
       ],
       "thumb": "library/thumbs/quaternius_nature/Grass_Short.png",
-      "tris": 192
+      "tris": 192.0
     },
     {
       "animations": [],
@@ -10821,7 +13959,7 @@
         "lilypad"
       ],
       "thumb": "library/thumbs/quaternius_nature/Lilypad.png",
-      "tris": 372
+      "tris": 372.0
     },
     {
       "animations": [],
@@ -10846,7 +13984,7 @@
         "palmtree"
       ],
       "thumb": "library/thumbs/quaternius_nature/PalmTree_1.png",
-      "tris": 1772
+      "tris": 1772.0
     },
     {
       "animations": [],
@@ -10871,7 +14009,7 @@
         "palmtree"
       ],
       "thumb": "library/thumbs/quaternius_nature/PalmTree_2.png",
-      "tris": 1232
+      "tris": 1232.0
     },
     {
       "animations": [],
@@ -10896,7 +14034,7 @@
         "palmtree"
       ],
       "thumb": "library/thumbs/quaternius_nature/PalmTree_3.png",
-      "tris": 1496
+      "tris": 1496.0
     },
     {
       "animations": [],
@@ -10921,7 +14059,7 @@
         "palmtree"
       ],
       "thumb": "library/thumbs/quaternius_nature/PalmTree_4.png",
-      "tris": 1052
+      "tris": 1052.0
     },
     {
       "animations": [],
@@ -10946,7 +14084,7 @@
         "pinetree"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_1.png",
-      "tris": 1920
+      "tris": 1920.0
     },
     {
       "animations": [],
@@ -10971,7 +14109,7 @@
         "pinetree"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_2.png",
-      "tris": 1692
+      "tris": 1692.0
     },
     {
       "animations": [],
@@ -10996,7 +14134,7 @@
         "pinetree"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_3.png",
-      "tris": 2392
+      "tris": 2392.0
     },
     {
       "animations": [],
@@ -11021,7 +14159,7 @@
         "pinetree"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_4.png",
-      "tris": 1704
+      "tris": 1704.0
     },
     {
       "animations": [],
@@ -11046,7 +14184,7 @@
         "pinetree"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_5.png",
-      "tris": 1576
+      "tris": 1576.0
     },
     {
       "animations": [],
@@ -11072,7 +14210,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Autumn_1.png",
-      "tris": 1920
+      "tris": 1920.0
     },
     {
       "animations": [],
@@ -11098,7 +14236,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Autumn_2.png",
-      "tris": 1692
+      "tris": 1692.0
     },
     {
       "animations": [],
@@ -11124,7 +14262,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Autumn_3.png",
-      "tris": 2392
+      "tris": 2392.0
     },
     {
       "animations": [],
@@ -11150,7 +14288,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Autumn_4.png",
-      "tris": 1704
+      "tris": 1704.0
     },
     {
       "animations": [],
@@ -11176,7 +14314,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Autumn_5.png",
-      "tris": 1576
+      "tris": 1576.0
     },
     {
       "animations": [],
@@ -11202,7 +14340,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Snow_1.png",
-      "tris": 1920
+      "tris": 1920.0
     },
     {
       "animations": [],
@@ -11228,7 +14366,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Snow_2.png",
-      "tris": 1692
+      "tris": 1692.0
     },
     {
       "animations": [],
@@ -11254,7 +14392,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Snow_3.png",
-      "tris": 2392
+      "tris": 2392.0
     },
     {
       "animations": [],
@@ -11280,7 +14418,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Snow_4.png",
-      "tris": 1704
+      "tris": 1704.0
     },
     {
       "animations": [],
@@ -11306,7 +14444,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/PineTree_Snow_5.png",
-      "tris": 1576
+      "tris": 1576.0
     },
     {
       "animations": [],
@@ -11330,7 +14468,7 @@
         "plant"
       ],
       "thumb": "library/thumbs/quaternius_nature/Plant_1.png",
-      "tris": 296
+      "tris": 296.0
     },
     {
       "animations": [],
@@ -11354,7 +14492,7 @@
         "plant"
       ],
       "thumb": "library/thumbs/quaternius_nature/Plant_2.png",
-      "tris": 218
+      "tris": 218.0
     },
     {
       "animations": [],
@@ -11378,7 +14516,7 @@
         "plant"
       ],
       "thumb": "library/thumbs/quaternius_nature/Plant_3.png",
-      "tris": 600
+      "tris": 600.0
     },
     {
       "animations": [],
@@ -11402,7 +14540,7 @@
         "plant"
       ],
       "thumb": "library/thumbs/quaternius_nature/Plant_4.png",
-      "tris": 512
+      "tris": 512.0
     },
     {
       "animations": [],
@@ -11426,7 +14564,7 @@
         "plant"
       ],
       "thumb": "library/thumbs/quaternius_nature/Plant_5.png",
-      "tris": 620
+      "tris": 620.0
     },
     {
       "animations": [],
@@ -11450,7 +14588,7 @@
         "rock"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_1.png",
-      "tris": 70
+      "tris": 70.0
     },
     {
       "animations": [],
@@ -11474,7 +14612,7 @@
         "rock"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_2.png",
-      "tris": 80
+      "tris": 80.0
     },
     {
       "animations": [],
@@ -11498,7 +14636,7 @@
         "rock"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_3.png",
-      "tris": 72
+      "tris": 72.0
     },
     {
       "animations": [],
@@ -11522,7 +14660,7 @@
         "rock"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_4.png",
-      "tris": 128
+      "tris": 128.0
     },
     {
       "animations": [],
@@ -11546,7 +14684,7 @@
         "rock"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_5.png",
-      "tris": 90
+      "tris": 90.0
     },
     {
       "animations": [],
@@ -11570,7 +14708,7 @@
         "rock"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_6.png",
-      "tris": 116
+      "tris": 116.0
     },
     {
       "animations": [],
@@ -11594,7 +14732,7 @@
         "rock"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_7.png",
-      "tris": 94
+      "tris": 94.0
     },
     {
       "animations": [],
@@ -11619,7 +14757,7 @@
         "moss"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Moss_1.png",
-      "tris": 70
+      "tris": 70.0
     },
     {
       "animations": [],
@@ -11644,7 +14782,7 @@
         "moss"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Moss_2.png",
-      "tris": 78
+      "tris": 78.0
     },
     {
       "animations": [],
@@ -11669,7 +14807,7 @@
         "moss"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Moss_3.png",
-      "tris": 68
+      "tris": 68.0
     },
     {
       "animations": [],
@@ -11694,7 +14832,7 @@
         "moss"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Moss_4.png",
-      "tris": 128
+      "tris": 128.0
     },
     {
       "animations": [],
@@ -11719,7 +14857,7 @@
         "moss"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Moss_5.png",
-      "tris": 88
+      "tris": 88.0
     },
     {
       "animations": [],
@@ -11744,7 +14882,7 @@
         "moss"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Moss_6.png",
-      "tris": 116
+      "tris": 116.0
     },
     {
       "animations": [],
@@ -11769,7 +14907,7 @@
         "moss"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Moss_7.png",
-      "tris": 88
+      "tris": 88.0
     },
     {
       "animations": [],
@@ -11794,7 +14932,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Snow_1.png",
-      "tris": 102
+      "tris": 102.0
     },
     {
       "animations": [],
@@ -11819,7 +14957,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Snow_2.png",
-      "tris": 118
+      "tris": 118.0
     },
     {
       "animations": [],
@@ -11844,7 +14982,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Snow_3.png",
-      "tris": 96
+      "tris": 96.0
     },
     {
       "animations": [],
@@ -11869,7 +15007,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Snow_4.png",
-      "tris": 188
+      "tris": 188.0
     },
     {
       "animations": [],
@@ -11894,7 +15032,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Snow_5.png",
-      "tris": 124
+      "tris": 124.0
     },
     {
       "animations": [],
@@ -11919,7 +15057,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Snow_6.png",
-      "tris": 184
+      "tris": 184.0
     },
     {
       "animations": [],
@@ -11944,7 +15082,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Rock_Snow_7.png",
-      "tris": 154
+      "tris": 154.0
     },
     {
       "animations": [],
@@ -11969,7 +15107,7 @@
         "treestump"
       ],
       "thumb": "library/thumbs/quaternius_nature/TreeStump.png",
-      "tris": 232
+      "tris": 232.0
     },
     {
       "animations": [],
@@ -11995,7 +15133,7 @@
         "moss"
       ],
       "thumb": "library/thumbs/quaternius_nature/TreeStump_Moss.png",
-      "tris": 232
+      "tris": 232.0
     },
     {
       "animations": [],
@@ -12021,7 +15159,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/TreeStump_Snow.png",
-      "tris": 258
+      "tris": 258.0
     },
     {
       "animations": [],
@@ -12046,7 +15184,7 @@
         "wheat"
       ],
       "thumb": "library/thumbs/quaternius_nature/Wheat.png",
-      "tris": 408
+      "tris": 408.0
     },
     {
       "animations": [],
@@ -12071,7 +15209,7 @@
         "willow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_1.png",
-      "tris": 1946
+      "tris": 1946.0
     },
     {
       "animations": [],
@@ -12096,7 +15234,7 @@
         "willow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_2.png",
-      "tris": 2752
+      "tris": 2752.0
     },
     {
       "animations": [],
@@ -12121,7 +15259,7 @@
         "willow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_3.png",
-      "tris": 1044
+      "tris": 1044.0
     },
     {
       "animations": [],
@@ -12146,7 +15284,7 @@
         "willow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_4.png",
-      "tris": 1568
+      "tris": 1568.0
     },
     {
       "animations": [],
@@ -12171,7 +15309,7 @@
         "willow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_5.png",
-      "tris": 1624
+      "tris": 1624.0
     },
     {
       "animations": [],
@@ -12197,7 +15335,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Autumn_1.png",
-      "tris": 1946
+      "tris": 1946.0
     },
     {
       "animations": [],
@@ -12223,7 +15361,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Autumn_2.png",
-      "tris": 2752
+      "tris": 2752.0
     },
     {
       "animations": [],
@@ -12249,7 +15387,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Autumn_3.png",
-      "tris": 1044
+      "tris": 1044.0
     },
     {
       "animations": [],
@@ -12275,7 +15413,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Autumn_4.png",
-      "tris": 1568
+      "tris": 1568.0
     },
     {
       "animations": [],
@@ -12301,7 +15439,7 @@
         "autumn"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Autumn_5.png",
-      "tris": 1624
+      "tris": 1624.0
     },
     {
       "animations": [],
@@ -12327,7 +15465,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_1.png",
-      "tris": 1128
+      "tris": 1128.0
     },
     {
       "animations": [],
@@ -12353,7 +15491,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_2.png",
-      "tris": 1860
+      "tris": 1860.0
     },
     {
       "animations": [],
@@ -12379,7 +15517,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_3.png",
-      "tris": 400
+      "tris": 400.0
     },
     {
       "animations": [],
@@ -12405,7 +15543,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_4.png",
-      "tris": 784
+      "tris": 784.0
     },
     {
       "animations": [],
@@ -12431,7 +15569,7 @@
         "dead"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_5.png",
-      "tris": 496
+      "tris": 496.0
     },
     {
       "animations": [],
@@ -12458,7 +15596,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_Snow_1.png",
-      "tris": 1220
+      "tris": 1220.0
     },
     {
       "animations": [],
@@ -12485,7 +15623,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_Snow_2.png",
-      "tris": 2056
+      "tris": 2056.0
     },
     {
       "animations": [],
@@ -12512,7 +15650,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_Snow_3.png",
-      "tris": 440
+      "tris": 440.0
     },
     {
       "animations": [],
@@ -12539,7 +15677,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_Snow_4.png",
-      "tris": 856
+      "tris": 856.0
     },
     {
       "animations": [],
@@ -12566,7 +15704,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Dead_Snow_5.png",
-      "tris": 564
+      "tris": 564.0
     },
     {
       "animations": [],
@@ -12592,7 +15730,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Snow_1.png",
-      "tris": 2010
+      "tris": 2010.0
     },
     {
       "animations": [],
@@ -12618,7 +15756,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Snow_2.png",
-      "tris": 2820
+      "tris": 2820.0
     },
     {
       "animations": [],
@@ -12644,7 +15782,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Snow_3.png",
-      "tris": 1096
+      "tris": 1096.0
     },
     {
       "animations": [],
@@ -12670,7 +15808,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Snow_4.png",
-      "tris": 1636
+      "tris": 1636.0
     },
     {
       "animations": [],
@@ -12696,7 +15834,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/Willow_Snow_5.png",
-      "tris": 1720
+      "tris": 1720.0
     },
     {
       "animations": [],
@@ -12721,7 +15859,7 @@
         "woodlog"
       ],
       "thumb": "library/thumbs/quaternius_nature/WoodLog.png",
-      "tris": 464
+      "tris": 464.0
     },
     {
       "animations": [],
@@ -12747,7 +15885,7 @@
         "moss"
       ],
       "thumb": "library/thumbs/quaternius_nature/WoodLog_Moss.png",
-      "tris": 614
+      "tris": 614.0
     },
     {
       "animations": [],
@@ -12773,7 +15911,7 @@
         "snow"
       ],
       "thumb": "library/thumbs/quaternius_nature/WoodLog_Snow.png",
-      "tris": 280
+      "tris": 280.0
     },
     {
       "animations": [],
@@ -12799,7 +15937,7 @@
         "f"
       ],
       "thumb": "library/thumbs/quaternius_ual/Mannequin_F.png",
-      "tris": 14612
+      "tris": 14612.0
     },
     {
       "animations": [
@@ -12869,7 +16007,7 @@
         "standard"
       ],
       "thumb": "library/thumbs/quaternius_ual/UAL1_Standard.png",
-      "tris": 13744
+      "tris": 13744.0
     },
     {
       "animations": [
@@ -12939,7 +16077,7 @@
         "standard"
       ],
       "thumb": "library/thumbs/quaternius_ual/UAL2_Standard.png",
-      "tris": 13744
+      "tris": 13744.0
     }
   ],
   "version": 1

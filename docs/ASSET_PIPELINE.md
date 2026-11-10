@@ -25,6 +25,20 @@ python pipeline/tf.py library                  # kits + catalog summary
    are wrong.
 5. Put the models into a kit (or a new kit) by role.
 
+## Fab packs
+
+Fab (fab.com) downloads are fine when the listing's licence is **Fab Standard** or **CC BY 4.0**, the
+item is free under that licence (not a "From free" personal tier), and it ships **glTF/GLB/FBX/OBJ**
+(not UE-only). Fab zips have no licence file, so each one in `incoming/` gets a `LICENSE.txt` added
+(title, author, listing URL, licence, credit line). CC-BY packs carry a `"credit"` in
+`asset_packs.json`; **put those credit lines in the video description** of any episode that shows them.
+Bare `.glb` downloads are wrapped in a zip with their licence. Downloads go through the user's browser:
+Claude triggers the download, the user saves it to `incoming/`, Claude renames it `fab_<what>_<author>.zip`.
+
+`"split_roots": true` on a pack: the file holds several props as root nodes (e.g. the 12 store
+fixtures in one glTF). Each root becomes its own model, `<pack>/<file>#<node>`, with its own size and
+thumbnail; `KitDB.instance` / `parts` load only that node.
+
 ## Catalog (generated)
 
 `library/catalog.json` has one entry per model:

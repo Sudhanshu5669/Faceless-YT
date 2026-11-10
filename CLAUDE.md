@@ -8,5 +8,8 @@
 - For episodes: run `python pipeline/tf.py storyboard <id>` and Read
   `episodes/<id>/preview/storyboard.png` (one row per shot: start, middle, end) before rendering.
   After `render`, look at the actual video: `ffmpeg -ss <s> -i <mp4> -vf "fps=4,scale=180:-1,tile=8x2" -frames:v 1 strip.png`.
+- Episodes are approved on the review board before the final render (docs/REVIEW.md): after
+  `tf review prepare`, look at the media and write concrete suggestions to
+  `episodes/<id>/review/suggestions.json`; when the user says "review done", read `tf review notes`.
 - The `manifest.json` written next to the stills lists every named place in a set
   (streets, addresses, house anchors). Use it when planning shots instead of reading layout.json.

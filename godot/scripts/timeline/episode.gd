@@ -24,7 +24,7 @@ const SetEvents = preload("res://scripts/timeline/set_events.gd")
 const KEYS := ["schema_version", "id", "title", "description", "set", "look", "actors", "format", "shots", "events"]
 ## Sound keys: resolved by the Python pipeline (pipeline/episode_audio.py), which
 ## also turns "fit" durations and time references into numbers before Godot runs.
-const AUDIO_KEYS := ["narration", "lines", "sfx", "music", "ambience", "captions", "end_black"]
+const AUDIO_KEYS := ["narration", "lines", "sfx", "music", "ambience", "captions", "end_black", "review"]
 const FORMAT_KEYS := ["resolution", "fps"]
 const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "note"]
 const MOVE_KEYS := ["from", "to", "ease"]

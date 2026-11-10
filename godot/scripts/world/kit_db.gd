@@ -84,7 +84,7 @@ static func parts(id: String) -> Array:
 	var out := []
 	var ps := scene(id)
 	if ps:
-		var inst := ps.instantiate()
+		var inst := _only_node(ps.instantiate(), String(model(id).get("node", "")))
 		_collect(inst, Transform3D.IDENTITY, out)
 		inst.free()
 		var fix := Transform3D(Basis(), -ground_offset(id))
@@ -102,6 +102,18 @@ static func _collect(n: Node, xf: Transform3D, out: Array) -> void:
 		out.append({"mesh": (n as MeshInstance3D).mesh, "xf": t})
 	for c in n.get_children():
 		_collect(c, t, out)
+
+
+## For models split out of a multi-prop file ("node" in the catalog): drop the
+## other root nodes so only this prop remains.
+static func _only_node(inst: Node, node: String) -> Node:
+	if node == "":
+		return inst
+	for c in inst.get_children():
+		if String(c.name) != node:
+			inst.remove_child(c)
+			c.free()
+	return inst
 
 
 ## Offset that moves the model's footprint centre to the origin and its base to y = 0.
@@ -129,7 +141,7 @@ static func instance(id: String, scale: float) -> Node3D:
 		return root
 	var offset := Node3D.new()
 	offset.position = -ground_offset(id)
-	offset.add_child(ps.instantiate())
+	offset.add_child(_only_node(ps.instantiate(), String(model(id).get("node", ""))))
 	root.add_child(offset)
 	root.scale = Vector3.ONE * scale
 	return root

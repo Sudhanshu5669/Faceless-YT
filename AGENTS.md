@@ -4,7 +4,8 @@ TownForge turns an approved story into a rendered, animated YouTube episode
 ("what if you…" hypotheticals, Shorts first). Godot 4.7 builds and films the
 world; Python runs the pipeline; an LLM acts as director by writing JSON specs.
 
-Start with `docs/VISION_AND_ROADMAP.md` (goals, workflow, status, what's next).
+**Start with `HANDOFF.md`** (current state, uncommitted work, next steps), then
+`docs/VISION_AND_ROADMAP.md` (goals, workflow, status, what's next).
 Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary:
 
 - `docs/SET_SPEC.md`: sets (towns) and their params
@@ -14,6 +15,7 @@ Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary
 - `docs/ACTOR_SPEC.md`: characters, actions (sequences, freeze marks), routes, crowds, cues/holds, actor anchors
 - `docs/TIMELINE_SPEC.md`: episodes, timed shots, camera moves, set events, storyboard, video render
 - `docs/AUDIO_SPEC.md`: narration (Gemini TTS), voice-first timing, word time refs, effects, beds, captions
+- `docs/REVIEW.md`: the approval board (environment → characters → script & voice → shots) and the review loop
 
 ## Commands
 
@@ -27,6 +29,7 @@ python pipeline/tf.py look save NAME FILE --description "..."   # validate + sav
 python pipeline/tf.py storyboard EPISODE             # episodes/<id>/preview/storyboard.png (start/mid/end per shot)
 python pipeline/tf.py voice EPISODE                  # narration (cached TTS) + timing table, no render
 python pipeline/tf.py render EPISODE [--draft] [--shots a,b] [--remix]   # episodes/<id>/renders/<id>.mp4 (--remix: sound only)
+python pipeline/tf.py review prepare|serve|notes EPISODE   # approval board; final renders need every item approved
 python pipeline/tf.py explore [SPEC]                # interactive fly-through (T/Y time, F/C/R/X weather)
 python pipeline/tf.py assets import                 # incoming/*.zip -> Godot assets -> library/catalog.json + thumbnails
 ```
@@ -93,6 +96,6 @@ library/actions.json      action vocabulary -> animations, measured gait speeds
 godot/tools/              catalog + thumbnails, atlas swatch probe, locomotion probe, character probe
 specs/sets/               set specs (JSON)
 pipeline/tf.py            pipeline CLI
-pipeline/                 tts (Gemini), align (word times), episode_audio (resolve, mix, captions), sfx (synth)
+pipeline/                 tts (Gemini), align (word times), episode_audio (resolve, mix, captions), sfx (synth), review (+ review_ui/)
 output/                   renders and previews (git-ignored)
 ```

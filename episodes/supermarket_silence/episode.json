@@ -961,5 +961,18 @@
         ]
       ]
     }
-  ]
+  ],
+  "review": {
+    "stage": {
+      "anchor": "aisle_4.front",
+      "offset": [
+        0,
+        0,
+        -1.2
+      ]
+    },
+    "cast_params": {
+      "power": "on"
+    }
+  }
 }

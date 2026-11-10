@@ -69,6 +69,7 @@ The creative stages (1, 2, 5, review in 6) become **project skills** in `.claude
 | Timeline + video render: episode.json, camera moves, actor cues/holds, storyboard, MP4 | ✅ done | TIMELINE_SPEC.md |
 | Voice and post: Gemini TTS (batched, cached), voice-first timing, word refs, synthesized SFX/beds, ducking, −14 LUFS, word-by-word captions | ✅ done (draft) | AUDIO_SPEC.md |
 | Sets: supermarket (procedural), set events (switchable toys/lights) | ✅ done | SET_SPEC.md |
+| Review board: approve environment → characters → script & voice → shots (local web page, Claude's suggestions, final render gated) | ✅ done | REVIEW.md |
 | QA + packaging (thumbnail, title, description), shot cache | planned | |
 | Creative skills (pitch, script, shot plan, review) | planned | |
 | Episode manager (state.json, resumable pipeline) | planned | |

@@ -34,7 +34,8 @@ FX = {"toy", "toy_chorus"}
 FIT_KEYS = {"fit", "min", "tail"}
 DEFAULT_TAIL = 0.25
 BATCH_WORDS = 30  # long requests get cut off unpredictably
-AUDIO_KEYS = ["narration", "lines", "sfx", "ambience", "captions", "music", "end_black"]
+# Keys only the Python pipeline reads (stripped before Godot renders).
+AUDIO_KEYS = ["narration", "lines", "sfx", "ambience", "captions", "music", "end_black", "review"]
 
 
 class EpisodeError(SystemExit):

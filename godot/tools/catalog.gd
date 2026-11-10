@@ -1,6 +1,8 @@
 ## Builds library/catalog.json and thumbnails for every model in res://assets.
 ## Run windowed (it renders):  godot --path godot res://tools/catalog.tscn
 ## Optional: -- --pack <id>   only that pack (catalog entries of other packs are kept)
+## Packs marked "split_roots": true in pipeline/asset_packs.json hold several
+## props in one file: each root node becomes its own model, "<pack>/<file>#<node>".
 extends Node
 
 const Paths = preload("res://scripts/core/paths.gd")
@@ -35,17 +37,22 @@ func _ready() -> void:
 				if e["pack"] != only_pack:
 					entries[e["id"]] = e
 	var by_pack := {}
+	var split := _split_packs()
 	for f in files:
 		var pack := String(f).trim_prefix("res://assets/").split("/")[0]
 		if only_pack != "" and pack != only_pack:
 			continue
-		var e := await _process_model(f, pack)
-		if e.is_empty():
-			continue
-		entries[e["id"]] = e
-		if not by_pack.has(pack):
-			by_pack[pack] = []
-		by_pack[pack].append(e)
+		var nodes: Array = [""]
+		if pack in split:
+			nodes = _root_names(f)
+		for node in nodes:
+			var e := await _process_model(f, pack, node)
+			if e.is_empty():
+				continue
+			entries[e["id"]] = e
+			if not by_pack.has(pack):
+				by_pack[pack] = []
+			by_pack[pack].append(e)
 	for pack in by_pack:
 		_write_sheets(pack, by_pack[pack])
 	var ids := entries.keys()
@@ -58,6 +65,29 @@ func _ready() -> void:
 	f.close()
 	print("[TownForge] catalog: %d models -> %s" % [models.size(), catalog_path])
 	get_tree().quit(0)
+
+
+func _split_packs() -> Array:
+	var r := Paths.load_json(Paths.repo_path("pipeline/asset_packs.json"))
+	var out := []
+	if r["ok"]:
+		for p in r["data"]["packs"]:
+			if p.get("split_roots", false):
+				out.append(p["id"])
+	return out
+
+
+func _root_names(path: String) -> Array:
+	var res = load(path)
+	if not (res is PackedScene):
+		return []
+	var inst: Node = (res as PackedScene).instantiate()
+	var out := []
+	for c in inst.get_children():
+		if c is Node3D:
+			out.append(String(c.name))
+	inst.free()
+	return out
 
 
 func _scan(dir: String, out: Array) -> void:
@@ -185,16 +215,22 @@ func _tags(name: String, category: String) -> Array:
 	return out
 
 
-func _process_model(path: String, pack: String) -> Dictionary:
+func _process_model(path: String, pack: String, node: String = "") -> Dictionary:
 	var res = load(path)
 	if not (res is PackedScene):
 		push_warning("not a scene: " + path)
 		return {}
 	var inst: Node = (res as PackedScene).instantiate()
+	if node != "":
+		# Keep only this root node (one prop out of a multi-prop file).
+		for c in inst.get_children():
+			if String(c.name) != node:
+				inst.remove_child(c)
+				c.free()
 	holder.add_child(inst)
 	var acc := [null, 0]
 	_aabb(inst, Transform3D.IDENTITY, acc)
-	var name := path.get_file().get_basename()
+	var name := path.get_file().get_basename() + ("#" + node if node != "" else "")
 	var rel := path.trim_prefix("res://assets/")
 	var ap := _find_anim_player(inst)
 	var anims := []
@@ -207,6 +243,7 @@ func _process_model(path: String, pack: String) -> Dictionary:
 		"pack": pack,
 		"name": name,
 		"path": path,
+		"node": node,
 		"category": _category(pack, rel, name, rigged),
 		"tags": [],
 		"tris": acc[1],
@@ -233,7 +270,7 @@ func _process_model(path: String, pack: String) -> Dictionary:
 	for k in 3:
 		await RenderingServer.frame_post_draw
 	var img := viewport.get_texture().get_image()
-	var thumb_rel := "library/thumbs/%s/%s.png" % [pack, name]
+	var thumb_rel := "library/thumbs/%s/%s.png" % [pack, name.replace("#", "__").replace(".", "_")]
 	DirAccess.make_dir_recursive_absolute(Paths.repo_path(thumb_rel).get_base_dir())
 	img.save_png(Paths.repo_path(thumb_rel))
 	entry["thumb"] = thumb_rel

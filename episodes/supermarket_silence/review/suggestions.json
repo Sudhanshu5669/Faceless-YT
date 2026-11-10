@@ -1,0 +1,79 @@
+{
+  "env:exterior": [
+    {"id": "c1", "text": "The FRESHWAY sign is cut off at both edges. Pull the camera back ~4 m (or an 18 mm lens) so the store name reads: it's the only establishing text in the episode."},
+    {"id": "c2", "text": "Beyond the two lamps the lot is black. Add 2–3 more sodium lamps along the storefront so the horde stands in pools of orange light in every exterior shot."}
+  ],
+  "env:inside_glass": [
+    {"id": "c1", "text": "The green exit-sign glow dominates the top of the frame. Halve its light so the glass and the parking lot read first."}
+  ],
+  "env:front_aisle": [
+    {"id": "c1", "text": "Too clean for a store you've been trapped in for 7 hours. Scatter debris near the front aisle: fallen cans, an overturned cart, a dropped basket."},
+    {"id": "c2", "text": "Add one fixture that flickers for the whole episode (deterministic flicker), so the space never feels completely still."}
+  ],
+  "env:toy_aisle": [
+    {"id": "c1", "text": "The story's key location is nearly black until the toys light up. Make the toy-aisle fixture part of the set (a dim, failing light) instead of an episode event, so every angle on aisle 6 reads."}
+  ],
+  "env:overview": [
+    {"id": "c1", "text": "Unreadable at this exposure (4/255) and it repeats the other angles. Replace with a high wide from above the checkouts looking down the aisles toward the glow of aisle 6."}
+  ],
+  "cast:you": [
+    {"id": "c1", "text": "You stand up fully to reach the toy ('interact'). Staying low (crouch then reach) fits 'every step is a gunshot'. I'd add a crouched-reach action."},
+    {"id": "c2", "text": "'You take off your shoes' has no visual payoff: the mannequin has no shoes. Either give 'you' sneakers that come off in the shoes shot, or rewrite n4 (e.g. 'So you hold your breath.')."}
+  ],
+  "cast:zombie": [
+    {"id": "c1", "text": "Grey-green bodies vanish in the dark lot. Give zombies a faint sickly-yellow tint and dim glowing eyes so their silhouettes read at night."},
+    {"id": "c2", "text": "Between cues the horde is static. Let the back rows shuffle (zombie_walk in place / slow drift) so the crowd feels alive."}
+  ],
+  "cast:zombie_f": [
+    {"id": "c1", "text": "Same as zombie: faint tint + dim eyes for readability at night."}
+  ],
+  "voice:script": [
+    {"id": "c1", "text": "'Seven hours' appears 3 times. A sharper last line: 'You'd survive seven hours. The toys? They were just getting started.'"},
+    {"id": "c2", "text": "Hook: in n1 the narrator repeats 'let's play'. Let the toy's own voice say it again there instead (scarier, and it ties the sound to the threat)."}
+  ],
+  "voice:n5a": [
+    {"id": "c1", "text": "This is the draft voice (lite model) and it drags here. Re-review after the full-model take, when the free quota resets."}
+  ],
+  "voice:n8": [
+    {"id": "c1", "text": "Slow is right for the quiet beat, but trim the pause between the two sentences by ~0.4 s."}
+  ],
+  "voice:toy3": [
+    {"id": "c1", "text": "Make the final chorus more wrong: end each copy with a dying-battery pitch drop, so it isn't just a louder repeat of the first line."}
+  ],
+  "shot:toy_wakes": [
+    {"id": "c1", "text": "Strongest possible hook: show zombie silhouettes at the glass, out of focus, far behind the toy in frame 1, so the threat is on screen in the first second."}
+  ],
+  "shot:horde_turns": [
+    {"id": "c1", "text": "The turn lands ~0.9 s into the shot. Put it right on the cut for impact, and add a slow push toward the glass (5.9 s is long for a static frame)."}
+  ],
+  "shot:glass_wall": [
+    {"id": "c1", "text": "Your back fills a third of the frame and the horde reads small. Lower the camera and use a 50 mm lens so the zombies at the glass loom behind you."}
+  ],
+  "shot:long_aisle": [
+    {"id": "c1", "text": "The toy looks close here, against 'forty meters away'. An 18 mm lens from floor level would exaggerate the distance."}
+  ],
+  "shot:shoes": [
+    {"id": "c1", "text": "Floor-level close-up on your feet as you start to move (ties to the shoes line; depends on the cast:you shoes decision)."}
+  ],
+  "shot:toy_again": [
+    {"id": "c1", "text": "Lengthen the flicker (0.6 → 1.2 s) and land a glass bang exactly on the cut."}
+  ],
+  "shot:creak": [
+    {"id": "c1", "text": "Too dark to read. Go closer: one zombie hand flat on the glass, backlit by a parking lamp, the glass flexing."}
+  ],
+  "shot:reach": [
+    {"id": "c1", "text": "Works. Tighten to an over-the-shoulder on 'pull the batteries' so the eyes going dark are the focus."}
+  ],
+  "shot:silence": [
+    {"id": "c1", "text": "The wide is unreadable. Try a high angle over the checkouts: the whole store still, the frozen horde silhouetted against the lamps."}
+  ],
+  "shot:seven_hours": [
+    {"id": "c1", "text": "8.8 s on one static frame. Slow push-in on your face, then cut to an insert of the dead toy in your hand on 'perfect silence'."}
+  ],
+  "shot:all_toys": [
+    {"id": "c1", "text": "The payoff is only 2.4 s. Hold for 3.5 s and add a short camera shake on the sting."}
+  ],
+  "shot:ending": [
+    {"id": "c1", "text": "Cut to black right on 'plans.' and let the toy chorus echo over the black, instead of holding the shelf."}
+  ]
+}
