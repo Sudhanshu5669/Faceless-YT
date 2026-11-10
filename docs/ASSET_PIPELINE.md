@@ -90,6 +90,14 @@ procedural fallback that needs no assets.
 - `credits`: the CC-BY packs (basket, garbage bin, cardboard box) need the credit lines from
   `pipeline/asset_packs.json` in the video description.
 
+## Character rigs (retargeting)
+
+`library/rigs.json` maps Universal Animation Library bones to another humanoid rig's bones and lists
+the packs that use it. Today: `quaternius_modular` (Ultimate Modular Men + Women, CC0, the
+"Humanoid Rig" FBX exports). To add a rig: import the pack, print its skeleton with
+`tools/skeleton_probe.gd`, check it rests in a T-pose facing +Z, add a map. Unmapped bones (finger
+tips, toes) keep their rest pose.
+
 ## Imported, not used yet
 
 - **Characters**: `quaternius_ual/UAL1_Standard`, `UAL2_Standard` (male mannequin + 43 animations

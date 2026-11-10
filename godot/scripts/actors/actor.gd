@@ -8,6 +8,7 @@ extends Node3D
 const Cast = preload("res://scripts/actors/cast.gd")
 const KitDB = preload("res://scripts/world/kit_db.gd")
 const SetBuilder = preload("res://scripts/world/set_builder.gd")
+const Retarget = preload("res://scripts/actors/retarget.gd")
 
 static var _materials: Dictionary = {}
 ## Seconds to turn to a new facing (cue "turn" overrides; also used on arrival).
@@ -19,7 +20,8 @@ var plan: Dictionary
 var layout: Dictionary
 var body: Node3D
 var ap: AnimationPlayer
-var skeleton: Skeleton3D
+var skeleton: Skeleton3D          # the mannequin's: animations and blends pose this one
+var retarget: Retarget            # set when the character has a model
 var _bones := {}
 var _height_scale := 1.0
 ## id -> actor node for everyone in the scene (set by ActorDirector.build).
@@ -32,7 +34,8 @@ func setup(id: String, char_id: String, p: Dictionary, L: Dictionary) -> void:
 	character = Cast.character(char_id)
 	plan = p
 	layout = L
-	body = Cast.body_instance(String(character.get("body", "male")))
+	var model := String(character.get("model", ""))
+	body = Cast.body_instance(String(character.get("body", "male")), model)
 	body.name = "body"
 	var hs := float(character.get("height", Cast.BASE_HEIGHT)) / Cast.BASE_HEIGHT
 	_height_scale = hs
@@ -40,9 +43,9 @@ func setup(id: String, char_id: String, p: Dictionary, L: Dictionary) -> void:
 	body.scale = Vector3(hs * ws, hs, hs * ws)
 	add_child(body)
 	ap = body.find_child("AnimationPlayer", true, false)
-	skeleton = body.find_child("Skeleton3D", true, false)
-	for b in ["Head", "spine_03", "hand_r", "hand_l"]:
-		_bones[b] = skeleton.find_bone(b)
+	skeleton = body.get_node(Cast.MANNEQUIN_SKELETON) as Skeleton3D
+	if model != "":
+		retarget = Retarget.new(skeleton, Cast.model_skeleton(body, model), Retarget.rig_for(model), body)
 	_apply_colors(char_id)
 	_attach_props(hs)
 
@@ -50,6 +53,9 @@ func setup(id: String, char_id: String, p: Dictionary, L: Dictionary) -> void:
 func _apply_colors(char_id: String) -> void:
 	var cols: Dictionary = character.get("colors", {})
 	var glow := float(character.get("glow", 0.0))
+	if retarget != null:
+		_apply_model_colors(char_id, cols)
+		return
 	for mi in body.find_children("*", "MeshInstance3D", true, false):
 		var mesh: Mesh = (mi as MeshInstance3D).mesh
 		for s in mesh.get_surface_count():
@@ -67,6 +73,22 @@ func _apply_colors(char_id: String) -> void:
 					nm.emission_enabled = true
 					nm.emission = nm.albedo_color
 					nm.emission_energy_multiplier = glow
+				_materials[key] = nm
+			(mi as MeshInstance3D).set_surface_override_material(s, _materials[key])
+
+
+## Character models: "colors" repaint materials by name ({"Suit": "#5a3a2a"}).
+func _apply_model_colors(char_id: String, cols: Dictionary) -> void:
+	for mi in body.get_node("model").find_children("*", "MeshInstance3D", true, false):
+		var mesh: Mesh = (mi as MeshInstance3D).mesh
+		for s in mesh.get_surface_count():
+			var m := mesh.surface_get_material(s) as BaseMaterial3D
+			if m == null or not cols.has(String(m.resource_name)):
+				continue
+			var key := "%s|%s" % [char_id, m.resource_name]
+			if not _materials.has(key):
+				var nm: BaseMaterial3D = m.duplicate()
+				nm.albedo_color = Color(String(cols[String(m.resource_name)]))
 				_materials[key] = nm
 			(mi as MeshInstance3D).set_surface_override_material(s, _materials[key])
 
@@ -218,6 +240,8 @@ func _play(action_id: String, time: float, freeze: float) -> void:
 	else:
 		_seek(String(seg["anim"]), _clip_time(seg, local))
 	body.position = Vector3(0, Cast.lift_at(cp, tt) * _height_scale, 0)
+	if retarget != null:
+		retarget.apply()
 
 
 static func _clip_time(seg: Dictionary, local: float) -> float:
@@ -262,13 +286,20 @@ static func _world_of(n: Node) -> Transform3D:
 
 
 ## World position of a skeleton bone, exact right after pose_at().
+## Bones are named as on the mannequin; with a model, the matching model bone is used.
 func bone_world(bone: String) -> Vector3:
-	if not _bones.has(bone):
-		_bones[bone] = skeleton.find_bone(bone)
-	var i := int(_bones[bone])
+	var sk := skeleton
+	var name_on := bone
+	if retarget != null and retarget.target_bone(bone) != "":
+		sk = retarget.dst
+		name_on = retarget.target_bone(bone)
+	var key := "%s|%s" % [sk.get_instance_id(), name_on]
+	if not _bones.has(key):
+		_bones[key] = sk.find_bone(name_on)
+	var i := int(_bones[key])
 	if i < 0:
 		return _world_of(self).origin + Vector3.UP * 1.6
-	return _world_of(skeleton) * Cast.bone_global(skeleton, i).origin
+	return _world_of(sk) * Cast.bone_global(sk, i).origin
 
 
 ## Anchors other systems can target: "<id>", "<id>.head", "<id>.eyes", "<id>.chest", "<id>.hand".

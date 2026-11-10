@@ -265,6 +265,34 @@
         ]
       ],
       "credit": "\"Cardboard box\" by macriciox (Fab), licensed under CC BY 4.0"
+    },
+    {
+      "id": "quaternius_modular_men",
+      "author": "Quaternius",
+      "license": "CC0",
+      "url": "https://quaternius.com/packs/ultimatemodularcharacters.html",
+      "zip": "Ultimate Modular Men*.zip",
+      "files": [
+        [
+          "Ultimate Modular Men- Feb 2022/Humanoid Rig/Individual Characters/FBX/",
+          "*.fbx",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "quaternius_modular_women",
+      "author": "Quaternius",
+      "license": "CC0",
+      "url": "https://quaternius.com/packs/ultimatemodularwomen.html",
+      "zip": "Ultimate Modular Women*.zip",
+      "files": [
+        [
+          "Ultimate Modular Women - April 2022/Humanoid Rigs/Individual Characters/FBX/",
+          "*.fbx",
+          ""
+        ]
+      ]
     }
   ]
 }

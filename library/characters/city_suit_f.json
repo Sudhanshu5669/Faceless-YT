@@ -1,0 +1,19 @@
+{
+  "id": "city_suit_f",
+  "description": "Woman in a black trouser suit.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "female",
+  "model": "quaternius_modular_women/Suit",
+  "colors": {
+    "Skin": "#8d5a3b",
+    "Hair_Brown": "#1a1414",
+    "Hair_Blond": "#2a2018"
+  },
+  "height": 1.68,
+  "idle": "idle",
+  "gait": "walk_formal"
+}

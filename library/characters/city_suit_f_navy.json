@@ -1,0 +1,18 @@
+{
+  "id": "city_suit_f_navy",
+  "description": "Blonde woman in a navy suit.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "female",
+  "model": "quaternius_modular_women/Suit",
+  "colors": {
+    "Black": "#26324a",
+    "Skin": "#e6c3a0"
+  },
+  "height": 1.72,
+  "idle": "idle",
+  "gait": "walk_formal"
+}

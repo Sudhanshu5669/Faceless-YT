@@ -1,0 +1,20 @@
+{
+  "id": "city_jacket_olive",
+  "description": "Man in an olive jacket and jeans.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "male",
+  "model": "quaternius_modular_men/Casual2",
+  "colors": {
+    "LightBrown": "#5d6b4a",
+    "Skin": "#b88a62",
+    "Skin_Darker": "#9a7050",
+    "Hair": "#1c1410"
+  },
+  "height": 1.75,
+  "idle": "idle",
+  "gait": "walk"
+}

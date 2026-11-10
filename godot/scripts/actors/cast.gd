@@ -7,6 +7,7 @@ extends RefCounted
 
 const Paths = preload("res://scripts/core/paths.gd")
 const KitDB = preload("res://scripts/world/kit_db.gd")
+const Retarget = preload("res://scripts/actors/retarget.gd")
 
 const BODIES := {
 	"male": "res://assets/quaternius_ual/UAL1_Standard.glb",
@@ -19,8 +20,9 @@ const ANIM_SOURCES := [
 ## Height of the mannequins as authored (metres), used to scale characters.
 const BASE_HEIGHT := 1.83
 
-const CHARACTER_KEYS := ["id", "description", "tags", "body", "colors", "height", "width",
+const CHARACTER_KEYS := ["id", "description", "tags", "body", "model", "colors", "height", "width",
 	"idle", "gait", "glow", "props"]
+const MANNEQUIN_SKELETON := "Armature/Skeleton3D"
 const PROP_KEYS := ["model", "bone", "size", "offset", "rotation"]
 const ACTION_KEYS := ["anim", "sequence", "loop", "gait", "speed", "lift", "marks", "description"]
 const SEGMENT_KEYS := ["anim", "from", "to", "duration", "blend"]
@@ -48,8 +50,12 @@ static func anim_library() -> AnimationLibrary:
 	return _library
 
 
-## A body with a fresh AnimationPlayer holding the merged library.
-static func body_instance(body: String) -> Node3D:
+## A body with a fresh AnimationPlayer holding the merged library. With a
+## character model (a catalog id covered by library/rigs.json), the mannequin
+## stays as the hidden animation source and the model is added as "model",
+## scaled so its head bone sits at the mannequin's head height; the actor
+## retargets the pose onto it (retarget.gd).
+static func body_instance(body: String, model_id: String = "") -> Node3D:
 	var ps := load(BODIES.get(body, BODIES["male"])) as PackedScene
 	var inst: Node3D = ps.instantiate()
 	for c in inst.get_children():
@@ -62,7 +68,51 @@ static func body_instance(body: String) -> Node3D:
 	ap.add_animation_library("", anim_library())
 	ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	inst.add_child(ap)
+	if model_id != "":
+		_add_model(inst, model_id)
 	return inst
+
+
+static func _add_model(inst: Node3D, model_id: String) -> void:
+	var src := inst.get_node(MANNEQUIN_SKELETON) as Skeleton3D
+	for mi in inst.find_children("*", "MeshInstance3D", true, false):
+		(mi as MeshInstance3D).visible = false
+	var m: Node3D = KitDB.scene(model_id).instantiate()
+	for c in m.find_children("*", "AnimationPlayer", true, false):
+		c.get_parent().remove_child(c)
+		c.free()
+	m.name = "model"
+	inst.add_child(m)
+	var dst := model_skeleton(inst, model_id)
+	var head_name := String(Retarget.rigs()[Retarget.rig_for(model_id)]["bones"]["Head"])
+	var src_head := (Retarget._chain(src, inst) * src.get_bone_global_rest(src.find_bone("Head")).origin).y
+	var dst_head := (Retarget._chain(dst, inst) * dst.get_bone_global_rest(dst.find_bone(head_name)).origin).y
+	m.scale = Vector3.ONE * (src_head / dst_head)
+
+
+static func model_skeleton(inst: Node3D, model_id: String) -> Skeleton3D:
+	return inst.get_node("model/" + String(Retarget.rigs()[Retarget.rig_for(model_id)]["skeleton"])) as Skeleton3D
+
+
+static var _model_materials: Dictionary = {}
+
+
+## Material names on a character model's meshes (what "colors" can repaint).
+static func model_materials(model_id: String) -> PackedStringArray:
+	if not _model_materials.has(model_id):
+		var names := PackedStringArray()
+		var ps := KitDB.scene(model_id)
+		if ps:
+			var inst := ps.instantiate()
+			for mi in inst.find_children("*", "MeshInstance3D", true, false):
+				var mesh: Mesh = (mi as MeshInstance3D).mesh
+				for si in mesh.get_surface_count():
+					var mat := mesh.surface_get_material(si)
+					if mat and not (String(mat.resource_name) in names):
+						names.append(String(mat.resource_name))
+			inst.free()
+		_model_materials[model_id] = names
+	return _model_materials[model_id]
 
 
 ## Bone transform in skeleton space, computed from local poses up the parent
@@ -235,9 +285,21 @@ static func validate_character(id: String) -> Array:
 			e.append("character %s: unknown key '%s' (known: %s)" % [id, k, ", ".join(PackedStringArray(CHARACTER_KEYS))])
 	if not BODIES.has(String(c.get("body", "male"))):
 		e.append("character %s: body must be one of %s" % [id, BODIES.keys()])
-	for k in ["body", "joints"]:
-		var col = c.get("colors", {}).get(k)
-		if col != null and not Color.html_is_valid(String(col)):
+	var model := String(c.get("model", ""))
+	if model != "":
+		if KitDB.model(model).is_empty():
+			e.append("character %s: model '%s' is not in the catalog" % [id, model])
+		elif Retarget.rig_for(model) == "":
+			e.append("character %s: model '%s' is from a pack no rig covers (library/rigs.json)" % [id, model])
+		else:
+			var mats := model_materials(model)
+			for k in c.get("colors", {}):
+				if not (String(k) in mats):
+					e.append("character %s: colors.%s is not a material of %s (has: %s)" % [id, k, model, ", ".join(mats)])
+	for k in c.get("colors", {}):
+		if model == "" and not (k in ["body", "joints"]):
+			e.append("character %s: mannequin colors are 'body' and 'joints', not '%s'" % [id, k])
+		elif not Color.html_is_valid(String(c["colors"][k])):
 			e.append("character %s: colors.%s is not a hex colour" % [id, k])
 	for k in ["idle", "gait"]:
 		if c.has(k) and action(String(c[k])).is_empty():

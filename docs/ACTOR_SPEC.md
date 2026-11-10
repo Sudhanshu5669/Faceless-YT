@@ -94,12 +94,26 @@ Move the actor or the camera.
 ```
 
 - `body`: `male` or `female` (faceless Quaternius mannequins with one shared skeleton and 86 animations).
-- `colors.body`, `colors.joints`: the mannequin's two materials. `glow` makes the joints emit light.
+- `model` (optional): a character model from the catalog, e.g. `quaternius_modular_men/Suit`. The
+  mannequin stays as the hidden animation source and its pose is **retargeted** onto the model every
+  frame (`scripts/actors/retarget.gd`, bone maps in `library/rigs.json`), so every action works on it.
+  The model is scaled so its head bone matches the mannequin's; `height` then scales both.
+- `colors`: for a mannequin, `body` and `joints` (`glow` makes the joints emit light). For a model,
+  material names → hex (`{"Suit": "#1f2d4a", "Tie": "#8a1f2a", "Skin": "#8d5a3b", "Hair": "#111111"}`);
+  unknown names are errors listing the model's materials.
 - `height` (m), `width` (×, for build): `height` 1.25 is a child, 2.3 is unnaturally tall.
 - `props`: catalog models attached to a bone (`hand_r`, `hand_l`, `Head`, `spine_03`…). `size` = largest dimension in metres.
 
 Current cast: `you`, `you_f`, `neighbor_a`, `neighbor_b`, `kid`, `zombie`, `zombie_f`, `stranger`,
-`mannequin`, `night_watch`. Add more freely. A new character is one JSON file.
+`mannequin`, `night_watch` (mannequins), and the city people `city_*` (16 retargeted Quaternius
+modular characters: suits, hoodies, jackets, summer clothes, workers, punks, a dress; varied skin,
+hair and clothing colours and heights). Add more freely. A new character is one JSON file.
+
+**City outfits** (`quaternius_modular_men/…`: `Casual`, `Casual2`, `Beach`, `Suit`, `Worker`, `Punk`,
+`Farmer`, plus `Adventurer`, `King`, `Spacesuit`, `Swat`; `quaternius_modular_women/…`: `Casual`,
+`Formal`, `Suit`, `Worker`, `Punk`, `Adventurer`, plus `Medieval`, `SciFi`, `Soldier`, `Witch`).
+List a model's materials with
+`godot --headless --path godot --script res://tools/skeleton_probe.gd -- res://assets/<pack>/<Name>.fbx`.
 
 ## Actions
 

@@ -1,0 +1,20 @@
+{
+  "id": "city_hoodie_red",
+  "description": "Man in a dark red hoodie.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "male",
+  "model": "quaternius_modular_men/Casual",
+  "colors": {
+    "Purple": "#7a2f2f",
+    "LightBlue": "#3a3a40",
+    "Skin": "#5a3a28",
+    "Hair": "#111111"
+  },
+  "height": 1.84,
+  "idle": "idle",
+  "gait": "walk"
+}

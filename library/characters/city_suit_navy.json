@@ -1,0 +1,20 @@
+{
+  "id": "city_suit_navy",
+  "description": "Commuter in a navy suit and red tie.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "male",
+  "model": "quaternius_modular_men/Suit",
+  "colors": {
+    "Suit": "#1f2d4a",
+    "Tie": "#8a1f2a",
+    "Skin": "#e6c3a0",
+    "Hair": "#2a1d14"
+  },
+  "height": 1.82,
+  "idle": "idle",
+  "gait": "walk_formal"
+}

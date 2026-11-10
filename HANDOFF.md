@@ -6,44 +6,40 @@
 
 TownForge renders narrated YouTube Shorts from JSON specs: procedural sets (town, supermarket),
 looks, actors with cues, timed shots with camera moves, Gemini TTS narration with word-timed
-captions, synthesized sound, and an **approval board** that gates the final render. The current
-episode is `episodes/supermarket_silence` ("A Toy Starts Talking", pitch C, Charon voice, script
-approved). The supermarket is now dressed with the **Fab `supermarket` kit** (rack gondolas, wall
-shelves, fridges, checkouts, food stock, carts/baskets/boxes/trash bags). The board was re-prepared
-for env, cast and shots on 2026-11-10; the user has not reviewed anything yet (all 35 items pending).
+captions, synthesized sound, and an approval board that gates the final render.
+
+**Current direction (2026-11-10): an ambient city demo video** (no narration): a downtown with lots
+of people moving around, cycling through different weathers, to show what the tool can do. The user
+chose, in this order: (1) better characters first, (2) a new `downtown` generator from the imported
+Quaternius Downtown kit, (3) skies from Poly Haven HDRIs (CC0) combined with our rain/fog/wind.
+Good SKY (Fab) was checked and can't be used: Unreal-only Blueprint, Unreal-only licence.
+
+Step 1 is done: **retargeting** (`scripts/actors/retarget.gd`, `library/rigs.json`) drives Quaternius
+Ultimate Modular Men/Women (CC0) from the mannequin's animations, and 16 city people exist
+(`library/characters/city_*.json`). The supermarket episode (`supermarket_silence`) is **parked**: the
+user got bored of it; its board is prepared and nothing is approved.
 
 ## Git
 
-- Committed: `09acfcb` (timeline), `a2805d3` (supermarket + sound + captions), `9f90348` (review
-  board, Fab packs, this file).
-- **Uncommitted** (ask, then commit on main): the supermarket kit work:
-  `library/kits/supermarket.json`, `supermarket_generator.gd` (params `kit`, `clutter`; gondola
-  segments, wall shelves, clutter, kit validation), `supermarket_builder.gd` (model fixtures, kit
-  stock MultiMeshes), `kit_db.gd` (`static_node` + recolour, `override_named`), new
-  `godot/tools/fixture_probe.gd`, test `supermarket kit: …`, docs (SET_SPEC, ASSET_PIPELINE,
-  roadmap), `episode.json` (shot `shoes` camera now on anchor `checkout_2`), one suggestion text.
+- Committed: `09acfcb`, `a2805d3`, `9f90348` (review board), `4d09580` (supermarket Fab kit).
+- Uncommitted at the time of writing: character retargeting + city cast (commit on main).
 - Never commit: `.env` (Gemini key, git-ignored), `incoming/`, `godot/assets/`, `output/`.
 
 ## Next steps, in order
 
-1. **Ask the user** whether to commit the uncommitted work above, and how the review is going.
-2. **Review loop** (`docs/REVIEW.md`): the user runs `python pipeline/tf.py review serve supermarket_silence`,
-   approves or requests changes gate by gate (Environment → Characters → Script & voice → Shots), and
-   says "review done". Then run `python pipeline/tf.py review notes supermarket_silence`, apply every
-   note and every ticked suggestion, re-run `tf review prepare supermarket_silence --gate <changed gates>`,
-   update `review/suggestions.json` (drop what's done, add new critique after looking at the media),
-   and tell the user what changed.
-3. ~~Use the Fab assets in the supermarket set~~ (done 2026-11-10). Possible follow-ups, only if the
-   review asks: end caps (`…#Cube_007`) on gondola fronts, produce/deli counters (`…#Cube_049`,
-   `…#Cube_031`, `…#Cube_005`) near the front, fallen products on the floor, checkout occluder rects
-   still assume a 0.9 m counter (the kit counter is 1.2 m).
-4. **Final narration voice.** Narration is a DRAFT on `gemini-3.8-flash-lite-tts` (set via env var
-   `TOWNFORGE_TTS_MODEL` in every command). The free tier allows 10 TTS requests per model per day; the
-   user's choice was Charon on `gemini-3.8-flash-tts`. When the quota has reset (or billing is on), run
-   commands **without** the env var: the voice is re-synthesized in ~4 requests, timing re-resolves
-   automatically (everything references words), then the voice and shots gates need another look.
-5. Final render: `python pipeline/tf.py render supermarket_silence` (refuses until the board is fully
-   approved).
+1. **Downtown generator** (`godot/scripts/world/generators/downtown_generator.gd` + builder, registered
+   in `set_builder.gd`): city blocks from `quaternius_downtown` (106 building parts, 39 street pieces,
+   props; look at `library/thumbs/_sheets/quaternius_downtown_*.png`), sidewalks, crossings, street
+   furniture, named anchors (blocks, corners, crossings, sidewalks) for routes and cameras.
+2. **Crowds that wander**: many pedestrians on sidewalk routes (loops between anchors), using the
+   `city_*` characters. Check the cost of retargeting at crowd scale (one extra skeleton per actor).
+   Per-member colour variation could replace hand-made variants later.
+3. **Skies**: Poly Haven HDRIs as the look's sky (panorama), per weather (clear, overcast, rain,
+   fog, dusk, night). Ask before each download (filename, source, size).
+4. **The demo**: an episode with no narration, long slow camera moves, weather changes between
+   shots, ambient beds (our sound pipeline), rendered at 16:9 and/or 9:16.
+5. Parked: supermarket review loop, final Charon narration (quota), final render. See git history
+   of this file for the details.
 
 ## Open suggestions already on the board (Claude's critique, `review/suggestions.json`)
 

@@ -1,0 +1,18 @@
+{
+  "id": "city_summer_m",
+  "description": "Man in shorts and a light tee, summer clothes.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "male",
+  "model": "quaternius_modular_men/Beach",
+  "colors": {
+    "Skin": "#b88a62",
+    "Hair": "#2a1d14"
+  },
+  "height": 1.74,
+  "idle": "idle",
+  "gait": "walk"
+}

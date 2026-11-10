@@ -1,0 +1,20 @@
+{
+  "id": "city_tee_f",
+  "description": "Woman in a white tee and jeans.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "female",
+  "model": "quaternius_modular_women/Casual",
+  "colors": {
+    "Orange": "#2c3a4f",
+    "Skin": "#e6c3a0",
+    "Hair_Brown": "#5a3a22",
+    "Hair_Blond": "#6b4a2a"
+  },
+  "height": 1.66,
+  "idle": "idle",
+  "gait": "walk"
+}

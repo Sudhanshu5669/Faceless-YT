@@ -1,5 +1,5 @@
 {
-  "count": 606,
+  "count": 627,
   "models": [
     {
       "animations": [],
@@ -54,7 +54,7 @@
         "food"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/All_Food.png",
-      "tris": 91631
+      "tris": 91631.0
     },
     {
       "animations": [
@@ -83,7 +83,7 @@
         "red"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Apple_Red.png",
-      "tris": 1040
+      "tris": 1040.0
     },
     {
       "animations": [
@@ -113,7 +113,7 @@
         "half"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Apple_Red_Half_1.png",
-      "tris": 1212
+      "tris": 1212.0
     },
     {
       "animations": [
@@ -143,7 +143,7 @@
         "half"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Apple_Red_Half_2.png",
-      "tris": 940
+      "tris": 940.0
     },
     {
       "animations": [
@@ -173,7 +173,7 @@
         "yellow"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bell_Pepper_Yellow.png",
-      "tris": 1520
+      "tris": 1520.0
     },
     {
       "animations": [
@@ -204,7 +204,7 @@
         "pice"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bell_Pepper_Yellow_Pice.png",
-      "tris": 768
+      "tris": 768.0
     },
     {
       "animations": [
@@ -232,7 +232,7 @@
         "bottle"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bottle_1.png",
-      "tris": 576
+      "tris": 576.0
     },
     {
       "animations": [
@@ -260,7 +260,7 @@
         "bottle"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bottle_2.png",
-      "tris": 1400
+      "tris": 1400.0
     },
     {
       "animations": [
@@ -288,7 +288,7 @@
         "bottle"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bottle_3.png",
-      "tris": 1374
+      "tris": 1374.0
     },
     {
       "animations": [
@@ -316,7 +316,7 @@
         "bottle"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bottle_4.png",
-      "tris": 1032
+      "tris": 1032.0
     },
     {
       "animations": [
@@ -344,7 +344,7 @@
         "bottle"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bottle_5.png",
-      "tris": 780
+      "tris": 780.0
     },
     {
       "animations": [
@@ -372,7 +372,7 @@
         "bottle"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bottle_6.png",
-      "tris": 700
+      "tris": 700.0
     },
     {
       "animations": [
@@ -400,7 +400,7 @@
         "bowl"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bowl.png",
-      "tris": 1104
+      "tris": 1104.0
     },
     {
       "animations": [
@@ -428,7 +428,7 @@
         "bread"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bread_1.png",
-      "tris": 1968
+      "tris": 1968.0
     },
     {
       "animations": [
@@ -457,7 +457,7 @@
         "slice"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bread_1_Slice.png",
-      "tris": 544
+      "tris": 544.0
     },
     {
       "animations": [
@@ -485,7 +485,7 @@
         "bread"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bread_2.png",
-      "tris": 1232
+      "tris": 1232.0
     },
     {
       "animations": [
@@ -514,7 +514,7 @@
         "slice"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bread_2_Slice.png",
-      "tris": 212
+      "tris": 212.0
     },
     {
       "animations": [
@@ -542,7 +542,7 @@
         "bread"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bread_3.png",
-      "tris": 1296
+      "tris": 1296.0
     },
     {
       "animations": [
@@ -571,7 +571,7 @@
         "slice"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Bread_3_Slice.png",
-      "tris": 528
+      "tris": 528.0
     },
     {
       "animations": [
@@ -599,7 +599,7 @@
         "burger"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Burger.png",
-      "tris": 4060
+      "tris": 4060.0
     },
     {
       "animations": [
@@ -628,7 +628,7 @@
         "box"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Carton_Box_1.png",
-      "tris": 196
+      "tris": 196.0
     },
     {
       "animations": [
@@ -657,7 +657,7 @@
         "box"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Carton_Box_2.png",
-      "tris": 394
+      "tris": 394.0
     },
     {
       "animations": [
@@ -686,7 +686,7 @@
         "mushroom"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Champignon_Mushroom.png",
-      "tris": 528
+      "tris": 528.0
     },
     {
       "animations": [
@@ -716,7 +716,7 @@
         "half"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Champignon_Mushroom_Half.png",
-      "tris": 400
+      "tris": 400.0
     },
     {
       "animations": [
@@ -746,7 +746,7 @@
         "quarter"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Champignon_Mushroom_Quarter.png",
-      "tris": 281
+      "tris": 281.0
     },
     {
       "animations": [
@@ -774,7 +774,7 @@
         "chips"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Chips_1.png",
-      "tris": 380
+      "tris": 380.0
     },
     {
       "animations": [
@@ -802,7 +802,7 @@
         "chips"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Chips_2.png",
-      "tris": 546
+      "tris": 546.0
     },
     {
       "animations": [
@@ -833,7 +833,7 @@
         "go"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Coffee_Cup_To_Go.png",
-      "tris": 936
+      "tris": 936.0
     },
     {
       "animations": [
@@ -864,7 +864,7 @@
         "go"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Coffee_Cup_To_Go_1.png",
-      "tris": 520
+      "tris": 520.0
     },
     {
       "animations": [
@@ -893,7 +893,7 @@
         "lid"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Coffee_Lid.png",
-      "tris": 842
+      "tris": 842.0
     },
     {
       "animations": [
@@ -921,7 +921,7 @@
         "cookie"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Cookie_1.png",
-      "tris": 648
+      "tris": 648.0
     },
     {
       "animations": [
@@ -949,7 +949,7 @@
         "cookie"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Cookie_2.png",
-      "tris": 712
+      "tris": 712.0
     },
     {
       "animations": [
@@ -977,7 +977,7 @@
         "cookie"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Cookie_3.png",
-      "tris": 2640
+      "tris": 2640.0
     },
     {
       "animations": [
@@ -1005,7 +1005,7 @@
         "croissant"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Croissant.png",
-      "tris": 1728
+      "tris": 1728.0
     },
     {
       "animations": [
@@ -1033,7 +1033,7 @@
         "donut"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Donut.png",
-      "tris": 1472
+      "tris": 1472.0
     },
     {
       "animations": [
@@ -1061,7 +1061,7 @@
         "eclair"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Eclair.png",
-      "tris": 952
+      "tris": 952.0
     },
     {
       "animations": [
@@ -1089,7 +1089,7 @@
         "fork"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Fork.png",
-      "tris": 1408
+      "tris": 1408.0
     },
     {
       "animations": [
@@ -1118,7 +1118,7 @@
         "onion"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Green_Onion.png",
-      "tris": 1386
+      "tris": 1386.0
     },
     {
       "animations": [
@@ -1147,7 +1147,7 @@
         "box"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Juice_Box.png",
-      "tris": 380
+      "tris": 380.0
     },
     {
       "animations": [
@@ -1175,7 +1175,7 @@
         "ketchup"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Ketchup.png",
-      "tris": 432
+      "tris": 432.0
     },
     {
       "animations": [
@@ -1203,7 +1203,7 @@
         "knife"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Knife.png",
-      "tris": 462
+      "tris": 462.0
     },
     {
       "animations": [
@@ -1231,7 +1231,7 @@
         "macaron"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Macaron.png",
-      "tris": 920
+      "tris": 920.0
     },
     {
       "animations": [
@@ -1260,7 +1260,7 @@
         "steak"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Meat_Steak_1.png",
-      "tris": 800
+      "tris": 800.0
     },
     {
       "animations": [
@@ -1289,7 +1289,7 @@
         "steak"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Meat_Steak_2.png",
-      "tris": 1064
+      "tris": 1064.0
     },
     {
       "animations": [
@@ -1319,7 +1319,7 @@
         "bone"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Meat_on_Bone.png",
-      "tris": 1132
+      "tris": 1132.0
     },
     {
       "animations": [
@@ -1347,7 +1347,7 @@
         "mug"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Mug_1.png",
-      "tris": 1056
+      "tris": 1056.0
     },
     {
       "animations": [
@@ -1375,7 +1375,7 @@
         "mug"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Mug_2.png",
-      "tris": 966
+      "tris": 966.0
     },
     {
       "animations": [
@@ -1403,7 +1403,7 @@
         "mustard"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Mustard.png",
-      "tris": 432
+      "tris": 432.0
     },
     {
       "animations": [
@@ -1431,7 +1431,7 @@
         "orange"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Orange.png",
-      "tris": 444
+      "tris": 444.0
     },
     {
       "animations": [
@@ -1460,7 +1460,7 @@
         "slice"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Orange_Slice.png",
-      "tris": 800
+      "tris": 800.0
     },
     {
       "animations": [
@@ -1488,7 +1488,7 @@
         "pie"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Pie.png",
-      "tris": 2012
+      "tris": 2012.0
     },
     {
       "animations": [
@@ -1517,7 +1517,7 @@
         "piece"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Pie_Piece.png",
-      "tris": 754
+      "tris": 754.0
     },
     {
       "animations": [
@@ -1545,7 +1545,7 @@
         "pizza"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Pizza.png",
-      "tris": 6352
+      "tris": 6352.0
     },
     {
       "animations": [
@@ -1574,7 +1574,7 @@
         "slice"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Pizza_Slice.png",
-      "tris": 1464
+      "tris": 1464.0
     },
     {
       "animations": [
@@ -1602,7 +1602,7 @@
         "plate"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Plate.png",
-      "tris": 480
+      "tris": 480.0
     },
     {
       "animations": [
@@ -1630,7 +1630,7 @@
         "pumpkin"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Pumpkin.png",
-      "tris": 1168
+      "tris": 1168.0
     },
     {
       "animations": [
@@ -1659,7 +1659,7 @@
         "quarter"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Pumpkin_Quarter.png",
-      "tris": 852
+      "tris": 852.0
     },
     {
       "animations": [
@@ -1688,7 +1688,7 @@
         "steak"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Salmon_Steak.png",
-      "tris": 1148
+      "tris": 1148.0
     },
     {
       "animations": [
@@ -1716,7 +1716,7 @@
         "sandwich"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Sandwich.png",
-      "tris": 4308
+      "tris": 4308.0
     },
     {
       "animations": [
@@ -1745,7 +1745,7 @@
         "half"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Sandwich_Half_1.png",
-      "tris": 2388
+      "tris": 2388.0
     },
     {
       "animations": [
@@ -1774,7 +1774,7 @@
         "half"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Sandwich_Half_2.png",
-      "tris": 2388
+      "tris": 2388.0
     },
     {
       "animations": [
@@ -1802,7 +1802,7 @@
         "sardine"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Sardine.png",
-      "tris": 3204
+      "tris": 3204.0
     },
     {
       "animations": [
@@ -1831,7 +1831,7 @@
         "half"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Sardine_Half_1.png",
-      "tris": 2725
+      "tris": 2725.0
     },
     {
       "animations": [
@@ -1860,7 +1860,7 @@
         "half"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Sardine_Half_2.png",
-      "tris": 1089
+      "tris": 1089.0
     },
     {
       "animations": [
@@ -1889,7 +1889,7 @@
         "slice"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Sardine_Slice.png",
-      "tris": 844
+      "tris": 844.0
     },
     {
       "animations": [
@@ -1917,7 +1917,7 @@
         "sausage"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Sausage.png",
-      "tris": 1608
+      "tris": 1608.0
     },
     {
       "animations": [
@@ -1945,7 +1945,7 @@
         "shrimp"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Shrimp.png",
-      "tris": 1024
+      "tris": 1024.0
     },
     {
       "animations": [
@@ -1974,7 +1974,7 @@
         "can"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Soda_Can_1.png",
-      "tris": 2036
+      "tris": 2036.0
     },
     {
       "animations": [
@@ -2003,7 +2003,7 @@
         "can"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Soda_Can_2.png",
-      "tris": 1260
+      "tris": 1260.0
     },
     {
       "animations": [
@@ -2034,7 +2034,7 @@
         "straw"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Soda_Cup_with_Straw_1.png",
-      "tris": 620
+      "tris": 620.0
     },
     {
       "animations": [
@@ -2065,7 +2065,7 @@
         "straw"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Soda_Cup_with_Straw_2.png",
-      "tris": 1912
+      "tris": 1912.0
     },
     {
       "animations": [
@@ -2093,7 +2093,7 @@
         "tomato"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Tomato.png",
-      "tris": 544
+      "tris": 544.0
     },
     {
       "animations": [
@@ -2122,7 +2122,7 @@
         "piece"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Tomato_Piece.png",
-      "tris": 1120
+      "tris": 1120.0
     },
     {
       "animations": [
@@ -2150,7 +2150,7 @@
         "watermelon"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Watermelon.png",
-      "tris": 1560
+      "tris": 1560.0
     },
     {
       "animations": [
@@ -2179,7 +2179,7 @@
         "slice"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Watermelon_Slice_1.png",
-      "tris": 1092
+      "tris": 1092.0
     },
     {
       "animations": [
@@ -2208,7 +2208,7 @@
         "slice"
       ],
       "thumb": "library/thumbs/fab_cartoon_food/Watermelon_Slice_2.png",
-      "tris": 536
+      "tris": 536.0
     },
     {
       "animations": [],
@@ -12091,6 +12091,552 @@
       ],
       "thumb": "library/thumbs/quaternius_fantasy_props/Workbench_Drawers.png",
       "tris": 364.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Adventurer",
+      "min": [
+        -0.84,
+        -0.736,
+        -0.316
+      ],
+      "name": "Adventurer",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Adventurer.fbx",
+      "rigged": true,
+      "size": [
+        1.68,
+        2.592,
+        0.877
+      ],
+      "tags": [
+        "character",
+        "adventurer"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Adventurer.png",
+      "tris": 10202.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Beach",
+      "min": [
+        -0.838,
+        -0.005,
+        -0.086
+      ],
+      "name": "Beach",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Beach.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.883,
+        0.374
+      ],
+      "tags": [
+        "character",
+        "beach"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Beach.png",
+      "tris": 6578.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Casual",
+      "min": [
+        -0.838,
+        -0.004,
+        -0.091
+      ],
+      "name": "Casual",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Casual.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.87,
+        0.378
+      ],
+      "tags": [
+        "character",
+        "casual"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Casual.png",
+      "tris": 6206.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Casual2",
+      "min": [
+        -0.838,
+        -0.001,
+        -0.168
+      ],
+      "name": "Casual2",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Casual2.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.858,
+        0.455
+      ],
+      "tags": [
+        "character",
+        "casual2"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Casual2.png",
+      "tris": 5776.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Farmer",
+      "min": [
+        -0.838,
+        0.0,
+        -0.113
+      ],
+      "name": "Farmer",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Farmer.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.856,
+        0.4
+      ],
+      "tags": [
+        "character",
+        "farmer"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Farmer.png",
+      "tris": 5476.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/King",
+      "min": [
+        -0.838,
+        -0.001,
+        -0.082
+      ],
+      "name": "King",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/King.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.904,
+        0.365
+      ],
+      "tags": [
+        "character",
+        "king"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/King.png",
+      "tris": 11110.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Punk",
+      "min": [
+        -0.838,
+        -0.004,
+        -0.159
+      ],
+      "name": "Punk",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Punk.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.97,
+        0.446
+      ],
+      "tags": [
+        "character",
+        "punk"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Punk.png",
+      "tris": 5500.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Spacesuit",
+      "min": [
+        -0.838,
+        0.0,
+        -0.14
+      ],
+      "name": "Spacesuit",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Spacesuit.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.886,
+        0.413
+      ],
+      "tags": [
+        "character",
+        "spacesuit"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Spacesuit.png",
+      "tris": 10558.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Suit",
+      "min": [
+        -0.838,
+        -0.001,
+        -0.085
+      ],
+      "name": "Suit",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Suit.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.857,
+        0.372
+      ],
+      "tags": [
+        "character",
+        "suit"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Suit.png",
+      "tris": 6634.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Swat",
+      "min": [
+        -0.838,
+        -0.001,
+        -0.084
+      ],
+      "name": "Swat",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Swat.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.854,
+        0.362
+      ],
+      "tags": [
+        "character",
+        "swat"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Swat.png",
+      "tris": 7754.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_men/Worker",
+      "min": [
+        -0.838,
+        -0.004,
+        -0.103
+      ],
+      "name": "Worker",
+      "node": "",
+      "pack": "quaternius_modular_men",
+      "path": "res://assets/quaternius_modular_men/Worker.fbx",
+      "rigged": true,
+      "size": [
+        1.675,
+        1.866,
+        0.389
+      ],
+      "tags": [
+        "character",
+        "worker"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_men/Worker.png",
+      "tris": 5240.0
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/Adventurer",
+      "min": [
+        -0.825,
+        -0.001,
+        -0.201
+      ],
+      "name": "Adventurer",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/Adventurer.fbx",
+      "rigged": true,
+      "size": [
+        1.649,
+        1.828,
+        0.46
+      ],
+      "tags": [
+        "character",
+        "adventurer"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/Adventurer.png",
+      "tris": 6800
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/Casual",
+      "min": [
+        -0.825,
+        -0.009,
+        -0.099
+      ],
+      "name": "Casual",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/Casual.fbx",
+      "rigged": true,
+      "size": [
+        1.65,
+        1.852,
+        0.37
+      ],
+      "tags": [
+        "character",
+        "casual"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/Casual.png",
+      "tris": 6396
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/Formal",
+      "min": [
+        -0.825,
+        0.001,
+        -0.117
+      ],
+      "name": "Formal",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/Formal.fbx",
+      "rigged": true,
+      "size": [
+        1.649,
+        1.842,
+        0.372
+      ],
+      "tags": [
+        "character",
+        "formal"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/Formal.png",
+      "tris": 6130
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/Medieval",
+      "min": [
+        -0.825,
+        0.0,
+        -0.12
+      ],
+      "name": "Medieval",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/Medieval.fbx",
+      "rigged": true,
+      "size": [
+        1.649,
+        1.877,
+        0.375
+      ],
+      "tags": [
+        "character",
+        "medieval"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/Medieval.png",
+      "tris": 6404
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/Punk",
+      "min": [
+        -0.825,
+        0.002,
+        -0.124
+      ],
+      "name": "Punk",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/Punk.fbx",
+      "rigged": true,
+      "size": [
+        1.649,
+        1.958,
+        0.383
+      ],
+      "tags": [
+        "character",
+        "punk"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/Punk.png",
+      "tris": 5956
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/SciFi",
+      "min": [
+        -0.825,
+        0.0,
+        -0.099
+      ],
+      "name": "SciFi",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/SciFi.fbx",
+      "rigged": true,
+      "size": [
+        1.649,
+        1.854,
+        0.354
+      ],
+      "tags": [
+        "character",
+        "scifi"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/SciFi.png",
+      "tris": 6998
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/Soldier",
+      "min": [
+        -0.825,
+        -0.001,
+        -0.068
+      ],
+      "name": "Soldier",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/Soldier.fbx",
+      "rigged": true,
+      "size": [
+        1.649,
+        1.83,
+        0.327
+      ],
+      "tags": [
+        "character",
+        "soldier"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/Soldier.png",
+      "tris": 7900
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/Suit",
+      "min": [
+        -0.825,
+        -0.002,
+        -0.1
+      ],
+      "name": "Suit",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/Suit.fbx",
+      "rigged": true,
+      "size": [
+        1.649,
+        1.845,
+        0.371
+      ],
+      "tags": [
+        "character",
+        "suit"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/Suit.png",
+      "tris": 6494
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/Witch",
+      "min": [
+        -0.825,
+        0.0,
+        -0.232
+      ],
+      "name": "Witch",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/Witch.fbx",
+      "rigged": true,
+      "size": [
+        1.649,
+        2.045,
+        0.548
+      ],
+      "tags": [
+        "character",
+        "witch"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/Witch.png",
+      "tris": 6900
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "quaternius_modular_women/Worker",
+      "min": [
+        -0.825,
+        -0.002,
+        -0.092
+      ],
+      "name": "Worker",
+      "node": "",
+      "pack": "quaternius_modular_women",
+      "path": "res://assets/quaternius_modular_women/Worker.fbx",
+      "rigged": true,
+      "size": [
+        1.649,
+        1.861,
+        0.363
+      ],
+      "tags": [
+        "character",
+        "worker"
+      ],
+      "thumb": "library/thumbs/quaternius_modular_women/Worker.png",
+      "tris": 6084
     },
     {
       "animations": [],

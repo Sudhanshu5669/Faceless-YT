@@ -1,0 +1,17 @@
+{
+  "id": "city_punk_m",
+  "description": "Punk with a red mohawk and a leather vest.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "male",
+  "model": "quaternius_modular_men/Punk",
+  "colors": {
+    "Skin": "#cead86"
+  },
+  "height": 1.79,
+  "idle": "idle",
+  "gait": "walk"
+}

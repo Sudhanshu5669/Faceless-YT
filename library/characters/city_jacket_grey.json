@@ -1,0 +1,21 @@
+{
+  "id": "city_jacket_grey",
+  "description": "Blond man in a grey jacket.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "male",
+  "model": "quaternius_modular_men/Casual2",
+  "colors": {
+    "LightBrown": "#8a8a84",
+    "Red_Dark": "#2a2a2a",
+    "Skin": "#e6c3a0",
+    "Skin_Darker": "#c9a482",
+    "Hair": "#b08a4a"
+  },
+  "height": 1.86,
+  "idle": "idle",
+  "gait": "walk"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "city_suit_grey",
+  "description": "Businessman in a grey suit, blue tie.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "male",
+  "model": "quaternius_modular_men/Suit",
+  "colors": {
+    "Suit": "#4a4d52",
+    "Tie": "#2a4a7a",
+    "Skin": "#8d5a3b",
+    "Hair": "#141010"
+  },
+  "height": 1.78,
+  "idle": "idle",
+  "gait": "walk_formal"
+}

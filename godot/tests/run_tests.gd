@@ -68,6 +68,7 @@ func _run_all() -> void:
 	_run("all characters are valid", _t_characters)
 	_run("actor validation catches bad characters, actions, keys", _t_actor_validation)
 	_run("pose_at(t) is a pure function of t", _t_actor_pose_deterministic)
+	_run("character models: retargeted pose follows the mannequin, deterministic", _t_retarget)
 	_run("routes: wait, walk at speed, arrive and switch action", _t_actor_route)
 	_run("jump leaves the ground at apex and lands on its feet", _t_jump)
 	_run("crowds expand deterministically with unique ids", _t_crowd)
@@ -529,6 +530,51 @@ func _t_actor_pose_deterministic() -> Array:
 	for i in a.size():
 		if a[i] != b[i]:
 			e.append("pose_at(3.7) differs after other poses: item %d %s vs %s" % [i, a[i], b[i]])
+	return e
+
+
+func _t_retarget() -> Array:
+	var e := []
+	for c in Cast.list_characters():
+		if String(c).begins_with("city_"):
+			for err in Cast.validate_character(c):
+				e.append(err)
+	var L := _actor_layout()
+	var res := ActorDirector.plan_all([
+		{"id": "m", "character": "you", "at": "town_center", "action": "walk"},
+		{"id": "c", "character": "city_suit_navy", "at": "town_center", "action": "walk"}], L)
+	if res.has("error"):
+		return [res["error"]]
+	var node := ActorDirector.build(res["plans"], L)
+	root.add_child(node)
+	var man = node.get_child(0)
+	var cit = node.get_child(1)
+	if cit.retarget == null:
+		node.free()
+		return ["city_suit_navy has no retarget"]
+	var dst: Skeleton3D = cit.retarget.dst
+	var snap := func() -> Array:
+		var out := []
+		for b in ["Hips", "UpperLeg.L", "Hand.R", "Head"]:
+			out.append(dst.get_bone_pose(dst.find_bone(b)))
+		return out
+	for t in [0.3, 0.8]:
+		man.pose_at(t)
+		cit.pose_at(t)
+		# Same animation, same spot: the model's head and hands track the mannequin's.
+		for b in ["Head", "hand_r", "foot_l"]:
+			var d: float = man.bone_world(b).distance_to(cit.bone_world(b))
+			if d > 0.2:
+				e.append("t=%.1f: %s is %.2f m from the mannequin's" % [t, b, d])
+	cit.pose_at(0.8)
+	var a: Array = snap.call()
+	cit.pose_at(2.5)
+	cit.pose_at(0.8)
+	var b2: Array = snap.call()
+	for i in a.size():
+		if not (a[i] as Transform3D).is_equal_approx(b2[i]):
+			e.append("retargeted pose at 0.8 s differs after another pose (bone %d)" % i)
+	node.free()
 	return e
 
 

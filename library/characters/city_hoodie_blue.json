@@ -1,0 +1,20 @@
+{
+  "id": "city_hoodie_blue",
+  "description": "Young man in a blue hoodie and jeans.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "male",
+  "model": "quaternius_modular_men/Casual",
+  "colors": {
+    "Purple": "#2f5d8a",
+    "LightBlue": "#2c3a4f",
+    "Skin": "#cead86",
+    "Hair": "#6b4a2a"
+  },
+  "height": 1.76,
+  "idle": "idle",
+  "gait": "walk"
+}

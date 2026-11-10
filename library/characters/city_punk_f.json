@@ -1,0 +1,17 @@
+{
+  "id": "city_punk_f",
+  "description": "Punk with pink hair and ripped tights.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "female",
+  "model": "quaternius_modular_women/Punk",
+  "colors": {
+    "Skin": "#e6c3a0"
+  },
+  "height": 1.66,
+  "idle": "idle",
+  "gait": "walk"
+}

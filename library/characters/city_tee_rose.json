@@ -1,0 +1,21 @@
+{
+  "id": "city_tee_rose",
+  "description": "Woman in a rose top and dark trousers.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "female",
+  "model": "quaternius_modular_women/Casual",
+  "colors": {
+    "White": "#b04a5a",
+    "Orange": "#33333a",
+    "Skin": "#5a3a28",
+    "Hair_Brown": "#111111",
+    "Hair_Blond": "#1a1414"
+  },
+  "height": 1.7,
+  "idle": "idle",
+  "gait": "walk"
+}

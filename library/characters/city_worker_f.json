@@ -1,0 +1,17 @@
+{
+  "id": "city_worker_f",
+  "description": "Construction worker: hard hat, hi-vis vest.",
+  "tags": [
+    "human",
+    "city",
+    "pedestrian"
+  ],
+  "body": "female",
+  "model": "quaternius_modular_women/Worker",
+  "colors": {
+    "Skin": "#cead86"
+  },
+  "height": 1.7,
+  "idle": "idle",
+  "gait": "walk"
+}
