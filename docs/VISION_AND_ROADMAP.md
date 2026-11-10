@@ -87,7 +87,7 @@ The creative stages (1, 2, 5, review in 6) become **project skills** in `.claude
 4. **Creative skills.** `/pitch`, `/write-script` (with critic rubric), `/plan-shots`,
    `/review-storyboard`; `docs/playbook.md`.
 5. **First full episode:** "Blackwood: 3:33 AM", 30–60 s Short, end to end.
-6. **More sets:** ~~supermarket~~ (done, procedural; Fab/CC0 fixtures can replace the stand-ins), downtown (Downtown City kit is imported),
+6. **More sets:** ~~supermarket~~ (done; dressed with the Fab `supermarket` kit), downtown (Downtown City kit is imported),
    school, forest road, house interiors (Fantasy Props kit is imported).
 7. **Character upgrades:** blending between actions, simple pathfinding, Kenney characters via
    retargeting (zombie/survivor skins), per-model door positions for kit houses.

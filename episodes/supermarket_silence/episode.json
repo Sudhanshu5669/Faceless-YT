@@ -239,7 +239,7 @@
       },
       "camera": {
         "at": {
-          "anchor": "you",
+          "anchor": "checkout_2",
           "offset": [
             1.2,
             0.6,

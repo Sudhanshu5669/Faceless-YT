@@ -5,7 +5,10 @@
 ## Node3D with two children, "on" and "off"; exactly one is visible. Their
 ## switch groups are stored as meta "switch" (e.g. ["toys"]), so timeline
 ## events can flip a single node ("toy_hero") or a group ("toys").
-## Shelf stock is two MultiMeshes (unit box, unit cylinder) scaled per item.
+## Fixtures come from the layout's kit (gondola segments, wall shelves,
+## fridges, checkouts, clutter), recoloured to the kit's palette; kit
+## "primitive" builds boxes. Shelf stock is MultiMeshes: one per kit product
+## mesh, plus a unit box and a unit cylinder scaled per primitive item.
 extends RefCounted
 
 const Kit = preload("res://scripts/world/prop_kit.gd")
@@ -36,6 +39,7 @@ static func build(L: Dictionary, _look: Dictionary) -> Node3D:
 	_build_shell(root, L)
 	_build_storefront(root, L)
 	_build_gondolas(root, L)
+	_build_wall_shelves(root, L)
 	_build_stock(root, L)
 	_build_toys(root, L)
 	_build_checkouts(root, L)
@@ -43,7 +47,18 @@ static func build(L: Dictionary, _look: Dictionary) -> Node3D:
 	_build_fixtures(root, L)
 	_build_signs(root, L)
 	_build_parking(root, L)
+	_build_clutter(root, L)
 	return root
+
+
+## The layout's kit, or {} for "primitive".
+static func _kit(L: Dictionary) -> Dictionary:
+	var id := String(L["params"]["kit"])
+	return {} if id == "primitive" else KitDB.kit(id)
+
+
+static func _fixture(kit: Dictionary, model_id: String) -> Node3D:
+	return KitDB.static_node(model_id, 1.0, kit.get("recolor", {}))
 
 
 static func _group(root: Node3D, group_name: String) -> Node3D:
@@ -172,11 +187,12 @@ static func _build_storefront(root: Node3D, L: Dictionary) -> void:
 
 static func _build_gondolas(root: Node3D, L: Dictionary) -> void:
 	var g := _group(root, "Gondolas")
+	var kit := _kit(L)
 	var shelf_m := Kit.mat("#e4e4e0", 0.5, 0.2)
 	var panel_m := Kit.mat("#cfd0cc", 0.6, 0.1)
 	var kick_m := Kit.mat("#3a3d42", 0.7)
 	var cap_m := Kit.mat("#c23a32", 0.7)
-	var levels := Gen._shelf_levels(float(L["params"]["shelf_h"]))
+	var levels: Array = L["shelving"]["levels"]
 	for gd in L["gondolas"]:
 		var r: Array = gd["rect"]
 		var h := float(gd["h"])
@@ -187,59 +203,129 @@ static func _build_gondolas(root: Node3D, L: Dictionary) -> void:
 		var l := float(r[3]) - float(r[1])
 		var cx := (float(r[0]) + float(r[2])) / 2.0
 		var cz := (float(r[1]) + float(r[3])) / 2.0
+		if not kit.is_empty():
+			# Segments: the model's shelf run is along its X; turn it to run along Z.
+			for si in gd["segments"].size():
+				var m := _fixture(kit, String(kit["gondola"]["model"]))
+				m.name = "segment_%d" % si
+				m.position = Vector3(cx, FLOOR_TOP, float(gd["segments"][si]))
+				m.rotation.y = PI / 2.0
+				n.add_child(m)
+			continue
 		Kit.add_box(n, Vector3(w, 0.12, l), Vector3(cx, FLOOR_TOP + 0.06, cz), kick_m, 0.0, "", false)
 		Kit.add_box(n, Vector3(0.05, h, l), Vector3(cx, FLOOR_TOP + h / 2.0, cz), panel_m)
 		for y in levels:
-			Kit.add_box(n, Vector3(w, 0.025, l), Vector3(cx, FLOOR_TOP + float(y), cz), shelf_m, 0.0, "", false)
+			Kit.add_box(n, Vector3(w, 0.025, l), Vector3(cx, FLOOR_TOP + float(y) - 0.0125, cz), shelf_m, 0.0, "", false)
 		# End caps: coloured panels at both ends.
 		for ez in [float(r[1]), float(r[3])]:
 			Kit.add_box(n, Vector3(w + 0.04, h + 0.1, 0.05), Vector3(cx, FLOOR_TOP + (h + 0.1) / 2.0, ez), cap_m)
 
 
+static func _build_wall_shelves(root: Node3D, L: Dictionary) -> void:
+	var g := _group(root, "WallShelves")
+	var kit := _kit(L)
+	var ws: Dictionary = L["wall_shelves"]
+	var board := Kit.mat("#e4e4e0", 0.5, 0.2)
+	var back := Kit.mat("#cfd0cc", 0.6, 0.1)
+	var levels: Array = []
+	for s in L["shelves"]:
+		if int(s["aisle"]) == 0:
+			levels = s["levels"]
+	for u in ws["units"]:
+		var pos := Vector3(float(u["pos"][0]), FLOOR_TOP, float(u["pos"][2]))
+		var yaw := atan2(float(u["facing"][0]), float(u["facing"][1]))
+		if not kit.is_empty():
+			var m := _fixture(kit, String(kit["wall_shelf"]["model"]))
+			m.name = u["id"]
+			m.position = pos
+			m.rotation.y = yaw   # the model's open side (+Z) faces into the store
+			g.add_child(m)
+			continue
+		var n := Node3D.new()
+		n.name = u["id"]
+		n.position = pos
+		n.rotation.y = yaw
+		g.add_child(n)
+		var seg := float(ws["seg"])
+		var d := float(ws["half_d"]) * 2.0
+		Kit.add_box(n, Vector3(seg - 0.05, float(ws["h"]), 0.05), Vector3(0, float(ws["h"]) / 2.0, -d / 2.0 + 0.025), back)
+		for y in levels:
+			Kit.add_box(n, Vector3(seg - 0.05, 0.025, d), Vector3(0, float(y) - 0.0125, 0), board, 0.0, "", false)
+
+
+## Shelf stock. Per shelf face, per board, runs of the same product along the
+## face's shelf spans, up to three rows deep. Kit categories ("stock") use
+## product models (a share "mix" of runs stays primitive); others use boxes and
+## cylinders in the category's palette.
 static func _build_stock(root: Node3D, L: Dictionary) -> void:
 	var g := _group(root, "Stock")
-	var levels := Gen._shelf_levels(float(L["params"]["shelf_h"]))
+	var stock_kit: Dictionary = _kit(L).get("stock", {})
+	var stock_scale := float(_kit(L).get("stock_scale", 1.0))
 	var boxes := []
 	var cyls := []
+	var placed := {}   # model id -> [Transform3D]
 	for s in L["shelves"]:
 		var cat := String(s["category"])
 		var span: Array = s.get("toy_span", [])
 		if cat == "toys_section":
 			cat = "grocery"
 		var spec: Dictionary = STOCK.get(cat, STOCK["grocery"])
+		var ks: Dictionary = stock_kit.get(cat, {})
 		var r := RandomNumberGenerator.new()
 		r.seed = int(s["seed"])
 		var fx := float(s["facing"][0])
+		var levels: Array = s["levels"]
+		var avail := float(s["depth"])
 		for li in levels.size():
-			var y := FLOOR_TOP + float(levels[li]) + 0.0125
-			var z := float(s["z1"])
-			var limit := float(s["z0"])
-			var run := 0
-			var item: Array = []
-			var col := Color.WHITE
-			while z > limit + 0.1:
-				if run <= 0:
-					item = spec["items"][r.randi_range(0, spec["items"].size() - 1)]
-					col = Color(String(spec["colors"][r.randi_range(0, spec["colors"].size() - 1)]))
-					col = col.lightened(r.randf_range(-0.1, 0.12))
-					run = r.randi_range(3, 7)
-				var iw := float(item[1])
-				var ih := float(item[2])
-				var idd := float(item[3])
-				var zc := z - iw / 2.0
-				z -= iw + 0.012
-				run -= 1
-				if not span.is_empty() and zc < float(span[1]) + 0.1 and zc > float(span[0]) - 0.1 and li > 0:
-					continue  # the toy section
-				if r.randf() < 0.07:
-					continue  # gaps: a picked-over shelf
-				for row in 2:
-					var depth := idd / 2.0 + 0.04 + row * (idd + 0.03)
-					if depth + idd / 2.0 > float(L["params"]["shelf_d"]) / 2.0 - 0.03:
+			var y := FLOOR_TOP + float(levels[li])
+			var max_h := (float(levels[li + 1]) - float(levels[li]) - 0.07) if li + 1 < levels.size() else 0.34
+			var toy_level := float(levels[li]) >= 0.3
+			for sp in s["spans"]:
+				var z := float(sp[1])
+				var limit := float(sp[0])
+				var run := 0
+				var item: Array = []
+				var mid := ""
+				var col := Color.WHITE
+				while z > limit + 0.08:
+					if run <= 0:
+						mid = ""
+						if not ks.is_empty() and r.randf() >= float(ks.get("mix", 0.0)):
+							mid = String(ks["models"][r.randi_range(0, ks["models"].size() - 1)])
+							var sz := KitDB.size(mid)
+							var sc := minf(stock_scale, max_h / maxf(sz.y, 0.01))
+							item = ["model", sz.x * sc, sz.y * sc, sz.z * sc, sc]
+						else:
+							item = spec["items"][r.randi_range(0, spec["items"].size() - 1)]
+							col = Color(String(spec["colors"][r.randi_range(0, spec["colors"].size() - 1)]))
+							col = col.lightened(r.randf_range(-0.1, 0.12))
+						run = r.randi_range(3, 7)
+					var iw := float(item[1])
+					var ih := minf(float(item[2]), max_h)
+					var idd := float(item[3])
+					var zc := z - iw / 2.0
+					z -= iw + 0.012
+					run -= 1
+					if zc - iw / 2.0 < limit:
 						break
-					var x := float(s["x"]) - fx * depth
-					var xf := Transform3D(Basis().scaled(Vector3(idd, ih, iw)), Vector3(x, y + ih / 2.0, zc))
-					(cyls if item[0] == "cyl" else boxes).append([xf, col])
+					if not span.is_empty() and zc < float(span[1]) + 0.1 and zc > float(span[0]) - 0.1 and toy_level:
+						continue  # the toy section
+					if r.randf() < 0.07:
+						continue  # gaps: a picked-over shelf
+					for row in 3:
+						var depth := idd / 2.0 + 0.03 + row * (idd + 0.025)
+						if depth + idd / 2.0 > avail:
+							break
+						var x := float(s["x"]) - fx * depth
+						if item[0] == "model":
+							# The product's front (+Z) faces the aisle.
+							var b := Basis(Vector3.UP, atan2(fx, 0.0) + r.randf_range(-0.08, 0.08)).scaled(Vector3.ONE * float(item[4]))
+							if not placed.has(mid):
+								placed[mid] = []
+							placed[mid].append(Transform3D(b, Vector3(x, y, zc)))
+						else:
+							var xf := Transform3D(Basis().scaled(Vector3(idd, ih, iw)), Vector3(x, y + ih / 2.0, zc))
+							(cyls if item[0] == "cyl" else boxes).append([xf, col])
 	_multimesh(g, "stock_boxes", BoxMesh.new(), boxes)
 	var cm := CylinderMesh.new()
 	cm.top_radius = 0.5
@@ -248,6 +334,23 @@ static func _build_stock(root: Node3D, L: Dictionary) -> void:
 	cm.radial_segments = 10
 	cm.rings = 1
 	_multimesh(g, "stock_cans", cm, cyls)
+	var ids := placed.keys()
+	ids.sort()
+	for mid in ids:
+		var parts := KitDB.parts(mid)
+		for pi in parts.size():
+			var mm := MultiMesh.new()
+			mm.transform_format = MultiMesh.TRANSFORM_3D
+			mm.mesh = parts[pi]["mesh"]
+			var xfs: Array = placed[mid]
+			mm.instance_count = xfs.size()
+			for k in xfs.size():
+				mm.set_instance_transform(k, xfs[k] * parts[pi]["xf"])
+			var mmi := MultiMeshInstance3D.new()
+			mmi.name = "stock_%s_%d" % [String(mid).get_file().replace(".", "_"), pi]
+			mmi.multimesh = mm
+			mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			g.add_child(mmi)
 
 
 static func _multimesh(parent: Node3D, node_name: String, mesh: Mesh, items: Array) -> void:
@@ -276,7 +379,7 @@ static func _build_toys(root: Node3D, L: Dictionary) -> void:
 	var eye_off := Kit.mat("#0e1113", 0.95)
 	var metal := Kit.mat("#9aa0a8", 0.4, 0.5)
 	for t in L["toys"]:
-		var pos := Vector3(t["pos"][0], FLOOR_TOP + float(t["pos"][1]) + 0.0125, t["pos"][2])
+		var pos := Vector3(t["pos"][0], FLOOR_TOP + float(t["pos"][1]), t["pos"][2])
 		var s := float(t["scale"])
 		var sw := _switch(g, String(t["id"]), ["toys"], false)
 		var n: Node3D = sw[0]
@@ -303,6 +406,7 @@ static func _build_toys(root: Node3D, L: Dictionary) -> void:
 
 static func _build_checkouts(root: Node3D, L: Dictionary) -> void:
 	var g := _group(root, "Checkouts")
+	var kit := _kit(L)
 	var counter := Kit.mat("#5a6068", 0.6, 0.2)
 	var belt := Kit.mat("#1e2022", 0.8)
 	var reg := Kit.mat("#2a2c30", 0.5, 0.3)
@@ -314,10 +418,24 @@ static func _build_checkouts(root: Node3D, L: Dictionary) -> void:
 		var cx := (float(r[0]) + float(r[2])) / 2.0
 		var cz := (float(r[1]) + float(r[3])) / 2.0
 		var l := float(r[3]) - float(r[1])
-		Kit.add_box(n, Vector3(0.9, 0.86, l), Vector3(cx, FLOOR_TOP + 0.43, cz), counter)
-		Kit.add_box(n, Vector3(0.62, 0.02, l * 0.6), Vector3(cx, FLOOR_TOP + 0.87, cz - l * 0.15), belt, 0.0, "", false)
-		Kit.add_box(n, Vector3(0.36, 0.22, 0.3), Vector3(cx - 0.2, FLOOR_TOP + 0.97, float(r[3]) - 0.4), reg, 0.0, "register")
-		Kit.add_box(n, Vector3(0.04, 0.24, 0.3), Vector3(cx - 0.2, FLOOR_TOP + 1.2, float(r[3]) - 0.4), reg, 0.0, "", false)
+		if not kit.is_empty():
+			# Belt counter on the store side of the lane, register stand by the exit.
+			var ck: Dictionary = kit["checkout"]
+			var cm := _fixture(kit, String(ck["counter"]))
+			cm.name = "counter"
+			cm.position = Vector3(cx, FLOOR_TOP, float(r[1]) + KitDB.size(ck["counter"]).x / 2.0 + 0.1)
+			cm.rotation.y = PI / 2.0
+			n.add_child(cm)
+			var rm := _fixture(kit, String(ck["register"]))
+			rm.name = "register"
+			rm.position = Vector3(cx, FLOOR_TOP, float(r[3]) - KitDB.size(ck["register"]).z / 2.0 - 0.05)
+			rm.rotation.y = -PI / 2.0
+			n.add_child(rm)
+		else:
+			Kit.add_box(n, Vector3(0.9, 0.86, l), Vector3(cx, FLOOR_TOP + 0.43, cz), counter)
+			Kit.add_box(n, Vector3(0.62, 0.02, l * 0.6), Vector3(cx, FLOOR_TOP + 0.87, cz - l * 0.15), belt, 0.0, "", false)
+			Kit.add_box(n, Vector3(0.36, 0.22, 0.3), Vector3(cx - 0.2, FLOOR_TOP + 0.97, float(r[3]) - 0.4), reg, 0.0, "register")
+			Kit.add_box(n, Vector3(0.04, 0.24, 0.3), Vector3(cx - 0.2, FLOOR_TOP + 1.2, float(r[3]) - 0.4), reg, 0.0, "", false)
 		# Lane light post with a number.
 		Kit.add_mesh(n, Kit.cylinder(0.03, 0.03, 1.4, reg, 6), Vector3(float(r[2]) - 0.1, FLOOR_TOP + 1.56, float(r[3]) - 0.1), Vector3.ZERO, "", false)
 		var lbl := Label3D.new()
@@ -331,6 +449,7 @@ static func _build_checkouts(root: Node3D, L: Dictionary) -> void:
 
 static func _build_freezers(root: Node3D, L: Dictionary) -> void:
 	var g := _group(root, "Freezers")
+	var kit := _kit(L)
 	var body := Kit.mat("#e8e8e4", 0.5, 0.1)
 	var door_on := Kit.glow_mat("#bfe2ff", 0.9)
 	var door_off := Kit.mat("#22303a", 0.15, 0.3)
@@ -342,15 +461,26 @@ static func _build_freezers(root: Node3D, L: Dictionary) -> void:
 		var sw := _switch(g, String(f["id"]), ["freezers"], bool(f["on"]))
 		var n: Node3D = sw[0]
 		n.position = Vector3(cx, FLOOR_TOP, float(r[1]))
-		Kit.add_box(n, Vector3(w, 2.3, 0.9), Vector3(0, 1.15, 0.45), body)
-		Kit.add_box(sw[1], Vector3(w - 0.12, 1.9, 0.02), Vector3(0, 1.12, 0.91), door_on, 0.0, "", false)
-		Kit.add_box(sw[2], Vector3(w - 0.12, 1.9, 0.02), Vector3(0, 1.12, 0.91), door_off, 0.0, "", false)
+		if not kit.is_empty():
+			# Two upright fridges per bay; the "on" copy has glowing doors.
+			var fk: Dictionary = kit["fridge"]
+			var sz := KitDB.size(fk["model"])
+			for k in 2:
+				for state in 2:
+					var m := _fixture(kit, String(fk["model"]))
+					m.position = Vector3((k - 0.5) * sz.x, 0, sz.z / 2.0)
+					KitDB.override_named(m, fk["door_materials"], door_on if state == 0 else door_off)
+					sw[1 + state].add_child(m)
+		else:
+			Kit.add_box(n, Vector3(w, 2.3, 0.9), Vector3(0, 1.15, 0.45), body)
+			Kit.add_box(sw[1], Vector3(w - 0.12, 1.9, 0.02), Vector3(0, 1.12, 0.91), door_on, 0.0, "", false)
+			Kit.add_box(sw[2], Vector3(w - 0.12, 1.9, 0.02), Vector3(0, 1.12, 0.91), door_off, 0.0, "", false)
 		if i % 2 == 0:
 			var light := OmniLight3D.new()
 			light.light_color = Color("#bfe2ff")
 			light.light_energy = 0.7
 			light.omni_range = 5.0
-			light.position = Vector3(0, 1.4, 1.6)
+			light.position = Vector3(0, 1.4, float(r[3]) - float(r[1]) + 0.7)
 			sw[1].add_child(light)
 		i += 1
 
@@ -489,3 +619,28 @@ static func _build_parking(root: Node3D, L: Dictionary) -> void:
 			g_cars.add_child(inst)
 		else:
 			Kit.add_box(g_cars, Vector3(1.8, 1.3, 4.3), pos + Vector3(0, 0.65, 0), Kit.mat(String(c["color"]), 0.4, 0.3), float(c["yaw"]), c["id"])
+
+
+## Abandoned carts, baskets, boxes and trash bags (layout "clutter").
+const CLUTTER_BOX := {"cart": Vector3(0.6, 1.0, 0.95), "basket": Vector3(0.45, 0.45, 0.5), "box": Vector3(0.5, 0.3, 0.45), "trash": Vector3(1.4, 1.1, 0.8)}
+
+
+static func _build_clutter(root: Node3D, L: Dictionary) -> void:
+	var g := _group(root, "Clutter")
+	var kit := _kit(L)
+	for c in L["clutter"]:
+		var kind := String(c["kind"])
+		var pos := Vector3(float(c["pos"][0]), 0.0, float(c["pos"][2]))
+		pos.y = Gen.ground_height(L, pos.x, pos.z)
+		var n: Node3D
+		if not kit.is_empty():
+			var ck: Dictionary = kit["clutter"][kind]
+			n = KitDB.static_node(String(ck["model"]), float(ck.get("scale", 1.0)))
+		else:
+			n = Node3D.new()
+			var sz: Vector3 = CLUTTER_BOX[kind]
+			Kit.add_box(n, sz, Vector3(0, sz.y / 2.0, 0), Kit.mat("#8a8478", 0.8), 0.0, "", false)
+		n.name = c["id"]
+		n.position = pos
+		n.rotation.y = float(c["yaw"])
+		g.add_child(n)

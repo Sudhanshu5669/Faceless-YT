@@ -1,0 +1,70 @@
+{
+  "id": "supermarket",
+  "description": "Fab store racks (gondolas, wall shelves, fridges, checkouts) recoloured to the store palette, cartoon/low-poly food stock, carts, baskets, boxes and trash bags.",
+  "recolor": {
+    "c65016": "#3d6b58",
+    "ffe5b4": "#d6d5ce"
+  },
+  "gondola": {
+    "model": "fab_store_racks/Store Racks Pack#Cube_018",
+    "levels": [0.71, 1.13, 1.55, 1.98],
+    "reach": 0.53,
+    "shelf_len": 1.54
+  },
+  "wall_shelf": {
+    "model": "fab_store_racks/Store Racks Pack#Cube_016",
+    "levels": [0.57, 1.14, 1.7],
+    "front": 0.42,
+    "depth": 0.74,
+    "shelf_len": 2.74
+  },
+  "fridge": {
+    "model": "fab_store_racks/Store Racks Pack#Cube_020",
+    "door_materials": ["Material.012", "Material.014"]
+  },
+  "checkout": {
+    "counter": "fab_store_racks/Store Racks Pack#Cube",
+    "register": "fab_store_racks/Store Racks Pack#Cube_011"
+  },
+  "clutter": {
+    "cart": {"model": "fab_shopping_cart/5_shopping_cart", "scale": 1.25},
+    "basket": {"model": "fab_shopping_basket/Shopping_Basket", "scale": 1.0},
+    "box": {"model": "fab_cardboard_box/cardboard_box", "scale": 1.1},
+    "trash": {"model": "fab_garbage_bin/garbage_bin_trash_bags", "scale": 0.0042}
+  },
+  "stock_scale": 0.72,
+  "stock": {
+    "drinks": {
+      "models": [
+        "fab_cartoon_food/Bottle_1", "fab_cartoon_food/Bottle_2", "fab_cartoon_food/Bottle_4",
+        "fab_cartoon_food/Bottle_5", "fab_cartoon_food/Bottle_6", "fab_cartoon_food/Carton_Box_1",
+        "fab_cartoon_food/Carton_Box_2", "fab_lowpoly_food/SM_Milk_1.1", "fab_lowpoly_food/SM_Yogurt_2.4",
+        "fab_cartoon_food/Juice_Box", "fab_cartoon_food/Soda_Can_1", "fab_cartoon_food/Soda_Can_2"
+      ],
+      "mix": 0.15
+    },
+    "snacks": {
+      "models": ["fab_cartoon_food/Chips_2", "fab_lowpoly_food/SM_Snack_8", "fab_cartoon_food/Chips_1"],
+      "mix": 0.45
+    },
+    "cans": {
+      "models": ["fab_cartoon_food/Soda_Can_1", "fab_cartoon_food/Soda_Can_2", "fab_cartoon_food/Ketchup", "fab_cartoon_food/Mustard"],
+      "mix": 0.5
+    },
+    "bakery": {
+      "models": [
+        "fab_cartoon_food/Bread_1", "fab_cartoon_food/Bread_2", "fab_cartoon_food/Bread_3",
+        "fab_cartoon_food/Croissant", "fab_cartoon_food/Donut", "fab_cartoon_food/Pie"
+      ],
+      "mix": 0.2
+    },
+    "grocery": {
+      "models": [
+        "fab_cartoon_food/Bottle_3", "fab_cartoon_food/Ketchup", "fab_cartoon_food/Mustard",
+        "fab_cartoon_food/Carton_Box_1", "fab_lowpoly_food/SM_Milk_1.1", "fab_lowpoly_food/SM_Cheese_3.3"
+      ],
+      "mix": 0.5
+    }
+  },
+  "credits": "Basket, garbage bin and cardboard box are CC-BY: see the \"credit\" fields in pipeline/asset_packs.json for the video description."
+}

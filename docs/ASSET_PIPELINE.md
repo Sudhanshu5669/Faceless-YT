@@ -71,6 +71,25 @@ A kit maps roles to catalog models and says how to fit them. `library/kits/subur
 Set params `"kit": "suburban" | "primitive"` and `"season"` choose the kit. `primitive` is the
 procedural fallback that needs no assets.
 
+`library/kits/supermarket.json` (supermarket generator, `"kit": "supermarket"`):
+
+- `gondola`, `wall_shelf`: rack models plus their measured board heights (`levels`, metres above
+  the floor in the model's normalised frame), `reach` / `front` (centre to board edge), usable
+  `depth` and `shelf_len` (board length between uprights). The generator tiles gondolas from the
+  model's length, so stock, toys and anchors sit on the boards that are drawn. Measure a new rack
+  with `godot --headless --path godot --script res://tools/fixture_probe.gd -- "<model id>"`
+  (prints materials and every upward-facing surface height).
+- `recolor`: flat albedo colours (hex without `#`) → new colours, applied to every fixture
+  (`KitDB.static_node(id, scale, recolor)`). The Fab racks' orange/cream became green/grey.
+- `fridge.door_materials`: material names swapped for a glow (on) or dark glass (off) per freezer switch.
+- `checkout` (`counter`, `register`), `clutter` (`cart`, `basket`, `box`, `trash`, each with `scale`;
+  the garbage bin pack is in centimetres-ish units → 0.0042).
+- `stock`: per shelf category, product `models` and `mix` (share of runs that stay procedural
+  boxes/cans); `stock_scale` shrinks products (they are also fitted under the board above).
+  Categories without an entry (cereal, pasta, cleaning, household) stay procedural.
+- `credits`: the CC-BY packs (basket, garbage bin, cardboard box) need the credit lines from
+  `pipeline/asset_packs.json` in the video description.
+
 ## Imported, not used yet
 
 - **Characters**: `quaternius_ual/UAL1_Standard`, `UAL2_Standard` (male mannequin + 43 animations

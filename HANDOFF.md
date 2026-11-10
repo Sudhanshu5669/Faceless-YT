@@ -8,21 +8,20 @@ TownForge renders narrated YouTube Shorts from JSON specs: procedural sets (town
 looks, actors with cues, timed shots with camera moves, Gemini TTS narration with word-timed
 captions, synthesized sound, and an **approval board** that gates the final render. The current
 episode is `episodes/supermarket_silence` ("A Toy Starts Talking", pitch C, Charon voice, script
-approved). A 64.7 s draft render exists (`renders/supermarket_silence.mp4`) and its review board is
-prepared, but the user has not started reviewing yet. New Fab assets for the supermarket are
-imported and catalogued, but **not used by the set yet**.
+approved). The supermarket is now dressed with the **Fab `supermarket` kit** (rack gondolas, wall
+shelves, fridges, checkouts, food stock, carts/baskets/boxes/trash bags). The board was re-prepared
+for env, cast and shots on 2026-11-10; the user has not reviewed anything yet (all 35 items pending).
 
 ## Git
 
-- Committed: `09acfcb` (timeline), `a2805d3` (supermarket set + sound pipeline + captions).
-- **Uncommitted** (commit on main when the user agrees; see memory "commit-on-main"):
-  - Review board: `pipeline/review.py`, `pipeline/review_ui/index.html`, `docs/REVIEW.md`,
-    `tests/python/test_review.py`, `tf review` / render gating in `pipeline/tf.py`,
-    `"review"` key handling, `episodes/supermarket_silence/review/suggestions.json`.
-  - Fab assets: 7 packs in `pipeline/asset_packs.json` (+ `split_roots` support in
-    `godot/tools/catalog.gd` and `godot/scripts/world/kit_db.gd`), `library/catalog.json` (606 models),
-    `docs/ASSET_PIPELINE.md` (Fab section), `specs/sets/freshway.json` (view fixes).
-  - `.gitignore` additions (review media ignored; decisions/suggestions kept), this file.
+- Committed: `09acfcb` (timeline), `a2805d3` (supermarket + sound + captions), `9f90348` (review
+  board, Fab packs, this file).
+- **Uncommitted** (ask, then commit on main): the supermarket kit work:
+  `library/kits/supermarket.json`, `supermarket_generator.gd` (params `kit`, `clutter`; gondola
+  segments, wall shelves, clutter, kit validation), `supermarket_builder.gd` (model fixtures, kit
+  stock MultiMeshes), `kit_db.gd` (`static_node` + recolour, `override_named`), new
+  `godot/tools/fixture_probe.gd`, test `supermarket kit: …`, docs (SET_SPEC, ASSET_PIPELINE,
+  roadmap), `episode.json` (shot `shoes` camera now on anchor `checkout_2`), one suggestion text.
 - Never commit: `.env` (Gemini key, git-ignored), `incoming/`, `godot/assets/`, `output/`.
 
 ## Next steps, in order
@@ -34,30 +33,10 @@ imported and catalogued, but **not used by the set yet**.
    note and every ticked suggestion, re-run `tf review prepare supermarket_silence --gate <changed gates>`,
    update `review/suggestions.json` (drop what's done, add new critique after looking at the media),
    and tell the user what changed.
-3. **Use the Fab assets in the supermarket set** (probably the first Environment change). Proposed:
-   a kit `library/kits/supermarket.json` + `"kit"` param in the supermarket generator/builder
-   (procedural boxes stay as the `primitive` fallback). Roles from `library/thumbs/_sheets/fab_store_racks_1.png`:
-
-   | Role | Model id |
-   |---|---|
-   | aisle gondola (double-sided) | `fab_store_racks/Store Racks Pack#Cube_018` |
-   | wall shelf | `fab_store_racks/Store Racks Pack#Cube_016` |
-   | end cap with sign | `fab_store_racks/Store Racks Pack#Cube_007` |
-   | upright fridge (glass door) | `fab_store_racks/Store Racks Pack#Cube_020` |
-   | chest freezers | `…#Cube_036`, `…#Cube_027` |
-   | checkout counter (belt) / register | `…#Cube`, `…#Cube_011` |
-   | deli counters / produce bins / crate display | `…#Cube_049`, `…#Cube_031` / `…#Cube_005` / `…#Cube_040` |
-   | shelf products | `fab_cartoon_food/*` (bottles, cartons, bread…; skip `All_Food`), `fab_lowpoly_food/*` (milk, snack bag, yogurt, chocolate) |
-   | carts / baskets | `fab_shopping_cart/5_shopping_cart`, `fab_shopping_basket/Shopping_Basket` |
-   | debris ("trapped for 7 hours") | `fab_garbage_bin/garbage_bin_trash_bags`, `fab_cardboard_box/cardboard_box` |
-
-   Ids are exact (Godot turned the `.` in node names into `_`). Sizes are in metres except
-   `fab_garbage_bin` (centimetres: 671 × 277 × 416 → scale 0.01). Fixtures: gondola 1.88 × 2.31 × 1.3 m,
-   checkout 1.84 × 0.91 × 1.2 m, cart 0.78 × 0.81 × 0.49 (a bit small: scale ~1.25). Fixtures are orange/cream low-poly: consider recolouring to fit the night look.
-   Keep MultiMesh for products (`KitDB.parts`). After the change: `tf preview-set specs/sets/freshway.json`,
-   look at the contact sheet, then re-prepare the env, cast and shots gates.
-   The CC-BY packs (basket, garbage bin, cardboard box) need these credits in the video description:
-   see the `"credit"` fields in `pipeline/asset_packs.json`.
+3. ~~Use the Fab assets in the supermarket set~~ (done 2026-11-10). Possible follow-ups, only if the
+   review asks: end caps (`…#Cube_007`) on gondola fronts, produce/deli counters (`…#Cube_049`,
+   `…#Cube_031`, `…#Cube_005`) near the front, fallen products on the floor, checkout occluder rects
+   still assume a 0.9 m counter (the kit counter is 1.2 m).
 4. **Final narration voice.** Narration is a DRAFT on `gemini-3.8-flash-lite-tts` (set via env var
    `TOWNFORGE_TTS_MODEL` in every command). The free tier allows 10 TTS requests per model per day; the
    user's choice was Charon on `gemini-3.8-flash-tts`. When the quota has reset (or billing is on), run
@@ -75,6 +54,14 @@ visible behind the toy in frame 1; tighter glass_wall lens; longer payoff shot (
 cut to black on "plans.". The user ticks the ones to do.
 
 ## Gotchas learned (also in memory)
+
+- `tf validate` printed "spec OK" while a generator script failed to compile (the SCRIPT ERRORs
+  only show in the log). After editing GDScript, read the whole output or run `tf test`.
+- A shot camera `at: {"anchor": "<actor>"}` turns with the actor's facing: when the actor turns
+  to walk away, the camera swings (that put `shoes` inside the checkout counter). Use a set
+  anchor for the camera position and `look_at` the actor.
+- Fab rack shelf heights come from `tools/fixture_probe.gd`; the kit's `levels` must be
+  re-measured if the rack model changes.
 
 - Gemini TTS: style goes in a `[bracket tag]` (a "Say it like…:" prefix is read aloud); long requests
   get cut off, so batches are capped at 30 words and retaken once with an "End." pad; words are timed

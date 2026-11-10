@@ -79,6 +79,7 @@ func _run_all() -> void:
 	_run("camera moves start at 'from' and end at 'to'", _t_camera_move)
 	_run("sample episodes in episodes/ validate", _t_sample_episodes)
 	_run("supermarket: deterministic, anchors, shelves occlude, switchable toys", _t_supermarket)
+	_run("supermarket kit: segments tile the aisles, toys on real boards, primitive fallback", _t_supermarket_kit)
 	print("[TownForge] tests: %d passed, %d failed" % [_passed, _failed])
 	quit(1 if _failed > 0 else 0)
 
@@ -858,5 +859,41 @@ func _t_supermarket() -> Array:
 	SetEvents.apply(node, events, 0.5)
 	if hero.get_node("on").visible:
 		e.append("events are not a pure function of time (going back to 0.5 s)")
+	node.free()
+	return e
+
+
+func _t_supermarket_kit() -> Array:
+	var e := []
+	var SMGen = load("res://scripts/world/generators/supermarket_generator.gd")
+	if not SetBuilder.validate({"generator": "supermarket", "seed": 1, "params": {"kit": "no_such_kit"}}).size() > 0:
+		e.append("unknown kit was not reported")
+	if not SetBuilder.validate({"generator": "supermarket", "seed": 1, "params": {"shelf_d": 1.0}}).size() > 0:
+		e.append("shelf_d with a model kit was not reported")
+	if not SetBuilder.validate({"generator": "supermarket", "seed": 1, "params": {"kit": "primitive", "shelf_d": 1.0}}).is_empty():
+		e.append("shelf_d with kit primitive should be valid")
+	var L := SetBuilder.generate({"generator": "supermarket", "seed": 7, "params": {}})
+	var seg := float(L["shelving"]["seg"])
+	for g in L["gondolas"]:
+		var r: Array = g["rect"]
+		if absf(g["segments"].size() * seg - (float(r[3]) - float(r[1]))) > 0.01:
+			e.append("%s: segments do not tile its length" % g["id"])
+	for t in L["toys"]:
+		if L["shelving"]["levels"].filter(func(y): return absf(float(y) - float(t["pos"][1])) < 0.002).is_empty():
+			e.append("%s is not on a shelf board (y %s)" % [t["id"], t["pos"][1]])
+	var face: Dictionary = L["shelves"].filter(func(s): return s.has("toy_span"))[0]
+	for t in L["toys"]:
+		if not SMGen.in_spans(face["spans"], float(t["pos"][2]), 0.1):
+			e.append("%s stands on an upright, not a shelf" % t["id"])
+	if L["clutter"].filter(func(c): return c["kind"] == "cart").is_empty():
+		e.append("no carts in the clutter")
+	var tidy := SetBuilder.generate({"generator": "supermarket", "seed": 7, "params": {"clutter": 0.0}})
+	if tidy["clutter"].size() >= L["clutter"].size():
+		e.append("clutter 0 should leave fewer items")
+	var P := SetBuilder.generate({"generator": "supermarket", "seed": 7, "params": {"kit": "primitive"}})
+	var node := SetBuilder.build(P, LookCompiler.compile("night_fog")["look"])
+	root.add_child(node)
+	if node.find_child("toy_hero", true, false) == null or node.find_child("wall_shelf_w_0", true, false) == null:
+		e.append("primitive supermarket is missing toy_hero or wall shelves")
 	node.free()
 	return e

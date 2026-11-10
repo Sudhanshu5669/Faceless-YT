@@ -1,0 +1,21 @@
+{
+  "env:exterior": {
+    "status": "changes",
+    "note": "",
+    "accepted": [
+      "c1"
+    ],
+    "fingerprint": "0797490d8719b95c",
+    "updated": "2026-11-10 20:39:34"
+  },
+  "env:overview": {
+    "status": "changes",
+    "note": "",
+    "accepted": [
+      "auto:dark",
+      "c1"
+    ],
+    "fingerprint": "331789c233043018",
+    "updated": "2026-11-10 20:40:02"
+  }
+}

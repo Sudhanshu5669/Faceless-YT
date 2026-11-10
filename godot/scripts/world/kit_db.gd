@@ -63,7 +63,7 @@ static func _all_ids(v) -> Array:
 				out.append_array(_all_ids(x))
 		TYPE_DICTIONARY:
 			for k in v:
-				if k != "atlas" and k != "roof_colors":
+				if not (k in ["atlas", "roof_colors", "recolor", "description", "credits", "door_materials"]):
 					out.append_array(_all_ids(v[k]))
 	return out
 
@@ -131,6 +131,56 @@ static func size(id: String) -> Vector3:
 	if m.is_empty():
 		return Vector3.ONE
 	return Vector3(m["size"][0], m["size"][1], m["size"][2])
+
+
+## A static model as plain MeshInstance3D nodes built from parts() (meshes are
+## shared, no scene instancing), normalised and scaled. recolor maps flat
+## albedo colours ("c65016") to new hex colours; matching surfaces get a
+## cached recoloured material.
+static func static_node(id: String, scale: float = 1.0, recolor: Dictionary = {}) -> Node3D:
+	var root := Node3D.new()
+	for p in parts(id):
+		var mi := MeshInstance3D.new()
+		mi.mesh = p["mesh"]
+		mi.transform = p["xf"]
+		root.add_child(mi)
+		if not recolor.is_empty():
+			for s in mi.mesh.get_surface_count():
+				var m := _recolored(mi.mesh.surface_get_material(s), recolor)
+				if m:
+					mi.set_surface_override_material(s, m)
+	root.scale = Vector3.ONE * scale
+	return root
+
+
+static var _recolors: Dictionary = {}
+
+
+static func _recolored(src: Material, recolor: Dictionary) -> Material:
+	var bm := src as BaseMaterial3D
+	if bm == null:
+		return null
+	var hex := bm.albedo_color.to_html(false)
+	if not recolor.has(hex):
+		return null
+	var key := "%d|%s" % [src.get_instance_id(), recolor[hex]]
+	if not _recolors.has(key):
+		var m: BaseMaterial3D = bm.duplicate()
+		m.albedo_color = Color(String(recolor[hex]))
+		_recolors[key] = m
+	return _recolors[key]
+
+
+## Override every surface whose material is named in names (resource_name) with mat.
+static func override_named(node: Node, names: Array, mat: Material) -> void:
+	if node is MeshInstance3D and (node as MeshInstance3D).mesh:
+		var mi := node as MeshInstance3D
+		for s in mi.mesh.get_surface_count():
+			var m := mi.mesh.surface_get_material(s)
+			if m and String(m.resource_name) in names:
+				mi.set_surface_override_material(s, mat)
+	for c in node.get_children():
+		override_named(c, names, mat)
 
 
 ## A placed instance of a model, normalised (footprint centred, base at y=0), scaled.

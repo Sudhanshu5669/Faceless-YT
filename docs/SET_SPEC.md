@@ -50,12 +50,15 @@ A set spec describes one location, how it is lit, and how to preview it.
 
 A single-storey store at night: numbered aisles of stocked double-sided shelving, a front and back
 cross aisle, checkouts by a glass storefront (z = 0, facing the parking lot), a freezer wall,
-a toy section, ceiling fixtures, a parking lot with sodium lamps and cars.
+a toy section, ceiling fixtures, a parking lot with sodium lamps and cars. Side walls carry stocked wall shelving.
 
 | Param | Default | Meaning |
 |---|---|---|
 | `aisles` | 8 | Number of aisles (numbered 1… left to right from the entrance). |
-| `aisle_length`, `aisle_w`, `shelf_d`, `shelf_h` | 18, 2.4, 1.1, 2.1 | Aisle and shelving size (m). |
+| `kit` | `"supermarket"` | Kit that dresses the store (`library/kits/supermarket.json`: Fab racks, fridges, checkouts, food, carts) or `"primitive"` (boxes, no assets). |
+| `aisle_length`, `aisle_w` | 18, 2.4 | Aisle size (m). With a model kit the length rounds to whole gondola segments (18 → 18.77 with Fab racks). |
+| `shelf_d`, `shelf_h` | 1.1, 2.1 | Gondola depth and height (m), **only for kit `primitive`**; a model kit takes them from its rack model (an error otherwise). |
+| `clutter` | 0.5 | 0–1: abandoned carts, baskets and boxes in the aisles and back aisle, trash bags outside, a cart corral by the doors. The toy aisle and front aisle stay clear. |
 | `front_zone`, `back_zone`, `side_zone` | 9, 4, 3 | Space for checkouts / back aisle / side walls (m). |
 | `checkouts` | 4 | Checkout lanes left of the entrance. |
 | `toy_aisle` | 6 | Aisle with the toy section (little robots with switchable eyes); 0 = none. |

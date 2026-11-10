@@ -7,7 +7,7 @@
     {"id": "c1", "text": "The green exit-sign glow dominates the top of the frame. Halve its light so the glass and the parking lot read first."}
   ],
   "env:front_aisle": [
-    {"id": "c1", "text": "Too clean for a store you've been trapped in for 7 hours. Scatter debris near the front aisle: fallen cans, an overturned cart, a dropped basket."},
+    {"id": "c1", "text": "Done in the set (clutter 0.5): carts, baskets and boxes now sit in the aisles and back aisle, a cart corral by the doors, trash bags outside. The front aisle and toy aisle stay clear for the sneak. Tick to also litter the front aisle's edges with fallen cans and a tipped basket."},
     {"id": "c2", "text": "Add one fixture that flickers for the whole episode (deterministic flicker), so the space never feels completely still."}
   ],
   "env:toy_aisle": [
