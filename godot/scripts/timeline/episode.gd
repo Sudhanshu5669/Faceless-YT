@@ -19,8 +19,12 @@ extends RefCounted
 
 const Paths = preload("res://scripts/core/paths.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
+const SetEvents = preload("res://scripts/timeline/set_events.gd")
 
-const KEYS := ["schema_version", "id", "title", "description", "set", "look", "actors", "format", "shots"]
+const KEYS := ["schema_version", "id", "title", "description", "set", "look", "actors", "format", "shots", "events"]
+## Sound keys: resolved by the Python pipeline (pipeline/episode_audio.py), which
+## also turns "fit" durations and time references into numbers before Godot runs.
+const AUDIO_KEYS := ["narration", "lines", "sfx", "music", "ambience", "captions", "end_black"]
 const FORMAT_KEYS := ["resolution", "fps"]
 const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "note"]
 const MOVE_KEYS := ["from", "to", "ease"]
@@ -56,8 +60,8 @@ static func load_episode(path: String) -> Dictionary:
 static func validate(ep: Dictionary) -> Array:
 	var e := []
 	for k in ep:
-		if not (k in KEYS):
-			e.append("episode: unknown key '%s' (known: %s)" % [k, ", ".join(PackedStringArray(KEYS))])
+		if not (k in KEYS) and not (k in AUDIO_KEYS):
+			e.append("episode: unknown key '%s' (known: %s)" % [k, ", ".join(PackedStringArray(KEYS + AUDIO_KEYS))])
 	if String(ep.get("id", "")) == "":
 		e.append("episode needs an 'id'")
 	var fmt = ep.get("format", {})
@@ -74,6 +78,7 @@ static func validate(ep: Dictionary) -> Array:
 		var fps = fmt.get("fps", DEFAULT_FPS)
 		if not (typeof(fps) in [TYPE_INT, TYPE_FLOAT]) or int(fps) < 1 or int(fps) > 60:
 			e.append("format.fps must be 1..60")
+	e.append_array(SetEvents.validate(ep.get("events")))
 	var shots = ep.get("shots")
 	if typeof(shots) != TYPE_ARRAY or shots.is_empty():
 		e.append("episode needs a non-empty 'shots' list")
@@ -96,7 +101,9 @@ static func validate(ep: Dictionary) -> Array:
 			e.append(where + ": duplicate shot name")
 		names[n] = true
 		var d = s.get("duration")
-		if not (typeof(d) in [TYPE_INT, TYPE_FLOAT]) or float(d) <= 0.0 or float(d) > 120.0:
+		if typeof(d) == TYPE_STRING or typeof(d) == TYPE_DICTIONARY:
+			e.append(where + ": duration '%s' is resolved from the narration; render through `tf` (it resolves voice timing first)" % [d])
+		elif not (typeof(d) in [TYPE_INT, TYPE_FLOAT]) or float(d) <= 0.0 or float(d) > 120.0:
 			e.append(where + ": duration must be seconds in (0, 120]")
 		if s.has("scene_t") and (not (typeof(s["scene_t"]) in [TYPE_INT, TYPE_FLOAT]) or float(s["scene_t"]) < 0.0):
 			e.append(where + ": scene_t must be seconds >= 0")

@@ -1,0 +1,186 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "freshway",
+    "generator": "supermarket",
+    "seed": 7,
+    "params": {
+      "power": "emergency",
+      "toy_aisle": 6
+    }
+  },
+  "look": {
+    "base": "night_fog",
+    "time": "03:00",
+    "weather": {
+      "fog": 0.35,
+      "wind": 0.1
+    },
+    "ambient": {
+      "color": "#2a3550",
+      "energy": 0.3
+    },
+    "exposure": 1.35
+  },
+  "actors": [
+    {
+      "id": "you",
+      "character": "you",
+      "at": "aisle_2.front",
+      "action": "crouch",
+      "facing": "aisle_6.front"
+    },
+    {
+      "id": "horde",
+      "character": "zombie",
+      "at": {
+        "anchor": "storefront",
+        "offset": [
+          0,
+          0,
+          2.5
+        ]
+      },
+      "facing": "store_center",
+      "action": "zombie_scratch",
+      "crowd": {
+        "count": 18,
+        "radius": 7,
+        "characters": [
+          "zombie",
+          "zombie_f"
+        ]
+      }
+    }
+  ],
+  "preview": {
+    "resolution": [
+      540,
+      960
+    ],
+    "views": [
+      {
+        "name": "exterior",
+        "t": 2,
+        "at": {
+          "anchor": "parking_lot",
+          "offset": [
+            3,
+            2.2,
+            6
+          ]
+        },
+        "look_at": {
+          "anchor": "storefront",
+          "offset": [
+            0,
+            2.0,
+            0
+          ]
+        },
+        "lens_mm": 24
+      },
+      {
+        "name": "inside_glass",
+        "t": 2,
+        "at": {
+          "anchor": "storefront.inside",
+          "offset": [
+            3,
+            1.5,
+            -5
+          ]
+        },
+        "look_at": {
+          "anchor": "storefront",
+          "offset": [
+            0,
+            1.4,
+            0
+          ]
+        },
+        "lens_mm": 24
+      },
+      {
+        "name": "front_aisle",
+        "t": 2,
+        "at": {
+          "anchor": "front_aisle.start",
+          "offset": [
+            0,
+            0.6,
+            1.0
+          ]
+        },
+        "look_at": {
+          "anchor": "front_aisle.end",
+          "offset": [
+            0,
+            0.9,
+            0
+          ]
+        },
+        "lens_mm": 24
+      },
+      {
+        "name": "toy_aisle",
+        "t": 2,
+        "at": {
+          "anchor": "aisle_6.start",
+          "offset": [
+            0.4,
+            1.4,
+            -0.2
+          ]
+        },
+        "look_at": "toys.shelf",
+        "lens_mm": 28
+      },
+      {
+        "name": "toy_close",
+        "t": 2,
+        "at": {
+          "anchor": "toy_hero",
+          "offset": [
+            0.08,
+            0.2,
+            0.75
+          ]
+        },
+        "look_at": {
+          "anchor": "toy_hero",
+          "offset": [
+            0,
+            0.17,
+            0
+          ]
+        },
+        "lens_mm": 50,
+        "dof": {
+          "strength": 0.6
+        }
+      },
+      {
+        "name": "overview",
+        "t": 2,
+        "at": {
+          "anchor": "back_aisle",
+          "offset": [
+            -14,
+            3.9,
+            1.0
+          ]
+        },
+        "look_at": {
+          "anchor": "entrance",
+          "offset": [
+            6,
+            0,
+            0
+          ]
+        },
+        "lens_mm": 18
+      }
+    ]
+  }
+}

@@ -7,9 +7,11 @@ output/
 episodes/*/renders/
 episodes/*/preview/
 episodes/*/final/
+episodes/*/build/
 
-# Local machine config
+# Local machine config and secrets (API keys)
 config.local.json
+.env
 
 # Python
 __pycache__/

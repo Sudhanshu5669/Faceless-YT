@@ -6,7 +6,8 @@
   python pipeline/tf.py preview-set SPEC [options]   render preview stills + contact sheet
   python pipeline/tf.py explore [SPEC] [options]     open the fly-through window
   python pipeline/tf.py storyboard EPISODE           start/mid/end still of every shot -> storyboard.png
-  python pipeline/tf.py render EPISODE [--draft]     render an episode to MP4 (--draft: half size, 15 fps)
+  python pipeline/tf.py voice EPISODE                narration (Gemini TTS, cached) + timing table, no render
+  python pipeline/tf.py render EPISODE [--draft]     render an episode to MP4 with sound and captions (--draft: half size, 15 fps)
   python pipeline/tf.py library                      list looks, shot templates and views
   python pipeline/tf.py look save NAME FILE          validate a look and save it to library/looks/
   python pipeline/tf.py assets import                incoming/*.zip -> godot/assets -> Godot import -> catalog
@@ -30,6 +31,8 @@ import subprocess
 import sys
 import unittest
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 ROOT = Path(__file__).resolve().parent.parent
 GODOT_PROJECT = ROOT / "godot"
@@ -111,8 +114,10 @@ def cmd_test(cfg: dict, _args) -> int:
 def cmd_validate(cfg: dict, args) -> int:
     path = (ROOT / args.spec) if not Path(args.spec).is_absolute() else Path(args.spec)
     if path.exists() and "shots" in _read_json(path):
-        # Episodes resolve every camera against the built set, which needs a renderer.
-        return run_godot(cfg, ["--episode", str(path)], pre_args=["--quit-after", "2000"])
+        # Episodes: resolve voice timing, then resolve every camera against the
+        # built set (needs a renderer).
+        resolved, _ = resolve_episode(path)
+        return run_godot(cfg, ["--episode", str(resolved)], pre_args=["--quit-after", "2000"])
     return run_godot(cfg, ["--spec", args.spec, "--validate"], headless=True)
 
 
@@ -129,6 +134,22 @@ def episode_path(ref: str) -> Path:
     if not p.exists():
         raise SystemExit(f"ERROR: no episode at {ref} (expected episodes/<id>/episode.json)")
     return p
+
+
+def resolve_episode(path: Path, verbose: bool = True) -> tuple[Path, dict]:
+    """Voice first: synthesize + time the narration, size "fit" shots, resolve time
+    references. Writes episodes/<id>/build/episode.resolved.json for Godot."""
+    import episode_audio
+    res = episode_audio.resolve(path, verbose=verbose)
+    out = path.parent / "build" / "episode.resolved.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(res["episode"], indent=2), encoding="utf-8")
+    return out, res
+
+
+def cmd_voice(cfg: dict, args) -> int:
+    resolve_episode(episode_path(args.episode))
+    return 0
 
 
 def _episode_frames(ep: dict, fps: int) -> int:
@@ -153,7 +174,8 @@ def concat_videos(cfg: dict, parts: list[Path], out: Path) -> None:
 
 def cmd_render(cfg: dict, args) -> int:
     path = episode_path(args.episode)
-    ep = _read_json(path)
+    resolved, res = resolve_episode(path)
+    ep = _read_json(resolved)
     ep_id = ep.get("id", path.parent.name)
     fps = int(ep.get("format", {}).get("fps", 30))
     scale = 1.0
@@ -166,8 +188,10 @@ def cmd_render(cfg: dict, args) -> int:
         if not only or d.name[3:] in only:
             for f in d.glob("*.png"):
                 f.unlink()
+    if getattr(args, "remix", False):
+        return _remix(cfg, res, root, ep_id, fps, args.draft)
     total = _episode_frames(ep, fps) + 40 * len(ep.get("shots", []))
-    user = ["--episode", str(path), "--frames", str(frames_root), "--fps", str(fps), "--scale", str(scale)]
+    user = ["--episode", str(resolved), "--frames", str(frames_root), "--fps", str(fps), "--scale", str(scale)]
     if only:
         user += ["--shots", ",".join(only)]
     print(f"[TownForge] rendering {ep_id}: {len(ep.get('shots', []))} shots, "
@@ -193,22 +217,57 @@ def cmd_render(cfg: dict, args) -> int:
             encode_frames(cfg, d, fps, part)
         parts.append(part)
     out = root / (f"{ep_id}_animatic.mp4" if args.draft else f"{ep_id}.mp4")
-    concat_videos(cfg, parts, out)
     secs = sum(float(s["duration"]) for s in timeline["shots"])
+    has_sound = bool(res["lines"] or res["sfx"] or res["ambience"])
+    if not has_sound:
+        concat_videos(cfg, parts, out)
+    else:
+        concat_videos(cfg, parts, root / f"{ep_id}_picture.mp4")
+        return _remix(cfg, res, root, ep_id, fps, args.draft)
     print(f"[TownForge] video -> {out} ({timeline['resolution'][0]}x{timeline['resolution'][1]}, "
           f"{fps} fps, {secs:.1f} s)")
     return 0
 
 
+def _remix(cfg: dict, res: dict, root: Path, ep_id: str, fps: int, draft: bool) -> int:
+    """Soundtrack + captions over the rendered picture (no Godot run)."""
+    import episode_audio
+    picture = root / f"{ep_id}_picture.mp4"
+    timeline_path = root / "frames" / "timeline.json"
+    if not picture.exists() or not timeline_path.exists():
+        print(f"ERROR: no rendered picture at {picture}; run render without --remix first", file=sys.stderr)
+        return 1
+    timeline = _read_json(timeline_path)
+    pic_secs = sum(float(s["duration"]) for s in timeline["shots"])
+    if abs(pic_secs - res["duration"]) > 0.05:
+        print(f"ERROR: the narration timing changed ({res['duration']:.2f} s vs the rendered {pic_secs:.2f} s); "
+              "render the picture again (without --remix)", file=sys.stderr)
+        return 1
+    out = root / (f"{ep_id}_animatic.mp4" if draft else f"{ep_id}.mp4")
+    audio = episode_audio.mix(res, root / "mix.wav", cfg["ffmpeg"])
+    res["resolution"] = timeline["resolution"]
+    captions = None
+    if res["lines"] and res["captions"].get("enabled", True):
+        captions = episode_audio.write_captions(res, root / "captions.ass")
+    episode_audio.finish(cfg["ffmpeg"], picture, audio, captions, out, res["end_black"], fps)
+    lufs = episode_audio.measure_lufs(cfg["ffmpeg"], out)
+    print(f"[TownForge] sound: {len(res['lines'])} lines, {len(res['sfx'])} effects, "
+          f"{len(res['ambience'])} beds, {lufs:.1f} LUFS" + (", captions burned in" if captions else ""))
+    print(f"[TownForge] video -> {out} ({timeline['resolution'][0]}x{timeline['resolution'][1]}, "
+          f"{fps} fps, {pic_secs + res['end_black']:.1f} s)")
+    return 0
+
+
 def cmd_storyboard(cfg: dict, args) -> int:
     path = episode_path(args.episode)
-    ep = _read_json(path)
+    resolved, _ = resolve_episode(path)
+    ep = _read_json(resolved)
     out = path.parent / "preview" / "storyboard"
     out.mkdir(parents=True, exist_ok=True)
     for f in out.glob("*.png"):
         f.unlink()
     n_shots = len(ep.get("shots", []))
-    code = run_godot(cfg, ["--episode", str(path), "--storyboard", str(out)],
+    code = run_godot(cfg, ["--episode", str(resolved), "--storyboard", str(out)],
                      pre_args=["--fixed-fps", "30", "--quit-after", str(1000 + 100 * n_shots)],
                      timeout=300 + 20 * n_shots)
     if code != 0:
@@ -423,6 +482,9 @@ def main(argv: list[str] | None = None) -> int:
     rp.add_argument("episode", help="episodes/<id>/episode.json or <id>")
     rp.add_argument("--draft", action="store_true", help="half resolution, 15 fps animatic in preview/")
     rp.add_argument("--shots", help="re-render only these shots (comma-separated names)")
+    rp.add_argument("--remix", action="store_true", help="rebuild only the sound and captions over the rendered picture")
+    vp = sub.add_parser("voice", help="synthesize + time the narration, print the timing table")
+    vp.add_argument("episode", help="episodes/<id>/episode.json or <id>")
     sb = sub.add_parser("storyboard", help="start/mid/end stills of every shot")
     sb.add_argument("episode", help="episodes/<id>/episode.json or <id>")
     sub.add_parser("library", help="list looks, shot templates and views")
@@ -446,7 +508,7 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_look_save(cfg, args)
     handlers = {"test": cmd_test, "validate": cmd_validate, "library": cmd_library,
                 "preview-set": cmd_preview_set, "explore": cmd_explore,
-                "render": cmd_render, "storyboard": cmd_storyboard}
+                "render": cmd_render, "storyboard": cmd_storyboard, "voice": cmd_voice}
     return handlers[args.command](cfg, args)
 
 

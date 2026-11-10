@@ -6,6 +6,8 @@
 ##     "route": { "via": ["house_9.curb", "street_h1.mid"], "gait": "run", "speed": 4.0,
 ##                "start": 2.0, "then": "idle", "then_facing": "town_center", "then_freeze": 0.5 },
 ##     "crowd": { "count": 12, "radius": 8, "characters": ["zombie", "zombie_f"], "start_spread": 4.0 },
+##              ("area": [width, depth] instead of radius: a rectangle in the at-anchor's
+##               frame, e.g. a line of zombies pressed against a window)
 ##     "cues": [ { "t": 6.0, "action": "jump" }, { "t": 6.7, "hold": true }, { "t": 12, "hold": false },
 ##               { "t": 14, "facing": "stranger" } ] }
 ##
@@ -24,8 +26,8 @@ const Anchors = preload("res://scripts/camera/anchors.gd")
 
 const ACTOR_KEYS := ["id", "character", "at", "facing", "action", "freeze", "phase", "route", "crowd", "cues"]
 const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold"]
-const ROUTE_KEYS := ["via", "gait", "speed", "start", "then", "then_facing", "then_freeze"]
-const CROWD_KEYS := ["count", "radius", "characters", "start_spread", "seed"]
+const ROUTE_KEYS := ["via", "gait", "speed", "arrive", "start", "then", "then_facing", "then_freeze"]
+const CROWD_KEYS := ["count", "radius", "area", "characters", "start_spread", "seed", "spacing"]
 
 
 ## Key-level validation, usable before a set exists.
@@ -81,6 +83,10 @@ static func validate(actors) -> Array:
 						e.append("%s: route has unknown key '%s' (known: %s)" % [where, k, ", ".join(PackedStringArray(ROUTE_KEYS))])
 				if typeof(r.get("via")) != TYPE_ARRAY or r["via"].is_empty():
 					e.append(where + ": route.via must be a non-empty list of points")
+				if r.has("speed") and r.has("arrive"):
+					e.append(where + ": route takes 'speed' or 'arrive' (scene time to reach the end), not both")
+				if r.has("arrive") and float(r["arrive"]) <= float(r.get("start", 0.0)):
+					e.append(where + ": route.arrive must be after route.start")
 				if r.has("gait") and not Cast.action(String(r["gait"])).get("gait", false):
 					e.append("%s: route.gait '%s' is not a moving action (walk, run, jog, sneak, zombie_walk...)" % [where, r["gait"]])
 				if r.has("then") and Cast.action(String(r["then"])).is_empty():
@@ -104,6 +110,10 @@ static func validate(actors) -> Array:
 						e.append("%s: crowd has unknown key '%s'" % [where, k])
 				if int(c.get("count", 0)) < 1 or int(c.get("count", 0)) > 200:
 					e.append(where + ": crowd.count must be 1..200")
+				if c.has("area") and (typeof(c["area"]) != TYPE_ARRAY or c["area"].size() != 2):
+					e.append(where + ": crowd.area must be [width, depth] in metres")
+				if c.has("area") and c.has("radius"):
+					e.append(where + ": crowd takes 'radius' or 'area', not both")
 	return e
 
 
@@ -227,17 +237,29 @@ static func plan_all(actors, L: Dictionary) -> Dictionary:
 			var r := RandomNumberGenerator.new()
 			r.seed = hash("%s/%s" % [a["id"], c.get("seed", 0)])
 			var radius := float(c.get("radius", 6.0))
+			var area: Array = c.get("area", [])
+			var spacing := float(c.get("spacing", 0.9))
+			# Rectangle axes in the at-anchor's frame (right, forward) in world XZ.
+			var ay := _anchor_yaw(L, a["at"])
+			var fwd2 := Vector2(sin(ay), cos(ay))
+			var right2 := Vector2(-fwd2.y, fwd2.x)
 			var chars: Array = c.get("characters", [a.get("character", "zombie")])
 			var offsets := []
 			var tries := 0
 			while offsets.size() < int(c["count"]) and tries < 4000:
 				tries += 1
-				var o := Vector2(r.randf_range(-radius, radius), r.randf_range(-radius, radius))
-				if o.length() > radius:
-					continue
+				var o: Vector2
+				if area.is_empty():
+					o = Vector2(r.randf_range(-radius, radius), r.randf_range(-radius, radius))
+					if o.length() > radius:
+						continue
+				else:
+					var u := r.randf_range(-0.5, 0.5) * float(area[0])
+					var v := r.randf_range(-0.5, 0.5) * float(area[1])
+					o = right2 * u + fwd2 * v
 				var ok := true
 				for q in offsets:
-					if (q as Vector2).distance_to(o) < 0.9:
+					if (q as Vector2).distance_to(o) < spacing:
 						ok = false
 						break
 				if ok:
@@ -308,7 +330,9 @@ static func _plan_one(a: Dictionary, L: Dictionary, offset: Vector3, yaw_jitter:
 		plan["route"] = {
 			"points": pts, "cum": cum, "total": cum[-1],
 			"gait": gait,
-			"speed": float(rs.get("speed", Cast.action(gait).get("speed", 1.0))),
+			# "arrive": reach the end at that scene time (speed follows from the distance).
+			"speed": cum[-1] / maxf(float(rs["arrive"]) - float(rs.get("start", 0.0)), 0.01) if rs.has("arrive") \
+				else float(rs.get("speed", Cast.action(gait).get("speed", 1.0))),
 			"start": float(rs.get("start", 0.0)),
 			"then": String(rs.get("then", chr.get("idle", "idle"))),
 			"then_freeze": Cast.freeze_fraction(String(rs.get("then", chr.get("idle", "idle"))), rs.get("then_freeze")),

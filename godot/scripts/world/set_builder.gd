@@ -6,9 +6,12 @@ extends RefCounted
 
 const TownGenerator = preload("res://scripts/world/generators/town_generator.gd")
 const TownBuilder = preload("res://scripts/world/builders/town_builder.gd")
+const SupermarketGenerator = preload("res://scripts/world/generators/supermarket_generator.gd")
+const SupermarketBuilder = preload("res://scripts/world/builders/supermarket_builder.gd")
 
 const GENERATORS := {
 	"town": {"generator": TownGenerator, "builder": TownBuilder},
+	"supermarket": {"generator": SupermarketGenerator, "builder": SupermarketBuilder},
 }
 
 
@@ -37,6 +40,12 @@ static func generate(set_spec: Dictionary) -> Dictionary:
 static func build(layout: Dictionary, look: Dictionary) -> Node3D:
 	var entry: Dictionary = GENERATORS[layout["generator"]]
 	return entry["builder"].build(layout, look)
+
+
+## Height of the walkable surface at (x, z) in this layout (where feet stand).
+static func ground_height(L: Dictionary, x: float, z: float) -> float:
+	var entry: Dictionary = GENERATORS[L.get("generator", "town")]
+	return entry["generator"].ground_height(L, x, z)
 
 
 ## Compact description of a layout for the director (LLM): named places, not geometry.

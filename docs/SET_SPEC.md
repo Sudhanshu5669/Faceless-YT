@@ -46,6 +46,32 @@ A set spec describes one location, how it is lit, and how to preview it.
 | `kit` | `"suburban"` | kit id or `"primitive"` | Which models dress the set (see ASSET_PIPELINE.md). `primitive` = procedural boxes, no assets needed. |
 | `season` | `"summer"` | summer, autumn, winter, dead, dead_winter | Tree and bush models. `dead` = bare trees, ideal for horror. Snow in the look switches to winter automatically. |
 
+## `supermarket` params
+
+A single-storey store at night: numbered aisles of stocked double-sided shelving, a front and back
+cross aisle, checkouts by a glass storefront (z = 0, facing the parking lot), a freezer wall,
+a toy section, ceiling fixtures, a parking lot with sodium lamps and cars.
+
+| Param | Default | Meaning |
+|---|---|---|
+| `aisles` | 8 | Number of aisles (numbered 1… left to right from the entrance). |
+| `aisle_length`, `aisle_w`, `shelf_d`, `shelf_h` | 18, 2.4, 1.1, 2.1 | Aisle and shelving size (m). |
+| `front_zone`, `back_zone`, `side_zone` | 9, 4, 3 | Space for checkouts / back aisle / side walls (m). |
+| `checkouts` | 4 | Checkout lanes left of the entrance. |
+| `toy_aisle` | 6 | Aisle with the toy section (little robots with switchable eyes); 0 = none. |
+| `power` | `night` | Ceiling lights: `on`, `night` (every third), `emergency` (every ninth), `off`. Freezers glow unless `off`. |
+| `parking_depth`, `car_density` | 34, 0.25 | Parking lot. |
+| `name` | `FRESHWAY` | The lit sign on the facade. |
+
+**Anchors** (all in `manifest.json`): `entrance`, `store_center`, `storefront` (+`.left`, `.right`,
+`.inside`), `parking_lot`, `front_aisle` (+`.start`, `.end`), `back_aisle`, `freezers`,
+`aisle_N` (+`.start`, `.mid`, `.end`, `.front` = in the front aisle facing into aisle N),
+`checkout_N`, `toys` (where you stand to reach the toy shelf), `toys.shelf`, `toy_hero`.
+Shelving blocks line of sight (`WARN … hidden behind gondola_N`).
+
+**Switchables** for timeline `events` (TIMELINE_SPEC.md): `toy_hero`, any `toy_N`, the group `toys`;
+`fixture_N` / `fixtures`; `freezer_N` / `freezers`; `exit_signs`.
+
 ## Views
 
 | View | Shot |

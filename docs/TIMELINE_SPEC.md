@@ -107,9 +107,30 @@ Validation fails on unknown anchors, keys, actions or freeze marks. It warns
   invisible), so `--shots` is safe.
 - Speed on the RTX 4050: about 10 frames/s at 1080×1920 (a 30 s Short renders in about 75 s).
 
+## Set events
+
+Switch things in the set on and off over time: toy eyes, ceiling lights, freezers.
+
+```json
+"events": [
+  { "t": 0, "target": "fixture_21", "state": "on" },
+  { "t": {"line": "toy2", "offset": -0.3}, "target": "toy_hero", "state": "flicker" },
+  { "t": {"line": "n6", "word": "batteries", "edge": "end"}, "target": "toy_hero", "state": "off" },
+  { "t": {"line": "toy3"}, "target": "toys", "state": "on" }
+]
+```
+
+`target` is a switchable's name or group (the set's manifest lists them); `state` is `on`, `off`
+or `flicker` (a deterministic stutter). The state at any moment is a pure function of time.
+Unknown targets fail validation.
+
+## Sound, voice-first timing, `skip`
+
+Narration, effects, captions, `"fit"` durations, `"skip"` (jump story time at a cut) and time
+references like `{"line": "n6", "word": "grab"}` are in **AUDIO_SPEC.md**.
+
 ## Not yet
 
 - Per-shot look changes (one look per episode; the set is built once).
 - Transitions other than cuts (fades, match cuts), camera shake / handheld noise.
-- Audio: narration, SFX, music, captions (next milestone).
 - Shot cache by content hash (re-render only what changed, automatically).

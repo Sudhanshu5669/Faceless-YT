@@ -12,7 +12,8 @@ Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary
 - `docs/CAMERA_SPEC.md`: anchors, shots, lenses, shot templates
 - `docs/ASSET_PIPELINE.md`: importing packs, the model catalog, kits
 - `docs/ACTOR_SPEC.md`: characters, actions (sequences, freeze marks), routes, crowds, cues/holds, actor anchors
-- `docs/TIMELINE_SPEC.md`: episodes, timed shots, camera moves, storyboard, video render
+- `docs/TIMELINE_SPEC.md`: episodes, timed shots, camera moves, set events, storyboard, video render
+- `docs/AUDIO_SPEC.md`: narration (Gemini TTS), voice-first timing, word time refs, effects, beds, captions
 
 ## Commands
 
@@ -24,7 +25,8 @@ python pipeline/tf.py preview-set [SPEC] [--look NAME] [--time 03:33] [--weather
                                                     # renders stills + contact_sheet.png into output/previews/
 python pipeline/tf.py look save NAME FILE --description "..."   # validate + save a new look to the library
 python pipeline/tf.py storyboard EPISODE             # episodes/<id>/preview/storyboard.png (start/mid/end per shot)
-python pipeline/tf.py render EPISODE [--draft] [--shots a,b]   # episodes/<id>/renders/<id>.mp4
+python pipeline/tf.py voice EPISODE                  # narration (cached TTS) + timing table, no render
+python pipeline/tf.py render EPISODE [--draft] [--shots a,b] [--remix]   # episodes/<id>/renders/<id>.mp4 (--remix: sound only)
 python pipeline/tf.py explore [SPEC]                # interactive fly-through (T/Y time, F/C/R/X weather)
 python pipeline/tf.py assets import                 # incoming/*.zip -> Godot assets -> library/catalog.json + thumbnails
 ```
@@ -36,6 +38,7 @@ When a look or shot you invent is good and plausibly reusable, save it
 description and tags. Check `tf library` before inventing something that may exist.
 
 Tool paths come from `config.local.json` (git-ignored; copy `config.example.json`).
+The Gemini key is `GEMINI_API_KEY` in `.env` (git-ignored). The sound pipeline uses numpy + scipy.
 
 ## Rules
 
@@ -84,11 +87,12 @@ episodes/<id>/            episode.json (+ git-ignored renders/, preview/)
 library/catalog.json      generated model catalog (sizes, categories, animations)
 godot/assets/             imported packs (git-ignored, rebuilt from incoming/)
 godot/scripts/actors/     cast (bodies, merged animations, action sequences), actor (pose_at(t)), director (plans, crowds, cues)
-godot/scripts/timeline/   episode (load, validate, timeline, camera moves)
+godot/scripts/timeline/   episode (load, validate, timeline, camera moves), set_events (timed switches)
 library/characters/       character definitions (JSON)
 library/actions.json      action vocabulary -> animations, measured gait speeds
 godot/tools/              catalog + thumbnails, atlas swatch probe, locomotion probe, character probe
 specs/sets/               set specs (JSON)
 pipeline/tf.py            pipeline CLI
+pipeline/                 tts (Gemini), align (word times), episode_audio (resolve, mix, captions), sfx (synth)
 output/                   renders and previews (git-ignored)
 ```

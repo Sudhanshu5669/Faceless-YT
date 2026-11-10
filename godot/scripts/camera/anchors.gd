@@ -7,6 +7,10 @@
 ##   light_12  light_12.lamp        streetlights
 ##   vacant_0                       vacant lots
 ##
+## Any generator can also publish fully named anchors in layout["anchors"] as
+## {"pos": [x, y, z], "forward": [x, y, z]} (e.g. "aisle_6.start", "toys"); those
+## resolve directly, so new location types need no code here.
+##
 ## "forward" is the anchor's natural facing: out of a house toward its street,
 ## along a street from start to end, from a streetlight over the road.
 ## Offsets are written [right, up, forward] in that frame.
@@ -34,6 +38,16 @@ static func resolve(L: Dictionary, ref: String) -> Dictionary:
 	var entity := parts[0]
 	var sub := parts[1] if parts.size() > 1 else ""
 	var anchors: Dictionary = L["anchors"]
+	if anchors.has(ref) and typeof(anchors[ref]) == TYPE_DICTIONARY:
+		var a: Dictionary = anchors[ref]
+		return {"pos": _v(a["pos"]), "forward": _v(a.get("forward", [0, 0, 1])).normalized()}
+
+	if String(L.get("generator", "town")) != "town":
+		var names := PackedStringArray()
+		for k in anchors:
+			if not String(k).contains("."):
+				names.append(k)
+		return {"error": "unknown anchor '%s' (this set has: %s; see manifest.json)" % [ref, ", ".join(names)]}
 
 	if anchors.has(entity) and typeof(anchors[entity]) == TYPE_ARRAY:
 		var fwd := Vector3(0, 0, 1)

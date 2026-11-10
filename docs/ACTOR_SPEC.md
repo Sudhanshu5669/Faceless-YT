@@ -41,6 +41,7 @@ shot), the explore window and later video renders all use it.
 |---|---|
 | `via` | Points to walk through, in order (from `at`). Straight lines; corners are smoothed. Pick waypoints that follow sidewalks and roads. |
 | `gait` | A moving action: `walk`, `walk_formal`, `walk_carry`, `jog`, `run`, `sneak`, `zombie_walk`, `swim_forward`. Default: the character's `gait`. |
+| `arrive` | Instead of `speed`: the scene time to reach the end (often a word: `{"line": "n6", "word": "grab"}`); speed follows from the distance. |
 | `speed` | m/s. Default: the gait's measured natural speed (walk 0.92, jog 5.6, run 8.3, zombie_walk 0.66). Feet never slide: animation phase follows distance travelled, so other speeds just change cadence. |
 | `start` | Seconds before they set off (they do `action` until then). |
 | `then` | Action after arriving (default: the character's idle). |
@@ -54,6 +55,11 @@ This expands into `<id>_0` … `<id>_13`, scattered within `radius` metres of `a
 apart). Each member gets a random character from the list and keeps its offset along the whole
 route. Members start up to `start_spread` seconds apart, move at ±15 % speed, and have different
 animation phases. The result is deterministic for a given id and seed.
+
+`"area": [width, depth]` instead of `radius` scatters them in a rectangle in the `at` anchor's
+frame (right × forward), e.g. a line pressed against a shop window:
+`"at": {"anchor": "storefront", "offset": [4, 0, -0.55]}, "crowd": {"count": 11, "area": [20, 0.3], "spacing": 1.2}`.
+`spacing` is the minimum distance between members (default 0.9 m).
 
 ## Actors as anchors
 

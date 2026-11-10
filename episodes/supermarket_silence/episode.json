@@ -1,0 +1,965 @@
+{
+  "schema_version": "0.1",
+  "id": "supermarket_silence",
+  "title": "A Toy Starts Talking. They Heard It.",
+  "description": "Pitch C: stuck in a supermarket at 3 AM with sound-sensitive zombies outside; a toy in aisle 6 starts talking.",
+  "set": "specs/sets/freshway.json",
+  "format": {
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": 30
+  },
+  "narration": {
+    "voice": "Charon",
+    "style": "low, tense, intimate horror narration, slightly slow",
+    "speed": 1.22
+  },
+  "lines": [
+    {
+      "id": "toy1",
+      "text": "Let's play!",
+      "voice": "Leda",
+      "style": "cheerful, bright, sing-song toy voice",
+      "fx": "toy",
+      "shot": "toy_wakes",
+      "at": 0.35,
+      "speed": 1.0
+    },
+    {
+      "id": "n1",
+      "text": "Three A.M. Aisle six. And a toy just said: let's play.",
+      "shot": "horde_turns",
+      "at": 0.2
+    },
+    {
+      "id": "n2",
+      "text": "They're blind. They hunt by sound. And between you and three hundred of them... there's only glass.",
+      "shot": "glass_wall",
+      "at": 0.15
+    },
+    {
+      "id": "n3",
+      "text": "The toy is forty meters away. On this tile, every step is a gunshot.",
+      "shot": "long_aisle",
+      "at": 0.15
+    },
+    {
+      "id": "n4",
+      "text": "So you take off your shoes.",
+      "shot": "shoes",
+      "at": 0.15
+    },
+    {
+      "id": "toy2",
+      "text": "Let's play!",
+      "voice": "Leda",
+      "style": "cheerful, bright, sing-song toy voice",
+      "fx": "toy",
+      "shot": "toy_again",
+      "at": 0.2,
+      "speed": 1.0
+    },
+    {
+      "id": "n5a",
+      "text": "Aisle four. Aisle five.",
+      "shot": "sneak",
+      "at": 0.2
+    },
+    {
+      "id": "n5b",
+      "text": "Behind you... the glass starts to creak.",
+      "shot": "creak",
+      "at": 0.1
+    },
+    {
+      "id": "n6",
+      "text": "Aisle six. You grab it, flip it over... and pull the batteries.",
+      "shot": "reach",
+      "at": 0.15
+    },
+    {
+      "id": "n7",
+      "text": "Silence.",
+      "shot": "silence",
+      "at": 0.5
+    },
+    {
+      "id": "n8",
+      "text": "Seven hours. That's how long you've survived in here. Seven hours of perfect silence.",
+      "shot": "seven_hours",
+      "at": 0.3
+    },
+    {
+      "id": "toy3",
+      "text": "Let's play!",
+      "voice": "Leda",
+      "style": "cheerful, bright, sing-song toy voice",
+      "fx": "toy_chorus",
+      "shot": "all_toys",
+      "at": 0.25,
+      "gain": 2,
+      "speed": 1.0
+    },
+    {
+      "id": "n9",
+      "text": "You'd survive seven hours. The toys had other plans.",
+      "shot": "ending",
+      "at": 0.4
+    }
+  ],
+  "shots": [
+    {
+      "name": "toy_wakes",
+      "duration": {
+        "fit": true,
+        "min": 1.8,
+        "tail": 0.3
+      },
+      "camera": {
+        "at": {
+          "anchor": "toy_hero",
+          "offset": [
+            0.12,
+            0.22,
+            0.65
+          ]
+        },
+        "look_at": {
+          "anchor": "toy_hero",
+          "offset": [
+            0,
+            0.17,
+            0
+          ]
+        },
+        "lens_mm": 50,
+        "dof": {
+          "strength": 0.6
+        }
+      }
+    },
+    {
+      "name": "horde_turns",
+      "duration": "fit",
+      "camera": {
+        "at": {
+          "anchor": "storefront.inside",
+          "offset": [
+            -3,
+            1.5,
+            -3.5
+          ]
+        },
+        "look_at": {
+          "anchor": "storefront",
+          "offset": [
+            3,
+            1.4,
+            2
+          ]
+        },
+        "lens_mm": 24
+      }
+    },
+    {
+      "name": "glass_wall",
+      "duration": "fit",
+      "camera": {
+        "from": {
+          "at": {
+            "anchor": "you",
+            "offset": [
+              0.5,
+              1.05,
+              -2.2
+            ]
+          },
+          "look_at": {
+            "anchor": "storefront.left",
+            "offset": [
+              0,
+              1.3,
+              0
+            ]
+          },
+          "lens_mm": 28
+        },
+        "to": {
+          "at": {
+            "anchor": "you",
+            "offset": [
+              0.35,
+              1.0,
+              -1.5
+            ]
+          },
+          "look_at": {
+            "anchor": "storefront.left",
+            "offset": [
+              0,
+              1.3,
+              0
+            ]
+          },
+          "lens_mm": 28
+        },
+        "ease": "linear"
+      }
+    },
+    {
+      "name": "long_aisle",
+      "duration": "fit",
+      "camera": {
+        "at": {
+          "anchor": "front_aisle",
+          "offset": [
+            0.6,
+            0.35,
+            3.3
+          ]
+        },
+        "look_at": {
+          "anchor": "toy_hero",
+          "offset": [
+            0,
+            0.15,
+            0
+          ]
+        },
+        "lens_mm": 35
+      }
+    },
+    {
+      "name": "shoes",
+      "duration": {
+        "fit": true,
+        "tail": 0.6
+      },
+      "camera": {
+        "at": {
+          "anchor": "you",
+          "offset": [
+            1.2,
+            0.6,
+            1.2
+          ]
+        },
+        "look_at": "you.head",
+        "lens_mm": 35,
+        "dof": {
+          "strength": 0.5
+        }
+      }
+    },
+    {
+      "name": "toy_again",
+      "duration": {
+        "fit": true,
+        "min": 1.6,
+        "tail": 0.3
+      },
+      "camera": {
+        "at": {
+          "anchor": "toy_hero",
+          "offset": [
+            -0.25,
+            0.3,
+            0.9
+          ]
+        },
+        "look_at": {
+          "anchor": "toy_hero",
+          "offset": [
+            0,
+            0.17,
+            0
+          ]
+        },
+        "lens_mm": 40,
+        "dof": {
+          "strength": 0.5
+        }
+      }
+    },
+    {
+      "name": "sneak",
+      "duration": "fit",
+      "camera": {
+        "at": {
+          "anchor": "you",
+          "offset": [
+            1.8,
+            1.0,
+            2.6
+          ]
+        },
+        "look_at": {
+          "anchor": "you",
+          "offset": [
+            0,
+            1.3,
+            0
+          ]
+        },
+        "lens_mm": 24
+      },
+      "skip": 6.0
+    },
+    {
+      "name": "creak",
+      "duration": "fit",
+      "camera": {
+        "at": {
+          "anchor": "storefront.inside",
+          "offset": [
+            2,
+            1.4,
+            -1.6
+          ]
+        },
+        "look_at": {
+          "anchor": "storefront",
+          "offset": [
+            2,
+            1.4,
+            -0.6
+          ]
+        },
+        "lens_mm": 35
+      }
+    },
+    {
+      "name": "reach",
+      "duration": "fit",
+      "camera": {
+        "at": {
+          "anchor": "toys",
+          "offset": [
+            -2.2,
+            1.5,
+            -0.9
+          ]
+        },
+        "look_at": "toy_hero",
+        "lens_mm": 32
+      },
+      "skip": 6.0
+    },
+    {
+      "name": "silence",
+      "duration": {
+        "fit": true,
+        "tail": 1.4
+      },
+      "camera": {
+        "at": {
+          "anchor": "aisle_8.start",
+          "offset": [
+            0,
+            3.4,
+            -2
+          ]
+        },
+        "look_at": {
+          "anchor": "storefront.left",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 20
+      }
+    },
+    {
+      "name": "seven_hours",
+      "duration": "fit",
+      "camera": {
+        "at": {
+          "anchor": "toys",
+          "offset": [
+            -1.5,
+            0.8,
+            -1.3
+          ]
+        },
+        "look_at": "you.head",
+        "lens_mm": 35,
+        "dof": {
+          "strength": 0.5
+        }
+      }
+    },
+    {
+      "name": "all_toys",
+      "duration": {
+        "fit": true,
+        "min": 2.4,
+        "tail": 0.6
+      },
+      "camera": {
+        "from": {
+          "at": {
+            "anchor": "toys",
+            "offset": [
+              -1.0,
+              1.0,
+              -1.8
+            ]
+          },
+          "look_at": "you.head",
+          "lens_mm": 35
+        },
+        "to": {
+          "at": {
+            "anchor": "aisle_6.start",
+            "offset": [
+              0.3,
+              1.6,
+              -1.2
+            ]
+          },
+          "look_at": "toys.shelf",
+          "lens_mm": 24
+        },
+        "ease": "out"
+      }
+    },
+    {
+      "name": "ending",
+      "duration": {
+        "fit": true,
+        "tail": 0.8
+      },
+      "camera": {
+        "from": {
+          "at": {
+            "anchor": "toys.shelf",
+            "offset": [
+              -1.2,
+              0.1,
+              1.1
+            ]
+          },
+          "look_at": {
+            "anchor": "toys.shelf",
+            "offset": [
+              -1.0,
+              0,
+              0
+            ]
+          },
+          "lens_mm": 35
+        },
+        "to": {
+          "at": {
+            "anchor": "toys.shelf",
+            "offset": [
+              1.2,
+              0.1,
+              1.1
+            ]
+          },
+          "look_at": {
+            "anchor": "toys.shelf",
+            "offset": [
+              1.0,
+              0,
+              0
+            ]
+          },
+          "lens_mm": 35
+        },
+        "ease": "linear"
+      }
+    }
+  ],
+  "captions": {
+    "position": 0.66,
+    "max_words": 3
+  },
+  "end_black": 1.5,
+  "actors": [
+    {
+      "id": "you",
+      "character": "you",
+      "at": "checkout_2",
+      "facing": {
+        "anchor": "checkout_2",
+        "offset": [
+          0,
+          0,
+          10
+        ]
+      },
+      "action": "crouch",
+      "route": {
+        "via": [
+          "aisle_1.front",
+          "aisle_6.front",
+          "toys"
+        ],
+        "gait": "sneak",
+        "start": {
+          "line": "n4",
+          "edge": "end",
+          "offset": 0.2
+        },
+        "arrive": {
+          "line": "n6",
+          "word": "grab"
+        },
+        "then": "interact",
+        "then_facing": "toy_hero"
+      },
+      "cues": [
+        {
+          "t": {
+            "line": "n7"
+          },
+          "action": "crouch"
+        },
+        {
+          "t": {
+            "line": "n8"
+          },
+          "action": "get_up",
+          "freeze": 0.42,
+          "facing": {
+            "anchor": "toys",
+            "offset": [
+              0,
+              0,
+              -3
+            ]
+          },
+          "turn": 0.9
+        }
+      ]
+    },
+    {
+      "id": "horde",
+      "character": "zombie",
+      "at": {
+        "anchor": "storefront",
+        "offset": [
+          4,
+          0,
+          6.5
+        ]
+      },
+      "facing": "forward",
+      "action": "zombie_idle",
+      "crowd": {
+        "count": 26,
+        "area": [
+          22,
+          9
+        ],
+        "characters": [
+          "zombie",
+          "zombie_f"
+        ]
+      },
+      "cues": [
+        {
+          "t": {
+            "line": "toy1",
+            "edge": "end",
+            "offset": 0.3
+          },
+          "facing": "store_center",
+          "turn": 0.5
+        },
+        {
+          "t": {
+            "line": "n7"
+          },
+          "hold": true
+        },
+        {
+          "t": {
+            "line": "toy3",
+            "offset": 0.3
+          },
+          "hold": false
+        },
+        {
+          "t": {
+            "line": "toy3",
+            "offset": 0.3
+          },
+          "action": "zombie_scratch"
+        }
+      ]
+    },
+    {
+      "id": "glass_row",
+      "character": "zombie",
+      "at": {
+        "anchor": "storefront",
+        "offset": [
+          4,
+          0,
+          -0.55
+        ]
+      },
+      "facing": "forward",
+      "action": "zombie_idle",
+      "crowd": {
+        "count": 11,
+        "area": [
+          20,
+          0.3
+        ],
+        "characters": [
+          "zombie",
+          "zombie_f"
+        ],
+        "spacing": 1.2
+      },
+      "cues": [
+        {
+          "t": {
+            "line": "toy1",
+            "edge": "end",
+            "offset": 0.3
+          },
+          "facing": "store_center",
+          "turn": 0.5
+        },
+        {
+          "t": {
+            "line": "n1",
+            "word": "play"
+          },
+          "action": "zombie_scratch"
+        },
+        {
+          "t": {
+            "line": "n7"
+          },
+          "hold": true
+        },
+        {
+          "t": {
+            "line": "toy3",
+            "offset": 0.3
+          },
+          "hold": false
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "t": 0,
+      "target": "fixture_21",
+      "state": "on"
+    },
+    {
+      "t": {
+        "line": "toy1",
+        "offset": -0.25
+      },
+      "target": "toy_hero",
+      "state": "on"
+    },
+    {
+      "t": {
+        "line": "toy2",
+        "offset": -0.3
+      },
+      "target": "toy_hero",
+      "state": "flicker"
+    },
+    {
+      "t": {
+        "line": "toy2",
+        "edge": "end"
+      },
+      "target": "toy_hero",
+      "state": "on"
+    },
+    {
+      "t": {
+        "line": "n5b"
+      },
+      "target": "fixture_9",
+      "state": "flicker"
+    },
+    {
+      "t": {
+        "line": "n5b",
+        "edge": "end"
+      },
+      "target": "fixture_9",
+      "state": "on"
+    },
+    {
+      "t": {
+        "line": "n6",
+        "word": "batteries",
+        "edge": "end"
+      },
+      "target": "toy_hero",
+      "state": "off"
+    },
+    {
+      "t": {
+        "line": "toy3",
+        "offset": -0.05
+      },
+      "target": "toys",
+      "state": "on"
+    }
+  ],
+  "sfx": [
+    {
+      "sound": "glass_bang",
+      "at": {
+        "line": "toy2",
+        "offset": 0.6
+      },
+      "repeat": 3,
+      "every": 0.5,
+      "gain": -9
+    },
+    {
+      "sound": "creak",
+      "at": {
+        "line": "n5b",
+        "word": "glass",
+        "offset": -0.2
+      },
+      "gain": -6
+    },
+    {
+      "sound": "glass_bang",
+      "at": {
+        "line": "n5b",
+        "word": "creak",
+        "offset": 0.6
+      },
+      "repeat": 2,
+      "every": 0.7,
+      "gain": -11,
+      "salt": 5
+    },
+    {
+      "sound": "click",
+      "at": {
+        "line": "n6",
+        "word": "batteries",
+        "edge": "end"
+      },
+      "gain": -4
+    },
+    {
+      "sound": "sting",
+      "at": {
+        "line": "toy3",
+        "offset": -1.4
+      },
+      "gain": -3
+    },
+    {
+      "sound": "glass_bang",
+      "at": {
+        "line": "toy3",
+        "offset": 0.5
+      },
+      "repeat": 8,
+      "every": 0.22,
+      "gain": -5,
+      "salt": 11
+    }
+  ],
+  "ambience": [
+    {
+      "sound": "room_tone",
+      "gain": -30,
+      "duck": 0.0
+    },
+    {
+      "sound": "drone",
+      "gain": -21,
+      "duck": 0.35,
+      "curve": [
+        [
+          0,
+          0.5
+        ],
+        [
+          {
+            "line": "n3"
+          },
+          0.7
+        ],
+        [
+          {
+            "line": "n5b"
+          },
+          1.0
+        ],
+        [
+          {
+            "line": "n7",
+            "offset": -0.1
+          },
+          1.0
+        ],
+        [
+          {
+            "line": "n7"
+          },
+          0.15
+        ],
+        [
+          {
+            "line": "n8",
+            "edge": "end"
+          },
+          0.4
+        ],
+        [
+          {
+            "line": "toy3"
+          },
+          1.0
+        ]
+      ]
+    },
+    {
+      "sound": "zombies",
+      "gain": -15,
+      "duck": 0.5,
+      "curve": [
+        [
+          0,
+          0.25
+        ],
+        [
+          {
+            "line": "toy1",
+            "edge": "end"
+          },
+          0.3
+        ],
+        [
+          {
+            "line": "toy1",
+            "edge": "end",
+            "offset": 0.6
+          },
+          1.0
+        ],
+        [
+          {
+            "shot": "long_aisle"
+          },
+          0.55
+        ],
+        [
+          {
+            "line": "toy2"
+          },
+          0.55
+        ],
+        [
+          {
+            "line": "toy2",
+            "offset": 0.5
+          },
+          1.0
+        ],
+        [
+          {
+            "shot": "sneak",
+            "at": 1.0
+          },
+          0.55
+        ],
+        [
+          {
+            "line": "n5b"
+          },
+          1.0
+        ],
+        [
+          {
+            "shot": "reach"
+          },
+          0.7
+        ],
+        [
+          {
+            "line": "n7",
+            "offset": -0.35
+          },
+          0.7
+        ],
+        [
+          {
+            "line": "n7",
+            "offset": -0.25
+          },
+          0.0
+        ],
+        [
+          {
+            "line": "toy3",
+            "offset": 0.3
+          },
+          0.0
+        ],
+        [
+          {
+            "line": "toy3",
+            "offset": 0.6
+          },
+          1.0
+        ]
+      ]
+    },
+    {
+      "sound": "heartbeat",
+      "gain": -19,
+      "duck": 0.0,
+      "curve": [
+        [
+          0,
+          0.0
+        ],
+        [
+          {
+            "line": "n7"
+          },
+          0.0
+        ],
+        [
+          {
+            "line": "n7",
+            "offset": 0.8
+          },
+          1.0
+        ],
+        [
+          {
+            "line": "toy3"
+          },
+          1.0
+        ],
+        [
+          {
+            "line": "toy3",
+            "offset": 0.2
+          },
+          0.0
+        ]
+      ]
+    }
+  ]
+}

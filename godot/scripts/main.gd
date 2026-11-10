@@ -29,6 +29,7 @@ const Shot = preload("res://scripts/camera/shot.gd")
 const FlyCamera = preload("res://scripts/camera/fly_camera.gd")
 const ActorDirector = preload("res://scripts/actors/actor_director.gd")
 const Episode = preload("res://scripts/timeline/episode.gd")
+const SetEvents = preload("res://scripts/timeline/set_events.gd")
 
 const DEFAULT_SPEC := "specs/sets/blackwood.json"
 const SETTLE_FRAMES := 30
@@ -172,6 +173,8 @@ func _build() -> bool:
 func _at_time(t: float) -> Dictionary:
 	ActorDirector.pose_all(actors_node, t)
 	RenderingServer.global_shader_parameter_set("scene_time", t)
+	if not episode.is_empty():
+		SetEvents.apply(set_node, episode.get("events", []), t)
 	var L := layout.duplicate(false)
 	L["actor_anchors"] = ActorDirector.anchors(actors_node)
 	return L
@@ -245,6 +248,11 @@ func _frame_state(shot: Dictionary, k: int) -> Dictionary:
 ## Resolves every shot's camera at its start, middle and end before rendering,
 ## so a bad anchor fails fast; warns when the subject is hidden.
 func _check_episode_cameras() -> bool:
+	var target_errors := SetEvents.check_targets(set_node, episode.get("events", []))
+	if not target_errors.is_empty():
+		_fail("
+  - ".join(PackedStringArray(target_errors)))
+		return false
 	for shot in Episode.timeline(episode, _fps()):
 		var frames := int(shot["frames"])
 		var warned := {}

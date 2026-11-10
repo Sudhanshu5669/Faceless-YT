@@ -230,6 +230,13 @@ static func blockers(L: Dictionary, from: Vector3, to: Vector3) -> Array:
 				var desc := "tree at (%d, %d)" % [roundi(float(t["pos"][0])), roundi(float(t["pos"][2]))]
 				if not (desc in out):
 					out.append(desc)
+		# Generic blockers any generator can publish: {"id", "rect": [x0,z0,x1,z1], "h"}.
+		for o in L.get("occluders", []):
+			var orr: Array = o["rect"]
+			if p.x > float(orr[0]) and p.x < float(orr[2]) and p.z > float(orr[1]) and p.z < float(orr[3]) and p.y < float(o["h"]):
+				if not (to.x > float(orr[0]) and to.x < float(orr[2]) and to.z > float(orr[1]) and to.z < float(orr[3])):
+					if not (o["id"] in out):
+						out.append(o["id"])
 		for h in L.get("houses", []):
 			var r: Array = h["rect"]
 			# The house being looked at doesn't hide itself.

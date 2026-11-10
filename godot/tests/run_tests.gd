@@ -15,6 +15,7 @@ const Cast = preload("res://scripts/actors/cast.gd")
 const ActorDirector = preload("res://scripts/actors/actor_director.gd")
 const Episode = preload("res://scripts/timeline/episode.gd")
 const Paths = preload("res://scripts/core/paths.gd")
+const SetEvents = preload("res://scripts/timeline/set_events.gd")
 
 const SEEDS := [1, 333, 9001]
 const PARAM_SETS := [
@@ -77,6 +78,7 @@ func _run_all() -> void:
 	_run("episode timeline: frames, cuts and scene_t jumps", _t_episode_timeline)
 	_run("camera moves start at 'from' and end at 'to'", _t_camera_move)
 	_run("sample episodes in episodes/ validate", _t_sample_episodes)
+	_run("supermarket: deterministic, anchors, shelves occlude, switchable toys", _t_supermarket)
 	print("[TownForge] tests: %d passed, %d failed" % [_passed, _failed])
 	quit(1 if _failed > 0 else 0)
 
@@ -764,6 +766,14 @@ func _t_sample_episodes() -> Array:
 		var path := Paths.repo_path("episodes/%s/episode.json" % id)
 		if not FileAccess.file_exists(path):
 			continue
+		# Voice-first episodes hold time references that only the Python
+		# resolver turns into numbers; Godot always renders the resolved file.
+		var resolved := Paths.repo_path("episodes/%s/build/episode.resolved.json" % id)
+		var raw := Paths.load_json(path)
+		if raw["ok"] and raw["data"].has("lines"):
+			if not FileAccess.file_exists(resolved):
+				continue
+			path = resolved
 		var le := Episode.load_episode(path)
 		if le.has("error"):
 			e.append("%s: %s" % [id, le["error"]])
@@ -804,5 +814,49 @@ func _t_facing_tracks() -> Array:
 	# Held: keeps facing where the walker was when the hold began.
 	if absf(angle_difference(float(you.state_at(12.0)["yaw"]), yaw_toward.call(8.0))) > 0.02:
 		e.append("a held actor kept tracking a moving target")
+	node.free()
+	return e
+
+
+func _t_supermarket() -> Array:
+	var e := []
+	var a := SetBuilder.generate({"generator": "supermarket", "seed": 7, "params": {}})
+	var b := SetBuilder.generate({"generator": "supermarket", "seed": 7, "params": {}})
+	if JSON.stringify(a) != JSON.stringify(b):
+		e.append("supermarket layout differs for the same seed")
+	if not SetBuilder.validate({"generator": "supermarket", "seed": 1, "params": {"aisles": 3, "toy_aisle": 5}}).size() > 0:
+		e.append("toy_aisle beyond the last aisle was not reported")
+	if not SetBuilder.validate({"generator": "supermarket", "seed": 1, "params": {"isles": 3}}).size() > 0:
+		e.append("unknown supermarket param was not reported")
+	for ref in ["entrance", "storefront", "front_aisle.start", "aisle_6.start", "aisle_6.front", "toys", "toy_hero", "checkout_2", "freezers"]:
+		if Anchors.resolve(a, ref).has("error"):
+			e.append("anchor %s does not resolve" % ref)
+	if not Anchors.resolve(a, "house_3").has("error"):
+		e.append("town anchors should not resolve in a supermarket")
+	# Shelves block the view across aisles.
+	var across := Shot.blockers(a, Anchors.resolve(a, "aisle_1.mid")["pos"] + Vector3.UP * 1.5, Anchors.resolve(a, "aisle_3.mid")["pos"] + Vector3.UP * 1.5)
+	if across.is_empty():
+		e.append("shelving between aisles 1 and 3 should block the line of sight")
+	var node := SetBuilder.build(a, LookCompiler.compile("night_fog")["look"])
+	root.add_child(node)
+	var events := [{"t": 1.0, "target": "toy_hero", "state": "on"}, {"t": 3.0, "target": "toys", "state": "on"}]
+	if not SetEvents.check_targets(node, events).is_empty():
+		e.append("toy switch targets missing: %s" % [SetEvents.check_targets(node, events)])
+	if not SetEvents.check_targets(node, [{"t": 0, "target": "disco_ball", "state": "on"}]).size() > 0:
+		e.append("unknown event target was not reported")
+	var hero: Node = node.find_child("toy_hero", true, false)
+	var other: Node = node.find_child("toy_3", true, false)
+	SetEvents.apply(node, events, 0.5)
+	if hero.get_node("on").visible:
+		e.append("toy_hero should be off before its event")
+	SetEvents.apply(node, events, 2.0)
+	if not hero.get_node("on").visible or other.get_node("on").visible:
+		e.append("at 2 s only toy_hero should be on")
+	SetEvents.apply(node, events, 4.0)
+	if not other.get_node("on").visible:
+		e.append("at 4 s every toy should be on")
+	SetEvents.apply(node, events, 0.5)
+	if hero.get_node("on").visible:
+		e.append("events are not a pure function of time (going back to 0.5 s)")
 	node.free()
 	return e

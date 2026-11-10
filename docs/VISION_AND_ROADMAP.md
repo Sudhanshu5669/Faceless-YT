@@ -67,7 +67,9 @@ The creative stages (1, 2, 5, review in 6) become **project skills** in `.claude
 | Assets: 10 CC0 packs, catalog of 494 models, suburban kit (recoloured houses, seasonal trees, cars) | ✅ done | ASSET_PIPELINE.md |
 | Actors: 10 characters, 47 actions, routes, crowds, `pose_at(t)` deterministic | ✅ done | ACTOR_SPEC.md |
 | Timeline + video render: episode.json, camera moves, actor cues/holds, storyboard, MP4 | ✅ done | TIMELINE_SPEC.md |
-| Voice, post, QA, packaging | ⏭ next | |
+| Voice and post: Gemini TTS (batched, cached), voice-first timing, word refs, synthesized SFX/beds, ducking, −14 LUFS, word-by-word captions | ✅ done (draft) | AUDIO_SPEC.md |
+| Sets: supermarket (procedural), set events (switchable toys/lights) | ✅ done | SET_SPEC.md |
+| QA + packaging (thumbnail, title, description), shot cache | planned | |
 | Creative skills (pitch, script, shot plan, review) | planned | |
 | Episode manager (state.json, resumable pipeline) | planned | |
 
@@ -76,14 +78,15 @@ The creative stages (1, 2, 5, review in 6) become **project skills** in `.claude
 1. ~~**Timeline and first clip.**~~ Done: `episodes/blackwood_333` renders a 31.5 s silent
    Short (9 shots, everyone-freezes beat). Frames are captured directly from the viewport
    under `--fixed-fps` (more control than Movie Maker: warm-up frames at cuts, per-shot folders).
-2. **Voice and post (next).** Local TTS (Piper or similar), voice-first timing, word-level captions,
-   SFX and music library, ducking, loudness normalisation.
-3. **Storyboard checkpoint.** Contact sheet + low-res animatic per episode; notes → JSON edits →
-   re-render only changed shots (cache by hash).
+2. ~~**Voice and post.**~~ Done (draft): `episodes/supermarket_silence` ("A Toy Starts Talking"),
+   a 64.7 s Short with Gemini TTS narration, word-by-word captions, synthesized effects and beds,
+   −14 LUFS. Remaining: final narration on the full TTS model, real SFX samples, a music bed.
+3. **Storyboard checkpoint.** Storyboard + draft animatic exist (`tf storyboard`, `render --draft`);
+   still to do: notes → JSON edits, shot cache by hash (re-render only what changed).
 4. **Creative skills.** `/pitch`, `/write-script` (with critic rubric), `/plan-shots`,
    `/review-storyboard`; `docs/playbook.md`.
 5. **First full episode:** "Blackwood: 3:33 AM", 30–60 s Short, end to end.
-6. **More sets:** supermarket interior (zombie episode), downtown (Downtown City kit is imported),
+6. **More sets:** ~~supermarket~~ (done, procedural; Fab/CC0 fixtures can replace the stand-ins), downtown (Downtown City kit is imported),
    school, forest road, house interiors (Fantasy Props kit is imported).
 7. **Character upgrades:** blending between actions, simple pathfinding, Kenney characters via
    retargeting (zombie/survivor skins), per-model door positions for kit houses.

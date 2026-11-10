@@ -7,7 +7,7 @@ extends Node3D
 
 const Cast = preload("res://scripts/actors/cast.gd")
 const KitDB = preload("res://scripts/world/kit_db.gd")
-const TownGen = preload("res://scripts/world/generators/town_generator.gd")
+const SetBuilder = preload("res://scripts/world/set_builder.gd")
 
 static var _materials: Dictionary = {}
 ## Seconds to turn to a new facing (cue "turn" overrides; also used on arrival).
@@ -97,7 +97,7 @@ func pose_at(t: float) -> void:
 
 
 func _grounded(p: Vector3) -> Vector3:
-	return Vector3(p.x, TownGen.ground_height(layout, p.x, p.z), p.z)
+	return Vector3(p.x, SetBuilder.ground_height(layout, p.x, p.z), p.z)
 
 
 func _along(d: float) -> Vector3:

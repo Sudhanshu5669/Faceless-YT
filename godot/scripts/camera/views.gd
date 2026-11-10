@@ -74,6 +74,8 @@ static func find_house(L: Dictionary, house_id: String) -> Dictionary:
 
 ## Returns {"transform": Transform3D, "fov": float} or {"error": String}.
 static func frame(view: String, L: Dictionary) -> Dictionary:
+	if String(L.get("generator", "town")) != "town":
+		return {"error": "named views (%s) exist only for towns; frame shots on anchors (see manifest.json)" % ", ".join(PackedStringArray(NAMES))}
 	var parts := view.split(":")
 	var kind := parts[0]
 	var arg := parts[1] if parts.size() > 1 else ""
