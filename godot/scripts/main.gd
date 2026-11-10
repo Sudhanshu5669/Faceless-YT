@@ -9,6 +9,12 @@
 ##   --validate           validate the spec and exit (works with --headless)
 ##   --stills <dir>       render the spec's preview shots to PNGs, write
 ##                        layout.json + manifest.json + look.json, then exit
+##   --episode <path>     film an episode.json instead of a bare set spec, with:
+##     --frames <dir>       render every frame: <dir>/<NN>_<shot>/<00000>.png + timeline.json
+##     --shots a,b          only these shots (with --frames)
+##     --storyboard <dir>   render start/mid/end stills of every shot: <dir>/<NN>_<shot>_<a|b|c>.png
+##     --scale <f>          resolution multiplier (draft renders), --fps <n> override
+##     (run with --fixed-fps <fps> so particles and shader time are deterministic)
 ##   (no mode)            interactive explore window with a fly camera
 extends Node3D
 
@@ -22,14 +28,21 @@ const Views = preload("res://scripts/camera/views.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
 const FlyCamera = preload("res://scripts/camera/fly_camera.gd")
 const ActorDirector = preload("res://scripts/actors/actor_director.gd")
+const Episode = preload("res://scripts/timeline/episode.gd")
 
 const DEFAULT_SPEC := "specs/sets/blackwood.json"
 const SETTLE_FRAMES := 30
+## Frames rendered (not saved) after each cut so temporal effects (volumetric
+## fog reprojection, auto exposure) settle on the new camera.
+const CUT_WARMUP_FRAMES := 30
+## PNG encodes in flight on worker threads (each holds a full frame in memory).
+const MAX_PENDING_SAVES := 8
 const EXPLORE_RES := Vector2i(540, 960)
 const WEATHER_STEPS := [0.0, 0.35, 0.7, 1.0]
 
 var args := {}
 var spec: Dictionary
+var episode: Dictionary = {}  # set when filming an episode.json
 var look_overrides := {}   # {"time": ..., "weather": {...}} layered over the spec's look
 var look: Dictionary       # compiled
 var layout: Dictionary
@@ -47,11 +60,22 @@ var exploring := false
 func _ready() -> void:
 	args = _parse_args(OS.get_cmdline_user_args())
 	var spec_path := Paths.resolve(String(args.get("spec", DEFAULT_SPEC)))
-	var loaded := Paths.load_json(spec_path)
-	if not loaded["ok"]:
-		_fail(loaded["error"])
-		return
-	spec = loaded["data"]
+	var ep_errors := []
+	if args.has("episode"):
+		spec_path = Paths.resolve(String(args["episode"]))
+		var le := Episode.load_episode(spec_path)
+		if le.has("error"):
+			_fail("%s: %s" % [spec_path, le["error"]])
+			return
+		episode = le["episode"]
+		spec = le["spec"]
+		ep_errors = Episode.validate(episode)
+	else:
+		var loaded := Paths.load_json(spec_path)
+		if not loaded["ok"]:
+			_fail(loaded["error"])
+			return
+		spec = loaded["data"]
 	if args.has("look"):
 		spec["look"] = String(args["look"])
 	if args.has("seed"):
@@ -66,6 +90,7 @@ func _ready() -> void:
 				w[kv[0].strip_edges()] = float(kv[1])
 		look_overrides["weather"] = w
 	var errors := Spec.validate_set_spec(spec)
+	errors.append_array(ep_errors)
 	var lc := LookCompiler.compile(_look_ref())
 	errors.append_array(lc["errors"])
 	if not errors.is_empty():
@@ -87,7 +112,17 @@ func _ready() -> void:
 	_log("built set '%s' (seed %d, look %s, %s) in %d ms" % [spec["set"].get("id", spec["set"]["generator"]), seed_value,
 		look["id"], LookCompiler.format_time(look["time"]), Time.get_ticks_msec() - t0])
 
-	if args.has("stills"):
+	if not episode.is_empty():
+		if not _check_episode_cameras():
+			return
+		if args.has("frames"):
+			await _run_frames(Paths.resolve(String(args["frames"])))
+		elif args.has("storyboard"):
+			await _run_storyboard(Paths.resolve(String(args["storyboard"])))
+		else:
+			_log("episode OK (%d shots); add --frames or --storyboard to render" % episode["shots"].size())
+			get_tree().quit(0)
+	elif args.has("stills"):
 		await _run_stills(Paths.resolve(String(args["stills"])))
 	else:
 		_start_explore()
@@ -136,6 +171,7 @@ func _build() -> bool:
 ## so shots can target "you" or "you.head" at that moment.
 func _at_time(t: float) -> Dictionary:
 	ActorDirector.pose_all(actors_node, t)
+	RenderingServer.global_shader_parameter_set("scene_time", t)
 	var L := layout.duplicate(false)
 	L["actor_anchors"] = ActorDirector.anchors(actors_node)
 	return L
@@ -182,6 +218,116 @@ func _run_stills(out_dir: String) -> void:
 		var path := out_dir.path_join("%02d_%s.png" % [i, _shot_name(entries[i], i)])
 		img.save_png(path)
 		_log("still %s -> %s (%dx%d)" % [_shot_name(entries[i], i), path, img.get_width(), img.get_height()])
+	get_tree().quit(0)
+
+
+# --- episodes ---------------------------------------------------------------
+
+func _fps() -> int:
+	return int(args.get("fps", Episode.fps_of(episode)))
+
+
+## Output size: the episode resolution times --scale, rounded to even numbers (H.264).
+func _out_size(scale: float) -> Vector2i:
+	var res: Array = Episode.resolution_of(episode)
+	return Vector2i(maxi(2, roundi(float(res[0]) * scale / 2.0) * 2), maxi(2, roundi(float(res[1]) * scale / 2.0) * 2))
+
+
+## Poses actors and places the camera for frame k of a timeline shot.
+func _frame_state(shot: Dictionary, k: int) -> Dictionary:
+	var ft := Episode.frame_time(shot, k, _fps())
+	var s := Episode.camera_at(shot, float(ft["p"]), _at_time(float(ft["t"])), look)
+	if not s.has("error"):
+		Shot.apply(camera, s)
+	return s
+
+
+## Resolves every shot's camera at its start, middle and end before rendering,
+## so a bad anchor fails fast; warns when the subject is hidden.
+func _check_episode_cameras() -> bool:
+	for shot in Episode.timeline(episode, _fps()):
+		var frames := int(shot["frames"])
+		var warned := {}
+		for k in [0, frames / 2, frames - 1]:
+			var ft := Episode.frame_time(shot, k, _fps())
+			var s := Episode.camera_at(shot, float(ft["p"]), _at_time(float(ft["t"])), look)
+			if s.has("error"):
+				_fail("shot %d (%s) at %.2f s: %s" % [shot["index"], shot["name"], ft["t"], s["error"]])
+				return false
+			for b in s["blocked_by"]:
+				if not warned.has(b):
+					warned[b] = true
+					_log("WARN shot %s: subject hidden behind %s (around scene %.1f s)" % [shot["name"], b, ft["t"]])
+	return true
+
+
+## Rain/snow restart (fixed seed) at every cut, so a shot never depends on
+## what was rendered before it.
+func _restart_particles() -> void:
+	for p in find_children("*", "GPUParticles3D", true, false):
+		(p as GPUParticles3D).restart()
+
+
+func _shot_dir_name(shot: Dictionary) -> String:
+	return "%02d_%s" % [int(shot["index"]), shot["name"]]
+
+
+func _run_frames(out_dir: String) -> void:
+	var fps := _fps()
+	var size := _out_size(float(args.get("scale", 1.0)))
+	get_window().content_scale_size = size
+	var shots := Episode.timeline(episode, fps)
+	var only := PackedStringArray(String(args.get("shots", "")).split(",", false))
+	DirAccess.make_dir_recursive_absolute(out_dir)
+	var summary := []
+	for shot in shots:
+		summary.append({"index": shot["index"], "name": shot["name"], "dir": _shot_dir_name(shot),
+			"frames": shot["frames"], "duration": shot["duration"], "scene_t": shot["scene_t"]})
+	_write_json(out_dir.path_join("timeline.json"), {"id": episode["id"], "fps": fps,
+		"resolution": [size.x, size.y], "shots": summary})
+	var pending := []
+	var t0 := Time.get_ticks_msec()
+	for shot in shots:
+		if not only.is_empty() and not (String(shot["name"]) in only):
+			continue
+		var dir := out_dir.path_join(_shot_dir_name(shot))
+		DirAccess.make_dir_recursive_absolute(dir)
+		_frame_state(shot, 0)
+		_restart_particles()
+		for w in CUT_WARMUP_FRAMES:
+			await get_tree().process_frame
+		for k in int(shot["frames"]):
+			_frame_state(shot, k)
+			await RenderingServer.frame_post_draw
+			var img := get_viewport().get_texture().get_image()
+			var path := dir.path_join("%05d.png" % k)
+			# Keep the image referenced until its encode finishes.
+			pending.append([WorkerThreadPool.add_task(img.save_png.bind(path)), img])
+			while pending.size() > MAX_PENDING_SAVES:
+				WorkerThreadPool.wait_for_task_completion(pending.pop_front()[0])
+		_log("shot %s: %d frames -> %s" % [shot["name"], shot["frames"], dir])
+	for p in pending:
+		WorkerThreadPool.wait_for_task_completion(p[0])
+	_log("rendered %s at %dx%d %d fps in %.1f s" % [episode["id"], size.x, size.y, fps, (Time.get_ticks_msec() - t0) / 1000.0])
+	get_tree().quit(0)
+
+
+func _run_storyboard(out_dir: String) -> void:
+	var fps := _fps()
+	get_window().content_scale_size = _out_size(float(args.get("scale", 1.0 / 3.0)))
+	DirAccess.make_dir_recursive_absolute(out_dir)
+	for shot in Episode.timeline(episode, fps):
+		var frames := int(shot["frames"])
+		var keys := [0, frames / 2, frames - 1]
+		for j in keys.size():
+			_frame_state(shot, keys[j])
+			_restart_particles()
+			for w in SETTLE_FRAMES:
+				await get_tree().process_frame
+			await RenderingServer.frame_post_draw
+			var path := out_dir.path_join("%s_%s.png" % [_shot_dir_name(shot), "abc"[j]])
+			get_viewport().get_texture().get_image().save_png(path)
+		_log("storyboard %s (scene %.1f-%.1f s)" % [shot["name"], shot["scene_t"], float(shot["scene_t"]) + float(shot["duration"])])
 	get_tree().quit(0)
 
 
@@ -247,6 +393,7 @@ func _process(delta: float) -> void:
 	if exploring and playing:
 		clock += delta
 		ActorDirector.pose_all(actors_node, clock)
+		RenderingServer.global_shader_parameter_set("scene_time", clock)
 		if Engine.get_process_frames() % 10 == 0:
 			_update_hud()
 

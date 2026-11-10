@@ -11,6 +11,8 @@ uniform float clouds = 0.0;
 uniform vec3 cloud_color : source_color = vec3(1.0);
 uniform vec3 cloud_shadow : source_color = vec3(0.6);
 uniform float cloud_speed = 0.006;
+// Scene time (set by main.gd), not engine TIME: a shot looks the same whatever was rendered before it.
+global uniform float scene_time;
 
 uniform int body_count = 0;
 uniform vec4 body_dir[6];    // xyz = direction to body, w = angular radius (radians)
@@ -56,7 +58,7 @@ void sky() {
 		if (r > 0.982) {
 			vec2 off = vec2(hash(cell + 3.1), hash(cell + 7.7)) * 0.6 + 0.2;
 			float dist = length(fract(uv) - off);
-			float twinkle = 0.75 + 0.25 * sin(TIME * (1.5 + r * 6.0) + r * 100.0);
+			float twinkle = 0.75 + 0.25 * sin(scene_time * (1.5 + r * 6.0) + r * 100.0);
 			float size = 0.06 + 0.08 * hash(cell + 1.7);
 			col += star_color * (1.0 - smoothstep(0.0, size, dist)) * stars * twinkle * smoothstep(0.0, 0.2, h) * 2.0;
 		}
@@ -88,7 +90,7 @@ void sky() {
 	}
 
 	if (clouds > 0.0 && h > 0.0) {
-		vec2 cp = d.xz / (h + 0.08) * 0.6 + vec2(TIME * cloud_speed, TIME * cloud_speed * 0.4);
+		vec2 cp = d.xz / (h + 0.08) * 0.6 + vec2(scene_time * cloud_speed, scene_time * cloud_speed * 0.4);
 		float n = fbm(cp);
 		float cover = smoothstep(1.0 - clouds, 1.0 - clouds + 0.35, n);
 		vec3 cc = mix(cloud_shadow, cloud_color, smoothstep(0.3, 0.9, fbm(cp * 2.0 + 5.0)));

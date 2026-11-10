@@ -62,7 +62,7 @@
         ]
       },
       "action": "jump",
-      "freeze": 0.42
+      "freeze": "apex"
     },
     {
       "id": "stranger",

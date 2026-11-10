@@ -2,10 +2,17 @@
 ##
 ##   { "id": "you", "character": "you", "at": "house_9.front_door",
 ##     "facing": "house_9.curb" | 90 | "forward" | "back",
-##     "action": "phone", "freeze": 0.4, "phase": 0.0,
+##     "action": "phone", "freeze": 0.4 | "apex", "phase": 0.0,
 ##     "route": { "via": ["house_9.curb", "street_h1.mid"], "gait": "run", "speed": 4.0,
 ##                "start": 2.0, "then": "idle", "then_facing": "town_center", "then_freeze": 0.5 },
-##     "crowd": { "count": 12, "radius": 8, "characters": ["zombie", "zombie_f"], "start_spread": 4.0 } }
+##     "crowd": { "count": 12, "radius": 8, "characters": ["zombie", "zombie_f"], "start_spread": 4.0 },
+##     "cues": [ { "t": 6.0, "action": "jump" }, { "t": 6.7, "hold": true }, { "t": 12, "hold": false },
+##               { "t": 14, "facing": "stranger" } ] }
+##
+## Cue times are scene seconds. A hold freezes the actor completely (pose,
+## position, route progress) until released: the actor's own clock stops.
+## Facing another actor ("facing": "stranger") tracks them every frame; facing
+## cues turn smoothly over "turn" seconds (default Actor.TURN_TIME).
 ##
 ## Positions use the same point forms as cameras (anchor, offset, orbit, world).
 extends RefCounted
@@ -15,7 +22,8 @@ const Actor = preload("res://scripts/actors/actor.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
 const Anchors = preload("res://scripts/camera/anchors.gd")
 
-const ACTOR_KEYS := ["id", "character", "at", "facing", "action", "freeze", "phase", "route", "crowd"]
+const ACTOR_KEYS := ["id", "character", "at", "facing", "action", "freeze", "phase", "route", "crowd", "cues"]
+const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold"]
 const ROUTE_KEYS := ["via", "gait", "speed", "start", "then", "then_facing", "then_freeze"]
 const CROWD_KEYS := ["count", "radius", "characters", "start_spread", "seed"]
 
@@ -54,9 +62,15 @@ static func validate(actors) -> Array:
 			e.append("%s (%s): needs 'character'" % [where, id])
 		for c in chars:
 			e.append_array(Cast.validate_character(String(c)))
-		for k in ["action"]:
-			if a.has(k) and Cast.action(String(a[k])).is_empty():
-				e.append("%s (%s): unknown action '%s' (see library/actions.json)" % [where, id, a[k]])
+		var act := String(a.get("action", ""))
+		if act == "" and not chars.is_empty():
+			act = String(Cast.character(String(chars[0])).get("idle", "idle"))
+		if a.has("action") and Cast.action(act).is_empty():
+			e.append("%s (%s): unknown action '%s' (see library/actions.json)" % [where, id, act])
+		elif a.has("freeze"):
+			var fe := Cast.validate_freeze(act, a["freeze"])
+			if fe != "":
+				e.append("%s (%s): %s" % [where, id, fe])
 		if a.has("route"):
 			var r = a["route"]
 			if typeof(r) != TYPE_DICTIONARY:
@@ -71,6 +85,15 @@ static func validate(actors) -> Array:
 					e.append("%s: route.gait '%s' is not a moving action (walk, run, jog, sneak, zombie_walk...)" % [where, r["gait"]])
 				if r.has("then") and Cast.action(String(r["then"])).is_empty():
 					e.append("%s: route.then '%s' is not an action" % [where, r["then"]])
+				elif r.has("then_freeze"):
+					var then_act := String(r.get("then", "idle"))
+					if not r.has("then") and not chars.is_empty():
+						then_act = String(Cast.character(String(chars[0])).get("idle", "idle"))
+					var tfe := Cast.validate_freeze(then_act, r["then_freeze"])
+					if tfe != "":
+						e.append("%s: route.then_%s" % [where, tfe])
+		if a.has("cues"):
+			e.append_array(_validate_cues(a["cues"], "%s (%s)" % [where, id]))
 		if a.has("crowd"):
 			var c = a["crowd"]
 			if typeof(c) != TYPE_DICTIONARY:
@@ -82,6 +105,65 @@ static func validate(actors) -> Array:
 				if int(c.get("count", 0)) < 1 or int(c.get("count", 0)) > 200:
 					e.append(where + ": crowd.count must be 1..200")
 	return e
+
+
+static func _validate_cues(cues, where: String) -> Array:
+	if typeof(cues) != TYPE_ARRAY:
+		return [where + ": cues must be an array"]
+	var e := []
+	var last_t := -1.0
+	for i in cues.size():
+		var c = cues[i]
+		var cw := "%s cues[%d]" % [where, i]
+		if typeof(c) != TYPE_DICTIONARY:
+			e.append(cw + " must be an object")
+			continue
+		for k in c:
+			if not (k in CUE_KEYS):
+				e.append("%s: unknown key '%s' (known: %s)" % [cw, k, ", ".join(PackedStringArray(CUE_KEYS))])
+		if not (typeof(c.get("t")) in [TYPE_INT, TYPE_FLOAT]) or float(c["t"]) < 0.0:
+			e.append(cw + ": needs 't' (scene seconds, >= 0)")
+			continue
+		if float(c["t"]) < last_t:
+			e.append(cw + ": cues must be in time order")
+		last_t = float(c["t"])
+		if c.has("hold"):
+			if typeof(c["hold"]) != TYPE_BOOL:
+				e.append(cw + ": hold must be true or false")
+			if c.has("action") or c.has("facing") or c.has("freeze") or c.has("turn"):
+				e.append(cw + ": a hold cue only takes 't' and 'hold'")
+			continue
+		if not (c.has("action") or c.has("facing")):
+			e.append(cw + ": needs 'action', 'facing' or 'hold'")
+		if c.has("action"):
+			if Cast.action(String(c["action"])).is_empty():
+				e.append("%s: unknown action '%s'" % [cw, c["action"]])
+			elif c.has("freeze"):
+				var fe := Cast.validate_freeze(String(c["action"]), c["freeze"])
+				if fe != "":
+					e.append("%s: %s" % [cw, fe])
+		elif c.has("freeze"):
+			e.append(cw + ": 'freeze' needs an 'action' in the same cue")
+		if c.has("turn") and (not c.has("facing") or not (typeof(c["turn"]) in [TYPE_INT, TYPE_FLOAT]) or float(c["turn"]) < 0.0):
+			e.append(cw + ": 'turn' is seconds >= 0 and needs a 'facing' in the same cue")
+	return e
+
+
+## Hold intervals [[from, to], ...] in scene seconds from hold cues.
+static func _holds(cues: Array) -> Array:
+	var out := []
+	var start := -1.0
+	for c in cues:
+		if not c.has("hold"):
+			continue
+		if bool(c["hold"]) and start < 0.0:
+			start = float(c["t"])
+		elif not bool(c["hold"]) and start >= 0.0:
+			out.append([start, float(c["t"])])
+			start = -1.0
+	if start >= 0.0:
+		out.append([start, 1.0e9])
+	return out
 
 
 static func _yaw_to(from: Vector3, to: Vector3, fallback: float) -> float:
@@ -116,10 +198,11 @@ static func _facing(L: Dictionary, spec_facing, at, pos: Vector3, starts: Dictio
 			return {"yaw": base}
 		if spec_facing == "back":
 			return {"yaw": base + PI}
-		# Another actor: face where they start.
+		# Another actor: track them (yaw here = toward where they start, the
+		# fallback when they can't be looked up).
 		var other := String(spec_facing).split(".")[0]
 		if starts.has(other):
-			return {"yaw": _yaw_to(pos, starts[other], base)}
+			return {"yaw": _yaw_to(pos, starts[other], base), "track": other}
 	var p := Shot.point(L, spec_facing)
 	if p.has("error"):
 		return {"error": "facing: " + p["error"]}
@@ -197,8 +280,9 @@ static func _plan_one(a: Dictionary, L: Dictionary, offset: Vector3, yaw_jitter:
 		"character": String(a["character"]),
 		"pos": pos,
 		"yaw": float(f["yaw"]) + yaw_jitter,
+		"face": String(f.get("track", "")),
 		"action": String(a.get("action", chr.get("idle", "idle"))),
-		"freeze": float(a.get("freeze", -1.0)),
+		"freeze": Cast.freeze_fraction(String(a.get("action", chr.get("idle", "idle"))), a.get("freeze")),
 		"phase": float(a.get("phase", (absi(hash(id)) % 1000) / 1000.0 * 2.0)),
 	}
 	if a.has("route"):
@@ -214,30 +298,64 @@ static func _plan_one(a: Dictionary, L: Dictionary, offset: Vector3, yaw_jitter:
 			cum.append(float(cum[-1]) + (pts[i] as Vector3).distance_to(pts[i - 1]))
 		var gait := String(rs.get("gait", chr.get("gait", "walk")))
 		var end_yaw := _yaw_to(pts[-2], pts[-1], plan["yaw"])
+		var then_face := ""
 		if rs.has("then_facing"):
 			var tf := _facing(L, rs["then_facing"], rs["via"][-1], pts[-1], starts)
 			if tf.has("error"):
 				return {"error": "actor %s: then_%s" % [id, tf["error"]]}
 			end_yaw = tf["yaw"]
+			then_face = String(tf.get("track", ""))
 		plan["route"] = {
 			"points": pts, "cum": cum, "total": cum[-1],
 			"gait": gait,
 			"speed": float(rs.get("speed", Cast.action(gait).get("speed", 1.0))),
 			"start": float(rs.get("start", 0.0)),
 			"then": String(rs.get("then", chr.get("idle", "idle"))),
-			"then_freeze": float(rs.get("then_freeze", -1.0)),
+			"then_freeze": Cast.freeze_fraction(String(rs.get("then", chr.get("idle", "idle"))), rs.get("then_freeze")),
 			"end_yaw": end_yaw,
+			"arrive_yaw": _yaw_to(pts[-2], pts[-1], plan["yaw"]),
+			"then_face": then_face,
 		}
+	# Cues and holds: everything time-based is stored on the actor's own clock.
+	var cues: Array = a.get("cues", [])
+	var holds := _holds(cues)
+	plan["holds"] = holds
+	if plan.has("route"):
+		plan["route"]["start"] = Cast.warp(holds, float(plan["route"]["start"]))
+	var planned_cues := []
+	for c in cues:
+		if c.has("hold"):
+			continue
+		var pc := {"tau": Cast.warp(holds, float(c["t"])), "action": String(c.get("action", "")), "yaw": null}
+		if c.has("action"):
+			pc["freeze"] = Cast.freeze_fraction(String(c["action"]), c.get("freeze"))
+		if c.has("facing"):
+			var where_then: Vector3 = pos
+			if plan.has("route") and float(pc["tau"]) >= float(plan["route"]["start"]):
+				where_then = plan["route"]["points"][-1]
+			var cf := _facing(L, c["facing"], a["at"], where_then, starts)
+			if cf.has("error"):
+				return {"error": "actor %s: cue at %.2f s: %s" % [id, float(c["t"]), cf["error"]]}
+			pc["yaw"] = cf["yaw"]
+			pc["face"] = String(cf.get("track", ""))
+			pc["turn"] = float(c.get("turn", Actor.TURN_TIME))
+		planned_cues.append(pc)
+	plan["cues"] = planned_cues
 	return {"plan": plan}
 
 
 static func build(plans: Array, L: Dictionary) -> Node3D:
 	var root := Node3D.new()
 	root.name = "Actors"
+	var peers := {}
 	for p in plans:
 		var actor := Actor.new()
 		actor.setup(p["id"], p["character"], p, L)
 		root.add_child(actor)
+		peers[String(p["id"])] = actor
+	# Every actor can look up the others (to face / track them).
+	for a in root.get_children():
+		a.peers = peers
 	return root
 
 

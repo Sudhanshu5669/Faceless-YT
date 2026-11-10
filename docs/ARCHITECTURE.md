@@ -19,8 +19,9 @@ Status: built so far are the **set layer** (procedural towns), the **look layer*
 (time and weather models plus free-form overrides, see LOOK_SPEC.md), the **camera
 layer** (anchors, shots and templates, see CAMERA_SPEC.md), the **asset layer**
 (catalog and kits, see ASSET_PIPELINE.md) and the **actor layer** (characters,
-actions, routes and crowds, posed as a pure function of time, see ACTOR_SPEC.md).
-Timelines, video rendering and audio are next.
+actions, routes and crowds, posed as a pure function of time, see ACTOR_SPEC.md)
+and the **timeline layer** (episode.json: timed shots, camera moves, actor cues,
+storyboard and MP4 render, see TIMELINE_SPEC.md). Audio is next.
 
 ## Layers
 
@@ -66,10 +67,5 @@ overrides will layer on top (`seed + overrides`).
 
 ## Next layers
 
-1. Characters: rigged CC0 models (Quaternius / Mixamo animations), a character
-   library with named recurring characters, and actors placed at anchors.
-2. Shot sequencing: `episode.json` with timed shots, camera moves between
-   views/anchors, actions (walk_to, freeze, look_at…).
-3. Movie Maker rendering per shot (PNG sequence, fixed FPS, cached by hash) +
-   FFmpeg assembly with TTS narration and captions.
-4. More set generators (supermarket interior, school, forest road…).
+See **docs/VISION_AND_ROADMAP.md** for the full plan, current status and roadmap.
+Next up: voice and post (narration, captions, SFX, music).

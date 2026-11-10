@@ -27,12 +27,13 @@ shot), the explore window and later video renders all use it.
 | `id` | Unique name. It also becomes an anchor (see below). No `.` or `:`. |
 | `character` | A file in `library/characters/`. |
 | `at` | Where the actor stands at the start. Same point forms as cameras: `"house_4.front_door"`, `{"anchor", "offset": [right, up, forward]}`, `{"anchor", "orbit": {...}}`, `{"world": [x,y,z]}`. Feet snap to the surface (road, sidewalk, lawn, path). |
-| `facing` | Default: the anchor's forward direction (at a front door, toward the street). Or degrees (`90` = +X), `"back"`, another actor's id (`"you"`), or any point. |
+| `facing` | Default: the anchor's forward direction (at a front door, toward the street). Or degrees (`90` = +X), `"back"`, any point, or another actor's id (`"you"`): that **tracks the actor every frame** as they move. |
 | `action` | What they do while standing (default: the character's `idle`). See actions below. |
-| `freeze` | 0–1: hold the action at that fraction of its cycle. Everyone frozen mid-stride, mid-jump. |
+| `freeze` | 0–1: hold the action at that fraction of its cycle, or a named mark of the action (`"apex"` for `jump`). Everyone frozen mid-stride, mid-jump. |
 | `phase` | Seconds of animation offset (default: derived from the id, so crowds don't move in sync). |
 | `route` | Movement, below. |
 | `crowd` | Turns this entry into many actors, below. |
+| `cues` | Timed changes: new action, new facing, hold/release. Below. |
 
 ### Routes
 
@@ -103,8 +104,60 @@ Current cast: `you`, `you_f`, `neighbor_a`, `neighbor_b`, `kid`, `zombie`, `zomb
 `spell`, `tpose`, `zombie_idle` and `zombie_scratch`. One-shots (`die`, `sit_down`,
 `knocked_back`…) hold their last frame. `get_up` frozen at 0 = lying on the ground.
 
+### Sequences, lift and marks
+
+An action is either one clip (`"anim"`) or a `"sequence"` of clip segments played back to back:
+
+```json
+"jump": {
+  "sequence": [
+    { "anim": "Jump_Land", "from": 0.76, "to": 0.19, "duration": 0.3 },
+    { "anim": "Jump_Start", "from": 0.0, "to": 0.08, "duration": 0.1, "blend": 0.06 },
+    ...
+  ],
+  "lift": { "from": 0.4, "to": 1.0, "height": 0.45 },
+  "marks": { "crouch": 0.3, "takeoff": 0.4, "apex": 0.7, "touchdown": 1.0, "landed": 1.2 },
+  "loop": false
+}
+```
+
+- A segment plays clip time `from` → `to` (backwards when `to < from`) over `duration` seconds
+  (default `|to - from|`). `blend` crossfades from the previous segment's last pose.
+- `lift` raises the body on a ballistic arc between two sequence times. The Universal Animation
+  Library authors airborne clips **in place** (the pelvis never rises; a game engine moves the
+  character), so without `lift` a jump looks like a crouched stagger on the ground. Lift scales
+  with character height, and camera anchors (`kid.head`) follow it.
+- `marks` name moments in sequence seconds. A spec writes `"freeze": "apex"` instead of guessing
+  a fraction. Unknown marks are errors.
+
+`jump` is built this way: wind-up crouch → push-off → airborne (tuck) → reach for the ground →
+landing. Other clips that need the world to cooperate: `climb` ends 0.6 m up (needs a 1 m ledge),
+`swim`/`swim_forward` sit below the surface (need water).
+
 Gait speeds are measured from the animations by `godot/tools/locomotion_probe.gd` (foot contact
 during stance). Re-run it after adding gaits.
+
+### Cues and holds
+
+```json
+"cues": [
+  { "t": 12.4, "action": "jump" },             // start an action (one-shots play from their start)
+  { "t": 13.1, "hold": true },                 // freeze completely: pose, position, route progress
+  { "t": 20.0, "hold": false },                // release: carries on exactly where it stopped
+  { "t": 21.0, "facing": "stranger" },          // turn (0.6 s, or "turn": seconds), keep the action; tracks a moving actor
+  { "t": 29.6, "action": "hit", "freeze": 0.5 }
+]
+```
+
+- `t` is scene seconds (the episode timeline, see TIMELINE_SPEC.md), in order.
+- A cue has `action` (optionally with `freeze`) and/or `facing`; a hold cue has only `t` and `hold`.
+- A hold stops the actor's own clock. Everything after it (route start, later cues) happens
+  that much later in the actor's own clock. "Everyone freezes at 3:33" = a hold cue on
+  everyone except you.
+- Turns are smooth (`turn` seconds, default 0.6; `0` snaps), and so is the turn on arriving at
+  the end of a route. A held actor keeps the facing it had when the hold began.
+- While walking a route, the route wins. Otherwise the most recent of "arrived" and each cue
+  decides the action.
 
 ## Not yet
 

@@ -1,5 +1,5 @@
 {
-  "_comment": "Action vocabulary for actors. 'anim' is the animation in the UAL library. 'loop': false holds the last frame (death, sitting down). 'gait' actions move along routes; 'speed' (m/s) is measured by tools/locomotion_probe.gd so feet do not slide.",
+  "_comment": "Action vocabulary for actors. 'anim' is the animation in the UAL library. 'loop': false holds the last frame (death, sitting down). 'sequence' chains clip segments (from/to/duration/blend), 'lift' raises the body on an arc for airborne clips, 'marks' name moments for freeze (see docs/ACTOR_SPEC.md). 'gait' actions move along routes; 'speed' (m/s) is measured by tools/locomotion_probe.gd so feet do not slide.",
   "actions": {
     "idle": {
       "anim": "Idle",
@@ -152,19 +152,27 @@
       "description": "Getting up from lying on the ground. Freeze at 0 to lie flat."
     },
     "jump": {
-      "anim": "Jump",
+      "sequence": [
+        { "anim": "Jump_Land", "from": 0.76, "to": 0.19, "duration": 0.3 },
+        { "anim": "Jump_Start", "from": 0.0, "to": 0.08, "duration": 0.1, "blend": 0.06 },
+        { "anim": "Jump_Start", "from": 0.08, "to": 0.55, "duration": 0.48 },
+        { "anim": "Jump_Land", "from": 0.0, "to": 0.0, "duration": 0.12, "blend": 0.12 },
+        { "anim": "Jump_Land", "from": 0.0, "to": 1.0 }
+      ],
+      "lift": { "from": 0.4, "to": 1.0, "height": 0.45 },
+      "marks": { "crouch": 0.3, "takeoff": 0.4, "apex": 0.7, "touchdown": 1.0, "landed": 1.2 },
       "loop": false,
-      "description": "Jumping in place."
+      "description": "Jumping in place: crouch, leave the ground, land. Freeze at \"apex\" for mid-air."
     },
     "climb": {
       "anim": "ClimbUp_1m",
       "loop": false,
-      "description": "Climbing up a 1 m ledge."
+      "description": "Climbing up a 1 m ledge (ends 0.6 m up: place it at a real ledge)."
     },
     "swim": {
       "anim": "Swim_Idle",
       "loop": true,
-      "description": "Treading water."
+      "description": "Treading water (body sits below the surface: needs water)."
     },
     "pistol_aim": {
       "anim": "Pistol_Idle",
@@ -250,7 +258,7 @@
       "loop": true,
       "gait": true,
       "speed": 0.23,
-      "description": "Swimming forward."
+      "description": "Swimming forward (below the surface: needs water)."
     }
   }
 }

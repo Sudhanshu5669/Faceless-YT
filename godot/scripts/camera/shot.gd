@@ -232,6 +232,9 @@ static func blockers(L: Dictionary, from: Vector3, to: Vector3) -> Array:
 					out.append(desc)
 		for h in L.get("houses", []):
 			var r: Array = h["rect"]
+			# The house being looked at doesn't hide itself.
+			if to.x > float(r[0]) and to.x < float(r[2]) and to.z > float(r[1]) and to.z < float(r[3]):
+				continue
 			if p.x > float(r[0]) and p.x < float(r[2]) and p.z > float(r[1]) and p.z < float(r[3]) 					and p.y < float(h["wall_h"]) + float(h["roof"]["h"]):
 				if not (h["id"] in out):
 					out.append(h["id"])

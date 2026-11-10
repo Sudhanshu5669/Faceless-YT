@@ -5,10 +5,15 @@
   python pipeline/tf.py validate SPEC                validate a spec (no window)
   python pipeline/tf.py preview-set SPEC [options]   render preview stills + contact sheet
   python pipeline/tf.py explore [SPEC] [options]     open the fly-through window
+  python pipeline/tf.py storyboard EPISODE           start/mid/end still of every shot -> storyboard.png
+  python pipeline/tf.py render EPISODE [--draft]     render an episode to MP4 (--draft: half size, 15 fps)
   python pipeline/tf.py library                      list looks, shot templates and views
   python pipeline/tf.py look save NAME FILE          validate a look and save it to library/looks/
   python pipeline/tf.py assets import                incoming/*.zip -> godot/assets -> Godot import -> catalog
   python pipeline/tf.py assets catalog [--pack ID]   rebuild library/catalog.json + thumbnails only
+
+EPISODE is episodes/<id>/episode.json or just <id>. Output goes to episodes/<id>/renders/
+(final) or episodes/<id>/preview/ (draft animatic, storyboard).
 
 Options for preview-set / explore:
   --look NAME  --time HH:MM  --weather fog=0.8,rain=0.5  --seed N
@@ -45,7 +50,8 @@ def load_config() -> dict:
 
 
 def run_godot(cfg: dict, user_args: list[str], *, headless: bool = False,
-              script: str | None = None, pre_args: list[str] | None = None) -> int:
+              script: str | None = None, pre_args: list[str] | None = None,
+              timeout: int = GODOT_TIMEOUT_S) -> int:
     """Run Godot, stream its [TownForge] lines and errors, return the exit code."""
     cmd = [cfg["godot"], "--path", str(GODOT_PROJECT), *(pre_args or [])]
     if headless:
@@ -56,9 +62,9 @@ def run_godot(cfg: dict, user_args: list[str], *, headless: bool = False,
         cmd += ["--", *user_args]
     try:
         proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8",
-                              errors="replace", timeout=GODOT_TIMEOUT_S)
+                              errors="replace", timeout=timeout)
     except subprocess.TimeoutExpired:
-        print(f"ERROR: Godot did not finish within {GODOT_TIMEOUT_S}s "
+        print(f"ERROR: Godot did not finish within {timeout}s "
               "(a script error can leave the window open)", file=sys.stderr)
         return 124
     output = proc.stdout + proc.stderr
@@ -103,7 +109,128 @@ def cmd_test(cfg: dict, _args) -> int:
 
 
 def cmd_validate(cfg: dict, args) -> int:
+    path = (ROOT / args.spec) if not Path(args.spec).is_absolute() else Path(args.spec)
+    if path.exists() and "shots" in _read_json(path):
+        # Episodes resolve every camera against the built set, which needs a renderer.
+        return run_godot(cfg, ["--episode", str(path)], pre_args=["--quit-after", "2000"])
     return run_godot(cfg, ["--spec", args.spec, "--validate"], headless=True)
+
+
+# --- episodes ---------------------------------------------------------------
+
+def episode_path(ref: str) -> Path:
+    p = Path(ref)
+    if not p.is_absolute():
+        p = ROOT / p
+    if p.is_dir():
+        p = p / "episode.json"
+    if not p.exists() and (ROOT / "episodes" / ref / "episode.json").exists():
+        p = ROOT / "episodes" / ref / "episode.json"
+    if not p.exists():
+        raise SystemExit(f"ERROR: no episode at {ref} (expected episodes/<id>/episode.json)")
+    return p
+
+
+def _episode_frames(ep: dict, fps: int) -> int:
+    return sum(max(1, round(float(s["duration"]) * fps)) for s in ep.get("shots", []))
+
+
+def encode_frames(cfg: dict, frames_dir: Path, fps: int, out: Path) -> None:
+    out.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run([cfg["ffmpeg"], "-y", "-loglevel", "error", "-framerate", str(fps),
+                    "-i", str(frames_dir / "%05d.png"), "-c:v", "libx264", "-preset", "medium",
+                    "-crf", "18", "-pix_fmt", "yuv420p", "-r", str(fps), "-movflags", "+faststart",
+                    str(out)], check=True)
+
+
+def concat_videos(cfg: dict, parts: list[Path], out: Path) -> None:
+    listing = out.with_suffix(".txt")
+    listing.write_text("".join(f"file '{p.as_posix()}'\n" for p in parts), encoding="utf-8")
+    subprocess.run([cfg["ffmpeg"], "-y", "-loglevel", "error", "-f", "concat", "-safe", "0",
+                    "-i", str(listing), "-c", "copy", "-movflags", "+faststart", str(out)], check=True)
+    listing.unlink()
+
+
+def cmd_render(cfg: dict, args) -> int:
+    path = episode_path(args.episode)
+    ep = _read_json(path)
+    ep_id = ep.get("id", path.parent.name)
+    fps = int(ep.get("format", {}).get("fps", 30))
+    scale = 1.0
+    root = path.parent / "renders"
+    if args.draft:
+        fps, scale, root = 15, 0.5, path.parent / "preview" / "animatic"
+    frames_root = root / "frames"
+    only = [s for s in (args.shots or "").split(",") if s]
+    for d in frames_root.glob("[0-9][0-9]_*"):
+        if not only or d.name[3:] in only:
+            for f in d.glob("*.png"):
+                f.unlink()
+    total = _episode_frames(ep, fps) + 40 * len(ep.get("shots", []))
+    user = ["--episode", str(path), "--frames", str(frames_root), "--fps", str(fps), "--scale", str(scale)]
+    if only:
+        user += ["--shots", ",".join(only)]
+    print(f"[TownForge] rendering {ep_id}: {len(ep.get('shots', []))} shots, "
+          f"{_episode_frames(ep, fps)} frames at {fps} fps")
+    code = run_godot(cfg, user, pre_args=["--fixed-fps", str(fps), "--disable-vsync", "--quit-after", str(total + 600)],
+                     timeout=600 + total * 2)
+    if code != 0:
+        return code
+    timeline = _read_json(frames_root / "timeline.json")
+    parts = []
+    for shot in timeline["shots"]:
+        d = frames_root / shot["dir"]
+        n = len(list(d.glob("*.png")))
+        if n != shot["frames"]:
+            if only and shot["name"] not in only:
+                print(f"[TownForge] shot {shot['name']} has never been rendered; "
+                      "run without --shots to assemble the full video")
+                return 0
+            print(f"ERROR: shot {shot['name']}: expected {shot['frames']} frames, found {n}", file=sys.stderr)
+            return 1
+        part = root / "shots" / f"{shot['dir']}.mp4"
+        if not only or shot["name"] in only or not part.exists():
+            encode_frames(cfg, d, fps, part)
+        parts.append(part)
+    out = root / (f"{ep_id}_animatic.mp4" if args.draft else f"{ep_id}.mp4")
+    concat_videos(cfg, parts, out)
+    secs = sum(float(s["duration"]) for s in timeline["shots"])
+    print(f"[TownForge] video -> {out} ({timeline['resolution'][0]}x{timeline['resolution'][1]}, "
+          f"{fps} fps, {secs:.1f} s)")
+    return 0
+
+
+def cmd_storyboard(cfg: dict, args) -> int:
+    path = episode_path(args.episode)
+    ep = _read_json(path)
+    out = path.parent / "preview" / "storyboard"
+    out.mkdir(parents=True, exist_ok=True)
+    for f in out.glob("*.png"):
+        f.unlink()
+    n_shots = len(ep.get("shots", []))
+    code = run_godot(cfg, ["--episode", str(path), "--storyboard", str(out)],
+                     pre_args=["--fixed-fps", "30", "--quit-after", str(1000 + 100 * n_shots)],
+                     timeout=300 + 20 * n_shots)
+    if code != 0:
+        return code
+    stills = sorted(out.glob("[0-9][0-9]_*_[abc].png"))
+    if len(stills) != 3 * n_shots:
+        print(f"ERROR: expected {3 * n_shots} storyboard stills, got {len(stills)}", file=sys.stderr)
+        return 1
+    # One row per shot: start | middle | end.
+    seq = out / "_seq"
+    seq.mkdir(exist_ok=True)
+    for i, s in enumerate(stills):
+        (seq / f"{i:04d}.png").write_bytes(s.read_bytes())
+    sheet = path.parent / "preview" / "storyboard.png"
+    subprocess.run([cfg["ffmpeg"], "-y", "-loglevel", "error", "-framerate", "1", "-i", str(seq / "%04d.png"),
+                    "-vf", f"scale=200:-1,tile=3x{n_shots}:padding=4:color=white", "-frames:v", "1", str(sheet)],
+                   check=True)
+    for f in seq.glob("*.png"):
+        f.unlink()
+    seq.rmdir()
+    print(f"[TownForge] storyboard -> {sheet} (one row per shot: start, middle, end)")
+    return 0
 
 
 def _overrides(args) -> list[str]:
@@ -158,7 +285,8 @@ def cmd_library(_cfg: dict, _args) -> int:
     if acts_path.exists():
         acts = _read_json(acts_path)["actions"]
         moving = [f"{k} ({v['speed']} m/s)" for k, v in acts.items() if v.get("gait")]
-        standing = [k for k, v in acts.items() if not v.get("gait")]
+        standing = [k + (f" (freeze marks: {', '.join(v['marks'])})" if v.get("marks") else "")
+                    for k, v in acts.items() if not v.get("gait")]
         print("\nACTIONS (library/actions.json)")
         print("  standing: " + ", ".join(standing))
         print("  moving (route gaits): " + ", ".join(moving))
@@ -291,6 +419,12 @@ def main(argv: list[str] | None = None) -> int:
         p.add_argument("--weather", help="weather on top of the look, e.g. fog=0.8,rain=0.5")
         if name == "preview-set":
             p.add_argument("--out", help="output directory (default output/previews/<set>_s<seed>_<look>)")
+    rp = sub.add_parser("render", help="render an episode to MP4")
+    rp.add_argument("episode", help="episodes/<id>/episode.json or <id>")
+    rp.add_argument("--draft", action="store_true", help="half resolution, 15 fps animatic in preview/")
+    rp.add_argument("--shots", help="re-render only these shots (comma-separated names)")
+    sb = sub.add_parser("storyboard", help="start/mid/end stills of every shot")
+    sb.add_argument("episode", help="episodes/<id>/episode.json or <id>")
     sub.add_parser("library", help="list looks, shot templates and views")
     lk = sub.add_parser("look", help="manage looks")
     lk_sub = lk.add_subparsers(dest="look_command", required=True)
@@ -311,7 +445,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "look":
         return cmd_look_save(cfg, args)
     handlers = {"test": cmd_test, "validate": cmd_validate, "library": cmd_library,
-                "preview-set": cmd_preview_set, "explore": cmd_explore}
+                "preview-set": cmd_preview_set, "explore": cmd_explore,
+                "render": cmd_render, "storyboard": cmd_storyboard}
     return handlers[args.command](cfg, args)
 
 

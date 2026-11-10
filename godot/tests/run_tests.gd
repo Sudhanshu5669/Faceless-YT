@@ -13,6 +13,8 @@ const Anchors = preload("res://scripts/camera/anchors.gd")
 const KitDB = preload("res://scripts/world/kit_db.gd")
 const Cast = preload("res://scripts/actors/cast.gd")
 const ActorDirector = preload("res://scripts/actors/actor_director.gd")
+const Episode = preload("res://scripts/timeline/episode.gd")
+const Paths = preload("res://scripts/core/paths.gd")
 
 const SEEDS := [1, 333, 9001]
 const PARAM_SETS := [
@@ -66,8 +68,15 @@ func _run_all() -> void:
 	_run("actor validation catches bad characters, actions, keys", _t_actor_validation)
 	_run("pose_at(t) is a pure function of t", _t_actor_pose_deterministic)
 	_run("routes: wait, walk at speed, arrive and switch action", _t_actor_route)
+	_run("jump leaves the ground at apex and lands on its feet", _t_jump)
 	_run("crowds expand deterministically with unique ids", _t_crowd)
 	_run("actor anchors work as camera targets", _t_actor_anchors_for_cameras)
+	_run("cues switch actions; holds freeze the actor's clock", _t_cues_holds)
+	_run("facing an actor tracks them and turns smoothly", _t_facing_tracks)
+	_run("episode validation catches bad shots and moves", _t_episode_validation)
+	_run("episode timeline: frames, cuts and scene_t jumps", _t_episode_timeline)
+	_run("camera moves start at 'from' and end at 'to'", _t_camera_move)
+	_run("sample episodes in episodes/ validate", _t_sample_episodes)
 	print("[TownForge] tests: %d passed, %d failed" % [_passed, _failed])
 	quit(1 if _failed > 0 else 0)
 
@@ -448,7 +457,8 @@ func _t_actions() -> Array:
 	var lib := Cast.anim_library()
 	for id in Cast.actions():
 		var a: Dictionary = Cast.action(id)
-		if not lib.has_animation(String(a["anim"])):
+		e.append_array(Cast.validate_action(id))
+		if a.has("anim") and not lib.has_animation(String(a["anim"])):
 			e.append("action %s -> animation '%s' not in the library" % [id, a["anim"]])
 		if a.get("gait", false) and float(a.get("speed", 0.0)) <= 0.0:
 			e.append("gait %s has no measured speed" % id)
@@ -477,6 +487,12 @@ func _t_actor_validation() -> Array:
 		[[{"id": "a", "character": "you", "at": "town_center", "spin": 1}], "unknown key"],
 		[[{"id": "a", "character": "you", "at": "town_center"}, {"id": "a", "character": "you", "at": "town_center"}], "duplicate id"],
 		[[{"id": "a", "character": "you", "at": "town_center", "route": {"via": ["int_0_0"], "gait": "idle"}}], "non-moving gait"],
+		[[{"id": "a", "character": "you", "at": "town_center", "action": "jump", "freeze": "peak"}], "unknown freeze mark"],
+		[[{"id": "a", "character": "you", "at": "town_center", "action": "idle", "freeze": 1.5}], "freeze out of range"],
+		[[{"id": "a", "character": "you", "at": "town_center", "cues": [{"t": 3, "action": "jump"}, {"t": 1, "action": "idle"}]}], "cues out of order"],
+		[[{"id": "a", "character": "you", "at": "town_center", "cues": [{"t": 1, "hold": true, "action": "jump"}]}], "hold cue with an action"],
+		[[{"id": "a", "character": "you", "at": "town_center", "cues": [{"t": 1, "freeze": 0.5}]}], "freeze cue without action"],
+		[[{"id": "a", "character": "you", "at": "town_center", "cues": [{"t": 1, "action": "moonwalk"}]}], "unknown cue action"],
 	]
 	for c in cases:
 		if ActorDirector.validate(c[0]).is_empty():
@@ -585,5 +601,208 @@ func _t_actor_anchors_for_cameras() -> Array:
 	var shot := Shot.resolve({"at": {"anchor": "you", "offset": [0, 1.6, 3]}, "look_at": "you.head"}, LA)
 	if shot.has("error"):
 		e.append("shot on an actor failed: " + shot["error"])
+	node.free()
+	return e
+
+
+## Lowest foot height above the actor's ground point, in metres.
+func _foot_clearance(actor) -> float:
+	var ground: float = actor.anchor_points()[actor.actor_id]["pos"].y
+	var lowest := INF
+	for b in ["foot_l", "foot_r", "ball_l", "ball_r"]:
+		lowest = minf(lowest, actor.bone_world(b).y - ground)
+	return lowest
+
+
+func _t_jump() -> Array:
+	var L := _actor_layout()
+	var res := ActorDirector.plan_all([{"id": "k", "character": "you", "at": "town_center",
+		"action": "jump", "freeze": "apex"}], L)
+	if res.has("error"):
+		return [res["error"]]
+	var e := []
+	var cp := Cast.clip_plan("jump")
+	if absf(float(res["plans"][0]["freeze"]) * float(cp["length"]) - 0.7) > 0.001:
+		e.append("freeze 'apex' did not resolve to the apex mark")
+	var node := ActorDirector.build(res["plans"], L)
+	root.add_child(node)
+	var actor = node.get_child(0)
+	actor.pose_at(0.0)
+	if _foot_clearance(actor) < 0.5:
+		e.append("at apex the feet are only %.2f m off the ground" % _foot_clearance(actor))
+	var head_y: float = actor.anchor_points()["k.head"]["pos"].y - actor.anchor_points()["k"]["pos"].y
+	if head_y < 1.9:
+		e.append("at apex the head anchor is %.2f m up: anchors do not follow the lift" % head_y)
+	# Unfrozen: on the ground before takeoff and after landing, never through it.
+	actor.plan["freeze"] = -1.0
+	actor.plan["phase"] = 0.0
+	for i in 41:
+		var t := i * 0.05
+		actor.pose_at(t)
+		var c := _foot_clearance(actor)
+		if c < -0.04:
+			e.append("t=%.2f: a foot is %.2f m below the ground" % [t, -c])
+		if (t < 0.35 or t > 1.6) and c > 0.06:
+			e.append("t=%.2f: feet %.2f m off the ground outside the jump" % [t, c])
+	node.free()
+	return e
+
+
+
+func _t_cues_holds() -> Array:
+	var L := _actor_layout()
+	var res := ActorDirector.plan_all([
+		{"id": "s", "character": "you", "at": "town_center", "action": "idle",
+			"cues": [{"t": 1.0, "action": "jump"}, {"t": 3.0, "facing": "int_0_0"}]},
+		{"id": "w", "character": "you", "at": "int_0_0",
+			"route": {"via": ["int_1_0"], "gait": "walk", "start": 0.0},
+			"cues": [{"t": 2.0, "hold": true}, {"t": 5.0, "hold": false}]}], L)
+	if res.has("error"):
+		return [res["error"]]
+	var node := ActorDirector.build(res["plans"], L)
+	root.add_child(node)
+	var s = node.get_child(0)
+	var w = node.get_child(1)
+	var e := []
+	if s.state_at(0.5)["action"] != "idle":
+		e.append("before its cue the actor should do its base action")
+	var j: Dictionary = s.state_at(1.2)
+	if j["action"] != "jump" or absf(float(j["anim_time"]) - 0.2) > 0.001:
+		e.append("a cued action should start from its beginning at the cue (got %s at %.2f)" % [j["action"], j["anim_time"]])
+	var turned: Dictionary = s.state_at(3.5)
+	if turned["action"] != "jump" or absf(float(turned["yaw"]) - float(j["yaw"])) < 0.01:
+		e.append("a facing cue should turn the actor and keep the current action")
+	var p2: Vector3 = w.state_at(2.0)["pos"]
+	var p4: Vector3 = w.state_at(4.0)["pos"]
+	if p2.distance_to(p4) > 0.001:
+		e.append("a held actor moved %.2f m during the hold" % p2.distance_to(p4))
+	var p6: Vector3 = w.state_at(6.0)["pos"]
+	if p6.distance_to(p4) < 0.1:
+		e.append("after the hold is released the actor should walk on")
+	# 6 s scene time = 3 s of the actor's own clock (3 s were held).
+	var free := ActorDirector.plan_all([{"id": "f", "character": "you", "at": "int_0_0",
+		"route": {"via": ["int_1_0"], "gait": "walk", "start": 0.0}}], L)
+	var fnode := ActorDirector.build(free["plans"], L)
+	root.add_child(fnode)
+	if fnode.get_child(0).state_at(3.0)["pos"].distance_to(p6) > 0.001:
+		e.append("after a 3 s hold, scene 6 s should match 3 s of walking")
+	node.free()
+	fnode.free()
+	return e
+
+
+func _episode(shots: Array) -> Dictionary:
+	return {"schema_version": "0.1", "id": "t", "set": "specs/sets/blackwood.json", "shots": shots}
+
+
+func _t_episode_validation() -> Array:
+	var ok_cam := {"at": "town_center", "look_at": "int_0_0"}
+	var cases := [
+		[{"schema_version": "0.1", "id": "t", "set": "x"}, "no shots"],
+		[_episode([{"name": "a", "duration": 0, "camera": ok_cam}]), "zero duration"],
+		[_episode([{"name": "a", "duration": 2, "camera": ok_cam, "zoom": 2}]), "unknown shot key"],
+		[_episode([{"name": "a", "duration": 2, "camera": ok_cam}, {"name": "a", "duration": 2, "camera": ok_cam}]), "duplicate shot names"],
+		[_episode([{"name": "a", "duration": 2, "camera": {"from": ok_cam}}]), "move without 'to'"],
+		[_episode([{"name": "a", "duration": 2, "camera": {"from": ok_cam, "to": ok_cam, "ease": "bounce"}}]), "unknown ease"],
+		[_episode([{"name": "a", "duration": 2, "camera": {"at": "town_center", "look_at": "int_0_0", "t": 3}}]), "camera with 't'"],
+		[_episode([{"name": "a b", "duration": 2, "camera": ok_cam}]), "shot name with a space"],
+	]
+	var e := []
+	for c in cases:
+		if Episode.validate(c[0]).is_empty():
+			e.append("not reported: " + c[1])
+	if not Episode.validate(_episode([{"name": "a", "duration": 2, "camera": ok_cam}])).is_empty():
+		e.append("a valid episode was rejected: %s" % [Episode.validate(_episode([{"name": "a", "duration": 2, "camera": ok_cam}]))])
+	return e
+
+
+func _t_episode_timeline() -> Array:
+	var cam := {"at": "town_center", "look_at": "int_0_0"}
+	var ep := _episode([{"name": "a", "duration": 2.0, "camera": cam},
+		{"name": "b", "duration": 1.5, "scene_t": 0.5, "camera": cam},
+		{"name": "c", "duration": 1.0, "camera": cam}])
+	var tl := Episode.timeline(ep, 30)
+	var e := []
+	var want := [[60, 0, 0.0], [45, 60, 0.5], [30, 105, 2.0]]
+	for i in 3:
+		if int(tl[i]["frames"]) != want[i][0] or int(tl[i]["first_frame"]) != want[i][1] or absf(float(tl[i]["scene_t"]) - want[i][2]) > 0.0001:
+			e.append("shot %d: frames %d first %d scene_t %.2f, want %s" % [i, tl[i]["frames"], tl[i]["first_frame"], tl[i]["scene_t"], want[i]])
+	var last := Episode.frame_time(tl[0], 59, 30)
+	if absf(float(last["p"]) - 1.0) > 0.0001 or absf(float(last["t"]) - 59.0 / 30.0) > 0.0001:
+		e.append("last frame of a shot should have progress 1 at its own time")
+	return e
+
+
+func _t_camera_move() -> Array:
+	var L := _actor_layout()
+	var a := {"at": {"anchor": "town_center", "offset": [0, 2, 10]}, "look_at": "town_center", "lens_mm": 24}
+	var b := {"at": {"anchor": "int_0_0", "offset": [3, 6, 5]}, "look_at": "int_0_0", "lens_mm": 85}
+	var shot := {"camera": {"from": a, "to": b, "ease": "in_out"}}
+	var e := []
+	var s0 := Episode.camera_at(shot, 0.0, L, {})
+	var s1 := Episode.camera_at(shot, 1.0, L, {})
+	var ra := Shot.resolve(a, L)
+	var rb := Shot.resolve(b, L)
+	if not (s0["transform"] as Transform3D).is_equal_approx(ra["transform"]) or absf(float(s0["fov"]) - float(ra["fov"])) > 0.001:
+		e.append("move does not start at 'from'")
+	if not (s1["transform"] as Transform3D).is_equal_approx(rb["transform"]) or absf(float(s1["fov"]) - float(rb["fov"])) > 0.001:
+		e.append("move does not end at 'to'")
+	var mid := Episode.camera_at(shot, 0.5, L, {})
+	var mo: Vector3 = mid["transform"].origin
+	var half: Vector3 = (ra["transform"].origin + rb["transform"].origin) * 0.5
+	if mo.distance_to(half) > 0.01:
+		e.append("in_out move should be halfway at p = 0.5")
+	return e
+
+
+func _t_sample_episodes() -> Array:
+	var e := []
+	var dir := DirAccess.open(Paths.repo_path("episodes"))
+	if dir == null:
+		return e
+	for id in dir.get_directories():
+		var path := Paths.repo_path("episodes/%s/episode.json" % id)
+		if not FileAccess.file_exists(path):
+			continue
+		var le := Episode.load_episode(path)
+		if le.has("error"):
+			e.append("%s: %s" % [id, le["error"]])
+			continue
+		for m in Episode.validate(le["episode"]) + Spec.validate_set_spec(le["spec"]):
+			e.append("%s: %s" % [id, m])
+	return e
+
+
+func _t_facing_tracks() -> Array:
+	var L := _actor_layout()
+	var res := ActorDirector.plan_all([
+		{"id": "you", "character": "you", "at": {"anchor": "int_0_0", "offset": [6, 0, 6]}, "action": "idle",
+			"cues": [{"t": 4.0, "facing": "w"}, {"t": 8.0, "hold": true}]},
+		{"id": "w", "character": "you", "at": "int_0_0",
+			"route": {"via": ["int_1_0"], "gait": "walk", "start": 0.0}}], L)
+	if res.has("error"):
+		return [res["error"]]
+	var node := ActorDirector.build(res["plans"], L)
+	root.add_child(node)
+	var you = node.get_child(0)
+	var w = node.get_child(1)
+	var e := []
+	var yaw_toward := func(t: float) -> float:
+		var d: Vector3 = w.position_at(t) - you.position_at(t)
+		return atan2(d.x, d.z)
+	# Turning: halfway through the 0.6 s turn the yaw is between old and new.
+	var before := float(you.state_at(3.99)["yaw"])
+	var mid := float(you.state_at(4.3)["yaw"])
+	if absf(angle_difference(mid, before)) < 0.01 or absf(angle_difference(mid, yaw_toward.call(4.3))) < 0.01:
+		e.append("a facing cue should turn gradually, not snap")
+	# Tracking: after the turn, the actor faces where the walker is now, not where they started.
+	for t in [5.0, 7.0]:
+		if absf(angle_difference(float(you.state_at(t)["yaw"]), yaw_toward.call(t))) > 0.02:
+			e.append("at %.1f s the actor does not face the walker's current position" % t)
+	if absf(angle_difference(yaw_toward.call(5.0), yaw_toward.call(7.0))) < 0.02:
+		e.append("test setup: the walker should move across the actor's view")
+	# Held: keeps facing where the walker was when the hold began.
+	if absf(angle_difference(float(you.state_at(12.0)["yaw"]), yaw_toward.call(8.0))) > 0.02:
+		e.append("a held actor kept tracking a moving target")
 	node.free()
 	return e

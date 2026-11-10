@@ -21,3 +21,10 @@ window/stretch/mode="viewport"
 [rendering]
 
 anti_aliasing/quality/msaa_3d=2
+
+[shader_globals]
+
+scene_time={
+"type": "float",
+"value": 0.0
+}

@@ -1,0 +1,115 @@
+# Timeline: episodes, shots and rendering
+
+An **episode** films one set with a cast as an ordered list of timed shots. It lives at
+`episodes/<id>/episode.json`. Renders go next to it (git-ignored): `renders/` (final),
+`preview/` (storyboard, draft animatic).
+
+```json
+{
+  "schema_version": "0.1",
+  "id": "blackwood_333",
+  "title": "In this town, everyone freezes at 3:33 AM",
+  "set": "specs/sets/blackwood_333.json",
+  "format": { "resolution": [1080, 1920], "fps": 30 },
+  "actors": [
+    { "id": "kid", "character": "kid", "at": { "anchor": "house_9.lawn", "offset": [0, 0, 1] },
+      "action": "idle", "cues": [ { "t": 12.4, "action": "jump" }, { "t": 13.1, "hold": true } ] }
+  ],
+  "shots": [
+    { "name": "establishing", "duration": 4.0,
+      "camera": { "from": { "template": "establishing_drone", "subject": "house_9" },
+                  "to": { "at": { "anchor": "house_9", "orbit": { "distance": 22, "angle": 20, "height": 9 } },
+                          "look_at": "house_9.front_door", "lens_mm": 28 },
+                  "ease": "in_out" } },
+    { "name": "kid_jump", "duration": 3.5,
+      "camera": { "at": { "anchor": "kid", "offset": [3.2, 1.0, 0.4] },
+                  "look_at": { "anchor": "kid", "offset": [0, 1.1, 0] }, "lens_mm": 35 } }
+  ]
+}
+```
+
+## Episode fields
+
+| Field | Meaning |
+|---|---|
+| `id` | Folder and file name of the renders. |
+| `title`, `description` | For humans (and later, packaging). |
+| `set` | Path of a set spec. Its `set` and `look` are used; its `preview` is ignored. |
+| `look` | Optional: replaces the set spec's look (preset name or object, see LOOK_SPEC.md). |
+| `actors` | Optional: replaces the set spec's actors. Cues usually live here (see ACTOR_SPEC.md). |
+| `format` | `resolution` `[w, h]` (default `[1080, 1920]`, 9:16 Shorts; use `[1920, 1080]` for long-form) and `fps` (default 30). |
+| `shots` | The edit, in order. |
+
+## Shots
+
+| Field | Meaning |
+|---|---|
+| `name` | Unique, file-name safe (no spaces). Used for the shot's frame folder and for `--shots`. |
+| `duration` | Seconds on screen. |
+| `camera` | A camera description (CAMERA_SPEC.md: view, template, or `at`/`look_at`/lens…), or a **move**. No `t`: time comes from the timeline. |
+| `scene_t` | Optional: scene time at the start of this shot. Default: where the previous shot ended. Use it for replays, overlapping coverage of the same moment, or time jumps. |
+| `note` | Free text for the director (intent, what must read). |
+
+**Scene time** runs continuously across cuts: shot 2 starts where shot 1 ended unless it sets
+`scene_t`. Actor cues are in scene time, so the edit never changes what the actors do, only
+what we see.
+
+### Camera moves
+
+```json
+"camera": { "from": { ...camera... }, "to": { ...camera... }, "ease": "in_out" }
+```
+
+Both ends are resolved **at every frame** against the actors at that moment, so a move
+whose ends are anchored to an actor follows them. Position and lens interpolate linearly,
+rotation by slerp. `ease`: `linear`, `in`, `out`, `in_out` (default). A static camera aimed
+at a moving actor (`"look_at": "stranger.head"`) pans to follow.
+
+**Anchor the camera to the place, not to the actor, unless you want it to move with them.**
+An offset from an actor (`{"anchor": "you", "offset": [-1, 1.5, 2]}`) is in the actor's own
+frame, so when the actor turns, the camera swings around them. For a steady camera on a
+character who turns, hang it off a place (`house_9.front_door`) and `look_at` the actor.
+
+Common moves: push-in (same `look_at`, `to` closer), dolly (`from`/`to` offsets slide
+sideways along a street anchor), crane-down (`orbit` high to `orbit` low), rack between two
+subjects (`look_at` A then B).
+
+## Commands
+
+```bash
+python pipeline/tf.py validate episodes/blackwood_333/episode.json   # resolves every camera at start/mid/end
+python pipeline/tf.py storyboard blackwood_333                       # preview/storyboard.png: one row per shot (start, middle, end)
+python pipeline/tf.py render blackwood_333 --draft                   # preview/animatic/<id>_animatic.mp4 (half size, 15 fps)
+python pipeline/tf.py render blackwood_333                           # renders/<id>.mp4 (full format)
+python pipeline/tf.py render blackwood_333 --shots kid_jump          # re-render one shot, re-assemble
+```
+
+Validation fails on unknown anchors, keys, actions or freeze marks. It warns
+(`WARN shot <name>: subject hidden behind ...`) when a tree or house blocks the subject.
+
+**Workflow:** write the episode → `storyboard` → read `storyboard.png` (and single stills in
+`preview/storyboard/`) → fix framing and timing → `render` → check the video
+(`ffmpeg ... -vf fps=4,tile=8x2` turns a stretch into one image to look at).
+
+## How rendering works
+
+- Godot runs with `--fixed-fps <fps>`, so every frame advances exactly 1/fps. Actors are
+  posed and the camera placed from the frame's scene time. Nothing reads the wall clock.
+- Shaders (sky stars and clouds, film grain) use the global `scene_time`, not engine `TIME`.
+  Rain and snow restart with a fixed seed at every cut.
+- After each cut, 30 warm-up frames render unsaved, so volumetric fog history settles on the
+  new camera.
+- Frames are captured from the main viewport (grade included) to
+  `renders/frames/<NN>_<shot>/00000.png`, plus `timeline.json`. FFmpeg encodes each shot to
+  `renders/shots/<NN>_<shot>.mp4` (H.264, CRF 18, yuv420p) and joins them without re-encoding.
+- **Determinism:** the same command gives bit-identical frames. A shot re-rendered alone
+  matches the full render to about 66 dB PSNR (single-level differences from fog history:
+  invisible), so `--shots` is safe.
+- Speed on the RTX 4050: about 10 frames/s at 1080×1920 (a 30 s Short renders in about 75 s).
+
+## Not yet
+
+- Per-shot look changes (one look per episode; the set is built once).
+- Transitions other than cuts (fades, match cuts), camera shake / handheld noise.
+- Audio: narration, SFX, music, captions (next milestone).
+- Shot cache by content hash (re-render only what changed, automatically).

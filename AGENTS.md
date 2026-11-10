@@ -4,13 +4,15 @@ TownForge turns an approved story into a rendered, animated YouTube episode
 ("what if you…" hypotheticals, Shorts first). Godot 4.7 builds and films the
 world; Python runs the pipeline; an LLM acts as director by writing JSON specs.
 
+Start with `docs/VISION_AND_ROADMAP.md` (goals, workflow, status, what's next).
 Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary:
 
 - `docs/SET_SPEC.md`: sets (towns) and their params
 - `docs/LOOK_SPEC.md`: time, weather, light, sky, palette, grade (incl. absurd looks)
 - `docs/CAMERA_SPEC.md`: anchors, shots, lenses, shot templates
 - `docs/ASSET_PIPELINE.md`: importing packs, the model catalog, kits
-- `docs/ACTOR_SPEC.md`: characters, actions, routes, crowds, actor anchors
+- `docs/ACTOR_SPEC.md`: characters, actions (sequences, freeze marks), routes, crowds, cues/holds, actor anchors
+- `docs/TIMELINE_SPEC.md`: episodes, timed shots, camera moves, storyboard, video render
 
 ## Commands
 
@@ -21,6 +23,8 @@ python pipeline/tf.py validate specs/sets/blackwood.json
 python pipeline/tf.py preview-set [SPEC] [--look NAME] [--time 03:33] [--weather fog=0.8,rain=0.5] [--seed N]
                                                     # renders stills + contact_sheet.png into output/previews/
 python pipeline/tf.py look save NAME FILE --description "..."   # validate + save a new look to the library
+python pipeline/tf.py storyboard EPISODE             # episodes/<id>/preview/storyboard.png (start/mid/end per shot)
+python pipeline/tf.py render EPISODE [--draft] [--shots a,b]   # episodes/<id>/renders/<id>.mp4
 python pipeline/tf.py explore [SPEC]                # interactive fly-through (T/Y time, F/C/R/X weather)
 python pipeline/tf.py assets import                 # incoming/*.zip -> Godot assets -> library/catalog.json + thumbnails
 ```
@@ -76,9 +80,11 @@ godot/tests/run_tests.gd  headless test runner
 library/looks/            saved looks (JSON)
 library/shots/            saved shot templates (JSON)
 library/kits/             curated model roles per kit (JSON)
+episodes/<id>/            episode.json (+ git-ignored renders/, preview/)
 library/catalog.json      generated model catalog (sizes, categories, animations)
 godot/assets/             imported packs (git-ignored, rebuilt from incoming/)
-godot/scripts/actors/     cast (bodies, merged animations), actor (pose_at(t)), director (plans, crowds)
+godot/scripts/actors/     cast (bodies, merged animations, action sequences), actor (pose_at(t)), director (plans, crowds, cues)
+godot/scripts/timeline/   episode (load, validate, timeline, camera moves)
 library/characters/       character definitions (JSON)
 library/actions.json      action vocabulary -> animations, measured gait speeds
 godot/tools/              catalog + thumbnails, atlas swatch probe, locomotion probe, character probe
