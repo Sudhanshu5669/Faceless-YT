@@ -1,0 +1,27 @@
+{
+  "id": "toon_official",
+  "description": "Government official / regulator: grey suit, maroon tie, side-parted grey hair, glasses.",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.42,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#8a8a90"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#5a5f6e",
+      "tie": "#7a1f2a"
+    },
+    "shoes": "#2a2420",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "deadpan"
+  }
+}

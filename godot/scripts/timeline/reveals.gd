@@ -30,12 +30,14 @@ const EXITS := ["shrink", "pop", "drop", "rise", "none"]
 const SHAPES := ["box", "sphere", "cylinder", "cone", "card", "coin", "cash", "ring", "bottle", "pin", "chip", "phone",
 	"refinery", "pump", "postcard", "scales", "frame", "garland", "cake", "cake_half", "binoculars", "sign", "spinner", "tower",
 	"rickshaw", "plaque", "india", "crown", "moneybag", "vitrine", "laptop", "tank", "receipt", "podium",
-	"cake_slice", "bowling_ball", "globe", "tape", "link", "knife", "orbit"]
+	"cake_slice", "bowling_ball", "globe", "tape", "link", "knife", "orbit",
+	"snail", "rocket", "meter", "bin", "clock", "clock_hand", "garage"]
 ## Shapes that print their "label" on their face: [x, y, z, text height] as fractions of size.
 const LABELLED := {"card": [0.0, 0.62, 0.025, 0.09], "sign": [0.0, 1.12, 0.045, 0.13], "cake": [0.0, 0.2, 0.52, 0.1],
 	"pump": [0.0, 0.98, 0.22, 0.08], "postcard": [-0.2, 0.08, 0.02, 0.08], "box": [0.0, 0.5, 0.505, 0.15],
 	"cake_half": [0.0, 0.2, 0.52, 0.09], "plaque": [0.0, 0.1, 0.022, 0.085], "moneybag": [0.0, 0.3, 0.37, 0.14],
-	"tank": [0.0, 0.42, 0.16, 0.1], "receipt": [0.0, 0.86, 0.016, 0.08], "bowling_ball": [0.0, -0.08, 0.5, 0.22]}
+	"tank": [0.0, 0.42, 0.16, 0.1], "receipt": [0.0, 0.86, 0.016, 0.08], "bowling_ball": [0.0, -0.08, 0.5, 0.22],
+	"garage": [0.0, 0.83, 0.43, 0.12], "meter": [0.0, 0.42, 0.21, 0.1]}
 const DEFAULT_COLORS := {"box": "#f2f2f2", "sphere": "#f2f2f2", "cylinder": "#f2f2f2", "cone": "#f2f2f2",
 	"card": "#ffffff", "coin": "#f2c230", "cash": "#4fbf6a", "ring": "#5fe3ff", "bottle": "#4a90e2",
 	"pin": "#ff4d5a", "chip": "#2b2f36", "phone": "#16181d", "refinery": "#c9ced6", "pump": "#d6453d",
@@ -43,7 +45,8 @@ const DEFAULT_COLORS := {"box": "#f2f2f2", "sphere": "#f2f2f2", "cylinder": "#f2
 	"cake_half": "#ff9ec4", "binoculars": "#1b1c22", "sign": "#ffffff", "spinner": "#ffffff", "tower": "#c9ced6", "rickshaw": "#2f9e44", "plaque": "#d9a632",
 	"india": "#ff9a3c", "crown": "#f2c230", "moneybag": "#c8a26a", "vitrine": "#7a1f2a", "laptop": "#9aa3b2", "tank": "#2f9e6a",
 	"receipt": "#fbfbf6", "podium": "#5a3fa0", "cake_slice": "#ff9ec4", "bowling_ball": "#1f4fd8", "globe": "#2f7fd8",
-	"tape": "#b9b9b4", "link": "#ff3b4a", "knife": "#dfe4ea", "orbit": "#5fe3ff"}
+	"tape": "#b9b9b4", "link": "#ff3b4a", "knife": "#dfe4ea", "orbit": "#5fe3ff", "snail": "#9ccf6a",
+	"rocket": "#f4f4f2", "meter": "#1b1b22", "bin": "#3f7a5a", "clock": "#fbfbf6", "clock_hand": "#d6453d", "garage": "#c9b28a"}
 ## Chunky display font for text and counters (OFL, godot/fonts/lilita_one).
 const FONT_PATH := "res://fonts/lilita_one/LilitaOne-Regular.ttf"
 ## Fallback for what Lilita lacks (the rupee sign, Devanagari): Baloo 2 at ExtraBold.
@@ -553,6 +556,68 @@ static func _story_parts(kind: String, size: float, col: Color, mat: Material) -
 			om.rings = 64
 			om.ring_segments = 8
 			P.append(_part(om, Vector3.ZERO, _glow_mat(col), Vector3(PI / 2, 0, 0)))
+		"snail":
+			# Faces +x (it crawls toward screen right): a soft body, a striped shell, eye stalks.
+			var shell := Toon.material(Color("b5763a"), o)
+			P.append([Toon.sphere(size * 0.16), Transform3D(Basis.IDENTITY.scaled(Vector3(3.2, 0.7, 1.0)), Vector3(size * 0.05, size * 0.1, 0)), mat])
+			P.append(_part(Toon.sphere(size * 0.27), Vector3(-size * 0.08, size * 0.38, 0), shell))
+			var sp := TorusMesh.new()
+			sp.inner_radius = size * 0.1
+			sp.outer_radius = size * 0.16
+			for zz in [-1.0, 1.0]:
+				P.append(_part(sp, Vector3(-size * 0.08, size * 0.38, zz * size * 0.24), Toon.material(Color("7a4a20"), 0.0), Vector3(PI / 2, 0, 0)))
+			for zz in [-0.06, 0.06]:
+				P.append(_part(_cyl(size * 0.015, size * 0.015, size * 0.22), Vector3(size * 0.5, size * 0.28, zz * size), mat, Vector3(0, 0, -0.35)))
+				P.append(_part(Toon.sphere(size * 0.04), Vector3(size * 0.54, size * 0.39, zz * size), Toon.material(Color("ffffff"), o)))
+		"rocket":
+			# Points +y (tilt -90 to fly toward screen right): body, red nose, fins, window, flame.
+			var red := Toon.material(Color("d6453d"), o)
+			P.append(_part(_cyl(size * 0.13, size * 0.13, size * 0.55), Vector3(0, size * 0.42, 0), mat))
+			P.append(_part(_cyl(0.0, size * 0.13, size * 0.25), Vector3(0, size * 0.82, 0), red))
+			P.append(_part(_cyl(size * 0.06, size * 0.06, size * 0.02), Vector3(0, size * 0.55, size * 0.125), Toon.material(Color("5fe3ff"), 0.0), Vector3(PI / 2, 0, 0)))
+			for k in 3:
+				var a := TAU * float(k) / 3.0
+				P.append([_box(Vector3(size * 0.02, size * 0.2, size * 0.14)), Transform3D(Basis.from_euler(Vector3(0, a, 0)),
+					Vector3(sin(a) * size * 0.14, size * 0.2, cos(a) * size * 0.14)), red])
+			P.append(_part(_cyl(size * 0.1, 0.0, size * 0.3), Vector3(0, size * 0.0, 0), _glow_mat(Color("ff9a1a"))))
+		"meter":
+			# A taxi fare meter: black box, red display (put a counter in front), a flag on top.
+			P.append(_part(_box(Vector3(size, size * 0.6, size * 0.4)), Vector3(0, size * 0.3, 0), mat))
+			P.append(_part(_box(Vector3(size * 0.86, size * 0.3, size * 0.02)), Vector3(0, size * 0.32, size * 0.2), _glow_mat(Color("ff3b2a"))))
+			P.append(_part(_cyl(size * 0.02, size * 0.02, size * 0.35), Vector3(size * 0.38, size * 0.77, 0), Toon.material(Color("c9ced6"), o)))
+			P.append(_part(_box(Vector3(size * 0.3, size * 0.16, size * 0.02)), Vector3(size * 0.24, size * 0.88, 0), Toon.material(Color("d6453d"), o)))
+		"bin":
+			# A dustbin, open at the top.
+			P.append(_part(_cyl(size * 0.32, size * 0.25, size * 0.9), Vector3(0, size * 0.45, 0), mat))
+			var rim := TorusMesh.new()
+			rim.inner_radius = size * 0.3
+			rim.outer_radius = size * 0.35
+			P.append(_part(rim, Vector3(0, size * 0.9, 0), mat))
+			P.append(_part(_cyl(size * 0.3, size * 0.3, size * 0.01), Vector3(0, size * 0.89, 0), Toon.material(Color("141418"), 0.0)))
+		"clock":
+			# A wall clock facing +z, centred on its origin (put a clock_hand on the same spot).
+			P.append(_part(_cyl(size * 0.5, size * 0.5, size * 0.06), Vector3.ZERO, mat, Vector3(PI / 2, 0, 0)))
+			var cr := TorusMesh.new()
+			cr.inner_radius = size * 0.47
+			cr.outer_radius = size * 0.53
+			P.append(_part(cr, Vector3.ZERO, Toon.material(Color("1b1b22"), 0.0), Vector3(PI / 2, 0, 0)))
+			for k in 12:
+				var a := TAU * float(k) / 12.0
+				P.append(_part(_box(Vector3(size * 0.025, size * 0.08, size * 0.02)), Vector3(sin(a) * size * 0.4, cos(a) * size * 0.4, size * 0.035),
+					Toon.material(Color("1b1b22"), 0.0), Vector3(0, 0, -a)))
+			P.append(_part(_box(Vector3(size * 0.04, size * 0.24, size * 0.02)), Vector3(size * 0.06, size * 0.08, size * 0.04), Toon.material(Color("1b1b22"), 0.0), Vector3(0, 0, -0.9)))
+		"clock_hand":
+			# A second hand pointing up from its origin; give it "roll" to sweep.
+			P.append(_part(_box(Vector3(size * 0.03, size * 0.42, size * 0.015)), Vector3(0, size * 0.17, size * 0.06), mat))
+			P.append(_part(Toon.sphere(size * 0.04), Vector3(0, 0, size * 0.06), mat))
+		"garage":
+			# A garage: body, roll-up door with slats, flat roof, a sign board above the door (label).
+			P.append(_part(_box(Vector3(size, size * 0.72, size * 0.8)), Vector3(0, size * 0.36, 0), mat))
+			P.append(_part(_box(Vector3(size * 1.08, size * 0.06, size * 0.88)), Vector3(0, size * 0.75, 0), Toon.material(col.darkened(0.35), o)))
+			P.append(_part(_box(Vector3(size * 0.7, size * 0.5, size * 0.02)), Vector3(0, size * 0.25, size * 0.405), Toon.material(Color("9aa3b2"), o)))
+			for k in 6:
+				P.append(_part(_box(Vector3(size * 0.7, size * 0.008, size * 0.025)), Vector3(0, size * (0.06 + 0.075 * k), size * 0.41), Toon.material(Color("6b7280"), 0.0)))
+			P.append(_part(_box(Vector3(size * 0.8, size * 0.16, size * 0.03)), Vector3(0, size * 0.85, size * 0.41), Toon.material(Color("f2c230"), o)))
 		"link":
 			# Unit length along +y; the pose stretches it from 'at' to 'to'.
 			P.append(_part(_cyl(size * 0.5, size * 0.5, 1.0), Vector3(0, 0.5, 0), _glow_mat(col)))

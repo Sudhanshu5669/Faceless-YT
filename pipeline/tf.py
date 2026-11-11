@@ -78,7 +78,7 @@ def run_godot(cfg: dict, user_args: list[str], *, headless: bool = False,
         if "Unreferenced static string" in line or "string_name.cpp" in line:
             continue  # engine shutdown noise
         if ("[TownForge]" in line or "ERROR" in line or "SCRIPT" in line or line.startswith("   at:")
-                or line.startswith("  PASS") or line.startswith("  FAIL")
+                or line.startswith("  PASS") or line.startswith("  FAIL") or line.startswith("  - ")
                 or line.startswith("        ")):
             print(line)
     if proc.returncode != 0 and "[TownForge]" not in output:

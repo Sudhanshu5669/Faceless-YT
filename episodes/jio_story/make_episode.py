@@ -218,6 +218,10 @@ reveals = [
      "at": A("m", [0.55, 1.35, 0.35]), "bob": 0.05, "spin": 40, "sound": "pop", "until": L("n1c", offset=0.3)},
     {"id": "lost_postcard", "t": W("n1c", "father"), "until": L("n1c", edge="end"), "exit": "drop", "shape": "postcard",
      "size": 0.38, "enter": "move", "from": [1.6, 0.5, 0], "enter_time": 1.3, "spin": 60, "at": A("m", [0.7, 1.3, 0.7])},
+    {"id": "missing_slot", "t": W("n1c", "one"), "until": L("n2"), "shape": "frame", "size": 0.5, "color": "#5fe3ff", "glow": 1.6,
+     "at": A("m", [-0.45, 0.82, 0.45]), "face": A("m", [0, 1.0, 4]), "sound": "pop"},
+    {"id": "missing_q", "t": W("n1c", "one", offset=0.15), "until": L("n2"), "text": "?", "color": "#5fe3ff", "glow": 1.6, "size": 0.26,
+     "at": A("m", [-0.45, 0.92, 0.47])},
     # tribute: the portrait and the scales
     {"id": "cabinet", "t": 0, "enter": "none", "shape": "box", "color": "#6a4028", "size": 0.6, "at": A("tribute.back", [0, 0, 0.3])},
     {"id": "portrait", "t": 0, "enter": "none", "shape": "frame", "size": 1.15, "at": A("tribute.back", [0, 0.62, 0.4])},
@@ -269,6 +273,13 @@ reveals = [
     {"id": "big_spinner", "t": L("n5c"), "until": L("n6a"), "shape": "spinner", "size": 0.36, "roll": 300,
      "at": A("y.head", [0, 0.42, 0]), "face": face_cam("street", 12)},
 ]
+SNAIL_MOVE = [{"t": W("n5a", "slow"), "until": L("n6a"), "by": [1.0, 0, 0]}]
+reveals += [
+    {"id": "snail", "t": W("n5a", "slow"), "until": L("n6a"), "shape": "snail", "size": 0.6, "at": S("street", -1.7, 0, 3.9),
+     "moves": SNAIL_MOVE, "sound": "pop"},
+    {"id": "snail_data", "t": W("n5a", "slow", offset=0.15), "until": L("n6a"), "shape": "box", "label": "DATA",
+     "label_color": "#0d2a4a", "color": "#5fe3ff", "glow": 0.7, "size": 0.2, "at": S("street", -1.73, 0.38, 3.9), "moves": SNAIL_MOVE},
+]
 CROWD_HEADS = [1, 4, 6, 9, 12, 14]
 for k, cid in enumerate(CROWD_HEADS):
     reveals.append({"id": f"spin_{cid}", "t": W("n5a", "slow", offset=0.07 * k), "until": L("n6a"), "shape": "spinner",
@@ -286,7 +297,7 @@ for k, (tid, name, sx, word, colr) in enumerate(TELCOS):
     if tid == "idea":
         merge = [{"t": W("n19c", "merge"), "by": [-1.05, 0, 0], "dur": 0.8}]
     reveals += [
-        {"id": f"tw_{tid}", "t": W("n6a", word), "shape": "tower", "size": 3.0, "color": "#d8dce4", "sound": "pop",
+        {"id": f"tw_{tid}", "t": W("n6a", word), "shape": "tower", "size": 3.0, "color": colr, "sound": "pop",
          "at": S("rivals", sx, 0, 0.4), "moves": merge},
         {"id": f"pl_{tid}", "t": W("n6a", word), "shape": "plaque", "label": name, "label_color": "#ffffff", "color": colr,
          "size": 1.1, "at": S("rivals", sx, 0.05, 1.15), "moves": merge},
@@ -296,6 +307,15 @@ for k, (tid, name, sx, word, colr) in enumerate(TELCOS):
         {"id": f"bag_{tid}", "t": W("n6a", "calls.", offset=0.08 * k - 0.25), "shape": "moneybag", "label": "MINUTES",
          "label_color": "#5a3a10", "size": 0.75, "enter": "drop", "at": S("rivals", sx + 0.85, 0, 1.0), "sound": "cash"},
     ]
+reveals += [
+    {"id": "meter", "t": W("n6a", "money"), "until": L("n6b"), "shape": "meter", "size": 0.8, "at": S("rivals", 0, 1.55, 2.6),
+     "sound": "click"},
+    {"id": "fare", "t": W("n6a", "money"), "until": L("n6b"), "at": S("rivals", 0, 1.62, 2.85), "size": 0.16, "color": "#ffe0d0",
+     "glow": 1.2, "counter": {"from": 0, "to": 9999, "prefix": "₹", "land": W("n6a", "calls."), "label": "PER MINUTE",
+                              "land_color": "#ffd84a"}},
+]
+sfx += [{"sound": "tick", "at": W("n6a", "money"), "repeat": 14, "every": 0.1, "gain": -10},
+        {"sound": "cash", "at": W("n6a", "calls.", edge="end"), "gain": -5}]
 # The small players behind (they fall in n19); they are there from the start.
 # A JIO bowling ball knocks them over, one per name, all toward screen right.
 SMALL = [("telenor", "TELENOR", -3.9, -2.2, -80, W("n19a", "exits.", occurrence=1)),
@@ -326,6 +346,8 @@ reveals += [
      "size": 0.22, "at": A("m3", [0, 1.72, 0.3]), "sound": "ding"},
     {"id": "map", "t": 0, "enter": "none", "shape": "india", "size": MAP_SIZE, "color": "#ff9a3c",
      "at": S("war_room", 0, 0, MAP_Z)},
+    {"id": "map_rim", "t": 0, "enter": "none", "shape": "india", "size": MAP_SIZE * 1.025, "color": "#6a2e10",
+     "at": S("war_room", 0, -0.012, MAP_Z)},
     {"id": "infotel", "t": W("n8b", "Infotel"), "until": L("n9a"), "shape": "box", "label": "INFOTEL", "label_color": "#ffffff",
      "color": "#7a5fd0", "size": 0.6, "at": on_map(78.5, 22.0), "sound": "pop"},
     {"id": "unknown_q", "t": W("n8b", "unknown"), "until": W("n8b", "Infotel"), "text": "?", "color": "#ffffff", "glow": 1.0,
@@ -370,13 +392,18 @@ reveals += [
     {"id": "loading", "t": W("n9b", "internet"), "until": L("n10b"), "at": S("home", -0.25, 1.05, 0.1), "size": 0.2,
      "color": "#ffffff", "counter": {"from": 0, "to": 3, "suffix": "%", "land": W("n9b", "house"), "label": "LOADING...",
                                      "land_color": "#ff4d5a"}},
-    {"id": "akash_phone", "t": W("n10a", "telecom"), "until": W("n10a", "anymore.", edge="end"), "exit": "pop", "shape": "phone",
-     "size": 0.34, "at": A("akash", [0.36, 0.8, 0.3]), "face": face_cam("home"), "sound": "pop"},
+    {"id": "bin", "t": 0, "enter": "none", "shape": "bin", "size": 0.55, "at": S("home", 2.05, 0, 0.7)},
+    {"id": "akash_phone", "t": W("n10a", "telecom"), "until": W("n10a", "anymore.", offset=0.55), "exit": "none", "shape": "phone",
+     "size": 0.34, "at": A("akash", [0.36, 0.8, 0.3]), "face": face_cam("home"), "sound": "pop",
+     "moves": [{"t": W("n10a", "anymore."), "by": [0.62, 0.55, 0.25], "dur": 0.27, "turn": 160},
+               {"t": W("n10a", "anymore.", offset=0.27), "by": [0.62, -0.9, 0.25], "dur": 0.27, "turn": 160}]},
     {"id": "calls_txt", "t": W("n10a", "calls"), "until": W("n10a", "anymore.", edge="end"), "exit": "pop", "text": "CALLS",
      "color": "#ffffff", "glow": 0.8, "size": 0.15, "at": A("akash", [0.3, 1.28, 0.3])},
     {"id": "data_big", "t": W("n10b", "data."), "shape": "box", "label": "DATA", "label_color": "#0d2a4a", "color": "#5fe3ff",
      "glow": 0.9, "size": 0.8, "enter": "rise", "at": S("home", 0.0, 0.9, -1.2), "spin": 20, "sound": "whoosh"},
 ]
+
+sfx.append({"sound": "thud", "at": W("n10a", "anymore.", offset=0.55), "gain": -6})
 
 # --- n11: oxygen (war room), everyone (street) ----------------------------------------------
 reveals += [
@@ -455,6 +482,15 @@ reveals += [
     {"id": "startup_txt", "t": W("n13c", "biggest"), "until": L("n14a"), "text": "WORLD'S BIGGEST STARTUP", "color": "#f2c230",
      "glow": 1.2, "size": 0.15, "at": A("m3", [0, 1.62, 0.25]), "sound": "ding"},
 ]
+for k in range(1, 5):
+    reveals.append({"id": f"receipt_{k}", "t": W("n13b", "one", offset=0.3 * k), "until": L("n14a"), "shape": "receipt",
+                    "size": 1.5, "enter": "rise", "enter_time": 0.35, "at": S("war_room", -0.9, 1.48 * k, -2.1)})
+reveals += [
+    {"id": "garage_tiny", "t": W("n13c", "call"), "until": L("n14a"), "shape": "garage", "size": 0.32, "label": "STARTUP",
+     "label_color": "#1b1b22", "at": A("m3", [-0.55, 0, 0.35]), "face": A("m3", [0, 1, 6]), "sound": "pop"},
+    {"id": "garage_giant", "t": W("n13c", "biggest"), "until": L("n14a"), "shape": "garage", "size": 3.4, "label": "STARTUP",
+     "label_color": "#1b1b22", "enter": "rise", "enter_time": 0.5, "at": S("war_room", 1.35, 0, -4.0), "sound": "whoosh"},
+]
 sfx += [{"sound": "tick", "at": W("n13a", "lay"), "repeat": 12, "every": 0.09, "gain": -11},
         {"sound": "ding", "at": W("n13a", "lakh", edge="end"), "gain": -6},
         {"sound": "tick", "at": W("n13b", "bill:"), "repeat": 14, "every": 0.09, "gain": -11},
@@ -465,7 +501,7 @@ reveals += [
     {"id": "launch_date", "t": W("n14a", "September"), "until": L("n14b"), "text": "5 SEP 2016", "color": "#ffffff", "glow": 1.0,
      "size": 0.32, "at": S("launch", 0, 2.25, -0.6), "sound": "pop"},
     {"id": "jio_neon", "t": W("n14a", "Jio."), "text": "JIO", "color": "#3d7bff", "glow": 2.2, "size": 1.3, "enter": "beam",
-     "at": S("launch", 0, 3.0, -2.6), "sound": "sting"},
+     "at": S("launch", 0, 3.6, -3.0), "sound": "sting"},
 ]
 for k, (word, sx, shape, extra) in enumerate([("Calls.", -1.15, "phone", {"color": "#16181d"}),
                                               ("Data.", 0.0, "box", {"label": "DATA", "label_color": "#0d2a4a", "color": "#5fe3ff", "glow": 0.6}),
@@ -480,13 +516,15 @@ reveals += [
     {"id": "everything_free", "t": W("n14b", "free."), "until": W("n14b", "Data."), "text": "FREE!", "color": "#7cff6b",
      "glow": 1.4, "size": 0.5, "at": S("launch", 0, 2.0, 0.6), "sound": "ding"},
     # n17: Mukesh fires free phones into the crowd, then the JioPhone and its price falling to zero.
+    {"id": "phone_stand", "t": W("n17a", "phone."), "until": L("n18a"), "shape": "box", "color": "#2a2f6e", "size": 0.5,
+     "enter": "rise", "at": S("launch.pedestal", 0, 0, 0)},
     {"id": "jiophone", "t": W("n17a", "phone."), "until": L("n18a"), "shape": "phone", "size": 1.0, "color": "#1b2a6a",
-     "enter": "drop", "at": S("launch.pedestal", 0, 0, 0), "face": face_cam("launch", 8), "sound": "thud"},
+     "enter": "drop", "at": S("launch.pedestal", 0, 0.5, 0), "face": face_cam("launch", 8), "sound": "thud"},
     {"id": "insane_txt", "t": W("n17a", "insane"), "until": L("n17b"), "text": "INSANE", "color": "#ff4d5a", "glow": 1.3,
      "size": 0.45, "at": S("launch", 0, 1.75, 1.2), "sound": "sting"},
     {"id": "jiophone_name", "t": W("n17b", "JioPhone,"), "until": L("n18a"), "text": "JIOPHONE", "color": "#3d7bff", "glow": 1.2,
-     "size": 0.26, "at": S("launch", 0, 2.05, 0.9), "sound": "pop"},
-    {"id": "phone_price", "t": W("n17b", "JioPhone,"), "until": L("n18a"), "at": S("launch", 0, 1.3, 0.9), "size": 0.38,
+     "size": 0.26, "at": S("launch", 0, 2.95, 0.9), "sound": "pop"},
+    {"id": "phone_price", "t": W("n17b", "JioPhone,"), "until": L("n18a"), "at": S("launch", 0, 2.15, 0.9), "size": 0.38,
      "color": "#ffffff", "counter": {"from": 1500, "to": 0, "prefix": "₹", "land": W("n17b", "zero."), "label": "PRICE",
                                      "land_color": "#7cff6b"}},
     # n20: the podium, Jio on top, a crown.
@@ -532,11 +570,11 @@ for j in range(10):
     side = -1 if j % 2 == 0 else 1
     dx = 0.85 * side + 1.75 + (j % 3 - 1) * 0.45                      # world metres from Mukesh to the audience
     t0 = round(0.11 * j, 3)
-    reveals.append({"id": f"flying_phone_{j}", "t": W("n17a", "give", offset=t0), "until": W("n17a", "give", offset=t0 + 0.8),
-                    "exit": "pop", "shape": "phone", "size": 0.3, "color": "#1b2a6a", "enter_time": 0.1, "spin": 540,
+    reveals.append({"id": f"flying_phone_{j}", "t": W("n17a", "give", offset=t0), "until": W("n17a", "give", offset=t0 + 0.84),
+                    "exit": "pop", "shape": "phone", "size": 0.45, "color": "#1b2a6a", "enter_time": 0.1, "spin": 400,
                     "at": S("launch", -1.75, 1.15, 1.6),
-                    "moves": [{"t": W("n17a", "give", offset=t0), "by": [dx * 0.5, 1.5, 0.75], "dur": 0.4},
-                              {"t": W("n17a", "give", offset=t0 + 0.4), "by": [dx * 0.5, -1.3, 0.75], "dur": 0.4}]})
+                    "moves": [{"t": W("n17a", "give", offset=t0), "by": [dx * 0.5, 1.6, 0.75], "dur": 0.42},
+                              {"t": W("n17a", "give", offset=t0 + 0.42), "by": [dx * 0.5, -1.3, 0.75], "dur": 0.42}]})
 sfx += [{"sound": "whoosh", "at": W("n17a", "give", offset=0.1 * j), "gain": -10} for j in range(0, 10, 3)]
 sfx += [{"sound": "tick", "at": W("n17b", "JioPhone,"), "repeat": 14, "every": 0.11, "gain": -11},
         {"sound": "ding", "at": W("n17b", "zero.", edge="end"), "gain": -6},
@@ -552,10 +590,17 @@ reveals += [
      "size": 0.32, "at": S("street", 0, 1.85, 1.6), "sound": "pop"},
     {"id": "days170", "t": W("n15b", "170"), "until": L("n15c"), "text": "IN 170 DAYS", "color": "#f2c230", "glow": 1.0,
      "size": 0.32, "at": S("street", 0, 1.85, 1.6), "sound": "pop"},
-    {"id": "per_sec", "t": W("n15c", "seven"), "until": L("n16a"), "at": S("street", 0, 3.35, 2.4), "size": 0.5,
+    {"id": "clock", "t": L("n15c"), "until": L("n16a"), "shape": "clock", "size": 0.62, "at": S("street", -0.72, 3.35, 2.4),
+     "sound": "pop"},
+    {"id": "clock_hand", "t": L("n15c"), "until": L("n16a"), "shape": "clock_hand", "size": 0.62, "roll": 360,
+     "at": S("street", -0.72, 3.35, 2.4)},
+    {"id": "per_sec", "t": W("n15c", "seven"), "until": L("n16a"), "at": S("street", 0.55, 3.1, 2.4), "size": 0.42,
      "color": "#ffffff", "counter": {"keys": [[W("n15c", "seven"), 0], [W("n15c", "seven", edge="end"), 7],
                                               [W("n15c", "customers"), 14], [W("n15c", "every"), 21], [W("n15c", "second."), 28]],
                                      "prefix": "+", "label": "+7 EVERY SECOND"}},
+    {"id": "rocket", "t": W("n18a", "crashes"), "until": W("n18a", "crashes", offset=1.1), "shape": "rocket", "size": 1.0,
+     "tilt": -90, "enter_time": 0.05, "at": S("street", -5.5, 1.6, 3.2), "sound": "whoosh",
+     "moves": [{"t": W("n18a", "crashes"), "by": [11.0, 0.8, 0], "dur": 1.1}]},
     {"id": "crash_price", "t": L("n18a"), "until": L("n18b"), "at": S("street", 0, 2.3, 2.0), "size": 0.75, "color": "#ffffff",
      "counter": {"from": 250, "to": 18, "prefix": "₹", "land": W("n18a", "20."), "label": "PER GB", "land_color": "#7cff6b"}},
     {"id": "nation_map", "t": 0, "enter": "none", "shape": "india", "size": 16.0, "color": "#ff9a3c", "glow": 0.25,
@@ -650,6 +695,8 @@ reveals += [
      "at": A("tribute", [-0.45, 0.82, 1.25]), "sound": "ding"},
     {"id": "jio_word", "t": W("n24a", "Jio."), "text": "JIO", "color": "#1f4fd8", "glow": 0.4, "size": 0.5,
      "at": A("mt", [0, 1.55, 0.2]), "sound": "pop"},
+    {"id": "loop_phone", "t": L("n24b"), "shape": "phone", "size": 0.24, "color": "#1b2a6a", "at": A("m.hand", [0, 0, 0.06]),
+     "face": A("m", [0, 1.3, 4])},
     {"id": "jiyo", "t": W("n24b", "Hindi,"), "text": "जियो", "color": "#ffd84a", "glow": 1.5, "size": 0.9,
      "at": A("empire", [0, 4.7, 0.4]), "sound": "pop"},
     {"id": "live", "t": W("n24b", "live\"."), "text": "= LIVE", "color": "#5fe3ff", "glow": 1.5, "size": 0.7,
@@ -658,11 +705,19 @@ reveals += [
 
 FANS = ["toon_you", "toon_partner", "toon_redhead", "toon_nerd", "toon_founder", "toon_scientist_b"]
 
+for k in range(26):
+    x = -4.2 + (k * 0.37) % 8.4
+    z = -1.5 + (k * 0.61) % 4.0
+    t0 = round(0.06 * k, 3)
+    reveals.append({"id": f"lantern_{k}", "t": W("n24b", "Hindi,", offset=t0), "shape": "sphere", "size": 0.3 + 0.08 * (k % 3),
+                    "color": "#ffb347", "glow": 2.2, "at": S("empire", x, 0.4 + (k % 4) * 0.3, z),
+                    "moves": [{"t": W("n24b", "Hindi,", offset=t0), "by": [0.3 * ((k % 5) - 2), 7.5, 0], "dur": 3.2}]})
+
 ep = {
     "schema_version": "0.1", "id": "jio_story", "title": "How Mukesh Ambani built Jio",
     "description": "Toon Short: the story of Jio, in 24 lines (script.md).",
     "set": "specs/sets/jio_stage.json", "look": "neon_night",
-    "format": {"resolution": [1080, 1920], "fps": 30, "motion_blur": 3},
+    "format": {"resolution": [1080, 1920], "fps": 60, "motion_blur": 3},
     "narration": {"voice": "Puck", "style": "fast, punchy, confident YouTube Shorts explainer narrator, playful and a little cheeky",
                   "speed": 1.08, "model": "gemini-3.8-flash-tts", "single_take": True,
                   "script": [t for _, t, _ in lines]},
@@ -724,7 +779,8 @@ ep = {
         {"id": "akash", "character": "toon_akash", "at": S("home", 1.15, 0, -0.1), "facing": face_cam("home", 6), "cues": [
             {"t": 0, "expression": "deadpan"}, {"t": W("n9b", "sucks.\""), "expression": "laugh"},
             {"t": W("n10a", "adds:"), "expression": "thinking", "action": "talk"},
-            {"t": W("n10a", "anymore."), "expression": "side_eye"}, {"t": W("n10b", "data."), "expression": "star_eyes"}]},
+            {"t": W("n10a", "anymore.", offset=-0.25), "action": "throw"}, {"t": W("n10a", "anymore."), "expression": "side_eye"},
+            {"t": W("n10b", "data."), "expression": "star_eyes", "action": "idle"}]},
         # The field: Mukesh in front of the towers.
         # Shoves the first 2G tower (dominoes), then walks to his mark to send a call.
         {"id": "mf", "character": "toon_mukesh", "at": S("field", -4.35, 0, 0.0), "facing": S("field", -3.6, 1.0, 0.0),
@@ -757,7 +813,7 @@ ep = {
          "crowd": {"count": 110, "radius": 8.0, "shape": "india", "spacing": 0.8, "characters": FANS, "seed": 3},
          "cues": [{"t": 0, "expression": "happy"}, {"t": W("n22", "Jio."), "expression": "cheer"}]},
         # The regulator's office.
-        {"id": "reg", "character": "toon_agent", "at": S("court", 0, 0, -1.9), "facing": face_cam("court", 8), "cues": [
+        {"id": "reg", "character": "toon_official", "at": S("court", 0, 0, -1.9), "facing": face_cam("court", 8), "cues": [
             {"t": 0, "expression": "deadpan"}, {"t": W("n16a", "crying"), "expression": "side_eye"},
             {"t": W("n16a", "pricing.", offset=-0.25), "action": "hit"}, {"t": W("n16b", "say"), "action": "idle"},
             {"t": W("n16b", "dropping"), "expression": "surprised"}]},
@@ -796,7 +852,7 @@ ep = {
          "camera": move(cam(A("tribute", [0, 1.5, 5.4]), A("tribute", [0, 1.05, -0.9]), 52),
                         cam(A("tribute", [0, 1.3, 4.3]), A("tribute", [0, 0.95, -0.5]), 52))},
         {"name": "split", "duration": fit(0.2), "whip_in": "right",
-         "camera": move(cam(A("split", [0, 1.7, 6.0]), A("split", [0, 0.85, -0.3]), 30), cam(A("split", [0, 1.5, 4.9]), A("split", [0, 0.85, -0.3]), 30))},
+         "camera": move(cam(A("split", [0, 1.7, 6.0]), A("split", [0, 0.85, -0.3]), 30), cam(A("split", [0, 1.25, 3.0]), A("split", [0, 0.85, 0]), 32))},
         {"name": "anil_phone", "duration": fit(),
          "camera": move(cam(A("a", [0.3, 1.4, 2.4]), A("a", [0, 0.95, 0]), 35), cam(A("a", [0.25, 1.35, 2.0]), A("a", [0, 0.95, 0]), 35))},
         {"name": "no_telecom", "duration": fit(0.35), "whip_out": "left",
@@ -808,7 +864,7 @@ ep = {
         {"name": "price", "duration": fit(0.15),
          "camera": move(cam(A("street", [0, 2.6, 7.8]), "price", 30), cam(A("street", [0, 2.5, 5.4]), "price", 30))},
         {"name": "buffer", "duration": fit(0.6, 1.4), "whip_out": "right",
-         "camera": move(cam(A("y", [0, 1.1, 2.1]), "y.head", 38), cam(A("y", [0, 1.12, 1.5]), "y.head", 40))},
+         "camera": move(cam(A("y", [0, 1.1, 2.1]), "y.head", 38), cam(A("y", [0.3, 0.85, 2.6]), A("y", [0.4, 0.55, 0]), 30))},
         # n6 the durbar
         {"name": "rivals", "duration": "fit", "whip_in": "right",
          "camera": move(cam(S("rivals", 0, 2.2, 10.5), S("rivals", 0, 1.9, 0), 28), cam(S("rivals", 0, 2.0, 8.6), S("rivals", 0, 1.9, 0.4), 28))},
@@ -832,7 +888,7 @@ ep = {
         {"name": "sucks", "duration": "fit",
          "camera": move(cam(S("home", -0.75, 1.2, 2.9), S("home", -0.75, 1.0, 0), 32), cam(S("home", -0.75, 1.15, 2.4), S("home", -0.75, 1.0, 0), 32))},
         {"name": "akash", "duration": "fit",
-         "camera": move(cam(A("akash", [0.25, 1.25, 2.7]), A("akash", [0.25, 1.0, 0]), 35), cam(A("akash", [0.22, 1.2, 2.2]), A("akash", [0.22, 1.05, 0]), 35))},
+         "camera": move(cam(A("akash", [-0.3, 1.2, 3.0]), A("akash", [-0.3, 0.95, 0]), 32), cam(A("akash", [-0.4, 1.1, 2.6]), A("akash", [-0.4, 0.8, 0.2]), 32))},
         {"name": "data_box", "duration": "fit",
          "camera": move(cam(S("home", 0.3, 1.2, 3.4), S("home", 0.2, 1.15, -0.8), 30), cam(S("home", 0.2, 1.3, 4.0), S("home", 0.1, 1.35, -0.9), 28))},
         # n11
@@ -851,9 +907,9 @@ ep = {
         {"name": "fibre", "duration": "fit",
          "camera": move(cam(S("war_room", -0.6, 1.8, 3.3), S("war_room", -0.6, 1.45, -1.0), 30), cam(S("war_room", -0.6, 1.9, 2.5), S("war_room", -0.6, 1.65, -1.0), 32))},
         {"name": "bill", "duration": "fit",
-         "camera": move(cam(S("war_room", -0.2, 1.4, 3.6), S("war_room", -0.2, 1.1, -2.0), 30), cam(S("war_room", -0.2, 1.3, 2.6), S("war_room", -0.2, 1.15, -2.0), 32))},
+         "camera": move(cam(S("war_room", -0.4, 1.4, 3.6), S("war_room", -0.5, 1.2, -2.0), 30), cam(S("war_room", -0.5, 1.2, 3.8), S("war_room", -0.7, 3.4, -2.0), 26))},
         {"name": "startup", "duration": "fit",
-         "camera": move(cam(A("m3", [0, 1.4, 2.4]), A("m3", [0, 1.3, 0]), 32), cam(A("m3", [0, 1.35, 3.2]), A("m3", [0, 1.4, 0]), 30))},
+         "camera": move(cam(A("m3", [-0.2, 1.3, 2.4]), A("m3", [-0.2, 1.1, 0]), 32), cam(A("m3", [0, 1.7, 5.6]), A("m3", [0, 1.7, -1.6]), 26))},
         # n14 launch
         {"name": "launch", "duration": "fit", "whip_in": "up",
          "camera": move(cam(S("launch", -0.6, 1.4, 7.0), S("launch", -0.4, 1.9, -0.5), 26), cam(S("launch", -0.5, 1.3, 6.0), S("launch", -0.3, 2.2, -0.8), 26))},
@@ -865,7 +921,7 @@ ep = {
         {"name": "join100", "duration": "fit",
          "camera": move(cam(S("street", 0, 3.2, 9.6), S("street", 0, 2.3, 1.2), 26), cam(S("street", 0, 4.8, 12.5), S("street", 0, 2.0, 0.5), 24))},
         {"name": "seven", "duration": "fit", "whip_out": "right",
-         "camera": move(cam(S("street", 0, 2.1, 7.0), S("street", 0, 2.1, 2.4), 30), cam(S("street", 0, 2.2, 6.0), S("street", 0, 2.3, 2.4), 30))},
+         "camera": move(cam(S("street", 0, 2.3, 7.0), S("street", 0, 2.4, 2.4), 30), cam(S("street", 0, 2.4, 6.0), S("street", 0, 2.6, 2.4), 30))},
         # n16 the regulator
         {"name": "regulator", "duration": "fit", "whip_in": "right",
          "camera": move(cam(S("court", -1.6, 1.5, 5.6), S("court", -1.8, 1.1, 1.0), 28), cam(S("court", -1.2, 1.35, 4.0), S("court", -1.2, 1.2, 0.8), 30))},
@@ -883,7 +939,7 @@ ep = {
          "camera": move(cam(S("war_room", 0, 5.0, 7.0), S("war_room", 0, 0.4, 0.0), 26), cam(S("war_room", 0, 6.6, 6.6), S("war_room", 0, 0.8, -0.4), 26))},
         # n19 the durbar falls
         {"name": "exits", "duration": "fit", "whip_in": "right",
-         "camera": move(cam(S("rivals", -1.2, 2.0, 6.2), S("rivals", -1.2, 0.6, -1.8), 26), cam(S("rivals", 1.6, 2.0, 6.0), S("rivals", 1.6, 0.6, -1.8), 26))},
+         "camera": move(cam(S("rivals", -6.3, 0.9, -0.55), S("rivals", -3.0, 0.5, -1.7), 30), cam(S("rivals", 0.6, 1.2, -0.45), S("rivals", 4.2, 0.5, -1.8), 28))},
         {"name": "rcom", "duration": "fit",
          "camera": move(cam(S("rivals", 4.3, 1.5, 3.8), S("rivals", 4.3, 0.9, -1.4), 30), cam(S("rivals", 4.4, 1.4, 3.0), S("rivals", 4.4, 0.9, -1.4), 32))},
         {"name": "merge", "duration": "fit", "whip_out": "up",
