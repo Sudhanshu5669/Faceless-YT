@@ -55,6 +55,10 @@ These come from the user's own feedback; they override defaults. Details in `HAN
    a free Godot add-on (Godot Asset Library, MIT/CC0) or a CC0 asset pack (Kenney, Quaternius, Poly
    Pizza CC0) before writing one. Check the licence allows commercial video, keep its LICENSE, and
    ask the user before downloading (list name, source, size, licence). Build from primitives last.
+9. **Never be lazy about places** (user, 2026-11-12). Every beat happens where the story says it
+   happens (the TELECOM door is in Reliance Infocomm's lobby, not the family dining room that
+   already existed). Build a new bay (set) and dress it (sign, brand colours, furniture from
+   `tf props`) for each new place; reuse a set only for a deliberate callback or the same scene.
 
 ## Commands
 

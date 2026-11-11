@@ -73,7 +73,11 @@ the sky, `library:balloon`), shot 4 `tribute` (`library:balance_scale`: phone pa
 above the 50-paise postcard on "less") and shot 18 `buy95` (cash cannon pilot) are rendered and pass the framing
 check; waiting for the user's verdicts. Also done: shot 5 `split` (tug-of-war over the cake, `toon_kokilaben` referees with a whistle; sfx
 `whistle`, `rip`), shot 6 `anil_phone` (Anil walks off with his half crowned by the Infocomm tower).
-Continue in story order from shot 7 `no_telecom` (gags.md #7: the TELECOM door slams, he splats flat).
+Shots 7 `no_telecom` + 15 `deal_ends`: a new bay `infocomm` (Reliance Infocomm's lobby: blue panels,
+brand sign + slogan, planters) with `library:door` (TELECOM / ANIL ONLY slams + padlock; in 2010 the
+lock pops and it swings open). The user's rule: never park a beat in an existing set (AGENTS rule 9).
+The catalog lacks modern office furniture: propose Kenney "Furniture Kit" (CC0) to the user.
+Continue in story order from shot 8 `watch` (gags.md #8: newspaper with eye-holes + binoculars).
 The framing check now ignores whip-pan and iris moments.
 
 ### Gags: built (2026-11-12) — read docs/GAGS_SPEC.md

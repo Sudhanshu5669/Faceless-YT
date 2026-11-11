@@ -241,6 +241,31 @@
           "mood": "dramatic"
         },
         {
+          "id": "infocomm",
+          "floor": "marble",
+          "floor_colors": [
+            "#4a5062",
+            "#262a36"
+          ],
+          "wall": "panels",
+          "wall_color": "#1c2f6e",
+          "neon": [
+            "strip"
+          ],
+          "neon_colors": [
+            "#e8343c",
+            "#5fe3ff"
+          ],
+          "size": [
+            9,
+            7
+          ],
+          "sides": true,
+          "light": "#f4f0ff",
+          "note": "Reliance Infocomm's lobby (2005-2010): the TELECOM door Mukesh is locked out of",
+          "mood": "dramatic"
+        },
+        {
           "id": "nation",
           "floor": "marble",
           "floor_colors": [
@@ -496,6 +521,27 @@
         },
         "look_at": {
           "anchor": "office",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "infocomm",
+        "t": 1,
+        "at": {
+          "anchor": "infocomm",
+          "offset": [
+            0,
+            2.6,
+            6.3
+          ]
+        },
+        "look_at": {
+          "anchor": "infocomm",
           "offset": [
             0,
             1.0,

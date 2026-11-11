@@ -39,6 +39,9 @@ bays = [
     {"id": "office", "floor": "wood", "floor_colors": ["#6a4a34", "#4e3626"], "wall": "haveli", "wall_color": "#33465e",
      "neon": [], "neon_colors": ["#5fe3ff", "#ffd84a"], "size": [8, 7], "sides": True, "light": "#ffe7c4",
      "note": "Infotel's tiny office: the cash-cannon buyout (gag pilot)"},
+    {"id": "infocomm", "floor": "marble", "floor_colors": ["#4a5062", "#262a36"], "wall": "panels", "wall_color": "#1c2f6e",
+     "neon": ["strip"], "neon_colors": ["#e8343c", "#5fe3ff"], "size": [9, 7], "sides": True, "light": "#f4f0ff",
+     "note": "Reliance Infocomm's lobby (2005-2010): the TELECOM door Mukesh is locked out of"},
     {"id": "nation", "floor": "marble", "floor_colors": ["#2a2238", "#4a3a5a"], "wall": "none", "neon": [],
      "neon_colors": ["#5fe3ff", "#ff4fd8"], "size": [26, 26], "light": "#ffe7c4",
      "note": "524 million: the crowd stands in the shape of India, seen from above"},
@@ -210,6 +213,8 @@ sfx = [
     {"sound": "tick", "at": L("n5b"), "repeat": 10, "every": 0.09, "gain": -10},
     {"sound": "ding", "at": W("n5b", "250", edge="end"), "gain": -6},
     {"sound": "thud", "at": W("n3a", "splits"), "gain": -8},
+    {"sound": "thud", "at": W("n3c", "telecom."), "gain": -3}, {"sound": "click", "at": W("n3c", "telecom.", offset=0.4), "gain": -4},
+    {"sound": "click", "at": W("n8a", "Anil"), "gain": -4}, {"sound": "creak", "at": W("n8a", "ends."), "gain": -8},
     {"sound": "whistle", "at": W("n3a", "splits", offset=-0.35), "gain": -9},
     {"sound": "rip", "at": W("n3a", "splits"), "gain": -5},
 ]
@@ -262,11 +267,8 @@ reveals = [
     {"id": "anil_infocomm", "t": W("n3b", "company,"), "until": L("n4"), "text": "INFOCOMM", "color": "#d6453d", "glow": 0.6,
      "size": 0.1, "at": A("a.hand", [0, 0.68, 0.12])},
     # 2010: the deal ends, the sign falls over.
-    {"id": "no_telecom", "t": W("n3c", "stay"), "shape": "sign", "label": "NO TELECOM", "label_color": "#c0262d", "size": 0.85,
-     "enter": "rise", "at": A("m2", [-0.9, 0, 0.15]), "face": face_cam("split"), "sound": "pop",
-     "moves": [{"t": W("n8a", "ends."), "tip": -82, "dur": 0.7}]},
-    {"id": "y2010", "t": W("n8a", "2010,"), "text": "2010", "color": "#5fe3ff", "glow": 1.2, "size": 0.26,
-     "at": A("m2", [0.0, 1.62, 0.1]), "sound": "pop"},
+    {"id": "y2010", "t": W("n8a", "2010,"), "text": "2010", "color": "#5fe3ff", "glow": 1.2, "size": 0.3,
+     "at": S("infocomm", 0, 3.05, -2.9), "sound": "pop"},
     # watch: binoculars
     {"id": "binoculars", "t": L("n4", offset=-0.05), "until": L("n5a"), "shape": "binoculars", "size": 0.626, "enter": "pop",
      "enter_time": 0.2, "at": "m.face", "face": A("m", [0, 1.3, 4])},
@@ -377,6 +379,21 @@ sfx += [{"sound": "tick", "at": W("n8c", "wins", offset=0.2), "repeat": 12, "eve
         {"sound": "ding", "at": W("n8c", "22", edge="end"), "gain": -6}]
 sfx.append({"sound": "ding", "at": W("n8d", "95", edge="end"), "gain": -6})
 
+# --- Shots 7 + 15: Reliance Infocomm's lobby: the TELECOM door, the brand sign, planters ---------
+reveals += [
+    {"id": "infocomm_sign", "t": 0, "enter": "none", "shape": "plaque", "label": "RELIANCE INFOCOMM", "label_color": "#ffffff",
+     "color": "#c8202a", "size": 2.4, "at": S("infocomm", 0, 2.55, -3.2)},
+    {"id": "infocomm_tag", "t": 0, "enter": "none", "text": "Kar lo duniya mutthi mein", "color": "#5fe3ff", "glow": 0.9,
+     "size": 0.13, "at": S("infocomm", 0, 2.3, -3.1)},
+]
+for k, sx in enumerate([-1.35, 1.35]):
+    reveals += [
+        {"id": f"lobby_planter_{k}", "t": 0, "enter": "none", "prop": "kenney_suburban/planter", "size": 0.75,
+         "at": S("infocomm", sx, 0, -2.85)},
+        {"id": f"lobby_tree_{k}", "t": 0, "enter": "none", "prop": "kenney_suburban/tree-small", "size": 1.5,
+         "at": S("infocomm", sx, 0.22, -2.85)},
+    ]
+
 # --- n8d PILOT: Mukesh fires a cash cannon into Infotel's office; the money buries the rep ------
 reveals += [
     {"id": "inf_desk", "t": 0, "enter": "none", "prop": "quaternius_fantasy_props/Table_Large", "size": 1.8,
@@ -405,6 +422,11 @@ GAGS = [
                 "left": {"shape": "postcard", "size": 0.3, "color": "#f6ecd2", "t": L("n2"), "label": "50 PAISE"},
                 "right": {"shape": "phone", "size": 0.26, "color": "#16181d", "t": W("n2", "phone")},
                 "tilt": [[0, 0], [W("n2", "phone", offset=0.3), 24], [W("n2", "less"), -16], [W("n23b", "free."), -34]]}},
+    # Shot 7 (and 15): the TELECOM door slams in his face and padlocks; in 2010 the lock pops and it flies open.
+    {"id": "door", "script": "library:door", "t": 0, "at": S("infocomm", 0, 0, -2.55), "face": S("infocomm", 0, 1, 6),
+     "params": {"label": "TELECOM|ANIL ONLY", "start_open": True, "close": W("n3c", "telecom."),
+                "lock": W("n3c", "telecom.", offset=0.35), "unlock": W("n8a", "Anil"), "open": W("n8a", "ends."),
+                "width": 0.95, "height": 2.0}},
     {"id": "cannon", "script": "gags/cash_cannon.gd", "t": L("n8d"), "until": L("n9a"), "at": S("office", 0.25, 0, 2.5),
      "face": "rep", "params": {"roll_in": W("n8d", "you"), "roll_from": [0, 0, -2.2], "roll_time": 0.7,
                                "shots": {"from": W("n8d", "buy"), "until": W("n8d", "percent"), "every": 0.14}}},
@@ -776,8 +798,15 @@ ep = {
         {"id": "m2", "character": "toon_mukesh", "at": A("split", [-0.6, 0, -0.85]), "facing": face_cam("split", 3), "cues": [
             {"t": 0, "expression": "happy"}, {"t": L("n3a"), "expression": "determined"},
             {"t": W("n3a", "splits"), "expression": "shocked", "action": "knocked_back"}, {"t": L("n3b"), "action": "idle"},
-            {"t": W("n3c", "agree"), "expression": "sad"}, {"t": W("n3c", "telecom."), "expression": "deadpan"},
-            {"t": W("n8a", "deal"), "expression": "side_eye"}, {"t": W("n8a", "ends."), "expression": "grin"}]},
+            {"t": W("n3c", "agree"), "expression": "sad"}]},
+        # Shots 7 + 15: Mukesh at Reliance Infocomm's door.
+        {"id": "m7", "character": "toon_mukesh", "at": S("infocomm", -2.7, 0, 0.7), "facing": S("infocomm", 0, 1, -2.5),
+         "route": {"via": [S("infocomm", 0, 0, -1.7)], "gait": "walk", "start": L("n3c"), "arrive": W("n3c", "stay"),
+                   "then": "idle", "then_facing": S("infocomm", 0, 1.0, -2.6)}, "cues": [
+            {"t": 0, "expression": "sad"}, {"t": W("n3c", "stay"), "expression": "nervous"},
+            {"t": W("n3c", "telecom.", offset=0.05), "expression": "shocked", "action": "knocked_back"},
+            {"t": L("n4"), "expression": "deadpan", "action": "idle"},
+            {"t": W("n8a", "deal"), "expression": "side_eye"}, {"t": W("n8a", "ends."), "expression": "grin", "action": "jump"}]},
         {"id": "a", "character": "toon_anil", "at": A("split", [0.6, 0, -0.85]), "facing": face_cam("split", 3),
          "route": {"via": [S("split", -2.0, 0, -0.25)], "gait": "walk_carry", "start": W("n3b", "gets"), "arrive": L("n3c"),
                    "then": "idle", "then_facing": face_cam("split", 6)}, "cues": [
@@ -908,7 +937,7 @@ ep = {
         {"name": "anil_phone", "duration": fit(),
          "camera": move(cam(S("split", -0.5, 1.25, 2.4), S("split", -0.6, 1.0, -0.8), 34), cam(S("split", -1.5, 1.25, 2.3), S("split", -1.9, 1.0, -0.35), 34))},
         {"name": "no_telecom", "duration": fit(0.35), "whip_out": "left",
-         "camera": move(cam(A("m2", [-0.5, 1.05, 3.0]), A("m2", [-0.45, 0.85, 0]), 30), cam(A("m2", [-0.45, 1.05, 2.6]), A("m2", [-0.45, 0.85, 0]), 30))},
+         "camera": move(cam(S("infocomm", 1.25, 1.3, 3.0), S("infocomm", -0.25, 1.1, -1.5), 28), cam(S("infocomm", 0.8, 1.25, 2.1), S("infocomm", 0, 1.1, -1.9), 28))},
         {"name": "watch", "duration": fit(0.35, 1.3), "whip_in": "left",
          "camera": move(cam(A("m", [0.25, 1.18, 1.9]), "m.head", 40), cam(A("m.face", [0, 0, 0.42]), "m.face", 45), "in")},
         {"name": "street_2g", "duration": fit(0.15), "iris_in": "binoculars",
@@ -927,7 +956,7 @@ ep = {
          "camera": move(cam(A("m3", [0, 1.15, 3.0]), "m3.head", 35), cam(A("m3", [0, 1.12, 1.6]), "m3.head", 40))},
         # n8
         {"name": "deal_ends", "duration": "fit", "whip_in": "left",
-         "camera": move(cam(A("m2", [-0.45, 1.15, 3.4]), A("m2", [-0.45, 0.95, 0]), 30), cam(A("m2", [-0.45, 1.1, 2.8]), A("m2", [-0.45, 0.9, 0]), 30))},
+         "camera": move(cam(S("infocomm", 1.4, 1.4, 2.7), S("infocomm", 0, 1.3, -2.2), 28), cam(S("infocomm", 1.15, 1.35, 2.2), S("infocomm", 0, 1.3, -2.3), 28))},
         {"name": "infotel", "duration": "fit",
          "camera": move(cam(S("war_room", 0, 6.4, 6.2), S("war_room", 0, 0, 0.2), 26), cam(S("war_room", 0, 5.0, 5.0), on_map(78.5, 22.0), 28))},
         {"name": "circles", "duration": "fit",
