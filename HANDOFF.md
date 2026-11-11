@@ -48,6 +48,13 @@ Comparison with the reference (frames side by side) showed the gap is craft, not
    shrug, cheer, throw) + mouth flap on words, a 2D overlay layer (viewfinder/HUD cards), particle
    bursts. Prove 1+2 on shots 1-2 first, show before/after, then continue the shot loop.
 
+### The gag script: `episodes/jio_story/gags.md` (2026-11-12) — THE PLAN
+One gag per narration segment (52), narration unchanged (cached take). Each row: the gag, on which
+word, and the gag code it needs (library vs episode); a build order for the gag library; the real
+logos/posts to fetch (ask the user before downloading, sources in library/logos/SOURCES.md; verify
+quotes). Waiting for the user's notes on it; then build the gag library in that order and redo the
+shots one at a time in the shot loop.
+
 ### Gags: built (2026-11-12) — read docs/GAGS_SPEC.md
 Episodes can now ship custom GDScript set pieces (`"gags"` in episode.json; `godot/scripts/timeline/
 gags.gd` loads `episodes/<id>/gags/*.gd` or `library:<name>`; `build()` + `pose(t)` pure in time;
