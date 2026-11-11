@@ -43,8 +43,10 @@ bays = [
      "neon": [], "neon_colors": ["#ffd27a", "#ff9ad5"], "size": [10, 7], "sides": True, "light": "#fff1dc",
      "note": "The regulator's office: rivals crying predatory pricing"},
 ]
+for _b in bays:
+    _b["mood"] = "dramatic"
 spec = {"schema_version": "0.1", "set": {"id": "jio_stage", "generator": "stage", "seed": 11, "params": {"bays": bays}},
-        "look": "neon_night",
+        "look": "toon_drama",
         "preview": {"resolution": [540, 960], "views": [
             {"name": b["id"], "t": 1, "at": {"anchor": b["id"], "offset": [0, 2.6, b["size"][1] * 0.9]},
              "look_at": {"anchor": b["id"], "offset": [0, 1.0, 0]}, "lens_mm": 26} for b in bays]}}
@@ -78,7 +80,8 @@ def S(anchor, sx, up, fwd):
 
 
 def cam(at, look, lens=35):
-    return {"at": at, "look_at": look, "lens_mm": lens}
+    # Depth of field on every shot: the background softens, the subject pops (reference look).
+    return {"at": at, "look_at": look, "lens_mm": lens, "dof": {"strength": 0.45}}
 
 
 def move(a, b, ease="in_out"):
@@ -722,7 +725,7 @@ for k in range(26):
 ep = {
     "schema_version": "0.1", "id": "jio_story", "title": "How Mukesh Ambani built Jio",
     "description": "Toon Short: the story of Jio, in 24 lines (script.md).",
-    "set": "specs/sets/jio_stage.json", "look": "neon_night",
+    "set": "specs/sets/jio_stage.json", "look": "toon_drama",
     "format": {"resolution": [1080, 1920], "fps": 60, "motion_blur": 3},
     "narration": {"voice": "Puck", "style": "fast, punchy, confident YouTube Shorts explainer narrator, playful and a little cheeky",
                   "speed": 1.08, "model": "gemini-3.8-flash-tts", "single_take": True,

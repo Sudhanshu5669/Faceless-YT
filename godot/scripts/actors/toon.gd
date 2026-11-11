@@ -583,8 +583,12 @@ static func _mat(col: Color, outline: float) -> StandardMaterial3D:
 	if not _mats.has(key):
 		var m := StandardMaterial3D.new()
 		m.albedo_color = col
-		m.roughness = 0.62
-		m.metallic_specular = 0.3
+		# Toy plastic: a soft sheen and a Fresnel rim that picks up the coloured rim lights.
+		m.roughness = 0.42
+		m.metallic_specular = 0.55
+		m.rim_enabled = true
+		m.rim = 0.35
+		m.rim_tint = 0.75
 		if outline > 0.0:
 			m.next_pass = _outline(outline)
 		_mats[key] = m

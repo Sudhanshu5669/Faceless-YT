@@ -29,7 +29,8 @@
             "height": 1.8,
             "radius": 1.7
           },
-          "note": "Mukesh on a mountain of oil drums under a night skyline"
+          "note": "Mukesh on a mountain of oil drums under a night skyline",
+          "mood": "dramatic"
         },
         {
           "id": "tribute",
@@ -50,7 +51,8 @@
             6
           ],
           "light": "#ffe2b8",
-          "note": "Dhirubhai's garlanded portrait; the scales"
+          "note": "Dhirubhai's garlanded portrait; the scales",
+          "mood": "dramatic"
         },
         {
           "id": "split",
@@ -72,7 +74,8 @@
           ],
           "sides": true,
           "light": "#ffe2b8",
-          "note": "The family empire split: a cake on a table"
+          "note": "The family empire split: a cake on a table",
+          "mood": "dramatic"
         },
         {
           "id": "street",
@@ -92,7 +95,8 @@
             10
           ],
           "light": "#ffe7c4",
-          "note": "India on 2G: an Indian market street at night, everyone staring at loading phones"
+          "note": "India on 2G: an Indian market street at night, everyone staring at loading phones",
+          "mood": "dramatic"
         },
         {
           "id": "rivals",
@@ -114,7 +118,8 @@
           ],
           "sides": true,
           "light": "#ffe2b8",
-          "note": "The telcos' durbar: crowned towers on bags of MINUTES; later they fall"
+          "note": "The telcos' durbar: crowned towers on bags of MINUTES; later they fall",
+          "mood": "dramatic"
         },
         {
           "id": "war_room",
@@ -136,7 +141,8 @@
           ],
           "sides": true,
           "light": "#ffe2b8",
-          "note": "Mukesh's war room: the map of India on the floor (circles, fibre, number one)"
+          "note": "Mukesh's war room: the map of India on the floor (circles, fibre, number one)",
+          "mood": "dramatic"
         },
         {
           "id": "home",
@@ -158,7 +164,8 @@
           ],
           "sides": true,
           "light": "#ffe2b8",
-          "note": "The family home: Isha's laptop, Akash's point"
+          "note": "The family home: Isha's laptop, Akash's point",
+          "mood": "dramatic"
         },
         {
           "id": "field",
@@ -178,7 +185,8 @@
             10
           ],
           "light": "#ffe7c4",
-          "note": "Old 2G towers fall like dominoes; shiny 4G towers rise"
+          "note": "Old 2G towers fall like dominoes; shiny 4G towers rise",
+          "mood": "dramatic"
         },
         {
           "id": "launch",
@@ -206,7 +214,8 @@
             "height": 0.35,
             "radius": 1.25
           },
-          "note": "The launch stage: Jio, free stuff, the JioPhone, the podium"
+          "note": "The launch stage: Jio, free stuff, the JioPhone, the podium",
+          "mood": "dramatic"
         },
         {
           "id": "nation",
@@ -226,7 +235,8 @@
             26
           ],
           "light": "#ffe7c4",
-          "note": "524 million: the crowd stands in the shape of India, seen from above"
+          "note": "524 million: the crowd stands in the shape of India, seen from above",
+          "mood": "dramatic"
         },
         {
           "id": "court",
@@ -248,12 +258,13 @@
           ],
           "sides": true,
           "light": "#fff1dc",
-          "note": "The regulator's office: rivals crying predatory pricing"
+          "note": "The regulator's office: rivals crying predatory pricing",
+          "mood": "dramatic"
         }
       ]
     }
   },
-  "look": "neon_night",
+  "look": "toon_drama",
   "preview": {
     "resolution": [
       540,

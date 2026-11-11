@@ -4,7 +4,7 @@
  "title": "How Mukesh Ambani built Jio",
  "description": "Toon Short: the story of Jio, in 24 lines (script.md).",
  "set": "specs/sets/jio_stage.json",
- "look": "neon_night",
+ "look": "toon_drama",
  "format": {
   "resolution": [
    1080,
@@ -14304,7 +14304,10 @@
        0
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14316,7 +14319,10 @@
       ]
      },
      "look_at": "m.head",
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14346,7 +14352,10 @@
        0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14365,7 +14374,10 @@
        0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14389,7 +14401,10 @@
       ]
      },
      "look_at": "m.head",
-     "lens_mm": 35
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14401,7 +14416,10 @@
       ]
      },
      "look_at": "m.head",
-     "lens_mm": 38
+     "lens_mm": 38,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14433,7 +14451,10 @@
        -0.9
       ]
      },
-     "lens_mm": 52
+     "lens_mm": 52,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14452,7 +14473,10 @@
        -0.5
       ]
      },
-     "lens_mm": 52
+     "lens_mm": 52,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14483,7 +14507,10 @@
        -0.3
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14502,7 +14529,10 @@
        0
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14532,7 +14562,10 @@
        0
       ]
      },
-     "lens_mm": 35
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14551,7 +14584,10 @@
        0
       ]
      },
-     "lens_mm": 35
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14582,7 +14618,10 @@
        0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14601,7 +14640,10 @@
        0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14625,7 +14667,10 @@
       ]
      },
      "look_at": "m.head",
-     "lens_mm": 40
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14637,7 +14682,10 @@
       ]
      },
      "look_at": "m.face",
-     "lens_mm": 45
+     "lens_mm": 45,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in"
    }
@@ -14668,7 +14716,10 @@
        -2
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14687,7 +14738,10 @@
        -2.5
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14710,7 +14764,10 @@
       ]
      },
      "look_at": "price",
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14722,7 +14779,10 @@
       ]
      },
      "look_at": "price",
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14746,7 +14806,10 @@
       ]
      },
      "look_at": "y.head",
-     "lens_mm": 38
+     "lens_mm": 38,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14765,7 +14828,10 @@
        0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14792,7 +14858,10 @@
        0
       ]
      },
-     "lens_mm": 28
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14811,7 +14880,10 @@
        0.4
       ]
      },
-     "lens_mm": 28
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14837,7 +14909,10 @@
        2.6
       ]
      },
-     "lens_mm": 35
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14856,7 +14931,10 @@
        2.6
       ]
      },
-     "lens_mm": 38
+     "lens_mm": 38,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14876,7 +14954,10 @@
       ]
      },
      "look_at": "m3.head",
-     "lens_mm": 35
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14888,7 +14969,10 @@
       ]
      },
      "look_at": "m3.head",
-     "lens_mm": 40
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14915,7 +14999,10 @@
        0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14934,7 +15021,10 @@
        0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -14960,7 +15050,10 @@
        0.2
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -14979,7 +15072,10 @@
        0.6862068965517241
       ]
      },
-     "lens_mm": 28
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15005,7 +15101,10 @@
        0.0
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15024,7 +15123,10 @@
        -0.2
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15051,7 +15153,10 @@
        0.6862068965517241
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15070,7 +15175,10 @@
        0.6862068965517241
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15097,7 +15205,10 @@
        0
       ]
      },
-     "lens_mm": 38
+     "lens_mm": 38,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15116,7 +15227,10 @@
        0
       ]
      },
-     "lens_mm": 38
+     "lens_mm": 38,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15142,7 +15256,10 @@
        0
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15161,7 +15278,10 @@
        0
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15187,7 +15307,10 @@
        0
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15206,7 +15329,10 @@
        0.2
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15232,7 +15358,10 @@
        -0.8
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15251,7 +15380,10 @@
        -0.9
       ]
      },
-     "lens_mm": 28
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15278,7 +15410,10 @@
        0
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15297,7 +15432,10 @@
        0
       ]
      },
-     "lens_mm": 33
+     "lens_mm": 33,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15323,7 +15461,10 @@
        -1.2
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15342,7 +15483,10 @@
        -1.2
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15368,7 +15512,10 @@
        0
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15387,7 +15534,10 @@
        0
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15413,7 +15563,10 @@
        -2.6
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15432,7 +15585,10 @@
        -2.6
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15458,7 +15614,10 @@
        2.6
       ]
      },
-     "lens_mm": 28
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15477,7 +15636,10 @@
        -2.4
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15503,7 +15665,10 @@
        -1.0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15522,7 +15687,10 @@
        -1.0
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15548,7 +15716,10 @@
        -2.0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15567,7 +15738,10 @@
        -2.0
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15593,7 +15767,10 @@
        0
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15612,7 +15789,10 @@
        -1.6
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15639,7 +15819,10 @@
        -0.5
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15658,7 +15841,10 @@
        -0.8
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15684,7 +15870,10 @@
        0.4
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15703,7 +15892,10 @@
        0.4
       ]
      },
-     "lens_mm": 27
+     "lens_mm": 27,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15730,7 +15922,10 @@
        1.2
       ]
      },
-     "lens_mm": 28
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15749,7 +15944,10 @@
        1.2
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15775,7 +15973,10 @@
        1.2
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15794,7 +15995,10 @@
        0.5
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15821,7 +16025,10 @@
        2.4
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15840,7 +16047,10 @@
        2.4
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15867,7 +16077,10 @@
        1.0
       ]
      },
-     "lens_mm": 28
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15886,7 +16099,10 @@
        0.8
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15912,7 +16128,10 @@
        0
       ]
      },
-     "lens_mm": 35
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15931,7 +16150,10 @@
        0
       ]
      },
-     "lens_mm": 35
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -15958,7 +16180,10 @@
        1.2
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -15977,7 +16202,10 @@
        1.6
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16004,7 +16232,10 @@
        0.2
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16023,7 +16254,10 @@
        0.2
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16050,7 +16284,10 @@
        2.0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16069,7 +16306,10 @@
        0
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16096,7 +16336,10 @@
        0.0
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16115,7 +16358,10 @@
        -0.4
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16142,7 +16388,10 @@
        -1.7
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16161,7 +16410,10 @@
        -1.8
       ]
      },
-     "lens_mm": 28
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16187,7 +16439,10 @@
        -1.4
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16206,7 +16461,10 @@
        -1.4
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16233,7 +16491,10 @@
        0.4
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16252,7 +16513,10 @@
        0.4
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16279,7 +16543,10 @@
        0.0
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16298,7 +16565,10 @@
        0.0
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16324,7 +16594,10 @@
        0.3
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16343,7 +16616,10 @@
        0.3
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16370,7 +16646,10 @@
        0.3
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16389,7 +16668,10 @@
        0.3
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16416,7 +16698,10 @@
        3.0
       ]
      },
-     "lens_mm": 28
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16435,7 +16720,10 @@
        -0.8
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16462,7 +16750,10 @@
        -0.9
       ]
      },
-     "lens_mm": 52
+     "lens_mm": 52,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16481,7 +16772,10 @@
        -0.5
       ]
      },
-     "lens_mm": 52
+     "lens_mm": 52,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16507,7 +16801,10 @@
        1.2
       ]
      },
-     "lens_mm": 40
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16526,7 +16823,10 @@
        1.0
       ]
      },
-     "lens_mm": 36
+     "lens_mm": 36,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16553,7 +16853,10 @@
        0.5
       ]
      },
-     "lens_mm": 38
+     "lens_mm": 38,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16572,7 +16875,10 @@
        0.5
       ]
      },
-     "lens_mm": 40
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }
@@ -16599,7 +16905,10 @@
        0
       ]
      },
-     "lens_mm": 30
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "to": {
      "at": {
@@ -16618,7 +16927,10 @@
        0
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.45
+     }
     },
     "ease": "in_out"
    }

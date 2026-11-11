@@ -177,6 +177,9 @@ static func _neon(n: Node3D, b: Dictionary, w: float, d: float) -> void:
 
 static func _lights(n: Node3D, b: Dictionary, w: float, d: float) -> void:
 	var nc: Array = b["neon_colors"]
+	if String(b.get("mood", "flat")) == "dramatic":
+		_lights_dramatic(n, b, w, d)
+		return
 	var key := SpotLight3D.new()
 	key.name = "key"
 	key.light_color = Color(String(b["light"]))
@@ -200,6 +203,55 @@ static func _lights(n: Node3D, b: Dictionary, w: float, d: float) -> void:
 	fill.light_energy = 0.8
 	fill.omni_range = maxf(w, d) * 1.4
 	fill.position = Vector3(0, 3.0, d * 0.6)
+	n.add_child(fill)
+
+
+## "dramatic": a tight pool of warm key light on the subject (front, high), a coloured rim light
+## from behind that outlines heads and props, a second colour kicking from the side, dim washes on
+## the back wall and a weak fill. Darker edges, the subject pops.
+static func _lights_dramatic(n: Node3D, b: Dictionary, w: float, d: float) -> void:
+	var nc: Array = b["neon_colors"]
+	var key := SpotLight3D.new()
+	key.name = "key"
+	key.light_color = Color(String(b["light"]))
+	key.light_energy = 5.5
+	key.spot_range = 20.0
+	key.spot_angle = 30.0
+	key.spot_angle_attenuation = 1.8
+	key.spot_attenuation = 0.4
+	key.shadow_enabled = true
+	key.position = Vector3(0.0, 7.0, d * 0.55)
+	n.add_child(key)
+	key.look_at_from_position(key.position, Vector3(0, 0.9, 0.0), Vector3.UP)
+	var rim := SpotLight3D.new()
+	rim.name = "rim"
+	rim.light_color = Color(String(nc[0]))
+	rim.light_energy = 6.0
+	rim.spot_range = 16.0
+	rim.spot_angle = 38.0
+	rim.spot_angle_attenuation = 1.4
+	rim.position = Vector3(0.0, 4.8, -d * 0.45)
+	n.add_child(rim)
+	rim.look_at_from_position(rim.position, Vector3(0, 1.1, 0.6), Vector3.UP)
+	var kick := OmniLight3D.new()
+	kick.name = "kick"
+	kick.light_color = Color(String(nc[min(1, nc.size() - 1)]))
+	kick.light_energy = 2.2
+	kick.omni_range = 6.0
+	kick.position = Vector3(w * 0.36, 2.2, 0.8)
+	n.add_child(kick)
+	for s in [-1.0, 1.0]:
+		var o := OmniLight3D.new()
+		o.light_color = Color(String(nc[0 if s < 0 else min(1, nc.size() - 1)]))
+		o.light_energy = 1.3
+		o.omni_range = maxf(w, d) * 0.7
+		o.position = Vector3(s * w * 0.38, 3.2, -d * 0.5 + 1.0)
+		n.add_child(o)
+	var fill := OmniLight3D.new()
+	fill.light_color = Color("b8b0ff")
+	fill.light_energy = 0.3
+	fill.omni_range = maxf(w, d) * 1.4
+	fill.position = Vector3(0, 3.0, d * 0.7)
 	n.add_child(fill)
 
 

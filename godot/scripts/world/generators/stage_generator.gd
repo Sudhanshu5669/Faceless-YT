@@ -20,7 +20,10 @@ const WALLS := ["tiles", "panels", "plain", "grid", "brick", "skyline", "bazaar"
 const NEONS := ["ring", "tubes", "strip", "arch", "frame"]
 const PEDESTALS := ["neon", "drums", "cash", "crates", "plain"]
 const BAY_KEYS := ["id", "floor", "floor_colors", "wall", "wall_color", "neon", "neon_colors", "size",
-	"pedestal", "sides", "light", "note"]
+	"pedestal", "sides", "light", "mood", "note"]
+## Lighting moods: "flat" (even, the original) or "dramatic" (a pool of key light on the subject,
+## a coloured rim light from behind, weak fill: the subject is the brightest thing in frame).
+const MOODS := ["flat", "dramatic"]
 const PEDESTAL_KEYS := ["style", "height", "radius", "color"]
 const SPACING := 60.0
 const WALL_H := 6.0
@@ -53,6 +56,8 @@ static func validate_params(p: Dictionary) -> Array:
 		if id == "" or id.contains(".") or ids.has(id):
 			e.append(w + ": needs a unique 'id' without dots")
 		ids[id] = true
+		if b.has("mood") and not (String(b["mood"]) in MOODS):
+			e.append("%s: mood '%s' (known: %s)" % [w, b["mood"], ", ".join(PackedStringArray(MOODS))])
 		if b.has("floor") and not (String(b["floor"]) in FLOORS):
 			e.append("%s: floor '%s' (known: %s)" % [w, b["floor"], ", ".join(PackedStringArray(FLOORS))])
 		if b.has("wall") and not (String(b["wall"]) in WALLS):
@@ -111,6 +116,7 @@ static func generate(params: Dictionary, seed_value: int) -> Dictionary:
 			"neon_colors": b.get("neon_colors", NEON_SCHEMES[i % NEON_SCHEMES.size()]),
 			"sides": bool(b.get("sides", false)),
 			"light": String(b.get("light", "#fff1dc")),
+			"mood": String(b.get("mood", "flat")),
 			"pedestal": {} if ped.is_empty() else {
 				"style": String(ped.get("style", "neon")),
 				"height": float(ped.get("height", 0.35 if String(ped.get("style", "neon")) in ["neon", "plain"] else 1.2)),

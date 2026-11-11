@@ -1,0 +1,15 @@
+{
+  "id": "toon_drama",
+  "tags": ["night", "toon", "neon", "stage", "dramatic"],
+  "description": "Toon explainer, reference-channel lighting: dark surroundings, low ambient, AO, strong bloom; pair with stage bays \"mood\": \"dramatic\" (key pool + coloured rim) and camera dof.",
+  "time": "22:30",
+  "weather": {"fog": 0.0, "wind": 0.1},
+  "sky": {"top": "#07041a", "horizon": "#2a1456", "stars": 1.4, "star_color": "#e8e0ff", "clouds": 0.0},
+  "moon": {"elevation": 24, "azimuth": 200, "size": 7, "color": "#b8b0ff", "energy": 0.3, "disc_color": "#f4f0ff", "glow": 1.2, "glow_color": "#b49cff", "shadows": true, "softness": 2.0},
+  "ambient": {"color": "#4a3c9f", "energy": 0.45},
+  "exposure": 0.95,
+  "ssao": true,
+  "glow": {"enabled": true, "intensity": 0.9, "bloom": 0.08, "threshold": 1.1},
+  "grade": {"saturation": 1.18, "contrast": 1.12, "vignette": 0.34, "grain": 0.0},
+  "practical_lights": {"level": 1.0}
+}

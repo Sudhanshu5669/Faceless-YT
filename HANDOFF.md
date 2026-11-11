@@ -48,6 +48,21 @@ Comparison with the reference (frames side by side) showed the gap is craft, not
    shrug, cheer, throw) + mouth flap on words, a 2D overlay layer (viewfinder/HUD cards), particle
    bursts. Prove 1+2 on shots 1-2 first, show before/after, then continue the shot loop.
 
+### Look-dev pass: progress (2026-11-11, late)
+Done and committed: stage bays take `"mood": "dramatic"` (stage_generator/stage_builder
+`_lights_dramatic`: tight warm key pool, coloured rim spot from behind, side kicker, dim wall washes,
+weak fill); new look `library/looks/toon_drama.json` (low ambient, SSAO, bloom threshold 1.1,
+contrast, vignette); toy-plastic sheen + Fresnel rim on every `Toon.material` (roughness 0.42,
+`rim_enabled`); jio_story uses toon_drama, all bays dramatic, and `cam()` adds `"dof":
+{"strength": 0.45}` to every shot. Shots 1-2 re-rendered (v3 in the shot loop; older versions in
+`review/shot_loop/versions/` for before/after). Result: background blur + sheen + rim read well,
+faces readable. **Still to do, in order:** (a) the bazaar/haveli backdrops are self-lit and stay
+bright: in dramatic mood dim the backdrop's emissive windows/tube lights and darken its paint
+(stage_builder `_bazaar`/`_haveli`), so the subject is the brightest thing; (b) rounded/bevelled
+meshes for the reveal shapes (`reveals.gd` `_box`/`_cyl`), (c) composition rules + pose library +
+mouth flap + 2D overlay layer + particles (see list above). Show the user before/after (shots 1-2)
+in the shot-loop page and get a verdict before re-rendering further shots.
+
 ### Practical notes
 - `episodes/jio_story/make_episode.py` generates `episode.json` and `specs/sets/jio_stage.json`:
   edit the .py, run `python episodes/jio_story/make_episode.py .`. Helpers: `W(line, word)` time
