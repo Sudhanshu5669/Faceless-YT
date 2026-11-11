@@ -241,11 +241,11 @@ reveals = [
     # split: table, cake, halves, phone, sign
     {"id": "table", "t": 0, "enter": "none", "prop": "quaternius_fantasy_props/Table_Large", "size": 2.0, "at": A("split", [0, 0, 0])},
     # yaw 90: the cut faces +x, the half sits at world -x (screen left); yaw -90 the mirror.
-    {"id": "cake_l", "t": 0, "enter": "none", "shape": "cake_half", "size": 0.55, "yaw": 90, "at": A("split", [0, 0.57, 0]),
+    {"id": "cake_l", "t": 0, "until": L("n3b"), "exit": "none", "enter": "none", "shape": "cake_half", "size": 0.55, "yaw": 90, "at": A("split", [0, 0.57, 0]),
      "moves": [{"t": W("n3a", "splits"), "by": [-0.62, 0, 0], "dur": 0.32}]},
     {"id": "cake_r", "t": 0, "enter": "none", "shape": "cake_half", "size": 0.55, "yaw": -90, "at": A("split", [0, 0.57, 0]),
      "moves": [{"t": W("n3a", "splits"), "by": [0.62, 0, 0], "dur": 0.32}]},
-    {"id": "cake_txt_l", "t": 0, "enter": "none", "text": "RELI", "color": "#7a1f4a", "glow": 0.0, "size": 0.075,
+    {"id": "cake_txt_l", "t": 0, "until": L("n3b"), "exit": "none", "enter": "none", "text": "RELI", "color": "#7a1f4a", "glow": 0.0, "size": 0.075,
      "at": A("split", [0.085, 0.645, 0.29]), "moves": [{"t": W("n3a", "splits"), "by": [-0.62, 0, 0], "dur": 0.32}]},
     {"id": "cake_txt_r", "t": 0, "enter": "none", "text": "ANCE", "color": "#7a1f4a", "glow": 0.0, "size": 0.075,
      "at": A("split", [-0.1, 0.645, 0.29]), "moves": [{"t": W("n3a", "splits"), "by": [0.62, 0, 0], "dur": 0.32}]},
@@ -254,8 +254,13 @@ reveals = [
      "enter": "none", "size": 0.06, "color": "#e0b070", "at": "m2.hand", "to": "a.hand"},
     {"id": "whistle", "t": L("n3a"), "until": L("n3b"), "shape": "cylinder", "color": "#d8dce4", "size": 0.08,
      "enter": "none", "at": A("k.face", [0, -0.12, 0.16])},
-    {"id": "anil_phone", "t": W("n3b", "phone"), "shape": "phone", "size": 0.26, "enter": "drop", "at": A("a.hand", [0, 0, 0.06]),
-     "face": face_cam("split"), "sound": "pop"},
+    # Shot 6: Anil carries off his half of the cake, crowned with the Reliance Infocomm tower.
+    {"id": "anil_half", "t": L("n3b"), "until": L("n4"), "enter": "none", "shape": "cake_half", "size": 0.42, "yaw": 90,
+     "at": A("a.hand", [0, -0.05, 0.12])},
+    {"id": "anil_tower", "t": W("n3b", "phone"), "until": L("n4"), "shape": "tower", "size": 0.36, "color": "#c9ced6",
+     "enter": "drop", "enter_time": 0.3, "at": A("a.hand", [0, 0.22, 0.12]), "sound": "pop"},
+    {"id": "anil_infocomm", "t": W("n3b", "company,"), "until": L("n4"), "text": "INFOCOMM", "color": "#d6453d", "glow": 0.6,
+     "size": 0.1, "at": A("a.hand", [0, 0.68, 0.12])},
     # 2010: the deal ends, the sign falls over.
     {"id": "no_telecom", "t": W("n3c", "stay"), "shape": "sign", "label": "NO TELECOM", "label_color": "#c0262d", "size": 0.85,
      "enter": "rise", "at": A("m2", [-0.9, 0, 0.15]), "face": face_cam("split"), "sound": "pop",
@@ -773,7 +778,9 @@ ep = {
             {"t": W("n3a", "splits"), "expression": "shocked", "action": "knocked_back"}, {"t": L("n3b"), "action": "idle"},
             {"t": W("n3c", "agree"), "expression": "sad"}, {"t": W("n3c", "telecom."), "expression": "deadpan"},
             {"t": W("n8a", "deal"), "expression": "side_eye"}, {"t": W("n8a", "ends."), "expression": "grin"}]},
-        {"id": "a", "character": "toon_anil", "at": A("split", [0.6, 0, -0.85]), "facing": face_cam("split", 3), "cues": [
+        {"id": "a", "character": "toon_anil", "at": A("split", [0.6, 0, -0.85]), "facing": face_cam("split", 3),
+         "route": {"via": [S("split", -2.0, 0, -0.25)], "gait": "walk_carry", "start": W("n3b", "gets"), "arrive": L("n3c"),
+                   "then": "idle", "then_facing": face_cam("split", 6)}, "cues": [
             {"t": 0, "expression": "happy"}, {"t": L("n3a"), "expression": "determined"},
             {"t": W("n3a", "splits"), "expression": "surprised", "action": "knocked_back"}, {"t": L("n3b"), "action": "idle"},
             {"t": W("n3b", "Anil"), "expression": "smug"}, {"t": W("n3b", "company,"), "expression": "wink"},
@@ -899,7 +906,7 @@ ep = {
         {"name": "split", "duration": fit(0.2), "whip_in": "right",
          "camera": move(cam(A("split", [0, 1.7, 6.0]), A("split", [0, 0.85, -0.3]), 30), cam(A("split", [0, 1.25, 3.0]), A("split", [0, 0.85, 0]), 32))},
         {"name": "anil_phone", "duration": fit(),
-         "camera": move(cam(A("a", [0.3, 1.4, 2.4]), A("a", [0, 0.95, 0]), 35), cam(A("a", [0.25, 1.35, 2.0]), A("a", [0, 0.95, 0]), 35))},
+         "camera": move(cam(S("split", -0.5, 1.25, 2.4), S("split", -0.6, 1.0, -0.8), 34), cam(S("split", -1.5, 1.25, 2.3), S("split", -1.9, 1.0, -0.35), 34))},
         {"name": "no_telecom", "duration": fit(0.35), "whip_out": "left",
          "camera": move(cam(A("m2", [-0.5, 1.05, 3.0]), A("m2", [-0.45, 0.85, 0]), 30), cam(A("m2", [-0.45, 1.05, 2.6]), A("m2", [-0.45, 0.85, 0]), 30))},
         {"name": "watch", "duration": fit(0.35, 1.3), "whip_in": "left",

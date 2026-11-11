@@ -71,7 +71,9 @@ shot 2 `empire_items` (✅ approved), shot 3 `lost` (REDONE after the user disli
 phone: the dream is a red balloon carrying a phone that slips from his hand on "lost" and floats to
 the sky, `library:balloon`), shot 4 `tribute` (`library:balance_scale`: phone pan crashes, then rises
 above the 50-paise postcard on "less") and shot 18 `buy95` (cash cannon pilot) are rendered and pass the framing
-check; waiting for the user's verdicts. Continue in story order from shot 5 `split` (gags.md #5: tug-of-war over the cake, Kokilaben's whistle).
+check; waiting for the user's verdicts. Also done: shot 5 `split` (tug-of-war over the cake, `toon_kokilaben` referees with a whistle; sfx
+`whistle`, `rip`), shot 6 `anil_phone` (Anil walks off with his half crowned by the Infocomm tower).
+Continue in story order from shot 7 `no_telecom` (gags.md #7: the TELECOM door slams, he splats flat).
 The framing check now ignores whip-pan and iris moments.
 
 ### Gags: built (2026-11-12) — read docs/GAGS_SPEC.md

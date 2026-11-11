@@ -1177,6 +1177,35 @@
      3
     ]
    },
+   "route": {
+    "via": [
+     {
+      "anchor": "split",
+      "offset": [
+       2.0,
+       0,
+       -0.25
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "start": {
+     "line": "n3b",
+     "word": "gets"
+    },
+    "arrive": {
+     "line": "n3c"
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "split",
+     "offset": [
+      0,
+      1.0,
+      6
+     ]
+    }
+   },
    "cues": [
     {
      "t": 0,
@@ -2786,6 +2815,10 @@
   {
    "id": "cake_l",
    "t": 0,
+   "until": {
+    "line": "n3b"
+   },
+   "exit": "none",
    "enter": "none",
    "shape": "cake_half",
    "size": 0.55,
@@ -2846,6 +2879,10 @@
   {
    "id": "cake_txt_l",
    "t": 0,
+   "until": {
+    "line": "n3b"
+   },
+   "exit": "none",
    "enter": "none",
    "text": "RELI",
    "color": "#7a1f4a",
@@ -2945,31 +2982,71 @@
    }
   },
   {
-   "id": "anil_phone",
+   "id": "anil_half",
    "t": {
-    "line": "n3b",
-    "word": "phone"
+    "line": "n3b"
    },
-   "shape": "phone",
-   "size": 0.26,
-   "enter": "drop",
+   "until": {
+    "line": "n4"
+   },
+   "enter": "none",
+   "shape": "cake_half",
+   "size": 0.42,
+   "yaw": 90,
    "at": {
     "anchor": "a.hand",
     "offset": [
      0,
-     0,
-     0.06
+     -0.05,
+     0.12
     ]
+   }
+  },
+  {
+   "id": "anil_tower",
+   "t": {
+    "line": "n3b",
+    "word": "phone"
    },
-   "face": {
-    "anchor": "split",
+   "until": {
+    "line": "n4"
+   },
+   "shape": "tower",
+   "size": 0.36,
+   "color": "#c9ced6",
+   "enter": "drop",
+   "enter_time": 0.3,
+   "at": {
+    "anchor": "a.hand",
     "offset": [
      0,
-     1.0,
-     6
+     0.22,
+     0.12
     ]
    },
    "sound": "pop"
+  },
+  {
+   "id": "anil_infocomm",
+   "t": {
+    "line": "n3b",
+    "word": "company,"
+   },
+   "until": {
+    "line": "n4"
+   },
+   "text": "INFOCOMM",
+   "color": "#d6453d",
+   "glow": 0.6,
+   "size": 0.1,
+   "at": {
+    "anchor": "a.hand",
+    "offset": [
+     0,
+     0.68,
+     0.12
+    ]
+   }
   },
   {
    "id": "no_telecom",
@@ -14596,44 +14673,44 @@
    "camera": {
     "from": {
      "at": {
-      "anchor": "a",
+      "anchor": "split",
       "offset": [
-       0.3,
-       1.4,
+       0.5,
+       1.25,
        2.4
       ]
      },
      "look_at": {
-      "anchor": "a",
+      "anchor": "split",
       "offset": [
-       0,
-       0.95,
-       0
+       0.6,
+       1.0,
+       -0.8
       ]
      },
-     "lens_mm": 35,
+     "lens_mm": 34,
      "dof": {
       "strength": 0.45
      }
     },
     "to": {
      "at": {
-      "anchor": "a",
+      "anchor": "split",
       "offset": [
-       0.25,
-       1.35,
-       2.0
+       1.5,
+       1.25,
+       2.3
       ]
      },
      "look_at": {
-      "anchor": "a",
+      "anchor": "split",
       "offset": [
-       0,
-       0.95,
-       0
+       1.9,
+       1.0,
+       -0.35
       ]
      },
-     "lens_mm": 35,
+     "lens_mm": 34,
      "dof": {
       "strength": 0.45
      }
