@@ -1,0 +1,67 @@
+{
+  "id": "downtown",
+  "description": "Quaternius Downtown City: modular brick, metal and stone facades on a 2 m x 3 m grid, 4-lane streets with sidewalks, intersections, street props; Kenney cars, Quaternius trees.",
+  "vertex_colors": false,
+  "street": {
+    "straight": "quaternius_downtown/Street_4Lane",
+    "intersection": "quaternius_downtown/Street_4WayIntersection",
+    "tile_len": 6.0,
+    "road_half": 6.0,
+    "sidewalk": 3.0,
+    "intersection_half": 12.333,
+    "sidewalk_top": 0.15
+  },
+  "styles": {
+    "brick": {
+      "wall": ["quaternius_downtown/Brick_Plain_3", "quaternius_downtown/Brick_Plain_3_noWear"],
+      "window": ["quaternius_downtown/Brick_Window_Square_Single", "quaternius_downtown/Brick_Window_Trim", "quaternius_downtown/Brick_Window_Trim_Single"],
+      "window_wide": ["quaternius_downtown/Brick_RedWhite_DoubleWindow", "quaternius_downtown/Brick_Inset_Window", "quaternius_downtown/Brick_Window_CurvedDouble"],
+      "top": "quaternius_downtown/Brick_TopTrim",
+      "base": "quaternius_downtown/Brick_BottomTrim",
+      "shop": ["quaternius_downtown/Metal_FirstFloor_Window", "quaternius_downtown/Trim_FirstFloor_Window_001"],
+      "door": ["quaternius_downtown/DoorFrame_Wooden", "quaternius_downtown/DoorFrame_Metal_Single"],
+      "cornice": "quaternius_downtown/Cornice_Brick_Center"
+    },
+    "metal": {
+      "wall": ["quaternius_downtown/Metal_Plain_3"],
+      "window": ["quaternius_downtown/Metal_Window_Half", "quaternius_downtown/Metal_FullWindow"],
+      "window_wide": ["quaternius_downtown/Metal_Window"],
+      "top": "quaternius_downtown/Metal_Plain_3",
+      "base": "quaternius_downtown/Metal_FirstFloor_Wall",
+      "shop": ["quaternius_downtown/Metal_FirstFloor_Window"],
+      "door": ["quaternius_downtown/DoorFrame_Metal_Single"],
+      "cornice": "quaternius_downtown/Cornice_Metal_Center"
+    },
+    "stone": {
+      "wall": ["quaternius_downtown/Trim_Plain_3"],
+      "window": ["quaternius_downtown/Trim_Window"],
+      "window_wide": [],
+      "top": "quaternius_downtown/Trim_Plain_3",
+      "base": "quaternius_downtown/Trim_FirstFloor_Wall",
+      "shop": ["quaternius_downtown/Trim_FirstFloor_Window_001", "quaternius_downtown/Metal_FirstFloor_Window"],
+      "door": ["quaternius_downtown/DoorFrame_Trim"],
+      "cornice": "quaternius_downtown/Cornice_Trim_Center"
+    }
+  },
+  "roof": "quaternius_downtown/Roof_2x2",
+  "roof_props": ["quaternius_downtown/Prop_ACUnit"],
+  "landmarks": [
+    "quaternius_downtown/Building_Small_1",
+    "quaternius_downtown/Building_Medium_2_001",
+    "quaternius_downtown/Building_Large_2"
+  ],
+  "props": {
+    "bollard": "quaternius_downtown/Prop_Bollard",
+    "manhole": "quaternius_downtown/Prop_ManholeCover",
+    "drain": "quaternius_downtown/Prop_Drain",
+    "planter": "quaternius_downtown/Sidewalk_Planter"
+  },
+  "trees": {
+    "models": ["quaternius_nature/CommonTree_1", "quaternius_nature/CommonTree_2", "quaternius_nature/CommonTree_3"],
+    "height": 6.5
+  },
+  "cars": {
+    "kit": "suburban",
+    "scale": 1.45
+  }
+}

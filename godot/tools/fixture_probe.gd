@@ -1,5 +1,5 @@
 ## Measures catalog models for kit curation: materials per surface and the
-## heights of upward-facing surfaces (shelf boards, counter tops), in the
+## heights of horizontal surfaces (either winding) (shelf boards, counter tops), in the
 ## model's normalised frame (footprint centred, base at y = 0, unscaled).
 ## godot --headless --path godot --script res://tools/fixture_probe.gd -- <model id> [<model id> ...]
 extends SceneTree
@@ -45,7 +45,7 @@ func _probe(id: String) -> void:
 				var p2 := xf * v[i2]
 				var n := (p1 - p0).cross(p2 - p0)
 				var area := n.length() / 2.0
-				if area < 1e-5 or n.normalized().y < 0.95:
+				if area < 1e-5 or absf(n.normalized().y) < 0.95:
 					continue
 				var y := int(round((p0.y + p1.y + p2.y) / 3.0 * 100.0))
 				var e: Array = levels.get(y, [0.0, 1e9, -1e9, 1e9, -1e9])

@@ -90,6 +90,19 @@ procedural fallback that needs no assets.
 - `credits`: the CC-BY packs (basket, garbage bin, cardboard box) need the credit lines from
   `pipeline/asset_packs.json` in the video description.
 
+`library/kits/downtown.json` (downtown generator):
+
+- `street`: the straight 4-lane tile and the 4-way intersection, with the measured geometry the
+  generator lays out to (6 m tile, 12 m road, 3 m sidewalks, 24.67 m crossing, sidewalk top 0.15).
+- `styles.<brick|metal|stone>`: facade modules by role (`wall`, `window`, `top`, `base`, `shop`,
+  `door`, `cornice`). Modules are 2 m wide, 3 m tall, placed with their own pivot (outer face at
+  z = 0, `KitDB.parts(id, false)`) and stretched slightly to fill a block exactly.
+- `roof`, `roof_props`, `landmarks` (premade buildings, mid-row only: their side walls are plain),
+  `props`, `trees`, `cars` (borrowed from the suburban kit).
+- `vertex_colors: false`: the pack stores red authoring masks in vertex colours that tint the
+  albedo; the builder uses copies of those materials that ignore them
+  (`KitDB.without_vertex_colors`).
+
 ## Character rigs (retargeting)
 
 `library/rigs.json` maps Universal Animation Library bones to another humanoid rig's bones and lists

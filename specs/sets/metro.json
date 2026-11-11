@@ -1,0 +1,123 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "metro",
+    "generator": "downtown",
+    "seed": 21,
+    "params": {}
+  },
+  "look": "day",
+  "preview": {
+    "resolution": [
+      960,
+      540
+    ],
+    "views": [
+      {
+        "name": "aerial",
+        "t": 0,
+        "at": {
+          "anchor": "city_center",
+          "offset": [
+            0,
+            70,
+            -95
+          ]
+        },
+        "look_at": {
+          "anchor": "city_center",
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        "lens_mm": 24
+      },
+      {
+        "name": "avenue",
+        "t": 0,
+        "at": {
+          "anchor": "ave_1.start",
+          "offset": [
+            0,
+            1.7,
+            0
+          ]
+        },
+        "look_at": {
+          "anchor": "ave_1",
+          "offset": [
+            0,
+            4,
+            0
+          ]
+        },
+        "lens_mm": 24
+      },
+      {
+        "name": "corner",
+        "t": 0,
+        "at": {
+          "anchor": "cross_2_2.sw",
+          "offset": [
+            0,
+            1.6,
+            0
+          ]
+        },
+        "look_at": {
+          "anchor": "cross_2_2",
+          "offset": [
+            0,
+            3,
+            0
+          ]
+        },
+        "lens_mm": 20
+      },
+      {
+        "name": "sidewalk",
+        "t": 0,
+        "at": {
+          "anchor": "st_2.walk_l",
+          "offset": [
+            0,
+            1.6,
+            -14
+          ]
+        },
+        "look_at": {
+          "anchor": "st_2.walk_l",
+          "offset": [
+            0,
+            2.5,
+            10
+          ]
+        },
+        "lens_mm": 24
+      },
+      {
+        "name": "rooftops",
+        "t": 0,
+        "at": {
+          "anchor": "cross_1_1",
+          "offset": [
+            -8,
+            40,
+            -8
+          ]
+        },
+        "look_at": {
+          "anchor": "cross_3_2",
+          "offset": [
+            0,
+            10,
+            0
+          ]
+        },
+        "lens_mm": 24
+      }
+    ]
+  }
+}

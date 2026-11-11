@@ -77,20 +77,23 @@ static func scene(id: String) -> PackedScene:
 
 ## Static mesh parts of a model, for MultiMesh: [{"mesh": Mesh, "xf": Transform3D}].
 ## Transforms are normalised so the model's footprint is centred at the origin
-## and its lowest point sits at y = 0.
-static func parts(id: String) -> Array:
-	if _parts.has(id):
-		return _parts[id]
+## and its lowest point sits at y = 0; normalise = false keeps the model's own
+## pivot (modular pieces authored on a grid, e.g. facades with the outer face at z = 0).
+static func parts(id: String, normalise: bool = true) -> Array:
+	var key := id if normalise else id + "|raw"
+	if _parts.has(key):
+		return _parts[key]
 	var out := []
 	var ps := scene(id)
 	if ps:
 		var inst := _only_node(ps.instantiate(), String(model(id).get("node", "")))
 		_collect(inst, Transform3D.IDENTITY, out)
 		inst.free()
-		var fix := Transform3D(Basis(), -ground_offset(id))
-		for p in out:
-			p["xf"] = fix * p["xf"]
-	_parts[id] = out
+		if normalise:
+			var fix := Transform3D(Basis(), -ground_offset(id))
+			for p in out:
+				p["xf"] = fix * p["xf"]
+	_parts[key] = out
 	return out
 
 
@@ -137,11 +140,11 @@ static func size(id: String) -> Vector3:
 ## shared, no scene instancing), normalised and scaled. recolor maps flat
 ## albedo colours ("c65016") to new hex colours; matching surfaces get a
 ## cached recoloured material.
-static func static_node(id: String, scale: float = 1.0, recolor: Dictionary = {}) -> Node3D:
+static func static_node(id: String, scale: float = 1.0, recolor: Dictionary = {}, vertex_colors: bool = true) -> Node3D:
 	var root := Node3D.new()
 	for p in parts(id):
 		var mi := MeshInstance3D.new()
-		mi.mesh = p["mesh"]
+		mi.mesh = p["mesh"] if vertex_colors else without_vertex_colors(p["mesh"])
 		mi.transform = p["xf"]
 		root.add_child(mi)
 		if not recolor.is_empty():
@@ -169,6 +172,36 @@ static func _recolored(src: Material, recolor: Dictionary) -> Material:
 		m.albedo_color = Color(String(recolor[hex]))
 		_recolors[key] = m
 	return _recolors[key]
+
+
+static var _no_vc: Dictionary = {}
+
+
+## A copy of mesh whose materials ignore vertex colours (some packs store
+## authoring masks there, e.g. red dirt masks, that tint the albedo). Cached.
+static func without_vertex_colors(mesh: Mesh) -> Mesh:
+	var key := mesh.get_instance_id()
+	if _no_vc.has(key):
+		return _no_vc[key]
+	var out: Mesh = mesh
+	var needs := false
+	for s in mesh.get_surface_count():
+		var m := mesh.surface_get_material(s) as BaseMaterial3D
+		if m and m.vertex_color_use_as_albedo:
+			needs = true
+	if needs and mesh is ArrayMesh:
+		out = (mesh as ArrayMesh).duplicate()
+		for s in out.get_surface_count():
+			var m := out.surface_get_material(s) as BaseMaterial3D
+			if m and m.vertex_color_use_as_albedo:
+				var key2 := "vc|%d" % m.get_instance_id()
+				if not _recolors.has(key2):
+					var nm: BaseMaterial3D = m.duplicate()
+					nm.vertex_color_use_as_albedo = false
+					_recolors[key2] = nm
+				(out as ArrayMesh).surface_set_material(s, _recolors[key2])
+	_no_vc[key] = out
+	return out
 
 
 ## Override every surface whose material is named in names (resource_name) with mat.

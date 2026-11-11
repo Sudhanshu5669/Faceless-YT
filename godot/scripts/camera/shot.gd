@@ -219,7 +219,7 @@ static func blockers(L: Dictionary, from: Vector3, to: Vector3) -> Array:
 			continue
 		var p := from.lerp(to, d / length)
 		for t in L.get("trees", []):
-			if t["ground"] != "grass":
+			if t.get("ground", "") != "grass":
 				continue
 			var sc := float(t["scale"])
 			var dx := p.x - float(t["pos"][0])

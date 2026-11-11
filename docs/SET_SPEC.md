@@ -75,6 +75,34 @@ Shelving blocks line of sight (`WARN … hidden behind gondola_N`).
 **Switchables** for timeline `events` (TIMELINE_SPEC.md): `toy_hero`, any `toy_N`, the group `toys`;
 `fixture_N` / `fixtures`; `freezer_N` / `freezers`; `exit_signs`.
 
+## `downtown` params
+
+A dense city grid (`specs/sets/metro.json`): blocks lined with 3 m-floor buildings flush to the
+sidewalks, 4-lane avenues (along X, `ave_N`) and streets (along Z, `st_N`) meeting at 4-way
+intersections (`cross_I_J`), streetlights, street trees, parked cars, bollards and manholes. An
+outskirts ring of blocks keeps the edge streets lined on both sides; streets run on past it.
+
+| Param | Default | Meaning |
+|---|---|---|
+| `blocks_x`, `blocks_z` | 4, 3 | Inner blocks (the outskirts ring adds one more all round). |
+| `block_tiles_x`, `block_tiles_z` | 4, 4 | Street tiles (6 m) between intersections: block size = 6.67 + 6 × tiles m. |
+| `floors` | [3, 9] | Floor range of generated buildings. |
+| `skyline` | 0.6 | 0–1: how much taller buildings get toward the middle of the city. |
+| `styles` | brick, metal, stone | Facade styles to mix. |
+| `landmarks` | 0.15 | Chance a mid-row lot gets a premade landmark building instead. |
+| `trees`, `parked_cars` | 0.5, 0.35 | Density of street trees and parked cars. |
+| `outskirts` | true | The extra ring of blocks. |
+| `kit` | `downtown` | `library/kits/downtown.json` (Quaternius Downtown) or `primitive` (boxes). |
+
+**Anchors** (all in `manifest.json`): `city_center`; `cross_I_J` and its sidewalk corners
+`cross_I_J.ne|nw|se|sw` (facing the crossing); `ave_N` / `st_N` (middle of the street, facing along
+it) with `.start`, `.end`, `.walk_l`, `.walk_r` (sidewalks); `block_A_B` (centre, sidewalk height);
+`bldg_K` (on the sidewalk in front of the building, facing it) and `bldg_K.top` (roof).
+Buildings block line of sight (`WARN … hidden behind bldg_K`).
+
+**Walkways** (`layout.walkways`): a node per sidewalk corner, edges along sidewalks and across
+crosswalks: the network pedestrian crowds walk on.
+
 ## Views
 
 | View | Shot |
