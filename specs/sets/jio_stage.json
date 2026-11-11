@@ -287,6 +287,27 @@
           "mood": "dramatic"
         },
         {
+          "id": "recharge",
+          "floor": "road",
+          "floor_colors": [
+            "#4a4052",
+            "#6a5a4a"
+          ],
+          "wall": "bazaar",
+          "neon": [],
+          "neon_colors": [
+            "#ffd84a",
+            "#ff4fd8"
+          ],
+          "size": [
+            8,
+            6
+          ],
+          "light": "#ffe7c4",
+          "note": "A tiny mobile-recharge shop in 2015: data weighed like gold",
+          "mood": "dramatic"
+        },
+        {
           "id": "nation",
           "floor": "marble",
           "floor_colors": [
@@ -584,6 +605,27 @@
         },
         "look_at": {
           "anchor": "chai",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "recharge",
+        "t": 1,
+        "at": {
+          "anchor": "recharge",
+          "offset": [
+            0,
+            2.6,
+            5.4
+          ]
+        },
+        "look_at": {
+          "anchor": "recharge",
           "offset": [
             0,
             1.0,

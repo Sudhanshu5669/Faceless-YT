@@ -82,8 +82,10 @@ Shot 8 `watch`: a new bay `chai` (night chai stall: catalog stall cart, pot, ben
 (The framing warning on the binoculars there is the intended push into the lenses.)
 Shot 9 `street_2g`: the crowd jumps with their phones hunting signal (cue action jump), a man climbs
 a palm tree (catalog PalmTree_1) with a "1 BAR" sign, 2015 / 2G centred; crowd spinners removed.
-Continue in story order from shot 10 `price` (gags.md #10: 1 GB weighed like gold on a jeweller's scale
-— reuse `library:balance_scale` small; the recharge stall should be its own place, not the street).
+Shot 10 `price`: a new bay `recharge` (mobile-recharge shop: counter, signs), `toon_shopkeeper`
+(moustache), a small golden `library:balance_scale` weighing a glowing 1 GB cube, ₹250 PER GB counter.
+Continue in story order from shot 11 `buffer` (gags.md #11: the snail delivers the data while the
+customer grows a floor-length beard: a white cone with `tilt: 180` at the chin + a `scale` move).
 The framing check now ignores whip-pan and iris moments.
 
 ### Gags: built (2026-11-12) — read docs/GAGS_SPEC.md

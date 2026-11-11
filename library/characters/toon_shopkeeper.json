@@ -1,0 +1,16 @@
+{
+  "id": "toon_shopkeeper",
+  "description": "Indian recharge-shop owner: side-parted black hair, thick moustache, checked shirt.",
+  "tags": ["toon", "human"],
+  "height": 1.38,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "slick", "color": "#1a1512"},
+    "outfit": {"style": "shirt", "color": "#c98a3a"},
+    "shoes": "#2a2018",
+    "mustache": "#1a1512",
+    "girth": 1.15,
+    "face": "smug"
+  }
+}

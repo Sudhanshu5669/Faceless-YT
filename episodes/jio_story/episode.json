@@ -1170,6 +1170,79 @@
    ]
   },
   {
+   "id": "shopkeeper",
+   "character": "toon_shopkeeper",
+   "at": {
+    "anchor": "recharge",
+    "offset": [
+     0,
+     0,
+     -0.85
+    ]
+   },
+   "facing": {
+    "anchor": "recharge",
+    "offset": [
+     0,
+     1,
+     5
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "smug"
+    },
+    {
+     "t": {
+      "line": "n5b",
+      "word": "250"
+     },
+     "expression": "wink"
+    }
+   ]
+  },
+  {
+   "id": "cust",
+   "character": "toon_you",
+   "at": {
+    "anchor": "recharge",
+    "offset": [
+     -0.8,
+     0,
+     0.55
+    ]
+   },
+   "facing": {
+    "anchor": "recharge",
+    "offset": [
+     0,
+     1,
+     -0.6
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "n5b",
+      "word": "costs"
+     },
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "n5b",
+      "word": "250"
+     },
+     "expression": "shocked"
+    }
+   ]
+  },
+  {
    "id": "mw",
    "character": "toon_mukesh",
    "at": {
@@ -3470,22 +3543,73 @@
    "sound": "pop"
   },
   {
+   "id": "rc_counter",
+   "t": 0,
+   "enter": "none",
+   "prop": "quaternius_fantasy_props/Table_Large",
+   "size": 1.8,
+   "at": {
+    "anchor": "recharge",
+    "offset": [
+     0,
+     0,
+     -0.05
+    ]
+   }
+  },
+  {
+   "id": "rc_sign",
+   "t": 0,
+   "enter": "none",
+   "shape": "plaque",
+   "label": "MOBILE RECHARGE",
+   "label_color": "#ffffff",
+   "color": "#d6453d",
+   "size": 1.9,
+   "at": {
+    "anchor": "recharge",
+    "offset": [
+     0,
+     2.45,
+     -2.45
+    ]
+   }
+  },
+  {
+   "id": "rc_sign2",
+   "t": 0,
+   "enter": "none",
+   "text": "2G DATA • TOP-UP • STD/ISD",
+   "color": "#ffd84a",
+   "glow": 0.8,
+   "size": 0.11,
+   "at": {
+    "anchor": "recharge",
+    "offset": [
+     0,
+     2.2,
+     -2.35
+    ]
+   }
+  },
+  {
    "id": "price",
    "t": {
-    "line": "n5b"
+    "line": "n5b",
+    "word": "costs"
    },
    "until": {
     "line": "n5c"
    },
    "at": {
-    "anchor": "street",
+    "anchor": "recharge",
     "offset": [
-     0,
-     2.3,
-     2.0
+     0.2,
+     1.6,
+     0.05
     ]
    },
-   "size": 0.75,
+   "size": 0.42,
    "color": "#ffffff",
    "counter": {
     "from": 0,
@@ -14612,6 +14736,78 @@
    }
   },
   {
+   "id": "gold_scale",
+   "script": "library:balance_scale",
+   "t": 0,
+   "at": {
+    "anchor": "recharge",
+    "offset": [
+     0.45,
+     0.52,
+     0.05
+    ]
+   },
+   "face": {
+    "anchor": "recharge",
+    "offset": [
+     0,
+     1,
+     6
+    ]
+   },
+   "params": {
+    "size": 0.55,
+    "color": "#f2c230",
+    "right": {
+     "shape": "box",
+     "size": 0.12,
+     "color": "#5fe3ff",
+     "t": {
+      "line": "n5b",
+      "word": "gigabyte"
+     }
+    },
+    "left": {
+     "shape": "coin",
+     "size": 0.12,
+     "color": "#f2c230",
+     "t": {
+      "line": "n5b",
+      "word": "costs"
+     }
+    },
+    "tilt": [
+     [
+      0,
+      0
+     ],
+     [
+      {
+       "line": "n5b",
+       "word": "gigabyte",
+       "offset": 0.25
+      },
+      22
+     ],
+     [
+      {
+       "line": "n5b",
+       "word": "costs",
+       "offset": 0.25
+      },
+      14
+     ],
+     [
+      {
+       "line": "n5b",
+       "word": "250"
+      },
+      18
+     ]
+    ]
+   }
+  },
+  {
    "id": "cannon",
    "script": "gags/cash_cannon.gd",
    "t": {
@@ -15179,14 +15375,21 @@
    "camera": {
     "from": {
      "at": {
-      "anchor": "street",
+      "anchor": "recharge",
       "offset": [
-       0,
-       2.6,
-       7.8
+       0.55,
+       1.6,
+       3.0
       ]
      },
-     "look_at": "price",
+     "look_at": {
+      "anchor": "recharge",
+      "offset": [
+       0.05,
+       1.0,
+       -0.1
+      ]
+     },
      "lens_mm": 30,
      "dof": {
       "strength": 0.45
@@ -15194,14 +15397,21 @@
     },
     "to": {
      "at": {
-      "anchor": "street",
+      "anchor": "recharge",
       "offset": [
-       0,
-       2.5,
-       5.4
+       0.4,
+       1.55,
+       2.35
       ]
      },
-     "look_at": "price",
+     "look_at": {
+      "anchor": "recharge",
+      "offset": [
+       0.05,
+       1.05,
+       -0.1
+      ]
+     },
      "lens_mm": 30,
      "dof": {
       "strength": 0.45
