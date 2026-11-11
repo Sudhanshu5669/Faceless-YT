@@ -30,9 +30,23 @@ const SHAPES := ["box", "sphere", "cylinder", "cone", "card", "coin", "cash", "r
 const DEFAULT_COLORS := {"box": "#f2f2f2", "sphere": "#f2f2f2", "cylinder": "#f2f2f2", "cone": "#f2f2f2",
 	"card": "#ffffff", "coin": "#f2c230", "cash": "#4fbf6a", "ring": "#5fe3ff", "bottle": "#4a90e2",
 	"pin": "#ff4d5a", "chip": "#2b2f36", "phone": "#16181d"}
+## Chunky display font for text and counters (OFL, godot/fonts/lilita_one).
+const FONT_PATH := "res://fonts/lilita_one/LilitaOne-Regular.ttf"
 const ENTER_TIME := 0.35
 const EXIT_TIME := 0.25
 const LAND_COLOR := "#ffd84a"
+
+
+static var _font: FontFile
+
+
+## Loaded straight from the .ttf (the project runs without an editor import step).
+static func font() -> FontFile:
+	if _font == null:
+		_font = FontFile.new()
+		var err := _font.load_dynamic_font(ProjectSettings.globalize_path(FONT_PATH))
+		assert(err == OK, "reveals: cannot load " + FONT_PATH)
+	return _font
 
 
 static func validate(reveals) -> Array:
@@ -271,6 +285,7 @@ static func _cyl(top: float, bottom: float, h: float) -> CylinderMesh:
 ## Extruded 3D text, always turned toward the camera (Y billboard).
 static func _text_mesh(text: String, height: float, col: Color, glow: float) -> MeshInstance3D:
 	var tm := TextMesh.new()
+	tm.font = font()
 	tm.text = text
 	tm.font_size = 64
 	tm.pixel_size = height / 64.0

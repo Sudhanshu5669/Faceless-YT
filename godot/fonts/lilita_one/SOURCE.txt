@@ -1,0 +1,3 @@
+Lilita One by Juan Montoreano, SIL Open Font License 1.1 (OFL.txt): commercial use allowed.
+Source: https://github.com/google/fonts/tree/main/ofl/lilitaone (Google Fonts), downloaded 2026-11-11.
+Used for reveal text and counters (scripts/timeline/reveals.gd).

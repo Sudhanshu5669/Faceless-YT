@@ -56,6 +56,11 @@ count ("0.5 → 1.2 → 2.1 → 3.5") give `"keys": [[time, value], ...]` instea
 Add `{"sound": "tick", "at": ..., "repeat": 8, "every": 0.12}` in `sfx` for a ticking run-up and
 `"sound": "ding"` on the reveal (or an sfx at `land`) for the landing.
 
+## Font
+
+Text and counters use **Lilita One** (SIL Open Font License, commercial use allowed),
+`godot/fonts/lilita_one/` with its `OFL.txt`, loaded straight from the .ttf.
+
 ## Validation
 
 Unknown keys, shapes, entrances, missing `at`, duplicate ids, `until` before `t` and bad counters
