@@ -101,13 +101,20 @@ Validation fails on unknown anchors, keys, actions or freeze marks. It warns
   Rain and snow restart with a fixed seed at every cut.
 - After each cut, 30 warm-up frames render unsaved, so volumetric fog history settles on the
   new camera.
-- Frames are captured from the main viewport (grade included) to
-  `renders/frames/<NN>_<shot>/00000.png`, plus `timeline.json`. FFmpeg encodes each shot to
-  `renders/shots/<NN>_<shot>.mp4` (H.264, CRF 18, yuv420p) and joins them without re-encoding.
+- Frames are captured from the main viewport (grade included) and **piped raw straight into
+  one ffmpeg per shot** (`renders/shots/<NN>_<shot>.mp4`; motion-blur sub-frames are averaged
+  there with `tmix`). No PNGs touch the disk (a 60 fps final with blur 3 would otherwise write
+  ~23 GB). `--png` keeps the old path: `renders/frames/<NN>_<shot>/00000.png`, then encode.
+  `renders/frames/timeline.json` is written either way. Shots are joined without re-encoding.
+- **Encoder:** H.264 on the GPU (`h264_nvenc`, CQ 19) when a 1-frame test encode works, else x264
+  (CRF 18) on the CPU. `config.local.json` `"video_encoder": "nvenc" | "x264"` forces one. The
+  ffmpeg 9 build needs NVIDIA driver 610+ for NVENC (an older driver falls back to x264).
 - **Determinism:** the same command gives bit-identical frames. A shot re-rendered alone
   matches the full render to about 66 dB PSNR (single-level differences from fog history:
   invisible), so `--shots` is safe.
 - Speed on the RTX 4050: about 10 frames/s at 1080×1920 (a 30 s Short renders in about 75 s).
+  The jio_story final (130 s, 60 fps, blur 3 = 23,346 frames, 160 toons) took 40 min to draw
+  (PNG path) plus ~5 min of x264 encoding; most CPU load was PNG compression and x264.
 
 ## Set events
 

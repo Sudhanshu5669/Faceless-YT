@@ -674,7 +674,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
 
 def finish(cfg_ffmpeg: str, picture: Path, audio: Path, captions: Path | None, out: Path,
-           end_black: float, fps: int) -> None:
+           end_black: float, fps: int, vcodec: list[str] | None = None) -> None:
     """Burn captions, add the black tail, mux the soundtrack."""
     vf = []
     if captions is not None:
@@ -690,7 +690,7 @@ def finish(cfg_ffmpeg: str, picture: Path, audio: Path, captions: Path | None, o
     cmd = [cfg_ffmpeg, "-y", "-loglevel", "error", "-i", str(picture.resolve()), "-i", str(audio.resolve())]
     if vf:
         cmd += ["-vf", ",".join(vf)]
-    cmd += ["-map", "0:v:0", "-map", "1:a:0", "-c:v", "libx264", "-preset", "medium", "-crf", "18",
+    cmd += ["-map", "0:v:0", "-map", "1:a:0", *(vcodec or ["-c:v", "libx264", "-preset", "medium", "-crf", "18"]),
             "-pix_fmt", "yuv420p", "-r", str(fps), "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
             "-shortest", str(out.resolve())]
     # Run next to the .ass file: Windows drive letters break the filter's path syntax.

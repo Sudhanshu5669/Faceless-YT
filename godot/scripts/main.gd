@@ -312,29 +312,93 @@ func _run_frames(out_dir: String) -> void:
 		"resolution": [size.x, size.y], "shots": summary})
 	var pending := []
 	var t0 := Time.get_ticks_msec()
+	# --stream DIR: pipe raw frames straight into ffmpeg (one encoder per shot, DIR/<shot>.mp4);
+	# no PNGs on disk. Otherwise every frame is saved as a PNG under out_dir.
+	var stream_dir := String(args.get("stream", ""))
+	if stream_dir != "":
+		stream_dir = Paths.resolve(stream_dir)
+		DirAccess.make_dir_recursive_absolute(stream_dir)
 	for shot in shots:
 		if not only.is_empty() and not (String(shot["name"]) in only):
 			continue
 		var dir := out_dir.path_join(_shot_dir_name(shot))
-		DirAccess.make_dir_recursive_absolute(dir)
+		if stream_dir == "":
+			DirAccess.make_dir_recursive_absolute(dir)
 		_frame_state(shot, 0)
 		_restart_particles()
 		for w in CUT_WARMUP_FRAMES:
 			await get_tree().process_frame
+		var enc := {}
 		for k in int(shot["frames"]):
 			_frame_state(shot, k)
 			await RenderingServer.frame_post_draw
 			var img := get_viewport().get_texture().get_image()
+			if stream_dir != "":
+				if enc.is_empty():
+					enc = _open_encoder(stream_dir.path_join(_shot_dir_name(shot) + ".mp4"), img)
+					if enc.has("error"):
+						_fail(String(enc["error"]))
+						return
+				if img.get_format() != int(enc["format"]):
+					img.convert(int(enc["format"]))
+				(enc["stdio"] as FileAccess).store_buffer(img.get_data())
+				continue
 			var path := dir.path_join("%05d.png" % k)
 			# Keep the image referenced until its encode finishes.
 			pending.append([WorkerThreadPool.add_task(img.save_png.bind(path)), img])
 			while pending.size() > MAX_PENDING_SAVES:
 				WorkerThreadPool.wait_for_task_completion(pending.pop_front()[0])
+		if stream_dir != "":
+			var err := _close_encoder(enc)
+			if err != "":
+				_fail("shot %s: ffmpeg failed: %s" % [shot["name"], err])
+				return
+			_log("shot %s: %d frames -> %s.mp4" % [shot["name"], shot["frames"], _shot_dir_name(shot)])
+			continue
 		_log("shot %s: %d frames -> %s" % [shot["name"], shot["frames"], dir])
 	for p in pending:
 		WorkerThreadPool.wait_for_task_completion(p[0])
 	_log("rendered %s at %dx%d %d fps in %.1f s" % [episode["id"], size.x, size.y, fps, (Time.get_ticks_msec() - t0) / 1000.0])
 	get_tree().quit(0)
+
+
+## Starts ffmpeg reading raw frames of img's size from a pipe. Args from tf.py: --ffmpeg (path),
+## --vcodec ("|"-separated encoder args), --blur (sub-frames averaged per output frame), --out_fps.
+func _open_encoder(out_path: String, img: Image) -> Dictionary:
+	var fmt := img.get_format()
+	var pix := "rgb24"
+	if fmt == Image.FORMAT_RGBA8:
+		pix = "rgba"
+	elif fmt != Image.FORMAT_RGB8:
+		fmt = Image.FORMAT_RGBA8
+		pix = "rgba"
+	var blur := int(args.get("blur", "1"))
+	var a := PackedStringArray(["-y", "-loglevel", "error", "-nostats", "-f", "rawvideo", "-pix_fmt", pix,
+		"-s", "%dx%d" % [img.get_width(), img.get_height()], "-r", str(_fps()), "-i", "-"])
+	if blur > 1:
+		a.append_array(["-vf", "tmix=frames=%d,framestep=%d" % [blur, blur]])
+	a.append_array(String(args.get("vcodec", "-c:v|libx264|-preset|medium|-crf|18")).split("|", false))
+	a.append_array(["-pix_fmt", "yuv420p", "-r", str(args.get("out_fps", _fps())), "-movflags", "+faststart", out_path])
+	var p := OS.execute_with_pipe(String(args.get("ffmpeg", "ffmpeg")), a)
+	if p.is_empty():
+		return {"error": "could not start ffmpeg (%s)" % args.get("ffmpeg", "ffmpeg")}
+	p["format"] = fmt
+	return p
+
+
+## Closes the pipe (end of input), waits for ffmpeg, returns "" or its error text.
+func _close_encoder(enc: Dictionary) -> String:
+	if enc.is_empty():
+		return "no frames"
+	(enc["stdio"] as FileAccess).close()
+	var pid := int(enc["pid"])
+	while OS.is_process_running(pid):
+		OS.delay_msec(10)
+	var code := OS.get_process_exit_code(pid)
+	if code == 0:
+		return ""
+	var msg := (enc["stderr"] as FileAccess).get_buffer(8192).get_string_from_utf8()
+	return "exit %d: %s" % [code, msg.strip_edges()]
 
 
 func _run_storyboard(out_dir: String) -> void:

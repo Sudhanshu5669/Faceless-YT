@@ -33,7 +33,7 @@ python pipeline/tf.py preview-set [SPEC] [--look NAME] [--time 03:33] [--weather
 python pipeline/tf.py look save NAME FILE --description "..."   # validate + save a new look to the library
 python pipeline/tf.py storyboard EPISODE             # episodes/<id>/preview/storyboard.png (start/mid/end per shot)
 python pipeline/tf.py voice EPISODE                  # narration (cached TTS) + timing table, no render
-python pipeline/tf.py render EPISODE [--draft] [--shots a,b] [--remix]   # episodes/<id>/renders/<id>.mp4 (--remix: sound only)
+python pipeline/tf.py render EPISODE [--draft] [--shots a,b] [--remix] [--png]   # episodes/<id>/renders/<id>.mp4 (--remix: sound only; frames stream to ffmpeg, --png saves them)
 python pipeline/tf.py review prepare|serve|notes EPISODE   # approval board; final renders need every item approved
 python pipeline/tf.py explore [SPEC]                # interactive fly-through (T/Y time, F/C/R/X weather)
 python pipeline/tf.py assets import                 # incoming/*.zip -> Godot assets -> library/catalog.json + thumbnails

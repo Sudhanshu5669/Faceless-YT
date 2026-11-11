@@ -34,8 +34,15 @@ oxygen hoses to every head, domino shove, call packed into a DATA crate, fibre w
 fan stampede + phone cannon, phone wall +7 per tick, rivals run in crying (tears, WAAAH), JIO bowling
 ball (STRIKE), duct-taped Vodafone/Idea, cake slices to Facebook/Google, India made of 110 people,
 Dhirubhai's portrait laughs on "free". **Waiting on the user's review**; then apply notes → final
-render (`tf render jio_story`). Ideas not built yet: trophy shelf, snail/rocket, taxi meter, dustbin,
-endless receipt, garage "startup", queue to the horizon, clock, phone lights in the last shot;
+render. **Then (same day) the rest:** missing-piece frame, snail courier, taxi meter, dustbin throw,
+receipt tower, tiny vs giant STARTUP garage, clock, rocket, sky lanterns; plus the review suggestions
+(brand-coloured towers, map rim, JIO neon higher, JioPhone stand, down-the-lane bowling camera,
+toon_official regulator). **Final render at 60 fps** (`format.fps: 60`, motion blur 3, ~23 GB of
+frames) was run with `--force` at the user's request (board items not ticked). Not built: the
+queue to the horizon. **Final video: `episodes/jio_story/renders/jio_story.mp4`** (1080x1920,
+60 fps, 129.6 s, 124 MB; 40 min to draw + 5 min encode). Renders now stream raw frames into ffmpeg
+(no PNGs) and use NVENC when the driver allows: **NVENC needs NVIDIA driver 610+ for this ffmpeg
+build; the installed driver (NVENC API 13.0) is too old, so x264 is used until it's updated**;
 (2) ~~display font~~ done (Lilita One, OFL);
 (3) `stage` set generator (neon pedestal, dark grid "dossier" void); (4) whip-pan and
 push-through transitions + motion blur (sub-frame accumulation) + a neon night look;

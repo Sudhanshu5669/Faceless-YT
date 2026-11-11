@@ -159,14 +159,40 @@ def _episode_frames(ep: dict, fps: int) -> int:
     return sum(max(1, round(float(s["duration"]) * fps)) for s in ep.get("shots", []))
 
 
+_CODEC: list[str] | None = None
+
+
+def _which(exe: str) -> str:
+    """Absolute path of a tool (Godot starts ffmpeg itself and may not search PATH)."""
+    import shutil
+    return shutil.which(exe) or exe
+
+
+def video_codec(cfg: dict) -> list[str]:
+    """H.264 encoder args: the GPU (NVENC) when this ffmpeg and machine have it, else x264 on the CPU.
+    config.local.json "video_encoder": "nvenc" | "x264" forces one."""
+    global _CODEC
+    if _CODEC is None:
+        want = cfg.get("video_encoder", "auto")
+        nvenc = want == "nvenc"
+        if want == "auto":
+            try:  # a 1-frame test encode: the encoder can be listed but have no GPU behind it
+                nvenc = subprocess.run([cfg["ffmpeg"], "-loglevel", "error", "-f", "lavfi", "-i", "color=c=black:s=256x256:d=0.1",
+                                        "-c:v", "h264_nvenc", "-f", "null", "-"], capture_output=True, timeout=30).returncode == 0
+            except (OSError, subprocess.TimeoutExpired):
+                nvenc = False
+        _CODEC = (["-c:v", "h264_nvenc", "-preset", "p5", "-tune", "hq", "-rc", "vbr", "-cq", "19", "-b:v", "0"] if nvenc
+                  else ["-c:v", "libx264", "-preset", "medium", "-crf", "18"])
+    return list(_CODEC)
+
+
 def encode_frames(cfg: dict, frames_dir: Path, fps: int, out: Path, blur: int = 1) -> None:
     """Frames -> H.264. With blur > 1 the frames were rendered at fps * blur and every
     output frame is the average of `blur` sub-frames: real motion blur (whip pans)."""
     out.parent.mkdir(parents=True, exist_ok=True)
     vf = ["-vf", f"tmix=frames={blur},framestep={blur}"] if blur > 1 else []
     subprocess.run([cfg["ffmpeg"], "-y", "-loglevel", "error", "-framerate", str(fps * blur),
-                    "-i", str(frames_dir / "%05d.png"), *vf, "-c:v", "libx264", "-preset", "medium",
-                    "-crf", "18", "-pix_fmt", "yuv420p", "-r", str(fps), "-movflags", "+faststart",
+                    "-i", str(frames_dir / "%05d.png"), *vf, *video_codec(cfg), "-pix_fmt", "yuv420p", "-r", str(fps), "-movflags", "+faststart",
                     str(out)], check=True)
 
 
@@ -212,6 +238,11 @@ def cmd_render(cfg: dict, args) -> int:
     user = ["--episode", str(resolved), "--frames", str(frames_root), "--fps", str(rfps), "--scale", str(scale)]
     if only:
         user += ["--shots", ",".join(only)]
+    # Default: Godot pipes raw frames straight into ffmpeg (no PNGs); --png keeps the frames on disk.
+    stream = not getattr(args, "png", False)
+    if stream:
+        user += ["--stream", str(root / "shots"), "--ffmpeg", _which(cfg["ffmpeg"]), "--vcodec", "|".join(video_codec(cfg)),
+                 "--blur", str(blur), "--out_fps", str(fps)]
     print(f"[TownForge] rendering {ep_id}: {len(ep.get('shots', []))} shots, "
           f"{_episode_frames(ep, rfps)} frames at {rfps} fps" + (f" ({blur} sub-frames each)" if blur > 1 else ""))
     code = run_godot(cfg, user, pre_args=["--fixed-fps", str(rfps), "--disable-vsync", "--quit-after", str(total + 600)],
@@ -221,6 +252,17 @@ def cmd_render(cfg: dict, args) -> int:
     timeline = _read_json(frames_root / "timeline.json")
     parts = []
     for shot in timeline["shots"]:
+        part = root / "shots" / f"{shot['dir']}.mp4"
+        if stream:
+            if not part.exists() or part.stat().st_size < 1000:
+                if only and shot["name"] not in only:
+                    print(f"[TownForge] shot {shot['name']} has never been rendered; "
+                          "run without --shots to assemble the full video")
+                    return 0
+                print(f"ERROR: shot {shot['name']}: no video at {part}", file=sys.stderr)
+                return 1
+            parts.append(part)
+            continue
         d = frames_root / shot["dir"]
         n = len(list(d.glob("*.png")))
         if n != shot["frames"]:
@@ -267,7 +309,7 @@ def _remix(cfg: dict, res: dict, root: Path, ep_id: str, fps: int, draft: bool) 
     captions = None
     if res["lines"] and res["captions"].get("enabled", True):
         captions = episode_audio.write_captions(res, root / "captions.ass")
-    episode_audio.finish(cfg["ffmpeg"], picture, audio, captions, out, res["end_black"], fps)
+    episode_audio.finish(cfg["ffmpeg"], picture, audio, captions, out, res["end_black"], fps, video_codec(cfg))
     lufs = episode_audio.measure_lufs(cfg["ffmpeg"], out)
     print(f"[TownForge] sound: {len(res['lines'])} lines, {len(res['sfx'])} effects, "
           f"{len(res['ambience'])} beds, {lufs:.1f} LUFS" + (", captions burned in" if captions else ""))
@@ -517,6 +559,7 @@ def main(argv: list[str] | None = None) -> int:
     rp.add_argument("--remix", action="store_true", help="rebuild only the sound and captions over the rendered picture")
     rp.add_argument("--force", action="store_true", help="final render even if review items are not approved")
     rp.add_argument("--scale", type=float, help="resolution scale (e.g. 0.5 for a quick look at full frame rate)")
+    rp.add_argument("--png", action="store_true", help="save every frame as a PNG (default: stream frames straight to ffmpeg)")
     rv = sub.add_parser("review", help="approval board: prepare, serve, notes")
     rv.add_argument("action", choices=["prepare", "serve", "notes"])
     rv.add_argument("episode", help="episodes/<id>/episode.json or <id>")
