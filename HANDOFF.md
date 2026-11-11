@@ -67,9 +67,11 @@ water surface + simple buoyancy. Import packs with `tf assets import` (docs/ASSE
 
 ### Shot loop progress (2026-11-12)
 Shot 1 `open` (crude through a straw from an oil drum: `gags/straw_barrel.gd`; name over the head),
-shot 2 `empire_items` (✅ approved), shot 3 `lost` (a phone bounces off the tower and tumbles past
-him; "?" over the head) and shot 18 `buy95` (cash cannon pilot) are rendered and pass the framing
-check; waiting for the user's verdicts. Continue in story order from shot 4 `tribute` (gags.md #4).
+shot 2 `empire_items` (✅ approved), shot 3 `lost` (REDONE after the user disliked the bouncing
+phone: the dream is a red balloon carrying a phone that slips from his hand on "lost" and floats to
+the sky, `library:balloon`), shot 4 `tribute` (`library:balance_scale`: phone pan crashes, then rises
+above the 50-paise postcard on "less") and shot 18 `buy95` (cash cannon pilot) are rendered and pass the framing
+check; waiting for the user's verdicts. Continue in story order from shot 5 `split` (gags.md #5: tug-of-war over the cake, Kokilaben's whistle).
 The framing check now ignores whip-pan and iris moments.
 
 ### Gags: built (2026-11-12) — read docs/GAGS_SPEC.md

@@ -774,6 +774,8 @@ static func _text_mesh(text: String, height: float, col: Color, glow: float, bil
 	tm.curve_step = 2.0
 	var mi := MeshInstance3D.new()
 	mi.mesh = tm
+	# Floating text and counters never cast shadows (a key light would print them on the walls).
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var m := StandardMaterial3D.new()
 	m.albedo_color = col
 	m.roughness = 0.5

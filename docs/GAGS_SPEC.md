@@ -69,6 +69,8 @@ When an episode's gag turns out generic, move it there and reference it as `libr
 
 | Gag | What it does |
 |---|---|
+| `balloon` | A balloon on a string held by someone; slips away on `release` and floats up, carrying any shape (a dream slipping away). Anchors: `balloon`, `hand`. |
+| `balance_scale` | A brass balance whose beam tilts on cue keys with a damped swing; pans carry items (any shape + label). Anchors: `left`, `right`. |
 | `cash_stream` | Bills fly in arcs from a source and pile up into a growing heap (cash cannons, money rain, burying someone). Anchors: `top`, `landing`. |
 
 Example of an episode gag: `episodes/jio_story/gags/cash_cannon.gd` (rolls in, recoils and flashes

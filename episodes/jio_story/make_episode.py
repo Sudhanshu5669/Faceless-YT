@@ -228,31 +228,14 @@ reveals = [
      "at": A("m.head", [0, 1.1, 0]), "face": A("m", [0, 1.3, 5]), "bob": 0.03, "sound": "pop", "until": W("n1c", "father")},
     {"id": "plastic", "t": W("n1b", "plastics"), "shape": "bottle", "color": "#4a90e2", "size": 0.42, "enter": "drop",
      "enter_time": 0.3, "at": A("m.head", [0, 1.72, 0]), "bob": 0.04, "spin": 40, "sound": "pop", "until": W("n1c", "father")},
-    # Shot 3: a phone flies in to top the tower, bounces off on "lost", tumbles down the drums, rolls away.
-    {"id": "lost_phone", "t": L("n1c"), "until": W("n1c", "dreamed"), "exit": "none", "shape": "phone", "size": 0.46,
-     "color": "#16181d", "enter": "drop", "enter_time": 0.3, "at": A("m.head", [0, 2.3, 0]), "face": A("m", [0, 1.3, 5]),
-     "moves": [{"t": W("n1c", "lost"), "by": [0.0, 0.35, 0.3], "dur": 0.2, "turn": 90},
-               {"t": W("n1c", "lost", offset=0.2), "by": [0.08, -2.0, 0.7], "dur": 0.45, "turn": 270},
-               {"t": W("n1c", "lost", offset=0.65), "by": [0.1, -0.45, 0.45], "dur": 0.5, "turn": 120}]},
-    {"id": "lost_q", "t": W("n1c", "dreamed"), "text": "?", "color": "#ffd84a", "glow": 1.2, "size": 0.42,
-     "at": A("m.head", [0, 0.48, 0]), "sound": "pop", "until": L("n2")},
     # tribute: the portrait and the scales
     {"id": "cabinet", "t": 0, "enter": "none", "shape": "box", "color": "#6a4028", "size": 0.6, "at": A("tribute.back", [0, 0, 0.3])},
     {"id": "portrait", "t": 0, "enter": "none", "shape": "frame", "size": 1.15, "at": A("tribute.back", [0, 0.62, 0.4])},
     {"id": "garland", "t": 0, "enter": "none", "shape": "garland", "size": 0.92, "at": A("tribute.back", [0, 1.77, 0.47])},
     {"id": "name", "t": 0, "enter": "none", "shape": "plaque", "label": "DHIRUBHAI AMBANI", "label_color": "#3a2208",
      "size": 0.78, "at": A("tribute.back", [0, 0.56, 0.47])},
-    {"id": "y2002", "t": W("n2", "2002"), "until": L("n3a"), "text": "2002", "color": "#5fe3ff", "glow": 1.2, "size": 0.32,
-     "at": A("tribute.back", [1.0, 2.0, 0.6]), "sound": "pop"},
-    {"id": "scales", "t": 0, "enter": "none", "shape": "scales", "size": 0.9, "at": A("tribute", [0, 0, 1.2])},
-    {"id": "call_phone", "t": W("n2", "phone"), "shape": "phone", "size": 0.22, "enter": "settle", "enter_time": 1.1,
-     "at": A("tribute", [-0.45, 0.45, 1.2]), "face": face_cam("tribute"), "sound": "pop"},
-    # Ending: on "free" the postcard floats up off the scales, its price with it.
-    {"id": "call_postcard", "t": W("n2", "postcard"), "shape": "postcard", "size": 0.28, "enter": "settle", "enter_time": 1.1,
-     "at": A("tribute", [0.45, 0.45, 1.2]), "face": face_cam("tribute"), "sound": "pop",
-     "moves": [{"t": W("n23b", "free."), "by": [-0.1, 1.6, 0], "dur": 1.6, "turn": 30}]},
-    {"id": "paise", "t": W("n2", "postcard", offset=0.3), "text": "50 PAISE", "color": "#ffd84a", "glow": 0.8, "size": 0.09,
-     "enter": "rise", "at": A("tribute", [0.45, 0.86, 1.25]), "moves": [{"t": W("n23b", "free."), "by": [-0.1, 1.6, 0], "dur": 1.6}]},
+    {"id": "y2002", "t": W("n2", "2002"), "until": L("n3a"), "text": "2002", "color": "#5fe3ff", "glow": 1.2, "size": 0.26,
+     "at": A("tribute.back", [0, 2.02, 0.75]), "sound": "pop"},
     # split: table, cake, halves, phone, sign
     {"id": "table", "t": 0, "enter": "none", "prop": "quaternius_fantasy_props/Table_Large", "size": 2.0, "at": A("split", [0, 0, 0])},
     # yaw 90: the cut faces +x, the half sits at world -x (screen left); yaw -90 the mirror.
@@ -400,6 +383,18 @@ GAGS = [
      "face": A("m", [0, 1.2, 4]), "params": {"mouth": MOUTH, "sips": {"from": 0.25, "until": L("n1b", offset=-0.4), "every": 0.75}}},
     {"id": "straw_end", "script": "gags/straw_barrel.gd", "t": L("n24b"), "at": "m.chest",
      "face": A("m", [0, 1.2, 4]), "params": {"mouth": MOUTH, "sips": {"from": L("n24b", offset=0.2), "until": L("n24b", edge="end"), "every": 0.75}}},
+    # Shot 3: the dream slips away: the balloon with the phone escapes his hand on "lost" and floats to the moon.
+    {"id": "dream", "script": "library:balloon", "t": L("n1b"), "until": L("n2"), "at": A("m", [-0.32, 0.75, 0.25]),
+     "params": {"hold": "m.hand", "release": W("n1c", "lost"), "rise": 1.25, "drift": [0.15, 0, -0.25], "length": 1.0,
+                "color": "#e8343c", "carry": "phone", "carry_color": "#16181d", "carry_size": 0.3, "size": 0.55, "seed": 2}},
+    # Shot 4 (and the bookend, shots 49-50): the brass balance. A 50-paise postcard sits on one pan;
+    # the phone lands on "phone" and its pan crashes down (calls cost a fortune); on "less" it rises above the
+    # postcard (his dream); on "free" (shot 50) it shoots up.
+    {"id": "scale", "script": "library:balance_scale", "t": 0, "at": A("tribute", [0, 0, 1.2]), "face": A("tribute", [0, 1, 6]),
+     "params": {"size": 0.95,
+                "left": {"shape": "postcard", "size": 0.3, "color": "#f6ecd2", "t": L("n2"), "label": "50 PAISE"},
+                "right": {"shape": "phone", "size": 0.26, "color": "#16181d", "t": W("n2", "phone")},
+                "tilt": [[0, 0], [W("n2", "phone", offset=0.3), 24], [W("n2", "less"), -16], [W("n23b", "free."), -34]]}},
     {"id": "cannon", "script": "gags/cash_cannon.gd", "t": L("n8d"), "until": L("n9a"), "at": S("office", 0.25, 0, 2.5),
      "face": "rep", "params": {"roll_in": W("n8d", "you"), "roll_from": [0, 0, -2.2], "roll_time": 0.7,
                                "shots": {"from": W("n8d", "buy"), "until": W("n8d", "percent"), "every": 0.14}}},
@@ -757,7 +752,8 @@ ep = {
         {"id": "m", "character": "toon_mukesh", "at": "empire.pedestal", "cues": [
             {"t": 0, "expression": "smug", "hands": "chest"}, {"t": L("n1b"), "hands": "none"},
             {"t": W("n1b", "plastics"), "expression": "star_eyes"},
-            {"t": W("n1c", "lost"), "expression": "shocked"}, {"t": W("n1c", "business"), "expression": "sad"},
+            {"t": W("n1c", "lost"), "expression": "shocked"}, {"t": W("n1c", "lost", offset=0.15), "action": "jump"},
+            {"t": W("n1c", "business"), "expression": "sad", "action": "idle"},
             {"t": L("n4", offset=-0.05), "expression": "surprised", "hands": "face"},
             {"t": L("n5a"), "expression": "deadpan", "hands": "none"},
             {"t": L("n24b"), "hands": "chest"},
@@ -871,7 +867,9 @@ ep = {
             {"t": 0, "expression": "smug"}, {"t": W("n16a", "crying"), "expression": "sleepy"},
             {"t": W("n16b", "say"), "expression": "side_eye"}, {"t": W("n16b", "calls."), "expression": "wink"}]},
         # The ending: Mukesh beside his father's portrait.
-        {"id": "mt", "character": "toon_mukesh", "at": A("tribute.back", [1.25, 0, 0.9]), "facing": face_cam("tribute", 6), "cues": [
+        {"id": "mt", "character": "toon_mukesh", "at": A("tribute.back", [2.9, 0, 1.4]), "facing": face_cam("tribute", 6),
+         "route": {"via": [A("tribute.back", [1.25, 0, 0.9])], "gait": "walk", "start": W("n22", "Today,"), "arrive": L("n23a"),
+                   "then": "idle", "then_facing": face_cam("tribute", 6)}, "cues": [
             {"t": 0, "expression": "happy"}, {"t": L("n23a"), "expression": "sad"},
             {"t": W("n23b", "free."), "expression": "happy", "hands": "chest"}, {"t": W("n24a", "Jio."), "expression": "grin"}]},
     ],
@@ -882,8 +880,8 @@ ep = {
          "camera": move(cam(A("empire", [0, 9, 13]), A("empire", [0, 3, 0]), 24), cam(A("m", [0, 1.0, 3.4]), "m.head", 32))},
         {"name": "empire_items", "duration": fit(),
          "camera": move(cam(A("m", [0, 1.4, 3.6]), A("m", [0, 1.2, 0]), 30), cam(A("m", [0, 2.0, 3.5]), A("m", [0, 2.1, 0]), 30))},
-        {"name": "lost", "duration": fit(0.35), "whip_out": "left",
-         "camera": move(cam(A("m", [0, 2.3, 4.6]), A("m", [0, 2.35, 0]), 30), cam(A("m", [0, 1.35, 2.5]), A("m", [0, 1.35, 0]), 33))},
+        {"name": "lost", "duration": fit(0.35), "whip_out": "up",
+         "camera": move(cam(A("m", [0, 1.6, 3.6]), A("m", [0, 1.5, 0]), 30), cam(A("m", [0, 2.6, 4.8]), "dream.balloon", 30), "in")},
         {"name": "tribute", "duration": fit(0.35), "whip_in": "left", "whip_out": "right",
          "camera": move(cam(A("tribute", [0, 1.5, 5.4]), A("tribute", [0, 1.05, -0.9]), 52),
                         cam(A("tribute", [0, 1.3, 4.3]), A("tribute", [0, 0.95, -0.5]), 52))},
