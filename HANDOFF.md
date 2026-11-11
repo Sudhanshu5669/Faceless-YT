@@ -1,6 +1,68 @@
 # Handoff: where TownForge is, and what to do next
 
-*Last updated 2026-11-11. Read this first in a new session, then `docs/VISION_AND_ROADMAP.md`.*
+*Last updated 2026-11-11 (late). Read this first in a new session (Claude or Codex), then
+`AGENTS.md`, then `docs/VISION_AND_ROADMAP.md`.*
+
+## START HERE: current task (for whoever picks this up)
+
+**Episode `jio_story`** ("How Mukesh Ambani built Jio", toon style, 52 shots, 129.7 s). A full
+60 fps final exists (`episodes/jio_story/renders/jio_story.mp4`), but the user wants it **redone
+shot by shot with their approval**, and at a **higher visual quality**.
+
+### The user's rules (from their feedback; follow them)
+1. **Shot-by-shot approval.** Make one shot, let the user see it, they approve / ask for changes /
+   reject, then the next. Tools: `python pipeline/tf.py shot jio_story NAME` (full-size clip with
+   sound + captions + frame strip + framing check) and the browser page
+   `python pipeline/tf.py shot jio_story --serve` (http://127.0.0.1:8770/: watch, decide, render).
+   Read their verdicts with `python pipeline/tf.py shot jio_story --status` (notes are in
+   `episodes/jio_story/review/shot_decisions.json`). Fix what they ask, re-render that shot, and the
+   page shows the new version. Don't show a shot that fails the framing check.
+2. **9:16 framing.** Nothing may be cut off by the narrow frame. Put reveals on the vertical axis (on
+   / above a character's head via `<actor>.head`, in hands, stacked), never spread left/right; place
+   late reveals where the END of a push-in still sees them. `tf framing jio_story` lists every crop.
+   (Shot 2 was redone this way: refinery, pump, bottle stack on Mukesh's head.)
+3. **India-first sets** (no plain blue grid/tile looks), soft continuous motion (no pops/swaps of the
+   same object), held props held, labels where a viewer expects them.
+4. **Quality bar = the reference channel @afterhourtheories** (their "How Facebook will win the AI
+   race?" Short). Commit directly on `main`. Never use generative image/video services.
+
+### Shot loop status
+Shot 1 `open` (name stacked over his head) and shot 2 `empire_items` (businesses stacked on his
+head) are rendered in the shot loop and **waiting for the user's verdict**; shots 3-52 not yet
+re-rendered. The framing check (`tf framing jio_story`) found crops in 27 shots of the old cut:
+fix each as you reach it.
+
+### Next: the look-dev pass (proposed to the user, likely approved; it was "start with lighting
+and materials?")
+Comparison with the reference (frames side by side) showed the gap is craft, not style:
+1. **Lighting & colour (biggest gap):** reference = dark backgrounds, subject brightest, 2-3 neon
+   colours per shot, coloured rim light, bloom, AO, depth of field. Ours = flat even light, pastel
+   walls (pink/mint/white) that swallow the white toon heads. To do: per-bay lighting rig (key on
+   the subject + coloured rim/back light), darker walls/floors in `make_episode.py` bays, and in
+   `godot/scripts/look/look.gd` enable SSAO, glow/bloom, filmic/AgX tonemap and camera DOF
+   (CameraAttributesPractical) for the toon looks. Check `neon_night` look + `stage_builder.gd`.
+2. **Materials:** rounded/bevelled, slightly glossy toy surfaces instead of hard flat primitives
+   (`reveals.gd` `_shape`/`_story_parts` use `_box`/`_cyl` + `Toon.material`; add a rounded-box
+   mesh helper and lower roughness / add specular in `Toon.material`).
+3. Composition rules (subject size, low/wide angles, foreground), a toon pose library (point,
+   shrug, cheer, throw) + mouth flap on words, a 2D overlay layer (viewfinder/HUD cards), particle
+   bursts. Prove 1+2 on shots 1-2 first, show before/after, then continue the shot loop.
+
+### Practical notes
+- `episodes/jio_story/make_episode.py` generates `episode.json` and `specs/sets/jio_stage.json`:
+  edit the .py, run `python episodes/jio_story/make_episode.py .`. Helpers: `W(line, word)` time
+  refs, `S(anchor, screen_x, up, forward)` (screen-right positive), `A(anchor, [right, up, fwd])`
+  (facing +z, "right" = screen LEFT), `on_map(lon, lat)` for the India map.
+- The narration is ONE cached Gemini take (no TTS calls needed; free tier = 10/day). Word times are
+  measured by CTC forced alignment (`pipeline/ctc_align.py`, wav2vec2 in `models/alignment/`,
+  git-ignored; needs `pip install onnxruntime`). Never go back to LLM-guessed timings.
+- Renders stream raw frames into ffmpeg (no PNGs; `--png` for the old path). NVENC needs NVIDIA
+  driver 610+ (installed driver too old) so x264 is used automatically.
+- The old 60 fps render left ~23 GB of PNGs in `episodes/jio_story/renders/frames/` (git-ignored);
+  ask the user before deleting.
+- Power cuts happen: after a restart, check files parse (JSON, Python AST) and `git status`.
+- Always: `python pipeline/tf.py test` before committing; look at strips/storyboards (rule 6).
+
 
 ## NEW DIRECTION (2026-11-11): the toon house style
 
