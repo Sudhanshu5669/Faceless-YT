@@ -1,5 +1,7 @@
 @AGENTS.md
 
+Read "The user's standing rules" in AGENTS.md first: they come from the user and override defaults.
+
 ## Claude-specific
 
 - You can read images: after any visual change, run `python pipeline/tf.py preview-set`

@@ -60,8 +60,8 @@ $14 billion just to bring in Scale AI's founder... then you spend $2 billion to 
 2. **Specific, recognisable references, not generic tokens.** The scene is Scale's office (a SCALE
    logo sign on the wall, a plant), the founder is a caricature of the real person, and the proof is
    his REAL tweet on a phone with a likes counter climbing 18K → 120K → 402K. Ours: a purple box
-   labelled INFOTEL, floating 3D text "FACEBOOK". (Real logos / real tweets are the user's call: ask;
-   at minimum use brand colours, look-alike marks and faithful UI cards with real quotes.)
+   labelled INFOTEL, floating 3D text "FACEBOOK". (**The user approved real logos, caricatures and faithful
+   recreations of real tweets/headlines** on 2026-11-11; logo files go in `library/logos/` + SOURCES.md.)
 3. **A protagonist travels through the story carrying props.** Zuck WALKS into the next set (an "AI
    STARTUP" storefront) carrying a $ money bag and drops it on the desk: continuity across shots.
    Ours: a separate static Mukesh per bay.
@@ -110,8 +110,8 @@ in the shot-loop page and get a verdict before re-rendering further shots.
   git-ignored; needs `pip install onnxruntime`). Never go back to LLM-guessed timings.
 - Renders stream raw frames into ffmpeg (no PNGs; `--png` for the old path). NVENC needs NVIDIA
   driver 610+ (installed driver too old) so x264 is used automatically.
-- The old 60 fps render left ~23 GB of PNGs in `episodes/jio_story/renders/frames/` (git-ignored);
-  ask the user before deleting.
+- The old render's PNG frames were deleted (user approved); `renders/frames/timeline.json` is kept
+  for `--remix`.
 - Power cuts happen: after a restart, check files parse (JSON, Python AST) and `git status`.
 - Always: `python pipeline/tf.py test` before committing; look at strips/storyboards (rule 6).
 

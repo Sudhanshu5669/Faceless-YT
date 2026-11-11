@@ -67,9 +67,10 @@ number**. The camera never stops moving, and the end **loops back to the opening
 
    Every row needs at least one word-anchored reveal or a face swap. If a row has neither, rewrite it.
 3. **Cast.** Use the `toon_*` characters (`python pipeline/tf.py library`), or add one in
-   `library/characters/` (`toon` block, docs/TOON_SPEC.md). Prefer archetypes ("a tech
-   billionaire") over named real people unless the user asks for a specific person: caricaturing
-   real people and using real logos is the user's call, so ask.
+   `library/characters/` (`toon` block, docs/TOON_SPEC.md). For real stories, caricature
+   the real people (`toon_mukesh`, `toon_anil`...) and use the real companies' logos, and recreate
+   real tweets and headlines (approved by the user, 2026-11-11: news commentary / free speech). Keep
+   the quotes faithful and the facts checked; never invent a quote or a post.
 4. **Build `episodes/<id>/episode.json`**: lines (with `shot`), shots (`"duration": "fit"`),
    actors with `cues` (`expression`, `action`), `reveals` (props, shapes, text, counters), `sfx`,
    `captions`. Times are word references, never hand-typed seconds.
@@ -157,6 +158,6 @@ report. Don't fake it with coordinates.
 - [ ] Faces swap at least every ~1.5 s in character beats, and match the line's emotion.
 - [ ] Mean shot ≈ 1.5–2.2 s; no static shot over 4 s.
 - [ ] The opening hook lands in the first 2 s, and the ending loops to the opening set.
-- [ ] Facts checked; real people and logos only if the user asked.
+- [ ] Facts checked; real logos, caricatures and recreated tweets/headlines are faithful (no invented quotes).
 - [ ] Storyboard viewed, reveals visible, faces readable, nothing under the captions.
 - [ ] When a new look, shot or face preset is good and reusable, save it to the library.

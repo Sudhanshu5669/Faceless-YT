@@ -22,6 +22,27 @@ Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary
 **Making a video in the house style?** Follow the `toon-short` skill
 (`.claude/skills/toon-short/SKILL.md`): script formula, beat sheet, rules, checklist.
 
+## The user's standing rules (for every model: Claude, Codex, anyone)
+
+These come from the user's own feedback; they override defaults. Details in `HANDOFF.md`.
+
+1. **Shot-by-shot approval.** Make one shot, show it (`tf shot EPISODE NAME`, or the browser page
+   `tf shot EPISODE --serve`), get approve / changes / reject, then the next. Read verdicts with
+   `tf shot EPISODE --status`. Never batch-render a whole video for the user's first look.
+2. **9:16 framing.** Nothing may be cut off by the narrow frame: stack reveals vertically on/above a
+   character, never left/right; `tf framing EPISODE` must report nothing before a shot is shown.
+3. **Action, not apparition.** Each narration line is a mini scene: a character DOES something to an
+   object in a recognisable place, and the camera lands on the result (fire, throw, give, carry,
+   bury, pile up). Things arrive because someone causes them, not by popping in.
+4. **Real references are allowed and wanted** (user's decision, 2026-11-11: news commentary / free
+   speech): real company logos, caricatures of the real people, faithful recreations of real tweets
+   and headlines with real counts. Facts and quotes must be accurate; never invent a quote or a post.
+   Keep logo files under `library/logos/` with a SOURCES.md (where each came from); ask the user
+   before downloading files.
+5. **Look:** India-first sets (no plain blue grid/tile), dramatic lighting (subject brightest, rim
+   light, dark surroundings, depth of field), soft continuous motion, held props really held.
+6. Quality bar: the reference channel @afterhourtheories. Commit directly on `main`.
+
 ## Commands
 
 ```bash
