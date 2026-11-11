@@ -96,7 +96,7 @@ cut to black on "plans.". The user ticks the ones to do.
 
 - Gemini TTS: style goes in a `[bracket tag]` (a "Say it like…:" prefix is read aloud); long requests
   get cut off, so batches are capped at 30 words and retaken once with an "End." pad; words are timed
-  by `gemini-3.5-flash-lite` (bigger models think for minutes).
+  by CTC forced alignment (`pipeline/ctc_align.py`, wav2vec2 in `models/alignment/`; see AUDIO_SPEC).
 - Power cuts are frequent here: after a restart, check files parse (JSON, Python AST) before continuing;
   review decisions are fsync'd.
 - Fab: the user saves downloads into `incoming/` when Claude triggers them in their Chrome; Claude

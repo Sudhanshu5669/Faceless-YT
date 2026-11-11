@@ -524,8 +524,9 @@ def mix(res: dict, out_wav: Path, ffmpeg: str = "ffmpeg") -> Path:
     env = np.clip(env / 0.04, 0.0, 1.0)
     beds = np.zeros(n)
     for a in res["ambience"]:
-        x = sfx.make(a["sound"], dur=n / sr)[:n]
-        g = sfx.curve(a["curve"], n / sr)[:n] if a["curve"] else np.ones(n)
+        # n / sr can round to one sample short: pad to exactly n.
+        x = _fit(sfx.make(a["sound"], dur=n / sr), n)
+        g = _fit(sfx.curve(a["curve"], n / sr), n) if a["curve"] else np.ones(n)
         beds += x * g * _db(a["gain"]) * (1.0 - a["duck"] * env)
     master = voice + fx + beds
     master[int(res["duration"] * sr + 2.5 * sr):] *= 0.0  # silence after the black tail
@@ -535,6 +536,12 @@ def mix(res: dict, out_wav: Path, ffmpeg: str = "ffmpeg") -> Path:
     _loudnorm(ffmpeg, raw, out_wav, total)
     raw.unlink()
     return out_wav
+
+
+def _fit(x, n: int):
+    """x cut or zero-padded to exactly n samples."""
+    import numpy as np
+    return x[:n] if x.size >= n else np.concatenate([x, np.zeros(n - x.size)])
 
 
 def _write_wav(path: Path, x, sr: int) -> None:

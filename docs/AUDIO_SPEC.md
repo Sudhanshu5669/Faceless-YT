@@ -41,8 +41,18 @@ The key is `GEMINI_API_KEY` in `.env` at the repo root (git-ignored). Every take
 the same voice and style are spoken in batches of up to 30 words per request, then cut apart at the
 quietest point between lines (an episode is about 4–5 requests). TTS sometimes stops before the last
 word; the pipeline detects this (from the word timings) and retakes once with a throwaway word
-after the last line. Word timings come from `gemini-3.5-flash-lite` listening to the take
-(`pipeline/align.py`, cached as `.words.json`).
+after the last line.
+
+**Word timings are measured, not guessed: CTC forced alignment** (`pipeline/ctc_align.py`, ported
+from Auto-Slop-Generator; cached as `<take>.ctc.json`). An acoustic model (wav2vec2-base-960h, ONNX,
+Apache-2.0, in `models/alignment/`, git-ignored) scores every 20 ms of the take against 32 tokens
+(A-Z, ', word gap, blank); Viterbi finds the most likely path that spells the **known script** in
+order through those frames. Words can't be invented, dropped, reordered or timed past the end, and
+the same take always gives the same times. Numbers get every likely spoken form ("2015" = "twenty
+fifteen" or "two thousand fifteen", "170" = "a hundred and seventy", "5.7" = "five point seven") and
+the form the audio supports best wins (`spoken` in the cache). Words scoring under 0.3 are printed as
+low-confidence. ~20 s for a 2-minute take on CPU. Needs `onnxruntime`. (Gemini used to be asked for
+the times; it drifted by up to 2.3 s and smeared words over the pauses.)
 
 ## Timing
 

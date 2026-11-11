@@ -17,6 +17,9 @@ episodes/*/review/*
 config.local.json
 .env
 
+# Forced-alignment model (378 MB): models/alignment/, see docs/AUDIO_SPEC.md
+models/
+
 # Python
 __pycache__/
 *.pyc

@@ -46,7 +46,8 @@ When a look or shot you invent is good and plausibly reusable, save it
 description and tags. Check `tf library` before inventing something that may exist.
 
 Tool paths come from `config.local.json` (git-ignored; copy `config.example.json`).
-The Gemini key is `GEMINI_API_KEY` in `.env` (git-ignored). The sound pipeline uses numpy + scipy.
+The Gemini key is `GEMINI_API_KEY` in `.env` (git-ignored). The sound pipeline uses numpy + scipy; word timing uses onnxruntime + the wav2vec2 model in
+`models/alignment/` (git-ignored; see docs/AUDIO_SPEC.md).
 
 ## Rules
 
@@ -101,6 +102,6 @@ library/actions.json      action vocabulary -> animations, measured gait speeds
 godot/tools/              catalog + thumbnails, atlas swatch probe, locomotion probe, character probe
 specs/sets/               set specs (JSON)
 pipeline/tf.py            pipeline CLI
-pipeline/                 tts (Gemini), align (word times), episode_audio (resolve, mix, captions), sfx (synth), review (+ review_ui/)
+pipeline/                 tts (Gemini), align + ctc_align (forced-aligned word times), episode_audio (resolve, mix, captions), sfx (synth), review (+ review_ui/)
 output/                   renders and previews (git-ignored)
 ```
