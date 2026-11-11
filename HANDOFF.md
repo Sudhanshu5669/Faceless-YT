@@ -48,6 +48,43 @@ Comparison with the reference (frames side by side) showed the gap is craft, not
    shrug, cheer, throw) + mouth flap on words, a 2D overlay layer (viewfinder/HUD cards), particle
    bursts. Prove 1+2 on shots 1-2 first, show before/after, then continue the shot loop.
 
+### THE REAL GAP (user, 2026-11-11, latest): our pipeline is reveal-driven, theirs is action-driven
+The user: "not just the lighting, even their animations are better and the way they are referring
+to stuff, like how they bought Scale"; "there is something very concrete about the way their
+pipeline makes stuff and ours". Frame study of the reference's Scale AI beat (0:18-0:27, "you pay
+$14 billion just to bring in Scale AI's founder... then you spend $2 billion to buy Manus"):
+1. **Characters DO things to objects, with consequences.** Zuck fires a money CANNON (recoil) →
+   hundreds of bills fly in arcs → they PILE UP and bury Alexandr Wang → he pops out grinning.
+   Ours: things pop into existence beside a static character. **Every line should be a mini scene
+   "subject verb object (at a place) → result", not a list of reveals.**
+2. **Specific, recognisable references, not generic tokens.** The scene is Scale's office (a SCALE
+   logo sign on the wall, a plant), the founder is a caricature of the real person, and the proof is
+   his REAL tweet on a phone with a likes counter climbing 18K → 120K → 402K. Ours: a purple box
+   labelled INFOTEL, floating 3D text "FACEBOOK". (Real logos / real tweets are the user's call: ask;
+   at minimum use brand colours, look-alike marks and faithful UI cards with real quotes.)
+3. **A protagonist travels through the story carrying props.** Zuck WALKS into the next set (an "AI
+   STARTUP" storefront) carrying a $ money bag and drops it on the desk: continuity across shots.
+   Ours: a separate static Mukesh per bay.
+4. Camera follows the action (low angle on the cannon, the pile growing, then the next set).
+
+**Engine work this implies (do this before polishing more shots; it's what the user is asking for):**
+- `moves` to an ANCHOR, not just `by` offsets: `{"t", "to": "<actor>.hand" | anchor, "arc": h,
+  "dur"}`, so props pass between characters (give / throw / receive) and land where people are.
+- A **stream / burst** reveal: N copies of a shape emitted over time from a source anchor with
+  ballistic arcs and gravity, landing and PILING (a heap that grows over a character); for cash
+  cannons, confetti, rain of phones, sparks. Deterministic (seeded), MultiMesh for performance.
+- **Props that travel with actors**: already possible (reveal `at: "<actor>.hand"` + actor `route`);
+  use it: carry bags, phones, boxes between sets; actor cues `action: "carry"/"walk_carry"`.
+- **Recoil / squash** on props: a `moves` "punch" (scale pulse) and short shake for cannons, impacts.
+- **UI cards with real content**: tweet / news headline / phone screen / bank receipt as a textured
+  panel rendered in Godot (SubViewport + Labels: avatar, name, handle, text, counters that climb
+  on words). The style's "evidence" beats.
+- **Entity identity kit**: per company a plaque/sign style (brand colours + simple mark), per real
+  person a toon caricature (hair, glasses, outfit) used consistently; sets that are THEIR place
+  (office sign, storefront) instead of a generic bay.
+- The director (LLM) then writes each line as an action beat in make_episode.py: who, verb, object,
+  where, and the result the camera lands on.
+
 ### Look-dev pass: progress (2026-11-11, late)
 Done and committed: stage bays take `"mood": "dramatic"` (stage_generator/stage_builder
 `_lights_dramatic`: tight warm key pool, coloured rim spot from behind, side kicker, dim wall washes,
