@@ -45,6 +45,14 @@ number**. The camera never stops moving, and the end **loops back to the opening
     everything, plus about one effect per second (`pop` on reveals, `whoosh` on fast moves,
     `ding` and `cash` on wins).
 
+11. **Action, not apparition (the user's biggest note).** Each line is a mini scene: a character DOES
+    something to an object, in a specific recognisable place, and the camera lands on the result
+    (Zuck fires a money cannon → cash buries the founder → he pops out grinning; then Zuck walks into
+    the next set carrying a money bag). Things should arrive because someone throws, gives, fires or
+    carries them, not just pop in beside a static character. Use the real entity's identity (its
+    office sign, brand colours, a caricature of the real founder, its real tweet/headline on a UI card)
+    rather than a labelled box. See HANDOFF.md "THE REAL GAP" for the engine pieces this needs.
+
 ## Workflow
 
 1. **Script.** Use the formula below. 130–170 s for a Short, about 150 words a minute. Read
