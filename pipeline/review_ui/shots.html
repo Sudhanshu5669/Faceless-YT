@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TownForge Shot Loop</title>
+<style>
+  :root {
+    --bg: #0d0f12; --panel: #15181d; --panel2: #1b1f26; --panel3: #222731; --line: #272c35; --text: #e7e9ee;
+    --muted: #8b93a1; --faint: #5b6270; --accent: #7fd0ff;
+    --ok: #3ecf8e; --ok-bg: rgba(62, 207, 142, .12);
+    --warn: #ffb547; --warn-bg: rgba(255, 181, 71, .12);
+    --bad: #ff6b6b; --bad-bg: rgba(255, 107, 107, .12);
+    --stale: #b48cff; --stale-bg: rgba(180, 140, 255, .14);
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+    font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  button, textarea, input { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  .app { display: grid; grid-template-columns: 300px 1fr; grid-template-rows: auto 1fr; height: 100vh; }
+
+  header { grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; padding: 10px 18px;
+    border-bottom: 1px solid var(--line); background: var(--panel); min-height: 56px; }
+  .brand { font-weight: 700; letter-spacing: .08em; font-size: 12px; color: var(--muted); white-space: nowrap; }
+  header h1 { font-size: 16px; margin: 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .spacer { flex: 1; }
+  .progress { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .progress .track { width: 160px; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; display: flex; }
+  .progress .track i { display: block; height: 100%; }
+  .job { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line);
+    font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; max-width: 340px; }
+  .job.running { color: var(--accent); border-color: var(--accent); }
+  .job.failed { color: var(--bad); border-color: var(--bad); }
+  .spin { width: 10px; height: 10px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%;
+    animation: spin .8s linear infinite; display: none; }
+  .job.running .spin { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .joblog { position: absolute; right: 18px; top: 58px; width: 520px; max-width: calc(100vw - 36px); background: var(--panel2);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; font: 12px/1.5 ui-monospace, Consolas, monospace;
+    color: var(--muted); white-space: pre-wrap; z-index: 20; display: none; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+  .joblog.open { display: block; }
+
+  nav { border-right: 1px solid var(--line); background: var(--panel); display: flex; flex-direction: column; min-height: 0; }
+  .filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; border-bottom: 1px solid var(--line); }
+  .chip { border: 1px solid var(--line); background: none; padding: 3px 10px; border-radius: 999px; font-size: 12px; color: var(--muted); }
+  .chip.on { background: var(--panel3); color: var(--text); border-color: var(--muted); }
+  .list { overflow-y: auto; padding: 6px; flex: 1; }
+  .row { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: center; width: 100%; text-align: left;
+    padding: 7px 8px; border: 1px solid transparent; border-radius: 8px; background: none; }
+  .row:hover { background: var(--panel2); }
+  .row.active { background: var(--panel2); border-color: var(--line); }
+  .row .n { font: 600 11px ui-monospace, Consolas, monospace; color: var(--faint); }
+  .row .nm { font-weight: 600; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .tx { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+  .dot.approved { background: var(--ok); } .dot.changes { background: var(--warn); } .dot.rejected { background: var(--bad); }
+  .dot.ready { background: var(--accent); }
+  .flags { display: flex; gap: 4px; align-items: center; }
+  .flag { font-size: 10px; font-weight: 700; padding: 0 5px; border-radius: 4px; line-height: 16px; }
+  .flag.stale { background: var(--stale-bg); color: var(--stale); }
+  .flag.crop { background: var(--warn-bg); color: var(--warn); }
+  .navfoot { padding: 10px 12px; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); }
+  kbd { background: var(--panel2); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-size: 11px; color: var(--text); }
+
+  main { overflow-y: auto; padding: 20px 24px 60px; min-width: 0; }
+  .stage { display: grid; grid-template-columns: minmax(260px, 420px) minmax(320px, 1fr); gap: 24px; align-items: start; }
+  .player { background: #000; border-radius: var(--radius); overflow: hidden; aspect-ratio: 9 / 16; max-height: 76vh;
+    width: 100%; position: relative; border: 1px solid var(--line); }
+  .player video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+  .empty { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px; color: var(--muted); }
+  .empty b { display: block; color: var(--text); margin-bottom: 6px; font-size: 15px; }
+  .vbar { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+  .vbar select { background: var(--panel2); border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; color: var(--text); }
+  .strip { margin-top: 12px; width: 100%; border-radius: 8px; border: 1px solid var(--line); display: block; }
+
+  .head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .head h2 { margin: 0; font-size: 22px; }
+  .head .meta { color: var(--muted); font-size: 13px; }
+  .line { margin: 14px 0 18px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    border-radius: 8px; font-size: 16px; line-height: 1.5; }
+  .box { border: 1px solid var(--line); background: var(--panel); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px; }
+  .box h3 { margin: 0 0 8px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .note { padding: 10px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 10px; }
+  .note.ok { background: var(--ok-bg); color: var(--ok); }
+  .note.warn { background: var(--warn-bg); color: var(--warn); }
+  .note.stale { background: var(--stale-bg); color: var(--stale); }
+  .note.bad { background: var(--bad-bg); color: var(--bad); }
+  .issues { margin: 0; padding-left: 18px; color: var(--warn); font-size: 13px; }
+  .issues li { margin: 2px 0; }
+  .decide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+  .btn { border: 1px solid var(--line); background: var(--panel2); padding: 9px 14px; border-radius: 8px; font-weight: 600; }
+  .btn:hover:not(:disabled) { border-color: var(--muted); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn.ok { background: var(--ok); border-color: var(--ok); color: #04210f; }
+  .btn.warn { border-color: var(--warn); color: var(--warn); }
+  .btn.bad { border-color: var(--bad); color: var(--bad); }
+  .btn.primary { border-color: var(--accent); color: var(--accent); }
+  .btn.sel { box-shadow: 0 0 0 2px var(--text) inset; }
+  textarea { width: 100%; min-height: 90px; resize: vertical; background: var(--panel2); border: 1px solid var(--line);
+    border-radius: 8px; padding: 10px 12px; }
+  textarea:focus { outline: none; border-color: var(--accent); }
+  .current { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .current b { color: var(--text); }
+  .hist { margin: 8px 0 0; padding: 0; list-style: none; font-size: 12px; color: var(--muted); }
+  .hist li { padding: 6px 0; border-top: 1px dashed var(--line); }
+  .renderrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .renderrow label { font-size: 13px; color: var(--muted); display: flex; gap: 6px; align-items: center; margin-left: 4px; }
+  .navbtns { display: flex; gap: 8px; margin-top: 4px; }
+  .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--panel3); border: 1px solid var(--line);
+    padding: 10px 16px; border-radius: 8px; font-size: 13px; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 30; }
+  .toast.show { opacity: 1; }
+  @media (max-width: 1000px) {
+    .app { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; }
+    nav { max-height: 34vh; border-right: 0; border-bottom: 1px solid var(--line); }
+    .stage { grid-template-columns: 1fr; }
+    .player { max-height: 70vh; margin: 0 auto; max-width: 420px; }
+    .progress .track { width: 90px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">TOWNFORGE · SHOT LOOP</div>
+    <h1 id="title">…</h1>
+    <div class="spacer"></div>
+    <div class="progress"><span id="progtext"></span><div class="track" id="progbar"></div></div>
+    <div class="job" id="job" title="Render status (click for the log)"><span class="spin"></span><span id="jobtext">idle</span></div>
+    <button class="btn" id="refresh" title="Re-read the episode (after Claude changes it)">Refresh</button>
+  </header>
+  <div class="joblog" id="joblog"></div>
+  <nav>
+    <div class="filters" id="filters"></div>
+    <div class="list" id="list"></div>
+    <div class="navfoot"><kbd>↑</kbd><kbd>↓</kbd> shots · <kbd>A</kbd> approve · <kbd>C</kbd> changes · <kbd>R</kbd> reject · <kbd>Space</kbd> play</div>
+  </nav>
+  <main id="main"></main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $ = s => document.querySelector(s);
+let S = null, sel = null, filter = "all", loadedClip = "", typing = false, finalQ = false, lastSig = "";
+const FILTERS = [["all", "All"], ["review", "To review"], ["changes", "Changes"], ["approved", "Approved"], ["unrendered", "Not rendered"]];
+
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 2200); }
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  const j = await r.json(); if (!r.ok || j.ok === false) throw new Error(j.error || r.statusText); return j;
+}
+function status(s) { return s.decision && s.decision.status ? s.decision.status : (s.clip ? "ready" : "none"); }
+function needsReview(s) { return s.clip && (!s.decision.status || s.stale_decision || (s.decision.updated || "") < s.rendered); }
+function match(s) {
+  if (filter === "all") return true;
+  if (filter === "review") return needsReview(s);
+  if (filter === "changes") return ["changes", "rejected"].includes(s.decision.status);
+  if (filter === "approved") return s.decision.status === "approved" && !s.stale_decision;
+  if (filter === "unrendered") return !s.clip;
+}
+function esc(t) { return String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function fmt(t) { return t.toFixed(1) + " s"; }
+
+function renderHeader() {
+  $("#title").textContent = S.title || S.episode;
+  const n = S.shots.length, c = k => S.shots.filter(s => k(s)).length;
+  const ok = c(s => s.decision.status === "approved" && !s.stale_decision), ch = c(s => ["changes", "rejected"].includes(s.decision.status));
+  const rd = c(s => needsReview(s));
+  $("#progtext").textContent = `${ok}/${n} approved · ${rd} to review`;
+  $("#progbar").innerHTML = `<i style="width:${100 * ok / n}%;background:var(--ok)"></i><i style="width:${100 * ch / n}%;background:var(--warn)"></i><i style="width:${100 * rd / n}%;background:var(--accent)"></i>`;
+  const j = S.job, el = $("#job");
+  el.className = "job" + (j.running ? " running" : (j.exit ? " failed" : ""));
+  $("#jobtext").textContent = j.running ? `rendering ${j.names.join(", ") || "…"}` : (j.exit ? "last render failed" : (j.started ? `idle · last render ${j.started}` : "idle"));
+  $("#joblog").textContent = j.tail.length ? j.tail.join("\n") : "No render log yet.";
+}
+function renderFilters() {
+  $("#filters").innerHTML = FILTERS.map(([k, l]) => `<button class="chip ${k === filter ? "on" : ""}" data-f="${k}">${l}</button>`).join("");
+  document.querySelectorAll(".chip").forEach(b => b.onclick = () => { filter = b.dataset.f; renderFilters(); renderList(); });
+}
+function renderList() {
+  $("#list").innerHTML = S.shots.filter(match).map(s => {
+    const flags = (s.stale_clip ? `<span class="flag stale" title="The shot changed since this clip">changed</span>` : "") +
+                  (s.framing.length ? `<span class="flag crop" title="Something is cut off by the 9:16 frame">crop</span>` : "");
+    return `<button class="row ${s.name === sel ? "active" : ""}" data-n="${s.name}">
+      <span class="n">${String(s.index).padStart(2, "0")}</span>
+      <span style="min-width:0"><div class="nm">${esc(s.name)}</div><div class="tx">${esc(s.text)}</div></span>
+      <span class="flags">${flags}<span class="dot ${status(s)}" title="${status(s)}"></span></span></button>`;
+  }).join("") || `<div style="padding:16px;color:var(--muted);font-size:13px">No shots here.</div>`;
+  document.querySelectorAll(".row").forEach(b => b.onclick = () => select(b.dataset.n));
+}
+function shot() { return S.shots.find(s => s.name === sel); }
+function renderMain(force) {
+  const s = shot(); if (!s) { $("#main").innerHTML = ""; return; }
+  const clipUrl = s.clip ? `/media/${s.clip}?v=${s.version}` : "";
+  const keepVideo = !force && clipUrl && clipUrl === loadedClip && document.querySelector("#main video");
+  const d = s.decision || {};
+  const decided = d.status ? `<div class="current">Your verdict: <b>${d.status}</b>${d.note ? ` · “${esc(d.note)}”` : ""} <span style="color:var(--faint)">(${d.updated})</span></div>` : "";
+  const hist = (d.history || []).slice().reverse().map(h => `<li><b>${h.status}</b> ${h.note ? "· " + esc(h.note) : ""} <span style="color:var(--faint)">${h.updated}</span></li>`).join("");
+  const crop = !s.clip ? "" : (s.framing.length
+    ? `<div class="note warn">${s.framing.length} thing(s) get cut off by the 9:16 frame:</div><ul class="issues">${s.framing.map(f =>
+        `<li><b>${esc(f.id)}</b> off the ${f.side} edge${f.first ? ", already as it appears" : ""} (${Math.round(f.off * 100)}% of its time on screen)</li>`).join("")}</ul>`
+    : `<div class="note ok">Everything that appears stays inside the 9:16 frame.</div>`);
+  const stale = (s.stale_clip ? `<div class="note stale">The shot has changed since this clip was rendered. Re-render to see the new version.</div>` : "") +
+                (s.stale_decision ? `<div class="note stale">The shot has changed since your verdict.</div>` : "");
+  const versions = s.versions.length ? `<select id="ver"><option value="">v${s.version} (latest)</option>${s.versions.slice().reverse().map(v => `<option value="${v}">${v.split("_v").pop().replace(".mp4", "") ? "v" + v.split("_v").pop().replace(".mp4", "") : v}</option>`).join("")}</select>` : `<span>v${s.version}</span>`;
+  const left = keepVideo ? null : (s.clip
+    ? `<div class="player"><video id="vid" src="${clipUrl}" controls loop playsinline preload="auto"></video></div>
+       <div class="vbar">${versions}<span>· ${s.final ? "final quality" : "review quality (30 fps)"} · rendered ${esc(s.rendered)}</span></div>
+       <img class="strip" src="/media/${s.strip}?v=${s.version}" alt="frames of the shot">`
+    : `<div class="player"><div class="empty"><div><b>Not rendered yet</b>Render this shot to review it.</div></div></div>`);
+  const right = `
+    <div class="head"><h2>${String(s.index).padStart(2, "0")} · ${esc(s.name)}</h2><span class="meta">${fmt(s.duration)} · at ${fmt(s.edit)}</span></div>
+    <div class="line">“${esc(s.text)}”</div>
+    ${stale}
+    <div class="box"><h3>Your verdict</h3>
+      <div class="decide">
+        <button class="btn ok ${d.status === "approved" ? "sel" : ""}" data-st="approved" ${s.clip ? "" : "disabled"}>Approve</button>
+        <button class="btn warn ${d.status === "changes" ? "sel" : ""}" data-st="changes" ${s.clip ? "" : "disabled"}>Changes</button>
+        <button class="btn bad ${d.status === "rejected" ? "sel" : ""}" data-st="rejected" ${s.clip ? "" : "disabled"}>Reject</button>
+      </div>
+      <textarea id="note" placeholder="What should change? (Claude reads this.) Ctrl+Enter sends it as “Changes”.">${esc(d.status && d.status !== "approved" ? d.note : "")}</textarea>
+      ${decided}${hist ? `<ul class="hist">${hist}</ul>` : ""}
+    </div>
+    <div class="box"><h3>9:16 framing check</h3>${s.clip ? crop : `<div style="color:var(--muted);font-size:13px">Runs with the render.</div>`}</div>
+    <div class="box"><h3>Render</h3>
+      <div class="renderrow">
+        <button class="btn primary" id="rend" ${S.job.running ? "disabled" : ""}>${s.clip ? "Re-render this shot" : "Render this shot"}</button>
+        <button class="btn" id="rendnext" ${S.job.running ? "disabled" : ""}>Render the next 3 unrendered</button>
+        <label><input type="checkbox" id="final" ${finalQ ? "checked" : ""}> final quality (episode fps + motion blur)</label>
+      </div>
+    </div>
+    <div class="navbtns"><button class="btn" id="prev">← Previous</button><button class="btn" id="next">Next →</button></div>`;
+  if (keepVideo) {
+    document.querySelector("#rightcol").innerHTML = right;
+  } else {
+    $("#main").innerHTML = `<div class="stage"><div>${left}</div><div id="rightcol">${right}</div></div>`;
+    loadedClip = clipUrl;
+    const v = $("#vid"); if (v) v.play().catch(() => {});
+    const ver = $("#ver"); if (ver) ver.onchange = () => { const v = $("#vid"); v.src = ver.value ? `/media/${ver.value}` : clipUrl; v.play().catch(() => {}); };
+  }
+  document.querySelectorAll("[data-st]").forEach(b => b.onclick = () => decide(b.dataset.st));
+  const note = $("#note");
+  note.onfocus = () => typing = true; note.onblur = () => typing = false;
+  note.onkeydown = e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); decide("changes"); } };
+  $("#final").onchange = e => finalQ = e.target.checked;
+  $("#rend").onclick = () => render([s.name]);
+  $("#rendnext").onclick = () => render(S.shots.filter(x => !x.clip && x.index >= s.index).slice(0, 3).map(x => x.name));
+  $("#prev").onclick = () => step(-1); $("#next").onclick = () => step(1);
+}
+function select(name) { sel = name; lastSig = ""; history.replaceState(null, "", "#" + name); renderList(); renderMain(true); }
+function step(d) {
+  const list = S.shots.filter(match); let i = list.findIndex(s => s.name === sel);
+  if (i < 0) i = 0; const n = list[Math.max(0, Math.min(list.length - 1, i + d))]; if (n) select(n.name);
+}
+async function decide(st) {
+  const s = shot(); if (!s || !s.clip) return;
+  const note = ($("#note")?.value || "").trim();
+  if (st !== "approved" && !note) { $("#note")?.focus(); toast("Write what should change first, then press " + (st === "changes" ? "Changes" : "Reject")); return; }
+  try {
+    await api("/api/decide", { name: s.name, status: st, note: st === "approved" ? note : note });
+    toast(st === "approved" ? `Approved ${s.name}` : `Sent “${st}” for ${s.name}`);
+    await load();
+    if (st === "approved") { const next = S.shots.find(x => x.index > s.index && (!x.decision.status || needsReview(x))); if (next) select(next.name); }
+  } catch (e) { toast("Could not save: " + e.message); }
+}
+async function render(names) {
+  if (!names.length) { toast("Nothing left to render here."); return; }
+  try { await api("/api/render", { names, final: finalQ }); toast(`Rendering ${names.join(", ")}…`); load(); }
+  catch (e) { toast(e.message); }
+}
+async function load() {
+  S = await api("/api/state");
+  if (!sel || !S.shots.find(s => s.name === sel)) {
+    const h = decodeURIComponent(location.hash.slice(1));
+    sel = (S.shots.find(s => s.name === h) || S.shots.find(s => needsReview(s)) || S.shots[0] || {}).name;
+  }
+  renderHeader();
+  const sig = JSON.stringify([S.shots, S.job.running, filter, sel]);
+  if (sig === lastSig) return;
+  lastSig = sig;
+  renderList();
+  const s = shot(); const want = s && s.clip ? `/media/${s.clip}?v=${s.version}` : "";
+  if (!typing) renderMain(want !== loadedClip);
+}
+$("#job").onclick = () => $("#joblog").classList.toggle("open");
+$("#refresh").onclick = async () => { try { await api("/api/refresh", {}); toast("Re-reading the episode…"); } catch (e) { toast(e.message); } };
+document.addEventListener("keydown", e => {
+  if (typing || e.target.tagName === "TEXTAREA" || e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "j") { e.preventDefault(); step(1); }
+  else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "k") { e.preventDefault(); step(-1); }
+  else if (e.key === "a" || e.key === "A") decide("approved");
+  else if (e.key === "c" || e.key === "C") { e.preventDefault(); $("#note")?.focus(); }
+  else if (e.key === "r" || e.key === "R") { e.preventDefault(); $("#note")?.focus(); toast("Write why, then press Reject"); }
+  else if (e.key === " ") { const v = $("#vid"); if (v) { e.preventDefault(); v.paused ? v.play() : v.pause(); } }
+});
+renderFilters();
+load().catch(e => { $("#main").innerHTML = `<div class="note bad">${esc(e.message)}</div>`; });
+setInterval(() => load().catch(() => {}), 2500);
+</script>
+</body>
+</html>

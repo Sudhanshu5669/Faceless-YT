@@ -383,12 +383,17 @@ def cmd_shot(cfg: dict, args) -> int:
     """The shot-by-shot loop: render shots as full-size clips with their sound and captions (+ a
     frame strip and the framing check) for the user to approve; or record their verdict."""
     import episode_audio
-    import review
+    import shot_loop
     path = episode_path(args.episode)
+    if args.serve:
+        shot_loop.write_index(path, resolve_episode(path, verbose=False)[1])
+        shot_loop.serve(path, args.port, not args.no_browser)
+        return 0
     log_path = _shot_log(path)
     log = _read_json(log_path) if log_path.exists() else {}
     if args.status or args.decide:
         resolved, res = resolve_episode(path, verbose=False)
+        shot_loop.write_index(path, res)
         names = [s["name"] for s in res["shots"]]
         if args.decide:
             if not args.names:
@@ -398,8 +403,7 @@ def cmd_shot(cfg: dict, args) -> int:
                 if n not in names:
                     print(f"ERROR: no shot '{n}' (shots: {', '.join(names)})", file=sys.stderr)
                     return 2
-                log[n] = {"status": args.decide, "note": args.note or "", "updated": time.strftime("%Y-%m-%d %H:%M:%S")}
-            review._write_json(log_path, log)
+                log[n] = shot_loop.decide(path, n, args.decide, args.note or "", shot_loop.fingerprint(res, n))
         done = sum(1 for n in names if log.get(n, {}).get("status") == "approved")
         print(f"[TownForge] shots approved: {done}/{len(names)}")
         for i, n in enumerate(names):
@@ -411,6 +415,7 @@ def cmd_shot(cfg: dict, args) -> int:
         print("ERROR: name the shot(s) to render, e.g. tf shot jio_story open", file=sys.stderr)
         return 2
     resolved, res = resolve_episode(path, verbose=False)
+    shot_loop.write_index(path, res)
     ep = _read_json(resolved)
     by_name = {s["name"]: (i, s) for i, s in enumerate(res["shots"])}
     want = args.names.split(",")
@@ -452,6 +457,7 @@ def cmd_shot(cfg: dict, args) -> int:
         edit, dur = float(sh["edit"]), float(sh["duration"])
         vf = f"setpts=PTS+{edit:.3f}/TB,ass=captions.ass:fontsdir=fonts,setpts=PTS-STARTPTS" if captions else "null"
         clip = out / f"{key}.mp4"
+        shot_loop.archive_clip(path, key)
         subprocess.run([cfg["ffmpeg"], "-y", "-loglevel", "error", "-i", str((raw / f"{key}.mp4").resolve()),
                         "-ss", f"{edit:.3f}", "-t", f"{dur:.3f}", "-i", str(audio.resolve()), "-vf", vf,
                         "-map", "0:v:0", "-map", "1:a:0", *video_codec(cfg), "-pix_fmt", "yuv420p",
@@ -463,6 +469,10 @@ def cmd_shot(cfg: dict, args) -> int:
                         f"fps={cols / max(dur, 0.1):.4f},scale=216:-1,tile={cols}x1:padding=4:color=black",
                         "-frames:v", "1", str(strip)], check=True)
         lines = [ln for ln in res["lines"] if ln["shot"] == n]
+        issues = [x for x in (_read_json(issues_path) if issues_path.exists() else []) if x["shot"] == n]
+        shot_loop.record_render(path, key, {"key": key, "name": n, "duration": dur, "edit": edit,
+                                            "text": " ".join(ln["text"] for ln in lines), "final": bool(args.final),
+                                            "fps": fps, "fingerprint": shot_loop.fingerprint(res, n), "framing": issues})
         print(f"[TownForge] shot {key}: {dur:.2f} s  \"{' '.join(ln['text'] for ln in lines)}\"")
         print(f"[TownForge]   clip  -> {clip}")
         print(f"[TownForge]   strip -> {strip}")
@@ -711,6 +721,9 @@ def main(argv: list[str] | None = None) -> int:
     sp.add_argument("--decide", choices=SHOT_STATUSES, help="record the user's verdict on the named shot(s)")
     sp.add_argument("--note", help="the user's note with the verdict")
     sp.add_argument("--status", action="store_true", help="list every shot and its verdict")
+    sp.add_argument("--serve", action="store_true", help="open the shot loop in the browser (watch, decide, render)")
+    sp.add_argument("--port", type=int, default=8770)
+    sp.add_argument("--no-browser", action="store_true")
     rv = sub.add_parser("review", help="approval board: prepare, serve, notes")
     rv.add_argument("action", choices=["prepare", "serve", "notes"])
     rv.add_argument("episode", help="episodes/<id>/episode.json or <id>")

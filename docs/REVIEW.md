@@ -70,3 +70,10 @@ strip, sends the clip, and records the verdict with
 `tf shot EPISODE NAME --decide approved|changes|rejected --note "..."` (`review/shot_decisions.json`,
 committed). When that file exists, the final render needs every shot approved there instead of
 the board.
+
+**In the browser:** `tf shot EPISODE --serve` (http://127.0.0.1:8770/, `pipeline/shot_loop.py` +
+`pipeline/review_ui/shots.html`): every shot with its status, the clip (and earlier versions), its
+frame strip, the line, the framing check, Approve / Changes / Reject with a note, and Render buttons
+(the server runs `tf shot` in the background). Each shot has a fingerprint (camera, transitions,
+lines, the reveals that appear in it), so the page shows "changed since this clip" and "changed
+since your verdict". Claude reads the verdicts with `tf shot EPISODE --status`.

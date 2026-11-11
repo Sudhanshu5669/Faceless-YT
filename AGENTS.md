@@ -38,6 +38,7 @@ python pipeline/tf.py framing EPISODE [--shots a,b]   # every reveal stays insid
 python pipeline/tf.py shot EPISODE NAME [--final]    # the shot-by-shot loop: one full-size clip + strip + framing check
 python pipeline/tf.py shot EPISODE NAME --decide approved|changes|rejected [--note ...]   # record the user's verdict
 python pipeline/tf.py shot EPISODE --status          # every shot and its verdict
+python pipeline/tf.py shot EPISODE --serve           # the shot loop in the browser (watch, decide, render): http://127.0.0.1:8770/
 python pipeline/tf.py review prepare|serve|notes EPISODE   # approval board; final renders need every item approved
 python pipeline/tf.py explore [SPEC]                # interactive fly-through (T/Y time, F/C/R/X weather)
 python pipeline/tf.py assets import                 # incoming/*.zip -> Godot assets -> library/catalog.json + thumbnails
