@@ -76,6 +76,22 @@ class ResolveTest(unittest.TestCase):
         self.assertAlmostEqual(res["sfx"][0]["t"], s1["duration"] + 0.2 + 0.9, places=3)
         self.assertAlmostEqual(res["sfx"][1]["t"] - res["sfx"][0]["t"], 0.5, places=3)
 
+    def test_reveal_times_and_sounds(self):
+        ep = self._episode()
+        ep["reveals"] = [{"id": "users", "t": {"line": "a", "word": "two"}, "until": {"line": "b", "edge": "end"},
+                          "at": "town_center", "sound": "pop",
+                          "counter": {"from": 0, "to": 3.5, "land": {"line": "a", "word": "three"}}}]
+        res = self._resolve(ep)
+        rv = res["episode"]["reveals"][0]
+        s1, s2 = res["shots"]
+        self.assertAlmostEqual(rv["t"], 0.5 + 0.5, places=3)               # word "two" of line a
+        self.assertAlmostEqual(rv["counter"]["land"], 0.5 + 0.9, places=3)  # word "three"
+        self.assertAlmostEqual(rv["until"], s2["scene_t"] + 0.2 + 1.9, places=3)
+        self.assertNotIn("sound", rv)                                       # sound keys never reach Godot
+        pops = [s for s in res["sfx"] if s["sound"] == "pop"]
+        self.assertEqual(len(pops), 1)
+        self.assertAlmostEqual(pops[0]["t"], 1.0, places=3)
+
     def test_errors_are_loud(self):
         ep = self._episode()
         ep["lines"][0]["shot"] = "nope"

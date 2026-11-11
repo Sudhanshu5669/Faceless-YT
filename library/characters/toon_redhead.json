@@ -1,0 +1,23 @@
+{
+  "id": "toon_redhead",
+  "description": "Woman with a red bun, teal tee.",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.33,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bun",
+      "color": "#c8562a"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#2ab3a6"
+    },
+    "shoes": "#f2f2f2",
+    "face": "happy"
+  }
+}

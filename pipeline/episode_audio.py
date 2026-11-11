@@ -222,9 +222,25 @@ def resolve(path: Path, verbose: bool = True) -> dict:
                     r[k] = round(ref(r[k], "scene", f"actor {aid} route.{k}"), 3)
     for i, ev in enumerate(out.get("events", [])):
         ev["t"] = round(ref(ev["t"], "scene", f"events[{i}]"), 3)
+    reveal_sfx = []
+    for i, rv in enumerate(out.get("reveals", [])):
+        w = f"reveals[{i}] ({rv.get('id', '?')})"
+        if "sound" in rv:
+            # The reveal's own sound lands on the edit timeline at the same reference.
+            reveal_sfx.append({"sound": rv.pop("sound"), "at": ep["reveals"][i]["t"], "gain": -6.0})
+        for k in ("t", "until"):
+            if k in rv:
+                rv[k] = round(ref(rv[k], "scene", f"{w}.{k}"), 3)
+        c = rv.get("counter")
+        if isinstance(c, dict):
+            if "land" in c:
+                c["land"] = round(ref(c["land"], "scene", f"{w}.counter.land"), 3)
+            for j, key in enumerate(c.get("keys", [])):
+                if isinstance(key, list) and key:
+                    key[0] = round(ref(key[0], "scene", f"{w}.counter.keys[{j}]"), 3)
     # 4. Sound placements on the edit timeline.
     sfx = []
-    for i, s in enumerate(ep.get("sfx", [])):
+    for i, s in enumerate(list(ep.get("sfx", [])) + reveal_sfx):
         t0 = ref(s["at"], "edit", f"sfx[{i}]")
         for n in range(int(s.get("repeat", 1))):
             sfx.append({"sound": s["sound"], "t": t0 + n * float(s.get("every", 0.5)),

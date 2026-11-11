@@ -7,6 +7,7 @@ const SetBuilder = preload("res://scripts/world/set_builder.gd")
 const LookCompiler = preload("res://scripts/look/look_compiler.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
 const ActorDirector = preload("res://scripts/actors/actor_director.gd")
+const Reveals = preload("res://scripts/timeline/reveals.gd")
 
 const SUPPORTED_VERSIONS := ["0.1"]
 
@@ -46,6 +47,7 @@ static func validate_set_spec(spec) -> Array:
 		var c := LookCompiler.compile(spec["look"])
 		e.append_array(c["errors"])
 	e.append_array(ActorDirector.validate(spec.get("actors")))
+	e.append_array(Reveals.validate(spec.get("reveals")))
 	if spec.has("preview"):
 		var pv = spec["preview"]
 		if typeof(pv) != TYPE_DICTIONARY:

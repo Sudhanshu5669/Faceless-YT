@@ -9,6 +9,7 @@ const Cast = preload("res://scripts/actors/cast.gd")
 const KitDB = preload("res://scripts/world/kit_db.gd")
 const SetBuilder = preload("res://scripts/world/set_builder.gd")
 const Retarget = preload("res://scripts/actors/retarget.gd")
+const Toon = preload("res://scripts/actors/toon.gd")
 
 static var _materials: Dictionary = {}
 ## Seconds to turn to a new facing (cue "turn" overrides; also used on arrival).
@@ -24,6 +25,13 @@ var skeleton: Skeleton3D          # the mannequin's: animations and blends pose 
 var retarget: Retarget            # set when the character has a model
 var _bones := {}
 var _height_scale := 1.0
+var _stride := 1.0
+var _face_mat: ShaderMaterial      # toon face (expressions)
+var _expression := ""
+## Head anchor: offset above the Head bone, and how far in front of it the eyes are.
+var _head_lift := 0.08
+var _eyes_fwd := 0.28
+var _eyes_lift := 0.1
 ## id -> actor node for everyone in the scene (set by ActorDirector.build).
 var peers: Dictionary = {}
 
@@ -44,6 +52,17 @@ func setup(id: String, char_id: String, p: Dictionary, L: Dictionary) -> void:
 	add_child(body)
 	ap = body.find_child("AnimationPlayer", true, false)
 	skeleton = body.get_node(Cast.MANNEQUIN_SKELETON) as Skeleton3D
+	_stride = Cast.stride(character)
+	if character.has("toon"):
+		var built := Toon.build(body, skeleton, character["toon"])
+		retarget = Retarget.new(skeleton, built["skeleton"], "toon", body)
+		_face_mat = built["face"]
+		_expression = String(character["toon"].get("face", "smug"))
+		_head_lift = (float((built["head_center"] as Vector3).y) - float(built["head_bone"])) * hs
+		_eyes_lift = _head_lift
+		_eyes_fwd = float(built["head_r"]) * hs + 0.05
+		_attach_props(hs)
+		return
 	if model != "":
 		retarget = Retarget.new(skeleton, Cast.model_skeleton(body, model), Retarget.rig_for(model), body)
 	_apply_colors(char_id)
@@ -94,10 +113,12 @@ func _apply_model_colors(char_id: String, cols: Dictionary) -> void:
 
 
 func _attach_props(body_scale: float) -> void:
+	# Toons hold props on their own (short-legged) skeleton.
+	var sk := retarget.dst if character.has("toon") else skeleton
 	for p in character.get("props", []):
 		var ba := BoneAttachment3D.new()
 		ba.bone_name = String(p.get("bone", "hand_r"))
-		skeleton.add_child(ba)
+		sk.add_child(ba)
 		var mid := String(p["model"])
 		var sz := KitDB.size(mid)
 		var s := float(p.get("size", 0.3)) / maxf(maxf(sz.x, sz.y), maxf(sz.z, 0.001))
@@ -116,6 +137,21 @@ func pose_at(t: float) -> void:
 	position = st["pos"]
 	rotation = Vector3(0, float(st["yaw"]), 0)
 	_play(String(st["action"]), float(st["anim_time"]), float(st["freeze"]))
+	if _face_mat != null:
+		var ex := expression_at(t)
+		if ex != _expression:
+			_expression = ex
+			Toon.apply_face(_face_mat, ex)
+
+
+## A toon's expression at scene time t: the last "expression" cue at or before t.
+func expression_at(t: float) -> String:
+	var tau := Cast.warp(plan.get("holds", []), t)
+	var ex := String(character.get("toon", {}).get("face", "smug"))
+	for c in plan.get("cues", []):
+		if float(c["tau"]) <= tau and String(c.get("expression", "")) != "":
+			ex = String(c["expression"])
+	return ex
 
 
 func _grounded(p: Vector3) -> Vector3:
@@ -185,7 +221,7 @@ func _state(t: float, track: bool) -> Dictionary:
 			# Look a little ahead and behind so turns at waypoints are smooth.
 			var dir := _along(minf(d + 0.6, total)) - _along(maxf(d - 0.6, 0.0))
 			var yaw := atan2(dir.x, dir.z) if dir.length() > 0.01 else float(plan["yaw"])
-			var natural := float(Cast.action(String(r["gait"])).get("speed", 1.0))
+			var natural := float(Cast.action(String(r["gait"])).get("speed", 1.0)) * _stride
 			# Animation phase follows distance travelled, so feet stay planted.
 			return {"pos": _grounded(_along(d)), "yaw": yaw, "action": r["gait"],
 				"anim_time": d / natural + phase, "freeze": -1.0}
@@ -307,9 +343,9 @@ func anchor_points() -> Dictionary:
 	var fwd := Vector3(sin(rotation.y), 0, cos(rotation.y))
 	return {
 		actor_id: {"pos": _world_of(self).origin, "forward": fwd},
-		actor_id + ".head": {"pos": bone_world("Head") + Vector3.UP * 0.08, "forward": fwd},
+		actor_id + ".head": {"pos": bone_world("Head") + Vector3.UP * _head_lift, "forward": fwd},
 		# Just in front of the face: where a point-of-view camera goes.
-		actor_id + ".eyes": {"pos": bone_world("Head") + Vector3.UP * 0.1 + fwd * 0.28, "forward": fwd},
+		actor_id + ".eyes": {"pos": bone_world("Head") + Vector3.UP * _eyes_lift + fwd * _eyes_fwd, "forward": fwd},
 		actor_id + ".chest": {"pos": bone_world("spine_03"), "forward": fwd},
 		actor_id + ".hand": {"pos": bone_world("hand_r"), "forward": fwd},
 	}

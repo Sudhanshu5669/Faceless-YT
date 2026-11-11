@@ -170,7 +170,8 @@ during stance). Re-run it after adding gaits.
 ```
 
 - `t` is scene seconds (the episode timeline, see TIMELINE_SPEC.md), in order.
-- A cue has `action` (optionally with `freeze`) and/or `facing`; a hold cue has only `t` and `hold`.
+- A cue has `action` (optionally with `freeze`), `facing` and/or `expression` (toon characters:
+  swaps the face, see TOON_SPEC.md); a hold cue has only `t` and `hold`.
 - A hold stops the actor's own clock. Everything after it (route start, later cues) happens
   that much later in the actor's own clock. "Everyone freezes at 3:33" = a hold cue on
   everyone except you.

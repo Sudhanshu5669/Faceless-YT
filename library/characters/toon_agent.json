@@ -1,0 +1,27 @@
+{
+  "id": "toon_agent",
+  "description": "Government agent: black suit, dark tie, slicked-back hair, sunglasses.",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.45,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#26262b"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#1e1f24",
+      "tie": "#0e0e10"
+    },
+    "shoes": "#111114",
+    "accessories": [
+      "sunglasses"
+    ],
+    "face": "deadpan"
+  }
+}

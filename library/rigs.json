@@ -58,6 +58,36 @@
         "pinky_02_r": "Pinky3.R",
         "pinky_03_r": "Pinky4.R"
       }
+    },
+    "toon": {
+      "_comment": "Toon characters (scripts/actors/toon.gd): a short-legged copy of the mannequin skeleton, same bone names.",
+      "packs": [],
+      "skeleton": "Armature/toon_skeleton",
+      "bones": {
+        "root": "root",
+        "pelvis": "pelvis",
+        "spine_01": "spine_01",
+        "spine_02": "spine_02",
+        "spine_03": "spine_03",
+        "neck_01": "neck_01",
+        "Head": "Head",
+        "clavicle_l": "clavicle_l",
+        "upperarm_l": "upperarm_l",
+        "lowerarm_l": "lowerarm_l",
+        "hand_l": "hand_l",
+        "thigh_l": "thigh_l",
+        "calf_l": "calf_l",
+        "foot_l": "foot_l",
+        "ball_l": "ball_l",
+        "clavicle_r": "clavicle_r",
+        "upperarm_r": "upperarm_r",
+        "lowerarm_r": "lowerarm_r",
+        "hand_r": "hand_r",
+        "thigh_r": "thigh_r",
+        "calf_r": "calf_r",
+        "foot_r": "foot_r",
+        "ball_r": "ball_r"
+      }
     }
   }
 }

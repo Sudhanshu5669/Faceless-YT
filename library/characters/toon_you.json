@@ -1,0 +1,23 @@
+{
+  "id": "toon_you",
+  "description": "The everyman viewer ('imagine you...'): blue hoodie, brown bowl cut with a tuft.",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "tuft",
+      "color": "#6b3d1e"
+    },
+    "outfit": {
+      "style": "hoodie",
+      "color": "#2f7be0"
+    },
+    "shoes": "#f2f2f2",
+    "face": "smug"
+  }
+}

@@ -15,7 +15,7 @@ from scipy import signal
 SR = 48000
 
 BEDS = ["room_tone", "drone", "zombies", "heartbeat"]
-ONE_SHOTS = ["glass_bang", "creak", "sting", "thud", "click"]
+ONE_SHOTS = ["glass_bang", "creak", "sting", "thud", "click", "pop", "whoosh", "ding", "tick", "cash"]
 
 
 def _rng(name: str, salt: int = 0) -> np.random.Generator:
@@ -191,9 +191,64 @@ def click(salt: int = 0) -> np.ndarray:
     return _fade(_norm(_bandpass(r.standard_normal(t.size), 2000, 6000) * np.exp(-t * 120), 0.8), 0.0, 0.01)
 
 
+# --- toon explainer one-shots (reveals, counters, whip pans) -------------------
+
+def pop(salt: int = 0) -> np.ndarray:
+    """A bubbly cartoon pop: something appears."""
+    r = _rng("pop", salt)
+    t = _t(0.16)
+    f0 = r.uniform(380, 520)
+    freq = f0 * (1 + 2.2 * (1 - np.exp(-t * 60)))
+    tone = np.sin(2 * np.pi * np.cumsum(freq) / SR) * np.exp(-t * 32)
+    click_ = _bandpass(r.standard_normal(t.size), 1500, 7000) * np.exp(-t * 300) * 0.4
+    return _fade(_norm(tone + click_, 0.85), 0.0, 0.02)
+
+
+def whoosh(salt: int = 0) -> np.ndarray:
+    """An air swish for whip pans and fast moves (0.45 s)."""
+    r = _rng("whoosh", salt)
+    dur = 0.45
+    t = _t(dur)
+    noise = r.standard_normal(t.size)
+    env = np.sin(np.pi * np.clip(t / dur, 0, 1)) ** 2
+    # Sweep the band up then down: the doppler feel.
+    centre = 600 + 2600 * np.sin(np.pi * t / dur)
+    x = np.zeros_like(t)
+    for lo, hi in [(300, 900), (900, 2200), (2200, 5000)]:
+        band = _bandpass(noise, lo, hi)
+        w = np.exp(-((centre - (lo + hi) / 2) / ((hi - lo) * 0.9)) ** 2)
+        x += band * w
+    return _fade(_norm(x * env, 0.8), 0.01, 0.05)
+
+
+def ding(salt: int = 0) -> np.ndarray:
+    """A bright bell: a counter lands, a badge appears (1.2 s)."""
+    t = _t(1.2)
+    x = np.zeros_like(t)
+    for f, a, d in [(1318.5, 1.0, 4.0), (2637.0, 0.35, 6.0), (3955.5, 0.15, 9.0), (1976.0, 0.25, 5.0)]:
+        x += a * np.sin(2 * np.pi * f * t) * np.exp(-t * d)
+    return _fade(_norm(x, 0.7), 0.002, 0.1)
+
+
+def tick(salt: int = 0) -> np.ndarray:
+    """A tiny tick for a counter running up (use with repeat/every)."""
+    r = _rng("tick", salt)
+    t = _t(0.04)
+    return _fade(_norm(_bandpass(r.standard_normal(t.size), 3000, 8000) * np.exp(-t * 200), 0.5), 0.0, 0.005)
+
+
+def cash(salt: int = 0) -> np.ndarray:
+    """Cash register 'ka-ching': a click then a bright bell."""
+    t = _t(0.06)
+    c = _bandpass(_rng("cash", salt).standard_normal(t.size), 1500, 6000) * np.exp(-t * 90)
+    bell = ding(salt)
+    return _fade(_norm(np.concatenate([c * 0.8, np.zeros(int(0.03 * SR)), bell]), 0.8), 0.0, 0.1)
+
+
 def make(name: str, dur: float = 0.0, salt: int = 0) -> np.ndarray:
     beds = {"room_tone": room_tone, "drone": drone, "zombies": zombies, "heartbeat": heartbeat}
-    shots = {"glass_bang": glass_bang, "creak": creak, "sting": sting, "thud": thud, "click": click}
+    shots = {"glass_bang": glass_bang, "creak": creak, "sting": sting, "thud": thud, "click": click,
+             "pop": pop, "whoosh": whoosh, "ding": ding, "tick": tick, "cash": cash}
     if name in beds:
         return beds[name](dur)
     if name in shots:

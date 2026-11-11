@@ -8,6 +8,7 @@ extends RefCounted
 const Paths = preload("res://scripts/core/paths.gd")
 const KitDB = preload("res://scripts/world/kit_db.gd")
 const Retarget = preload("res://scripts/actors/retarget.gd")
+const Toon = preload("res://scripts/actors/toon.gd")
 
 const BODIES := {
 	"male": "res://assets/quaternius_ual/UAL1_Standard.glb",
@@ -21,7 +22,7 @@ const ANIM_SOURCES := [
 const BASE_HEIGHT := 1.83
 
 const CHARACTER_KEYS := ["id", "description", "tags", "body", "model", "colors", "height", "width",
-	"idle", "gait", "glow", "props"]
+	"idle", "gait", "glow", "props", "toon"]
 const MANNEQUIN_SKELETON := "Armature/Skeleton3D"
 const PROP_KEYS := ["model", "bone", "size", "offset", "rotation"]
 const ACTION_KEYS := ["anim", "sequence", "loop", "gait", "speed", "lift", "marks", "description"]
@@ -264,6 +265,14 @@ static func validate_action(id: String) -> Array:
 	return e
 
 
+## Ground covered per walk cycle relative to the mannequin: 1 for regular
+## characters; a toon's short legs cover less (scaled by its height).
+static func stride(c: Dictionary) -> float:
+	if not c.has("toon"):
+		return 1.0
+	return float(c.get("height", BASE_HEIGHT)) / BASE_HEIGHT * Toon.stride_ratio()
+
+
 static func list_characters() -> PackedStringArray:
 	return Paths.list_json("library/characters")
 
@@ -286,6 +295,10 @@ static func validate_character(id: String) -> Array:
 	if not BODIES.has(String(c.get("body", "male"))):
 		e.append("character %s: body must be one of %s" % [id, BODIES.keys()])
 	var model := String(c.get("model", ""))
+	if c.has("toon"):
+		e.append_array(Toon.validate(c["toon"], "character " + id))
+		if model != "" or c.has("colors"):
+			e.append("character %s: a toon takes no 'model' or 'colors' (colours live in 'toon')" % id)
 	if model != "":
 		if KitDB.model(model).is_empty():
 			e.append("character %s: model '%s' is not in the catalog" % [id, model])

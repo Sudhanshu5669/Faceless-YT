@@ -23,9 +23,10 @@ const Cast = preload("res://scripts/actors/cast.gd")
 const Actor = preload("res://scripts/actors/actor.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
 const Anchors = preload("res://scripts/camera/anchors.gd")
+const Toon = preload("res://scripts/actors/toon.gd")
 
 const ACTOR_KEYS := ["id", "character", "at", "facing", "action", "freeze", "phase", "route", "crowd", "cues"]
-const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold"]
+const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold", "expression"]
 const ROUTE_KEYS := ["via", "gait", "speed", "arrive", "start", "then", "then_facing", "then_freeze"]
 const CROWD_KEYS := ["count", "radius", "area", "characters", "start_spread", "seed", "spacing"]
 
@@ -140,11 +141,14 @@ static func _validate_cues(cues, where: String) -> Array:
 		if c.has("hold"):
 			if typeof(c["hold"]) != TYPE_BOOL:
 				e.append(cw + ": hold must be true or false")
-			if c.has("action") or c.has("facing") or c.has("freeze") or c.has("turn"):
+			if c.has("action") or c.has("facing") or c.has("freeze") or c.has("turn") or c.has("expression"):
 				e.append(cw + ": a hold cue only takes 't' and 'hold'")
 			continue
-		if not (c.has("action") or c.has("facing")):
-			e.append(cw + ": needs 'action', 'facing' or 'hold'")
+		if not (c.has("action") or c.has("facing") or c.has("expression")):
+			e.append(cw + ": needs 'action', 'facing', 'expression' or 'hold'")
+		if c.has("expression") and not Toon.faces().has(String(c["expression"])):
+			e.append("%s: unknown expression '%s' (library/toon/faces.json: %s)" % [cw, c["expression"],
+				", ".join(PackedStringArray(Toon.faces().keys()))])
 		if c.has("action"):
 			if Cast.action(String(c["action"])).is_empty():
 				e.append("%s: unknown action '%s'" % [cw, c["action"]])
@@ -332,7 +336,7 @@ static func _plan_one(a: Dictionary, L: Dictionary, offset: Vector3, yaw_jitter:
 			"gait": gait,
 			# "arrive": reach the end at that scene time (speed follows from the distance).
 			"speed": cum[-1] / maxf(float(rs["arrive"]) - float(rs.get("start", 0.0)), 0.01) if rs.has("arrive") \
-				else float(rs.get("speed", Cast.action(gait).get("speed", 1.0))),
+				else float(rs.get("speed", float(Cast.action(gait).get("speed", 1.0)) * Cast.stride(chr))),
 			"start": float(rs.get("start", 0.0)),
 			"then": String(rs.get("then", chr.get("idle", "idle"))),
 			"then_freeze": Cast.freeze_fraction(String(rs.get("then", chr.get("idle", "idle"))), rs.get("then_freeze")),
@@ -350,7 +354,8 @@ static func _plan_one(a: Dictionary, L: Dictionary, offset: Vector3, yaw_jitter:
 	for c in cues:
 		if c.has("hold"):
 			continue
-		var pc := {"tau": Cast.warp(holds, float(c["t"])), "action": String(c.get("action", "")), "yaw": null}
+		var pc := {"tau": Cast.warp(holds, float(c["t"])), "action": String(c.get("action", "")), "yaw": null,
+			"expression": String(c.get("expression", ""))}
 		if c.has("action"):
 			pc["freeze"] = Cast.freeze_fraction(String(c["action"]), c.get("freeze"))
 		if c.has("facing"):

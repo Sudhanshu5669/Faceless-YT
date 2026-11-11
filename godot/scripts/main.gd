@@ -30,6 +30,7 @@ const FlyCamera = preload("res://scripts/camera/fly_camera.gd")
 const ActorDirector = preload("res://scripts/actors/actor_director.gd")
 const Episode = preload("res://scripts/timeline/episode.gd")
 const SetEvents = preload("res://scripts/timeline/set_events.gd")
+const Reveals = preload("res://scripts/timeline/reveals.gd")
 
 const DEFAULT_SPEC := "specs/sets/blackwood.json"
 const SETTLE_FRAMES := 30
@@ -49,6 +50,7 @@ var look: Dictionary       # compiled
 var layout: Dictionary
 var set_node: Node3D
 var actors_node: Node3D
+var reveals_node: Node3D
 var clock := 0.0          # scene time in seconds (actors are posed from it)
 var playing := true
 var camera: Camera3D
@@ -165,6 +167,16 @@ func _build() -> bool:
 	actors_node = ActorDirector.build(planned["plans"], layout)
 	add_child(actors_node)
 	ActorDirector.pose_all(actors_node, clock)
+	if reveals_node:
+		remove_child(reveals_node)
+		reveals_node.queue_free()
+	reveals_node = Reveals.build(spec.get("reveals", []))
+	add_child(reveals_node)
+	var reveal_errors := Reveals.check(spec.get("reveals", []), _at_time(clock))
+	if not reveal_errors.is_empty():
+		_fail("
+  - ".join(PackedStringArray(reveal_errors)))
+		return false
 	return true
 
 
@@ -177,6 +189,8 @@ func _at_time(t: float) -> Dictionary:
 		SetEvents.apply(set_node, episode.get("events", []), t)
 	var L := layout.duplicate(false)
 	L["actor_anchors"] = ActorDirector.anchors(actors_node)
+	# Reveals are placed from actor anchors, and become anchors themselves.
+	L["actor_anchors"].merge(Reveals.pose(reveals_node, spec.get("reveals", []), t, L))
 	return L
 
 

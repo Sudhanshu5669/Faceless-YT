@@ -16,6 +16,11 @@ Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary
 - `docs/TIMELINE_SPEC.md`: episodes, timed shots, camera moves, set events, storyboard, video render
 - `docs/AUDIO_SPEC.md`: narration (Gemini TTS), voice-first timing, word time refs, effects, beds, captions
 - `docs/REVIEW.md`: the approval board (environment → characters → script & voice → shots) and the review loop
+- `docs/TOON_SPEC.md`: the house toon characters (sphere heads, drawn faces, expressions)
+- `docs/REVEALS_SPEC.md`: reveals and counters: things that appear on a word
+
+**Making a video in the house style?** Follow the `toon-short` skill
+(`.claude/skills/toon-short/SKILL.md`): script formula, beat sheet, rules, checklist.
 
 ## Commands
 

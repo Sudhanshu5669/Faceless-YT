@@ -16,6 +16,8 @@ const ActorDirector = preload("res://scripts/actors/actor_director.gd")
 const Episode = preload("res://scripts/timeline/episode.gd")
 const Paths = preload("res://scripts/core/paths.gd")
 const SetEvents = preload("res://scripts/timeline/set_events.gd")
+const Toon = preload("res://scripts/actors/toon.gd")
+const Reveals = preload("res://scripts/timeline/reveals.gd")
 
 const SEEDS := [1, 333, 9001]
 const PARAM_SETS := [
@@ -81,6 +83,9 @@ func _run_all() -> void:
 	_run("sample episodes in episodes/ validate", _t_sample_episodes)
 	_run("supermarket: deterministic, anchors, shelves occlude, switchable toys", _t_supermarket)
 	_run("supermarket kit: segments tile the aisles, toys on real boards, primitive fallback", _t_supermarket_kit)
+	_run("downtown: deterministic, anchors, lots in blocks, tiles clear of crossings, walkways", _t_downtown)
+	_run("toons: faces valid, short legs, retargeted, expressions follow cues", _t_toons)
+	_run("reveals: validation, enter/exit timing, counters land on time", _t_reveals)
 	print("[TownForge] tests: %d passed, %d failed" % [_passed, _failed])
 	quit(1 if _failed > 0 else 0)
 
@@ -941,5 +946,160 @@ func _t_supermarket_kit() -> Array:
 	root.add_child(node)
 	if node.find_child("toy_hero", true, false) == null or node.find_child("wall_shelf_w_0", true, false) == null:
 		e.append("primitive supermarket is missing toy_hero or wall shelves")
+	node.free()
+	return e
+
+
+func _t_downtown() -> Array:
+	var e := []
+	var DT = load("res://scripts/world/generators/downtown_generator.gd")
+	var spec := {"generator": "downtown", "seed": 21, "params": {}}
+	var a := SetBuilder.generate(spec)
+	if JSON.stringify(a) != JSON.stringify(SetBuilder.generate(spec)):
+		e.append("downtown layout differs for the same seed")
+	if JSON.stringify(a) == JSON.stringify(SetBuilder.generate({"generator": "downtown", "seed": 22, "params": {}})):
+		e.append("downtown layout ignores the seed")
+	for bad in [{"blocs": 3}, {"floors": [5, 2]}, {"styles": ["glass"]}, {"kit": "nope"}, {"outskirts": 1}]:
+		if SetBuilder.validate({"generator": "downtown", "seed": 1, "params": bad}).is_empty():
+			e.append("bad downtown params %s were not reported" % [bad])
+	for ref in ["city_center", "cross_1_1", "cross_1_1.ne", "ave_1", "ave_1.start", "st_2.walk_l", "block_1_1", "bldg_0", "bldg_0.top"]:
+		if Anchors.resolve(a, ref).has("error"):
+			e.append("anchor %s does not resolve" % ref)
+	var blocks := {}
+	for b in a["blocks"]:
+		blocks[b["id"]] = b["rect"]
+	var by_block := {}
+	for bl in a["buildings"]:
+		var r: Array = bl["rect"]
+		var br: Array = blocks[bl["block"]]
+		if float(r[0]) < float(br[0]) - 0.01 or float(r[1]) < float(br[1]) - 0.01 or float(r[2]) > float(br[2]) + 0.01 or float(r[3]) > float(br[3]) + 0.01:
+			e.append("%s lies outside %s" % [bl["id"], bl["block"]])
+		for other in by_block.get(bl["block"], []):
+			var o: Array = other["rect"]
+			if float(r[0]) < float(o[2]) - 0.01 and float(o[0]) < float(r[2]) - 0.01 and float(r[1]) < float(o[3]) - 0.01 and float(o[1]) < float(r[3]) - 0.01:
+				e.append("%s overlaps %s" % [bl["id"], other["id"]])
+		if not by_block.has(bl["block"]):
+			by_block[bl["block"]] = []
+		by_block[bl["block"]].append(bl)
+	for st in a["streets"]:
+		for t in st["tiles"]:
+			for c in st["crossings"]:
+				if absf(float(t) - float(c)) < DT.CROSS_HALF + DT.TILE / 2.0 - 0.01:
+					e.append("%s: tile at %.2f overlaps the crossing at %.2f" % [st["id"], t, c])
+	var nodes: Dictionary = a["walkways"]["nodes"]
+	for ed in a["walkways"]["edges"]:
+		if not nodes.has(ed[0]) or not nodes.has(ed[1]):
+			e.append("walkway edge %s references a missing node" % [ed])
+	var c0: Array = a["anchors"]["ave_1"]["pos"]
+	if DT.ground_height(a, float(c0[0]), float(c0[2])) != 0.0:
+		e.append("the middle of ave_1 should be road (y 0)")
+	var w0: Array = a["anchors"]["ave_1.walk_l"]["pos"]
+	if absf(DT.ground_height(a, float(w0[0]), float(w0[2])) - DT.SIDEWALK_TOP) > 0.001:
+		e.append("ave_1.walk_l should be on the sidewalk")
+	var small := SetBuilder.generate({"generator": "downtown", "seed": 3, "params": {"kit": "primitive", "blocks_x": 1, "blocks_z": 1}})
+	var node := SetBuilder.build(small, LookCompiler.compile("day")["look"])
+	root.add_child(node)
+	if node.find_child("bldg_0", true, false) == null or node.find_child("light_0", true, false) == null:
+		e.append("primitive downtown is missing bldg_0 or light_0")
+	node.free()
+	return e
+
+
+func _t_toons() -> Array:
+	var e := Toon.validate_faces()
+	var bad := Toon.validate({"hair": {"style": "mohawk"}, "outfit": {"style": "tee", "color": "nope"}, "hat": 1}, "x")
+	for want in ["hair style", "not a hex", "unknown key 'hat'"]:
+		if not bad.any(func(m): return String(m).contains(want)):
+			e.append("toon validation did not report: " + want)
+	if ActorDirector.validate([{"id": "a", "character": "toon_you", "at": "town_center",
+			"cues": [{"t": 1, "expression": "flabbergasted"}]}]).is_empty():
+		e.append("unknown expression not reported")
+	var L := _actor_layout()
+	var res := ActorDirector.plan_all([
+		{"id": "m", "character": "you", "at": "town_center", "action": "walk"},
+		{"id": "t", "character": "toon_you", "at": "town_center", "action": "walk",
+			"cues": [{"t": 2.0, "expression": "shocked"}]}], L)
+	if res.has("error"):
+		return [res["error"]]
+	var node := ActorDirector.build(res["plans"], L)
+	root.add_child(node)
+	var man = node.get_child(0)
+	var toon = node.get_child(1)
+	if toon.retarget == null or toon.retarget.dst.name != "toon_skeleton":
+		node.free()
+		return e + ["toon has no toon skeleton"]
+	toon.pose_at(0.5)
+	man.pose_at(0.5)
+	# Short legs: the toon's hips sit much lower than the mannequin's; the head is high.
+	var hip_t: float = toon.bone_world("pelvis").y - toon.position.y
+	var hip_m: float = man.bone_world("pelvis").y - man.position.y
+	if hip_t > hip_m * 0.6:
+		e.append("toon hips at %.2f m, mannequin's at %.2f m: legs not shortened" % [hip_t, hip_m])
+	var foot: float = toon.bone_world("foot_l").y - toon.position.y
+	if foot < -0.02 or foot > 0.2:
+		e.append("toon ankle at %.2f m above the ground" % foot)
+	if toon.expression_at(1.0) != "smug" or toon.expression_at(2.5) != "shocked":
+		e.append("expressions: %s at 1 s, %s at 2.5 s" % [toon.expression_at(1.0), toon.expression_at(2.5)])
+	toon.pose_at(2.5)
+	var mat: ShaderMaterial = toon._face_mat
+	if int(mat.get_shader_parameter("mouth")) != Toon.MOUTHS.find("open"):
+		e.append("face material not switched to 'shocked'")
+	toon.pose_at(0.5)
+	if int(mat.get_shader_parameter("mouth")) != Toon.MOUTHS.find("smirk"):
+		e.append("face did not return to 'smug' at 0.5 s")
+	node.free()
+	return e
+
+
+func _t_reveals() -> Array:
+	var e := []
+	var cases := [
+		[[{"id": "a", "t": 1, "at": "town_center"}], "needs exactly one"],
+		[[{"id": "a", "t": 1, "at": "town_center", "shape": "blob"}], "shape 'blob'"],
+		[[{"id": "a", "t": 1, "at": "town_center", "shape": "box", "enter": "teleport"}], "enter 'teleport'"],
+		[[{"id": "a", "t": 1, "shape": "box"}], "needs 'at'"],
+		[[{"id": "a", "t": 2, "until": 1, "at": "town_center", "shape": "box"}], "'until'"],
+		[[{"id": "a", "t": 1, "at": "town_center", "counter": {"from": 0}}], "counter needs 'to'"],
+		[[{"id": "a", "t": 1, "at": "town_center", "text": "x"}, {"id": "a", "t": 1, "at": "town_center", "text": "y"}], "unique 'id'"],
+	]
+	for c in cases:
+		var errs := Reveals.validate(c[0])
+		if not errs.any(func(m): return String(m).contains(c[1])):
+			e.append("not reported: %s (got %s)" % [c[1], errs])
+	var reveals := [
+		{"id": "box", "t": 1.0, "until": 3.0, "at": "town_center", "shape": "box", "enter": "pop"},
+		{"id": "n", "t": 0.0, "at": "town_center", "counter": {"from": 0, "to": 1000, "land": 2.0, "suffix": " PEOPLE"}},
+	]
+	e.append_array(Reveals.validate(reveals))
+	var L := _actor_layout()
+	var node := Reveals.build(reveals)
+	root.add_child(node)
+	var box: Node3D = node.get_node("box")
+	var n: Node3D = node.get_node("n")
+	var value: TextMesh = (n.get_node("content/value") as MeshInstance3D).mesh
+	Reveals.pose(node, reveals, 0.5, L)
+	if box.visible:
+		e.append("box visible before its time")
+	Reveals.pose(node, reveals, 1.1, L)
+	if not box.visible or box.scale.x >= 1.0:
+		e.append("box should be popping in at 1.1 s (visible, scale < 1), got scale %.2f" % box.scale.x)
+	Reveals.pose(node, reveals, 2.0, L)
+	if absf(box.scale.x - 1.0) > 0.001:
+		e.append("box at full size after its entrance, got %.3f" % box.scale.x)
+	if value.text != "1,000 PEOPLE":
+		e.append("counter at its land time reads '%s'" % value.text)
+	Reveals.pose(node, reveals, 3.5, L)
+	if box.visible:
+		e.append("box still visible after until + exit")
+	Reveals.pose(node, reveals, 1.0, L)
+	if value.text == "0 PEOPLE" or value.text == "1,000 PEOPLE":
+		e.append("counter should be mid-count at 1.0 s, reads '%s'" % value.text)
+	var one: String = value.text
+	Reveals.pose(node, reveals, 2.5, L)
+	Reveals.pose(node, reveals, 1.0, L)
+	if value.text != one:
+		e.append("counter at 1.0 s is not a pure function of t")
+	if Reveals.format_number(3.5, 1, true, "", " BILLION") != "3.5 BILLION" or Reveals.format_number(6880, 0, true, "", "") != "6,880":
+		e.append("format_number: %s / %s" % [Reveals.format_number(3.5, 1, true, "", " BILLION"), Reveals.format_number(6880, 0, true, "", "")])
 	node.free()
 	return e

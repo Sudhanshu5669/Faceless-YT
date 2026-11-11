@@ -1,6 +1,32 @@
 # Handoff: where TownForge is, and what to do next
 
-*Last updated 2026-11-10. Read this first in a new session, then `docs/VISION_AND_ROADMAP.md`.*
+*Last updated 2026-11-11. Read this first in a new session, then `docs/VISION_AND_ROADMAP.md`.*
+
+## NEW DIRECTION (2026-11-11): the toon house style
+
+The user studied the reference channel **@afterhourtheories** (frame-by-frame breakdown: memory
+`reference-afterhourtheories`) and chose its style for the whole channel: meme stick-figure
+toons with swappable drawn faces, everything the narrator names appearing on its word, counters
+landing on spoken numbers, "Imagine you're…" scripts. **The playbook is the `toon-short` skill**
+(`.claude/skills/toon-short/SKILL.md`). Done this session:
+
+- **Toon characters** (`scripts/actors/toon.gd`, shaders `toon_face/outline/hair`,
+  docs/TOON_SPEC.md): sphere head + SDF face, hair styles, bean outfits, stick limbs, outlines,
+  on a short-legged copy of the mannequin skeleton (rig `toon`), so all actions work. 25
+  expressions in `library/toon/faces.json`, swapped by the actor cue `"expression"`. Cast:
+  `toon_you`, `toon_boss`, `toon_boss_evil`, `toon_agent`, `toon_partner`, `toon_founder`,
+  `toon_scientist(_b)`, `toon_redhead`, `toon_nerd`.
+- **Reveals and counters** (`scripts/timeline/reveals.gd`, docs/REVEALS_SPEC.md): episode
+  `reveals` (shapes, catalog props, 3D text, counters) with word-referenced `t`/`until`/`land`,
+  entrances (pop, drop, rise, slide, beam, grow), `sound`. New one-shots: pop, whoosh, ding,
+  tick, cash.
+
+Next, in order: (1) a short demo episode in the style (storyboard first; mind the TTS quota);
+(2) a bold display font for text and counters (an OFL font, ask before downloading);
+(3) `stage` set generator (neon pedestal, dark grid "dossier" void); (4) whip-pan and
+push-through transitions + motion blur (sub-frame accumulation) + a neon night look;
+(5) music bed; (6) UI cards, link lines, cash rain. The downtown/ambient-demo plan below is
+paused.
 
 ## State in one paragraph
 
@@ -22,18 +48,20 @@ user got bored of it; its board is prepared and nothing is approved.
 ## Git
 
 - Committed: `09acfcb`, `a2805d3`, `9f90348` (review board), `4d09580` (supermarket Fab kit).
-- Uncommitted at the time of writing: character retargeting + city cast (commit on main).
+- `f51471a`: character retargeting + city cast. Downtown generator: see git status.
 - Never commit: `.env` (Gemini key, git-ignored), `incoming/`, `godot/assets/`, `output/`.
 
 ## Next steps, in order
 
-1. **Downtown generator** (`godot/scripts/world/generators/downtown_generator.gd` + builder, registered
-   in `set_builder.gd`): city blocks from `quaternius_downtown` (106 building parts, 39 street pieces,
-   props; look at `library/thumbs/_sheets/quaternius_downtown_*.png`), sidewalks, crossings, street
-   furniture, named anchors (blocks, corners, crossings, sidewalks) for routes and cameras.
-2. **Crowds that wander**: many pedestrians on sidewalk routes (loops between anchors), using the
-   `city_*` characters. Check the cost of retargeting at crowd scale (one extra skeleton per actor).
-   Per-member colour variation could replace hand-made variants later.
+1. ~~Downtown generator~~ (done 2026-11-10): `downtown_generator.gd` + `downtown_builder.gd`,
+   `library/kits/downtown.json`, `specs/sets/metro.json`. Facades from modules (MultiMesh), street
+   tiles, outskirts ring, streetlights/trees/cars/props, walkway graph, anchors. Builds in ~2 s.
+   Known gaps: **windows stay dark at night** (lit windows need per-instance glass variants: batch
+   key model+lit, emissive glass material, `practical_lights.window_lit_chance`); no traffic; no
+   street signs/benches/bins (the pack has none; Fantasy Props or Fab could fill in).
+2. **Crowds that wander**: many pedestrians walking the `walkways` graph (loops of sidewalk corners
+   and crosswalks), using the `city_*` characters; some standing (phone, idle) at building fronts.
+   Check retarget cost at crowd scale. Probably a crowd "wander" mode in actor_director.
 3. **Skies**: Poly Haven HDRIs as the look's sky (panorama), per weather (clear, overcast, rain,
    fog, dusk, night). Ask before each download (filename, source, size).
 4. **The demo**: an episode with no narration, long slow camera moves, weather changes between

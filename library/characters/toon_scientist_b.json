@@ -1,0 +1,23 @@
+{
+  "id": "toon_scientist_b",
+  "description": "Scientist: lab coat, red beanie.",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.36,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "beanie",
+      "color": "#d6453d"
+    },
+    "outfit": {
+      "style": "labcoat",
+      "tie": "#d6453d"
+    },
+    "shoes": "#2b2b30",
+    "face": "cheer"
+  }
+}

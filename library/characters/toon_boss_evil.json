@@ -1,0 +1,25 @@
+{
+  "id": "toon_boss_evil",
+  "description": "The boss's true face: green skin, same suit and chain (swap in for a reveal).",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "skin": "#7ed957",
+    "hair": {
+      "style": "curly",
+      "color": "#b56a2a"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#18181c",
+      "chain": true
+    },
+    "shoes": "#1f2a44",
+    "face": "grin"
+  }
+}

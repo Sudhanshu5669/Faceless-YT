@@ -1,0 +1,23 @@
+{
+  "id": "toon_founder",
+  "description": "Young founder: grey hoodie, black slick hair.",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.38,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#1d1d22"
+    },
+    "outfit": {
+      "style": "hoodie",
+      "color": "#5d6470"
+    },
+    "shoes": "#f2f2f2",
+    "face": "happy"
+  }
+}

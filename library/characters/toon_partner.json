@@ -1,0 +1,23 @@
+{
+  "id": "toon_partner",
+  "description": "Partner / spouse: coral tee, brown bob.",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.35,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bob",
+      "color": "#7a4a26"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#f07a63"
+    },
+    "shoes": "#f2f2f2",
+    "face": "sleepy"
+  }
+}
