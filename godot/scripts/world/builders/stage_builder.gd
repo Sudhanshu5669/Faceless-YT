@@ -7,7 +7,7 @@ const Toon = preload("res://scripts/actors/toon.gd")
 const SURFACE := preload("res://shaders/stage_surface.gdshader")
 const Reveals = preload("res://scripts/timeline/reveals.gd")
 
-const FLOOR_PATTERNS := {"checker": 0, "tiles": 1, "grid": 2, "wood": 3, "plain": 4, "carpet": 5, "road": 6}
+const FLOOR_PATTERNS := {"checker": 0, "tiles": 1, "grid": 2, "wood": 3, "plain": 4, "carpet": 5, "road": 6, "marble": 7}
 const WALL_PATTERNS := {"tiles": 1, "panels": 10, "plain": 4, "grid": 2, "brick": 11}
 const DRUM_COLORS := ["#d6453d", "#2f6fd6", "#e8b52a", "#3aa35b"]
 
@@ -50,6 +50,8 @@ static func _bay(b: Dictionary, seed_value: int) -> Node3D:
 	elif wall_kind == "bazaar":
 		_bazaar(n, b, seed_value)
 		_skyline(n, b, seed_value)
+	elif wall_kind == "haveli":
+		_haveli(n, b, seed_value)
 	elif wall_kind != "none":
 		var wc := Color(String(b["wall_color"]))
 		var mat := _surface(WALL_PATTERNS[wall_kind], wc, wc.darkened(0.35), Color(String(nc[0])), 0.6, true)
@@ -346,6 +348,133 @@ static func _boxm(s: Vector3, at: Vector3, mat: Material) -> MeshInstance3D:
 	bm.size = s
 	var mi := MeshInstance3D.new()
 	mi.mesh = bm
+	mi.material_override = mat
+	mi.position = at
+	return mi
+
+
+## An Indian haveli room: warm plaster walls with a painted dado and border,
+## carved arched windows glowing with the night outside, pillars at the
+## corners, a marigold toran across the top and hanging brass lanterns.
+const HAVELI_ACCENTS := ["#b8322a", "#1f6f6a", "#d9a632", "#7a2a6e"]
+
+
+static func _haveli(n: Node3D, b: Dictionary, seed_value: int) -> void:
+	var r := RandomNumberGenerator.new()
+	r.seed = hash("%d/haveli/%s" % [seed_value, b["id"]])
+	var w := float(b["size"][0])
+	var d := float(b["size"][1])
+	var wall := Color(String(b["wall_color"]))
+	var accent := Color(HAVELI_ACCENTS[r.randi_range(0, HAVELI_ACCENTS.size() - 1)])
+	var g := Node3D.new()
+	g.name = "haveli"
+	n.add_child(g)
+	var z := -d * 0.5
+	var walls := [[Vector3(0, 0, z), 0.0, w + 2.0]]
+	if bool(b["sides"]):
+		walls.append([Vector3(-w * 0.5, 0, 0), 90.0, d + 2.0])
+		walls.append([Vector3(w * 0.5, 0, 0), -90.0, d + 2.0])
+	for wd in walls:
+		var holder := Node3D.new()
+		holder.position = wd[0]
+		holder.rotation_degrees = Vector3(0, wd[1], 0)
+		g.add_child(holder)
+		var ww: float = wd[2]
+		holder.add_child(_boxm(Vector3(ww, Gen.WALL_H, 0.2), Vector3(0, Gen.WALL_H * 0.5, -0.1), Toon.material(wall, 0.0)))
+		# Dado (lower band), a painted border line and a top frieze.
+		holder.add_child(_boxm(Vector3(ww, 1.0, 0.04), Vector3(0, 0.5, 0.02), Toon.material(wall.darkened(0.25), 0.0)))
+		holder.add_child(_boxm(Vector3(ww, 0.08, 0.05), Vector3(0, 1.02, 0.03), Toon.material(accent, 0.0)))
+		holder.add_child(_boxm(Vector3(ww, 0.35, 0.06), Vector3(0, Gen.WALL_H - 0.6, 0.03), Toon.material(accent.darkened(0.15), 0.0)))
+		for k in int(ww / 0.5):
+			var dot := MeshInstance3D.new()
+			dot.mesh = Toon.sphere(0.06)
+			dot.material_override = Toon.material(Color("f2d27a"), 0.0)
+			dot.position = Vector3(-ww * 0.5 + 0.25 + k * 0.5, Gen.WALL_H - 0.6, 0.08)
+			holder.add_child(dot)
+	# Arched windows on the back wall (night sky beyond), with carved frames.
+	var nwin := 3 if w >= 8.0 else 2
+	for k in nwin:
+		var x := (float(k) - (nwin - 1) * 0.5) * (w / nwin) * 0.95
+		_arch_window(g, Vector3(x, 1.35, z + 0.01), 1.0, 2.1, accent)
+	# Pillars at the back corners.
+	for s in [-1.0, 1.0]:
+		var px: float = s * (w * 0.5 - 0.35)
+		g.add_child(_cylm(0.17, Gen.WALL_H, Vector3(px, Gen.WALL_H * 0.5, z + 0.35), Toon.material(wall.lightened(0.25), Toon.OUTLINE * 0.6)))
+		g.add_child(_boxm(Vector3(0.5, 0.25, 0.5), Vector3(px, 0.125, z + 0.35), Toon.material(accent, Toon.OUTLINE * 0.5)))
+		g.add_child(_boxm(Vector3(0.5, 0.22, 0.5), Vector3(px, Gen.WALL_H - 0.95, z + 0.35), Toon.material(accent, Toon.OUTLINE * 0.5)))
+	# Marigold toran: festoons across the top of the back wall.
+	var fest := 4
+	for k in fest:
+		var x0 := -w * 0.45 + k * (w * 0.9 / fest)
+		var x1 := x0 + w * 0.9 / fest
+		var steps := 12
+		for i in steps + 1:
+			var u := float(i) / steps
+			var c := Color("ff8c1a") if i % 2 == 0 else Color("ffc21a")
+			var bead := MeshInstance3D.new()
+			bead.mesh = Toon.sphere(0.06)
+			bead.material_override = Toon.material(c, 0.0)
+			bead.position = Vector3(lerpf(x0, x1, u), Gen.WALL_H - 1.0 - 0.35 * 4.0 * u * (1.0 - u), z + 0.15)
+			g.add_child(bead)
+		var leaf := _boxm(Vector3(0.1, 0.22, 0.03), Vector3(x1, Gen.WALL_H - 1.15, z + 0.15), Toon.material(Color("3f9e3a"), 0.0))
+		g.add_child(leaf)
+	# Hanging brass lanterns (small warm lights).
+	for s in [-1.0, 1.0]:
+		var lx: float = s * w * 0.3
+		g.add_child(_boxm(Vector3(0.02, 1.2, 0.02), Vector3(lx, Gen.WALL_H - 0.6, z + 1.2), Toon.material(Color("6b5a2a"), 0.0)))
+		g.add_child(_cylm(0.16, 0.34, Vector3(lx, Gen.WALL_H - 1.35, z + 1.2), Toon.material(Color("d9a632"), Toon.OUTLINE * 0.5)))
+		var glow := MeshInstance3D.new()
+		glow.mesh = Toon.sphere(0.1)
+		glow.material_override = neon_material(Color("ffb84a"), 3.5)
+		glow.position = Vector3(lx, Gen.WALL_H - 1.55, z + 1.2)
+		g.add_child(glow)
+		var lamp := OmniLight3D.new()
+		lamp.light_color = Color("ffb06a")
+		lamp.light_energy = 1.6
+		lamp.omni_range = 5.0
+		lamp.position = glow.position
+		g.add_child(lamp)
+
+
+## A glowing arched window (rectangle + half circle) with a carved frame.
+static func _arch_window(g: Node3D, base: Vector3, w: float, h: float, accent: Color) -> void:
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var rr := w * 0.5
+	var body := h - rr
+	var pts := [Vector3(-rr, 0, 0), Vector3(rr, 0, 0), Vector3(rr, body, 0)]
+	for i in range(1, 16):
+		var a := PI * float(i) / 16.0
+		pts.append(Vector3(rr * cos(a), body + rr * sin(a), 0))
+	pts.append(Vector3(-rr, body, 0))
+	var c := Vector3(0, body * 0.5, 0)
+	for i in pts.size():
+		st.add_vertex(c)
+		st.add_vertex(pts[(i + 1) % pts.size()])
+		st.add_vertex(pts[i])
+	var mi := MeshInstance3D.new()
+	mi.mesh = st.commit()
+	mi.material_override = neon_material(Color("5a46b8"), 1.1)
+	mi.position = base
+	g.add_child(mi)
+	var frame := Toon.material(accent.lightened(0.2), 0.0)
+	for i in pts.size():
+		g.add_child(_tube(base + pts[i] + Vector3(0, 0, 0.04), base + pts[(i + 1) % pts.size()] + Vector3(0, 0, 0.04), 0.05, frame))
+	# Jaali bars and a sill.
+	for k in 3:
+		var x := (float(k) - 1.0) * w * 0.28
+		g.add_child(_boxm(Vector3(0.03, body + rr * 0.8, 0.03), base + Vector3(x, (body + rr * 0.8) * 0.5, 0.05), Toon.material(Color("2a1d3a"), 0.0)))
+	g.add_child(_boxm(Vector3(w + 0.3, 0.1, 0.25), base + Vector3(0, -0.05, 0.1), Toon.material(accent.darkened(0.2), Toon.OUTLINE * 0.4)))
+
+
+static func _cylm(r: float, h: float, at: Vector3, mat: Material) -> MeshInstance3D:
+	var cm := CylinderMesh.new()
+	cm.top_radius = r
+	cm.bottom_radius = r
+	cm.height = h
+	cm.radial_segments = 20
+	var mi := MeshInstance3D.new()
+	mi.mesh = cm
 	mi.material_override = mat
 	mi.position = at
 	return mi

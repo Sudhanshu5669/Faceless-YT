@@ -347,6 +347,9 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool) -> dict:
         for k in ("t", "until"):
             if k in rv:
                 rv[k] = round(ref(rv[k], "scene", f"{w}.{k}"), 3)
+        for j, m in enumerate(rv.get("moves", [])):
+            if isinstance(m, dict) and "t" in m:
+                m["t"] = round(ref(m["t"], "scene", f"{w}.moves[{j}].t"), 3)
         c = rv.get("counter")
         if isinstance(c, dict):
             if "land" in c:

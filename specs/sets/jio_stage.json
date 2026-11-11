@@ -8,12 +8,12 @@
       "bays": [
         {
           "id": "empire",
-          "floor": "tiles",
+          "floor": "road",
           "floor_colors": [
-            "#3b2a7a",
-            "#2a1d5c"
+            "#4a4152",
+            "#8a7866"
           ],
-          "wall": "skyline",
+          "wall": "bazaar",
           "neon": [],
           "neon_colors": [
             "#5fe3ff",
@@ -23,6 +23,7 @@
             10,
             8
           ],
+          "light": "#ffe7c4",
           "pedestal": {
             "style": "drums",
             "height": 1.8,
@@ -37,11 +38,9 @@
             "#8a5a3a",
             "#6a4028"
           ],
-          "wall": "panels",
-          "wall_color": "#3a2a7a",
-          "neon": [
-            "strip"
-          ],
+          "wall": "haveli",
+          "wall_color": "#e8c9a0",
+          "neon": [],
           "neon_colors": [
             "#ffd27a",
             "#ff9ad5"
@@ -55,25 +54,24 @@
         },
         {
           "id": "split",
-          "floor": "checker",
+          "floor": "marble",
           "floor_colors": [
-            "#5a2a8a",
-            "#3a1d66"
+            "#efe6d6",
+            "#c0392b"
           ],
-          "wall": "tiles",
-          "wall_color": "#2b3fa8",
-          "neon": [
-            "ring",
-            "tubes"
-          ],
+          "wall": "haveli",
+          "wall_color": "#d98a7a",
+          "neon": [],
           "neon_colors": [
-            "#5fe3ff",
-            "#ff4fd8"
+            "#f2c230",
+            "#ff9ad5"
           ],
           "size": [
             9,
             7
           ],
+          "sides": true,
+          "light": "#ffe2b8",
           "note": "The family empire split: a cake on a table"
         },
         {

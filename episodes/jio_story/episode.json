@@ -369,8 +369,8 @@
     "anchor": "empire",
     "offset": [
      0,
-     4.3,
-     -3.4
+     7.1,
+     -2.9
     ]
    }
   },
@@ -481,13 +481,13 @@
    "enter": "none",
    "shape": "box",
    "color": "#6a4028",
-   "size": 0.66,
+   "size": 0.6,
    "at": {
     "anchor": "tribute.back",
     "offset": [
      0,
      0,
-     0.62
+     0.3
     ]
    }
   },
@@ -525,33 +525,16 @@
    "id": "name",
    "t": 0,
    "enter": "none",
-   "text": "DHIRUBHAI AMBANI",
-   "color": "#ffd27a",
-   "glow": 0.4,
-   "size": 0.09,
+   "shape": "plaque",
+   "label": "DHIRUBHAI AMBANI",
+   "label_color": "#3a2208",
+   "size": 0.78,
    "at": {
     "anchor": "tribute.back",
     "offset": [
      0,
-     0.44,
-     0.97
-    ]
-   }
-  },
-  {
-   "id": "years",
-   "t": 0,
-   "enter": "none",
-   "text": "1932 - 2002",
-   "color": "#ffd27a",
-   "glow": 0.3,
-   "size": 0.065,
-   "at": {
-    "anchor": "tribute.back",
-    "offset": [
-     0,
-     0.31,
-     0.97
+     0.56,
+     0.47
     ]
    }
   },
@@ -683,18 +666,12 @@
    }
   },
   {
-   "id": "cake",
+   "id": "cake_l",
    "t": 0,
    "enter": "none",
-   "until": {
-    "line": "n3a",
-    "word": "splits"
-   },
-   "exit": "none",
-   "shape": "cake",
-   "label": "RELIANCE",
-   "label_color": "#7a1f4a",
+   "shape": "cake_half",
    "size": 0.55,
+   "yaw": 90,
    "at": {
     "anchor": "split",
     "offset": [
@@ -702,57 +679,113 @@
      0.57,
      0
     ]
-   }
-  },
-  {
-   "id": "cake_l",
-   "t": {
-    "line": "n3a",
-    "word": "splits"
    },
-   "enter": "move",
-   "from": [
-    0.24,
-    0,
-    0
-   ],
-   "enter_time": 0.45,
-   "shape": "cake_half",
-   "size": 0.55,
-   "yaw": 90,
-   "at": {
-    "anchor": "split",
-    "offset": [
-     -0.26,
-     0.57,
-     0
-    ]
-   }
+   "moves": [
+    {
+     "t": {
+      "line": "n3a",
+      "word": "splits"
+     },
+     "by": [
+      -0.32,
+      0,
+      0
+     ],
+     "dur": 0.7
+    }
+   ]
   },
   {
    "id": "cake_r",
-   "t": {
-    "line": "n3a",
-    "word": "splits"
-   },
-   "enter": "move",
-   "from": [
-    -0.24,
-    0,
-    0
-   ],
-   "enter_time": 0.45,
+   "t": 0,
+   "enter": "none",
    "shape": "cake_half",
    "size": 0.55,
    "yaw": -90,
    "at": {
     "anchor": "split",
     "offset": [
-     0.26,
+     0,
      0.57,
      0
     ]
-   }
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n3a",
+      "word": "splits"
+     },
+     "by": [
+      0.32,
+      0,
+      0
+     ],
+     "dur": 0.7
+    }
+   ]
+  },
+  {
+   "id": "cake_txt_l",
+   "t": 0,
+   "enter": "none",
+   "text": "RELI",
+   "color": "#7a1f4a",
+   "glow": 0.0,
+   "size": 0.075,
+   "at": {
+    "anchor": "split",
+    "offset": [
+     0.085,
+     0.645,
+     0.29
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n3a",
+      "word": "splits"
+     },
+     "by": [
+      -0.32,
+      0,
+      0
+     ],
+     "dur": 0.7
+    }
+   ]
+  },
+  {
+   "id": "cake_txt_r",
+   "t": 0,
+   "enter": "none",
+   "text": "ANCE",
+   "color": "#7a1f4a",
+   "glow": 0.0,
+   "size": 0.075,
+   "at": {
+    "anchor": "split",
+    "offset": [
+     -0.1,
+     0.645,
+     0.29
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n3a",
+      "word": "splits"
+     },
+     "by": [
+      0.32,
+      0,
+      0
+     ],
+     "dur": 0.7
+    }
+   ]
   },
   {
    "id": "anil_phone",

@@ -21,23 +21,23 @@ const Shot = preload("res://scripts/camera/shot.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
 
 const KEYS := ["id", "t", "until", "prop", "shape", "text", "counter", "at", "size", "color", "yaw", "face",
-	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note", "label", "label_color", "roll", "from"]
+	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note", "label", "label_color", "roll", "from", "moves"]
 const KINDS := ["prop", "shape", "text", "counter"]
 const COUNTER_KEYS := ["from", "to", "land", "keys", "decimals", "prefix", "suffix", "commas", "label", "land_color"]
 const ENTERS := ["pop", "drop", "settle", "rise", "slide_left", "slide_right", "beam", "grow", "move", "none"]
 const EXITS := ["shrink", "pop", "drop", "rise", "none"]
 const SHAPES := ["box", "sphere", "cylinder", "cone", "card", "coin", "cash", "ring", "bottle", "pin", "chip", "phone",
 	"refinery", "pump", "postcard", "scales", "frame", "garland", "cake", "cake_half", "binoculars", "sign", "spinner", "tower",
-	"rickshaw"]
+	"rickshaw", "plaque"]
 ## Shapes that print their "label" on their face: [x, y, z, text height] as fractions of size.
 const LABELLED := {"card": [0.0, 0.62, 0.025, 0.09], "sign": [0.0, 1.12, 0.045, 0.13], "cake": [0.0, 0.2, 0.52, 0.1],
 	"pump": [0.0, 0.98, 0.22, 0.08], "postcard": [-0.2, 0.08, 0.02, 0.08], "box": [0.0, 0.5, 0.505, 0.15],
-	"cake_half": [0.0, 0.2, 0.52, 0.09]}
+	"cake_half": [0.0, 0.2, 0.52, 0.09], "plaque": [0.0, 0.1, 0.022, 0.085]}
 const DEFAULT_COLORS := {"box": "#f2f2f2", "sphere": "#f2f2f2", "cylinder": "#f2f2f2", "cone": "#f2f2f2",
 	"card": "#ffffff", "coin": "#f2c230", "cash": "#4fbf6a", "ring": "#5fe3ff", "bottle": "#4a90e2",
 	"pin": "#ff4d5a", "chip": "#2b2f36", "phone": "#16181d", "refinery": "#c9ced6", "pump": "#d6453d",
 	"postcard": "#f6ecd2", "scales": "#e8b52a", "frame": "#d9a632", "garland": "#ff8c1a", "cake": "#ff9ec4",
-	"cake_half": "#ff9ec4", "binoculars": "#1b1c22", "sign": "#ffffff", "spinner": "#ffffff", "tower": "#c9ced6", "rickshaw": "#2f9e44"}
+	"cake_half": "#ff9ec4", "binoculars": "#1b1c22", "sign": "#ffffff", "spinner": "#ffffff", "tower": "#c9ced6", "rickshaw": "#2f9e44", "plaque": "#d9a632"}
 ## Chunky display font for text and counters (OFL, godot/fonts/lilita_one).
 const FONT_PATH := "res://fonts/lilita_one/LilitaOne-Regular.ttf"
 ## Fallback for what Lilita lacks (the rupee sign, Devanagari): Baloo 2 at ExtraBold.
@@ -124,6 +124,10 @@ static func validate(reveals) -> Array:
 				e.append("%s: %s must be a number" % [w, k])
 		if String(r.get("enter", "pop")) == "move" and (typeof(r.get("from")) != TYPE_ARRAY or r["from"].size() != 3):
 			e.append(w + ": enter 'move' needs 'from': [x, y, z], the start offset in metres from 'at'")
+		for m in r.get("moves", []):
+			if typeof(m) != TYPE_DICTIONARY or not _is_time(m.get("t")) or typeof(m.get("by")) != TYPE_ARRAY \
+					or m["by"].size() != 3:
+				e.append(w + ": each move is {\"t\": time, \"by\": [x, y, z] metres, \"dur\": s, \"turn\": degrees}")
 		if r.has("yaw") and r.has("face"):
 			e.append(w + ": give 'yaw' or 'face', not both")
 	return e
@@ -414,6 +418,10 @@ static func _story_parts(kind: String, size: float, col: Color, mat: Material) -
 			for sx in [-1.0, 1.0]:
 				P.append(_part(_cyl(size * 0.07, size * 0.07, size * 0.02), Vector3(sx * size * 0.07, size * 0.82, size * 0.05), Toon.material(Color("f4f4f2"), o), Vector3(PI / 2, 0, 0)))
 			P.append(_part(Toon.sphere(size * 0.025), Vector3(0, size * 1.02, 0), _glow_mat(Color("ff4d5a"))))
+		"plaque":
+			# A brass name plate (put a "label" on it): wide, thin, with a darker rim.
+			P.append(_part(_box(Vector3(size * 1.04, size * 0.24, size * 0.03)), Vector3(0, size * 0.1, -size * 0.004), Toon.material(col.darkened(0.35), o)))
+			P.append(_part(_box(Vector3(size, size * 0.2, size * 0.035)), Vector3(0, size * 0.1, 0), mat))
 		"rickshaw":
 			# Auto-rickshaw: green lower body, yellow canopy, three wheels; faces +z.
 			var yellow := Toon.material(Color("f2c230"), o)
@@ -627,6 +635,13 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 		var age := t - t0
 		yaw += deg_to_rad(float(r.get("spin", 0.0))) * age
 		off.y += sin(age * 2.6) * float(r.get("bob", 0.0))
+		# Timed moves after the entrance: slide by an offset (world metres), maybe turn.
+		for m in r.get("moves", []):
+			var mk := clampf((t - float(m["t"])) / maxf(float(m.get("dur", 0.6)), 0.001), 0.0, 1.0)
+			mk = mk * mk * (3.0 - 2.0 * mk)
+			var by: Array = m["by"]
+			off += Vector3(float(by[0]), float(by[1]), float(by[2])) * mk
+			yaw += deg_to_rad(float(m.get("turn", 0.0))) * mk
 		if r.has("counter"):
 			s *= _pose_counter(h.get_node("content"), r["counter"], t, t0, Color(String(r.get("color", "#ffffff"))))
 		h.position = p["pos"] + off

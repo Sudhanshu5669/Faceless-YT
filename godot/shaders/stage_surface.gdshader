@@ -75,6 +75,22 @@ void fragment() {
 		float stripe = step(0.5, fract(w.x * 0.8));
 		col = mix(col, mix(vec3(0.95, 0.85, 0.2), vec3(0.12), stripe), kerb);
 		rough = 0.8;
+	} else if (pattern == 7) {
+		// Indian marble: large cream slabs with soft veins, an inlaid border band
+		// and a lotus-like rangoli medallion in the centre.
+		vec2 w = uv;
+		vec2 slab = floor(w / 1.2);
+		float vein = sin(w.x * 3.1 + sin(w.y * 2.3 + hash(slab) * 6.0) * 1.7);
+		col = mix(color_a, color_a * 0.86, smoothstep(0.85, 1.0, vein));
+		col = mix(col, color_a * 0.8, grid_line(w / 1.2, 0.5));
+		float r = length(w);
+		float ang = atan(w.y, w.x);
+		float petals = 0.5 + 0.5 * cos(ang * 8.0);
+		float rangoli = step(r, 0.55 + 0.25 * petals) * step(0.25, r);
+		col = mix(col, color_b, rangoli * 0.9);
+		col = mix(col, line_color, step(r, 0.22) * step(0.12, r));
+		col = mix(col, vec3(0.95, 0.75, 0.2), step(r, 0.1));
+		rough = 0.25;
 	} else if (pattern == 10) {
 		vec2 p = uv * vec2(0.5, 0.33);
 		col = mix(color_a, color_a * 1.15, step(0.5, fract(floor(p.x) * 0.5)));
