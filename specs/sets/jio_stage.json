@@ -266,6 +266,27 @@
           "mood": "dramatic"
         },
         {
+          "id": "chai",
+          "floor": "road",
+          "floor_colors": [
+            "#3e3a48",
+            "#6a5a4a"
+          ],
+          "wall": "bazaar",
+          "neon": [],
+          "neon_colors": [
+            "#ffb347",
+            "#5fe3ff"
+          ],
+          "size": [
+            9,
+            7
+          ],
+          "light": "#ffd9a0",
+          "note": "A chai stall across the road at night: Mukesh spies on the telecom boom",
+          "mood": "dramatic"
+        },
+        {
           "id": "nation",
           "floor": "marble",
           "floor_colors": [
@@ -542,6 +563,27 @@
         },
         "look_at": {
           "anchor": "infocomm",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "chai",
+        "t": 1,
+        "at": {
+          "anchor": "chai",
+          "offset": [
+            0,
+            2.6,
+            6.3
+          ]
+        },
+        "look_at": {
+          "anchor": "chai",
           "offset": [
             0,
             1.0,

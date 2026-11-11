@@ -77,7 +77,10 @@ Shots 7 `no_telecom` + 15 `deal_ends`: a new bay `infocomm` (Reliance Infocomm's
 brand sign + slogan, planters) with `library:door` (TELECOM / ANIL ONLY slams + padlock; in 2010 the
 lock pops and it swings open). The user's rule: never park a beat in an existing set (AGENTS rule 9).
 The catalog lacks modern office furniture: propose Kenney "Furniture Kit" (CC0) to the user.
-Continue in story order from shot 8 `watch` (gags.md #8: newspaper with eye-holes + binoculars).
+Shot 8 `watch`: a new bay `chai` (night chai stall: catalog stall cart, pot, bench, mug); Mukesh
+(`mw`, sitting) behind an ECONOMIC TIMES "TELECOM BOOM!" paper, binoculars poke through, push-in POV.
+(The framing warning on the binoculars there is the intended push into the lenses.)
+Continue in story order from shot 9 `street_2g` (gags.md #9: everyone hunting for signal).
 The framing check now ignores whip-pan and iris moments.
 
 ### Gags: built (2026-11-12) — read docs/GAGS_SPEC.md
