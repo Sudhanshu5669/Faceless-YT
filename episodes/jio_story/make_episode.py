@@ -291,10 +291,10 @@ reveals = [
     {"id": "binoculars", "t": W("n4", "watch.", offset=-0.15), "until": L("n5a"), "shape": "binoculars", "size": 0.626,
      "enter": "move", "from": [0, 0, -0.2], "enter_time": 0.2, "at": "mw.face", "face": A("mw", [0, 1.3, 4]), "sound": "click"},
     # street: 2015, 2G, spinners, the price counter, the big spinner
-    {"id": "y2015", "t": W("n5a", "2015"), "until": L("n5b"), "text": "2015", "color": "#5fe3ff", "glow": 1.2, "size": 0.6,
-     "at": A("street", [0, 4.4, -1.5]), "sound": "pop"},
-    {"id": "twog", "t": W("n5a", "2G."), "until": L("n5b"), "text": "2G", "color": "#ff4d5a", "glow": 1.4, "size": 1.1,
-     "at": A("street", [0, 2.4, -0.5]), "sound": "pop"},
+    {"id": "y2015", "t": W("n5a", "2015"), "until": L("n5b"), "text": "2015", "color": "#5fe3ff", "glow": 1.2, "size": 0.5,
+     "at": S("street", -0.7, 3.3, -0.8), "sound": "pop"},
+    {"id": "twog", "t": W("n5a", "2G."), "until": L("n5b"), "text": "2G", "color": "#ff4d5a", "glow": 1.4, "size": 0.8,
+     "at": S("street", -0.7, 2.35, -0.6), "sound": "pop"},
     {"id": "price", "t": L("n5b"), "until": L("n5c"), "at": A("street", [0, 2.3, 2.0]), "size": 0.75, "color": "#ffffff",
      "counter": {"from": 0, "to": 250, "prefix": "₹", "land": W("n5b", "250"), "label": "PER GB"}},
     {"id": "big_spinner", "t": L("n5c"), "until": L("n6a"), "shape": "spinner", "size": 0.36, "roll": 300,
@@ -302,15 +302,17 @@ reveals = [
 ]
 SNAIL_MOVE = [{"t": W("n5a", "slow"), "until": L("n6a"), "by": [1.0, 0, 0]}]
 reveals += [
-    {"id": "snail", "t": W("n5a", "slow"), "until": L("n6a"), "shape": "snail", "size": 0.6, "at": S("street", -1.7, 0, 3.9),
+    {"id": "snail", "t": W("n5a", "slow"), "until": L("n6a"), "shape": "snail", "size": 0.6, "at": S("street", -1.4, 0, 2.9),
      "moves": SNAIL_MOVE, "sound": "pop"},
     {"id": "snail_data", "t": W("n5a", "slow", offset=0.15), "until": L("n6a"), "shape": "box", "label": "DATA",
-     "label_color": "#0d2a4a", "color": "#5fe3ff", "glow": 0.7, "size": 0.2, "at": S("street", -1.73, 0.38, 3.9), "moves": SNAIL_MOVE},
+     "label_color": "#0d2a4a", "color": "#5fe3ff", "glow": 0.7, "size": 0.2, "at": S("street", -1.43, 0.38, 2.9), "moves": SNAIL_MOVE},
 ]
 CROWD_HEADS = [1, 4, 6, 9, 12, 14]
-for k, cid in enumerate(CROWD_HEADS):
-    reveals.append({"id": f"spin_{cid}", "t": W("n5a", "slow", offset=0.07 * k), "until": L("n6a"), "shape": "spinner",
-                    "size": 0.4, "roll": 320, "at": A(f"c_{cid}.head", [0, 0.5, 0]), "face": face_cam("street", 12)})
+reveals += [
+    {"id": "palm", "t": 0, "enter": "none", "prop": "quaternius_nature/PalmTree_1", "size": 4.6, "at": S("street", -3.6, 0, -1.6)},
+    {"id": "one_bar", "t": W("n5a", "online"), "until": L("n5b"), "text": "▂ 1 BAR", "color": "#ff4d5a", "glow": 1.0, "size": 0.22,
+     "at": A("climber.head", [0, 0.45, 0]), "sound": "pop"},
+]
 
 # --- n6: the telcos' durbar -----------------------------------------------------------------
 TELCOS = [("airtel", "AIRTEL", -2.6, "Airtel,", "#e8343c"), ("vodafone", "VODAFONE", 0.0, "Vodafone", "#e60000"),
@@ -842,9 +844,16 @@ ep = {
         {"id": "c", "character": "toon_you", "at": A("street", [0, 0, 0.3]), "action": "phone",
          "crowd": {"count": 16, "area": [10, 4], "characters": ["toon_you", "toon_partner", "toon_redhead", "toon_nerd",
                                                                "toon_founder", "toon_scientist_b"], "seed": 4},
-         "cues": [{"t": 0, "expression": "deadpan"}, {"t": W("n11b", "everyone."), "expression": "surprised"},
+         "cues": [{"t": 0, "expression": "deadpan"},
+                  # Shot 9: everyone holds their phone up to the sky, hunting for a bar of signal.
+                  {"t": L("n5a", offset=0.6), "action": "jump", "expression": "nervous"},
+                  {"t": W("n5a", "2G."), "expression": "sad"}, {"t": L("n5b"), "action": "phone", "expression": "deadpan"},
+                  {"t": W("n11b", "everyone."), "expression": "surprised"},
                   {"t": W("n15a", "join"), "expression": "happy"}, {"t": W("n15b", "million"), "expression": "star_eyes"},
                   {"t": W("n18a", "20."), "expression": "laugh"}, {"t": L("n22"), "expression": "cheer"}]},
+        # Shot 9: one man climbs a palm tree for a bar of signal.
+        {"id": "climber", "character": "toon_nerd", "at": S("street", -3.25, 0, -1.05), "facing": S("street", -3.6, 1.0, -1.6),
+         "action": "climb", "cues": [{"t": 0, "expression": "determined"}]},
         {"id": "y", "character": "toon_you", "at": A("street", [0.4, 0, 3.4]), "action": "phone", "cues": [
             {"t": 0, "expression": "deadpan"}, {"t": W("n5c", "buffers"), "expression": "side_eye"},
             {"t": W("n5c", "forever."), "expression": "sleepy"}, {"t": W("n11b", "everyone."), "expression": "surprised"},
@@ -962,7 +971,7 @@ ep = {
         {"name": "watch", "duration": fit(0.35, 1.3), "whip_in": "left",
          "camera": move(cam(A("mw", [0, 1.0, 2.6]), A("mw", [0, 0.85, 0]), 32), cam(A("mw.face", [0, 0, 0.45]), "mw.face", 45), "in")},
         {"name": "street_2g", "duration": fit(0.15), "iris_in": "binoculars",
-         "camera": move(cam(A("street", [0, 6, 13]), A("street", [0, 1.2, -2]), 24), cam(A("street", [0, 3.0, 9.0]), A("street", [0, 2.2, -2.5]), 26))},
+         "camera": move(cam(S("street", -0.2, 2.3, 8.0), S("street", -0.4, 1.6, -0.3), 26), cam(S("street", -0.9, 2.1, 6.6), S("street", -1.4, 1.8, -0.6), 26))},
         {"name": "price", "duration": fit(0.15),
          "camera": move(cam(A("street", [0, 2.6, 7.8]), "price", 30), cam(A("street", [0, 2.5, 5.4]), "price", 30))},
         {"name": "buffer", "duration": fit(0.6, 1.4), "whip_out": "right",
