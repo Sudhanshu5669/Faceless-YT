@@ -29,6 +29,9 @@ uniform float mouth_w = 1.0;
 uniform float sweat = 0.0;
 uniform float blush = 0.0;
 uniform float tears = 0.0;
+// Character features (not expressions): a moustache in the hair colour.
+uniform float mustache = 0.0;
+uniform vec3 mustache_color : source_color = vec3(0.1, 0.1, 0.11);
 
 const vec3 MOUTH_IN = vec3(0.20, 0.13, 0.13);
 const vec3 TONGUE = vec3(0.93, 0.50, 0.56);
@@ -219,6 +222,14 @@ void fragment() {
 			}
 		}
 		paint_mouth(col, p);
+		if (mustache > 0.0) {
+			float d = 1e9;
+			for (float s = -1.0; s <= 1.0; s += 2.0) {
+				vec2 q = rot(p - vec2(0.085 * s + mouth_x * 0.5, -0.185), 0.28 * s);
+				d = min(d, sd_ellipse(q, vec2(0.11, 0.052)));
+			}
+			col = mix(col, mustache_color, cover(d));
+		}
 		if (sweat > 0.0) {
 			vec2 q = p - vec2(0.62, 0.24);
 			float k = clamp(q.y / 0.2 + 0.5, 0.0, 1.0);

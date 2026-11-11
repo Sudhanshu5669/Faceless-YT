@@ -38,11 +38,11 @@ const LIMB_COLOR := Color("17171a")
 const INK := Color("0a0a0c")
 const SHORTEN := ["calf_l", "foot_l", "calf_r", "foot_r"]
 
-const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth"]
+const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth", "mustache"]
 const HAIR_KEYS := ["style", "color"]
 const OUTFIT_KEYS := ["style", "color", "chain", "tie", "accent"]
 const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald"]
-const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress"]
+const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt"]
 const ACCESSORIES := ["glasses", "round_glasses", "sunglasses", "smart_glasses"]
 const EYES := ["lazy", "dot", "wide", "happy", "closed", "x", "star", "heart", "sleepy", "none"]
 const MOUTHS := ["smirk", "smile", "flat", "frown", "open", "grin", "laugh", "wavy", "o", "none"]
@@ -114,7 +114,7 @@ static func validate(t, where: String) -> Array:
 	for k in t:
 		if not (k in KEYS):
 			e.append("%s: toon has unknown key '%s' (known: %s)" % [where, k, ", ".join(PackedStringArray(KEYS))])
-	for k in ["skin", "shoes"]:
+	for k in ["skin", "shoes", "mustache"]:
 		if t.has(k) and not Color.html_is_valid(String(t[k])):
 			e.append("%s: toon.%s is not a hex colour" % [where, k])
 	var hair: Dictionary = t.get("hair", {})
@@ -170,6 +170,9 @@ static func build(body: Node3D, src: Skeleton3D, t: Dictionary) -> Dictionary:
 	face.shader = FACE_SHADER
 	face.set_shader_parameter("radius", hr)
 	face.set_shader_parameter("skin", Color(String(t.get("skin", "#f4f4f2"))))
+	if t.has("mustache"):
+		face.set_shader_parameter("mustache", 1.0)
+		face.set_shader_parameter("mustache_color", Color(String(t["mustache"])))
 	face.next_pass = _outline(OUTLINE)
 	apply_face(face, String(t.get("face", "smug")))
 	var head := MeshInstance3D.new()
@@ -186,7 +189,7 @@ static func build(body: Node3D, src: Skeleton3D, t: Dictionary) -> Dictionary:
 	# Torso (the outfit).
 	var o: Dictionary = t.get("outfit", {})
 	var style := String(o.get("style", "tee"))
-	var col := Color(String(o.get("color", "#2f7be0" if style == "hoodie" else ("#f2f2f2" if style == "labcoat" else "#1c1c20"))))
+	var col := Color(String(o.get("color", "#2f7be0" if style == "hoodie" else ("#f2f2f2" if style in ["labcoat", "shirt"] else "#1c1c20"))))
 	var bh := (BEAN_TOP - BEAN_BOTTOM) * H
 	var rb := BEAN_R * H * girth * (1.25 if style == "dress" else 1.0)
 	var rt := BEAN_R_TOP * H * lerpf(1.0, girth, 0.5)
@@ -338,7 +341,7 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 	mat.set_shader_parameter("color", col.darkened(0.25) if style == "curly" else col)
 	mat.set_shader_parameter("radius", hr)
 	mat.set_shader_parameter("mode", 1 if style == "slick" else 0)
-	mat.set_shader_parameter("strands", 0.0 if style in ["curly", "cap", "beanie"] else 0.22)
+	mat.set_shader_parameter("strands", 0.0 if style in ["curly", "cap", "beanie"] else (0.07 if style == "slick" else 0.22))
 	mat.next_pass = _outline(OUTLINE * 0.8)
 	shell.material_override = mat
 	if style == "beanie":
@@ -503,6 +506,19 @@ static func _outfit(torso: Node3D, o: Dictionary, style: String, col: Color, rb:
 				pend.material_override = _mat(Color("f0bd28"), 0.0)
 				pend.position = _surface(0.0, 0.6, rb, rt, bh)
 				torso.add_child(pend)
+		"shirt":
+			# Collar points, a button placket and buttons.
+			for s in [-1.0, 1.0]:
+				_surface_line(torso, [Vector2(0.085 * s, 0.975), Vector2(0.02 * s, 0.87)], rb, rt, bh, 0.016, col.darkened(0.12))
+			_surface_line(torso, [Vector2(0.0, 0.86), Vector2(0.0, 0.2)], rb, rt, bh, 0.004, col.darkened(0.2))
+			for s2 in [0.78, 0.62, 0.46, 0.3]:
+				var b := MeshInstance3D.new()
+				b.mesh = _sphere(0.011, 8, 4)
+				b.material_override = _mat(Color("b9bec6"), 0.0)
+				b.position = _surface(0.012, s2, rb, rt, bh) + Vector3(0, 0, 0.004)
+				torso.add_child(b)
+			if o.has("tie"):
+				_surface_line(torso, [Vector2(0.0, 0.88), Vector2(0.0, 0.55)], rb, rt, bh, 0.02, Color(String(o["tie"])))
 		"labcoat":
 			for s in [-1.0, 1.0]:
 				_surface_line(torso, [Vector2(0.075 * s, 0.97), Vector2(0.012 * s, 0.68)], rb, rt, bh, 0.006, Color("9aa3ad"))

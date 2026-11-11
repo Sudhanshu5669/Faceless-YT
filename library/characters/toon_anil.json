@@ -1,0 +1,26 @@
+{
+  "id": "toon_anil",
+  "description": "Anil Ambani (caricature): slim, black slicked hair, navy suit and tie.",
+  "tags": [
+    "toon",
+    "human",
+    "jio_story"
+  ],
+  "height": 1.42,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#1a1a1f"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#1f2a4a",
+      "tie": "#8a1c2a"
+    },
+    "shoes": "#151518",
+    "girth": 0.95,
+    "face": "smug"
+  }
+}

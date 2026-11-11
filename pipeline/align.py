@@ -58,7 +58,8 @@ def words(wav: Path, script: str) -> list[dict]:
     if cache.exists():
         return json.loads(cache.read_text(encoding="utf-8"))
     raw = _call(wav.read_bytes(), PROMPT.format(script=script))
-    items = json.loads(raw)
+    # The model sometimes appends text after the JSON array: parse the first value only.
+    items, _ = json.JSONDecoder().raw_decode(raw.strip())
     dur = tts.duration(wav)
     out, last = [], 0.0
     for i, it in enumerate(items):

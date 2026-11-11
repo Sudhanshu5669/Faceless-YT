@@ -10,11 +10,14 @@ const SupermarketGenerator = preload("res://scripts/world/generators/supermarket
 const SupermarketBuilder = preload("res://scripts/world/builders/supermarket_builder.gd")
 const DowntownGenerator = preload("res://scripts/world/generators/downtown_generator.gd")
 const DowntownBuilder = preload("res://scripts/world/builders/downtown_builder.gd")
+const StageGenerator = preload("res://scripts/world/generators/stage_generator.gd")
+const StageBuilder = preload("res://scripts/world/builders/stage_builder.gd")
 
 const GENERATORS := {
 	"town": {"generator": TownGenerator, "builder": TownBuilder},
 	"supermarket": {"generator": SupermarketGenerator, "builder": SupermarketBuilder},
 	"downtown": {"generator": DowntownGenerator, "builder": DowntownBuilder},
+	"stage": {"generator": StageGenerator, "builder": StageBuilder},
 }
 
 

@@ -159,10 +159,13 @@ def _episode_frames(ep: dict, fps: int) -> int:
     return sum(max(1, round(float(s["duration"]) * fps)) for s in ep.get("shots", []))
 
 
-def encode_frames(cfg: dict, frames_dir: Path, fps: int, out: Path) -> None:
+def encode_frames(cfg: dict, frames_dir: Path, fps: int, out: Path, blur: int = 1) -> None:
+    """Frames -> H.264. With blur > 1 the frames were rendered at fps * blur and every
+    output frame is the average of `blur` sub-frames: real motion blur (whip pans)."""
     out.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run([cfg["ffmpeg"], "-y", "-loglevel", "error", "-framerate", str(fps),
-                    "-i", str(frames_dir / "%05d.png"), "-c:v", "libx264", "-preset", "medium",
+    vf = ["-vf", f"tmix=frames={blur},framestep={blur}"] if blur > 1 else []
+    subprocess.run([cfg["ffmpeg"], "-y", "-loglevel", "error", "-framerate", str(fps * blur),
+                    "-i", str(frames_dir / "%05d.png"), *vf, "-c:v", "libx264", "-preset", "medium",
                     "-crf", "18", "-pix_fmt", "yuv420p", "-r", str(fps), "-movflags", "+faststart",
                     str(out)], check=True)
 
@@ -191,8 +194,11 @@ def cmd_render(cfg: dict, args) -> int:
     fps = int(ep.get("format", {}).get("fps", 30))
     scale = 1.0
     root = path.parent / "renders"
+    blur = max(1, int(ep.get("format", {}).get("motion_blur", 1)))
     if args.draft:
-        fps, scale, root = 15, 0.5, path.parent / "preview" / "animatic"
+        fps, scale, root, blur = 15, 0.5, path.parent / "preview" / "animatic", 1
+    if getattr(args, "scale", None):
+        scale = float(args.scale)
     frames_root = root / "frames"
     only = [s for s in (args.shots or "").split(",") if s]
     for d in frames_root.glob("[0-9][0-9]_*"):
@@ -201,13 +207,14 @@ def cmd_render(cfg: dict, args) -> int:
                 f.unlink()
     if getattr(args, "remix", False):
         return _remix(cfg, res, root, ep_id, fps, args.draft)
-    total = _episode_frames(ep, fps) + 40 * len(ep.get("shots", []))
-    user = ["--episode", str(resolved), "--frames", str(frames_root), "--fps", str(fps), "--scale", str(scale)]
+    rfps = fps * blur  # rendered frame rate (sub-frames when motion blur is on)
+    total = _episode_frames(ep, rfps) + 40 * len(ep.get("shots", []))
+    user = ["--episode", str(resolved), "--frames", str(frames_root), "--fps", str(rfps), "--scale", str(scale)]
     if only:
         user += ["--shots", ",".join(only)]
     print(f"[TownForge] rendering {ep_id}: {len(ep.get('shots', []))} shots, "
-          f"{_episode_frames(ep, fps)} frames at {fps} fps")
-    code = run_godot(cfg, user, pre_args=["--fixed-fps", str(fps), "--disable-vsync", "--quit-after", str(total + 600)],
+          f"{_episode_frames(ep, rfps)} frames at {rfps} fps" + (f" ({blur} sub-frames each)" if blur > 1 else ""))
+    code = run_godot(cfg, user, pre_args=["--fixed-fps", str(rfps), "--disable-vsync", "--quit-after", str(total + 600)],
                      timeout=600 + total * 2)
     if code != 0:
         return code
@@ -225,7 +232,7 @@ def cmd_render(cfg: dict, args) -> int:
             return 1
         part = root / "shots" / f"{shot['dir']}.mp4"
         if not only or shot["name"] in only or not part.exists():
-            encode_frames(cfg, d, fps, part)
+            encode_frames(cfg, d, fps, part, blur)
         parts.append(part)
     out = root / (f"{ep_id}_animatic.mp4" if args.draft else f"{ep_id}.mp4")
     secs = sum(float(s["duration"]) for s in timeline["shots"])
@@ -509,6 +516,7 @@ def main(argv: list[str] | None = None) -> int:
     rp.add_argument("--shots", help="re-render only these shots (comma-separated names)")
     rp.add_argument("--remix", action="store_true", help="rebuild only the sound and captions over the rendered picture")
     rp.add_argument("--force", action="store_true", help="final render even if review items are not approved")
+    rp.add_argument("--scale", type=float, help="resolution scale (e.g. 0.5 for a quick look at full frame rate)")
     rv = sub.add_parser("review", help="approval board: prepare, serve, notes")
     rv.add_argument("action", choices=["prepare", "serve", "notes"])
     rv.add_argument("episode", help="episodes/<id>/episode.json or <id>")

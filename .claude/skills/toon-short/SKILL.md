@@ -101,6 +101,17 @@ irreverence. No intro, no "in this video", no outro.
   pin chip phone`, any catalog prop, 3D `text`, `counter`. Entrances `pop drop rise slide_left
   slide_right beam grow`. `spin`, `bob`, `glow`. A reveal's `at` can be an actor anchor
   (`"boss.hand"`), so things sit in hands and float over heads. Reveal ids are camera anchors.
+- **Story shapes:** `refinery pump postcard scales frame garland cake cake_half binoculars sign
+  spinner tower` (+ `label` text on card/sign/cake/pump/postcard/box), `roll` (spin in the
+  frame plane, for spinners), `enter: "move"` with `from: [x,y,z]` (slide in from an offset).
+- **Sets:** `generator: "stage"` (specs/sets/jio_stage.json is the example): bays with
+  floors `checker tiles grid wood plain carpet`, walls `tiles panels plain grid brick skyline none`,
+  neon `ring tubes strip arch frame`, pedestals `neon drums cash crates plain`. Anchors:
+  `<bay>`, `.left/.right/.back/.front/.wall/.sky/.pedestal`. Look: `neon_night`.
+- **Transitions:** shot `whip_in` / `whip_out`: `left|right|up|down` (adds a whoosh); set
+  `"format": {"motion_blur": 3}` for real motion blur. Captions: `"captions": {"style": "toon"}`.
+- **Music:** bed `beat` (`"ambience": [{"sound": "beat", "gain": -19, "duck": 0.55}]`).
+- **Voice:** `gemini-3.8-flash-lite-tts`, `batch_words: 16` (long takes get cut off).
 - **Sounds:** `pop`, `whoosh`, `ding`, `tick`, `cash`, `thud`, `click`, `sting`, plus beds.
 - **Camera:** shots and moves (`from`/`to`), lenses, anchors, templates (`tf library`).
 - **Looks:** `dusk`, `night_fog`, `day`, … (the neon night look is not built yet; use `dusk` or
@@ -111,11 +122,9 @@ irreverence. No intro, no "in this video", no outro.
 If a beat needs one of these, approximate it with what exists and note the gap in your
 report. Don't fake it with coordinates.
 
-- Stage sets (neon pedestal, dark grid "dossier" void, war room, rooftop): today, film in the
-  town or supermarket sets.
-- Whip-pan / push-through / light-tunnel transitions and motion blur.
-- Music bed, a sunburst "shock" background, UI cards with real content (profiles, chats,
-  posts), red link lines between cards.
+- Push-through / light-tunnel transitions (whip pans exist).
+- A sunburst "shock" background, UI cards with real content (profiles, chats, posts), red link
+  lines between cards, a real Indian map.
 - Crowds of reveals (cash rain, many cards), and a bold display font for text and counters.
 
 ## Checklist before you call an episode done

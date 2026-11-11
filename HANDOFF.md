@@ -21,8 +21,10 @@ landing on spoken numbers, "Imagine you're…" scripts. **The playbook is the `t
   entrances (pop, drop, rise, slide, beam, grow), `sound`. New one-shots: pop, whoosh, ding,
   tick, cash.
 
-Next, in order: (1) a short demo episode in the style (storyboard first; mind the TTS quota);
-(2) a bold display font for text and counters (an OFL font, ask before downloading);
+Next, in order: (1) **demo episode `jio_story`** (how Mukesh Ambani built Jio): researched
+script with sources in `episodes/jio_story/script.md`, **waiting for the user's approval**; then
+beat sheet → episode.json → storyboard → voice → review → render;
+(2) ~~display font~~ done (Lilita One, OFL);
 (3) `stage` set generator (neon pedestal, dark grid "dossier" void); (4) whip-pan and
 push-through transitions + motion blur (sub-frame accumulation) + a neon night look;
 (5) music bed; (6) UI cards, link lines, cash rain. The downtown/ambient-demo plan below is

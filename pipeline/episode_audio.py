@@ -25,11 +25,13 @@ from pathlib import Path
 import align
 import tts
 
-NARRATION_KEYS = {"voice", "style", "model", "speed"}
+NARRATION_KEYS = {"voice", "style", "model", "speed", "batch_words"}
 LINE_KEYS = {"id", "text", "voice", "style", "fx", "shot", "at", "gain", "caption", "speed"}
 SFX_KEYS = {"sound", "at", "gain", "repeat", "every", "salt"}
 AMBIENCE_KEYS = {"sound", "gain", "curve", "duck"}
-CAPTION_KEYS = {"enabled", "max_words", "position"}
+CAPTION_KEYS = {"enabled", "max_words", "position", "style"}
+CAPTION_STYLES = {"karaoke", "toon"}
+WHIP_TIME = 0.3  # matches Episode.WHIP_TIME in godot/scripts/timeline/episode.gd
 FX = {"toy", "toy_chorus"}
 FIT_KEYS = {"fit", "min", "tail"}
 DEFAULT_TAIL = 0.25
@@ -87,6 +89,8 @@ def validate(ep: dict) -> list[str]:
     for k in ep.get("captions", {}):
         if k not in CAPTION_KEYS:
             e.append(f"captions: unknown key '{k}' (known: {', '.join(sorted(CAPTION_KEYS))})")
+    if ep.get("captions", {}).get("style", "karaoke") not in CAPTION_STYLES:
+        e.append(f"captions.style must be one of {sorted(CAPTION_STYLES)}")
     for i, s in enumerate(ep.get("shots", [])):
         d = s.get("duration")
         if isinstance(d, str) and d != "fit":
@@ -120,7 +124,7 @@ def resolve(path: Path, verbose: bool = True) -> dict:
         chunks, cur, n_words = [], [], 0
         for t in texts:
             w = len(align.script_words(t))
-            if cur and n_words + w > BATCH_WORDS:
+            if cur and n_words + w > int(narr.get("batch_words", BATCH_WORDS)):
                 chunks.append(cur)
                 cur, n_words = [], 0
             cur.append(t)
@@ -239,6 +243,10 @@ def resolve(path: Path, verbose: bool = True) -> dict:
                 if isinstance(key, list) and key:
                     key[0] = round(ref(key[0], "scene", f"{w}.counter.keys[{j}]"), 3)
     # 4. Sound placements on the edit timeline.
+    # Every whip pan out of a shot gets a whoosh (edit time, centred on the swing).
+    for s, rs in zip(ep["shots"], shots):
+        if s.get("whip_out"):
+            reveal_sfx.append({"sound": "whoosh", "at": round(rs["edit"] + rs["duration"] - WHIP_TIME * 0.9, 3), "gain": -8.0})
     sfx = []
     for i, s in enumerate(list(ep.get("sfx", [])) + reveal_sfx):
         t0 = ref(s["at"], "edit", f"sfx[{i}]")
@@ -475,10 +483,14 @@ def write_captions(res: dict, path: Path) -> Path:
     """Word-by-word captions (ASS): short chunks, the spoken word highlighted."""
     opts = res.get("captions", {})
     w, h = res["resolution"]
-    max_words = int(opts.get("max_words", 3))
-    pos = float(opts.get("position", 0.64))  # fraction of the height (Shorts UI covers the bottom)
+    # "toon": the house style: white chunky words (Lilita One), heavy outline, no highlight.
+    toon = opts.get("style", "karaoke") == "toon"
+    max_words = int(opts.get("max_words", 2 if toon else 3))
+    pos = float(opts.get("position", 0.7 if toon else 0.64))  # fraction of the height (Shorts UI covers the bottom)
     margin_v = int(h * (1 - pos))
-    fs = int(h * 0.055)  # big, Shorts-style
+    fs = int(h * (0.042 if toon else 0.055))  # big, Shorts-style
+    font = "Lilita One" if toon else "Arial Black"
+    outline = max(4, fs // 7) if toon else max(3, fs // 11)
     header = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {w}
@@ -488,7 +500,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Narr,Arial Black,{fs},&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,0,0,0,0,100,100,0,0,1,{max(3, fs // 11)},2,2,60,60,{margin_v},1
+Style: Narr,{font},{fs},&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,0,0,0,0,100,100,0,0,1,{outline},2,2,60,60,{margin_v},1
 Style: Toy,Arial Black,{int(fs * 1.15)},&H00FFE853,&H00FFE853,&H00301000,&H64000000,0,1,0,0,100,100,2,0,1,{max(3, fs // 10)},0,2,60,60,{margin_v + int(fs * 1.4)},1
 
 [Events]
@@ -519,6 +531,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
                 e = ch[wi + 1]["s"] if wi + 1 < len(ch) else c_end
                 if toy:
                     text = " ".join(x["w"] for x in ch).upper()
+                elif toon:
+                    text = " ".join(x["w"] for x in ch)
                 else:
                     text = " ".join((hi + x["w"] + r"{\r}") if j == wi else x["w"] for j, x in enumerate(ch))
                 events.append(f"Dialogue: 0,{_ass_time(ln['edit'] + s)},{_ass_time(ln['edit'] + e)},{style},,0,0,0,,{text}")
@@ -531,7 +545,13 @@ def finish(cfg_ffmpeg: str, picture: Path, audio: Path, captions: Path | None, o
     """Burn captions, add the black tail, mux the soundtrack."""
     vf = []
     if captions is not None:
-        vf.append(f"ass={captions.name}")
+        # The house caption font ships with the repo; libass finds it via fontsdir (a sibling dir).
+        fonts = captions.parent / "fonts"
+        fonts.mkdir(exist_ok=True)
+        src = Path(__file__).resolve().parent.parent / "godot" / "fonts" / "lilita_one" / "LilitaOne-Regular.ttf"
+        if src.exists() and not (fonts / src.name).exists():
+            (fonts / src.name).write_bytes(src.read_bytes())
+        vf.append(f"ass={captions.name}:fontsdir=fonts")
     if end_black > 0:
         vf.append(f"tpad=stop_mode=add:stop_duration={end_black}:color=black")
     cmd = [cfg_ffmpeg, "-y", "-loglevel", "error", "-i", str(picture.resolve()), "-i", str(audio.resolve())]

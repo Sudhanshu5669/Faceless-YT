@@ -1,0 +1,3 @@
+Baloo 2 (variable weight) by EkType, SIL Open Font License 1.1 (OFL.txt): commercial use allowed.
+Source: https://github.com/google/fonts/tree/main/ofl/baloo2 (Google Fonts), downloaded 2026-11-11.
+Fallback for glyphs Lilita One lacks (the rupee sign, Devanagari) in reveals.gd.

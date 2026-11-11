@@ -1,0 +1,28 @@
+{
+  "id": "toon_dhirubhai",
+  "description": "Dhirubhai Ambani (respectful portrait): grey hair, thick black glasses, white shirt.",
+  "tags": [
+    "toon",
+    "human",
+    "jio_story"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#9a9aa2"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#e9dcc2"
+    },
+    "shoes": "#1b1b1f",
+    "accessories": [
+      "glasses"
+    ],
+    "girth": 1.1,
+    "face": "happy"
+  }
+}

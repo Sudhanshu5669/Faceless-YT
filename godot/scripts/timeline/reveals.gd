@@ -21,17 +21,26 @@ const Shot = preload("res://scripts/camera/shot.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
 
 const KEYS := ["id", "t", "until", "prop", "shape", "text", "counter", "at", "size", "color", "yaw", "face",
-	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note"]
+	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note", "label", "label_color", "roll", "from"]
 const KINDS := ["prop", "shape", "text", "counter"]
 const COUNTER_KEYS := ["from", "to", "land", "keys", "decimals", "prefix", "suffix", "commas", "label", "land_color"]
-const ENTERS := ["pop", "drop", "rise", "slide_left", "slide_right", "beam", "grow", "none"]
+const ENTERS := ["pop", "drop", "rise", "slide_left", "slide_right", "beam", "grow", "move", "none"]
 const EXITS := ["shrink", "pop", "drop", "rise", "none"]
-const SHAPES := ["box", "sphere", "cylinder", "cone", "card", "coin", "cash", "ring", "bottle", "pin", "chip", "phone"]
+const SHAPES := ["box", "sphere", "cylinder", "cone", "card", "coin", "cash", "ring", "bottle", "pin", "chip", "phone",
+	"refinery", "pump", "postcard", "scales", "frame", "garland", "cake", "cake_half", "binoculars", "sign", "spinner", "tower"]
+## Shapes that print their "label" on their face: [x, y, z, text height] as fractions of size.
+const LABELLED := {"card": [0.0, 0.62, 0.025, 0.09], "sign": [0.0, 1.12, 0.045, 0.13], "cake": [0.0, 0.2, 0.52, 0.1],
+	"pump": [0.0, 0.98, 0.22, 0.08], "postcard": [-0.2, 0.08, 0.02, 0.08], "box": [0.0, 0.5, 0.505, 0.15],
+	"cake_half": [0.0, 0.2, 0.52, 0.09]}
 const DEFAULT_COLORS := {"box": "#f2f2f2", "sphere": "#f2f2f2", "cylinder": "#f2f2f2", "cone": "#f2f2f2",
 	"card": "#ffffff", "coin": "#f2c230", "cash": "#4fbf6a", "ring": "#5fe3ff", "bottle": "#4a90e2",
-	"pin": "#ff4d5a", "chip": "#2b2f36", "phone": "#16181d"}
+	"pin": "#ff4d5a", "chip": "#2b2f36", "phone": "#16181d", "refinery": "#c9ced6", "pump": "#d6453d",
+	"postcard": "#f6ecd2", "scales": "#e8b52a", "frame": "#d9a632", "garland": "#ff8c1a", "cake": "#ff9ec4",
+	"cake_half": "#ff9ec4", "binoculars": "#1b1c22", "sign": "#ffffff", "spinner": "#ffffff", "tower": "#c9ced6"}
 ## Chunky display font for text and counters (OFL, godot/fonts/lilita_one).
 const FONT_PATH := "res://fonts/lilita_one/LilitaOne-Regular.ttf"
+## Fallback for what Lilita lacks (the rupee sign, Devanagari): Baloo 2 at ExtraBold.
+const FALLBACK_PATH := "res://fonts/baloo2/Baloo2.ttf"
 const ENTER_TIME := 0.35
 const EXIT_TIME := 0.25
 const LAND_COLOR := "#ffd84a"
@@ -46,6 +55,12 @@ static func font() -> FontFile:
 		_font = FontFile.new()
 		var err := _font.load_dynamic_font(ProjectSettings.globalize_path(FONT_PATH))
 		assert(err == OK, "reveals: cannot load " + FONT_PATH)
+		var fb := FontFile.new()
+		if fb.load_dynamic_font(ProjectSettings.globalize_path(FALLBACK_PATH)) == OK:
+			var heavy := FontVariation.new()
+			heavy.base_font = fb
+			heavy.variation_opentype = {TextServerManager.get_primary_interface().name_to_tag("wght"): 800}
+			_font.fallbacks = [heavy]
 	return _font
 
 
@@ -99,9 +114,15 @@ static func validate(reveals) -> Array:
 		for k in ["size", "enter_time", "exit_time"]:
 			if r.has(k) and (not (typeof(r[k]) in [TYPE_INT, TYPE_FLOAT]) or float(r[k]) <= 0.0):
 				e.append("%s: %s must be a number > 0" % [w, k])
-		for k in ["spin", "bob", "glow", "yaw"]:
+		if r.has("label") and not (r.has("shape") and LABELLED.has(String(r["shape"]))):
+			e.append("%s: 'label' works on shapes %s" % [w, ", ".join(PackedStringArray(LABELLED.keys()))])
+		if r.has("label_color") and not Color.html_is_valid(String(r["label_color"])):
+			e.append(w + ": label_color is not a hex colour")
+		for k in ["spin", "bob", "glow", "yaw", "roll"]:
 			if r.has(k) and not (typeof(r[k]) in [TYPE_INT, TYPE_FLOAT]):
 				e.append("%s: %s must be a number" % [w, k])
+		if String(r.get("enter", "pop")) == "move" and (typeof(r.get("from")) != TYPE_ARRAY or r["from"].size() != 3):
+			e.append(w + ": enter 'move' needs 'from': [x, y, z], the start offset in metres from 'at'")
 		if r.has("yaw") and r.has("face"):
 			e.append(w + ": give 'yaw' or 'face', not both")
 	return e
@@ -173,6 +194,11 @@ static func build(reveals) -> Node3D:
 		elif r.has("shape"):
 			content = _shape(String(r["shape"]), size, Color(String(r.get("color", DEFAULT_COLORS[String(r["shape"])]))),
 				float(r.get("glow", 0.0)))
+			if r.has("label"):
+				var lp: Array = LABELLED[String(r["shape"])]
+				var lt := _text_mesh(String(r["label"]), size * float(lp[3]), Color(String(r.get("label_color", "#1b1b22"))), 0.0, false)
+				lt.position = Vector3(float(lp[0]), float(lp[1]), float(lp[2])) * size
+				content.add_child(lt)
 		elif r.has("text"):
 			content = _text(String(r["text"]), size, Color(String(r.get("color", "#ffffff"))), float(r.get("glow", 0.8)))
 		else:
@@ -258,6 +284,7 @@ static func _shape(kind: String, size: float, col: Color, glow: float) -> Node3D
 			screen.emission = Color("e9f1ff")
 			screen.emission_energy_multiplier = 0.6
 			parts.append([_box(Vector3(size * 0.44, size * 0.9, size * 0.01)), Transform3D(Basis.IDENTITY, Vector3(0, size * 0.5, size * 0.032)), screen])
+	parts.append_array(_story_parts(kind, size, col, mat))
 	for p in parts:
 		var mi := MeshInstance3D.new()
 		mi.mesh = p[0]
@@ -265,6 +292,146 @@ static func _shape(kind: String, size: float, col: Color, glow: float) -> Node3D
 		mi.material_override = p[2]
 		n.add_child(mi)
 	return n
+
+
+## Story props: [mesh, transform, material] parts, built from primitives in the toon style.
+static func _story_parts(kind: String, size: float, col: Color, mat: Material) -> Array:
+	var P := []
+	var o := Toon.OUTLINE * 0.7
+	match kind:
+		"refinery":
+			# Two banded towers, a round tank and a chimney with a flame.
+			for t in [[-0.2, 0.9, 0.13], [0.12, 0.7, 0.16]]:
+				P.append(_part(_cyl(size * t[2], size * t[2], size * t[1]), Vector3(size * t[0], size * t[1] * 0.5, 0), mat))
+				for k in 3:
+					P.append(_part(_cyl(size * t[2] * 1.06, size * t[2] * 1.06, size * 0.05),
+						Vector3(size * t[0], size * t[1] * (0.25 + 0.25 * k), 0), Toon.material(Color("d6453d"), 0.0)))
+			P.append(_part(Toon.sphere(size * 0.2), Vector3(size * 0.38, size * 0.16, size * 0.12), Toon.material(col.darkened(0.15), o)))
+			P.append(_part(_cyl(size * 0.04, size * 0.05, size * 1.1), Vector3(size * -0.42, size * 0.55, -size * 0.1), Toon.material(Color("6b6f78"), o)))
+			P.append(_part(_cyl(0.0, size * 0.07, size * 0.2), Vector3(size * -0.42, size * 1.2, -size * 0.1), _glow_mat(Color("ff8a1a"))))
+		"pump":
+			P.append(_part(_box(Vector3(size * 0.45, size * 0.85, size * 0.38)), Vector3(0, size * 0.425, 0), mat))
+			P.append(_part(_box(Vector3(size * 0.32, size * 0.22, size * 0.02)), Vector3(0, size * 0.62, size * 0.2), Toon.material(Color("e9f1ff"), 0.0)))
+			P.append(_part(_box(Vector3(size * 0.55, size * 0.16, size * 0.42)), Vector3(0, size * 0.97, 0), Toon.material(Color("f4f4f2"), o)))
+			P.append(_part(_cyl(size * 0.025, size * 0.025, size * 0.5), Vector3(size * 0.27, size * 0.45, size * 0.05), Toon.material(Color("1b1b22"), 0.0)))
+			P.append(_part(_box(Vector3(size * 0.08, size * 0.16, size * 0.08)), Vector3(size * 0.27, size * 0.72, size * 0.08), Toon.material(Color("1b1b22"), o)))
+		"postcard":
+			P.append(_part(_box(Vector3(size, size * 0.66, size * 0.02)), Vector3(0, size * 0.33, 0), mat))
+			P.append(_part(_box(Vector3(size * 0.2, size * 0.24, size * 0.025)), Vector3(size * 0.33, size * 0.48, size * 0.003), Toon.material(Color("d6453d"), 0.0)))
+			for k in 3:
+				P.append(_part(_box(Vector3(size * 0.4, size * 0.012, size * 0.025)), Vector3(size * -0.2, size * (0.22 + 0.1 * k), size * 0.003), Toon.material(Color("8a7a66"), 0.0)))
+		"scales":
+			# Balance: base, pole, beam and two pans hanging on strings.
+			P.append(_part(_cyl(size * 0.22, size * 0.28, size * 0.08), Vector3(0, size * 0.04, 0), mat))
+			P.append(_part(_cyl(size * 0.03, size * 0.03, size * 0.8), Vector3(0, size * 0.44, 0), mat))
+			P.append(_part(_box(Vector3(size * 1.1, size * 0.04, size * 0.05)), Vector3(0, size * 0.84, 0), mat))
+			P.append(_part(Toon.sphere(size * 0.06), Vector3(0, size * 0.86, 0), mat))
+			for sx in [-0.5, 0.5]:
+				P.append(_part(_cyl(size * 0.006, size * 0.006, size * 0.36), Vector3(size * sx, size * 0.66, 0), Toon.material(Color("6b5a2a"), 0.0)))
+				P.append(_part(_cyl(size * 0.2, size * 0.14, size * 0.05), Vector3(size * sx, size * 0.47, 0), mat))
+		"frame":
+			# A portrait frame, open: stand a character behind it.
+			var fw := size * 0.8
+			var fh := size
+			var t := size * 0.07
+			for y in [0.0, fh]:
+				P.append(_part(_box(Vector3(fw + t, t, t * 0.8)), Vector3(0, y, 0), mat))
+			for sx in [-0.5, 0.5]:
+				P.append(_part(_box(Vector3(t, fh + t, t * 0.8)), Vector3(fw * sx, fh * 0.5, 0), mat))
+		"garland":
+			# Marigold beads on a sagging string; the ends hang at (+-size/2, 0).
+			var n := 24
+			for i in n + 1:
+				var u := float(i) / n
+				var c := Color("ff8c1a") if i % 2 == 0 else Color("ffc21a")
+				P.append(_part(Toon.sphere(size * 0.05), Vector3((u - 0.5) * size, -size * 0.45 * (1.0 - pow(2.0 * u - 1.0, 2.0)), 0), Toon.material(c, 0.0)))
+		"cake", "cake_half":
+			var half := kind == "cake_half"
+			P.append(_part(_cyl(size * 0.62, size * 0.62, size * 0.04), Vector3(0, size * 0.02, 0), Toon.material(Color("f4f4f2"), o)))
+			for tier in [[0.5, 0.0, 0.32], [0.33, 0.32, 0.26]]:
+				var m: Mesh = _half_cyl(size * tier[0], size * tier[2]) if half else _cyl(size * tier[0], size * tier[0], size * tier[2])
+				P.append(_part(m, Vector3(0, size * (0.04 + tier[1] + tier[2] * 0.5), 0), mat))
+				if not half:
+					var tm := TorusMesh.new()
+					tm.inner_radius = size * tier[0] * 0.94
+					tm.outer_radius = size * tier[0] * 1.06
+					P.append(_part(tm, Vector3(0, size * (0.04 + tier[1] + tier[2]), 0), Toon.material(Color("fffaf0"), 0.0)))
+			if half:
+				P.append(_part(_box(Vector3(size * 1.0, size * 0.32, size * 0.01)), Vector3(0, size * 0.2, 0), Toon.material(Color("f5d29a"), 0.0)))
+				P.append(_part(_box(Vector3(size * 0.66, size * 0.26, size * 0.01)), Vector3(0, size * 0.49, 0), Toon.material(Color("f5d29a"), 0.0)))
+			var cherries := 2 if half else 5
+			for k in cherries:
+				var a := (float(k) + 0.5) / float(cherries) * (PI if half else TAU) + (PI if half else 0.0)
+				P.append(_part(Toon.sphere(size * 0.05), Vector3(cos(a) * size * 0.2, size * 0.66, sin(a) * size * 0.2), Toon.material(Color("d61f3a"), 0.0)))
+		"binoculars":
+			for sx in [-0.17, 0.17]:
+				P.append(_part(_cyl(size * 0.13, size * 0.15, size * 0.55), Vector3(size * sx, 0, size * 0.27), mat, Vector3(PI / 2, 0, 0)))
+				P.append(_part(_cyl(size * 0.12, size * 0.12, size * 0.02), Vector3(size * sx, 0, size * 0.56), Toon.material(Color("6fb7ff"), 0.0), Vector3(PI / 2, 0, 0)))
+			P.append(_part(_box(Vector3(size * 0.2, size * 0.08, size * 0.12)), Vector3(0, 0, size * 0.25), mat))
+		"sign":
+			P.append(_part(_cyl(size * 0.03, size * 0.03, size * 0.9), Vector3(0, size * 0.45, 0), Toon.material(Color("8a5a2a"), o)))
+			P.append(_part(_box(Vector3(size * 0.9, size * 0.42, size * 0.06)), Vector3(0, size * 1.1, 0), mat))
+			P.append(_part(_box(Vector3(size * 0.96, size * 0.48, size * 0.04)), Vector3(0, size * 1.1, -size * 0.014), Toon.material(Color("d6453d"), 0.0)))
+		"spinner":
+			# Loading spinner: dots on a circle, fading. Spin it with "roll".
+			for i in 8:
+				var a := TAU * float(i) / 8.0
+				var c := col.lerp(Color(0.25, 0.25, 0.3), float(i) / 8.0)
+				P.append(_part(Toon.sphere(size * (0.1 - 0.006 * i)), Vector3(cos(a) * size * 0.4, sin(a) * size * 0.4, 0), Toon.material(c, 0.0)))
+		"tower":
+			# Telecom tower: a tapering lattice with dishes and a red tip light.
+			for i in 4:
+				var a := TAU * float(i) / 4.0 + PI / 4
+				var b0 := Vector3(cos(a), 0, sin(a)) * size * 0.16
+				var b1 := Vector3(cos(a), 0, sin(a)) * size * 0.04 + Vector3(0, size, 0)
+				P.append([_cyl(size * 0.012, size * 0.012, b0.distance_to(b1)), Transform3D(_ybasis(b1 - b0), (b0 + b1) * 0.5), mat])
+			for k in 5:
+				var y := size * (0.15 + 0.17 * k)
+				var w := size * 0.32 * (1.0 - y / size * 0.75)
+				P.append(_part(_box(Vector3(w, size * 0.012, size * 0.012)), Vector3(0, y, w * 0.5), mat))
+				P.append(_part(_box(Vector3(w, size * 0.012, size * 0.012)), Vector3(0, y, -w * 0.5), mat))
+			for sx in [-1.0, 1.0]:
+				P.append(_part(_cyl(size * 0.07, size * 0.07, size * 0.02), Vector3(sx * size * 0.07, size * 0.82, size * 0.05), Toon.material(Color("f4f4f2"), o), Vector3(PI / 2, 0, 0)))
+			P.append(_part(Toon.sphere(size * 0.025), Vector3(0, size * 1.02, 0), _glow_mat(Color("ff4d5a"))))
+	return P
+
+
+static func _part(m: Mesh, at: Vector3, material: Material, rot: Vector3 = Vector3.ZERO) -> Array:
+	return [m, Transform3D(Basis.from_euler(rot), at), material]
+
+
+static func _glow_mat(c: Color) -> StandardMaterial3D:
+	var m := StandardMaterial3D.new()
+	m.albedo_color = c.lerp(Color.WHITE, 0.3)
+	m.emission_enabled = true
+	m.emission = c
+	m.emission_energy_multiplier = 4.0
+	return m
+
+
+static func _ybasis(dir: Vector3) -> Basis:
+	var y := dir.normalized()
+	var ref := Vector3.FORWARD if absf(y.dot(Vector3.FORWARD)) < 0.9 else Vector3.RIGHT
+	var x := ref.cross(y).normalized()
+	return Basis(x, y, x.cross(y))
+
+
+## A half cylinder: the cut face on the local XY plane (facing +Z), the round side toward -Z.
+static func _half_cyl(r: float, h: float) -> ArrayMesh:
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var n := 24
+	var lo := Vector3(0, -h * 0.5, 0)
+	var up := Vector3(0, h, 0)
+	for i in n:
+		var a0 := PI + PI * float(i) / n
+		var a1 := PI + PI * float(i + 1) / n
+		var p0 := Vector3(cos(a0) * r, 0, sin(a0) * r) + lo
+		var p1 := Vector3(cos(a1) * r, 0, sin(a1) * r) + lo
+		for v in [p0, p1, p1 + up, p0, p1 + up, p0 + up, lo + up, p0 + up, p1 + up, lo, p1, p0]:
+			st.add_vertex(v)
+	st.generate_normals()
+	return st.commit()
 
 
 static func _box(s: Vector3) -> BoxMesh:
@@ -283,7 +450,7 @@ static func _cyl(top: float, bottom: float, h: float) -> CylinderMesh:
 
 
 ## Extruded 3D text, always turned toward the camera (Y billboard).
-static func _text_mesh(text: String, height: float, col: Color, glow: float) -> MeshInstance3D:
+static func _text_mesh(text: String, height: float, col: Color, glow: float, billboard: bool = true) -> MeshInstance3D:
 	var tm := TextMesh.new()
 	tm.font = font()
 	tm.text = text
@@ -300,8 +467,9 @@ static func _text_mesh(text: String, height: float, col: Color, glow: float) -> 
 		m.emission_enabled = true
 		m.emission = col
 		m.emission_energy_multiplier = glow
-	m.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y
-	m.billboard_keep_scale = true
+	if billboard:
+		m.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y
+		m.billboard_keep_scale = true
 	mi.material_override = m
 	return mi
 
@@ -347,6 +515,11 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 		var xt := float(r.get("exit_time", EXIT_TIME))
 		var exit := String(r.get("exit", "shrink"))
 		var p := Shot.point(L, r["at"])
+		# The anchor exists before and after the reveal is visible, so a camera can
+		# frame the spot where something is about to pop in.
+		if not p.has("error"):
+			out[String(r["id"])] = {"pos": p["pos"] + Vector3.UP * float(r.get("size", 0.5)) * 0.5,
+				"forward": Vector3(sin(deg_to_rad(float(r.get("yaw", 0.0)))), 0, cos(deg_to_rad(float(r.get("yaw", 0.0)))))}
 		if t < t0 or p.has("error") or (t >= until and (exit == "none" or t >= until + xt)):
 			h.visible = false
 			continue
@@ -377,6 +550,9 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 				off = -right * (1.0 - _cubic_out(a)) * (2.0 + size * 3.0)
 			"slide_right":
 				off = right * (1.0 - _cubic_out(a)) * (2.0 + size * 3.0)
+			"move":
+				var f: Array = r["from"]
+				off = Vector3(float(f[0]), float(f[1]), float(f[2])) * (1.0 - _cubic_out(a))
 			"beam":
 				s = _back_out(clampf((a - 0.35) / 0.65, 0.0, 1.0))
 				if beam:
@@ -404,6 +580,8 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 			s *= _pose_counter(h.get_node("content"), r["counter"], t, t0, Color(String(r.get("color", "#ffffff"))))
 		h.position = p["pos"] + off
 		h.rotation = Vector3(0, yaw, 0)
+		if r.has("roll"):
+			(h.get_node("content") as Node3D).rotation.z = -deg_to_rad(float(r["roll"])) * age
 		h.scale = Vector3.ONE * maxf(s, 0.001)
 		out[String(r["id"])] = {"pos": h.position + Vector3.UP * size * 0.5, "forward": Vector3(sin(yaw), 0, cos(yaw))}
 	return out

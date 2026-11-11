@@ -14,7 +14,7 @@ from scipy import signal
 
 SR = 48000
 
-BEDS = ["room_tone", "drone", "zombies", "heartbeat"]
+BEDS = ["room_tone", "drone", "zombies", "heartbeat", "beat"]
 ONE_SHOTS = ["glass_bang", "creak", "sting", "thud", "click", "pop", "whoosh", "ding", "tick", "cash"]
 
 
@@ -127,6 +127,87 @@ def heartbeat(dur: float, bpm: float = 64) -> np.ndarray:
                 out[i0:i1] += g * one[: i1 - i0]
         pos += beat
     return _norm(out, 0.9)
+
+
+def beat(dur: float, bpm: float = 104.0) -> np.ndarray:
+    """Upbeat explainer music bed (the toon style's constant music): four-on-the-floor-ish
+    kick, claps on 2 and 4, swung hats, a plucky bass and chord stabs over Am-F-C-G.
+    Synthesized, deterministic, license-free. Loops seamlessly every 4 bars."""
+    r = _rng("beat")
+    n = int(dur * SR)
+    out = np.zeros(n)
+    spb = 60.0 / bpm                    # seconds per beat
+    bar = 4 * spb
+    roots = [110.0, 87.31, 130.81, 98.0]                # A2, F2, C3, G2
+    chords = [[220.0, 261.63, 329.63], [174.61, 220.0, 261.63], [261.63, 329.63, 392.0], [196.0, 246.94, 293.66]]
+
+    def add(x: np.ndarray, t0: float, gain: float) -> None:
+        i = int(t0 * SR)
+        if i >= n:
+            return
+        m = min(x.size, n - i)
+        out[i:i + m] += x[:m] * gain
+
+    def kick() -> np.ndarray:
+        t = _t(0.35)
+        f = 45 + 80 * np.exp(-t * 28)
+        return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 9)
+
+    def clap(salt: int) -> np.ndarray:
+        rr = _rng("clap", salt)
+        t = _t(0.22)
+        x = _bandpass(rr.standard_normal(t.size), 900, 5000)
+        env = np.exp(-t * 22) * (1 + 0.6 * (np.sin(2 * np.pi * 90 * t) > 0.6))
+        return x * env
+
+    def hat(salt: int, open_: bool) -> np.ndarray:
+        rr = _rng("hat", salt)
+        t = _t(0.18 if open_ else 0.05)
+        return _highpass(rr.standard_normal(t.size), 7000) * np.exp(-t * (18 if open_ else 90))
+
+    def pluck(freqs: list, length: float, cutoff: float) -> np.ndarray:
+        t = _t(length)
+        x = np.zeros_like(t)
+        for f in freqs:
+            ph = (f * t) % 1.0
+            x += 2 * ph - 1
+        x = _lowpass(x, cutoff)
+        return x * np.exp(-t * 7) / len(freqs)
+
+    def bass_note(f: float, length: float) -> np.ndarray:
+        t = _t(length)
+        x = np.sin(2 * np.pi * f * t) + 0.35 * _lowpass(2 * ((f * t) % 1.0) - 1, 600)
+        return x * np.minimum(1, t * 200) * np.exp(-t * 3.5)
+
+    kicks = kick()
+    beats = int(dur / spb) + 1
+    for b in range(beats):
+        t0 = b * spb
+        bar_i = (b // 4) % 4
+        beat_in_bar = b % 4
+        add(kicks, t0, 0.9)
+        if beat_in_bar in (1, 3):
+            add(clap(b), t0, 0.32)
+        for half in (0, 1):
+            swing = 0.07 * spb if half else 0.0
+            add(hat(b * 2 + half, open_=(half == 1 and beat_in_bar == 3)), t0 + half * spb / 2 + swing,
+                0.10 + 0.05 * half + r.uniform(-0.02, 0.02))
+        root = roots[bar_i]
+        for half in (0, 1):
+            f = root * (2 if (half == 1 and beat_in_bar % 2 == 1) else 1)
+            add(bass_note(f, spb / 2 * 0.9), t0 + half * spb / 2, 0.42)
+        if beat_in_bar in (1, 3):
+            add(pluck(chords[bar_i], spb * 0.9, 2200), t0 + spb / 2, 0.22)
+    # Soft pad: the chord, sustained, ducked by the kick (a little pump).
+    t = _t(dur)
+    pad = np.zeros(n)
+    for k, ch in enumerate(chords):
+        seg = (np.floor(t / bar) % 4) == k
+        for f in ch:
+            pad += seg * np.sin(2 * np.pi * f * t) * 0.25
+    pump = 1 - 0.6 * np.exp(-((t % spb) * 9))
+    out += _lowpass(pad, 1500) * pump * 0.18
+    return _fade(_norm(out, 0.6), 0.3, 1.0)
 
 
 # --- one-shots --------------------------------------------------------------
@@ -246,7 +327,7 @@ def cash(salt: int = 0) -> np.ndarray:
 
 
 def make(name: str, dur: float = 0.0, salt: int = 0) -> np.ndarray:
-    beds = {"room_tone": room_tone, "drone": drone, "zombies": zombies, "heartbeat": heartbeat}
+    beds = {"room_tone": room_tone, "drone": drone, "zombies": zombies, "heartbeat": heartbeat, "beat": beat}
     shots = {"glass_bang": glass_bang, "creak": creak, "sting": sting, "thud": thud, "click": click,
              "pop": pop, "whoosh": whoosh, "ding": ding, "tick": tick, "cash": cash}
     if name in beds:

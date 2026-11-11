@@ -1,0 +1,26 @@
+{
+  "id": "toon_mukesh",
+  "description": "Mukesh Ambani (caricature): black side-combed hair, thick moustache, crisp white shirt, a little round.",
+  "tags": [
+    "toon",
+    "human",
+    "jio_story"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#1e1d22"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#bcd0ec"
+    },
+    "shoes": "#1b1b1f",
+    "mustache": "#1e1d22",
+    "girth": 1.18,
+    "face": "smug"
+  }
+}

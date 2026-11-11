@@ -1,0 +1,28 @@
+{
+  "id": "toon_akash",
+  "description": "Akash Ambani (caricature): black bowl cut, white shirt, glasses.",
+  "tags": [
+    "toon",
+    "human",
+    "jio_story"
+  ],
+  "height": 1.42,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bowl",
+      "color": "#1c1b20"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#e9eef6"
+    },
+    "shoes": "#1b1b1f",
+    "accessories": [
+      "glasses"
+    ],
+    "girth": 1.05,
+    "face": "thinking"
+  }
+}

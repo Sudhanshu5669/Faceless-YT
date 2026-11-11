@@ -1,0 +1,14 @@
+{
+  "id": "neon_night",
+  "tags": ["night", "toon", "neon", "stage"],
+  "description": "Toon explainer night: deep purple sky with stars and a big soft moon, saturated neon fill, strong bloom.",
+  "time": "22:30",
+  "weather": {"fog": 0.0, "wind": 0.1},
+  "sky": {"top": "#0b0624", "horizon": "#3b1d72", "stars": 1.4, "star_color": "#e8e0ff", "clouds": 0.0},
+  "moon": {"elevation": 24, "azimuth": 200, "size": 7, "color": "#b8b0ff", "energy": 0.55, "disc_color": "#f4f0ff", "glow": 1.2, "glow_color": "#b49cff", "shadows": true, "softness": 2.0},
+  "ambient": {"color": "#6a5ccf", "energy": 1.25},
+  "exposure": 1.1,
+  "glow": {"enabled": true, "intensity": 0.9, "bloom": 0.12, "threshold": 0.95},
+  "grade": {"saturation": 1.22, "contrast": 1.06, "vignette": 0.22, "grain": 0.0},
+  "practical_lights": {"level": 1.0}
+}

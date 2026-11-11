@@ -25,8 +25,12 @@ const KEYS := ["schema_version", "id", "title", "description", "set", "look", "a
 ## Sound keys: resolved by the Python pipeline (pipeline/episode_audio.py), which
 ## also turns "fit" durations and time references into numbers before Godot runs.
 const AUDIO_KEYS := ["narration", "lines", "sfx", "music", "ambience", "captions", "end_black", "review"]
-const FORMAT_KEYS := ["resolution", "fps"]
-const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "note"]
+const FORMAT_KEYS := ["resolution", "fps", "motion_blur"]
+const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "note", "whip_in", "whip_out"]
+## Whip pans: the camera swings this far (degrees) in this long (s) at a cut.
+const WHIPS := ["left", "right", "up", "down"]
+const WHIP_ANGLE := 55.0
+const WHIP_TIME := 0.3
 const MOVE_KEYS := ["from", "to", "ease"]
 const EASES := ["linear", "in", "out", "in_out"]
 const DEFAULT_RESOLUTION := [1080, 1920]
@@ -96,6 +100,9 @@ static func validate(ep: Dictionary) -> Array:
 		for k in s:
 			if not (k in SHOT_KEYS):
 				e.append("%s: unknown key '%s' (known: %s)" % [where, k, ", ".join(PackedStringArray(SHOT_KEYS))])
+		for k in ["whip_in", "whip_out"]:
+			if s.has(k) and not (String(s[k]) in WHIPS):
+				e.append("%s: %s must be one of %s" % [where, k, WHIPS])
 		var n := String(s.get("name", ""))
 		if n == "" or not n.is_valid_filename() or n.contains(" "):
 			e.append(where + ": needs a 'name' usable as a file name (no spaces)")
@@ -163,7 +170,8 @@ static func timeline(ep: Dictionary, fps: int) -> Array:
 		var dur := float(s["duration"])
 		var frames := maxi(1, roundi(dur * fps))
 		out.append({"index": i, "name": String(s["name"]), "duration": dur, "frames": frames,
-			"first_frame": frame, "scene_t": scene_t, "camera": s["camera"]})
+			"first_frame": frame, "scene_t": scene_t, "camera": s["camera"],
+			"whip_in": String(s.get("whip_in", "")), "whip_out": String(s.get("whip_out", ""))})
 		scene_t += dur
 		frame += frames
 	return out
@@ -192,15 +200,45 @@ static func ease_progress(p: float, kind: String) -> float:
 ## actor anchors of that moment. Same result format as Shot.resolve().
 static func camera_at(shot: Dictionary, p: float, L: Dictionary, look: Dictionary) -> Dictionary:
 	var cam = shot["camera"]
+	var s: Dictionary
 	if not is_move(cam):
-		return Shot.resolve(cam, L, look)
-	var a := Shot.resolve(cam["from"], L, look)
-	if a.has("error"):
-		return {"error": "from: " + String(a["error"])}
-	var b := Shot.resolve(cam["to"], L, look)
-	if b.has("error"):
-		return {"error": "to: " + String(b["error"])}
-	return mix(a, b, ease_progress(p, String(cam.get("ease", "in_out"))))
+		s = Shot.resolve(cam, L, look)
+	else:
+		var a := Shot.resolve(cam["from"], L, look)
+		if a.has("error"):
+			return {"error": "from: " + String(a["error"])}
+		var b := Shot.resolve(cam["to"], L, look)
+		if b.has("error"):
+			return {"error": "to: " + String(b["error"])}
+		s = mix(a, b, ease_progress(p, String(cam.get("ease", "in_out"))))
+	if s.has("error"):
+		return s
+	return _whip(s, shot, p)
+
+
+## Whip pans at the cuts: the camera swings in from (or out toward) a side,
+## fast, so motion blur smears the frame (the style's main transition).
+static func _whip(s: Dictionary, shot: Dictionary, p: float) -> Dictionary:
+	var dur := float(shot.get("duration", 1.0))
+	var t := p * dur
+	var angle := 0.0
+	var dir := ""
+	if String(shot.get("whip_in", "")) != "" and t < WHIP_TIME:
+		var k := t / WHIP_TIME
+		angle = -(1.0 - (1.0 - pow(1.0 - k, 3.0))) * WHIP_ANGLE
+		dir = String(shot["whip_in"])
+	elif String(shot.get("whip_out", "")) != "" and t > dur - WHIP_TIME:
+		var k := (t - (dur - WHIP_TIME)) / WHIP_TIME
+		angle = k * k * k * WHIP_ANGLE
+		dir = String(shot["whip_out"])
+	if dir == "":
+		return s
+	var tr: Transform3D = s["transform"]
+	var axis: Vector3 = tr.basis.y if dir in ["left", "right"] else tr.basis.x
+	var sign := 1.0 if dir in ["left", "up"] else -1.0
+	var out := s.duplicate()
+	out["transform"] = Transform3D(tr.basis.rotated(axis.normalized(), deg_to_rad(angle * sign)), tr.origin)
+	return out
 
 
 ## Blend two resolved shots: position and lens linearly, rotation by slerp.

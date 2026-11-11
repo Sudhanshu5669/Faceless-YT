@@ -1,0 +1,24 @@
+{
+  "id": "toon_isha",
+  "description": "Isha Ambani (caricature): dark bob, navy university hoodie.",
+  "tags": [
+    "toon",
+    "human",
+    "jio_story"
+  ],
+  "height": 1.33,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bob",
+      "color": "#221a18"
+    },
+    "outfit": {
+      "style": "hoodie",
+      "color": "#1f3b7a"
+    },
+    "shoes": "#f2f2f2",
+    "face": "deadpan"
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "jio_stage",
+    "generator": "stage",
+    "seed": 11,
+    "params": {
+      "bays": [
+        {
+          "id": "empire",
+          "floor": "tiles",
+          "floor_colors": [
+            "#3b2a7a",
+            "#2a1d5c"
+          ],
+          "wall": "skyline",
+          "neon": [],
+          "neon_colors": [
+            "#5fe3ff",
+            "#ff4fd8"
+          ],
+          "size": [
+            10,
+            8
+          ],
+          "pedestal": {
+            "style": "drums",
+            "height": 1.8,
+            "radius": 1.7
+          },
+          "note": "Mukesh on a mountain of oil drums under a night skyline"
+        },
+        {
+          "id": "tribute",
+          "floor": "wood",
+          "floor_colors": [
+            "#8a5a3a",
+            "#6a4028"
+          ],
+          "wall": "panels",
+          "wall_color": "#3a2a7a",
+          "neon": [
+            "strip"
+          ],
+          "neon_colors": [
+            "#ffd27a",
+            "#ff9ad5"
+          ],
+          "size": [
+            8,
+            6
+          ],
+          "light": "#ffe2b8",
+          "note": "Dhirubhai's garlanded portrait; the scales"
+        },
+        {
+          "id": "split",
+          "floor": "checker",
+          "floor_colors": [
+            "#5a2a8a",
+            "#3a1d66"
+          ],
+          "wall": "tiles",
+          "wall_color": "#2b3fa8",
+          "neon": [
+            "ring",
+            "tubes"
+          ],
+          "neon_colors": [
+            "#5fe3ff",
+            "#ff4fd8"
+          ],
+          "size": [
+            9,
+            7
+          ],
+          "note": "The family empire split: a cake on a table"
+        },
+        {
+          "id": "street",
+          "floor": "grid",
+          "floor_colors": [
+            "#1a1446",
+            "#120e33"
+          ],
+          "wall": "skyline",
+          "neon": [],
+          "neon_colors": [
+            "#5fe3ff",
+            "#ff4fd8"
+          ],
+          "size": [
+            14,
+            10
+          ],
+          "note": "India on 2G: a crowd staring at loading phones"
+        }
+      ]
+    }
+  },
+  "look": "neon_night",
+  "preview": {
+    "resolution": [
+      540,
+      960
+    ],
+    "views": [
+      {
+        "name": "empire",
+        "t": 1,
+        "at": {
+          "anchor": "empire",
+          "offset": [
+            0,
+            2.6,
+            7.2
+          ]
+        },
+        "look_at": {
+          "anchor": "empire",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "tribute",
+        "t": 1,
+        "at": {
+          "anchor": "tribute",
+          "offset": [
+            0,
+            2.6,
+            5.4
+          ]
+        },
+        "look_at": {
+          "anchor": "tribute",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "split",
+        "t": 1,
+        "at": {
+          "anchor": "split",
+          "offset": [
+            0,
+            2.6,
+            6.3
+          ]
+        },
+        "look_at": {
+          "anchor": "split",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "street",
+        "t": 1,
+        "at": {
+          "anchor": "street",
+          "offset": [
+            0,
+            2.6,
+            9.0
+          ]
+        },
+        "look_at": {
+          "anchor": "street",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      }
+    ]
+  }
+}
