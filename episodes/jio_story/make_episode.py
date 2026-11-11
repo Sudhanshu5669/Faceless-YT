@@ -210,6 +210,8 @@ sfx = [
     {"sound": "tick", "at": L("n5b"), "repeat": 10, "every": 0.09, "gain": -10},
     {"sound": "ding", "at": W("n5b", "250", edge="end"), "gain": -6},
     {"sound": "thud", "at": W("n3a", "splits"), "gain": -8},
+    {"sound": "whistle", "at": W("n3a", "splits", offset=-0.35), "gain": -9},
+    {"sound": "rip", "at": W("n3a", "splits"), "gain": -5},
 ]
 
 reveals = [
@@ -240,15 +242,18 @@ reveals = [
     {"id": "table", "t": 0, "enter": "none", "prop": "quaternius_fantasy_props/Table_Large", "size": 2.0, "at": A("split", [0, 0, 0])},
     # yaw 90: the cut faces +x, the half sits at world -x (screen left); yaw -90 the mirror.
     {"id": "cake_l", "t": 0, "enter": "none", "shape": "cake_half", "size": 0.55, "yaw": 90, "at": A("split", [0, 0.57, 0]),
-     "moves": [{"t": W("n3a", "splits"), "by": [-0.32, 0, 0], "dur": 0.7}]},
+     "moves": [{"t": W("n3a", "splits"), "by": [-0.62, 0, 0], "dur": 0.32}]},
     {"id": "cake_r", "t": 0, "enter": "none", "shape": "cake_half", "size": 0.55, "yaw": -90, "at": A("split", [0, 0.57, 0]),
-     "moves": [{"t": W("n3a", "splits"), "by": [0.32, 0, 0], "dur": 0.7}]},
+     "moves": [{"t": W("n3a", "splits"), "by": [0.62, 0, 0], "dur": 0.32}]},
     {"id": "cake_txt_l", "t": 0, "enter": "none", "text": "RELI", "color": "#7a1f4a", "glow": 0.0, "size": 0.075,
-     "at": A("split", [0.085, 0.645, 0.29]), "moves": [{"t": W("n3a", "splits"), "by": [-0.32, 0, 0], "dur": 0.7}]},
+     "at": A("split", [0.085, 0.645, 0.29]), "moves": [{"t": W("n3a", "splits"), "by": [-0.62, 0, 0], "dur": 0.32}]},
     {"id": "cake_txt_r", "t": 0, "enter": "none", "text": "ANCE", "color": "#7a1f4a", "glow": 0.0, "size": 0.075,
-     "at": A("split", [-0.1, 0.645, 0.29]), "moves": [{"t": W("n3a", "splits"), "by": [0.32, 0, 0], "dur": 0.7}]},
-    {"id": "knife", "t": W("n3a", "splits", offset=-0.3), "until": W("n3a", "splits", offset=0.9), "exit": "rise",
-     "shape": "knife", "size": 1.1, "enter": "drop", "enter_time": 0.3, "at": A("split", [0, 0.62, 0.05])},
+     "at": A("split", [-0.1, 0.645, 0.29]), "moves": [{"t": W("n3a", "splits"), "by": [0.62, 0, 0], "dur": 0.32}]},
+    # Shot 5: a tug-of-war over the Reliance cake, Kokilaben referees; on "splits" the rope snaps and it tears.
+    {"id": "tug_rope", "t": L("n3a"), "until": W("n3a", "splits", offset=0.04), "exit": "none", "shape": "link",
+     "enter": "none", "size": 0.06, "color": "#e0b070", "at": "m2.hand", "to": "a.hand"},
+    {"id": "whistle", "t": L("n3a"), "until": L("n3b"), "shape": "cylinder", "color": "#d8dce4", "size": 0.08,
+     "enter": "none", "at": A("k.face", [0, -0.12, 0.16])},
     {"id": "anil_phone", "t": W("n3b", "phone"), "shape": "phone", "size": 0.26, "enter": "drop", "at": A("a.hand", [0, 0, 0.06]),
      "face": face_cam("split"), "sound": "pop"},
     # 2010: the deal ends, the sign falls over.
@@ -764,13 +769,19 @@ ep = {
          "action": "fold_arms", "route": {"via": [S("rivals", 6.6, 0, 3.6)], "gait": "walk", "start": L("n7")},
          "cues": [{"t": 0, "expression": "deadpan"}, {"t": W("n6b", "luxury."), "expression": "side_eye"}]},
         {"id": "m2", "character": "toon_mukesh", "at": A("split", [-0.6, 0, -0.85]), "facing": face_cam("split", 3), "cues": [
-            {"t": 0, "expression": "happy"}, {"t": W("n3a", "splits"), "expression": "shocked"},
+            {"t": 0, "expression": "happy"}, {"t": L("n3a"), "expression": "determined"},
+            {"t": W("n3a", "splits"), "expression": "shocked", "action": "knocked_back"}, {"t": L("n3b"), "action": "idle"},
             {"t": W("n3c", "agree"), "expression": "sad"}, {"t": W("n3c", "telecom."), "expression": "deadpan"},
             {"t": W("n8a", "deal"), "expression": "side_eye"}, {"t": W("n8a", "ends."), "expression": "grin"}]},
         {"id": "a", "character": "toon_anil", "at": A("split", [0.6, 0, -0.85]), "facing": face_cam("split", 3), "cues": [
-            {"t": 0, "expression": "happy"}, {"t": W("n3a", "splits"), "expression": "surprised"},
+            {"t": 0, "expression": "happy"}, {"t": L("n3a"), "expression": "determined"},
+            {"t": W("n3a", "splits"), "expression": "surprised", "action": "knocked_back"}, {"t": L("n3b"), "action": "idle"},
             {"t": W("n3b", "Anil"), "expression": "smug"}, {"t": W("n3b", "company,"), "expression": "wink"},
             {"t": W("n8a", "ends."), "expression": "nervous"}]},
+        # Shot 5: Kokilaben referees the split, with a whistle.
+        {"id": "k", "character": "toon_kokilaben", "at": A("split", [0, 0, -1.7]), "facing": face_cam("split", 6), "cues": [
+            {"t": 0, "expression": "deadpan"}, {"t": W("n3a", "splits", offset=-0.35), "expression": "furious"},
+            {"t": W("n3a", "splits", offset=0.4), "expression": "sad"}]},
         {"id": "c", "character": "toon_you", "at": A("street", [0, 0, 0.3]), "action": "phone",
          "crowd": {"count": 16, "area": [10, 4], "characters": ["toon_you", "toon_partner", "toon_redhead", "toon_nerd",
                                                                "toon_founder", "toon_scientist_b"], "seed": 4},

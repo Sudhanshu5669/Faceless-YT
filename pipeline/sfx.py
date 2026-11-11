@@ -15,7 +15,7 @@ from scipy import signal
 SR = 48000
 
 BEDS = ["room_tone", "drone", "zombies", "heartbeat", "beat"]
-ONE_SHOTS = ["glass_bang", "creak", "sting", "thud", "click", "pop", "whoosh", "ding", "tick", "cash"]
+ONE_SHOTS = ["glass_bang", "creak", "sting", "thud", "click", "pop", "whoosh", "ding", "tick", "cash", "whistle", "rip"]
 
 
 def _rng(name: str, salt: int = 0) -> np.random.Generator:
@@ -326,10 +326,29 @@ def cash(salt: int = 0) -> np.ndarray:
     return _fade(_norm(np.concatenate([c * 0.8, np.zeros(int(0.03 * SR)), bell]), 0.8), 0.0, 0.1)
 
 
+def whistle(salt: int = 0) -> np.ndarray:
+    """A referee's pea whistle: a shrill tone with a fast warble and breath (0.7 s)."""
+    t = _t(0.7)
+    f = 2900 + 60 * np.sin(2 * np.pi * 34 * t)
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR) + 0.3 * np.sin(4 * np.pi * np.cumsum(f) / SR)
+    breath = _bandpass(_rng("whistle", salt).standard_normal(t.size), 2000, 7000) * 0.25
+    env = np.minimum(1.0, t / 0.02) * np.where(t > 0.55, np.exp(-(t - 0.55) * 30), 1.0)
+    return _fade(_norm((x + breath) * env, 0.6), 0.005, 0.05)
+
+
+def rip(salt: int = 0) -> np.ndarray:
+    """Something tearing apart (cake, paper, cloth): a crackling noise sweep (0.45 s)."""
+    t = _t(0.45)
+    n = _rng("rip", salt).standard_normal(t.size)
+    crackle = (np.abs(_rng("rip2", salt).standard_normal(t.size)) > 2.2) * 3.0
+    x = _bandpass(n * (1 + crackle), 400, 5000) * np.exp(-t * 4)
+    return _fade(_norm(x, 0.7), 0.002, 0.08)
+
+
 def make(name: str, dur: float = 0.0, salt: int = 0) -> np.ndarray:
     beds = {"room_tone": room_tone, "drone": drone, "zombies": zombies, "heartbeat": heartbeat, "beat": beat}
     shots = {"glass_bang": glass_bang, "creak": creak, "sting": sting, "thud": thud, "click": click,
-             "pop": pop, "whoosh": whoosh, "ding": ding, "tick": tick, "cash": cash}
+             "pop": pop, "whoosh": whoosh, "ding": ding, "tick": tick, "cash": cash, "whistle": whistle, "rip": rip}
     if name in beds:
         return beds[name](dur)
     if name in shots:

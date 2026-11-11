@@ -436,6 +436,23 @@
    "gain": -8
   },
   {
+   "sound": "whistle",
+   "at": {
+    "line": "n3a",
+    "word": "splits",
+    "offset": -0.35
+   },
+   "gain": -9
+  },
+  {
+   "sound": "rip",
+   "at": {
+    "line": "n3a",
+    "word": "splits"
+   },
+   "gain": -5
+  },
+  {
    "sound": "tick",
    "at": {
     "line": "n6a",
@@ -1093,10 +1110,23 @@
     },
     {
      "t": {
+      "line": "n3a"
+     },
+     "expression": "determined"
+    },
+    {
+     "t": {
       "line": "n3a",
       "word": "splits"
      },
-     "expression": "shocked"
+     "expression": "shocked",
+     "action": "knocked_back"
+    },
+    {
+     "t": {
+      "line": "n3b"
+     },
+     "action": "idle"
     },
     {
      "t": {
@@ -1154,10 +1184,23 @@
     },
     {
      "t": {
+      "line": "n3a"
+     },
+     "expression": "determined"
+    },
+    {
+     "t": {
       "line": "n3a",
       "word": "splits"
      },
-     "expression": "surprised"
+     "expression": "surprised",
+     "action": "knocked_back"
+    },
+    {
+     "t": {
+      "line": "n3b"
+     },
+     "action": "idle"
     },
     {
      "t": {
@@ -1179,6 +1222,48 @@
       "word": "ends."
      },
      "expression": "nervous"
+    }
+   ]
+  },
+  {
+   "id": "k",
+   "character": "toon_kokilaben",
+   "at": {
+    "anchor": "split",
+    "offset": [
+     0,
+     0,
+     -1.7
+    ]
+   },
+   "facing": {
+    "anchor": "split",
+    "offset": [
+     0,
+     1.0,
+     6
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "n3a",
+      "word": "splits",
+      "offset": -0.35
+     },
+     "expression": "furious"
+    },
+    {
+     "t": {
+      "line": "n3a",
+      "word": "splits",
+      "offset": 0.4
+     },
+     "expression": "sad"
     }
    ]
   },
@@ -2720,11 +2805,11 @@
       "word": "splits"
      },
      "by": [
-      -0.32,
+      -0.62,
       0,
       0
      ],
-     "dur": 0.7
+     "dur": 0.32
     }
    ]
   },
@@ -2750,11 +2835,11 @@
       "word": "splits"
      },
      "by": [
-      0.32,
+      0.62,
       0,
       0
      ],
-     "dur": 0.7
+     "dur": 0.32
     }
    ]
   },
@@ -2781,11 +2866,11 @@
       "word": "splits"
      },
      "by": [
-      -0.32,
+      -0.62,
       0,
       0
      ],
-     "dur": 0.7
+     "dur": 0.32
     }
    ]
   },
@@ -2812,37 +2897,50 @@
       "word": "splits"
      },
      "by": [
-      0.32,
+      0.62,
       0,
       0
      ],
-     "dur": 0.7
+     "dur": 0.32
     }
    ]
   },
   {
-   "id": "knife",
+   "id": "tug_rope",
    "t": {
-    "line": "n3a",
-    "word": "splits",
-    "offset": -0.3
+    "line": "n3a"
    },
    "until": {
     "line": "n3a",
     "word": "splits",
-    "offset": 0.9
+    "offset": 0.04
    },
-   "exit": "rise",
-   "shape": "knife",
-   "size": 1.1,
-   "enter": "drop",
-   "enter_time": 0.3,
+   "exit": "none",
+   "shape": "link",
+   "enter": "none",
+   "size": 0.06,
+   "color": "#e0b070",
+   "at": "m2.hand",
+   "to": "a.hand"
+  },
+  {
+   "id": "whistle",
+   "t": {
+    "line": "n3a"
+   },
+   "until": {
+    "line": "n3b"
+   },
+   "shape": "cylinder",
+   "color": "#d8dce4",
+   "size": 0.08,
+   "enter": "none",
    "at": {
-    "anchor": "split",
+    "anchor": "k.face",
     "offset": [
      0,
-     0.62,
-     0.05
+     -0.12,
+     0.16
     ]
    }
   },
