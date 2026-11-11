@@ -218,6 +218,29 @@
           "mood": "dramatic"
         },
         {
+          "id": "office",
+          "floor": "wood",
+          "floor_colors": [
+            "#6a4a34",
+            "#4e3626"
+          ],
+          "wall": "haveli",
+          "wall_color": "#33465e",
+          "neon": [],
+          "neon_colors": [
+            "#5fe3ff",
+            "#ffd84a"
+          ],
+          "size": [
+            8,
+            7
+          ],
+          "sides": true,
+          "light": "#ffe7c4",
+          "note": "Infotel's tiny office: the cash-cannon buyout (gag pilot)",
+          "mood": "dramatic"
+        },
+        {
           "id": "nation",
           "floor": "marble",
           "floor_colors": [
@@ -452,6 +475,27 @@
         },
         "look_at": {
           "anchor": "launch",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "office",
+        "t": 1,
+        "at": {
+          "anchor": "office",
+          "offset": [
+            0,
+            2.6,
+            6.3
+          ]
+        },
+        "look_at": {
+          "anchor": "office",
           "offset": [
             0,
             1.0,

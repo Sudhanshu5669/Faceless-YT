@@ -18,6 +18,8 @@ Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary
 - `docs/REVIEW.md`: the approval board (environment → characters → script & voice → shots) and the review loop
 - `docs/TOON_SPEC.md`: the house toon characters (sphere heads, drawn faces, expressions)
 - `docs/REVEALS_SPEC.md`: reveals and counters: things that appear on a word
+- `docs/GAGS_SPEC.md`: **gags**: custom GDScript set pieces the director writes per video (cash cannon,
+  a cord hauling a power plant...) + the reusable `library/gags/`
 
 **Making a video in the house style?** Follow the `toon-short` skill
 (`.claude/skills/toon-short/SKILL.md`): script formula, beat sheet, rules, checklist.
@@ -42,6 +44,11 @@ These come from the user's own feedback; they override defaults. Details in `HAN
 5. **Look:** India-first sets (no plain blue grid/tile), dramatic lighting (subject brightest, rim
    light, dark surroundings, depth of field), soft continuous motion, held props really held.
 6. Quality bar: the reference channel @afterhourtheories. Commit directly on `main`.
+7. **Invent, then implement.** For every line, brainstorm several literal, physical sight gags and
+   pick the funniest one with a clear action and payoff (Zuckerberg needs energy → he hauls a
+   nuclear plant on a rope). If the vocabulary can't express it, write a gag script
+   (`episodes/<id>/gags/*.gd`, docs/GAGS_SPEC.md) instead of settling for a pop-in. Move generic
+   gags to `library/gags/`.
 
 ## Commands
 

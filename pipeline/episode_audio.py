@@ -116,7 +116,7 @@ def resolve(path: Path, verbose: bool = True) -> dict:
     forced: dict[str, float] = {}
     if narr.get("single_take"):
         lines, forced = _single_take(ep, narr, model)
-        return _finish_resolve(ep, lines, forced, verbose)
+        return _finish_resolve(ep, lines, forced, verbose, path.parent)
     groups: dict[tuple, list[str]] = {}
     for ln in ep.get("lines", []):
         key = (ln.get("voice", narr.get("voice", "Charon")), ln.get("style", narr.get("style", "")))
@@ -147,7 +147,7 @@ def resolve(path: Path, verbose: bool = True) -> dict:
             take = _tempo(take, speed)
         lines.append({**ln, "wav": take["wav"], "dur": take["dur"], "words": take["words"],
                       "at": float(ln.get("at", 0.15))})
-    return _finish_resolve(ep, lines, forced, verbose)
+    return _finish_resolve(ep, lines, forced, verbose, path.parent)
 
 
 SINGLE_LEAD = 0.12   # silence before the take starts
@@ -254,7 +254,7 @@ def _match_script(heard: list, script: list) -> list:
     return out
 
 
-def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool) -> dict:
+def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: Path | None = None) -> dict:
     by_shot: dict[str, list] = {}
     for ln in lines:
         by_shot.setdefault(ln["shot"], []).append(ln)
@@ -360,6 +360,31 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool) -> dict:
             for j, key in enumerate(c.get("keys", [])):
                 if isinstance(key, list) and key:
                     key[0] = round(ref(key[0], "scene", f"{w}.counter.keys[{j}]"), 3)
+    # Gags: script paths made absolute, times (also inside params) to scene seconds.
+    root = Path(__file__).resolve().parent.parent
+    for i, g in enumerate(out.get("gags", [])):
+        w = f"gags[{i}] ({g.get('id', '?')})"
+        sc = str(g.get("script", ""))
+        sp = (root / "library" / "gags" / (sc[len("library:"):] + ".gd")) if sc.startswith("library:") else ((ep_dir or Path(".")) / sc)
+        if not sp.exists():
+            raise EpisodeError(f"ERROR: {w}: no gag script at {sp}")
+        g["script"] = sp.resolve().as_posix()
+        if "sound" in g:
+            reveal_sfx.append({"sound": g.pop("sound"), "at": ep["gags"][i]["t"], "gain": -6.0})
+        for k in ("t", "until"):
+            if k in g:
+                g[k] = round(ref(g[k], "scene", f"{w}.{k}"), 3)
+
+        def deep(v, where):
+            if isinstance(v, dict) and ("line" in v or "shot" in v):
+                return round(ref(v, "scene", where), 3)
+            if isinstance(v, dict):
+                return {k2: deep(x, f"{where}.{k2}") for k2, x in v.items()}
+            if isinstance(v, list):
+                return [deep(x, f"{where}[{j}]") for j, x in enumerate(v)]
+            return v
+        if "params" in g:
+            g["params"] = deep(g["params"], f"{w}.params")
     # 4. Sound placements on the edit timeline.
     # Every whip pan out of a shot gets a whoosh (edit time, centred on the swing).
     for s, rs in zip(ep["shots"], shots):

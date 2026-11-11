@@ -48,6 +48,19 @@ Comparison with the reference (frames side by side) showed the gap is craft, not
    shrug, cheer, throw) + mouth flap on words, a 2D overlay layer (viewfinder/HUD cards), particle
    bursts. Prove 1+2 on shots 1-2 first, show before/after, then continue the shot loop.
 
+### Gags: built (2026-11-12) — read docs/GAGS_SPEC.md
+Episodes can now ship custom GDScript set pieces (`"gags"` in episode.json; `godot/scripts/timeline/
+gags.gd` loads `episodes/<id>/gags/*.gd` or `library:<name>`; `build()` + `pose(t)` pure in time;
+anchors `<id>.<name>`; params with word-time refs resolved by `episode_audio.py`). Library:
+`library/gags/cash_stream.gd` (arcs + growing heap, MultiMesh). Pilot: jio_story shot `buy95` in a
+new bay `office`: Mukesh's gold cash cannon (`episodes/jio_story/gags/cash_cannon.gd`) rolls in,
+fires on "buy" with recoil + flash, 360 bills bury the Infotel rep (`toon_nerd`) to the chin, a
+"95% STAKE" flag drops on "95". Rendered in the shot loop, waiting for the user's verdict.
+The other model's `episodes/jio_story/beats.md` (action beat sheet for all 24 lines) is committed:
+use it as the plan; push its ideas further toward the reference's absurd literal metaphors.
+Next gags worth building into the library: a rope/cord pull (hauling something huge), a UI card
+(tweet / headline / phone screen with real text and counters), a stamp, a conveyor, a crowd surge.
+
 ### THE REAL GAP (user, 2026-11-11, latest): our pipeline is reveal-driven, theirs is action-driven
 The user: "not just the lighting, even their animations are better and the way they are referring
 to stuff, like how they bought Scale"; "there is something very concrete about the way their

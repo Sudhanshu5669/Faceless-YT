@@ -53,6 +53,20 @@ number**. The camera never stops moving, and the end **loops back to the opening
     office sign, brand colours, a caricature of the real founder, its real tweet/headline on a UI card)
     rather than a labelled box. See HANDOFF.md "THE REAL GAP" for the engine pieces this needs.
 
+## Ideation: the gag for each line (do this before any JSON)
+
+For every narration line, write 3-5 candidate sight gags, then pick one. A good gag is:
+- **Literal and physical:** the metaphor in the sentence happens to objects ("needs energy" →
+  he hauls a nuclear plant on a rope; "buys the company" → a cash cannon buries the founder).
+- **Caused by someone:** a character acts, the object reacts, the camera lands on the result.
+- **Specific:** the real company (logo, office sign, colours), the real person (caricature), the
+  real artifact (tweet, headline, receipt), a recognisable Indian place where it fits.
+- **Escalating** across the episode, with callbacks (the snail returns as a rocket).
+- **Readable in 9:16:** cause at the bottom, result on top, or a follow from one to the other.
+Then check `python pipeline/tf.py library` and `library/gags/`; if nothing fits, write a gag
+script (docs/GAGS_SPEC.md: `build()` + `pose(t)`, pure in time) in `episodes/<id>/gags/`.
+Example pilot: jio_story shot `buy95` (gags `cannon` + `library:cash_stream`).
+
 ## Workflow
 
 1. **Script.** Use the formula below. 130–170 s for a Short, about 150 words a minute. Read

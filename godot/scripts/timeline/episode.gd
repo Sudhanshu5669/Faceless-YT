@@ -21,7 +21,7 @@ const Paths = preload("res://scripts/core/paths.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
 const SetEvents = preload("res://scripts/timeline/set_events.gd")
 
-const KEYS := ["schema_version", "id", "title", "description", "set", "look", "actors", "format", "shots", "events", "reveals"]
+const KEYS := ["schema_version", "id", "title", "description", "set", "look", "actors", "format", "shots", "events", "reveals", "gags"]
 ## Sound keys: resolved by the Python pipeline (pipeline/episode_audio.py), which
 ## also turns "fit" durations and time references into numbers before Godot runs.
 const AUDIO_KEYS := ["narration", "lines", "sfx", "music", "ambience", "captions", "end_black", "review"]
@@ -62,6 +62,8 @@ static func load_episode(path: String) -> Dictionary:
 		spec["actors"] = ep["actors"]
 	if ep.has("reveals"):
 		spec["reveals"] = ep["reveals"]
+	if ep.has("gags"):
+		spec["gags"] = ep["gags"]
 	spec.erase("preview")
 	return {"episode": ep, "spec": spec}
 

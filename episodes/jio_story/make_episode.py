@@ -36,6 +36,9 @@ bays = [
     {"id": "launch", "floor": "wood", "floor_colors": ["#5a3a2a", "#3e281c"], "wall": "haveli", "wall_color": "#3a2a5a",
      "neon": ["arch"], "neon_colors": ["#3d7bff", "#ff4fd8"], "size": [10, 8], "light": "#ffe7c4",
      "pedestal": {"style": "neon", "height": 0.35, "radius": 1.25}, "note": "The launch stage: Jio, free stuff, the JioPhone, the podium"},
+    {"id": "office", "floor": "wood", "floor_colors": ["#6a4a34", "#4e3626"], "wall": "haveli", "wall_color": "#33465e",
+     "neon": [], "neon_colors": ["#5fe3ff", "#ffd84a"], "size": [8, 7], "sides": True, "light": "#ffe7c4",
+     "note": "Infotel's tiny office: the cash-cannon buyout (gag pilot)"},
     {"id": "nation", "floor": "marble", "floor_colors": ["#2a2238", "#4a3a5a"], "wall": "none", "neon": [],
      "neon_colors": ["#5fe3ff", "#ff4fd8"], "size": [26, 26], "light": "#ffe7c4",
      "note": "524 million: the crowd stands in the shape of India, seen from above"},
@@ -377,19 +380,27 @@ for k, (lon, lat) in enumerate(CIRCLES):
                     "at": on_map(lon, lat), "face": S("war_room", 0, 3, 9)})
 sfx += [{"sound": "tick", "at": W("n8c", "wins", offset=0.2), "repeat": 12, "every": 0.11, "gain": -11},
         {"sound": "ding", "at": W("n8c", "22", edge="end"), "gain": -6}]
-reveals += [
-    {"id": "sold", "t": W("n8d", "it."), "until": L("n9a"), "shape": "sign", "label": "SOLD", "label_color": "#c0262d",
-     "size": 0.75, "enter": "rise", "at": on_map(81.3, 20.4), "face": S("war_room", 0, 3, 9), "sound": "ding"},
-    {"id": "pct95", "t": W("n8d", "hours,"), "until": L("n9a"), "at": on_map(78.5, 22.0, 0.9), "size": 0.42, "color": "#ffffff",
-     "counter": {"from": 0, "to": 95, "suffix": "%", "land": W("n8d", "95"), "label": "BOUGHT"}},
-]
 sfx.append({"sound": "ding", "at": W("n8d", "95", edge="end"), "gain": -6})
-CASH_SPOTS = [(77.0, 23.2), (80.2, 23.5), (76.8, 20.6), (80.6, 21.0), (78.6, 24.6), (78.2, 19.4), (75.4, 22.2),
-              (82.0, 22.6), (77.6, 21.8), (79.6, 22.8), (76.0, 24.4), (81.2, 24.2)]
-for k, (lon, lat) in enumerate(CASH_SPOTS):
-    reveals.append({"id": f"cash_rain_{k}", "t": W("n8d", "buy", offset=0.07 * k), "until": L("n9a"), "shape": "cash",
-                    "size": 0.34, "yaw": (k * 37) % 90 - 45, "enter": "drop", "at": on_map(lon, lat, 0.0)})
-sfx += [{"sound": "cash", "at": W("n8d", "buy"), "gain": -4}, {"sound": "cash", "at": W("n8d", "buy", offset=0.4), "gain": -7}]
+
+# --- n8d PILOT: Mukesh fires a cash cannon into Infotel's office; the money buries the rep ------
+reveals += [
+    {"id": "inf_desk", "t": 0, "enter": "none", "prop": "quaternius_fantasy_props/Table_Large", "size": 1.8,
+     "at": S("office", 0, 0, -0.2)},
+    {"id": "inf_sign", "t": 0, "enter": "none", "shape": "plaque", "label": "INFOTEL BROADBAND", "label_color": "#ffffff",
+     "color": "#7a5fd0", "size": 2.0, "at": A("office.wall", [0, 0.55, 0.05])},
+    {"id": "stake_flag", "t": W("n8d", "95"), "shape": "sign", "label": "95% STAKE", "label_color": "#c0262d", "size": 0.75,
+     "enter": "drop", "enter_time": 0.3, "at": S("office", 0.05, 0.75, -0.85), "face": S("office", 0, 1.2, 6), "sound": "thud"},
+]
+GAGS = [
+    {"id": "cannon", "script": "gags/cash_cannon.gd", "t": L("n8d"), "until": L("n9a"), "at": S("office", 0.25, 0, 2.5),
+     "face": "rep", "params": {"roll_in": W("n8d", "you"), "roll_from": [0, 0, -2.2], "roll_time": 0.7,
+                               "shots": {"from": W("n8d", "buy"), "until": W("n8d", "percent"), "every": 0.14}}},
+    {"id": "cash", "script": "library:cash_stream", "t": L("n8d"), "until": L("n9a"), "at": S("office", 0, 0, -1.0),
+     "params": {"from": "cannon.muzzle", "fire": W("n8d", "buy"), "duration": 0.9, "count": 360, "radius": 1.2,
+                "height": 1.15, "flight": 0.42, "arc": 0.9, "size": 0.17, "seed": 8}},
+]
+sfx += [{"sound": "thud", "at": W("n8d", "buy", offset=0.14 * j), "gain": -9} for j in range(6)]
+sfx += [{"sound": "cash", "at": W("n8d", "buy", offset=0.3), "gain": -3}, {"sound": "cash", "at": W("n8d", "95"), "gain": -6}]
 
 # --- n9, n10: home ----------------------------------------------------------------------------
 reveals += [
@@ -780,6 +791,13 @@ ep = {
             {"t": W("n13a", "lay"), "expression": "determined"}, {"t": W("n13b", "crore"), "expression": "shocked"},
             {"t": W("n13c", "call"), "expression": "smug"}, {"t": W("n13c", "biggest"), "expression": "star_eyes"},
             {"t": W("n18b", "India"), "expression": "happy"}, {"t": W("n18b", "biggest"), "expression": "cool"}]},
+        # n8d pilot: the Infotel rep behind his desk, Mukesh beside the cannon.
+        {"id": "rep", "character": "toon_nerd", "at": S("office", 0, 0, -1.0), "facing": face_cam("office", 6), "cues": [
+            {"t": 0, "expression": "happy"}, {"t": W("n8d", "hours,"), "expression": "surprised"},
+            {"t": W("n8d", "buy"), "expression": "panic"}, {"t": W("n8d", "95"), "expression": "star_eyes"},
+            {"t": W("n8d", "it."), "expression": "grin"}]},
+        {"id": "mi", "character": "toon_mukesh", "at": S("office", -0.4, 0, 2.25), "facing": "rep", "cues": [
+            {"t": 0, "expression": "smug"}, {"t": W("n8d", "buy"), "expression": "grin"}]},
         # Home: Isha and Akash at the table.
         {"id": "isha", "character": "toon_isha", "at": S("home", -1.25, 0, -0.1), "facing": face_cam("home", 6), "cues": [
             {"t": 0, "expression": "happy"}, {"t": W("n9a", "says,"), "expression": "side_eye", "action": "talk"},
@@ -850,6 +868,7 @@ ep = {
             {"t": W("n23b", "free."), "expression": "happy", "hands": "chest"}, {"t": W("n24a", "Jio."), "expression": "grin"}]},
     ],
     "reveals": reveals,
+    "gags": GAGS,
     "shots": [
         {"name": "open", "duration": fit(0.15, 1.6),
          "camera": move(cam(A("empire", [0, 9, 13]), A("empire", [0, 3, 0]), 24), cam(A("m", [0, 1.0, 3.4]), "m.head", 32))},
@@ -889,8 +908,8 @@ ep = {
          "camera": move(cam(S("war_room", 0, 6.4, 6.2), S("war_room", 0, 0, 0.2), 26), cam(S("war_room", 0, 5.0, 5.0), on_map(78.5, 22.0), 28))},
         {"name": "circles", "duration": "fit",
          "camera": move(cam(S("war_room", 0, 5.5, 6.6), S("war_room", 0, 0, 0.0), 26), cam(S("war_room", 0, 6.8, 5.8), S("war_room", 0, 0.3, -0.2), 26))},
-        {"name": "buy95", "duration": "fit", "whip_out": "right",
-         "camera": move(cam(on_map(78.5, 12.0, 3.0), on_map(78.5, 22.0, 0.5), 30), cam(on_map(78.5, 14.5, 2.6), on_map(78.5, 22.0, 0.55), 32))},
+        {"name": "buy95", "duration": "fit", "whip_in": "right", "whip_out": "right",
+         "camera": move(cam(S("office", 1.8, 1.8, 5.0), S("office", -0.05, 0.8, 1.9), 26), cam(S("office", 1.25, 2.15, 3.3), S("office", -0.05, 0.95, -0.6), 28))},
         # n9, n10 home
         {"name": "isha", "duration": "fit", "whip_in": "right",
          "camera": move(cam(S("home", -0.9, 1.3, 3.2), S("home", -0.9, 1.0, 0), 38), cam(S("home", -0.9, 1.25, 2.6), S("home", -0.9, 1.05, 0), 38))},
