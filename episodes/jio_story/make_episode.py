@@ -210,6 +210,11 @@ reveals = [
     # empire: dressing + the three businesses
     {"id": "reliance_sign", "t": 0, "enter": "none", "text": "RELIANCE", "color": "#ff4fd8", "glow": 1.6, "size": 0.9,
      "at": A("empire", [0, 7.1, -2.9])},
+    # Shot 1: his name lands over his head, stacked (9:16 is narrow).
+    {"id": "name_1", "t": W("n1a", "Mukesh"), "until": L("n1b"), "text": "MUKESH", "color": "#1b1440", "glow": 0.0,
+     "size": 0.24, "at": A("m.head", [0, 0.7, 0]), "sound": "pop"},
+    {"id": "name_2", "t": W("n1a", "Ambani."), "until": L("n1b"), "text": "AMBANI", "color": "#1b1440", "glow": 0.0,
+     "size": 0.24, "at": A("m.head", [0, 0.42, 0]), "sound": "pop"},
     {"id": "refinery", "t": W("n1b", "refineries"), "shape": "refinery", "size": 0.75, "at": A("m", [-0.82, 0.55, 0.3]),
      "bob": 0.04, "sound": "pop", "until": L("n1c", offset=0.3)},
     {"id": "pump", "t": W("n1b", "petrol"), "shape": "pump", "size": 0.65, "at": A("m", [0.8, 0.55, 0.3]),

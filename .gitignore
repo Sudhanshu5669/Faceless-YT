@@ -12,6 +12,7 @@ episodes/*/build/
 episodes/*/review/*
 !episodes/*/review/decisions.json
 !episodes/*/review/suggestions.json
+!episodes/*/review/shot_decisions.json
 
 # Local machine config and secrets (API keys)
 config.local.json

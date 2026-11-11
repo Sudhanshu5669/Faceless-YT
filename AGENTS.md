@@ -34,6 +34,10 @@ python pipeline/tf.py look save NAME FILE --description "..."   # validate + sav
 python pipeline/tf.py storyboard EPISODE             # episodes/<id>/preview/storyboard.png (start/mid/end per shot)
 python pipeline/tf.py voice EPISODE                  # narration (cached TTS) + timing table, no render
 python pipeline/tf.py render EPISODE [--draft] [--shots a,b] [--remix] [--png]   # episodes/<id>/renders/<id>.mp4 (--remix: sound only; frames stream to ffmpeg, --png saves them)
+python pipeline/tf.py framing EPISODE [--shots a,b]   # every reveal stays inside the 9:16 frame? (lists what is cut off)
+python pipeline/tf.py shot EPISODE NAME [--final]    # the shot-by-shot loop: one full-size clip + strip + framing check
+python pipeline/tf.py shot EPISODE NAME --decide approved|changes|rejected [--note ...]   # record the user's verdict
+python pipeline/tf.py shot EPISODE --status          # every shot and its verdict
 python pipeline/tf.py review prepare|serve|notes EPISODE   # approval board; final renders need every item approved
 python pipeline/tf.py explore [SPEC]                # interactive fly-through (T/Y time, F/C/R/X weather)
 python pipeline/tf.py assets import                 # incoming/*.zip -> Godot assets -> library/catalog.json + thumbnails

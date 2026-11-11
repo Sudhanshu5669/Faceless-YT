@@ -2267,6 +2267,52 @@
    }
   },
   {
+   "id": "name_1",
+   "t": {
+    "line": "n1a",
+    "word": "Mukesh"
+   },
+   "until": {
+    "line": "n1b"
+   },
+   "text": "MUKESH",
+   "color": "#1b1440",
+   "glow": 0.0,
+   "size": 0.24,
+   "at": {
+    "anchor": "m.head",
+    "offset": [
+     0,
+     0.7,
+     0
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "name_2",
+   "t": {
+    "line": "n1a",
+    "word": "Ambani."
+   },
+   "until": {
+    "line": "n1b"
+   },
+   "text": "AMBANI",
+   "color": "#1b1440",
+   "glow": 0.0,
+   "size": 0.24,
+   "at": {
+    "anchor": "m.head",
+    "offset": [
+     0,
+     0.42,
+     0
+    ]
+   },
+   "sound": "pop"
+  },
+  {
    "id": "refinery",
    "t": {
     "line": "n1b",

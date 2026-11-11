@@ -31,6 +31,7 @@ import argparse
 import json
 import os
 import subprocess
+import time
 import sys
 import unittest
 from pathlib import Path
@@ -206,7 +207,15 @@ def concat_videos(cfg: dict, parts: list[Path], out: Path) -> None:
 
 def cmd_render(cfg: dict, args) -> int:
     path = episode_path(args.episode)
-    if not args.draft and not getattr(args, "force", False):
+    if not args.draft and not getattr(args, "force", False) and _shot_log(path).exists():
+        log = _read_json(_shot_log(path))
+        _, res0 = resolve_episode(path, verbose=False)
+        missing = [s["name"] for s in res0["shots"] if log.get(s["name"], {}).get("status") != "approved"]
+        if missing:
+            print("ERROR: the final render needs every shot approved in the shot loop (tf shot EPISODE --status). "
+                  f"Not yet: {', '.join(missing)}\n(--force skips this check)", file=sys.stderr)
+            return 1
+    elif not args.draft and not getattr(args, "force", False):
         import review
         missing = review.unapproved(path)
         if missing:
@@ -329,6 +338,138 @@ def cmd_review(cfg: dict, args) -> int:
         review.serve(path, args.port, not args.no_browser)
         return 0
     print(review.notes(path))
+    return 0
+
+
+# --- framing check and the shot-by-shot loop ---------------------------------------------------
+
+def _framing(cfg: dict, resolved: Path, out_json: Path, shots: str = "") -> list[dict]:
+    user = ["--episode", str(resolved), "--framing", str(out_json)] + (["--shots", shots] if shots else [])
+    if out_json.exists():
+        out_json.unlink()
+    code = run_godot(cfg, user, pre_args=["--fixed-fps", "30", "--quit-after", "100000"], timeout=1800)
+    if code != 0 or not out_json.exists():
+        raise SystemExit("ERROR: the framing check failed")
+    return _read_json(out_json)
+
+
+def _print_framing(issues: list[dict]) -> None:
+    if not issues:
+        print("[TownForge] framing: every reveal stays inside the 9:16 frame")
+        return
+    for it in issues:
+        when = "cut off as it appears, " if it["first"] else ""
+        print(f"[TownForge] framing: {it['shot']}: '{it['id']}' {when}off-frame ({it['side']}) "
+              f"{it['off'] * 100:.0f}% of its time on screen ({it['from']:.1f}-{it['to']:.1f} s)")
+
+
+def cmd_framing(cfg: dict, args) -> int:
+    """Every reveal that appears in a shot must stay inside the 9:16 frame while it is on screen."""
+    path = episode_path(args.episode)
+    resolved, _ = resolve_episode(path, verbose=False)
+    issues = _framing(cfg, resolved, path.parent / "build" / "framing.json", args.shots or "")
+    _print_framing(issues)
+    return 1 if issues else 0
+
+
+SHOT_STATUSES = ("approved", "changes", "rejected")
+
+
+def _shot_log(path: Path) -> Path:
+    return path.parent / "review" / "shot_decisions.json"
+
+
+def cmd_shot(cfg: dict, args) -> int:
+    """The shot-by-shot loop: render shots as full-size clips with their sound and captions (+ a
+    frame strip and the framing check) for the user to approve; or record their verdict."""
+    import episode_audio
+    import review
+    path = episode_path(args.episode)
+    log_path = _shot_log(path)
+    log = _read_json(log_path) if log_path.exists() else {}
+    if args.status or args.decide:
+        resolved, res = resolve_episode(path, verbose=False)
+        names = [s["name"] for s in res["shots"]]
+        if args.decide:
+            if not args.names:
+                print("ERROR: name the shot(s) to decide on", file=sys.stderr)
+                return 2
+            for n in args.names.split(","):
+                if n not in names:
+                    print(f"ERROR: no shot '{n}' (shots: {', '.join(names)})", file=sys.stderr)
+                    return 2
+                log[n] = {"status": args.decide, "note": args.note or "", "updated": time.strftime("%Y-%m-%d %H:%M:%S")}
+            review._write_json(log_path, log)
+        done = sum(1 for n in names if log.get(n, {}).get("status") == "approved")
+        print(f"[TownForge] shots approved: {done}/{len(names)}")
+        for i, n in enumerate(names):
+            d = log.get(n)
+            mark = d["status"] if d else "-"
+            print(f"  {i:02d} {n:16} {mark}" + (f"  ({d['note']})" if d and d.get("note") else ""))
+        return 0
+    if not args.names:
+        print("ERROR: name the shot(s) to render, e.g. tf shot jio_story open", file=sys.stderr)
+        return 2
+    resolved, res = resolve_episode(path, verbose=False)
+    ep = _read_json(resolved)
+    by_name = {s["name"]: (i, s) for i, s in enumerate(res["shots"])}
+    want = args.names.split(",")
+    for n in want:
+        if n not in by_name:
+            print(f"ERROR: no shot '{n}'", file=sys.stderr)
+            return 2
+    out = path.parent / "review" / "shot_loop"
+    out.mkdir(parents=True, exist_ok=True)
+    fmt = ep.get("format", {})
+    if args.final:
+        fps, blur = int(fmt.get("fps", 30)), max(1, int(fmt.get("motion_blur", 1)))
+    else:
+        fps, blur = 30, 1
+    rfps = fps * blur
+    raw = out / "raw"
+    issues_path = out / "framing.json"
+    user = ["--episode", str(resolved), "--frames", str(out / "work"), "--fps", str(rfps), "--scale", "1.0",
+            "--shots", ",".join(want), "--stream", str(raw), "--ffmpeg", _which(cfg["ffmpeg"]),
+            "--vcodec", "|".join(video_codec(cfg)), "--blur", str(blur), "--out_fps", str(fps),
+            "--framing", str(issues_path)]
+    frames = sum(max(1, round(float(by_name[n][1]["duration"]) * rfps)) for n in want)
+    code = run_godot(cfg, user, pre_args=["--fixed-fps", str(rfps), "--disable-vsync", "--quit-after", str(frames + 2000)],
+                     timeout=600 + frames * 2)
+    if code != 0:
+        return code
+    # Sound and captions for the whole episode once, then each clip takes its slice.
+    audio = episode_audio.mix(res, out / "mix.wav", cfg["ffmpeg"])
+    res["resolution"] = fmt.get("resolution", [1080, 1920])
+    captions = episode_audio.write_captions(res, out / "captions.ass") if res["lines"] else None
+    fonts = out / "fonts"
+    fonts.mkdir(exist_ok=True)
+    font = ROOT / "godot" / "fonts" / "lilita_one" / "LilitaOne-Regular.ttf"
+    if font.exists() and not (fonts / font.name).exists():
+        (fonts / font.name).write_bytes(font.read_bytes())
+    for n in want:
+        i, sh = by_name[n]
+        key = f"{i:02d}_{n}"
+        edit, dur = float(sh["edit"]), float(sh["duration"])
+        vf = f"setpts=PTS+{edit:.3f}/TB,ass=captions.ass:fontsdir=fonts,setpts=PTS-STARTPTS" if captions else "null"
+        clip = out / f"{key}.mp4"
+        subprocess.run([cfg["ffmpeg"], "-y", "-loglevel", "error", "-i", str((raw / f"{key}.mp4").resolve()),
+                        "-ss", f"{edit:.3f}", "-t", f"{dur:.3f}", "-i", str(audio.resolve()), "-vf", vf,
+                        "-map", "0:v:0", "-map", "1:a:0", *video_codec(cfg), "-pix_fmt", "yuv420p",
+                        "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(clip.resolve())],
+                       check=True, cwd=str(out))
+        strip = out / f"{key}_strip.png"
+        cols = max(4, min(10, int(dur * 3)))
+        subprocess.run([cfg["ffmpeg"], "-y", "-loglevel", "error", "-i", str(clip), "-vf",
+                        f"fps={cols / max(dur, 0.1):.4f},scale=216:-1,tile={cols}x1:padding=4:color=black",
+                        "-frames:v", "1", str(strip)], check=True)
+        lines = [ln for ln in res["lines"] if ln["shot"] == n]
+        print(f"[TownForge] shot {key}: {dur:.2f} s  \"{' '.join(ln['text'] for ln in lines)}\"")
+        print(f"[TownForge]   clip  -> {clip}")
+        print(f"[TownForge]   strip -> {strip}")
+        st = log.get(n, {}).get("status")
+        if st:
+            print(f"[TownForge]   previous verdict: {st}" + (f" ({log[n]['note']})" if log[n].get("note") else ""))
+    _print_framing(_read_json(issues_path) if issues_path.exists() else [])
     return 0
 
 
@@ -560,6 +701,16 @@ def main(argv: list[str] | None = None) -> int:
     rp.add_argument("--force", action="store_true", help="final render even if review items are not approved")
     rp.add_argument("--scale", type=float, help="resolution scale (e.g. 0.5 for a quick look at full frame rate)")
     rp.add_argument("--png", action="store_true", help="save every frame as a PNG (default: stream frames straight to ffmpeg)")
+    fr = sub.add_parser("framing", help="check that every reveal stays inside the 9:16 frame")
+    fr.add_argument("episode")
+    fr.add_argument("--shots", help="only these shots (comma-separated)")
+    sp = sub.add_parser("shot", help="shot-by-shot loop: render shot clips for approval, or record a verdict")
+    sp.add_argument("episode")
+    sp.add_argument("names", nargs="?", help="shot name(s), comma-separated")
+    sp.add_argument("--final", action="store_true", help="the episode's own fps and motion blur (default: 30 fps, no blur)")
+    sp.add_argument("--decide", choices=SHOT_STATUSES, help="record the user's verdict on the named shot(s)")
+    sp.add_argument("--note", help="the user's note with the verdict")
+    sp.add_argument("--status", action="store_true", help="list every shot and its verdict")
     rv = sub.add_parser("review", help="approval board: prepare, serve, notes")
     rv.add_argument("action", choices=["prepare", "serve", "notes"])
     rv.add_argument("episode", help="episodes/<id>/episode.json or <id>")
@@ -591,7 +742,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_look_save(cfg, args)
     handlers = {"test": cmd_test, "validate": cmd_validate, "library": cmd_library,
                 "preview-set": cmd_preview_set, "explore": cmd_explore,
-                "render": cmd_render, "storyboard": cmd_storyboard, "voice": cmd_voice, "review": cmd_review}
+                "render": cmd_render, "storyboard": cmd_storyboard, "voice": cmd_voice, "review": cmd_review,
+                "framing": cmd_framing, "shot": cmd_shot}
     return handlers[args.command](cfg, args)
 
 

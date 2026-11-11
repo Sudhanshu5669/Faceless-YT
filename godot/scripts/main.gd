@@ -118,10 +118,14 @@ func _ready() -> void:
 	if not episode.is_empty():
 		if not _check_episode_cameras():
 			return
+		if args.has("framing"):
+			_framing_report(Paths.resolve(String(args["framing"])))
 		if args.has("frames"):
 			await _run_frames(Paths.resolve(String(args["frames"])))
 		elif args.has("storyboard"):
 			await _run_storyboard(Paths.resolve(String(args["storyboard"])))
+		elif args.has("framing"):
+			get_tree().quit(0)
 		else:
 			_log("episode OK (%d shots); add --frames or --storyboard to render" % episode["shots"].size())
 			get_tree().quit(0)
@@ -399,6 +403,113 @@ func _close_encoder(enc: Dictionary) -> String:
 		return ""
 	var msg := (enc["stderr"] as FileAccess).get_buffer(8192).get_string_from_utf8()
 	return "exit %d: %s" % [code, msg.strip_edges()]
+
+
+## 9:16 framing check: for every reveal that appears during a shot, is it inside the frame while
+## it is on screen in that shot? Poses the scene every 0.1 s (no drawing) and projects the reveal's
+## extent. Writes [{"shot", "id", "off", "side", "first", "from", "to"}] to path ("off" = fraction of
+## its on-screen time it is cut off; "first" = cut off at the moment it appears).
+func _framing_report(path: String) -> void:
+	var fps := _fps()
+	var size := _out_size(float(args.get("scale", 1.0)))
+	get_window().content_scale_size = size
+	var vs := Vector2(size)
+	var only := PackedStringArray(String(args.get("shots", "")).split(",", false))
+	var issues := []
+	var reveals: Array = spec.get("reveals", [])
+	for shot in Episode.timeline(episode, fps):
+		if not only.is_empty() and not (String(shot["name"]) in only):
+			continue
+		var t0 := float(shot["scene_t"])
+		var t1 := t0 + float(shot["duration"])
+		var mine := []
+		for r in reveals:
+			# Interest points: things that appear during this shot (set dressing at t=0 is skipped).
+			if float(r["t"]) > 0.0 and float(r["t"]) >= t0 - 0.05 and float(r["t"]) < t1 - 0.1 and String(r.get("shape", "")) != "link":
+				mine.append(r)
+		if mine.is_empty():
+			continue
+		var stats := {}
+		var n := maxi(2, int(float(shot["duration"]) * 10.0))
+		for k in n:
+			var p := float(k) / float(n - 1)
+			var t := t0 + p * float(shot["duration"])
+			var L := _at_time(t)
+			var cam := Episode.camera_at(shot, p, L, look)
+			if cam.has("error"):
+				continue
+			Shot.apply(camera, cam)
+			for r in mine:
+				var id := String(r["id"])
+				var h := reveals_node.get_node_or_null(NodePath(id)) as Node3D
+				# Skip the entrance (a drop starts above the frame, a rise below it).
+				var et := float(r.get("enter_time", 0.5 if String(r.get("enter", "pop")) == "beam" else 0.35))
+				if String(r.get("enter", "pop")) == "none":
+					et = 0.0
+				if h == null or not h.visible or t < float(r["t"]) + et:
+					continue
+				var a: Dictionary = L["actor_anchors"].get(id, {})
+				if a.is_empty():
+					continue
+				# Another bay (sets sit 60 m apart): not in this shot.
+				if camera.global_position.distance_to(a["pos"]) > 30.0:
+					continue
+				var st: Dictionary = stats.get(id, {"seen": 0, "off": 0, "first": "", "side": {}, "from": t, "to": t})
+				var side := _offscreen_side(a["pos"], r, vs)
+				st["seen"] += 1
+				st["to"] = t
+				if side != "":
+					st["off"] += 1
+					st["side"][side] = int(st["side"].get(side, 0)) + 1
+					if st["seen"] == 1:
+						st["first"] = side
+				stats[id] = st
+		for id in stats:
+			var st: Dictionary = stats[id]
+			if st["off"] == 0:
+				continue
+			var side := ""
+			var best := 0
+			for sd in st["side"]:
+				if int(st["side"][sd]) > best:
+					best = int(st["side"][sd])
+					side = sd
+			issues.append({"shot": shot["name"], "id": id, "off": snappedf(float(st["off"]) / float(st["seen"]), 0.01),
+				"side": side, "first": st["first"] != "", "from": snappedf(st["from"], 0.01), "to": snappedf(st["to"], 0.01)})
+	_write_json(path, issues)
+	_log("framing: %d issue(s) -> %s" % [issues.size(), path])
+
+
+## "" if the reveal's extent is inside the frame, else which side it leaves by (left/right/top/bottom/behind).
+func _offscreen_side(center: Vector3, r: Dictionary, vs: Vector2) -> String:
+	var size := float(r.get("size", 0.5))
+	var half_w := size * 0.5
+	var half_h := size * 0.5
+	if r.has("text"):
+		half_w = 0.27 * size * String(r["text"]).length()
+	elif r.has("counter"):
+		var c: Dictionary = r["counter"]
+		var digits := str(int(absf(float(c.get("to", 0))))).length() + int(c.get("decimals", 0))
+		var label_len := String(c.get("label", "")).length() * 0.3
+		half_w = 0.27 * size * maxf(float(digits + String(c.get("prefix", "")).length() + String(c.get("suffix", "")).length()), label_len)
+		half_h = size * 0.75 if c.has("label") else size * 0.5
+	var right := camera.global_transform.basis.x
+	var up := camera.global_transform.basis.y
+	var margin := vs * 0.02
+	for d in [Vector3.ZERO, right * half_w, -right * half_w, up * half_h, -up * half_h]:
+		var q: Vector3 = center + d
+		if camera.is_position_behind(q):
+			return "behind"
+		var sp := camera.unproject_position(q)
+		if sp.x < margin.x:
+			return "left"
+		if sp.x > vs.x - margin.x:
+			return "right"
+		if sp.y < margin.y:
+			return "top"
+		if sp.y > vs.y - margin.y:
+			return "bottom"
+	return ""
 
 
 func _run_storyboard(out_dir: String) -> void:
