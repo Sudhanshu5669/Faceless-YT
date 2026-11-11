@@ -483,6 +483,24 @@ def cmd_shot(cfg: dict, args) -> int:
     return 0
 
 
+def cmd_props(cfg: dict, args) -> int:
+    """Search the imported model catalog before building a prop from primitives."""
+    cat = _read_json(ROOT / "library" / "catalog.json")
+    words = [w.lower() for w in args.query]
+    hits = []
+    for m in cat.get("models", []):
+        hay = " ".join([m["id"], m.get("name", ""), m.get("category", ""), " ".join(m.get("tags", []))]).lower()
+        if all(w in hay for w in words):
+            hits.append(m)
+    for m in hits[: args.limit]:
+        sz = "x".join(f"{v:.2f}" for v in m.get("size", []))
+        print(f"{m['id']:58} {m.get('category', ''):10} {sz:18} {m.get('thumb', '')}")
+    print(f"[TownForge] {len(hits)} model(s) match {' '.join(args.query)!r}"
+          + (f" (showing {args.limit})" if len(hits) > args.limit else "")
+          + ". Use one as a reveal: {\"prop\": \"<id>\"} (docs/REVEALS_SPEC.md), or in a gag via KitDB.")
+    return 0
+
+
 def cmd_storyboard(cfg: dict, args) -> int:
     path = episode_path(args.episode)
     resolved, _ = resolve_episode(path)
@@ -711,6 +729,9 @@ def main(argv: list[str] | None = None) -> int:
     rp.add_argument("--force", action="store_true", help="final render even if review items are not approved")
     rp.add_argument("--scale", type=float, help="resolution scale (e.g. 0.5 for a quick look at full frame rate)")
     rp.add_argument("--png", action="store_true", help="save every frame as a PNG (default: stream frames straight to ffmpeg)")
+    pp = sub.add_parser("props", help="search the model catalog (find an existing prop before building one)")
+    pp.add_argument("query", nargs="+", help="words that must all match (id, name, category, tags)")
+    pp.add_argument("--limit", type=int, default=40)
     fr = sub.add_parser("framing", help="check that every reveal stays inside the 9:16 frame")
     fr.add_argument("episode")
     fr.add_argument("--shots", help="only these shots (comma-separated)")
@@ -756,7 +777,7 @@ def main(argv: list[str] | None = None) -> int:
     handlers = {"test": cmd_test, "validate": cmd_validate, "library": cmd_library,
                 "preview-set": cmd_preview_set, "explore": cmd_explore,
                 "render": cmd_render, "storyboard": cmd_storyboard, "voice": cmd_voice, "review": cmd_review,
-                "framing": cmd_framing, "shot": cmd_shot}
+                "framing": cmd_framing, "shot": cmd_shot, "props": cmd_props}
     return handlers[args.command](cfg, args)
 
 

@@ -55,6 +55,23 @@ logos/posts to fetch (ask the user before downloading, sources in library/logos/
 quotes). Waiting for the user's notes on it; then build the gag library in that order and redo the
 shots one at a time in the shot loop.
 
+### Reuse before build (user, 2026-11-12) + candidate downloads (NOT fetched; ask the user first)
+`tf props <words>` searches `library/catalog.json` (627 models: Quaternius downtown/nature/fantasy
+props, Kenney cars/suburban/characters, Fab food/store packs). Missing for the gag script: cows and
+animals (#9), cannon (built as a gag), rocket (#31), boats/raft + water (#44), money truck/scooter
+(#46-47), a turnstile, a hamster. Candidate CC0 packs to propose to the user (verify licence + size
+at the time): Kenney "Pirate Kit" (cannons, boats, barrels), Kenney "Space Kit" (rockets), Kenney
+"Car Kit"/"Food Kit"/"Furniture Kit", Quaternius "Ultimate Animated Animals"/"Farm Animals"
+(cow), Quaternius "Ultimate Spaceships", Poly Pizza CC0 items; Godot add-ons (MIT/CC0) for a
+water surface + simple buoyancy. Import packs with `tf assets import` (docs/ASSET_PIPELINE.md).
+
+### Shot loop progress (2026-11-12)
+Shot 1 `open` (crude through a straw from an oil drum: `gags/straw_barrel.gd`; name over the head),
+shot 2 `empire_items` (✅ approved), shot 3 `lost` (a phone bounces off the tower and tumbles past
+him; "?" over the head) and shot 18 `buy95` (cash cannon pilot) are rendered and pass the framing
+check; waiting for the user's verdicts. Continue in story order from shot 4 `tribute` (gags.md #4).
+The framing check now ignores whip-pan and iris moments.
+
 ### Gags: built (2026-11-12) — read docs/GAGS_SPEC.md
 Episodes can now ship custom GDScript set pieces (`"gags"` in episode.json; `godot/scripts/timeline/
 gags.gd` loads `episodes/<id>/gags/*.gd` or `library:<name>`; `build()` + `pose(t)` pure in time;

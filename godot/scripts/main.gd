@@ -443,6 +443,10 @@ func _framing_report(path: String) -> void:
 		for k in n:
 			var p := float(k) / float(n - 1)
 			var t := t0 + p * float(shot["duration"])
+			# Whip pans and irises sweep or mask the frame on purpose: don't judge those moments.
+			var tt := t - t0
+			if (String(shot.get("whip_in", "")) != "" and tt < Episode.WHIP_TIME) 					or (String(shot.get("whip_out", "")) != "" and tt > float(shot["duration"]) - Episode.WHIP_TIME) 					or (String(shot.get("iris_in", "")) != "" and tt < Episode.IRIS_HOLD + Episode.IRIS_OPEN):
+				continue
 			var L := _at_time(t)
 			var cam := Episode.camera_at(shot, p, L, look)
 			if cam.has("error"):

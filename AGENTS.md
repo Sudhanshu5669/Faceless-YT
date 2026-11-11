@@ -49,6 +49,12 @@ These come from the user's own feedback; they override defaults. Details in `HAN
    nuclear plant on a rope). If the vocabulary can't express it, write a gag script
    (`episodes/<id>/gags/*.gd`, docs/GAGS_SPEC.md) instead of settling for a pop-in. Move generic
    gags to `library/gags/`.
+8. **Reuse before you build** (user, 2026-11-12). For a prop: `python pipeline/tf.py props <words>`
+   (the imported catalog: Quaternius, Kenney, Fab packs); use it when it fits the meaning (a wooden
+   barrel is not an oil drum). For a system (water, boats/buoyancy, ropes, particles, crowds): look for
+   a free Godot add-on (Godot Asset Library, MIT/CC0) or a CC0 asset pack (Kenney, Quaternius, Poly
+   Pizza CC0) before writing one. Check the licence allows commercial video, keep its LICENSE, and
+   ask the user before downloading (list name, source, size, licence). Build from primitives last.
 
 ## Commands
 

@@ -5,7 +5,7 @@ rewrites **what we see**: one gag per narration segment (52 shots), in the refer
 grammar. Someone causes something, it happens to a real, recognisable thing, and the camera ends on
 the result. It's literal, it escalates, and it calls back.
 
-Status: ✅ = approved shot, 🟢 = built (pilot / earlier pass, to be redone in the shot loop),
+**Approved by the user 2026-11-12.** Status: ✅ = approved shot, 🟢 = built (pilot / earlier pass, to be redone in the shot loop),
 🆕 = new. **Gag** names the code it needs (library = reusable, `library/gags/`; episode =
 `episodes/jio_story/gags/`). Real logos, caricatures and recreated posts and headlines are allowed;
 anything marked *verify* must be fact-checked before it's built.

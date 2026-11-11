@@ -223,17 +223,19 @@ reveals = [
      "size": 0.24, "at": A("m.head", [0, 0.42, 0]), "sound": "pop"},
     # Shot 2: his three businesses stack up on his head, one per word (a balancing tower: 9:16 is tall).
     {"id": "refinery", "t": W("n1b", "refineries"), "shape": "refinery", "size": 0.62, "enter": "drop", "enter_time": 0.3,
-     "at": A("m.head", [0, 0.36, 0]), "face": A("m", [0, 1.3, 5]), "bob": 0.02, "sound": "pop", "until": L("n1c", offset=0.3)},
+     "at": A("m.head", [0, 0.36, 0]), "face": A("m", [0, 1.3, 5]), "bob": 0.02, "sound": "pop", "until": W("n1c", "father")},
     {"id": "pump", "t": W("n1b", "petrol"), "shape": "pump", "size": 0.55, "enter": "drop", "enter_time": 0.3,
-     "at": A("m.head", [0, 1.1, 0]), "face": A("m", [0, 1.3, 5]), "bob": 0.03, "sound": "pop", "until": L("n1c", offset=0.3)},
+     "at": A("m.head", [0, 1.1, 0]), "face": A("m", [0, 1.3, 5]), "bob": 0.03, "sound": "pop", "until": W("n1c", "father")},
     {"id": "plastic", "t": W("n1b", "plastics"), "shape": "bottle", "color": "#4a90e2", "size": 0.42, "enter": "drop",
-     "enter_time": 0.3, "at": A("m.head", [0, 1.72, 0]), "bob": 0.04, "spin": 40, "sound": "pop", "until": L("n1c", offset=0.3)},
-    {"id": "lost_postcard", "t": W("n1c", "father"), "until": L("n1c", edge="end"), "exit": "drop", "shape": "postcard",
-     "size": 0.38, "enter": "move", "from": [1.6, 0.5, 0], "enter_time": 1.3, "spin": 60, "at": A("m", [0.7, 1.3, 0.7])},
-    {"id": "missing_slot", "t": W("n1c", "one"), "until": L("n2"), "shape": "frame", "size": 0.5, "color": "#5fe3ff", "glow": 1.6,
-     "at": A("m", [-0.45, 0.82, 0.45]), "face": A("m", [0, 1.0, 4]), "sound": "pop"},
-    {"id": "missing_q", "t": W("n1c", "one", offset=0.15), "until": L("n2"), "text": "?", "color": "#5fe3ff", "glow": 1.6, "size": 0.26,
-     "at": A("m", [-0.45, 0.92, 0.47])},
+     "enter_time": 0.3, "at": A("m.head", [0, 1.72, 0]), "bob": 0.04, "spin": 40, "sound": "pop", "until": W("n1c", "father")},
+    # Shot 3: a phone flies in to top the tower, bounces off on "lost", tumbles down the drums, rolls away.
+    {"id": "lost_phone", "t": L("n1c"), "until": W("n1c", "dreamed"), "exit": "none", "shape": "phone", "size": 0.46,
+     "color": "#16181d", "enter": "drop", "enter_time": 0.3, "at": A("m.head", [0, 2.3, 0]), "face": A("m", [0, 1.3, 5]),
+     "moves": [{"t": W("n1c", "lost"), "by": [0.0, 0.35, 0.3], "dur": 0.2, "turn": 90},
+               {"t": W("n1c", "lost", offset=0.2), "by": [0.08, -2.0, 0.7], "dur": 0.45, "turn": 270},
+               {"t": W("n1c", "lost", offset=0.65), "by": [0.1, -0.45, 0.45], "dur": 0.5, "turn": 120}]},
+    {"id": "lost_q", "t": W("n1c", "dreamed"), "text": "?", "color": "#ffd84a", "glow": 1.2, "size": 0.42,
+     "at": A("m.head", [0, 0.48, 0]), "sound": "pop", "until": L("n2")},
     # tribute: the portrait and the scales
     {"id": "cabinet", "t": 0, "enter": "none", "shape": "box", "color": "#6a4028", "size": 0.6, "at": A("tribute.back", [0, 0, 0.3])},
     {"id": "portrait", "t": 0, "enter": "none", "shape": "frame", "size": 1.15, "at": A("tribute.back", [0, 0.62, 0.4])},
@@ -391,7 +393,13 @@ reveals += [
     {"id": "stake_flag", "t": W("n8d", "95"), "shape": "sign", "label": "95% STAKE", "label_color": "#c0262d", "size": 0.75,
      "enter": "drop", "enter_time": 0.3, "at": S("office", 0.05, 0.75, -0.85), "face": S("office", 0, 1.2, 6), "sound": "thud"},
 ]
+MOUTH = {"anchor": "m.face", "offset": [0, -0.13, 0.17]}
 GAGS = [
+    # Shot 1 (and the loop): Mukesh sips crude oil from a little barrel through a bendy straw.
+    {"id": "straw", "script": "gags/straw_barrel.gd", "t": 0, "until": L("n1b"), "at": "m.chest",
+     "face": A("m", [0, 1.2, 4]), "params": {"mouth": MOUTH, "sips": {"from": 0.25, "until": L("n1b", offset=-0.4), "every": 0.75}}},
+    {"id": "straw_end", "script": "gags/straw_barrel.gd", "t": L("n24b"), "at": "m.chest",
+     "face": A("m", [0, 1.2, 4]), "params": {"mouth": MOUTH, "sips": {"from": L("n24b", offset=0.2), "until": L("n24b", edge="end"), "every": 0.75}}},
     {"id": "cannon", "script": "gags/cash_cannon.gd", "t": L("n8d"), "until": L("n9a"), "at": S("office", 0.25, 0, 2.5),
      "face": "rep", "params": {"roll_in": W("n8d", "you"), "roll_from": [0, 0, -2.2], "roll_time": 0.7,
                                "shots": {"from": W("n8d", "buy"), "until": W("n8d", "percent"), "every": 0.14}}},
@@ -715,8 +723,6 @@ reveals += [
      "at": A("tribute", [-0.45, 0.82, 1.25]), "sound": "ding"},
     {"id": "jio_word", "t": W("n24a", "Jio."), "text": "JIO", "color": "#1f4fd8", "glow": 0.4, "size": 0.5,
      "at": A("mt", [0, 1.55, 0.2]), "sound": "pop"},
-    {"id": "loop_phone", "t": L("n24b"), "shape": "phone", "size": 0.24, "color": "#1b2a6a", "at": A("m.hand", [0, 0, 0.06]),
-     "face": A("m", [0, 1.3, 4])},
     {"id": "jiyo", "t": W("n24b", "Hindi,"), "text": "जियो", "color": "#ffd84a", "glow": 1.5, "size": 0.9,
      "at": A("empire", [0, 4.7, 0.4]), "sound": "pop"},
     {"id": "live", "t": W("n24b", "live\"."), "text": "= LIVE", "color": "#5fe3ff", "glow": 1.5, "size": 0.7,
@@ -749,10 +755,12 @@ ep = {
     "sfx": sfx,
     "actors": [
         {"id": "m", "character": "toon_mukesh", "at": "empire.pedestal", "cues": [
-            {"t": 0, "expression": "smug"}, {"t": W("n1b", "plastics"), "expression": "star_eyes"},
-            {"t": W("n1c", "lost"), "expression": "sad"},
+            {"t": 0, "expression": "smug", "hands": "chest"}, {"t": L("n1b"), "hands": "none"},
+            {"t": W("n1b", "plastics"), "expression": "star_eyes"},
+            {"t": W("n1c", "lost"), "expression": "shocked"}, {"t": W("n1c", "business"), "expression": "sad"},
             {"t": L("n4", offset=-0.05), "expression": "surprised", "hands": "face"},
             {"t": L("n5a"), "expression": "deadpan", "hands": "none"},
+            {"t": L("n24b"), "hands": "chest"},
             {"t": W("n24b", "Hindi,"), "expression": "happy"}, {"t": W("n24b", "live\"."), "expression": "wink"}]},
         {"id": "d", "character": "toon_dhirubhai", "at": "tribute.back", "action": "idle", "freeze": 0.3, "cues": [
             {"t": 0, "expression": "happy"}, {"t": W("n23b", "free."), "expression": "laugh"}]},
@@ -875,7 +883,7 @@ ep = {
         {"name": "empire_items", "duration": fit(),
          "camera": move(cam(A("m", [0, 1.4, 3.6]), A("m", [0, 1.2, 0]), 30), cam(A("m", [0, 2.0, 3.5]), A("m", [0, 2.1, 0]), 30))},
         {"name": "lost", "duration": fit(0.35), "whip_out": "left",
-         "camera": move(cam(A("m", [0, 1.05, 2.7]), "m.head", 35), cam(A("m", [0, 1.08, 1.7]), "m.head", 38))},
+         "camera": move(cam(A("m", [0, 2.3, 4.6]), A("m", [0, 2.35, 0]), 30), cam(A("m", [0, 1.35, 2.5]), A("m", [0, 1.35, 0]), 33))},
         {"name": "tribute", "duration": fit(0.35), "whip_in": "left", "whip_out": "right",
          "camera": move(cam(A("tribute", [0, 1.5, 5.4]), A("tribute", [0, 1.05, -0.9]), 52),
                         cam(A("tribute", [0, 1.3, 4.3]), A("tribute", [0, 0.95, -0.5]), 52))},

@@ -135,8 +135,8 @@ static func validate(reveals) -> Array:
 			e.append(w + ": enter 'move' needs 'from': [x, y, z], the start offset in metres from 'at'")
 		for m in r.get("moves", []):
 			if typeof(m) != TYPE_DICTIONARY or not _is_time(m.get("t")) or (m.has("by") and (typeof(m["by"]) != TYPE_ARRAY \
-					or m["by"].size() != 3)) or not (m.has("by") or m.has("turn") or m.has("tip")):
-				e.append(w + ": each move is {\"t\": time, \"by\": [x, y, z] metres, \"dur\": s, \"turn\": degrees, \"tip\": degrees}")
+					or m["by"].size() != 3)) or not (m.has("by") or m.has("turn") or m.has("tip") or m.has("scale")):
+				e.append(w + ": each move is {\"t\": time, \"by\": [x, y, z] metres, \"dur\": s, \"turn\": degrees, \"tip\": degrees, \"scale\": n | [x, y, z], \"pulse\": bool}")
 		if (String(r.get("shape", "")) == "link") != r.has("to"):
 			e.append(w + ": shape 'link' needs 'to' (the point it reaches), and 'to' only works on links")
 		if r.has("tilt") and not (typeof(r["tilt"]) in [TYPE_INT, TYPE_FLOAT]):
@@ -900,9 +900,18 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 		yaw += deg_to_rad(float(r.get("spin", 0.0))) * age
 		off.y += sin(age * 2.6) * float(r.get("bob", 0.0))
 		# Timed moves after the entrance: slide by an offset (world metres), maybe turn.
+		var sv := Vector3.ONE
 		for m in r.get("moves", []):
 			var mk := clampf((t - float(m["t"])) / maxf(float(m.get("dur", 0.6)), 0.001), 0.0, 1.0)
 			mk = mk * mk * (3.0 - 2.0 * mk)
+			# "scale": squash / stretch / inflate / grow toward a multiplier (number or [x, y, z]);
+			# "pulse": go there and back (a squash on impact, a gulp).
+			if m.has("scale"):
+				var sc = m["scale"]
+				var target := Vector3.ONE * float(sc) if typeof(sc) in [TYPE_INT, TYPE_FLOAT] else Vector3(float(sc[0]), float(sc[1]), float(sc[2]))
+				var raw := clampf((t - float(m["t"])) / maxf(float(m.get("dur", 0.6)), 0.001), 0.0, 1.0)
+				var kk := sin(raw * PI) if bool(m.get("pulse", false)) else mk
+				sv *= Vector3.ONE.lerp(target, kk)
 			var by: Array = m.get("by", [0, 0, 0])
 			off += Vector3(float(by[0]), float(by[1]), float(by[2])) * mk
 			yaw += deg_to_rad(float(m.get("turn", 0.0))) * mk
@@ -916,7 +925,7 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 		h.rotation = Vector3(0, yaw, tip)
 		if r.has("roll"):
 			(h.get_node("content") as Node3D).rotation.z = -deg_to_rad(float(r["roll"])) * age
-		h.scale = Vector3.ONE * maxf(s, 0.001)
+		h.scale = (Vector3.ONE * maxf(s, 0.001)) * sv
 		out[String(r["id"])] = {"pos": h.position + Vector3.UP * size * 0.5, "forward": Vector3(sin(yaw), 0, cos(yaw))}
 	return out
 

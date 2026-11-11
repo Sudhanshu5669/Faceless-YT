@@ -63,7 +63,9 @@ For every narration line, write 3-5 candidate sight gags, then pick one. A good 
   real artifact (tweet, headline, receipt), a recognisable Indian place where it fits.
 - **Escalating** across the episode, with callbacks (the snail returns as a rocket).
 - **Readable in 9:16:** cause at the bottom, result on top, or a follow from one to the other.
-Then check `python pipeline/tf.py library` and `library/gags/`; if nothing fits, write a gag
+Then check `python pipeline/tf.py library`, `python pipeline/tf.py props <words>` (existing models)
+and `library/gags/`; for whole systems (water, boats, ropes) look for a free Godot add-on or CC0 pack
+first (ask the user before downloading). If nothing fits, write a gag
 script (docs/GAGS_SPEC.md: `build()` + `pose(t)`, pure in time) in `episodes/<id>/gags/`.
 Example pilot: jio_story shot `buy95` (gags `cannon` + `library:cash_stream`).
 
