@@ -5,8 +5,9 @@ extends RefCounted
 const Gen = preload("res://scripts/world/generators/stage_generator.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
 const SURFACE := preload("res://shaders/stage_surface.gdshader")
+const Reveals = preload("res://scripts/timeline/reveals.gd")
 
-const FLOOR_PATTERNS := {"checker": 0, "tiles": 1, "grid": 2, "wood": 3, "plain": 4, "carpet": 5}
+const FLOOR_PATTERNS := {"checker": 0, "tiles": 1, "grid": 2, "wood": 3, "plain": 4, "carpet": 5, "road": 6}
 const WALL_PATTERNS := {"tiles": 1, "panels": 10, "plain": 4, "grid": 2, "brick": 11}
 const DRUM_COLORS := ["#d6453d", "#2f6fd6", "#e8b52a", "#3aa35b"]
 
@@ -30,7 +31,7 @@ static func _bay(b: Dictionary, seed_value: int) -> Node3D:
 	var d := float(b["size"][1])
 	var fc: Array = b["floor_colors"]
 	var nc: Array = b["neon_colors"]
-	var outdoor := String(b["wall"]) == "skyline"
+	var outdoor := String(b["wall"]) in ["skyline", "bazaar"]
 	# Floor (slightly bigger than the bay so wide shots never see its edge).
 	var fw := w + (30.0 if outdoor else 2.0)
 	var fd := d + (30.0 if outdoor else 2.0)
@@ -38,10 +39,16 @@ static func _bay(b: Dictionary, seed_value: int) -> Node3D:
 		Color(String(fc[1])), Color(String(nc[0])), 1.0 if String(b["floor"]) != "wood" else 0.25, false))
 	floor.name = "floor"
 	floor.position = Vector3(0, 0, (fd - d) * -0.5 + (fd - d) * 0.5)
+	if String(b["floor"]) == "road":
+		# The footpath runs along the shop fronts.
+		(floor.material_override as ShaderMaterial).set_shader_parameter("foot_z", -d * 0.5 + 2.2)
 	n.add_child(floor)
 	# Back wall (and sides) or an open skyline.
 	var wall_kind := String(b["wall"])
 	if wall_kind == "skyline":
+		_skyline(n, b, seed_value)
+	elif wall_kind == "bazaar":
+		_bazaar(n, b, seed_value)
 		_skyline(n, b, seed_value)
 	elif wall_kind != "none":
 		var wc := Color(String(b["wall_color"]))
@@ -192,6 +199,156 @@ static func _lights(n: Node3D, b: Dictionary, w: float, d: float) -> void:
 	fill.omni_range = maxf(w, d) * 1.4
 	fill.position = Vector3(0, 3.0, d * 0.6)
 	n.add_child(fill)
+
+
+## An Indian market street behind the bay: a row of narrow painted buildings,
+## lit shop fronts with signboards (English + Hindi), striped awnings, balconies,
+## AC units, rooftop water tanks, tangled overhead wires with fairy lights, tube
+## lights on poles and a couple of parked autos. Deterministic per bay.
+const SHOP_SIGNS := ["MOBILE RECHARGE", "CHAI", "KIRANA STORE", "SHARMA ELECTRONICS", "STD ISD PCO",
+	"SWEETS", "GUPTA MEDICAL", "PAN SHOP", "CYBER CAFE", "TAILOR", "मिठाई", "चाय", "AGARWAL TRADERS", "XEROX"]
+const SIGN_COLORS := ["#d6453d", "#f2c230", "#2f6fd6", "#2f9e44", "#e8742a", "#8a3fd6", "#ffffff"]
+const FACADE_COLORS := ["#e8a0b4", "#f0c86a", "#5fbfb0", "#e88a50", "#7aa0d8", "#c8d870", "#d8b8e8", "#f2e6c8"]
+const AWNING_COLORS := [["#d6453d", "#f4f1e4"], ["#2f6fd6", "#f4f1e4"], ["#2f9e44", "#f2c230"], ["#e8742a", "#f4f1e4"]]
+
+
+static func _bazaar(n: Node3D, b: Dictionary, seed_value: int) -> void:
+	var r := RandomNumberGenerator.new()
+	r.seed = hash("%d/bazaar/%s" % [seed_value, b["id"]])
+	var w := float(b["size"][0])
+	var d := float(b["size"][1])
+	var g := Node3D.new()
+	g.name = "bazaar"
+	n.add_child(g)
+	var z0 := -d * 0.5          # building fronts
+	var x := -w * 0.5 - 6.0
+	var poles := []
+	var signs := SHOP_SIGNS.duplicate()
+	while x < w * 0.5 + 6.0:
+		var bw := r.randf_range(2.6, 3.6)
+		var floors := r.randi_range(2, 3)
+		var fh := 2.7
+		var col := Color(FACADE_COLORS[r.randi_range(0, FACADE_COLORS.size() - 1)])
+		var cx := x + bw * 0.5
+		var h := fh * floors
+		# Building body (set back a little from the shop front).
+		g.add_child(_boxm(Vector3(bw - 0.04, h, 3.0), Vector3(cx, h * 0.5, z0 - 1.5), Toon.material(col, Toon.OUTLINE * 0.5)))
+		# Shop at street level: a lit recess, a shutter half up, a counter.
+		var ow := bw - 0.6
+		g.add_child(_boxm(Vector3(ow, 2.1, 0.08), Vector3(cx, 1.05, z0 + 0.01), neon_material(Color("ffd9a0"), 0.55)))
+		g.add_child(_boxm(Vector3(ow + 0.04, 0.5, 0.12), Vector3(cx, 2.05, z0 + 0.05), Toon.material(Color("8a8f98"), Toon.OUTLINE * 0.4)))
+		g.add_child(_boxm(Vector3(ow, 0.75, 0.4), Vector3(cx, 0.375, z0 + 0.22), Toon.material(col.darkened(0.35), Toon.OUTLINE * 0.4)))
+		for k in r.randi_range(2, 4):
+			var item_col := Color(SIGN_COLORS[r.randi_range(0, SIGN_COLORS.size() - 1)])
+			g.add_child(_boxm(Vector3(0.22, r.randf_range(0.18, 0.35), 0.18),
+				Vector3(cx - ow * 0.35 + k * 0.32, 0.86, z0 + 0.22), Toon.material(item_col, Toon.OUTLINE * 0.3)))
+		# Signboard with the shop's name.
+		var sc := Color(SIGN_COLORS[r.randi_range(0, SIGN_COLORS.size() - 1)])
+		g.add_child(_boxm(Vector3(bw - 0.3, 0.6, 0.1), Vector3(cx, 2.65, z0 + 0.08), Toon.material(sc, Toon.OUTLINE * 0.5)))
+		var label := String(signs.pop_at(r.randi_range(0, signs.size() - 1)) if not signs.is_empty() else "STORE")
+		var txt_col := Color("1b1b22") if sc.get_luminance() > 0.55 else Color("fff6e0")
+		var t := Reveals.text_node(label, minf(0.34, (bw - 0.5) / maxf(1.0, label.length() * 0.52)), txt_col)
+		t.position = Vector3(cx, 2.65 - 0.12, z0 + 0.14)
+		g.add_child(t)
+		# Striped awning over the signboard, sloping out.
+		var ac: Array = AWNING_COLORS[r.randi_range(0, AWNING_COLORS.size() - 1)]
+		var stripes := int(bw / 0.35)
+		for k in stripes:
+			var sw := bw / stripes
+			var aw := _boxm(Vector3(sw, 0.04, 0.9), Vector3(x + sw * (k + 0.5), 3.2, z0 + 0.42),
+				Toon.material(Color(String(ac[k % 2])), 0.0))
+			aw.rotation_degrees = Vector3(-18, 0, 0)
+			g.add_child(aw)
+		# Upper floors: windows (some lit), a balcony, an AC unit.
+		for f in range(1, floors):
+			var y := f * fh + 1.25
+			for k in 2:
+				var wx := cx + (k - 0.5) * bw * 0.45
+				var lit := r.randf() < 0.45
+				var wm := neon_material(Color("ffd27a"), 1.4) if lit else Toon.material(Color("2a2440"), 0.0)
+				g.add_child(_boxm(Vector3(0.62, 0.95, 0.06), Vector3(wx, y, z0 + 0.01 - 1.5 + 1.5), wm))
+				g.add_child(_boxm(Vector3(0.74, 0.08, 0.14), Vector3(wx, y - 0.52, z0 + 0.05), Toon.material(col.darkened(0.25), 0.0)))
+			if r.randf() < 0.55:
+				g.add_child(_boxm(Vector3(bw * 0.8, 0.07, 0.6), Vector3(cx, f * fh + 0.1, z0 + 0.3), Toon.material(col.darkened(0.3), Toon.OUTLINE * 0.4)))
+				for k in int(bw * 0.8 / 0.18):
+					g.add_child(_boxm(Vector3(0.025, 0.7, 0.025), Vector3(cx - bw * 0.4 + 0.09 + k * 0.18, f * fh + 0.45, z0 + 0.58), Toon.material(Color("2b2b30"), 0.0)))
+				g.add_child(_boxm(Vector3(bw * 0.8, 0.04, 0.04), Vector3(cx, f * fh + 0.8, z0 + 0.58), Toon.material(Color("2b2b30"), 0.0)))
+			if r.randf() < 0.6:
+				g.add_child(_boxm(Vector3(0.7, 0.42, 0.3), Vector3(cx + bw * 0.3, f * fh + 2.25, z0 + 0.16), Toon.material(Color("eef0f2"), Toon.OUTLINE * 0.4)))
+		# Rooftop: a black water tank (and sometimes a dish).
+		if r.randf() < 0.75:
+			var tank := MeshInstance3D.new()
+			var cm := CylinderMesh.new()
+			cm.top_radius = 0.45
+			cm.bottom_radius = 0.5
+			cm.height = 0.9
+			tank.mesh = cm
+			tank.material_override = Toon.material(Color("1d1d22"), Toon.OUTLINE * 0.5)
+			tank.position = Vector3(cx + r.randf_range(-0.5, 0.5), h + 0.45, z0 - 1.2)
+			g.add_child(tank)
+		poles.append(Vector3(x + bw, 0, z0 + 0.9))
+		x += bw
+	# Utility poles with tube lights, and wires sagging between them.
+	var wire := Toon.material(Color("141418"), 0.0)
+	var prev := Vector3.INF
+	for i in range(0, poles.size(), 2):
+		var p: Vector3 = poles[i]
+		g.add_child(_boxm(Vector3(0.12, 6.4, 0.12), p + Vector3(0, 3.2, 0), Toon.material(Color("6b6f78"), Toon.OUTLINE * 0.5)))
+		g.add_child(_boxm(Vector3(0.9, 0.07, 0.07), p + Vector3(0, 5.2, 0.3), neon_material(Color("eaf6ff"), 3.0)))
+		if prev != Vector3.INF:
+			for k in 3:
+				var hk := 6.0 + k * 0.18
+				_sag(g, prev + Vector3(0, hk, 0), p + Vector3(0, hk, 0), 0.45 + 0.15 * k, 0.012, wire, null)
+			_sag(g, prev + Vector3(0, 5.6, 0.1), p + Vector3(0, 5.6, 0.1), 0.6, 0.008, wire, r)
+		prev = p
+	# Parked autos along the shop line.
+	for k in 2:
+		var ax := r.randf_range(-w * 0.45, w * 0.45)
+		var auto := Reveals.shape_node("rickshaw", 1.7, Color("2f9e44"))
+		auto.position = Vector3(ax, 0, z0 + 1.6)
+		auto.rotation_degrees = Vector3(0, 90.0 if k == 0 else -90.0, 0)
+		g.add_child(auto)
+
+
+## A sagging wire between two points; with an rng, also a string of fairy lights.
+static func _sag(g: Node3D, a: Vector3, b: Vector3, sag: float, r: float, mat: Material, lights) -> void:
+	var n := 12
+	var prev := a
+	var cols := [Color("ffd27a"), Color("ff6a9a"), Color("5fe3ff"), Color("7cff6b")]
+	for i in range(1, n + 1):
+		var u := float(i) / n
+		var p := a.lerp(b, u) - Vector3(0, sag * 4.0 * u * (1.0 - u), 0)
+		var mi := MeshInstance3D.new()
+		var cm := CylinderMesh.new()
+		cm.top_radius = r
+		cm.bottom_radius = r
+		cm.height = prev.distance_to(p)
+		cm.radial_segments = 4
+		cm.rings = 1
+		mi.mesh = cm
+		mi.material_override = mat
+		var y := (p - prev).normalized()
+		var ref := Vector3.FORWARD if absf(y.dot(Vector3.FORWARD)) < 0.9 else Vector3.RIGHT
+		var xx := ref.cross(y).normalized()
+		mi.transform = Transform3D(Basis(xx, y, xx.cross(y)), (p + prev) * 0.5)
+		g.add_child(mi)
+		if lights != null:
+			var bulb := MeshInstance3D.new()
+			bulb.mesh = Toon.sphere(0.045)
+			bulb.material_override = neon_material(cols[i % cols.size()], 4.0)
+			bulb.position = p - Vector3(0, 0.05, 0)
+			g.add_child(bulb)
+		prev = p
+
+
+static func _boxm(s: Vector3, at: Vector3, mat: Material) -> MeshInstance3D:
+	var bm := BoxMesh.new()
+	bm.size = s
+	var mi := MeshInstance3D.new()
+	mi.mesh = bm
+	mi.material_override = mat
+	mi.position = at
+	return mi
 
 
 ## Distant night skyline: blocks with lit window bands, behind an open bay.

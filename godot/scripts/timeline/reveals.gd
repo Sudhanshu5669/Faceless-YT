@@ -24,10 +24,11 @@ const KEYS := ["id", "t", "until", "prop", "shape", "text", "counter", "at", "si
 	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note", "label", "label_color", "roll", "from"]
 const KINDS := ["prop", "shape", "text", "counter"]
 const COUNTER_KEYS := ["from", "to", "land", "keys", "decimals", "prefix", "suffix", "commas", "label", "land_color"]
-const ENTERS := ["pop", "drop", "rise", "slide_left", "slide_right", "beam", "grow", "move", "none"]
+const ENTERS := ["pop", "drop", "settle", "rise", "slide_left", "slide_right", "beam", "grow", "move", "none"]
 const EXITS := ["shrink", "pop", "drop", "rise", "none"]
 const SHAPES := ["box", "sphere", "cylinder", "cone", "card", "coin", "cash", "ring", "bottle", "pin", "chip", "phone",
-	"refinery", "pump", "postcard", "scales", "frame", "garland", "cake", "cake_half", "binoculars", "sign", "spinner", "tower"]
+	"refinery", "pump", "postcard", "scales", "frame", "garland", "cake", "cake_half", "binoculars", "sign", "spinner", "tower",
+	"rickshaw"]
 ## Shapes that print their "label" on their face: [x, y, z, text height] as fractions of size.
 const LABELLED := {"card": [0.0, 0.62, 0.025, 0.09], "sign": [0.0, 1.12, 0.045, 0.13], "cake": [0.0, 0.2, 0.52, 0.1],
 	"pump": [0.0, 0.98, 0.22, 0.08], "postcard": [-0.2, 0.08, 0.02, 0.08], "box": [0.0, 0.5, 0.505, 0.15],
@@ -36,7 +37,7 @@ const DEFAULT_COLORS := {"box": "#f2f2f2", "sphere": "#f2f2f2", "cylinder": "#f2
 	"card": "#ffffff", "coin": "#f2c230", "cash": "#4fbf6a", "ring": "#5fe3ff", "bottle": "#4a90e2",
 	"pin": "#ff4d5a", "chip": "#2b2f36", "phone": "#16181d", "refinery": "#c9ced6", "pump": "#d6453d",
 	"postcard": "#f6ecd2", "scales": "#e8b52a", "frame": "#d9a632", "garland": "#ff8c1a", "cake": "#ff9ec4",
-	"cake_half": "#ff9ec4", "binoculars": "#1b1c22", "sign": "#ffffff", "spinner": "#ffffff", "tower": "#c9ced6"}
+	"cake_half": "#ff9ec4", "binoculars": "#1b1c22", "sign": "#ffffff", "spinner": "#ffffff", "tower": "#c9ced6", "rickshaw": "#2f9e44"}
 ## Chunky display font for text and counters (OFL, godot/fonts/lilita_one).
 const FONT_PATH := "res://fonts/lilita_one/LilitaOne-Regular.ttf"
 ## Fallback for what Lilita lacks (the rupee sign, Devanagari): Baloo 2 at ExtraBold.
@@ -340,11 +341,16 @@ static func _story_parts(kind: String, size: float, col: Color, mat: Material) -
 				P.append(_part(_box(Vector3(t, fh + t, t * 0.8)), Vector3(fw * sx, fh * 0.5, 0), mat))
 		"garland":
 			# Marigold beads on a sagging string; the ends hang at (+-size/2, 0).
-			var n := 24
+			# Ends at (+-size/2, 0): put it on a frame's top corners. Deep U down the sides.
+			var n := 44
 			for i in n + 1:
 				var u := float(i) / n
+				var v := absf(2.0 * u - 1.0)
 				var c := Color("ff8c1a") if i % 2 == 0 else Color("ffc21a")
-				P.append(_part(Toon.sphere(size * 0.05), Vector3((u - 0.5) * size, -size * 0.45 * (1.0 - pow(2.0 * u - 1.0, 2.0)), 0), Toon.material(c, 0.0)))
+				var x := (u - 0.5) * size * (0.9 + 0.1 * v)
+				var y := -size * 0.95 * (1.0 - pow(v, 4.0))
+				P.append(_part(Toon.sphere(size * 0.045), Vector3(x, y, 0), Toon.material(c, 0.0)))
+			P.append(_part(Toon.sphere(size * 0.07), Vector3(0, -size * 0.97, size * 0.01), Toon.material(Color("e8452a"), 0.0)))
 		"cake", "cake_half":
 			var half := kind == "cake_half"
 			P.append(_part(_cyl(size * 0.62, size * 0.62, size * 0.04), Vector3(0, size * 0.02, 0), Toon.material(Color("f4f4f2"), o)))
@@ -364,10 +370,25 @@ static func _story_parts(kind: String, size: float, col: Color, mat: Material) -
 				var a := (float(k) + 0.5) / float(cherries) * (PI if half else TAU) + (PI if half else 0.0)
 				P.append(_part(Toon.sphere(size * 0.05), Vector3(cos(a) * size * 0.2, size * 0.66, sin(a) * size * 0.2), Toon.material(Color("d61f3a"), 0.0)))
 		"binoculars":
+			# Eyepieces at z = 0 (put it on "<actor>.face"), lenses toward +z, open tubes.
+			var tube := _cyl(size * 0.13, size * 0.15, size * 0.36)
+			tube.cap_top = false
+			tube.cap_bottom = false
+			var tube_mat := Toon.material(col, o).duplicate() as StandardMaterial3D
+			tube_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+			var glass := StandardMaterial3D.new()
+			glass.albedo_color = Color(0.7, 0.88, 1.0, 0.22)
+			glass.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			glass.roughness = 0.05
+			glass.metallic_specular = 0.9
 			for sx in [-0.17, 0.17]:
-				P.append(_part(_cyl(size * 0.13, size * 0.15, size * 0.55), Vector3(size * sx, 0, size * 0.27), mat, Vector3(PI / 2, 0, 0)))
-				P.append(_part(_cyl(size * 0.12, size * 0.12, size * 0.02), Vector3(size * sx, 0, size * 0.56), Toon.material(Color("6fb7ff"), 0.0), Vector3(PI / 2, 0, 0)))
-			P.append(_part(_box(Vector3(size * 0.2, size * 0.08, size * 0.12)), Vector3(0, 0, size * 0.25), mat))
+				P.append(_part(tube, Vector3(size * sx, 0, size * 0.18), tube_mat, Vector3(PI / 2, 0, 0)))
+				var rim := TorusMesh.new()
+				rim.inner_radius = size * 0.135
+				rim.outer_radius = size * 0.17
+				P.append(_part(rim, Vector3(size * sx, 0, size * 0.36), mat, Vector3(PI / 2, 0, 0)))
+				P.append(_part(_cyl(size * 0.14, size * 0.14, size * 0.004), Vector3(size * sx, 0, size * 0.355), glass, Vector3(PI / 2, 0, 0)))
+			P.append(_part(_box(Vector3(size * 0.16, size * 0.07, size * 0.1)), Vector3(0, 0, size * 0.16), mat))
 		"sign":
 			P.append(_part(_cyl(size * 0.03, size * 0.03, size * 0.9), Vector3(0, size * 0.45, 0), Toon.material(Color("8a5a2a"), o)))
 			P.append(_part(_box(Vector3(size * 0.9, size * 0.42, size * 0.06)), Vector3(0, size * 1.1, 0), mat))
@@ -393,6 +414,21 @@ static func _story_parts(kind: String, size: float, col: Color, mat: Material) -
 			for sx in [-1.0, 1.0]:
 				P.append(_part(_cyl(size * 0.07, size * 0.07, size * 0.02), Vector3(sx * size * 0.07, size * 0.82, size * 0.05), Toon.material(Color("f4f4f2"), o), Vector3(PI / 2, 0, 0)))
 			P.append(_part(Toon.sphere(size * 0.025), Vector3(0, size * 1.02, 0), _glow_mat(Color("ff4d5a"))))
+		"rickshaw":
+			# Auto-rickshaw: green lower body, yellow canopy, three wheels; faces +z.
+			var yellow := Toon.material(Color("f2c230"), o)
+			var black := Toon.material(Color("1b1b20"), o)
+			P.append(_part(_box(Vector3(size * 0.55, size * 0.32, size * 0.95)), Vector3(0, size * 0.32, -size * 0.05), mat))
+			P.append(_part(_box(Vector3(size * 0.3, size * 0.3, size * 0.25)), Vector3(0, size * 0.3, size * 0.5), mat))
+			P.append(_part(_box(Vector3(size * 0.6, size * 0.06, size * 1.0)), Vector3(0, size * 0.98, -size * 0.05), yellow))
+			for sx in [-0.27, 0.27]:
+				P.append(_part(_box(Vector3(size * 0.04, size * 0.5, size * 0.04)), Vector3(size * sx, size * 0.72, size * 0.38), black))
+			P.append(_part(_box(Vector3(size * 0.6, size * 0.48, size * 0.04)), Vector3(0, size * 0.72, -size * 0.53), yellow))
+			P.append(_part(_box(Vector3(size * 0.5, size * 0.3, size * 0.02)), Vector3(0, size * 0.74, size * 0.42), Toon.material(Color("bfe2ff"), 0.0)))
+			P.append(_part(_box(Vector3(size * 0.4, size * 0.08, size * 0.3)), Vector3(0, size * 0.5, -size * 0.25), black))
+			for w in [Vector3(0, 0.12, 0.55), Vector3(-0.27, 0.12, -0.35), Vector3(0.27, 0.12, -0.35)]:
+				P.append(_part(_cyl(size * 0.12, size * 0.12, size * 0.08), w * size, black, Vector3(0, 0, PI / 2)))
+			P.append(_part(Toon.sphere(size * 0.05), Vector3(0, size * 0.42, size * 0.63), _glow_mat(Color("fff2c0"))))
 	return P
 
 
@@ -432,6 +468,16 @@ static func _half_cyl(r: float, h: float) -> ArrayMesh:
 			st.add_vertex(v)
 	st.generate_normals()
 	return st.commit()
+
+
+## A flat (not billboarded) text mesh, for set dressing (shop signs).
+static func text_node(text: String, height: float, col: Color) -> MeshInstance3D:
+	return _text_mesh(text, height, col, 0.0, false)
+
+
+## A shape as a node, for set dressing (builders reuse the reveal shapes).
+static func shape_node(kind: String, size: float, col: Color) -> Node3D:
+	return _shape(kind, size, col, 0.0)
 
 
 static func _box(s: Vector3) -> BoxMesh:
@@ -543,6 +589,11 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 				s = smoothstep(0.0, 1.0, a)
 			"drop":
 				off.y = (1.0 - _bounce_out(a)) * (2.5 + size * 2.0)
+			"settle":
+				# A soft fall: drifts down from a little above, eases in, a small sway.
+				var k := 1.0 - pow(1.0 - a, 3.0)
+				off.y = (1.0 - k) * (0.7 + size)
+				yaw += sin(a * PI * 2.0) * (1.0 - a) * 0.35
 			"rise":
 				off.y = -(1.0 - _cubic_out(a)) * (size * 2.0 + 0.5)
 				s = minf(1.0, a * 4.0)

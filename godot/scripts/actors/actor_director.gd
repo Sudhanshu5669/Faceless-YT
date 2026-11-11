@@ -26,7 +26,8 @@ const Anchors = preload("res://scripts/camera/anchors.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
 
 const ACTOR_KEYS := ["id", "character", "at", "facing", "action", "freeze", "phase", "route", "crowd", "cues"]
-const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold", "expression"]
+const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold", "expression", "hands"]
+const HANDS := ["face", "chest", "none"]
 const ROUTE_KEYS := ["via", "gait", "speed", "arrive", "start", "then", "then_facing", "then_freeze"]
 const CROWD_KEYS := ["count", "radius", "area", "characters", "start_spread", "seed", "spacing"]
 
@@ -141,11 +142,13 @@ static func _validate_cues(cues, where: String) -> Array:
 		if c.has("hold"):
 			if typeof(c["hold"]) != TYPE_BOOL:
 				e.append(cw + ": hold must be true or false")
-			if c.has("action") or c.has("facing") or c.has("freeze") or c.has("turn") or c.has("expression"):
+			if c.has("action") or c.has("facing") or c.has("freeze") or c.has("turn") or c.has("expression") or c.has("hands"):
 				e.append(cw + ": a hold cue only takes 't' and 'hold'")
 			continue
-		if not (c.has("action") or c.has("facing") or c.has("expression")):
-			e.append(cw + ": needs 'action', 'facing', 'expression' or 'hold'")
+		if not (c.has("action") or c.has("facing") or c.has("expression") or c.has("hands")):
+			e.append(cw + ": needs 'action', 'facing', 'expression', 'hands' or 'hold'")
+		if c.has("hands") and not (String(c["hands"]) in HANDS):
+			e.append("%s: hands must be one of %s" % [cw, HANDS])
 		if c.has("expression") and not Toon.faces().has(String(c["expression"])):
 			e.append("%s: unknown expression '%s' (library/toon/faces.json: %s)" % [cw, c["expression"],
 				", ".join(PackedStringArray(Toon.faces().keys()))])
@@ -355,7 +358,7 @@ static func _plan_one(a: Dictionary, L: Dictionary, offset: Vector3, yaw_jitter:
 		if c.has("hold"):
 			continue
 		var pc := {"tau": Cast.warp(holds, float(c["t"])), "action": String(c.get("action", "")), "yaw": null,
-			"expression": String(c.get("expression", ""))}
+			"expression": String(c.get("expression", "")), "hands": String(c.get("hands", ""))}
 		if c.has("action"):
 			pc["freeze"] = Cast.freeze_fraction(String(c["action"]), c.get("freeze"))
 		if c.has("facing"):

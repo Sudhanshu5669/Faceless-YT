@@ -115,6 +115,19 @@ class ResolveTest(unittest.TestCase):
         self.assertIn(r"{\c&H00D7FF&", dialogue[0])  # the spoken word is highlighted
 
 
+class SingleTakeTest(unittest.TestCase):
+    def test_match_script_tolerates_split_and_misheard_words(self):
+        heard = [{"w": w, "s": i * 1.0, "e": i * 1.0 + 0.8} for i, w in
+                 enumerate(["You", "built", "the", "4G", "only", "network."])]
+        out = episode_audio._match_script(heard, ["You", "build", "the", "4G-only", "network."])
+        self.assertEqual([w["w"] for w in out], ["You", "build", "the", "4G-only", "network."])
+        self.assertAlmostEqual(out[0]["s"], 0.0)
+        self.assertAlmostEqual(out[2]["s"], 2.0)          # matched words keep their times
+        self.assertAlmostEqual(out[3]["s"], 3.0)          # "4G-only" spans "4G" + "only"
+        self.assertAlmostEqual(out[3]["e"], 4.8)
+        self.assertAlmostEqual(out[4]["s"], 5.0)
+
+
 class SfxTest(unittest.TestCase):
     def test_sounds_are_deterministic_and_bounded(self):
         import numpy as np

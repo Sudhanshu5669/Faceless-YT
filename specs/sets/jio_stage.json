@@ -78,12 +78,12 @@
         },
         {
           "id": "street",
-          "floor": "grid",
+          "floor": "road",
           "floor_colors": [
-            "#1a1446",
-            "#120e33"
+            "#4a4152",
+            "#8a7866"
           ],
-          "wall": "skyline",
+          "wall": "bazaar",
           "neon": [],
           "neon_colors": [
             "#5fe3ff",
@@ -93,7 +93,8 @@
             14,
             10
           ],
-          "note": "India on 2G: a crowd staring at loading phones"
+          "light": "#ffe7c4",
+          "note": "India on 2G: an Indian market street at night, everyone staring at loading phones"
         }
       ]
     }

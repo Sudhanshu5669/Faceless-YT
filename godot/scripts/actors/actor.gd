@@ -32,6 +32,7 @@ var _expression := ""
 var _head_lift := 0.08
 var _eyes_fwd := 0.28
 var _eyes_lift := 0.1
+var _head_r := 0.12
 ## id -> actor node for everyone in the scene (set by ActorDirector.build).
 var peers: Dictionary = {}
 
@@ -61,6 +62,7 @@ func setup(id: String, char_id: String, p: Dictionary, L: Dictionary) -> void:
 		_head_lift = (float((built["head_center"] as Vector3).y) - float(built["head_bone"])) * hs
 		_eyes_lift = _head_lift
 		_eyes_fwd = float(built["head_r"]) * hs + 0.05
+		_head_r = float(built["head_r"]) * hs
 		_attach_props(hs)
 		return
 	if model != "":
@@ -132,7 +134,11 @@ func _attach_props(body_scale: float) -> void:
 
 # --- time -> pose ---------------------------------------------------------------
 
+var _pose_t := 0.0
+
+
 func pose_at(t: float) -> void:
+	_pose_t = t
 	var st := state_at(t)
 	position = st["pos"]
 	rotation = Vector3(0, float(st["yaw"]), 0)
@@ -142,6 +148,69 @@ func pose_at(t: float) -> void:
 		if ex != _expression:
 			_expression = ex
 			Toon.apply_face(_face_mat, ex)
+
+
+## Where the hands are held at scene time t ("face", "chest" or "none"): the last "hands" cue.
+func hands_at(t: float) -> String:
+	var tau := Cast.warp(plan.get("holds", []), t)
+	var h := "none"
+	for c in plan.get("cues", []):
+		if float(c["tau"]) <= tau and String(c.get("hands", "")) != "":
+			h = String(c["hands"])
+	return h
+
+
+## Two-bone IK on both arms after the animation pose: hands to the face (holding
+## binoculars, a camera) or in front of the chest (holding a sign). Pure function
+## of the pose, like everything else.
+func _pose_hands(where: String) -> void:
+	var sk: Skeleton3D = retarget.dst if retarget != null else skeleton
+	var skw := _world_of(sk)
+	var inv := skw.affine_inverse()
+	var fwd := Vector3(sin(rotation.y), 0, cos(rotation.y))
+	var left := Vector3(cos(rotation.y), 0, -sin(rotation.y))
+	var head := bone_world("Head") + Vector3.UP * _head_lift
+	for side in ["l", "r"]:
+		var sgn := 1.0 if side == "l" else -1.0
+		var target: Vector3
+		if where == "face":
+			target = head + fwd * (_head_r * 1.15) + left * sgn * (_head_r * 0.62) - Vector3.UP * (_head_r * 0.3)
+		else:
+			target = bone_world("spine_03") + fwd * 0.32 + left * sgn * 0.16 - Vector3.UP * 0.05
+		_ik_arm(sk, "upperarm_" + side, "lowerarm_" + side, "hand_" + side, inv * target,
+			inv.basis * (Vector3.DOWN * 0.7 + left * sgn * 0.7 - fwd * 0.2))
+
+
+func _ik_arm(sk: Skeleton3D, upper: String, lower: String, hand: String, target: Vector3, pole: Vector3) -> void:
+	var iu := sk.find_bone(upper)
+	var il := sk.find_bone(lower)
+	var ih := sk.find_bone(hand)
+	if iu < 0 or il < 0 or ih < 0:
+		return
+	var gu := Cast.bone_global(sk, iu)
+	var gl := Cast.bone_global(sk, il)
+	var gh := Cast.bone_global(sk, ih)
+	var a := gu.origin
+	var l1 := a.distance_to(gl.origin)
+	var l2 := gl.origin.distance_to(gh.origin)
+	var to_t := target - a
+	var d := clampf(to_t.length(), absf(l1 - l2) + 0.001, l1 + l2 - 0.001)
+	var dir := to_t.normalized()
+	# Elbow: law of cosines, bent toward the pole.
+	var cos_a := (l1 * l1 + d * d - l2 * l2) / (2.0 * l1 * d)
+	var bend := (pole - dir * pole.dot(dir)).normalized()
+	var elbow := a + dir * (l1 * cos_a) + bend * (l1 * sqrt(maxf(0.0, 1.0 - cos_a * cos_a)))
+	var tgt := a + dir * d
+	var pu := sk.get_bone_parent(iu)
+	var gp := Cast.bone_global(sk, pu) if pu >= 0 else Transform3D.IDENTITY
+	var r1 := Quaternion((gl.origin - a).normalized(), (elbow - a).normalized())
+	var gu2 := Transform3D(Basis(r1) * gu.basis, a)
+	sk.set_bone_pose_rotation(iu, (gp.basis.inverse() * gu2.basis).get_rotation_quaternion())
+	var gl2 := gu2 * sk.get_bone_pose(il)
+	var gh2 := gl2 * sk.get_bone_pose(ih)
+	var r2 := Quaternion((gh2.origin - gl2.origin).normalized(), (tgt - gl2.origin).normalized())
+	var gl3 := Transform3D(Basis(r2) * gl2.basis, gl2.origin)
+	sk.set_bone_pose_rotation(il, (gu2.basis.inverse() * gl3.basis).get_rotation_quaternion())
 
 
 ## A toon's expression at scene time t: the last "expression" cue at or before t.
@@ -278,6 +347,9 @@ func _play(action_id: String, time: float, freeze: float) -> void:
 	body.position = Vector3(0, Cast.lift_at(cp, tt) * _height_scale, 0)
 	if retarget != null:
 		retarget.apply()
+	var hands := hands_at(_pose_t)
+	if hands != "none":
+		_pose_hands(hands)
 
 
 static func _clip_time(seg: Dictionary, local: float) -> float:
@@ -346,6 +418,8 @@ func anchor_points() -> Dictionary:
 		actor_id + ".head": {"pos": bone_world("Head") + Vector3.UP * _head_lift, "forward": fwd},
 		# Just in front of the face: where a point-of-view camera goes.
 		actor_id + ".eyes": {"pos": bone_world("Head") + Vector3.UP * _eyes_lift + fwd * _eyes_fwd, "forward": fwd},
+		# On the face, at eye height: where glasses and binoculars sit.
+		actor_id + ".face": {"pos": bone_world("Head") + Vector3.UP * (_head_lift + _head_r * 0.06) + fwd * (_head_r * 0.86), "forward": fwd},
 		actor_id + ".chest": {"pos": bone_world("spine_03"), "forward": fwd},
 		actor_id + ".hand": {"pos": bone_world("hand_r"), "forward": fwd},
 	}

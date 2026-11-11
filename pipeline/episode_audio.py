@@ -25,7 +25,7 @@ from pathlib import Path
 import align
 import tts
 
-NARRATION_KEYS = {"voice", "style", "model", "speed", "batch_words"}
+NARRATION_KEYS = {"voice", "style", "model", "speed", "batch_words", "single_take", "script"}
 LINE_KEYS = {"id", "text", "voice", "style", "fx", "shot", "at", "gain", "caption", "speed"}
 SFX_KEYS = {"sound", "at", "gain", "repeat", "every", "salt"}
 AMBIENCE_KEYS = {"sound", "gain", "curve", "duck"}
@@ -113,6 +113,10 @@ def resolve(path: Path, verbose: bool = True) -> dict:
     # only ~10 TTS requests per model per day), then cut apart at the pauses.
     # TOWNFORGE_TTS_MODEL overrides for drafting (e.g. a lighter model with spare quota).
     model = os.environ.get("TOWNFORGE_TTS_MODEL") or narr.get("model", tts.DEFAULT_MODEL)
+    forced: dict[str, float] = {}
+    if narr.get("single_take"):
+        lines, forced = _single_take(ep, narr, model)
+        return _finish_resolve(ep, lines, forced, verbose)
     groups: dict[tuple, list[str]] = {}
     for ln in ep.get("lines", []):
         key = (ln.get("voice", narr.get("voice", "Charon")), ln.get("style", narr.get("style", "")))
@@ -143,13 +147,121 @@ def resolve(path: Path, verbose: bool = True) -> dict:
             take = _tempo(take, speed)
         lines.append({**ln, "wav": take["wav"], "dur": take["dur"], "words": take["words"],
                       "at": float(ln.get("at", 0.15))})
+    return _finish_resolve(ep, lines, forced, verbose)
+
+
+SINGLE_LEAD = 0.12   # silence before the take starts
+SINGLE_TAIL = 0.45   # after the last spoken word
+
+
+def _single_take(ep: dict, narr: dict, model: str) -> tuple[list, dict]:
+    """The whole script in ONE TTS request (one continuous performance), aligned,
+    then cut at the line boundaries. Each line is placed back at its own moment in
+    the take, so the soundtrack IS the take, and every shot lasts exactly from its
+    first line to the next shot's first line. narration.script (optional) is the
+    full script; the episode's lines must be its first entries (a sample can
+    film the start of a longer script and still share the one take)."""
+    import numpy as np
+    eplines = ep.get("lines", [])
+    script = narr.get("script") or [ln["text"] for ln in eplines]
+    if [ln["text"] for ln in eplines] != script[:len(eplines)]:
+        raise EpisodeError("ERROR: single_take: the lines' texts must be the first entries of narration.script, in order")
+    voice, style = narr.get("voice", "Charon"), narr.get("style", "")
+    joined = " ".join(script)
+    wav = tts.synthesize(joined, voice, style, model)
+    words = [w for w in align.words(wav, joined) if not w.get("extra")]
+    counts = [len(align.script_words(t)) for t in script]
+    dur = tts.duration(wav)
+    words = _match_script(words, [w for t in script for w in align.script_words(t)])
+    late = [w["w"] for w in words if w["s"] >= dur - 0.05]
+    if late:
+        raise EpisodeError(f"ERROR: the single take stops early ({dur:.1f} s); unspoken: {' '.join(late[:12])}. "
+                           f"Delete {wav} (and its .words.json) to retake")
+    take = {"wav": str(wav), "dur": dur, "words": words}
+    speed = float(narr.get("speed", 1.0))
+    if abs(speed - 1.0) > 0.001:
+        take = _tempo(take, speed)
+    words = take["words"]
+    # Line k spans [cut_k, cut_{k+1}): cut in the middle of the gap between lines.
+    starts, i = [], 0
+    for c in counts:
+        starts.append(i)
+        i += c
+    n = len(eplines)
+    cuts = [0.0]
+    for k in range(1, n + 1):
+        if k < len(script):
+            cuts.append((words[starts[k] - 1]["e"] + words[starts[k]]["s"]) / 2)
+        else:
+            cuts.append(min(take["dur"], words[-1]["e"] + SINGLE_TAIL))
+    src = Path(take["wav"])
+    with wave.open(str(src), "rb") as w:
+        rate = w.getframerate()
+        pcm = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)
+    lines = []
+    for k, ln in enumerate(eplines):
+        a, b = int(cuts[k] * rate), int(cuts[k + 1] * rate)
+        out = src.with_name(f"{src.stem}_L{k:02d}.wav")
+        with wave.open(str(out), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(rate)
+            w.writeframes(pcm[a:b].tobytes())
+        ws = [{"w": x["w"], "s": round(x["s"] - cuts[k], 3), "e": round(x["e"] - cuts[k], 3)}
+              for x in words[starts[k]:starts[k] + counts[k]]]
+        lines.append({**ln, "wav": str(out), "dur": round(cuts[k + 1] - cuts[k], 3), "words": ws,
+                      "take_t": SINGLE_LEAD + cuts[k]})
+    # Shots: each starts where its first line starts (the first at 0).
+    order, firsts = [], {}
+    for ln in lines:
+        if ln["shot"] not in firsts:
+            firsts[ln["shot"]] = ln["take_t"]
+            order.append(ln["shot"])
+    names = [s["name"] for s in ep["shots"]]
+    if order != names:
+        raise EpisodeError("ERROR: single_take: every shot needs a line, and lines must follow the shot order "
+                           f"(shots {names}, lines visit {order})")
+    bounds = [0.0] + [firsts[s] for s in names[1:]] + [SINGLE_LEAD + cuts[n]]
+    forced = {s: round(bounds[j + 1] - bounds[j], 3) for j, s in enumerate(names)}
+    shot_start = {s: bounds[j] for j, s in enumerate(names)}
+    for ln in lines:
+        ln["at"] = round(ln.pop("take_t") - shot_start[ln["shot"]], 3)
+    return lines, forced
+
+
+def _match_script(heard: list, script: list) -> list:
+    """Timings for each script word from the aligner's words, which may split or
+    mishear a few ("4G-only" -> "4G", "only"). Matched words keep their times; a
+    run of unmatched script words shares the time span of the heard words between."""
+    import difflib
+    a = [_norm_word(w["w"]) for w in heard]
+    b = [_norm_word(w) for w in script]
+    out: list = [None] * len(script)
+    sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == "equal":
+            for k in range(j2 - j1):
+                out[j1 + k] = {"w": script[j1 + k], "s": heard[i1 + k]["s"], "e": heard[i1 + k]["e"]}
+        elif j2 > j1:
+            s0 = heard[i1]["s"] if i1 < len(heard) else (heard[-1]["e"] if heard else 0.0)
+            e0 = heard[i2 - 1]["e"] if i2 > i1 else s0
+            step = (e0 - s0) / (j2 - j1)
+            for k in range(j2 - j1):
+                out[j1 + k] = {"w": script[j1 + k], "s": round(s0 + step * k, 3), "e": round(s0 + step * (k + 1), 3)}
+    matched = sum(bl.size for bl in sm.get_matching_blocks()) / max(1, len(script))
+    if len(script) >= 20 and matched < 0.85:
+        raise EpisodeError(f"ERROR: the single take does not match the script ({matched:.0%} of words heard); retake it")
+    return out
+
+
+def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool) -> dict:
     by_shot: dict[str, list] = {}
     for ln in lines:
         by_shot.setdefault(ln["shot"], []).append(ln)
     # 2. Shot durations ("fit" = as long as its lines) and the edit / scene timeline.
     shots, edit, scene, errors = [], 0.0, 0.0, []
     for s in ep["shots"]:
-        d = s["duration"]
+        d = forced.get(s["name"], s["duration"])
         if d == "fit" or isinstance(d, dict):
             opts = d if isinstance(d, dict) else {}
             mine = by_shot.get(s["name"], [])
@@ -535,8 +647,16 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
                     text = " ".join(x["w"] for x in ch)
                 else:
                     text = " ".join((hi + x["w"] + r"{\r}") if j == wi else x["w"] for j, x in enumerate(ch))
-                events.append(f"Dialogue: 0,{_ass_time(ln['edit'] + s)},{_ass_time(ln['edit'] + e)},{style},,0,0,0,,{text}")
-    path.write_text(header + "\n".join(events) + "\n", encoding="utf-8")
+                events.append([ln["edit"] + s, ln["edit"] + e, style, text])
+    # One caption at a time per style: an event ends when the next one starts
+    # (back-to-back lines, e.g. a single take, would otherwise overlap).
+    events.sort(key=lambda ev: ev[0])
+    for i, ev in enumerate(events):
+        nxt = next((o for o in events[i + 1:] if o[2] == ev[2]), None)
+        if nxt is not None:
+            ev[1] = min(ev[1], nxt[0])
+    lines_out = [f"Dialogue: 0,{_ass_time(a)},{_ass_time(b)},{st},,0,0,0,,{tx}" for a, b, st, tx in events if b > a]
+    path.write_text(header + "\n".join(lines_out) + "\n", encoding="utf-8")
     return path
 
 

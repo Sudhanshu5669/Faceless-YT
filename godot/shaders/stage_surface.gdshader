@@ -1,5 +1,5 @@
 // Stage floors and walls: procedural patterns in the toon diorama style.
-// pattern: 0 checker, 1 tiles, 2 grid (glowing lines), 3 wood, 4 plain, 5 carpet,
+// pattern: 0 checker, 1 tiles, 2 grid (glowing lines), 3 wood, 4 plain, 5 carpet, 6 road,
 //          10 panels, 11 brick. Coordinates are local metres (axis = which plane).
 shader_type spatial;
 
@@ -10,6 +10,7 @@ uniform vec3 line_color : source_color = vec3(0.37, 0.89, 1.0);
 uniform float cell = 1.0;
 uniform float line_glow = 2.5;
 uniform bool vertical = false;
+uniform float foot_z = -3.6;
 
 varying vec3 lp;
 
@@ -60,6 +61,20 @@ void fragment() {
 	} else if (pattern == 5) {
 		col = mix(color_a, color_b, step(0.5, fract((uv.x + uv.y) * 2.0)) * 0.25);
 		rough = 0.9;
+	} else if (pattern == 6) {
+		// Dusty Indian street: worn asphalt (color_a), a paved footpath strip
+		// along the back (color_b) with a painted kerb, scattered patches.
+		vec2 w = vertical ? lp.xy : lp.xz;
+		float n = hash(floor(w * 3.0)) * 0.5 + hash(floor(w * 0.7)) * 0.5;
+		col = color_a * (0.85 + 0.3 * n);
+		float walk = step(w.y, foot_z);
+		vec2 tile = w / 0.6;
+		vec3 paving = mix(color_b, color_b * 0.8, step(0.5, fract((floor(tile.x) + floor(tile.y)) * 0.5)));
+		col = mix(col, paving, walk);
+		float kerb = step(abs(w.y - foot_z), 0.12);
+		float stripe = step(0.5, fract(w.x * 0.8));
+		col = mix(col, mix(vec3(0.95, 0.85, 0.2), vec3(0.12), stripe), kerb);
+		rough = 0.8;
 	} else if (pattern == 10) {
 		vec2 p = uv * vec2(0.5, 0.33);
 		col = mix(color_a, color_a * 1.15, step(0.5, fract(floor(p.x) * 0.5)));
