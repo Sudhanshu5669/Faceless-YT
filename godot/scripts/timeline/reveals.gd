@@ -23,21 +23,24 @@ const Toon = preload("res://scripts/actors/toon.gd")
 const KEYS := ["id", "t", "until", "prop", "shape", "text", "counter", "at", "size", "color", "yaw", "face",
 	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note", "label", "label_color", "roll", "from", "moves"]
 const KINDS := ["prop", "shape", "text", "counter"]
-const COUNTER_KEYS := ["from", "to", "land", "keys", "decimals", "prefix", "suffix", "commas", "label", "land_color"]
+const COUNTER_KEYS := ["from", "to", "land", "keys", "decimals", "prefix", "suffix", "commas", "group", "label", "land_color"]
 const ENTERS := ["pop", "drop", "settle", "rise", "slide_left", "slide_right", "beam", "grow", "move", "none"]
 const EXITS := ["shrink", "pop", "drop", "rise", "none"]
 const SHAPES := ["box", "sphere", "cylinder", "cone", "card", "coin", "cash", "ring", "bottle", "pin", "chip", "phone",
 	"refinery", "pump", "postcard", "scales", "frame", "garland", "cake", "cake_half", "binoculars", "sign", "spinner", "tower",
-	"rickshaw", "plaque"]
+	"rickshaw", "plaque", "india", "crown", "moneybag", "vitrine", "laptop", "tank", "receipt", "podium"]
 ## Shapes that print their "label" on their face: [x, y, z, text height] as fractions of size.
 const LABELLED := {"card": [0.0, 0.62, 0.025, 0.09], "sign": [0.0, 1.12, 0.045, 0.13], "cake": [0.0, 0.2, 0.52, 0.1],
 	"pump": [0.0, 0.98, 0.22, 0.08], "postcard": [-0.2, 0.08, 0.02, 0.08], "box": [0.0, 0.5, 0.505, 0.15],
-	"cake_half": [0.0, 0.2, 0.52, 0.09], "plaque": [0.0, 0.1, 0.022, 0.085]}
+	"cake_half": [0.0, 0.2, 0.52, 0.09], "plaque": [0.0, 0.1, 0.022, 0.085], "moneybag": [0.0, 0.3, 0.37, 0.14],
+	"tank": [0.0, 0.42, 0.16, 0.1], "receipt": [0.0, 0.86, 0.016, 0.08]}
 const DEFAULT_COLORS := {"box": "#f2f2f2", "sphere": "#f2f2f2", "cylinder": "#f2f2f2", "cone": "#f2f2f2",
 	"card": "#ffffff", "coin": "#f2c230", "cash": "#4fbf6a", "ring": "#5fe3ff", "bottle": "#4a90e2",
 	"pin": "#ff4d5a", "chip": "#2b2f36", "phone": "#16181d", "refinery": "#c9ced6", "pump": "#d6453d",
 	"postcard": "#f6ecd2", "scales": "#e8b52a", "frame": "#d9a632", "garland": "#ff8c1a", "cake": "#ff9ec4",
-	"cake_half": "#ff9ec4", "binoculars": "#1b1c22", "sign": "#ffffff", "spinner": "#ffffff", "tower": "#c9ced6", "rickshaw": "#2f9e44", "plaque": "#d9a632"}
+	"cake_half": "#ff9ec4", "binoculars": "#1b1c22", "sign": "#ffffff", "spinner": "#ffffff", "tower": "#c9ced6", "rickshaw": "#2f9e44", "plaque": "#d9a632",
+	"india": "#ff9a3c", "crown": "#f2c230", "moneybag": "#c8a26a", "vitrine": "#7a1f2a", "laptop": "#9aa3b2", "tank": "#2f9e6a",
+	"receipt": "#fbfbf6", "podium": "#5a3fa0"}
 ## Chunky display font for text and counters (OFL, godot/fonts/lilita_one).
 const FONT_PATH := "res://fonts/lilita_one/LilitaOne-Regular.ttf"
 ## Fallback for what Lilita lacks (the rupee sign, Devanagari): Baloo 2 at ExtraBold.
@@ -125,9 +128,9 @@ static func validate(reveals) -> Array:
 		if String(r.get("enter", "pop")) == "move" and (typeof(r.get("from")) != TYPE_ARRAY or r["from"].size() != 3):
 			e.append(w + ": enter 'move' needs 'from': [x, y, z], the start offset in metres from 'at'")
 		for m in r.get("moves", []):
-			if typeof(m) != TYPE_DICTIONARY or not _is_time(m.get("t")) or typeof(m.get("by")) != TYPE_ARRAY \
-					or m["by"].size() != 3:
-				e.append(w + ": each move is {\"t\": time, \"by\": [x, y, z] metres, \"dur\": s, \"turn\": degrees}")
+			if typeof(m) != TYPE_DICTIONARY or not _is_time(m.get("t")) or (m.has("by") and (typeof(m["by"]) != TYPE_ARRAY \
+					or m["by"].size() != 3)) or not (m.has("by") or m.has("turn") or m.has("tip")):
+				e.append(w + ": each move is {\"t\": time, \"by\": [x, y, z] metres, \"dur\": s, \"turn\": degrees, \"tip\": degrees}")
 		if r.has("yaw") and r.has("face"):
 			e.append(w + ": give 'yaw' or 'face', not both")
 	return e
@@ -160,6 +163,8 @@ static func _validate_counter(c, w: String) -> Array:
 		e.append(w + ": counter.land must be a time")
 	if c.has("land_color") and not Color.html_is_valid(String(c["land_color"])):
 		e.append(w + ": counter.land_color is not a hex colour")
+	if c.has("group") and not (String(c["group"]) in ["western", "indian"]):
+		e.append(w + ": counter.group must be \"western\" (1,000,000) or \"indian\" (10,00,000)")
 	if c.has("decimals") and (int(c["decimals"]) < 0 or int(c["decimals"]) > 3):
 		e.append(w + ": counter.decimals must be 0..3")
 	return e
@@ -437,7 +442,128 @@ static func _story_parts(kind: String, size: float, col: Color, mat: Material) -
 			for w in [Vector3(0, 0.12, 0.55), Vector3(-0.27, 0.12, -0.35), Vector3(0.27, 0.12, -0.35)]:
 				P.append(_part(_cyl(size * 0.12, size * 0.12, size * 0.08), w * size, black, Vector3(0, 0, PI / 2)))
 			P.append(_part(Toon.sphere(size * 0.05), Vector3(0, size * 0.42, size * 0.63), _glow_mat(Color("fff2c0"))))
+		"india":
+			# The map of India (official outline), lying flat: north toward -z, size = its height.
+			# india_point() gives the spot of a (lon, lat) on it, for pins.
+			var poly := PackedVector2Array()
+			for q in INDIA:
+				var v := india_point(q[0], q[1], size)
+				poly.append(Vector2(v.x, v.z))
+			P.append(_part(_slab(poly, size * 0.03), Vector3.ZERO, mat))
+		"crown":
+			P.append(_part(_cyl(size * 0.42, size * 0.4, size * 0.3), Vector3(0, size * 0.15, 0), mat))
+			for k in 5:
+				var a := TAU * float(k) / 5.0
+				P.append(_part(_cyl(0.0, size * 0.1, size * 0.32), Vector3(cos(a) * size * 0.36, size * 0.44, sin(a) * size * 0.36), mat))
+				P.append(_part(Toon.sphere(size * 0.05), Vector3(cos(a) * size * 0.36, size * 0.62, sin(a) * size * 0.36), mat))
+			for k in 3:
+				var a := TAU * (float(k) + 0.5) / 3.0 + PI * 0.5
+				P.append(_part(Toon.sphere(size * 0.06), Vector3(cos(a) * size * 0.42, size * 0.15, sin(a) * size * 0.42),
+					Toon.material(Color("d61f3a"), 0.0)))
+		"moneybag":
+			var bag := Toon.sphere(size * 0.38)
+			P.append([bag, Transform3D(Basis.IDENTITY.scaled(Vector3(1.0, 0.92, 1.0)), Vector3(0, size * 0.36, 0)), mat])
+			P.append(_part(_cyl(size * 0.1, size * 0.16, size * 0.14), Vector3(0, size * 0.74, 0), mat))
+			P.append(_part(_cyl(size * 0.17, size * 0.17, size * 0.05), Vector3(0, size * 0.69, 0), Toon.material(Color("8a5a2a"), o)))
+			P.append(_part(_cyl(0.0, size * 0.18, size * 0.12), Vector3(0, size * 0.86, 0), mat, Vector3(PI, 0, 0)))
+		"vitrine":
+			# A museum case: a plinth, a glass box, brass posts and a velvet rope in front.
+			var gl := StandardMaterial3D.new()
+			gl.albedo_color = Color(0.75, 0.9, 1.0, 0.18)
+			gl.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			gl.roughness = 0.05
+			gl.metallic_specular = 1.0
+			P.append(_part(_box(Vector3(size * 0.5, size * 0.45, size * 0.5)), Vector3(0, size * 0.225, 0), Toon.material(Color("efe6d6"), o)))
+			P.append(_part(_box(Vector3(size * 0.46, size * 0.5, size * 0.46)), Vector3(0, size * 0.7, 0), gl))
+			var brass := Toon.material(Color("d9a632"), o)
+			for sx in [-0.45, 0.45]:
+				P.append(_part(_cyl(size * 0.025, size * 0.03, size * 0.42), Vector3(size * sx, size * 0.21, size * 0.45), brass))
+				P.append(_part(Toon.sphere(size * 0.045), Vector3(size * sx, size * 0.44, size * 0.45), brass))
+			for k in 9:
+				var u := float(k) / 8.0
+				P.append(_part(Toon.sphere(size * 0.028), Vector3(size * (u - 0.5) * 0.9, size * (0.4 - sin(u * PI) * 0.1), size * 0.45), mat))
+		"laptop":
+			# Base toward +z, the screen hinged at the back, tilted back a little, lit.
+			P.append(_part(_box(Vector3(size, size * 0.04, size * 0.65)), Vector3(0, size * 0.02, 0), mat))
+			var lid := Basis.from_euler(Vector3(-0.22, 0, 0))
+			P.append([_box(Vector3(size, size * 0.62, size * 0.035)), Transform3D(lid, Vector3(0, size * 0.33, -size * 0.36)), mat])
+			var scr := Toon.material(Color("e9f1ff"), 0.0).duplicate() as StandardMaterial3D
+			scr.emission_enabled = true
+			scr.emission = Color("cfe3ff")
+			scr.emission_energy_multiplier = 0.9
+			P.append([_box(Vector3(size * 0.9, size * 0.52, size * 0.01)), Transform3D(lid, Vector3(0, size * 0.33, -size * 0.336)), scr])
+			P.append(_part(_box(Vector3(size * 0.8, size * 0.008, size * 0.35)), Vector3(0, size * 0.042, size * 0.05), Toon.material(Color("3a3f4a"), 0.0)))
+		"tank":
+			# Oxygen cylinder: a tall rounded bottle, a white shoulder and a brass valve.
+			P.append(_part(_cyl(size * 0.17, size * 0.17, size * 0.72), Vector3(0, size * 0.36, 0), mat))
+			P.append(_part(Toon.sphere(size * 0.17), Vector3(0, size * 0.72, 0), Toon.material(Color("f4f4f2"), o)))
+			P.append(_part(_cyl(size * 0.05, size * 0.06, size * 0.1), Vector3(0, size * 0.9, 0), Toon.material(Color("d9a632"), o)))
+			P.append(_part(_cyl(size * 0.09, size * 0.09, size * 0.025), Vector3(0, size * 0.96, 0), Toon.material(Color("d9a632"), o), Vector3(PI / 2, 0, 0)))
+		"receipt":
+			# A long printed bill: paper strip, grey rows, a zigzag tear at the bottom.
+			P.append(_part(_box(Vector3(size * 0.42, size, size * 0.01)), Vector3(0, size * 0.5, 0), mat))
+			for k in 9:
+				var wv := 0.3 if k % 3 else 0.22
+				P.append(_part(_box(Vector3(size * wv, size * 0.012, size * 0.012)), Vector3(size * (wv * 0.5 - 0.17), size * (0.15 + 0.065 * k), size * 0.006),
+					Toon.material(Color("9a9aa2"), 0.0)))
+			for k in 6:
+				P.append(_part(_box(Vector3(size * 0.05, size * 0.05, size * 0.012)), Vector3(size * (-0.175 + 0.07 * k), size * 0.0, 0), mat,
+					Vector3(0, 0, PI / 4)))
+		"podium":
+			# Winners' podium: 1 in the middle (tallest), 2 on screen left, 3 on screen right.
+			for b in [[0.0, 0.5, "1"], [-0.36, 0.34, "2"], [0.36, 0.24, "3"]]:
+				var hgt := size * float(b[1])
+				# Facing +z, screen left is world -x.
+				var c := col if b[2] == "1" else col.darkened(0.2)
+				P.append(_part(_box(Vector3(size * 0.36, hgt, size * 0.36)), Vector3(size * float(b[0]), hgt * 0.5, 0), Toon.material(c, o)))
+				var num := _text_mesh(b[2], size * 0.16, Color("ffd84a"), 0.6, false)
+				P.append([num.mesh, Transform3D(Basis.IDENTITY, Vector3(size * float(b[0]), hgt * 0.55, size * 0.185)), num.material_override])
 	return P
+
+
+## The official outline of India (with all of Jammu & Kashmir and Ladakh), coarse:
+## [longitude, latitude] going round clockwise from the northern tip.
+const INDIA := [[74.6, 37.0], [77.0, 35.5], [78.2, 35.6], [80.2, 35.4], [79.4, 32.5], [78.8, 31.2], [80.2, 30.2],
+	[81.1, 28.6], [83.3, 27.4], [85.0, 26.9], [87.9, 26.4], [88.2, 27.9], [88.9, 27.3], [89.8, 26.8], [92.0, 26.9],
+	[92.1, 27.8], [94.4, 29.2], [96.2, 29.4], [97.4, 28.2], [96.9, 27.2], [95.3, 26.6], [94.7, 25.2], [94.2, 23.9],
+	[93.4, 23.1], [92.7, 21.9], [92.3, 23.6], [91.9, 24.3], [90.2, 25.2], [89.8, 25.9], [88.5, 25.2], [88.8, 24.2],
+	[88.9, 22.0], [87.0, 21.5], [86.5, 20.2], [85.0, 19.3], [84.0, 18.3], [82.3, 16.6], [80.3, 15.7], [80.2, 13.4],
+	[79.8, 11.5], [79.8, 10.3], [78.4, 9.0], [77.5, 8.1], [76.4, 9.5], [75.7, 11.5], [74.8, 13.0], [74.1, 14.8],
+	[73.4, 16.3], [72.8, 19.0], [72.6, 21.0], [72.2, 21.7], [70.9, 20.7], [69.0, 22.3], [70.2, 22.9], [68.5, 23.6],
+	[70.0, 24.3], [71.0, 24.6], [70.5, 25.7], [69.6, 26.6], [70.6, 27.9], [72.4, 28.9], [73.4, 29.9], [74.6, 31.0],
+	[74.7, 32.5], [74.0, 33.4], [73.8, 34.7]]
+const INDIA_CENTER := [82.5, 22.5]
+const INDIA_SPAN := 29.0
+
+
+## Where a (lon, lat) sits on an "india" shape of this size, in its local space (north = -z).
+static func india_point(lon: float, lat: float, size: float) -> Vector3:
+	var k := size / INDIA_SPAN
+	return Vector3((lon - INDIA_CENTER[0]) * k, size * 0.03, -(lat - INDIA_CENTER[1]) * k)
+
+
+## A flat extruded polygon (XZ outline), from y = 0 to y = h.
+static func _slab(poly: PackedVector2Array, h: float) -> ArrayMesh:
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var tris := Geometry2D.triangulate_polygon(poly)
+	if tris.is_empty():
+		tris = Geometry2D.triangulate_polygon(PackedVector2Array(Array(poly).duplicate()))
+	for i in range(0, tris.size(), 3):
+		for j in [0, 1, 2]:
+			var v: Vector2 = poly[tris[i + j]]
+			st.add_vertex(Vector3(v.x, h, v.y))
+	var n := poly.size()
+	for i in n:
+		var a := poly[i]
+		var b := poly[(i + 1) % n]
+		var p0 := Vector3(a.x, 0, a.y)
+		var p1 := Vector3(b.x, 0, b.y)
+		var up := Vector3(0, h, 0)
+		for v in [p0, p1, p1 + up, p0, p1 + up, p0 + up]:
+			st.add_vertex(v)
+	st.generate_normals()
+	return st.commit()
 
 
 static func _part(m: Mesh, at: Vector3, material: Material, rot: Vector3 = Vector3.ZERO) -> Array:
@@ -633,19 +759,24 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 				"rise":
 					off.y += x * x * (3.0 + size * 2.0)
 		var age := t - t0
+		var tip := 0.0
 		yaw += deg_to_rad(float(r.get("spin", 0.0))) * age
 		off.y += sin(age * 2.6) * float(r.get("bob", 0.0))
 		# Timed moves after the entrance: slide by an offset (world metres), maybe turn.
 		for m in r.get("moves", []):
 			var mk := clampf((t - float(m["t"])) / maxf(float(m.get("dur", 0.6)), 0.001), 0.0, 1.0)
 			mk = mk * mk * (3.0 - 2.0 * mk)
-			var by: Array = m["by"]
+			var by: Array = m.get("by", [0, 0, 0])
 			off += Vector3(float(by[0]), float(by[1]), float(by[2])) * mk
 			yaw += deg_to_rad(float(m.get("turn", 0.0))) * mk
+			# "tip": fall over sideways about the base (+ = toward screen left when facing the camera),
+			# with a small bounce as it lands.
+			var tk := clampf((t - float(m["t"])) / maxf(float(m.get("dur", 0.6)), 0.001), 0.0, 1.0)
+			tip += deg_to_rad(float(m.get("tip", 0.0))) * _bounce_out(tk * tk)
 		if r.has("counter"):
 			s *= _pose_counter(h.get_node("content"), r["counter"], t, t0, Color(String(r.get("color", "#ffffff"))))
 		h.position = p["pos"] + off
-		h.rotation = Vector3(0, yaw, 0)
+		h.rotation = Vector3(0, yaw, tip)
 		if r.has("roll"):
 			(h.get_node("content") as Node3D).rotation.z = -deg_to_rad(float(r["roll"])) * age
 		h.scale = Vector3.ONE * maxf(s, 0.001)
@@ -671,7 +802,7 @@ static func _pose_counter(n: Node3D, c: Dictionary, t: float, t0: float, col: Co
 	var landed := t >= land
 	var value := n.get_node("value") as MeshInstance3D
 	var txt := format_number(v if not landed else float(keys[-1][1]), int(c.get("decimals", 0)),
-		bool(c.get("commas", true)), String(c.get("prefix", "")), String(c.get("suffix", "")))
+		bool(c.get("commas", true)), String(c.get("prefix", "")), String(c.get("suffix", "")), String(c.get("group", "western")))
 	var tm := value.mesh as TextMesh
 	if tm.text != txt:
 		tm.text = txt
@@ -686,7 +817,7 @@ static func _pose_counter(n: Node3D, c: Dictionary, t: float, t0: float, col: Co
 	return 1.0
 
 
-static func format_number(v: float, decimals: int, commas: bool, prefix: String, suffix: String) -> String:
+static func format_number(v: float, decimals: int, commas: bool, prefix: String, suffix: String, group: String = "western") -> String:
 	var s := String.num(absf(v), decimals) if decimals > 0 else str(int(round(absf(v))))
 	if decimals > 0 and not s.contains("."):
 		s += "." + "0".repeat(decimals)
@@ -696,9 +827,12 @@ static func format_number(v: float, decimals: int, commas: bool, prefix: String,
 	if commas:
 		var ip := s.get_slice(".", 0)
 		var grouped := ""
-		while ip.length() > 3:
-			grouped = "," + ip.substr(ip.length() - 3) + grouped
-			ip = ip.substr(0, ip.length() - 3)
+		# Indian grouping: the last three digits, then pairs (3,00,000; 1,50,000).
+		var n := 3
+		while ip.length() > n:
+			grouped = "," + ip.substr(ip.length() - n) + grouped
+			ip = ip.substr(0, ip.length() - n)
+			n = 2 if group == "indian" else 3
 		grouped = ip + grouped
 		s = grouped + ("." + s.get_slice(".", 1) if s.contains(".") else "")
 	return prefix + ("-" if v < 0.0 else "") + s + suffix

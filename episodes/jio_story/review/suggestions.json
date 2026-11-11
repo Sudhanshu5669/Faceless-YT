@@ -1,0 +1,47 @@
+{
+  "env:rivals": [
+    {"id": "c1", "text": "The telco towers are thin white lattices on a maroon wall; they read, but are plain. Tint each front tower in its brand colour (Airtel red, Vodafone red, Idea yellow) so the three rivals are told apart at a glance."}
+  ],
+  "env:war_room": [
+    {"id": "c1", "text": "The map of India is a flat orange slab. Add a thin darker rim (or states as faint lines) so it reads as a map and not a shape, especially in the close Infotel / 95% shots."}
+  ],
+  "env:launch": [
+    {"id": "c1", "text": "The JIO neon fills the top of every launch shot and covers other text (INSANE, JIOPHONE). Move it 1 m higher and back, or let it appear only from the 'launch' shot and dim it in later beats."}
+  ],
+  "cast:toon_agent": [
+    {"id": "c1", "text": "Plays the TRAI regulator (behind the desk). With sunglasses he looks like a spy; a plain suit-and-tie official without sunglasses would read better."}
+  ],
+  "shot:infotel": [
+    {"id": "c1", "text": "'An unknown company called Infotel': only a '?' and a purple box. A tiny shop with an INFOTEL board (a shopfront shape) would sell 'unknown company' better than a plain box."}
+  ],
+  "shot:circles": [
+    {"id": "c1", "text": "The 22 pins pop in about a second and are small at this distance. Make the pins 1.5x bigger, or push the camera in during the count."}
+  ],
+  "shot:volte": [
+    {"id": "c1", "text": "'Even phone calls travel as data': the packets flying from Mukesh's phone to the 4G tower are small and fast. Slow them down (1.5 s) and make them bigger, so CALL = DATA lands on a visible picture."}
+  ],
+  "shot:old_towers": [
+    {"id": "c1", "text": "The 2G towers fall like dominoes but are small in frame. Push the camera in ~1.5 m so the fall is the shot."}
+  ],
+  "shot:everyone": [
+    {"id": "c1", "text": "The DATA oxygen tank beams in over the crowd but sits small at the back. Bring it closer to the camera, or end the shot on a push toward it."}
+  ],
+  "shot:seven": [
+    {"id": "c1", "text": "'Seven new customers every second': the 7 phones are tiny white rectangles. Seven toons popping into the front row (one per tick) would be the literal gag from the script note."}
+  ],
+  "shot:insane": [
+    {"id": "c1", "text": "INSANE is half hidden behind the JIO neon arch. Put it lower, in front of the arch, or drop it (the phone dropping on 'phone' is the picture)."}
+  ],
+  "shot:facebook": [
+    {"id": "c1", "text": "'For a slice': the cake stays whole. Make the Jio cake two halves (like the RELIANCE cake) and slide a small wedge toward FACEBOOK on 'slice', a callback to the family split."}
+  ],
+  "shot:merge": [
+    {"id": "c1", "text": "Vodafone and Idea slide together and their crowns drop. Add a 'nervous' sweat drop or a wobble so 'just to survive' has a beat."}
+  ],
+  "shot:today": [
+    {"id": "c1", "text": "The 524 MILLION counter and the pull-back work. The crowd is only 16 toons; double it for this shot only (a second crowd behind) so the pull-back feels like 'a sea of people'."}
+  ],
+  "shot:loop": [
+    {"id": "c1", "text": "The bookend works: जियो = LIVE over the opening set, ending on the opening frame. Optionally give Mukesh a JioPhone in hand in this last shot (the opening set, transformed)."}
+  ]
+}

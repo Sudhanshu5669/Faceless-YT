@@ -102,14 +102,18 @@ irreverence. No intro, no "in this video", no outro.
   slide_right beam grow`. `spin`, `bob`, `glow`. A reveal's `at` can be an actor anchor
   (`"boss.hand"`), so things sit in hands and float over heads. Reveal ids are camera anchors.
 - **Story shapes:** `refinery pump postcard scales frame garland cake cake_half binoculars sign
-  spinner tower` (+ `label` text on card/sign/cake/pump/postcard/box), `roll` (spin in the
+  spinner tower rickshaw plaque india crown moneybag vitrine laptop tank receipt podium`
+  (+ `label` text on card/sign/cake/pump/postcard/box/moneybag/tank/receipt; `india` is the map,
+  flat on the floor, pins by lon/lat: see REVEALS_SPEC.md), moves `tip` (knock over: towers,
+  dominoes), counters `"group": "indian"` (3,00,000), `roll` (spin in the
   frame plane, for spinners), `enter: "move"` with `from: [x,y,z]` (slide in from an offset).
 - **Sets, India-first (the user does NOT want the plain blue grid/tile look anywhere):** street
   scenes use wall `bazaar` + floor `road` (painted shop row, signboards incl. Hindi, autos,
   wires and fairy lights); interiors use wall `haveli` + floor `marble` or `wood` (arched windows,
   pillars, toran, lanterns; `"sides": true` for a room). Reveals: `moves` [{t, by, dur, turn}]
-  slide things after they appear (e.g. a cake made of two `cake_half`s that slide apart);
-  `plaque` (+ label) for name plates. Anchor offsets are [right, up, forward]: facing +z, right
+  slide things after they appear (`tip` knocks them over) (e.g. a cake made of two `cake_half`s that slide apart);
+  `plaque` (+ label) for name plates. Don't let a `whip_out` eat a shot's payoff: if the reveal lands in
+  the last ~0.4 s of a line, cut instead. Anchor offsets are [right, up, forward]: facing +z, right
   is world -x.
 - **Sets (all options):** `generator: "stage"` (specs/sets/jio_stage.json is the example): bays with
   floors `checker tiles grid wood plain carpet`, walls `tiles panels plain grid brick skyline none`,

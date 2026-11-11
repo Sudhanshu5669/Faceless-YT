@@ -2,7 +2,7 @@
  "schema_version": "0.1",
  "id": "jio_story",
  "title": "How Mukesh Ambani built Jio",
- "description": "Toon Short: the story of Jio. SAMPLE: script lines 1-5 (the lost dream, the 2G market).",
+ "description": "Toon Short: the story of Jio, in 24 lines (script.md).",
  "set": "specs/sets/jio_stage.json",
  "look": "neon_night",
  "format": {
@@ -31,25 +31,47 @@
    "In 2015, most Indians are online on slow 2G.",
    "One gigabyte costs about 250 rupees,",
    "and every video buffers forever.",
-   "Airtel, Vodafone and Idea make their money on voice calls. So data stays a luxury.",
+   "Airtel, Vodafone and Idea make their money on voice calls.",
+   "So data stays a luxury.",
    "But you see something they don't.",
-   "In 2010, your deal with Anil ends. Weeks later, an unknown company called Infotel wins 4G airwaves in all 22 circles of India. Within hours, you buy 95 percent of it.",
-   "Then your daughter Isha comes home from Yale and says, \"Dad, the internet in our house sucks.\"",
-   "Your son Akash adds: telecom isn't about calls anymore. It's about data.",
-   "So you decide: data should be like oxygen. Cheap enough for everyone.",
-   "You don't fix old towers. You build India's first 4G-only network, where even phone calls travel as data.",
-   "You lay three lakh kilometres of fibre. The bill: one and a half lakh crore rupees. You call it the world's biggest startup.",
-   "On September 5th, 2016, you launch Jio. And everything is free. Calls. Data. Apps.",
-   "Sixteen million people join in 26 days. A hundred million in 170 days. That's seven new customers every second.",
-   "Your rivals run to the regulator, crying predatory pricing. You say their networks are dropping your calls.",
-   "And the insane part? You even give away the phone. The JioPhone, at an effective price of zero.",
-   "Data crashes from 250 rupees a gigabyte to under 20. India becomes the world's biggest consumer of mobile data.",
-   "Telenor exits. Tata exits. Aircel goes bankrupt. Even your brother's company shuts down. Vodafone and Idea merge just to survive.",
+   "In 2010, your deal with Anil ends.",
+   "Weeks later, an unknown company called Infotel",
+   "wins 4G airwaves in all 22 circles of India.",
+   "Within hours, you buy 95 percent of it.",
+   "Then your daughter Isha comes home from Yale and says,",
+   "\"Dad, the internet in our house sucks.\"",
+   "Your son Akash adds: telecom isn't about calls anymore.",
+   "It's about data.",
+   "So you decide: data should be like oxygen.",
+   "Cheap enough for everyone.",
+   "You don't fix old towers.",
+   "You build India's first 4G-only network,",
+   "where even phone calls travel as data.",
+   "You lay three lakh kilometres of fibre.",
+   "The bill: one and a half lakh crore rupees.",
+   "You call it the world's biggest startup.",
+   "On September 5th, 2016, you launch Jio.",
+   "And everything is free. Calls. Data. Apps.",
+   "Sixteen million people join in 26 days.",
+   "A hundred million in 170 days.",
+   "That's seven new customers every second.",
+   "Your rivals run to the regulator, crying predatory pricing.",
+   "You say their networks are dropping your calls.",
+   "And the insane part? You even give away the phone.",
+   "The JioPhone, at an effective price of zero.",
+   "Data crashes from 250 rupees a gigabyte to under 20.",
+   "India becomes the world's biggest consumer of mobile data.",
+   "Telenor exits. Tata exits. Aircel goes bankrupt.",
+   "Even your brother's company shuts down.",
+   "Vodafone and Idea merge just to survive.",
    "By 2019, Jio is number one.",
-   "Then Facebook pays 5.7 billion dollars for a slice. Google pays 4.5 billion.",
+   "Then Facebook pays 5.7 billion dollars for a slice.",
+   "Google pays 4.5 billion.",
    "Today, 524 million Indians are on Jio.",
-   "Your father wanted a phone call cheaper than a postcard. You made it free.",
-   "That's why you call it Jio. In Hindi, it means \"live\"."
+   "Your father wanted a phone call cheaper than a postcard.",
+   "You made it free.",
+   "That's why you call it Jio.",
+   "In Hindi, it means \"live\"."
   ]
  },
  "lines": [
@@ -118,10 +140,266 @@
    "text": "and every video buffers forever.",
    "shot": "buffer",
    "at": 0.1
+  },
+  {
+   "id": "n6a",
+   "text": "Airtel, Vodafone and Idea make their money on voice calls.",
+   "shot": "rivals",
+   "at": 0.1
+  },
+  {
+   "id": "n6b",
+   "text": "So data stays a luxury.",
+   "shot": "luxury",
+   "at": 0.1
+  },
+  {
+   "id": "n7",
+   "text": "But you see something they don't.",
+   "shot": "sees",
+   "at": 0.1
+  },
+  {
+   "id": "n8a",
+   "text": "In 2010, your deal with Anil ends.",
+   "shot": "deal_ends",
+   "at": 0.1
+  },
+  {
+   "id": "n8b",
+   "text": "Weeks later, an unknown company called Infotel",
+   "shot": "infotel",
+   "at": 0.1
+  },
+  {
+   "id": "n8c",
+   "text": "wins 4G airwaves in all 22 circles of India.",
+   "shot": "circles",
+   "at": 0.1
+  },
+  {
+   "id": "n8d",
+   "text": "Within hours, you buy 95 percent of it.",
+   "shot": "buy95",
+   "at": 0.1
+  },
+  {
+   "id": "n9a",
+   "text": "Then your daughter Isha comes home from Yale and says,",
+   "shot": "isha",
+   "at": 0.1
+  },
+  {
+   "id": "n9b",
+   "text": "\"Dad, the internet in our house sucks.\"",
+   "shot": "sucks",
+   "at": 0.1
+  },
+  {
+   "id": "n10a",
+   "text": "Your son Akash adds: telecom isn't about calls anymore.",
+   "shot": "akash",
+   "at": 0.1
+  },
+  {
+   "id": "n10b",
+   "text": "It's about data.",
+   "shot": "data_box",
+   "at": 0.1
+  },
+  {
+   "id": "n11a",
+   "text": "So you decide: data should be like oxygen.",
+   "shot": "oxygen",
+   "at": 0.1
+  },
+  {
+   "id": "n11b",
+   "text": "Cheap enough for everyone.",
+   "shot": "everyone",
+   "at": 0.1
+  },
+  {
+   "id": "n12a",
+   "text": "You don't fix old towers.",
+   "shot": "old_towers",
+   "at": 0.1
+  },
+  {
+   "id": "n12b",
+   "text": "You build India's first 4G-only network,",
+   "shot": "build4g",
+   "at": 0.1
+  },
+  {
+   "id": "n12c",
+   "text": "where even phone calls travel as data.",
+   "shot": "volte",
+   "at": 0.1
+  },
+  {
+   "id": "n13a",
+   "text": "You lay three lakh kilometres of fibre.",
+   "shot": "fibre",
+   "at": 0.1
+  },
+  {
+   "id": "n13b",
+   "text": "The bill: one and a half lakh crore rupees.",
+   "shot": "bill",
+   "at": 0.1
+  },
+  {
+   "id": "n13c",
+   "text": "You call it the world's biggest startup.",
+   "shot": "startup",
+   "at": 0.1
+  },
+  {
+   "id": "n14a",
+   "text": "On September 5th, 2016, you launch Jio.",
+   "shot": "launch",
+   "at": 0.1
+  },
+  {
+   "id": "n14b",
+   "text": "And everything is free. Calls. Data. Apps.",
+   "shot": "free3",
+   "at": 0.1
+  },
+  {
+   "id": "n15a",
+   "text": "Sixteen million people join in 26 days.",
+   "shot": "join16",
+   "at": 0.1
+  },
+  {
+   "id": "n15b",
+   "text": "A hundred million in 170 days.",
+   "shot": "join100",
+   "at": 0.1
+  },
+  {
+   "id": "n15c",
+   "text": "That's seven new customers every second.",
+   "shot": "seven",
+   "at": 0.1
+  },
+  {
+   "id": "n16a",
+   "text": "Your rivals run to the regulator, crying predatory pricing.",
+   "shot": "regulator",
+   "at": 0.1
+  },
+  {
+   "id": "n16b",
+   "text": "You say their networks are dropping your calls.",
+   "shot": "dropped",
+   "at": 0.1
+  },
+  {
+   "id": "n17a",
+   "text": "And the insane part? You even give away the phone.",
+   "shot": "insane",
+   "at": 0.1
+  },
+  {
+   "id": "n17b",
+   "text": "The JioPhone, at an effective price of zero.",
+   "shot": "zero",
+   "at": 0.1
+  },
+  {
+   "id": "n18a",
+   "text": "Data crashes from 250 rupees a gigabyte to under 20.",
+   "shot": "crash",
+   "at": 0.1
+  },
+  {
+   "id": "n18b",
+   "text": "India becomes the world's biggest consumer of mobile data.",
+   "shot": "biggest",
+   "at": 0.1
+  },
+  {
+   "id": "n19a",
+   "text": "Telenor exits. Tata exits. Aircel goes bankrupt.",
+   "shot": "exits",
+   "at": 0.1
+  },
+  {
+   "id": "n19b",
+   "text": "Even your brother's company shuts down.",
+   "shot": "rcom",
+   "at": 0.1
+  },
+  {
+   "id": "n19c",
+   "text": "Vodafone and Idea merge just to survive.",
+   "shot": "merge",
+   "at": 0.1
+  },
+  {
+   "id": "n20",
+   "text": "By 2019, Jio is number one.",
+   "shot": "number1",
+   "at": 0.1
+  },
+  {
+   "id": "n21a",
+   "text": "Then Facebook pays 5.7 billion dollars for a slice.",
+   "shot": "facebook",
+   "at": 0.1
+  },
+  {
+   "id": "n21b",
+   "text": "Google pays 4.5 billion.",
+   "shot": "google",
+   "at": 0.1
+  },
+  {
+   "id": "n22",
+   "text": "Today, 524 million Indians are on Jio.",
+   "shot": "today",
+   "at": 0.1
+  },
+  {
+   "id": "n23a",
+   "text": "Your father wanted a phone call cheaper than a postcard.",
+   "shot": "callback",
+   "at": 0.1
+  },
+  {
+   "id": "n23b",
+   "text": "You made it free.",
+   "shot": "made_free",
+   "at": 0.1
+  },
+  {
+   "id": "n24a",
+   "text": "That's why you call it Jio.",
+   "shot": "jio_name",
+   "at": 0.1
+  },
+  {
+   "id": "n24b",
+   "text": "In Hindi, it means \"live\".",
+   "shot": "loop",
+   "at": 0.1
   }
  ],
  "captions": {
   "style": "toon"
+ },
+ "review": {
+  "stage": {
+   "anchor": "field",
+   "offset": [
+    0,
+    0,
+    1.0
+   ]
+  }
  },
  "ambience": [
   {
@@ -156,6 +434,256 @@
     "word": "splits"
    },
    "gain": -8
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "n19a",
+    "word": "exits.",
+    "occurrence": 1,
+    "offset": 0.45
+   },
+   "gain": -6
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "n19a",
+    "word": "exits.",
+    "occurrence": 2,
+    "offset": 0.45
+   },
+   "gain": -6
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "n19a",
+    "word": "bankrupt.",
+    "offset": 0.45
+   },
+   "gain": -6
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "n19b",
+    "word": "down.",
+    "offset": 0.45
+   },
+   "gain": -6
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": -0.15
+   },
+   "repeat": 11,
+   "every": 0.1,
+   "gain": -11
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n8c",
+    "word": "22",
+    "edge": "end"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n8d",
+    "word": "95",
+    "edge": "end"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "n12a",
+    "word": "old",
+    "offset": 0.4
+   },
+   "gain": -9
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "n12a",
+    "word": "old",
+    "offset": 0.54
+   },
+   "gain": -9
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "n12a",
+    "word": "old",
+    "offset": 0.68
+   },
+   "gain": -9
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "n12a",
+    "word": "old",
+    "offset": 0.8200000000000001
+   },
+   "gain": -9
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "n13a",
+    "word": "lay"
+   },
+   "repeat": 12,
+   "every": 0.09,
+   "gain": -11
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n13a",
+    "word": "lakh",
+    "edge": "end"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "n13b",
+    "word": "bill:"
+   },
+   "repeat": 14,
+   "every": 0.09,
+   "gain": -11
+  },
+  {
+   "sound": "cash",
+   "at": {
+    "line": "n13b",
+    "word": "crore",
+    "edge": "end"
+   },
+   "gain": -5
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "n17b",
+    "word": "JioPhone,"
+   },
+   "repeat": 14,
+   "every": 0.11,
+   "gain": -11
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n17b",
+    "word": "zero.",
+    "edge": "end"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n21a",
+    "word": "5.7",
+    "edge": "end"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n21b",
+    "word": "4.5",
+    "edge": "end"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "n15a"
+   },
+   "repeat": 6,
+   "every": 0.1,
+   "gain": -11
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n15a",
+    "word": "million",
+    "edge": "end"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n15b",
+    "word": "million",
+    "edge": "end"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "n18a",
+    "word": "crashes"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "n18a",
+    "word": "crashes"
+   },
+   "repeat": 18,
+   "every": 0.1,
+   "gain": -11
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n18a",
+    "word": "20.",
+    "edge": "end"
+   },
+   "gain": -6
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "n22"
+   },
+   "repeat": 8,
+   "every": 0.1,
+   "gain": -11
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "n22",
+    "word": "524",
+    "edge": "end"
+   },
+   "gain": -6
   }
  ],
  "actors": [
@@ -189,6 +717,27 @@
      },
      "expression": "surprised",
      "hands": "face"
+    },
+    {
+     "t": {
+      "line": "n5a"
+     },
+     "expression": "deadpan",
+     "hands": "none"
+    },
+    {
+     "t": {
+      "line": "n24b",
+      "word": "Hindi,"
+     },
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "n24b",
+      "word": "live\"."
+     },
+     "expression": "wink"
     }
    ]
   },
@@ -243,6 +792,20 @@
       "word": "telecom."
      },
      "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "n8a",
+      "word": "deal"
+     },
+     "expression": "side_eye"
+    },
+    {
+     "t": {
+      "line": "n8a",
+      "word": "ends."
+     },
+     "expression": "grin"
     }
    ]
   },
@@ -290,6 +853,13 @@
       "word": "company,"
      },
      "expression": "wink"
+    },
+    {
+     "t": {
+      "line": "n8a",
+      "word": "ends."
+     },
+     "expression": "nervous"
     }
    ]
   },
@@ -320,7 +890,47 @@
      "toon_scientist_b"
     ],
     "seed": 4
-   }
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "n11b",
+      "word": "everyone."
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "n15a",
+      "word": "join"
+     },
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "n15b",
+      "word": "million"
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "n18a",
+      "word": "20."
+     },
+     "expression": "laugh"
+    },
+    {
+     "t": {
+      "line": "n22"
+     },
+     "expression": "cheer"
+    }
+   ]
   },
   {
    "id": "y",
@@ -352,6 +962,721 @@
       "word": "forever."
      },
      "expression": "sleepy"
+    },
+    {
+     "t": {
+      "line": "n11b",
+      "word": "everyone."
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "n15a",
+      "word": "join"
+     },
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "n18a",
+      "word": "crashes"
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "n18a",
+      "word": "20."
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "n22"
+     },
+     "expression": "laugh"
+    }
+   ]
+  },
+  {
+   "id": "a2",
+   "character": "toon_anil",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -5.2,
+     0,
+     -1.6
+    ]
+   },
+   "facing": {
+    "anchor": "rivals",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "smug"
+    },
+    {
+     "t": {
+      "line": "n19b",
+      "word": "brother's"
+     },
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "n19b",
+      "word": "down."
+     },
+     "expression": "crying"
+    }
+   ]
+  },
+  {
+   "id": "m3",
+   "character": "toon_mukesh",
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.35,
+     0,
+     -2.4
+    ]
+   },
+   "facing": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "n7",
+      "word": "see"
+     },
+     "expression": "side_eye"
+    },
+    {
+     "t": {
+      "line": "n7",
+      "word": "don't."
+     },
+     "expression": "scheming"
+    },
+    {
+     "t": {
+      "line": "n8c",
+      "word": "22"
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "n8d",
+      "word": "buy"
+     },
+     "expression": "grin"
+    },
+    {
+     "t": {
+      "line": "n11a",
+      "word": "decide:"
+     },
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "n11a",
+      "word": "oxygen."
+     },
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "n13a",
+      "word": "lay"
+     },
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "n13b",
+      "word": "crore"
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "n13c",
+      "word": "call"
+     },
+     "expression": "smug"
+    },
+    {
+     "t": {
+      "line": "n13c",
+      "word": "biggest"
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "n18b",
+      "word": "India"
+     },
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "n18b",
+      "word": "biggest"
+     },
+     "expression": "cool"
+    }
+   ]
+  },
+  {
+   "id": "isha",
+   "character": "toon_isha",
+   "at": {
+    "anchor": "home",
+    "offset": [
+     1.25,
+     0,
+     -0.1
+    ]
+   },
+   "facing": {
+    "anchor": "home",
+    "offset": [
+     0,
+     1.0,
+     6
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "n9a",
+      "word": "says,"
+     },
+     "expression": "side_eye",
+     "action": "talk"
+    },
+    {
+     "t": {
+      "line": "n9b",
+      "word": "internet"
+     },
+     "expression": "angry"
+    },
+    {
+     "t": {
+      "line": "n9b",
+      "word": "sucks.\""
+     },
+     "expression": "furious"
+    },
+    {
+     "t": {
+      "line": "n10a"
+     },
+     "expression": "deadpan",
+     "action": "fold_arms"
+    },
+    {
+     "t": {
+      "line": "n10b",
+      "word": "data."
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "akash",
+   "character": "toon_akash",
+   "at": {
+    "anchor": "home",
+    "offset": [
+     -1.15,
+     0,
+     -0.1
+    ]
+   },
+   "facing": {
+    "anchor": "home",
+    "offset": [
+     0,
+     1.0,
+     6
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "n9b",
+      "word": "sucks.\""
+     },
+     "expression": "laugh"
+    },
+    {
+     "t": {
+      "line": "n10a",
+      "word": "adds:"
+     },
+     "expression": "thinking",
+     "action": "talk"
+    },
+    {
+     "t": {
+      "line": "n10a",
+      "word": "anymore."
+     },
+     "expression": "side_eye"
+    },
+    {
+     "t": {
+      "line": "n10b",
+      "word": "data."
+     },
+     "expression": "star_eyes"
+    }
+   ]
+  },
+  {
+   "id": "mf",
+   "character": "toon_mukesh",
+   "at": {
+    "anchor": "field",
+    "offset": [
+     1.7,
+     0,
+     2.6
+    ]
+   },
+   "facing": {
+    "anchor": "field",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "n12a",
+      "word": "don't"
+     },
+     "action": "shake_head"
+    },
+    {
+     "t": {
+      "line": "n12a",
+      "word": "towers."
+     },
+     "expression": "smug",
+     "action": "idle"
+    },
+    {
+     "t": {
+      "line": "n12b",
+      "word": "build"
+     },
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "n12b",
+      "word": "4G-only"
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "n12c",
+      "word": "phone"
+     },
+     "expression": "grin",
+     "action": "phone"
+    }
+   ]
+  },
+  {
+   "id": "ml",
+   "character": "toon_mukesh",
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     1.75,
+     0,
+     1.4
+    ]
+   },
+   "facing": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "smug"
+    },
+    {
+     "t": {
+      "line": "n14a",
+      "word": "launch"
+     },
+     "expression": "grin"
+    },
+    {
+     "t": {
+      "line": "n14a",
+      "word": "Jio."
+     },
+     "expression": "cheer",
+     "action": "dance"
+    },
+    {
+     "t": {
+      "line": "n14b",
+      "word": "free."
+     },
+     "expression": "laugh"
+    },
+    {
+     "t": {
+      "line": "n17a"
+     },
+     "expression": "scheming",
+     "action": "idle"
+    },
+    {
+     "t": {
+      "line": "n17a",
+      "word": "phone."
+     },
+     "expression": "wink"
+    },
+    {
+     "t": {
+      "line": "n17b",
+      "word": "zero."
+     },
+     "expression": "grin"
+    },
+    {
+     "t": {
+      "line": "n20",
+      "word": "2019,"
+     },
+     "expression": "smug"
+    },
+    {
+     "t": {
+      "line": "n20",
+      "word": "one."
+     },
+     "expression": "cool"
+    },
+    {
+     "t": {
+      "line": "n21a",
+      "word": "pays"
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "n21b",
+      "word": "pays"
+     },
+     "expression": "love"
+    }
+   ]
+  },
+  {
+   "id": "reg",
+   "character": "toon_agent",
+   "at": {
+    "anchor": "court",
+    "offset": [
+     0,
+     0,
+     -1.9
+    ]
+   },
+   "facing": {
+    "anchor": "court",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "n16a",
+      "word": "crying"
+     },
+     "expression": "side_eye"
+    },
+    {
+     "t": {
+      "line": "n16b",
+      "word": "dropping"
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "riv1",
+   "character": "toon_boss",
+   "at": {
+    "anchor": "court",
+    "offset": [
+     2.4,
+     0,
+     0.7
+    ]
+   },
+   "facing": {
+    "anchor": "court",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "angry"
+    },
+    {
+     "t": {
+      "line": "n16a",
+      "word": "crying"
+     },
+     "expression": "crying"
+    },
+    {
+     "t": {
+      "line": "n16b",
+      "word": "say"
+     },
+     "expression": "shocked"
+    }
+   ]
+  },
+  {
+   "id": "riv2",
+   "character": "toon_partner",
+   "at": {
+    "anchor": "court",
+    "offset": [
+     1.5,
+     0,
+     1.1
+    ]
+   },
+   "facing": {
+    "anchor": "court",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "n16a",
+      "word": "crying"
+     },
+     "expression": "crying"
+    },
+    {
+     "t": {
+      "line": "n16b",
+      "word": "say"
+     },
+     "expression": "nervous"
+    }
+   ]
+  },
+  {
+   "id": "riv3",
+   "character": "toon_founder",
+   "at": {
+    "anchor": "court",
+    "offset": [
+     0.6,
+     0,
+     0.7
+    ]
+   },
+   "facing": {
+    "anchor": "court",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "furious"
+    },
+    {
+     "t": {
+      "line": "n16a",
+      "word": "predatory"
+     },
+     "expression": "crying"
+    },
+    {
+     "t": {
+      "line": "n16b",
+      "word": "say"
+     },
+     "expression": "angry"
+    }
+   ]
+  },
+  {
+   "id": "mc",
+   "character": "toon_mukesh",
+   "at": {
+    "anchor": "court",
+    "offset": [
+     -1.9,
+     0,
+     0.9
+    ]
+   },
+   "facing": {
+    "anchor": "court",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "smug"
+    },
+    {
+     "t": {
+      "line": "n16a",
+      "word": "crying"
+     },
+     "expression": "sleepy"
+    },
+    {
+     "t": {
+      "line": "n16b",
+      "word": "say"
+     },
+     "expression": "side_eye"
+    },
+    {
+     "t": {
+      "line": "n16b",
+      "word": "calls."
+     },
+     "expression": "wink"
+    }
+   ]
+  },
+  {
+   "id": "mt",
+   "character": "toon_mukesh",
+   "at": {
+    "anchor": "tribute.back",
+    "offset": [
+     1.25,
+     0,
+     0.9
+    ]
+   },
+   "facing": {
+    "anchor": "tribute",
+    "offset": [
+     0,
+     1.0,
+     6
+    ]
+   },
+   "cues": [
+    {
+     "t": 0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "n23a"
+     },
+     "expression": "sad"
+    },
+    {
+     "t": {
+      "line": "n23b",
+      "word": "free."
+     },
+     "expression": "happy",
+     "hands": "chest"
+    },
+    {
+     "t": {
+      "line": "n24a",
+      "word": "Jio."
+     },
+     "expression": "grin"
     }
    ]
   }
@@ -544,6 +1869,9 @@
     "line": "n2",
     "word": "2002"
    },
+   "until": {
+    "line": "n3a"
+   },
    "text": "2002",
    "color": "#5fe3ff",
    "glow": 1.2,
@@ -627,7 +1955,22 @@
      6
     ]
    },
-   "sound": "pop"
+   "sound": "pop",
+   "moves": [
+    {
+     "t": {
+      "line": "n23b",
+      "word": "free."
+     },
+     "by": [
+      -0.1,
+      1.6,
+      0
+     ],
+     "dur": 1.6,
+     "turn": 30
+    }
+   ]
   },
   {
    "id": "paise",
@@ -648,7 +1991,21 @@
      0.86,
      1.25
     ]
-   }
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n23b",
+      "word": "free."
+     },
+     "by": [
+      -0.1,
+      1.6,
+      0
+     ],
+     "dur": 1.6
+    }
+   ]
   },
   {
    "id": "table",
@@ -841,6 +2198,36 @@
      6
     ]
    },
+   "sound": "pop",
+   "moves": [
+    {
+     "t": {
+      "line": "n8a",
+      "word": "ends."
+     },
+     "tip": -82,
+     "dur": 0.7
+    }
+   ]
+  },
+  {
+   "id": "y2010",
+   "t": {
+    "line": "n8a",
+    "word": "2010,"
+   },
+   "text": "2010",
+   "color": "#5fe3ff",
+   "glow": 1.2,
+   "size": 0.26,
+   "at": {
+    "anchor": "m2",
+    "offset": [
+     0.0,
+     1.62,
+     0.1
+    ]
+   },
    "sound": "pop"
   },
   {
@@ -848,6 +2235,9 @@
    "t": {
     "line": "n4",
     "offset": -0.05
+   },
+   "until": {
+    "line": "n5a"
    },
    "shape": "binoculars",
    "size": 0.626,
@@ -943,6 +2333,9 @@
    "t": {
     "line": "n5c"
    },
+   "until": {
+    "line": "n6a"
+   },
    "shape": "spinner",
    "size": 0.36,
    "roll": 300,
@@ -969,6 +2362,9 @@
     "line": "n5a",
     "word": "slow",
     "offset": 0.0
+   },
+   "until": {
+    "line": "n6a"
    },
    "shape": "spinner",
    "size": 0.4,
@@ -997,6 +2393,9 @@
     "word": "slow",
     "offset": 0.07
    },
+   "until": {
+    "line": "n6a"
+   },
    "shape": "spinner",
    "size": 0.4,
    "roll": 320,
@@ -1023,6 +2422,9 @@
     "line": "n5a",
     "word": "slow",
     "offset": 0.14
+   },
+   "until": {
+    "line": "n6a"
    },
    "shape": "spinner",
    "size": 0.4,
@@ -1051,6 +2453,9 @@
     "word": "slow",
     "offset": 0.21000000000000002
    },
+   "until": {
+    "line": "n6a"
+   },
    "shape": "spinner",
    "size": 0.4,
    "roll": 320,
@@ -1077,6 +2482,9 @@
     "line": "n5a",
     "word": "slow",
     "offset": 0.28
+   },
+   "until": {
+    "line": "n6a"
    },
    "shape": "spinner",
    "size": 0.4,
@@ -1105,6 +2513,9 @@
     "word": "slow",
     "offset": 0.35000000000000003
    },
+   "until": {
+    "line": "n6a"
+   },
    "shape": "spinner",
    "size": 0.4,
    "roll": 320,
@@ -1124,6 +2535,4548 @@
      12
     ]
    }
+  },
+  {
+   "id": "tw_airtel",
+   "t": {
+    "line": "n6a",
+    "word": "Airtel,"
+   },
+   "shape": "tower",
+   "size": 3.0,
+   "color": "#d8dce4",
+   "sound": "pop",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     2.6,
+     0,
+     0.4
+    ]
+   },
+   "moves": []
+  },
+  {
+   "id": "pl_airtel",
+   "t": {
+    "line": "n6a",
+    "word": "Airtel,"
+   },
+   "shape": "plaque",
+   "label": "AIRTEL",
+   "label_color": "#ffffff",
+   "color": "#e8343c",
+   "size": 1.1,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     2.6,
+     0.05,
+     1.15
+    ]
+   },
+   "moves": []
+  },
+  {
+   "id": "crown_airtel",
+   "t": {
+    "line": "n6a",
+    "word": "money",
+    "offset": 0.0
+   },
+   "shape": "crown",
+   "size": 0.55,
+   "enter": "drop",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     2.6,
+     3.0,
+     0.4
+    ]
+   },
+   "sound": "pop",
+   "moves": []
+  },
+  {
+   "id": "bag_airtel",
+   "t": {
+    "line": "n6a",
+    "word": "calls.",
+    "offset": -0.25
+   },
+   "shape": "moneybag",
+   "label": "MINUTES",
+   "label_color": "#5a3a10",
+   "size": 0.75,
+   "enter": "drop",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     1.75,
+     0,
+     1.0
+    ]
+   },
+   "sound": "cash"
+  },
+  {
+   "id": "tw_vodafone",
+   "t": {
+    "line": "n6a",
+    "word": "Vodafone"
+   },
+   "shape": "tower",
+   "size": 3.0,
+   "color": "#d8dce4",
+   "sound": "pop",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -0.0,
+     0,
+     0.4
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n19c",
+      "word": "merge"
+     },
+     "by": [
+      1.05,
+      0,
+      0
+     ],
+     "dur": 0.8
+    }
+   ]
+  },
+  {
+   "id": "pl_vodafone",
+   "t": {
+    "line": "n6a",
+    "word": "Vodafone"
+   },
+   "shape": "plaque",
+   "label": "VODAFONE",
+   "label_color": "#ffffff",
+   "color": "#e60000",
+   "size": 1.1,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -0.0,
+     0.05,
+     1.15
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n19c",
+      "word": "merge"
+     },
+     "by": [
+      1.05,
+      0,
+      0
+     ],
+     "dur": 0.8
+    }
+   ]
+  },
+  {
+   "id": "crown_vodafone",
+   "t": {
+    "line": "n6a",
+    "word": "money",
+    "offset": 0.08
+   },
+   "shape": "crown",
+   "size": 0.55,
+   "enter": "drop",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -0.0,
+     3.0,
+     0.4
+    ]
+   },
+   "sound": "pop",
+   "moves": [
+    {
+     "t": {
+      "line": "n19c",
+      "word": "merge"
+     },
+     "by": [
+      1.05,
+      0,
+      0
+     ],
+     "dur": 0.8
+    }
+   ],
+   "until": {
+    "line": "n19c",
+    "word": "survive."
+   },
+   "exit": "drop"
+  },
+  {
+   "id": "bag_vodafone",
+   "t": {
+    "line": "n6a",
+    "word": "calls.",
+    "offset": -0.16999999999999998
+   },
+   "shape": "moneybag",
+   "label": "MINUTES",
+   "label_color": "#5a3a10",
+   "size": 0.75,
+   "enter": "drop",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -0.85,
+     0,
+     1.0
+    ]
+   },
+   "sound": "cash"
+  },
+  {
+   "id": "tw_idea",
+   "t": {
+    "line": "n6a",
+    "word": "Idea"
+   },
+   "shape": "tower",
+   "size": 3.0,
+   "color": "#d8dce4",
+   "sound": "pop",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -2.6,
+     0,
+     0.4
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n19c",
+      "word": "merge"
+     },
+     "by": [
+      -1.05,
+      0,
+      0
+     ],
+     "dur": 0.8
+    }
+   ]
+  },
+  {
+   "id": "pl_idea",
+   "t": {
+    "line": "n6a",
+    "word": "Idea"
+   },
+   "shape": "plaque",
+   "label": "IDEA",
+   "label_color": "#ffffff",
+   "color": "#f2c230",
+   "size": 1.1,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -2.6,
+     0.05,
+     1.15
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n19c",
+      "word": "merge"
+     },
+     "by": [
+      -1.05,
+      0,
+      0
+     ],
+     "dur": 0.8
+    }
+   ]
+  },
+  {
+   "id": "crown_idea",
+   "t": {
+    "line": "n6a",
+    "word": "money",
+    "offset": 0.16
+   },
+   "shape": "crown",
+   "size": 0.55,
+   "enter": "drop",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -2.6,
+     3.0,
+     0.4
+    ]
+   },
+   "sound": "pop",
+   "moves": [
+    {
+     "t": {
+      "line": "n19c",
+      "word": "merge"
+     },
+     "by": [
+      -1.05,
+      0,
+      0
+     ],
+     "dur": 0.8
+    }
+   ],
+   "until": {
+    "line": "n19c",
+    "word": "survive."
+   },
+   "exit": "drop"
+  },
+  {
+   "id": "bag_idea",
+   "t": {
+    "line": "n6a",
+    "word": "calls.",
+    "offset": -0.09
+   },
+   "shape": "moneybag",
+   "label": "MINUTES",
+   "label_color": "#5a3a10",
+   "size": 0.75,
+   "enter": "drop",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -3.45,
+     0,
+     1.0
+    ]
+   },
+   "sound": "cash"
+  },
+  {
+   "id": "tw_telenor",
+   "t": 0,
+   "enter": "none",
+   "shape": "tower",
+   "size": 2.1,
+   "color": "#b9bec8",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     3.9,
+     0,
+     -2.2
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n19a",
+      "word": "exits.",
+      "occurrence": 1
+     },
+     "tip": 80,
+     "dur": 0.75
+    }
+   ]
+  },
+  {
+   "id": "pl_telenor",
+   "t": 0,
+   "enter": "none",
+   "shape": "plaque",
+   "label": "TELENOR",
+   "label_color": "#ffffff",
+   "color": "#5a5f6e",
+   "size": 0.9,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     3.9,
+     0.05,
+     -1.6500000000000001
+    ]
+   }
+  },
+  {
+   "id": "tw_tata",
+   "t": 0,
+   "enter": "none",
+   "shape": "tower",
+   "size": 2.1,
+   "color": "#b9bec8",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     1.3,
+     0,
+     -2.2
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n19a",
+      "word": "exits.",
+      "occurrence": 2
+     },
+     "tip": 80,
+     "dur": 0.75
+    }
+   ]
+  },
+  {
+   "id": "pl_tata",
+   "t": 0,
+   "enter": "none",
+   "shape": "plaque",
+   "label": "TATA",
+   "label_color": "#ffffff",
+   "color": "#5a5f6e",
+   "size": 0.9,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     1.3,
+     0.05,
+     -1.6500000000000001
+    ]
+   }
+  },
+  {
+   "id": "tw_aircel",
+   "t": 0,
+   "enter": "none",
+   "shape": "tower",
+   "size": 2.1,
+   "color": "#b9bec8",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -1.3,
+     0,
+     -2.2
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n19a",
+      "word": "bankrupt."
+     },
+     "tip": -80,
+     "dur": 0.75
+    }
+   ]
+  },
+  {
+   "id": "pl_aircel",
+   "t": 0,
+   "enter": "none",
+   "shape": "plaque",
+   "label": "AIRCEL",
+   "label_color": "#ffffff",
+   "color": "#5a5f6e",
+   "size": 0.9,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -1.3,
+     0.05,
+     -1.6500000000000001
+    ]
+   }
+  },
+  {
+   "id": "tw_rcom",
+   "t": 0,
+   "enter": "none",
+   "shape": "tower",
+   "size": 2.1,
+   "color": "#b9bec8",
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -3.9,
+     0,
+     -2.2
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n19b",
+      "word": "down."
+     },
+     "tip": 80,
+     "dur": 0.75
+    }
+   ]
+  },
+  {
+   "id": "pl_rcom",
+   "t": 0,
+   "enter": "none",
+   "shape": "plaque",
+   "label": "RCOM",
+   "label_color": "#ffffff",
+   "color": "#5a5f6e",
+   "size": 0.9,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -3.9,
+     0.05,
+     -1.6500000000000001
+    ]
+   }
+  },
+  {
+   "id": "vitrine",
+   "t": {
+    "line": "n6b",
+    "word": "data"
+   },
+   "until": {
+    "line": "n7"
+   },
+   "shape": "vitrine",
+   "size": 1.2,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     0,
+     0,
+     2.6
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "data_tiny",
+   "t": {
+    "line": "n6b",
+    "word": "data",
+    "offset": 0.1
+   },
+   "until": {
+    "line": "n7"
+   },
+   "shape": "box",
+   "label": "DATA",
+   "label_color": "#0d2a4a",
+   "color": "#5fe3ff",
+   "glow": 0.6,
+   "size": 0.16,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     0,
+     0.56,
+     2.6
+    ]
+   },
+   "spin": 25
+  },
+  {
+   "id": "luxury_txt",
+   "t": {
+    "line": "n6b",
+    "word": "luxury."
+   },
+   "until": {
+    "line": "n7"
+   },
+   "text": "LUXURY",
+   "color": "#f2c230",
+   "glow": 1.0,
+   "size": 0.2,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     0,
+     1.45,
+     2.6
+    ]
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "map",
+   "t": 0,
+   "enter": "none",
+   "shape": "india",
+   "size": 5.0,
+   "color": "#ff9a3c",
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     0,
+     0.6
+    ]
+   }
+  },
+  {
+   "id": "infotel",
+   "t": {
+    "line": "n8b",
+    "word": "Infotel"
+   },
+   "shape": "box",
+   "label": "INFOTEL",
+   "label_color": "#ffffff",
+   "color": "#7a5fd0",
+   "size": 0.6,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.6896551724137931,
+     0.15,
+     0.6862068965517241
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "unknown_q",
+   "t": {
+    "line": "n8b",
+    "word": "unknown"
+   },
+   "until": {
+    "line": "n8b",
+    "word": "Infotel"
+   },
+   "text": "?",
+   "color": "#ffffff",
+   "glow": 1.0,
+   "size": 0.8,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.6896551724137931,
+     0.44999999999999996,
+     0.6862068965517241
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "fourg_air",
+   "t": {
+    "line": "n8c",
+    "word": "4G"
+   },
+   "until": {
+    "line": "n8d"
+   },
+   "text": "4G",
+   "color": "#5fe3ff",
+   "glow": 1.4,
+   "size": 0.7,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.25862068965517243,
+     1.75,
+     -0.8655172413793105
+    ]
+   },
+   "sound": "whoosh"
+  },
+  {
+   "id": "circles_n",
+   "t": {
+    "line": "n8c",
+    "word": "4G"
+   },
+   "until": {
+    "line": "n8d"
+   },
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.4310344827586207,
+     1.05,
+     -1.727586206896552
+    ]
+   },
+   "size": 0.6,
+   "color": "#ffffff",
+   "counter": {
+    "from": 0,
+    "to": 22,
+    "land": {
+     "line": "n8c",
+     "word": "22"
+    },
+    "label": "CIRCLES"
+   }
+  },
+  {
+   "id": "pin_0",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": -0.15
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.3275862068965523,
+     0.15,
+     -1.4000000000000004
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_1",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": -0.09999999999999999
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.9137931034482755,
+     0.15,
+     -0.9689655172413797
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_2",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": -0.04999999999999999
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.2241379310344818,
+     0.15,
+     -0.7965517241379313
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_3",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 2.7755575615628914e-17
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.120689655172414,
+     0.15,
+     -0.520689655172414
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_4",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.05000000000000002
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.9137931034482755,
+     0.15,
+     -0.4517241379310347
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_5",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.1
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.500000000000001,
+     0.15,
+     -0.4172413793103448
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_6",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.15000000000000005
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.155172413793104,
+     0.15,
+     -0.1586206896551723
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_7",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.20000000000000004
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.25862068965517243,
+     0.15,
+     -0.14137931034482776
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_8",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.25
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.4482758620689646,
+     0.15,
+     0.06551724137931003
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_9",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.30000000000000004
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.0172413793103459,
+     0.15,
+     -0.12413793103448267
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_10",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.35
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.5862068965517246,
+     0.15,
+     -0.020689655172414056
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_11",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.4
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.9655172413793114,
+     0.15,
+     0.23793103448275832
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_12",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.45000000000000007
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.0172413793103459,
+     0.15,
+     0.5827586206896549
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_13",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.5
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.5689655172413789,
+     0.15,
+     0.9793103448275862
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_14",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.55
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.8793103448275853,
+     0.15,
+     0.4620689655172412
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_15",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.6
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.706896551724139,
+     0.15,
+     0.5137931034482759
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_16",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.65
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.5862068965517252,
+     0.15,
+     0.8413793103448273
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_17",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.7000000000000001
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.6551724137931025,
+     0.15,
+     1.1862068965517238
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_18",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.75
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.6896551724137931,
+     0.15,
+     1.4793103448275864
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_19",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.8
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.37931034482758674,
+     0.15,
+     2.220689655172414
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_20",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.85
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.8448275862068976,
+     0.15,
+     2.2379310344827585
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "pin_21",
+   "t": {
+    "line": "n8c",
+    "word": "airwaves",
+    "offset": 0.9
+   },
+   "shape": "pin",
+   "size": 0.26,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.06896551724138,
+     0.15,
+     2.7551724137931037
+    ]
+   },
+   "face": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     3,
+     9
+    ]
+   }
+  },
+  {
+   "id": "cash_buy",
+   "t": {
+    "line": "n8d",
+    "word": "buy"
+   },
+   "shape": "cash",
+   "size": 0.5,
+   "enter": "drop",
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.500000000000001,
+     0.47,
+     0.6172413793103451
+    ]
+   },
+   "sound": "cash"
+  },
+  {
+   "id": "pct95",
+   "t": {
+    "line": "n8d",
+    "word": "hours,"
+   },
+   "until": {
+    "line": "n9a"
+   },
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.6896551724137931,
+     1.05,
+     0.6862068965517241
+    ]
+   },
+   "size": 0.42,
+   "color": "#ffffff",
+   "counter": {
+    "from": 0,
+    "to": 95,
+    "suffix": "%",
+    "land": {
+     "line": "n8d",
+     "word": "95"
+    },
+    "label": "BOUGHT"
+   }
+  },
+  {
+   "id": "home_table",
+   "t": 0,
+   "enter": "none",
+   "prop": "quaternius_fantasy_props/Table_Large",
+   "size": 2.0,
+   "at": {
+    "anchor": "home",
+    "offset": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "id": "laptop",
+   "t": 0,
+   "enter": "none",
+   "shape": "laptop",
+   "size": 0.5,
+   "at": {
+    "anchor": "home",
+    "offset": [
+     0.25,
+     0.57,
+     0.05
+    ]
+   }
+  },
+  {
+   "id": "yale",
+   "t": {
+    "line": "n9a",
+    "word": "Yale"
+   },
+   "until": {
+    "line": "n9b"
+   },
+   "text": "YALE",
+   "color": "#0f4d92",
+   "glow": 0.2,
+   "size": 0.24,
+   "at": {
+    "anchor": "isha",
+    "offset": [
+     0,
+     1.75,
+     0
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "loading",
+   "t": {
+    "line": "n9b",
+    "word": "internet"
+   },
+   "until": {
+    "line": "n10b"
+   },
+   "at": {
+    "anchor": "home",
+    "offset": [
+     0.25,
+     1.05,
+     0.1
+    ]
+   },
+   "size": 0.2,
+   "color": "#ffffff",
+   "counter": {
+    "from": 0,
+    "to": 3,
+    "suffix": "%",
+    "land": {
+     "line": "n9b",
+     "word": "house"
+    },
+    "label": "LOADING...",
+    "land_color": "#ff4d5a"
+   }
+  },
+  {
+   "id": "akash_phone",
+   "t": {
+    "line": "n10a",
+    "word": "telecom"
+   },
+   "until": {
+    "line": "n10a",
+    "word": "anymore.",
+    "edge": "end"
+   },
+   "exit": "pop",
+   "shape": "phone",
+   "size": 0.34,
+   "at": {
+    "anchor": "akash",
+    "offset": [
+     0.36,
+     0.8,
+     0.3
+    ]
+   },
+   "face": {
+    "anchor": "home",
+    "offset": [
+     0,
+     1.0,
+     6
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "calls_txt",
+   "t": {
+    "line": "n10a",
+    "word": "calls"
+   },
+   "until": {
+    "line": "n10a",
+    "word": "anymore.",
+    "edge": "end"
+   },
+   "exit": "pop",
+   "text": "CALLS",
+   "color": "#ffffff",
+   "glow": 0.8,
+   "size": 0.15,
+   "at": {
+    "anchor": "akash",
+    "offset": [
+     0.3,
+     1.28,
+     0.3
+    ]
+   }
+  },
+  {
+   "id": "data_big",
+   "t": {
+    "line": "n10b",
+    "word": "data."
+   },
+   "shape": "box",
+   "label": "DATA",
+   "label_color": "#0d2a4a",
+   "color": "#5fe3ff",
+   "glow": 0.9,
+   "size": 0.8,
+   "enter": "rise",
+   "at": {
+    "anchor": "home",
+    "offset": [
+     -0.0,
+     0.9,
+     -1.2
+    ]
+   },
+   "spin": 20,
+   "sound": "whoosh"
+  },
+  {
+   "id": "tank",
+   "t": {
+    "line": "n11a",
+    "word": "like",
+    "offset": 0.2
+   },
+   "shape": "tank",
+   "label": "DATA",
+   "label_color": "#ffffff",
+   "size": 0.9,
+   "enter": "drop",
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.45,
+     0,
+     -2.2
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "o2",
+   "t": {
+    "line": "n11a",
+    "word": "oxygen.",
+    "offset": 0.1
+   },
+   "text": "O₂",
+   "color": "#7cff6b",
+   "glow": 1.0,
+   "size": 0.3,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.45,
+     1.15,
+     -2.0
+    ]
+   }
+  },
+  {
+   "id": "tank_sky",
+   "t": {
+    "line": "n11b",
+    "word": "Cheap"
+   },
+   "until": {
+    "line": "n15a"
+   },
+   "shape": "tank",
+   "label": "DATA",
+   "label_color": "#ffffff",
+   "size": 1.9,
+   "enter": "beam",
+   "color": "#2f9e6a",
+   "at": {
+    "anchor": "street",
+    "offset": [
+     0,
+     2.2,
+     1.0
+    ]
+   },
+   "bob": 0.08,
+   "sound": "whoosh"
+  },
+  {
+   "id": "old_0",
+   "t": 0,
+   "enter": "none",
+   "shape": "tower",
+   "size": 2.3,
+   "color": "#8a6a4a",
+   "at": {
+    "anchor": "field",
+    "offset": [
+     3.6,
+     0,
+     0.0
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n12a",
+      "word": "old",
+      "offset": 0.0
+     },
+     "tip": -84,
+     "dur": 0.6
+    }
+   ]
+  },
+  {
+   "id": "old_lbl_0",
+   "t": 0,
+   "until": {
+    "line": "n12a",
+    "word": "old",
+    "offset": 0.0
+   },
+   "text": "2G",
+   "enter": "none",
+   "color": "#ff4d5a",
+   "glow": 1.0,
+   "size": 0.32,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     3.6,
+     2.55,
+     0.0
+    ]
+   }
+  },
+  {
+   "id": "old_1",
+   "t": 0,
+   "enter": "none",
+   "shape": "tower",
+   "size": 2.3,
+   "color": "#8a6a4a",
+   "at": {
+    "anchor": "field",
+    "offset": [
+     1.6,
+     0,
+     0.0
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n12a",
+      "word": "old",
+      "offset": 0.14
+     },
+     "tip": -84,
+     "dur": 0.6
+    }
+   ]
+  },
+  {
+   "id": "old_lbl_1",
+   "t": 0,
+   "until": {
+    "line": "n12a",
+    "word": "old",
+    "offset": 0.14
+   },
+   "text": "2G",
+   "enter": "none",
+   "color": "#ff4d5a",
+   "glow": 1.0,
+   "size": 0.32,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     1.6,
+     2.55,
+     0.0
+    ]
+   }
+  },
+  {
+   "id": "old_2",
+   "t": 0,
+   "enter": "none",
+   "shape": "tower",
+   "size": 2.3,
+   "color": "#8a6a4a",
+   "at": {
+    "anchor": "field",
+    "offset": [
+     -0.4,
+     0,
+     0.0
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n12a",
+      "word": "old",
+      "offset": 0.28
+     },
+     "tip": -84,
+     "dur": 0.6
+    }
+   ]
+  },
+  {
+   "id": "old_lbl_2",
+   "t": 0,
+   "until": {
+    "line": "n12a",
+    "word": "old",
+    "offset": 0.28
+   },
+   "text": "2G",
+   "enter": "none",
+   "color": "#ff4d5a",
+   "glow": 1.0,
+   "size": 0.32,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     -0.4,
+     2.55,
+     0.0
+    ]
+   }
+  },
+  {
+   "id": "old_3",
+   "t": 0,
+   "enter": "none",
+   "shape": "tower",
+   "size": 2.3,
+   "color": "#8a6a4a",
+   "at": {
+    "anchor": "field",
+    "offset": [
+     -2.4,
+     0,
+     0.0
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n12a",
+      "word": "old",
+      "offset": 0.42000000000000004
+     },
+     "tip": -84,
+     "dur": 0.6
+    }
+   ]
+  },
+  {
+   "id": "old_lbl_3",
+   "t": 0,
+   "until": {
+    "line": "n12a",
+    "word": "old",
+    "offset": 0.42000000000000004
+   },
+   "text": "2G",
+   "enter": "none",
+   "color": "#ff4d5a",
+   "glow": 1.0,
+   "size": 0.32,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     -2.4,
+     2.55,
+     0.0
+    ]
+   }
+  },
+  {
+   "id": "new_0",
+   "t": {
+    "line": "n12b",
+    "word": "build"
+   },
+   "shape": "tower",
+   "size": 3.8,
+   "color": "#bfefff",
+   "glow": 0.5,
+   "enter": "rise",
+   "enter_time": 0.5,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     2.2,
+     0,
+     -2.6
+    ]
+   },
+   "sound": "whoosh"
+  },
+  {
+   "id": "new_1",
+   "t": {
+    "line": "n12b",
+    "word": "first"
+   },
+   "shape": "tower",
+   "size": 3.8,
+   "color": "#bfefff",
+   "glow": 0.5,
+   "enter": "rise",
+   "enter_time": 0.5,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     -2.2,
+     0,
+     -2.6
+    ]
+   },
+   "sound": "whoosh"
+  },
+  {
+   "id": "new_2",
+   "t": {
+    "line": "n12b",
+    "word": "network,"
+   },
+   "shape": "tower",
+   "size": 3.8,
+   "color": "#bfefff",
+   "glow": 0.5,
+   "enter": "rise",
+   "enter_time": 0.5,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     -0.0,
+     0,
+     -2.6
+    ]
+   },
+   "sound": "whoosh"
+  },
+  {
+   "id": "fourg_big",
+   "t": {
+    "line": "n12b",
+    "word": "4G-only"
+   },
+   "until": {
+    "line": "n12c"
+   },
+   "text": "4G ONLY",
+   "color": "#5fe3ff",
+   "glow": 1.4,
+   "size": 0.85,
+   "enter": "beam",
+   "at": {
+    "anchor": "field",
+    "offset": [
+     0,
+     3.9,
+     -2.6
+    ]
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "volte_phone",
+   "t": {
+    "line": "n12c",
+    "word": "phone"
+   },
+   "shape": "phone",
+   "size": 0.3,
+   "at": {
+    "anchor": "mf.hand",
+    "offset": [
+     0,
+     0,
+     0.06
+    ]
+   },
+   "face": {
+    "anchor": "field",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "call_eq",
+   "t": {
+    "line": "n12c",
+    "word": "data."
+   },
+   "text": "CALL = DATA",
+   "color": "#ffffff",
+   "glow": 1.0,
+   "size": 0.3,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     0.4,
+     2.0,
+     2.4
+    ]
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "packet_0",
+   "t": {
+    "line": "n12c",
+    "word": "calls",
+    "offset": 0.0
+   },
+   "until": {
+    "line": "n12c",
+    "word": "data.",
+    "offset": 0.3
+   },
+   "shape": "box",
+   "color": "#5fe3ff",
+   "glow": 1.2,
+   "size": 0.14,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     1.4,
+     1.0,
+     2.7
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n12c",
+      "word": "calls",
+      "offset": 0.05
+     },
+     "by": [
+      1.4,
+      2.6,
+      -5.3
+     ],
+     "dur": 1.0
+    }
+   ]
+  },
+  {
+   "id": "packet_1",
+   "t": {
+    "line": "n12c",
+    "word": "calls",
+    "offset": 0.25
+   },
+   "until": {
+    "line": "n12c",
+    "word": "data.",
+    "offset": 0.6
+   },
+   "shape": "box",
+   "color": "#5fe3ff",
+   "glow": 1.2,
+   "size": 0.14,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     1.4,
+     1.0,
+     2.7
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n12c",
+      "word": "calls",
+      "offset": 0.3
+     },
+     "by": [
+      1.4,
+      2.6,
+      -5.3
+     ],
+     "dur": 1.0
+    }
+   ]
+  },
+  {
+   "id": "packet_2",
+   "t": {
+    "line": "n12c",
+    "word": "calls",
+    "offset": 0.5
+   },
+   "until": {
+    "line": "n12c",
+    "word": "data.",
+    "offset": 0.8999999999999999
+   },
+   "shape": "box",
+   "color": "#5fe3ff",
+   "glow": 1.2,
+   "size": 0.14,
+   "at": {
+    "anchor": "field",
+    "offset": [
+     1.4,
+     1.0,
+     2.7
+    ]
+   },
+   "moves": [
+    {
+     "t": {
+      "line": "n12c",
+      "word": "calls",
+      "offset": 0.55
+     },
+     "by": [
+      1.4,
+      2.6,
+      -5.3
+     ],
+     "dur": 1.0
+    }
+   ]
+  },
+  {
+   "id": "fib_0",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.0
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.3275862068965523,
+     0.15,
+     -1.4000000000000004
+    ]
+   }
+  },
+  {
+   "id": "fib_1",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.036
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.2758620689655182,
+     0.15,
+     -1.098275862068966
+    ]
+   }
+  },
+  {
+   "id": "fib_2",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.071
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.2241379310344818,
+     0.15,
+     -0.7965517241379313
+    ]
+   }
+  },
+  {
+   "id": "fib_3",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.107
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.9137931034482755,
+     0.15,
+     -0.4517241379310347
+    ]
+   }
+  },
+  {
+   "id": "fib_4",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.142
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.155172413793104,
+     0.15,
+     -0.1586206896551723
+    ]
+   }
+  },
+  {
+   "id": "fib_5",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.178
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.4310344827586228,
+     0.15,
+     0.1775862068965518
+    ]
+   }
+  },
+  {
+   "id": "fib_6",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.213
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.706896551724139,
+     0.15,
+     0.5137931034482759
+    ]
+   }
+  },
+  {
+   "id": "fib_7",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.249
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.6810344827586208,
+     0.15,
+     0.8499999999999999
+    ]
+   }
+  },
+  {
+   "id": "fib_8",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.284
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.6551724137931025,
+     0.15,
+     1.1862068965517238
+    ]
+   }
+  },
+  {
+   "id": "fib_9",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.32
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.4525862068965514,
+     0.15,
+     1.4491379310344823
+    ]
+   }
+  },
+  {
+   "id": "fib_10",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.356
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.25,
+     0.15,
+     1.7120689655172412
+    ]
+   }
+  },
+  {
+   "id": "fib_11",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.391
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.0474137931034488,
+     0.15,
+     1.975
+    ]
+   }
+  },
+  {
+   "id": "fib_12",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.427
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.8448275862068976,
+     0.15,
+     2.2379310344827585
+    ]
+   }
+  },
+  {
+   "id": "fib_13",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.462
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.06896551724138,
+     0.15,
+     2.7551724137931037
+    ]
+   }
+  },
+  {
+   "id": "fib_14",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.498
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.9137931034482755,
+     0.15,
+     -0.4517241379310347
+    ]
+   }
+  },
+  {
+   "id": "fib_15",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.533
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.5862068965517252,
+     0.15,
+     -0.2965517241379316
+    ]
+   }
+  },
+  {
+   "id": "fib_16",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.569
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.25862068965517243,
+     0.15,
+     -0.14137931034482776
+    ]
+   }
+  },
+  {
+   "id": "fib_17",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.604
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.09482758620689606,
+     0.15,
+     -0.03793103448275914
+    ]
+   }
+  },
+  {
+   "id": "fib_18",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.64
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.4482758620689646,
+     0.15,
+     0.06551724137931003
+    ]
+   }
+  },
+  {
+   "id": "fib_19",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.676
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.7327586206896552,
+     0.15,
+     0.32413793103448246
+    ]
+   }
+  },
+  {
+   "id": "fib_20",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.711
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.0172413793103459,
+     0.15,
+     0.5827586206896549
+    ]
+   }
+  },
+  {
+   "id": "fib_21",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.747
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.5689655172413789,
+     0.15,
+     0.9793103448275862
+    ]
+   }
+  },
+  {
+   "id": "fib_22",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.782
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.37931034482758674,
+     0.15,
+     1.227586206896552
+    ]
+   }
+  },
+  {
+   "id": "fib_23",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.818
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.18965517241379212,
+     0.15,
+     1.475862068965517
+    ]
+   }
+  },
+  {
+   "id": "fib_24",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.853
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -0.0,
+     0.15,
+     1.7241379310344827
+    ]
+   }
+  },
+  {
+   "id": "fib_25",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.889
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.1896551724137946,
+     0.15,
+     1.9724137931034487
+    ]
+   }
+  },
+  {
+   "id": "fib_26",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.924
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.37931034482758674,
+     0.15,
+     2.220689655172414
+    ]
+   }
+  },
+  {
+   "id": "fib_27",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.96
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.8448275862068976,
+     0.15,
+     2.2379310344827585
+    ]
+   }
+  },
+  {
+   "id": "fib_28",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 0.996
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.0172413793103459,
+     0.15,
+     0.5827586206896549
+    ]
+   }
+  },
+  {
+   "id": "fib_29",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.031
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.0172413793103459,
+     0.15,
+     0.2293103448275864
+    ]
+   }
+  },
+  {
+   "id": "fib_30",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.067
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.0172413793103459,
+     0.15,
+     -0.12413793103448267
+    ]
+   }
+  },
+  {
+   "id": "fib_31",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.102
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.5862068965517246,
+     0.15,
+     -0.020689655172414056
+    ]
+   }
+  },
+  {
+   "id": "fib_32",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.138
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     -1.9655172413793114,
+     0.15,
+     0.23793103448275832
+    ]
+   }
+  },
+  {
+   "id": "fib_33",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.173
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.6551724137931025,
+     0.15,
+     1.1862068965517238
+    ]
+   }
+  },
+  {
+   "id": "fib_34",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.209
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     1.2988505747126435,
+     0.15,
+     1.0712643678160916
+    ]
+   }
+  },
+  {
+   "id": "fib_35",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.244
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.9425287356321843,
+     0.15,
+     0.9563218390804598
+    ]
+   }
+  },
+  {
+   "id": "fib_36",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.28
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.5862068965517252,
+     0.15,
+     0.8413793103448273
+    ]
+   }
+  },
+  {
+   "id": "fib_37",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.316
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.8793103448275853,
+     0.15,
+     0.4620689655172412
+    ]
+   }
+  },
+  {
+   "id": "fib_38",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.351
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.8908045977011478,
+     0.15,
+     0.15747126436781606
+    ]
+   }
+  },
+  {
+   "id": "fib_39",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.387
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.9022988505747128,
+     0.15,
+     -0.14712643678160964
+    ]
+   }
+  },
+  {
+   "id": "fib_40",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.422
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.9137931034482755,
+     0.15,
+     -0.4517241379310347
+    ]
+   }
+  },
+  {
+   "id": "fib_41",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.458
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.5862068965517252,
+     0.15,
+     0.8413793103448273
+    ]
+   }
+  },
+  {
+   "id": "fib_42",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.493
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.6379310344827591,
+     0.15,
+     1.160344827586207
+    ]
+   }
+  },
+  {
+   "id": "fib_43",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.529
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.6896551724137931,
+     0.15,
+     1.4793103448275864
+    ]
+   }
+  },
+  {
+   "id": "fib_44",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.564
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.5344827586206887,
+     0.15,
+     1.85
+    ]
+   }
+  },
+  {
+   "id": "fib_45",
+   "t": {
+    "line": "n13a",
+    "word": "lay",
+    "offset": 1.6
+   },
+   "shape": "sphere",
+   "color": "#5fe3ff",
+   "glow": 2.0,
+   "size": 0.09,
+   "enter_time": 0.2,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.37931034482758674,
+     0.15,
+     2.220689655172414
+    ]
+   }
+  },
+  {
+   "id": "fibre_km",
+   "t": {
+    "line": "n13a",
+    "word": "lay"
+   },
+   "until": {
+    "line": "n13b"
+   },
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.4310344827586207,
+     1.05,
+     -1.727586206896552
+    ]
+   },
+   "size": 0.5,
+   "color": "#ffffff",
+   "counter": {
+    "from": 0,
+    "to": 300000,
+    "group": "indian",
+    "suffix": " KM",
+    "land": {
+     "line": "n13a",
+     "word": "lakh"
+    },
+    "label": "OF FIBRE"
+   }
+  },
+  {
+   "id": "receipt",
+   "t": {
+    "line": "n13b",
+    "word": "bill:"
+   },
+   "shape": "receipt",
+   "label": "BILL",
+   "label_color": "#1b1b22",
+   "size": 1.5,
+   "enter": "rise",
+   "enter_time": 0.8,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.9,
+     0,
+     -2.1
+    ]
+   },
+   "sound": "click"
+  },
+  {
+   "id": "bill_amt",
+   "t": {
+    "line": "n13b",
+    "word": "bill:"
+   },
+   "until": {
+    "line": "n13c",
+    "edge": "end"
+   },
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.9,
+     1.75,
+     -1.6
+    ]
+   },
+   "size": 0.32,
+   "color": "#ffffff",
+   "counter": {
+    "from": 0,
+    "to": 150000,
+    "group": "indian",
+    "prefix": "₹",
+    "land": {
+     "line": "n13b",
+     "word": "crore"
+    },
+    "label": "CRORE"
+   }
+  },
+  {
+   "id": "startup_txt",
+   "t": {
+    "line": "n13c",
+    "word": "biggest"
+   },
+   "until": {
+    "line": "n14a"
+   },
+   "text": "WORLD'S BIGGEST STARTUP",
+   "color": "#f2c230",
+   "glow": 1.2,
+   "size": 0.15,
+   "at": {
+    "anchor": "m3",
+    "offset": [
+     0,
+     1.62,
+     0.25
+    ]
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "launch_date",
+   "t": {
+    "line": "n14a",
+    "word": "September"
+   },
+   "until": {
+    "line": "n14b"
+   },
+   "text": "5 SEP 2016",
+   "color": "#ffffff",
+   "glow": 1.0,
+   "size": 0.32,
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     2.25,
+     -0.6
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "jio_neon",
+   "t": {
+    "line": "n14a",
+    "word": "Jio."
+   },
+   "text": "JIO",
+   "color": "#3d7bff",
+   "glow": 2.2,
+   "size": 1.3,
+   "enter": "beam",
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     3.0,
+     -2.6
+    ]
+   },
+   "sound": "sting"
+  },
+  {
+   "id": "free_item_0",
+   "t": {
+    "line": "n14b",
+    "word": "Calls."
+   },
+   "until": {
+    "line": "n15a"
+   },
+   "shape": "phone",
+   "size": 0.5,
+   "enter": "drop",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     1.15,
+     0.9,
+     0.3
+    ]
+   },
+   "face": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "sound": "pop",
+   "color": "#16181d"
+  },
+  {
+   "id": "free_tag_0",
+   "t": {
+    "line": "n14b",
+    "word": "Calls.",
+    "offset": 0.15
+   },
+   "until": {
+    "line": "n15a"
+   },
+   "text": "FREE",
+   "color": "#7cff6b",
+   "glow": 1.2,
+   "size": 0.2,
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     1.15,
+     0.55,
+     0.6
+    ]
+   }
+  },
+  {
+   "id": "free_item_1",
+   "t": {
+    "line": "n14b",
+    "word": "Data."
+   },
+   "until": {
+    "line": "n15a"
+   },
+   "shape": "box",
+   "size": 0.4,
+   "enter": "drop",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     -0.0,
+     0.9,
+     0.3
+    ]
+   },
+   "face": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "sound": "pop",
+   "label": "DATA",
+   "label_color": "#0d2a4a",
+   "color": "#5fe3ff",
+   "glow": 0.6
+  },
+  {
+   "id": "free_tag_1",
+   "t": {
+    "line": "n14b",
+    "word": "Data.",
+    "offset": 0.15
+   },
+   "until": {
+    "line": "n15a"
+   },
+   "text": "FREE",
+   "color": "#7cff6b",
+   "glow": 1.2,
+   "size": 0.2,
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     -0.0,
+     0.55,
+     0.6
+    ]
+   }
+  },
+  {
+   "id": "free_item_2",
+   "t": {
+    "line": "n14b",
+    "word": "Apps."
+   },
+   "until": {
+    "line": "n15a"
+   },
+   "shape": "card",
+   "size": 0.5,
+   "enter": "drop",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     -1.15,
+     0.9,
+     0.3
+    ]
+   },
+   "face": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "sound": "pop",
+   "color": "#ff4fd8"
+  },
+  {
+   "id": "free_tag_2",
+   "t": {
+    "line": "n14b",
+    "word": "Apps.",
+    "offset": 0.15
+   },
+   "until": {
+    "line": "n15a"
+   },
+   "text": "FREE",
+   "color": "#7cff6b",
+   "glow": 1.2,
+   "size": 0.2,
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     -1.15,
+     0.55,
+     0.6
+    ]
+   }
+  },
+  {
+   "id": "everything_free",
+   "t": {
+    "line": "n14b",
+    "word": "free."
+   },
+   "until": {
+    "line": "n14b",
+    "word": "Data."
+   },
+   "text": "FREE!",
+   "color": "#7cff6b",
+   "glow": 1.4,
+   "size": 0.5,
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     2.0,
+     0.6
+    ]
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "jiophone",
+   "t": {
+    "line": "n17a",
+    "word": "phone."
+   },
+   "until": {
+    "line": "n18a"
+   },
+   "shape": "phone",
+   "size": 1.0,
+   "color": "#1b2a6a",
+   "enter": "drop",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     0,
+     0,
+     0
+    ]
+   },
+   "face": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "sound": "thud"
+  },
+  {
+   "id": "insane_txt",
+   "t": {
+    "line": "n17a",
+    "word": "insane"
+   },
+   "until": {
+    "line": "n17b"
+   },
+   "text": "INSANE",
+   "color": "#ff4d5a",
+   "glow": 1.3,
+   "size": 0.45,
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     1.75,
+     1.2
+    ]
+   },
+   "sound": "sting"
+  },
+  {
+   "id": "jiophone_name",
+   "t": {
+    "line": "n17b",
+    "word": "JioPhone,"
+   },
+   "until": {
+    "line": "n18a"
+   },
+   "text": "JIOPHONE",
+   "color": "#3d7bff",
+   "glow": 1.2,
+   "size": 0.26,
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     2.05,
+     0.9
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "phone_price",
+   "t": {
+    "line": "n17b",
+    "word": "JioPhone,"
+   },
+   "until": {
+    "line": "n18a"
+   },
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     0,
+     1.3,
+     0.9
+    ]
+   },
+   "size": 0.38,
+   "color": "#ffffff",
+   "counter": {
+    "from": 1500,
+    "to": 0,
+    "prefix": "₹",
+    "land": {
+     "line": "n17b",
+     "word": "zero."
+    },
+    "label": "PRICE",
+    "land_color": "#7cff6b"
+   }
+  },
+  {
+   "id": "podium",
+   "t": {
+    "line": "n20",
+    "word": "2019,"
+   },
+   "until": {
+    "line": "n21a"
+   },
+   "shape": "podium",
+   "size": 2.0,
+   "enter": "rise",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     0,
+     0,
+     0
+    ]
+   },
+   "sound": "whoosh"
+  },
+  {
+   "id": "pod_airtel",
+   "t": {
+    "line": "n20",
+    "word": "2019,",
+    "offset": 0.25
+   },
+   "until": {
+    "line": "n21a"
+   },
+   "shape": "tower",
+   "size": 0.95,
+   "color": "#d8dce4",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     0.72,
+     0.68,
+     0
+    ]
+   }
+  },
+  {
+   "id": "pod_vi",
+   "t": {
+    "line": "n20",
+    "word": "2019,",
+    "offset": 0.35
+   },
+   "until": {
+    "line": "n21a"
+   },
+   "shape": "tower",
+   "size": 0.8,
+   "color": "#d8dce4",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     -0.72,
+     0.48,
+     0
+    ]
+   }
+  },
+  {
+   "id": "pod_jio",
+   "t": {
+    "line": "n20",
+    "word": "Jio"
+   },
+   "until": {
+    "line": "n21a"
+   },
+   "shape": "tower",
+   "size": 1.25,
+   "color": "#bfefff",
+   "glow": 0.6,
+   "enter": "drop",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     0,
+     1.0,
+     0
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "pod_crown",
+   "t": {
+    "line": "n20",
+    "word": "one."
+   },
+   "until": {
+    "line": "n21a"
+   },
+   "shape": "crown",
+   "size": 0.32,
+   "enter": "drop",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     0,
+     2.25,
+     0
+    ]
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "pod_l1",
+   "t": {
+    "line": "n20",
+    "word": "2019,",
+    "offset": 0.25
+   },
+   "until": {
+    "line": "n21a"
+   },
+   "text": "AIRTEL",
+   "color": "#ffffff",
+   "glow": 0.6,
+   "size": 0.13,
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     0.72,
+     1.75,
+     0.2
+    ]
+   }
+  },
+  {
+   "id": "pod_l3",
+   "t": {
+    "line": "n20",
+    "word": "2019,",
+    "offset": 0.35
+   },
+   "until": {
+    "line": "n21a"
+   },
+   "text": "VI",
+   "color": "#ffffff",
+   "glow": 0.6,
+   "size": 0.13,
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     -0.72,
+     1.4,
+     0.2
+    ]
+   }
+  },
+  {
+   "id": "pod_l2",
+   "t": {
+    "line": "n20",
+    "word": "Jio"
+   },
+   "until": {
+    "line": "n21a"
+   },
+   "text": "JIO",
+   "color": "#3d7bff",
+   "glow": 1.4,
+   "size": 0.2,
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     0,
+     2.65,
+     0.2
+    ]
+   }
+  },
+  {
+   "id": "jio_cake",
+   "t": {
+    "line": "n21a"
+   },
+   "shape": "cake",
+   "label": "JIO",
+   "label_color": "#1b2a6a",
+   "size": 1.2,
+   "enter": "drop",
+   "at": {
+    "anchor": "launch.pedestal",
+    "offset": [
+     0,
+     0,
+     0.1
+    ]
+   }
+  },
+  {
+   "id": "fb_name",
+   "t": {
+    "line": "n21a",
+    "word": "Facebook"
+   },
+   "text": "FACEBOOK",
+   "color": "#5f9bff",
+   "glow": 1.2,
+   "size": 0.26,
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     1.35,
+     2.75,
+     0.3
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "fb_amt",
+   "t": {
+    "line": "n21a",
+    "word": "pays"
+   },
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     1.35,
+     1.95,
+     0.3
+    ]
+   },
+   "size": 0.42,
+   "color": "#ffffff",
+   "counter": {
+    "from": 0,
+    "to": 5.7,
+    "decimals": 1,
+    "prefix": "$",
+    "suffix": "B",
+    "land": {
+     "line": "n21a",
+     "word": "5.7"
+    }
+   }
+  },
+  {
+   "id": "fb_cash",
+   "t": {
+    "line": "n21a",
+    "word": "dollars"
+   },
+   "shape": "cash",
+   "size": 0.55,
+   "enter": "drop",
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     1.3,
+     0,
+     1.4
+    ]
+   },
+   "sound": "cash"
+  },
+  {
+   "id": "go_name",
+   "t": {
+    "line": "n21b",
+    "word": "Google"
+   },
+   "text": "GOOGLE",
+   "color": "#ffffff",
+   "glow": 1.2,
+   "size": 0.26,
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     -1.35,
+     2.75,
+     0.3
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "go_amt",
+   "t": {
+    "line": "n21b",
+    "word": "pays"
+   },
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     -1.35,
+     1.95,
+     0.3
+    ]
+   },
+   "size": 0.42,
+   "color": "#ffffff",
+   "counter": {
+    "from": 0,
+    "to": 4.5,
+    "decimals": 1,
+    "prefix": "$",
+    "suffix": "B",
+    "land": {
+     "line": "n21b",
+     "word": "4.5"
+    }
+   }
+  },
+  {
+   "id": "go_cash",
+   "t": {
+    "line": "n21b",
+    "word": "billion."
+   },
+   "shape": "cash",
+   "size": 0.55,
+   "enter": "drop",
+   "at": {
+    "anchor": "launch",
+    "offset": [
+     -1.3,
+     0,
+     1.4
+    ]
+   },
+   "sound": "cash"
+  },
+  {
+   "id": "users",
+   "t": {
+    "line": "n15a"
+   },
+   "until": {
+    "line": "n15c"
+   },
+   "at": {
+    "anchor": "street",
+    "offset": [
+     0,
+     2.7,
+     1.2
+    ]
+   },
+   "size": 0.62,
+   "color": "#ffffff",
+   "counter": {
+    "keys": [
+     [
+      {
+       "line": "n15a"
+      },
+      0
+     ],
+     [
+      {
+       "line": "n15a",
+       "word": "million"
+      },
+      16
+     ],
+     [
+      {
+       "line": "n15b",
+       "word": "hundred"
+      },
+      16
+     ],
+     [
+      {
+       "line": "n15b",
+       "word": "million"
+      },
+      100
+     ]
+    ],
+    "suffix": " MILLION",
+    "label": "ON JIO"
+   }
+  },
+  {
+   "id": "days26",
+   "t": {
+    "line": "n15a",
+    "word": "26"
+   },
+   "until": {
+    "line": "n15b"
+   },
+   "text": "IN 26 DAYS",
+   "color": "#f2c230",
+   "glow": 1.0,
+   "size": 0.32,
+   "at": {
+    "anchor": "street",
+    "offset": [
+     0,
+     1.85,
+     1.6
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "days170",
+   "t": {
+    "line": "n15b",
+    "word": "170"
+   },
+   "until": {
+    "line": "n15c"
+   },
+   "text": "IN 170 DAYS",
+   "color": "#f2c230",
+   "glow": 1.0,
+   "size": 0.32,
+   "at": {
+    "anchor": "street",
+    "offset": [
+     0,
+     1.85,
+     1.6
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "per_sec",
+   "t": {
+    "line": "n15c",
+    "word": "seven"
+   },
+   "until": {
+    "line": "n16a"
+   },
+   "at": {
+    "anchor": "street",
+    "offset": [
+     0,
+     2.5,
+     1.2
+    ]
+   },
+   "size": 0.75,
+   "color": "#ffffff",
+   "counter": {
+    "from": 0,
+    "to": 7,
+    "land": {
+     "line": "n15c",
+     "word": "seven",
+     "edge": "end"
+    },
+    "prefix": "+",
+    "label": "EVERY SECOND"
+   }
+  },
+  {
+   "id": "crash_price",
+   "t": {
+    "line": "n18a"
+   },
+   "until": {
+    "line": "n18b"
+   },
+   "at": {
+    "anchor": "street",
+    "offset": [
+     0,
+     2.3,
+     2.0
+    ]
+   },
+   "size": 0.75,
+   "color": "#ffffff",
+   "counter": {
+    "from": 250,
+    "to": 18,
+    "prefix": "₹",
+    "land": {
+     "line": "n18a",
+     "word": "20."
+    },
+    "label": "PER GB",
+    "land_color": "#7cff6b"
+   }
+  },
+  {
+   "id": "today_n",
+   "t": {
+    "line": "n22"
+   },
+   "at": {
+    "anchor": "street",
+    "offset": [
+     0,
+     4.2,
+     -0.5
+    ]
+   },
+   "size": 0.9,
+   "color": "#ffffff",
+   "counter": {
+    "from": 0,
+    "to": 524,
+    "land": {
+     "line": "n22",
+     "word": "524"
+    },
+    "suffix": " MILLION",
+    "label": "INDIANS ON JIO"
+   }
+  },
+  {
+   "id": "fourg_1",
+   "t": {
+    "line": "n15a",
+    "word": "join",
+    "offset": 0.0
+   },
+   "text": "4G",
+   "color": "#7cff6b",
+   "glow": 1.3,
+   "size": 0.26,
+   "at": {
+    "anchor": "c_1.head",
+    "offset": [
+     0,
+     0.45,
+     0
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "fourg_4",
+   "t": {
+    "line": "n15a",
+    "word": "join",
+    "offset": 0.09
+   },
+   "text": "4G",
+   "color": "#7cff6b",
+   "glow": 1.3,
+   "size": 0.26,
+   "at": {
+    "anchor": "c_4.head",
+    "offset": [
+     0,
+     0.45,
+     0
+    ]
+   }
+  },
+  {
+   "id": "fourg_6",
+   "t": {
+    "line": "n15a",
+    "word": "join",
+    "offset": 0.18
+   },
+   "text": "4G",
+   "color": "#7cff6b",
+   "glow": 1.3,
+   "size": 0.26,
+   "at": {
+    "anchor": "c_6.head",
+    "offset": [
+     0,
+     0.45,
+     0
+    ]
+   }
+  },
+  {
+   "id": "fourg_9",
+   "t": {
+    "line": "n15a",
+    "word": "join",
+    "offset": 0.27
+   },
+   "text": "4G",
+   "color": "#7cff6b",
+   "glow": 1.3,
+   "size": 0.26,
+   "at": {
+    "anchor": "c_9.head",
+    "offset": [
+     0,
+     0.45,
+     0
+    ]
+   }
+  },
+  {
+   "id": "fourg_12",
+   "t": {
+    "line": "n15a",
+    "word": "join",
+    "offset": 0.36
+   },
+   "text": "4G",
+   "color": "#7cff6b",
+   "glow": 1.3,
+   "size": 0.26,
+   "at": {
+    "anchor": "c_12.head",
+    "offset": [
+     0,
+     0.45,
+     0
+    ]
+   }
+  },
+  {
+   "id": "fourg_14",
+   "t": {
+    "line": "n15a",
+    "word": "join",
+    "offset": 0.44999999999999996
+   },
+   "text": "4G",
+   "color": "#7cff6b",
+   "glow": 1.3,
+   "size": 0.26,
+   "at": {
+    "anchor": "c_14.head",
+    "offset": [
+     0,
+     0.45,
+     0
+    ]
+   }
+  },
+  {
+   "id": "new_user_0",
+   "t": {
+    "line": "n15c",
+    "word": "new",
+    "offset": 0.0
+   },
+   "until": {
+    "line": "n16a"
+   },
+   "shape": "phone",
+   "size": 0.3,
+   "color": "#1b2a6a",
+   "at": {
+    "anchor": "street",
+    "offset": [
+     1.5,
+     1.5,
+     3.0
+    ]
+   },
+   "face": {
+    "anchor": "street",
+    "offset": [
+     0,
+     1.0,
+     12
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "new_user_1",
+   "t": {
+    "line": "n15c",
+    "word": "new",
+    "offset": 0.11
+   },
+   "until": {
+    "line": "n16a"
+   },
+   "shape": "phone",
+   "size": 0.3,
+   "color": "#1b2a6a",
+   "at": {
+    "anchor": "street",
+    "offset": [
+     1.0,
+     1.5,
+     3.0
+    ]
+   },
+   "face": {
+    "anchor": "street",
+    "offset": [
+     0,
+     1.0,
+     12
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "new_user_2",
+   "t": {
+    "line": "n15c",
+    "word": "new",
+    "offset": 0.22
+   },
+   "until": {
+    "line": "n16a"
+   },
+   "shape": "phone",
+   "size": 0.3,
+   "color": "#1b2a6a",
+   "at": {
+    "anchor": "street",
+    "offset": [
+     0.5,
+     1.5,
+     3.0
+    ]
+   },
+   "face": {
+    "anchor": "street",
+    "offset": [
+     0,
+     1.0,
+     12
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "new_user_3",
+   "t": {
+    "line": "n15c",
+    "word": "new",
+    "offset": 0.33
+   },
+   "until": {
+    "line": "n16a"
+   },
+   "shape": "phone",
+   "size": 0.3,
+   "color": "#1b2a6a",
+   "at": {
+    "anchor": "street",
+    "offset": [
+     -0.0,
+     1.5,
+     3.0
+    ]
+   },
+   "face": {
+    "anchor": "street",
+    "offset": [
+     0,
+     1.0,
+     12
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "new_user_4",
+   "t": {
+    "line": "n15c",
+    "word": "new",
+    "offset": 0.44
+   },
+   "until": {
+    "line": "n16a"
+   },
+   "shape": "phone",
+   "size": 0.3,
+   "color": "#1b2a6a",
+   "at": {
+    "anchor": "street",
+    "offset": [
+     -0.5,
+     1.5,
+     3.0
+    ]
+   },
+   "face": {
+    "anchor": "street",
+    "offset": [
+     0,
+     1.0,
+     12
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "new_user_5",
+   "t": {
+    "line": "n15c",
+    "word": "new",
+    "offset": 0.55
+   },
+   "until": {
+    "line": "n16a"
+   },
+   "shape": "phone",
+   "size": 0.3,
+   "color": "#1b2a6a",
+   "at": {
+    "anchor": "street",
+    "offset": [
+     -1.0,
+     1.5,
+     3.0
+    ]
+   },
+   "face": {
+    "anchor": "street",
+    "offset": [
+     0,
+     1.0,
+     12
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "new_user_6",
+   "t": {
+    "line": "n15c",
+    "word": "new",
+    "offset": 0.66
+   },
+   "until": {
+    "line": "n16a"
+   },
+   "shape": "phone",
+   "size": 0.3,
+   "color": "#1b2a6a",
+   "at": {
+    "anchor": "street",
+    "offset": [
+     -1.5,
+     1.5,
+     3.0
+    ]
+   },
+   "face": {
+    "anchor": "street",
+    "offset": [
+     0,
+     1.0,
+     12
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "court_table",
+   "t": 0,
+   "enter": "none",
+   "prop": "quaternius_fantasy_props/Table_Large",
+   "size": 2.0,
+   "at": {
+    "anchor": "court",
+    "offset": [
+     0,
+     0,
+     -0.9
+    ]
+   }
+  },
+  {
+   "id": "trai",
+   "t": 0,
+   "enter": "none",
+   "shape": "plaque",
+   "label": "TRAI",
+   "label_color": "#ffffff",
+   "color": "#2a5a9a",
+   "size": 0.8,
+   "at": {
+    "anchor": "court",
+    "offset": [
+     0,
+     0.6,
+     -0.55
+    ]
+   }
+  },
+  {
+   "id": "predatory",
+   "t": {
+    "line": "n16a",
+    "word": "predatory"
+   },
+   "until": {
+    "line": "n16b"
+   },
+   "text": "PREDATORY PRICING!",
+   "color": "#d0142a",
+   "glow": 0.25,
+   "size": 0.15,
+   "at": {
+    "anchor": "court",
+    "offset": [
+     1.0,
+     1.95,
+     1.4
+    ]
+   },
+   "sound": "sting"
+  },
+  {
+   "id": "dropped_txt",
+   "t": {
+    "line": "n16b",
+    "word": "networks"
+   },
+   "text": "CALL DROPPED",
+   "color": "#d0142a",
+   "glow": 0.3,
+   "size": 0.12,
+   "at": {
+    "anchor": "mc",
+    "offset": [
+     0.35,
+     1.42,
+     0.3
+    ]
+   },
+   "sound": "click"
+  },
+  {
+   "id": "mc_phone",
+   "t": {
+    "line": "n16b",
+    "word": "say"
+   },
+   "shape": "phone",
+   "size": 0.36,
+   "at": {
+    "anchor": "mc",
+    "offset": [
+     0.5,
+     0.85,
+     0.3
+    ]
+   },
+   "face": {
+    "anchor": "court",
+    "offset": [
+     0,
+     1.0,
+     8
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "map_glow",
+   "t": {
+    "line": "n18b",
+    "word": "India"
+   },
+   "shape": "india",
+   "size": 5.0,
+   "color": "#5fe3ff",
+   "glow": 1.4,
+   "enter": "grow",
+   "enter_time": 0.8,
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0,
+     0.006,
+     0.6
+    ]
+   },
+   "sound": "whoosh"
+  },
+  {
+   "id": "world_no1",
+   "t": {
+    "line": "n18b",
+    "word": "biggest"
+   },
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.4310344827586207,
+     1.15,
+     -1.727586206896552
+    ]
+   },
+   "text": "#1 IN THE WORLD",
+   "color": "#f2c230",
+   "glow": 1.3,
+   "size": 0.42,
+   "sound": "ding"
+  },
+  {
+   "id": "mobile_data",
+   "t": {
+    "line": "n18b",
+    "word": "mobile"
+   },
+   "at": {
+    "anchor": "war_room",
+    "offset": [
+     0.4310344827586207,
+     0.6,
+     -1.727586206896552
+    ]
+   },
+   "text": "MOBILE DATA",
+   "color": "#ffffff",
+   "glow": 1.0,
+   "size": 0.3,
+   "sound": "pop"
+  },
+  {
+   "id": "vi_txt",
+   "t": {
+    "line": "n19c",
+    "word": "merge"
+   },
+   "text": "VODAFONE IDEA",
+   "color": "#ffd84a",
+   "glow": 1.0,
+   "size": 0.26,
+   "at": {
+    "anchor": "rivals",
+    "offset": [
+     -1.3,
+     3.75,
+     0.4
+    ]
+   },
+   "sound": "thud"
+  },
+  {
+   "id": "free_final",
+   "t": {
+    "line": "n23b",
+    "word": "free."
+   },
+   "text": "FREE",
+   "color": "#7cff6b",
+   "glow": 1.4,
+   "size": 0.16,
+   "at": {
+    "anchor": "tribute",
+    "offset": [
+     -0.45,
+     0.82,
+     1.25
+    ]
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "jio_word",
+   "t": {
+    "line": "n24a",
+    "word": "Jio."
+   },
+   "text": "JIO",
+   "color": "#1f4fd8",
+   "glow": 0.4,
+   "size": 0.5,
+   "at": {
+    "anchor": "mt",
+    "offset": [
+     0,
+     1.55,
+     0.2
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "jiyo",
+   "t": {
+    "line": "n24b",
+    "word": "Hindi,"
+   },
+   "text": "जियो",
+   "color": "#ffd84a",
+   "glow": 1.5,
+   "size": 0.9,
+   "at": {
+    "anchor": "empire",
+    "offset": [
+     0,
+     4.7,
+     0.4
+    ]
+   },
+   "sound": "pop"
+  },
+  {
+   "id": "live",
+   "t": {
+    "line": "n24b",
+    "word": "live\"."
+   },
+   "text": "= LIVE",
+   "color": "#5fe3ff",
+   "glow": 1.5,
+   "size": 0.7,
+   "at": {
+    "anchor": "empire",
+    "offset": [
+     0,
+     3.75,
+     0.4
+    ]
+   },
+   "sound": "ding"
   }
  ],
  "shots": [
@@ -1583,6 +7536,7 @@
     "tail": 0.6,
     "min": 1.4
    },
+   "whip_out": "right",
    "camera": {
     "from": {
      "at": {
@@ -1607,6 +7561,1860 @@
      },
      "look_at": "y.head",
      "lens_mm": 40
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "rivals",
+   "duration": "fit",
+   "whip_in": "right",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       2.2,
+       10.5
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       1.9,
+       0
+      ]
+     },
+     "lens_mm": 28
+    },
+    "to": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       2.0,
+       8.6
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       1.9,
+       0.4
+      ]
+     },
+     "lens_mm": 28
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "luxury",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       1.3,
+       5.6
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       0.9,
+       2.6
+      ]
+     },
+     "lens_mm": 35
+    },
+    "to": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       1.1,
+       4.4
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       0.9,
+       2.6
+      ]
+     },
+     "lens_mm": 38
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "sees",
+   "duration": "fit",
+   "whip_out": "left",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "m3",
+      "offset": [
+       0,
+       1.15,
+       3.0
+      ]
+     },
+     "look_at": "m3.head",
+     "lens_mm": 35
+    },
+    "to": {
+     "at": {
+      "anchor": "m3",
+      "offset": [
+       0,
+       1.12,
+       1.6
+      ]
+     },
+     "look_at": "m3.head",
+     "lens_mm": 40
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "deal_ends",
+   "duration": "fit",
+   "whip_in": "left",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "m2",
+      "offset": [
+       -0.45,
+       1.15,
+       3.4
+      ]
+     },
+     "look_at": {
+      "anchor": "m2",
+      "offset": [
+       -0.45,
+       0.95,
+       0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "m2",
+      "offset": [
+       -0.45,
+       1.1,
+       2.8
+      ]
+     },
+     "look_at": {
+      "anchor": "m2",
+      "offset": [
+       -0.45,
+       0.9,
+       0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "infotel",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       6.4,
+       6.2
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       0,
+       0.2
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       5.0,
+       5.0
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0.6896551724137931,
+       0.15,
+       0.6862068965517241
+      ]
+     },
+     "lens_mm": 28
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "circles",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       5.5,
+       6.6
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       0,
+       0.0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       6.8,
+       5.8
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       0.3,
+       -0.2
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "buy95",
+   "duration": "fit",
+   "whip_out": "right",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0.6896551724137931,
+       3.15,
+       2.410344827586207
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0.6896551724137931,
+       0.65,
+       0.6862068965517241
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0.6896551724137931,
+       2.75,
+       1.9793103448275864
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0.6896551724137931,
+       0.7000000000000001,
+       0.6862068965517241
+      ]
+     },
+     "lens_mm": 32
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "isha",
+   "duration": "fit",
+   "whip_in": "right",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "home",
+      "offset": [
+       0.9,
+       1.3,
+       3.2
+      ]
+     },
+     "look_at": {
+      "anchor": "home",
+      "offset": [
+       0.9,
+       1.0,
+       0
+      ]
+     },
+     "lens_mm": 38
+    },
+    "to": {
+     "at": {
+      "anchor": "home",
+      "offset": [
+       0.9,
+       1.25,
+       2.6
+      ]
+     },
+     "look_at": {
+      "anchor": "home",
+      "offset": [
+       0.9,
+       1.05,
+       0
+      ]
+     },
+     "lens_mm": 38
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "sucks",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "home",
+      "offset": [
+       0.75,
+       1.2,
+       2.9
+      ]
+     },
+     "look_at": {
+      "anchor": "home",
+      "offset": [
+       0.75,
+       1.0,
+       0
+      ]
+     },
+     "lens_mm": 32
+    },
+    "to": {
+     "at": {
+      "anchor": "home",
+      "offset": [
+       0.75,
+       1.15,
+       2.4
+      ]
+     },
+     "look_at": {
+      "anchor": "home",
+      "offset": [
+       0.75,
+       1.0,
+       0
+      ]
+     },
+     "lens_mm": 32
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "akash",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "akash",
+      "offset": [
+       0.25,
+       1.25,
+       2.7
+      ]
+     },
+     "look_at": {
+      "anchor": "akash",
+      "offset": [
+       0.25,
+       1.0,
+       0
+      ]
+     },
+     "lens_mm": 35
+    },
+    "to": {
+     "at": {
+      "anchor": "akash",
+      "offset": [
+       0.22,
+       1.2,
+       2.2
+      ]
+     },
+     "look_at": {
+      "anchor": "akash",
+      "offset": [
+       0.22,
+       1.05,
+       0
+      ]
+     },
+     "lens_mm": 35
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "data_box",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "home",
+      "offset": [
+       -0.3,
+       1.2,
+       3.4
+      ]
+     },
+     "look_at": {
+      "anchor": "home",
+      "offset": [
+       -0.2,
+       1.15,
+       -0.8
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "home",
+      "offset": [
+       -0.2,
+       1.3,
+       4.0
+      ]
+     },
+     "look_at": {
+      "anchor": "home",
+      "offset": [
+       -0.1,
+       1.35,
+       -0.9
+      ]
+     },
+     "lens_mm": 28
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "oxygen",
+   "duration": "fit",
+   "whip_in": "up",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "m3",
+      "offset": [
+       0.45,
+       1.2,
+       3.2
+      ]
+     },
+     "look_at": {
+      "anchor": "m3",
+      "offset": [
+       0.45,
+       0.85,
+       0
+      ]
+     },
+     "lens_mm": 32
+    },
+    "to": {
+     "at": {
+      "anchor": "m3",
+      "offset": [
+       0.45,
+       1.15,
+       2.5
+      ]
+     },
+     "look_at": {
+      "anchor": "m3",
+      "offset": [
+       0.45,
+       0.9,
+       0
+      ]
+     },
+     "lens_mm": 33
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "everyone",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.2,
+       9.5
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.4,
+       -1.2
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       1.6,
+       7.0
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.6,
+       -1.2
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "old_towers",
+   "duration": "fit",
+   "whip_in": "right",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "field",
+      "offset": [
+       0.6,
+       1.6,
+       6.6
+      ]
+     },
+     "look_at": {
+      "anchor": "field",
+      "offset": [
+       0.6,
+       1.1,
+       0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "field",
+      "offset": [
+       0.6,
+       1.5,
+       5.7
+      ]
+     },
+     "look_at": {
+      "anchor": "field",
+      "offset": [
+       0.6,
+       1.0,
+       0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "build4g",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "field",
+      "offset": [
+       0,
+       0.8,
+       6.4
+      ]
+     },
+     "look_at": {
+      "anchor": "field",
+      "offset": [
+       0,
+       2.6,
+       -2.6
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "field",
+      "offset": [
+       0,
+       0.7,
+       7.6
+      ]
+     },
+     "look_at": {
+      "anchor": "field",
+      "offset": [
+       0,
+       2.8,
+       -2.6
+      ]
+     },
+     "lens_mm": 24
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "volte",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "field",
+      "offset": [
+       1.0,
+       1.3,
+       6.2
+      ]
+     },
+     "look_at": {
+      "anchor": "field",
+      "offset": [
+       0.9,
+       1.6,
+       0.5
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "field",
+      "offset": [
+       0.8,
+       1.5,
+       7.0
+      ]
+     },
+     "look_at": {
+      "anchor": "field",
+      "offset": [
+       0.5,
+       2.2,
+       -0.8
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "fibre",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       7.0,
+       5.2
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       0,
+       0.1
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       6.2,
+       6.0
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       0.2,
+       0.0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "bill",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0.2,
+       1.4,
+       3.6
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0.2,
+       1.1,
+       -2.0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0.2,
+       1.3,
+       2.6
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0.2,
+       1.15,
+       -2.0
+      ]
+     },
+     "lens_mm": 32
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "startup",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "m3",
+      "offset": [
+       0,
+       1.4,
+       2.4
+      ]
+     },
+     "look_at": {
+      "anchor": "m3",
+      "offset": [
+       0,
+       1.3,
+       0
+      ]
+     },
+     "lens_mm": 32
+    },
+    "to": {
+     "at": {
+      "anchor": "m3",
+      "offset": [
+       0,
+       1.35,
+       3.2
+      ]
+     },
+     "look_at": {
+      "anchor": "m3",
+      "offset": [
+       0,
+       1.4,
+       0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "launch",
+   "duration": "fit",
+   "whip_in": "up",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0.6,
+       1.4,
+       7.0
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0.4,
+       1.9,
+       -0.5
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0.5,
+       1.3,
+       6.0
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0.3,
+       2.2,
+       -0.8
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "free3",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0,
+       1.5,
+       6.2
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0,
+       1.3,
+       0.3
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0,
+       1.4,
+       5.4
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0,
+       1.3,
+       0.3
+      ]
+     },
+     "lens_mm": 30
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "join16",
+   "duration": "fit",
+   "whip_in": "down",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.8,
+       7.8
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.4,
+       1.2
+      ]
+     },
+     "lens_mm": 28
+    },
+    "to": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       3.0,
+       9.0
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.4,
+       1.2
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "join100",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       3.2,
+       9.6
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.3,
+       1.2
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       4.8,
+       12.5
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.0,
+       0.5
+      ]
+     },
+     "lens_mm": 24
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "seven",
+   "duration": "fit",
+   "whip_out": "right",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.3,
+       6.4
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.0,
+       1.2
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.2,
+       5.4
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.0,
+       1.2
+      ]
+     },
+     "lens_mm": 30
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "regulator",
+   "duration": "fit",
+   "whip_in": "right",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "court",
+      "offset": [
+       1.0,
+       1.4,
+       5.2
+      ]
+     },
+     "look_at": {
+      "anchor": "court",
+      "offset": [
+       1.0,
+       1.15,
+       0.4
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "court",
+      "offset": [
+       1.2,
+       1.35,
+       4.2
+      ]
+     },
+     "look_at": {
+      "anchor": "court",
+      "offset": [
+       1.2,
+       1.2,
+       0.6
+      ]
+     },
+     "lens_mm": 30
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "dropped",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "mc",
+      "offset": [
+       0.35,
+       1.2,
+       3.3
+      ]
+     },
+     "look_at": {
+      "anchor": "mc",
+      "offset": [
+       0.35,
+       1.05,
+       0
+      ]
+     },
+     "lens_mm": 35
+    },
+    "to": {
+     "at": {
+      "anchor": "mc",
+      "offset": [
+       0.35,
+       1.15,
+       2.7
+      ]
+     },
+     "look_at": {
+      "anchor": "mc",
+      "offset": [
+       0.35,
+       1.1,
+       0
+      ]
+     },
+     "lens_mm": 35
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "insane",
+   "duration": "fit",
+   "whip_in": "left",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       1.0,
+       1.4,
+       5.4
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0.8,
+       1.2,
+       0.3
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0.6,
+       1.4,
+       4.6
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0.4,
+       1.1,
+       0.2
+      ]
+     },
+     "lens_mm": 32
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "zero",
+   "duration": "fit",
+   "whip_out": "down",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0,
+       1.5,
+       4.8
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0,
+       1.4,
+       0.2
+      ]
+     },
+     "lens_mm": 32
+    },
+    "to": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0,
+       1.45,
+       3.8
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0,
+       1.4,
+       0.2
+      ]
+     },
+     "lens_mm": 34
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "crash",
+   "duration": "fit",
+   "whip_in": "down",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.6,
+       7.8
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.3,
+       2.0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "y",
+      "offset": [
+       0,
+       1.4,
+       2.6
+      ]
+     },
+     "look_at": {
+      "anchor": "y",
+      "offset": [
+       0,
+       1.4,
+       0
+      ]
+     },
+     "lens_mm": 32
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "biggest",
+   "duration": "fit",
+   "whip_out": "right",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       5.0,
+       7.0
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       0.4,
+       0.0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       6.6,
+       6.6
+      ]
+     },
+     "look_at": {
+      "anchor": "war_room",
+      "offset": [
+       0,
+       0.8,
+       -0.4
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "exits",
+   "duration": "fit",
+   "whip_in": "right",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       2.2,
+       7.0
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       0,
+       1.0,
+       -2.2
+      ]
+     },
+     "lens_mm": 28
+    },
+    "to": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       -0.3,
+       2.0,
+       6.2
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       -0.3,
+       0.9,
+       -2.2
+      ]
+     },
+     "lens_mm": 28
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "rcom",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       -4.2,
+       1.5,
+       3.4
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       -4.2,
+       1.0,
+       -1.8
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       -4.4,
+       1.35,
+       2.6
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       -4.4,
+       1.0,
+       -1.8
+      ]
+     },
+     "lens_mm": 32
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "merge",
+   "duration": "fit",
+   "whip_out": "up",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       -1.3,
+       2.2,
+       7.6
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       -1.3,
+       2.0,
+       0.4
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "rivals",
+      "offset": [
+       -1.3,
+       2.1,
+       6.4
+      ]
+     },
+     "look_at": {
+      "anchor": "rivals",
+      "offset": [
+       -1.3,
+       2.1,
+       0.4
+      ]
+     },
+     "lens_mm": 30
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "number1",
+   "duration": "fit",
+   "whip_in": "up",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0.6,
+       1.4,
+       6.6
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0.6,
+       1.6,
+       0.0
+      ]
+     },
+     "lens_mm": 28
+    },
+    "to": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0.6,
+       1.5,
+       5.6
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0.6,
+       1.7,
+       0.0
+      ]
+     },
+     "lens_mm": 28
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "facebook",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0.6,
+       1.6,
+       6.0
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0.6,
+       1.5,
+       0.3
+      ]
+     },
+     "lens_mm": 28
+    },
+    "to": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       0.4,
+       1.6,
+       5.4
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       0.4,
+       1.6,
+       0.3
+      ]
+     },
+     "lens_mm": 28
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "google",
+   "duration": "fit",
+   "whip_out": "down",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       -0.6,
+       1.6,
+       5.6
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       -0.6,
+       1.6,
+       0.3
+      ]
+     },
+     "lens_mm": 28
+    },
+    "to": {
+     "at": {
+      "anchor": "launch",
+      "offset": [
+       -0.3,
+       1.7,
+       6.6
+      ]
+     },
+     "look_at": {
+      "anchor": "launch",
+      "offset": [
+       -0.2,
+       1.6,
+       0.3
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "today",
+   "duration": "fit",
+   "whip_in": "down",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.4,
+       6.5
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.6,
+       0.0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       6.5,
+       14.0
+      ]
+     },
+     "look_at": {
+      "anchor": "street",
+      "offset": [
+       0,
+       2.6,
+       -0.5
+      ]
+     },
+     "lens_mm": 24
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "callback",
+   "duration": "fit",
+   "whip_in": "left",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tribute",
+      "offset": [
+       0,
+       1.5,
+       5.4
+      ]
+     },
+     "look_at": {
+      "anchor": "tribute",
+      "offset": [
+       0,
+       1.05,
+       -0.9
+      ]
+     },
+     "lens_mm": 52
+    },
+    "to": {
+     "at": {
+      "anchor": "tribute",
+      "offset": [
+       0,
+       1.3,
+       4.3
+      ]
+     },
+     "look_at": {
+      "anchor": "tribute",
+      "offset": [
+       0,
+       0.95,
+       -0.5
+      ]
+     },
+     "lens_mm": 52
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "made_free",
+   "duration": "fit",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tribute",
+      "offset": [
+       0,
+       1.0,
+       3.2
+      ]
+     },
+     "look_at": {
+      "anchor": "tribute",
+      "offset": [
+       0,
+       0.8,
+       1.2
+      ]
+     },
+     "lens_mm": 40
+    },
+    "to": {
+     "at": {
+      "anchor": "tribute",
+      "offset": [
+       0,
+       1.2,
+       3.6
+      ]
+     },
+     "look_at": {
+      "anchor": "tribute",
+      "offset": [
+       0,
+       1.3,
+       1.0
+      ]
+     },
+     "lens_mm": 36
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "jio_name",
+   "duration": "fit",
+   "whip_out": "left",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tribute",
+      "offset": [
+       0.6,
+       1.4,
+       4.4
+      ]
+     },
+     "look_at": {
+      "anchor": "tribute.back",
+      "offset": [
+       0.6,
+       1.2,
+       0.5
+      ]
+     },
+     "lens_mm": 38
+    },
+    "to": {
+     "at": {
+      "anchor": "tribute",
+      "offset": [
+       0.6,
+       1.4,
+       3.8
+      ]
+     },
+     "look_at": {
+      "anchor": "tribute.back",
+      "offset": [
+       0.6,
+       1.25,
+       0.5
+      ]
+     },
+     "lens_mm": 40
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "loop",
+   "duration": "fit",
+   "whip_in": "left",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "m",
+      "offset": [
+       0,
+       1.6,
+       4.6
+      ]
+     },
+     "look_at": {
+      "anchor": "m",
+      "offset": [
+       0,
+       1.8,
+       0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "empire",
+      "offset": [
+       0,
+       9,
+       13
+      ]
+     },
+     "look_at": {
+      "anchor": "empire",
+      "offset": [
+       0,
+       3,
+       0
+      ]
+     },
+     "lens_mm": 24
     },
     "ease": "in_out"
    }

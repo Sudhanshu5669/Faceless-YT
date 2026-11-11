@@ -93,6 +93,142 @@
           ],
           "light": "#ffe7c4",
           "note": "India on 2G: an Indian market street at night, everyone staring at loading phones"
+        },
+        {
+          "id": "rivals",
+          "floor": "marble",
+          "floor_colors": [
+            "#e9dcc4",
+            "#b8860b"
+          ],
+          "wall": "haveli",
+          "wall_color": "#8a2a3e",
+          "neon": [],
+          "neon_colors": [
+            "#f2c230",
+            "#ff9ad5"
+          ],
+          "size": [
+            14,
+            9
+          ],
+          "sides": true,
+          "light": "#ffe2b8",
+          "note": "The telcos' durbar: crowned towers on bags of MINUTES; later they fall"
+        },
+        {
+          "id": "war_room",
+          "floor": "marble",
+          "floor_colors": [
+            "#3a3230",
+            "#c9a227"
+          ],
+          "wall": "haveli",
+          "wall_color": "#2f5a55",
+          "neon": [],
+          "neon_colors": [
+            "#f2c230",
+            "#5fe3ff"
+          ],
+          "size": [
+            12,
+            10
+          ],
+          "sides": true,
+          "light": "#ffe2b8",
+          "note": "Mukesh's war room: the map of India on the floor (circles, fibre, number one)"
+        },
+        {
+          "id": "home",
+          "floor": "wood",
+          "floor_colors": [
+            "#9a6a44",
+            "#7a4e30"
+          ],
+          "wall": "haveli",
+          "wall_color": "#9fc7b0",
+          "neon": [],
+          "neon_colors": [
+            "#ffd27a",
+            "#ff9ad5"
+          ],
+          "size": [
+            9,
+            7
+          ],
+          "sides": true,
+          "light": "#ffe2b8",
+          "note": "The family home: Isha's laptop, Akash's point"
+        },
+        {
+          "id": "field",
+          "floor": "road",
+          "floor_colors": [
+            "#3e3a48",
+            "#7a6a5a"
+          ],
+          "wall": "bazaar",
+          "neon": [],
+          "neon_colors": [
+            "#5fe3ff",
+            "#ff4fd8"
+          ],
+          "size": [
+            14,
+            10
+          ],
+          "light": "#ffe7c4",
+          "note": "Old 2G towers fall like dominoes; shiny 4G towers rise"
+        },
+        {
+          "id": "launch",
+          "floor": "wood",
+          "floor_colors": [
+            "#5a3a2a",
+            "#3e281c"
+          ],
+          "wall": "haveli",
+          "wall_color": "#3a2a5a",
+          "neon": [
+            "arch"
+          ],
+          "neon_colors": [
+            "#3d7bff",
+            "#ff4fd8"
+          ],
+          "size": [
+            10,
+            8
+          ],
+          "light": "#ffe7c4",
+          "pedestal": {
+            "style": "neon",
+            "height": 0.35,
+            "radius": 1.25
+          },
+          "note": "The launch stage: Jio, free stuff, the JioPhone, the podium"
+        },
+        {
+          "id": "court",
+          "floor": "wood",
+          "floor_colors": [
+            "#8a6a4a",
+            "#6a4e34"
+          ],
+          "wall": "haveli",
+          "wall_color": "#c9d6c0",
+          "neon": [],
+          "neon_colors": [
+            "#ffd27a",
+            "#ff9ad5"
+          ],
+          "size": [
+            10,
+            7
+          ],
+          "sides": true,
+          "light": "#fff1dc",
+          "note": "The regulator's office: rivals crying predatory pricing"
         }
       ]
     }
@@ -180,6 +316,132 @@
         },
         "look_at": {
           "anchor": "street",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "rivals",
+        "t": 1,
+        "at": {
+          "anchor": "rivals",
+          "offset": [
+            0,
+            2.6,
+            8.1
+          ]
+        },
+        "look_at": {
+          "anchor": "rivals",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "war_room",
+        "t": 1,
+        "at": {
+          "anchor": "war_room",
+          "offset": [
+            0,
+            2.6,
+            9.0
+          ]
+        },
+        "look_at": {
+          "anchor": "war_room",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "home",
+        "t": 1,
+        "at": {
+          "anchor": "home",
+          "offset": [
+            0,
+            2.6,
+            6.3
+          ]
+        },
+        "look_at": {
+          "anchor": "home",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "field",
+        "t": 1,
+        "at": {
+          "anchor": "field",
+          "offset": [
+            0,
+            2.6,
+            9.0
+          ]
+        },
+        "look_at": {
+          "anchor": "field",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "launch",
+        "t": 1,
+        "at": {
+          "anchor": "launch",
+          "offset": [
+            0,
+            2.6,
+            7.2
+          ]
+        },
+        "look_at": {
+          "anchor": "launch",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "court",
+        "t": 1,
+        "at": {
+          "anchor": "court",
+          "offset": [
+            0,
+            2.6,
+            6.3
+          ]
+        },
+        "look_at": {
+          "anchor": "court",
           "offset": [
             0,
             1.0,

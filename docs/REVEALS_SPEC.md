@@ -42,11 +42,24 @@ or scene seconds.
 `card` (white panel + coloured header), `cash` (bill stack), `bottle`, `pin` (map pin), `chip`,
 `phone` (lit screen). **Props**: any catalog id (`library/catalog.json`).
 
+**Story shapes:** `refinery`, `pump`, `postcard`, `scales`, `frame`, `garland`, `cake`, `cake_half`,
+`binoculars`, `sign`, `spinner`, `tower`, `rickshaw`, `plaque`, and `india` (the official map outline,
+lying flat, north toward -z; `size` = its north-south length; pins go at the same projection:
+`x = (lon - 82.5) * size / 29`, `z = -(lat - 22.5) * size / 29`), `crown`, `moneybag`, `vitrine`
+(museum case with a velvet rope), `laptop` (lit screen toward +z), `tank` (oxygen cylinder), `receipt`,
+`podium` (1 in the middle, 2 screen-left, 3 screen-right; block tops at 0.5, 0.34, 0.24 x size).
+`label` prints text on `card sign cake cake_half pump postcard box plaque moneybag tank receipt`.
+
+**Moves** (after the entrance): `"moves": [{"t": time, "by": [x, y, z], "dur": 0.6, "turn": deg, "tip": deg}]`.
+`by` slides (world metres), `turn` yaws, `tip` knocks the thing over sideways about its base with a
+small bounce (+ falls toward screen left when it faces the camera): falling towers, dominoes, a sign
+that topples when a deal ends.
+
 ## Counters
 
 ```json
 "counter": { "from": 0, "to": 7000000, "land": {"line": "n9", "word": "million"},
-             "prefix": "", "suffix": "", "decimals": 0, "commas": true,
+             "prefix": "", "suffix": "", "decimals": 0, "commas": true, "group": "western",
              "label": "GLASSES SOLD", "land_color": "#ffd84a" }
 ```
 
@@ -55,6 +68,7 @@ The number eases from `from` (at the reveal's `t`) to `to` at `land`, then turns
 count ("0.5 → 1.2 → 2.1 → 3.5") give `"keys": [[time, value], ...]` instead of from/to/land.
 Add `{"sound": "tick", "at": ..., "repeat": 8, "every": 0.12}` in `sfx` for a ticking run-up and
 `"sound": "ding"` on the reveal (or an sfx at `land`) for the landing.
+`"group": "indian"` writes lakhs and crores the Indian way (3,00,000 and 1,50,000 instead of 300,000).
 
 ## Font
 
