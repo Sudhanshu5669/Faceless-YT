@@ -58,3 +58,15 @@ pending again; untouched items keep their approvals.
 An episode can set `"review": {"stage": {"anchor": "aisle_4.front", "offset": [0, 0, -1.2]},
 "cast_params": {"power": "on"}}`: where characters stand for their sheets, and set params that
 light them (review-only).
+
+## The shot-by-shot loop (preferred since 2026-11-11)
+
+The user approves each shot before the next one is polished: `tf shot EPISODE NAME` renders the
+shot at full size (1080x1920, 30 fps; `--final` = the episode's fps and motion blur) with its
+voice, effects and burned-in captions, into `review/shot_loop/<NN>_<name>.mp4`, plus a frame strip
+(`_strip.png`) and the **framing check** (every reveal that appears in the shot must stay inside
+the 9:16 frame while on screen; fix every warning before showing the shot). Claude looks at the
+strip, sends the clip, and records the verdict with
+`tf shot EPISODE NAME --decide approved|changes|rejected --note "..."` (`review/shot_decisions.json`,
+committed). When that file exists, the final render needs every shot approved there instead of
+the board.
