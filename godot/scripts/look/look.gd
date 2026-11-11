@@ -285,8 +285,7 @@ static func _snow(amount: float, wind: float) -> GPUParticles3D:
 static func _add_grade_overlay(parent: Node, grade: Dictionary) -> void:
 	var vig := float(grade["vignette"])
 	var grain := float(grade["grain"])
-	if vig <= 0.0 and grain <= 0.0:
-		return
+	# Always present: besides vignette and grain it draws the iris transitions.
 	var layer := CanvasLayer.new()
 	layer.name = "Look_Grade"
 	layer.layer = 5

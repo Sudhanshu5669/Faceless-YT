@@ -60,6 +60,8 @@ animation phases. The result is deterministic for a given id and seed.
 frame (right × forward), e.g. a line pressed against a shop window:
 `"at": {"anchor": "storefront", "offset": [4, 0, -0.55]}, "crowd": {"count": 11, "area": [20, 0.3], "spacing": 1.2}`.
 `spacing` is the minimum distance between members (default 0.9 m).
+`"shape": "india"` (with `radius` = half the north-south length) fills the map outline of India
+instead: north is the anchor's back. 110 toons at radius 8, spacing 0.8 = "a nation", shot from above.
 
 ## Actors as anchors
 

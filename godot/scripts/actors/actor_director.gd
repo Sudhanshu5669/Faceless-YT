@@ -24,12 +24,15 @@ const Actor = preload("res://scripts/actors/actor.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
 const Anchors = preload("res://scripts/camera/anchors.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
+const Reveals = preload("res://scripts/timeline/reveals.gd")
 
 const ACTOR_KEYS := ["id", "character", "at", "facing", "action", "freeze", "phase", "route", "crowd", "cues"]
 const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold", "expression", "hands"]
 const HANDS := ["face", "chest", "none"]
 const ROUTE_KEYS := ["via", "gait", "speed", "arrive", "start", "then", "then_facing", "then_freeze"]
-const CROWD_KEYS := ["count", "radius", "area", "characters", "start_spread", "seed", "spacing"]
+const CROWD_KEYS := ["count", "radius", "area", "characters", "start_spread", "seed", "spacing", "shape"]
+## Crowd shapes: "india" fills the map outline (north = the anchor's back), radius = half its N-S length.
+const CROWD_SHAPES := ["india"]
 
 
 ## Key-level validation, usable before a set exists.
@@ -116,6 +119,8 @@ static func validate(actors) -> Array:
 					e.append(where + ": crowd.area must be [width, depth] in metres")
 				if c.has("area") and c.has("radius"):
 					e.append(where + ": crowd takes 'radius' or 'area', not both")
+				if c.has("shape") and (not (String(c["shape"]) in CROWD_SHAPES) or c.has("area")):
+					e.append("%s: crowd.shape must be one of %s (sized by 'radius', not 'area')" % [where, CROWD_SHAPES])
 	return e
 
 
@@ -253,10 +258,21 @@ static func plan_all(actors, L: Dictionary) -> Dictionary:
 			var chars: Array = c.get("characters", [a.get("character", "zombie")])
 			var offsets := []
 			var tries := 0
-			while offsets.size() < int(c["count"]) and tries < 4000:
+			var shape_poly := PackedVector2Array()
+			if String(c.get("shape", "")) == "india":
+				for q in Reveals.INDIA:
+					var v := Reveals.india_point(q[0], q[1], radius * 2.0)
+					shape_poly.append(Vector2(v.x, v.z))
+			while offsets.size() < int(c["count"]) and tries < 20000:
 				tries += 1
 				var o: Vector2
-				if area.is_empty():
+				if not shape_poly.is_empty():
+					# A point inside the outline, in the anchor's frame (x east = -right, z south = forward).
+					var lp := Vector2(r.randf_range(-radius, radius), r.randf_range(-radius, radius))
+					if not Geometry2D.is_point_in_polygon(lp, shape_poly):
+						continue
+					o = -right2 * lp.x + fwd2 * lp.y
+				elif area.is_empty():
 					o = Vector2(r.randf_range(-radius, radius), r.randf_range(-radius, radius))
 					if o.length() > radius:
 						continue

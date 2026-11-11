@@ -28,3 +28,11 @@ scene_time={
 "type": "float",
 "value": 0.0
 }
+iris_shape={
+"type": "float",
+"value": 0.0
+}
+iris_radius={
+"type": "float",
+"value": 9.0
+}

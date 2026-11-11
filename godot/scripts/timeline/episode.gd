@@ -26,7 +26,11 @@ const KEYS := ["schema_version", "id", "title", "description", "set", "look", "a
 ## also turns "fit" durations and time references into numbers before Godot runs.
 const AUDIO_KEYS := ["narration", "lines", "sfx", "music", "ambience", "captions", "end_black", "review"]
 const FORMAT_KEYS := ["resolution", "fps", "motion_blur"]
-const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "note", "whip_in", "whip_out"]
+const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "note", "whip_in", "whip_out", "iris_in", "iris_out"]
+## Iris transitions: the frame seen through a mask that opens (in) or closes (out).
+const IRISES := ["circle", "binoculars"]
+const IRIS_HOLD := 0.7   # iris_in: seconds the mask holds before opening
+const IRIS_OPEN := 0.6   # seconds to open / close
 ## Whip pans: the camera swings this far (degrees) in this long (s) at a cut.
 const WHIPS := ["left", "right", "up", "down"]
 const WHIP_ANGLE := 55.0
@@ -103,6 +107,9 @@ static func validate(ep: Dictionary) -> Array:
 		for k in ["whip_in", "whip_out"]:
 			if s.has(k) and not (String(s[k]) in WHIPS):
 				e.append("%s: %s must be one of %s" % [where, k, WHIPS])
+		for k in ["iris_in", "iris_out"]:
+			if s.has(k) and not (String(s[k]) in IRISES):
+				e.append("%s: %s must be one of %s" % [where, k, IRISES])
 		var n := String(s.get("name", ""))
 		if n == "" or not n.is_valid_filename() or n.contains(" "):
 			e.append(where + ": needs a 'name' usable as a file name (no spaces)")
@@ -171,7 +178,8 @@ static func timeline(ep: Dictionary, fps: int) -> Array:
 		var frames := maxi(1, roundi(dur * fps))
 		out.append({"index": i, "name": String(s["name"]), "duration": dur, "frames": frames,
 			"first_frame": frame, "scene_t": scene_t, "camera": s["camera"],
-			"whip_in": String(s.get("whip_in", "")), "whip_out": String(s.get("whip_out", ""))})
+			"whip_in": String(s.get("whip_in", "")), "whip_out": String(s.get("whip_out", "")),
+			"iris_in": String(s.get("iris_in", "")), "iris_out": String(s.get("iris_out", ""))})
 		scene_t += dur
 		frame += frames
 	return out
@@ -214,6 +222,26 @@ static func camera_at(shot: Dictionary, p: float, L: Dictionary, look: Dictionar
 	if s.has("error"):
 		return s
 	return _whip(s, shot, p)
+
+
+## The iris mask at move progress p: {"shape": 0 circle | 1 binoculars, "radius": screen heights}
+## (radius >= 2 means no mask).
+static func iris_at(shot: Dictionary, p: float) -> Dictionary:
+	var dur := float(shot.get("duration", 1.0))
+	var t := p * dur
+	var shape := ""
+	var r := 9.0
+	if String(shot.get("iris_in", "")) != "" and t < IRIS_HOLD + IRIS_OPEN:
+		shape = String(shot["iris_in"])
+		var k := clampf((t - IRIS_HOLD) / IRIS_OPEN, 0.0, 1.0)
+		r = lerpf(0.2, 1.4, k * k * (3.0 - 2.0 * k))
+	elif String(shot.get("iris_out", "")) != "" and t > dur - IRIS_OPEN:
+		shape = String(shot["iris_out"])
+		var k := clampf((dur - t) / IRIS_OPEN, 0.0, 1.0)
+		r = lerpf(0.0, 1.4, k * k)
+	if shape == "" or r >= 1.39:
+		return {"shape": 0, "radius": 9.0}
+	return {"shape": IRISES.find(shape), "radius": r}
 
 
 ## Whip pans at the cuts: the camera swings in from (or out toward) a side,

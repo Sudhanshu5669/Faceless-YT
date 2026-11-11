@@ -53,7 +53,19 @@ lying flat, north toward -z; `size` = its north-south length; pins go at the sam
 **Moves** (after the entrance): `"moves": [{"t": time, "by": [x, y, z], "dur": 0.6, "turn": deg, "tip": deg}]`.
 `by` slides (world metres), `turn` yaws, `tip` knocks the thing over sideways about its base with a
 small bounce (+ falls toward screen left when it faces the camera): falling towers, dominoes, a sign
-that topples when a deal ends.
+that topples when a deal ends. `"until": time` instead of `dur` ends the move on a word (a bowling
+ball that reaches each pin on its name: chain moves, each from one word to the next). Moves add up,
+so two moves (up-and-out, then down-and-out) make an arc: phones fired into a crowd.
+
+**More shapes:** `cake_slice` (a 36-degree wedge; give it the cake's spot and size + 2 %, then move it
+out), `bowling_ball` (+ label; centred on its origin, place it `size / 2` up, `roll` makes it roll),
+`globe` (centred, `spin` it), `orbit` (a thin glowing ring centred on its origin: `yaw` + `tilt` wind
+cables round a globe), `tape` (a duct-tape X), `knife` (giant, tip down). `tilt` (degrees) leans
+any reveal sideways about its origin.
+
+**Links:** `"shape": "link", "at": A, "to": B` is a glowing line from A to B that grows out along its
+length (`size` = thickness). A red link graph: one link per target, all from the same hub, staggered;
+or hoses from one big tank to a mini tank over every head (`"to": "c_3.head"`).
 
 ## Counters
 

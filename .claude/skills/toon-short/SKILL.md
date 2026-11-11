@@ -105,7 +105,9 @@ irreverence. No intro, no "in this video", no outro.
   spinner tower rickshaw plaque india crown moneybag vitrine laptop tank receipt podium`
   (+ `label` text on card/sign/cake/pump/postcard/box/moneybag/tank/receipt; `india` is the map,
   flat on the floor, pins by lon/lat: see REVEALS_SPEC.md), moves `tip` (knock over: towers,
-  dominoes), counters `"group": "indian"` (3,00,000), `roll` (spin in the
+  dominoes), counters `"group": "indian"` (3,00,000), `link` lines (red link graphs, hoses),
+  `cake_slice bowling_ball globe orbit tape knife`, crowds `"shape": "india"`, routes that run actors
+  in on a word (`"route": {"via": [...], "gait": "run", "start": word, "arrive": word}`), `roll` (spin in the
   frame plane, for spinners), `enter: "move"` with `from: [x,y,z]` (slide in from an offset).
 - **Sets, India-first (the user does NOT want the plain blue grid/tile look anywhere):** street
   scenes use wall `bazaar` + floor `road` (painted shop row, signboards incl. Hindi, autos,
@@ -119,7 +121,9 @@ irreverence. No intro, no "in this video", no outro.
   floors `checker tiles grid wood plain carpet`, walls `tiles panels plain grid brick skyline none`,
   neon `ring tubes strip arch frame`, pedestals `neon drums cash crates plain`. Anchors:
   `<bay>`, `.left/.right/.back/.front/.wall/.sky/.pedestal`. Look: `neon_night`.
-- **Transitions:** shot `whip_in` / `whip_out`: `left|right|up|down` (adds a whoosh); set
+- **Transitions:** shot `iris_in` / `iris_out`: `binoculars|circle` (the frame seen through a mask that
+  opens; push the camera into the binocular lenses at the end of the shot before: a POV cut).
+  Shot `whip_in` / `whip_out`: `left|right|up|down` (adds a whoosh); set
   `"format": {"motion_blur": 3}` for real motion blur. Captions: `"captions": {"style": "toon"}`.
 - **Music:** bed `beat` (`"ambience": [{"sound": "beat", "gain": -19, "duck": 0.55}]`).
 - **Voice:** `gemini-3.8-flash-lite-tts`, `batch_words: 16` (long takes get cut off).
@@ -133,7 +137,7 @@ irreverence. No intro, no "in this video", no outro.
 If a beat needs one of these, approximate it with what exists and note the gap in your
 report. Don't fake it with coordinates.
 
-- Push-through / light-tunnel transitions (whip pans exist).
+- Push-through / light-tunnel transitions (whip pans and the binocular iris exist).
 - A sunburst "shock" background, UI cards with real content (profiles, chats, posts), red link
   lines between cards, a real Indian map.
 - Crowds of reveals (cash rain, many cards), and a bold display font for text and counters.

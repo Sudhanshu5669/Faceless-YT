@@ -21,26 +21,29 @@ const Shot = preload("res://scripts/camera/shot.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
 
 const KEYS := ["id", "t", "until", "prop", "shape", "text", "counter", "at", "size", "color", "yaw", "face",
-	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note", "label", "label_color", "roll", "from", "moves"]
+	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note", "label", "label_color", "roll", "from", "moves",
+	"tilt", "to"]
 const KINDS := ["prop", "shape", "text", "counter"]
 const COUNTER_KEYS := ["from", "to", "land", "keys", "decimals", "prefix", "suffix", "commas", "group", "label", "land_color"]
 const ENTERS := ["pop", "drop", "settle", "rise", "slide_left", "slide_right", "beam", "grow", "move", "none"]
 const EXITS := ["shrink", "pop", "drop", "rise", "none"]
 const SHAPES := ["box", "sphere", "cylinder", "cone", "card", "coin", "cash", "ring", "bottle", "pin", "chip", "phone",
 	"refinery", "pump", "postcard", "scales", "frame", "garland", "cake", "cake_half", "binoculars", "sign", "spinner", "tower",
-	"rickshaw", "plaque", "india", "crown", "moneybag", "vitrine", "laptop", "tank", "receipt", "podium"]
+	"rickshaw", "plaque", "india", "crown", "moneybag", "vitrine", "laptop", "tank", "receipt", "podium",
+	"cake_slice", "bowling_ball", "globe", "tape", "link", "knife", "orbit"]
 ## Shapes that print their "label" on their face: [x, y, z, text height] as fractions of size.
 const LABELLED := {"card": [0.0, 0.62, 0.025, 0.09], "sign": [0.0, 1.12, 0.045, 0.13], "cake": [0.0, 0.2, 0.52, 0.1],
 	"pump": [0.0, 0.98, 0.22, 0.08], "postcard": [-0.2, 0.08, 0.02, 0.08], "box": [0.0, 0.5, 0.505, 0.15],
 	"cake_half": [0.0, 0.2, 0.52, 0.09], "plaque": [0.0, 0.1, 0.022, 0.085], "moneybag": [0.0, 0.3, 0.37, 0.14],
-	"tank": [0.0, 0.42, 0.16, 0.1], "receipt": [0.0, 0.86, 0.016, 0.08]}
+	"tank": [0.0, 0.42, 0.16, 0.1], "receipt": [0.0, 0.86, 0.016, 0.08], "bowling_ball": [0.0, -0.08, 0.5, 0.22]}
 const DEFAULT_COLORS := {"box": "#f2f2f2", "sphere": "#f2f2f2", "cylinder": "#f2f2f2", "cone": "#f2f2f2",
 	"card": "#ffffff", "coin": "#f2c230", "cash": "#4fbf6a", "ring": "#5fe3ff", "bottle": "#4a90e2",
 	"pin": "#ff4d5a", "chip": "#2b2f36", "phone": "#16181d", "refinery": "#c9ced6", "pump": "#d6453d",
 	"postcard": "#f6ecd2", "scales": "#e8b52a", "frame": "#d9a632", "garland": "#ff8c1a", "cake": "#ff9ec4",
 	"cake_half": "#ff9ec4", "binoculars": "#1b1c22", "sign": "#ffffff", "spinner": "#ffffff", "tower": "#c9ced6", "rickshaw": "#2f9e44", "plaque": "#d9a632",
 	"india": "#ff9a3c", "crown": "#f2c230", "moneybag": "#c8a26a", "vitrine": "#7a1f2a", "laptop": "#9aa3b2", "tank": "#2f9e6a",
-	"receipt": "#fbfbf6", "podium": "#5a3fa0"}
+	"receipt": "#fbfbf6", "podium": "#5a3fa0", "cake_slice": "#ff9ec4", "bowling_ball": "#1f4fd8", "globe": "#2f7fd8",
+	"tape": "#b9b9b4", "link": "#ff3b4a", "knife": "#dfe4ea", "orbit": "#5fe3ff"}
 ## Chunky display font for text and counters (OFL, godot/fonts/lilita_one).
 const FONT_PATH := "res://fonts/lilita_one/LilitaOne-Regular.ttf"
 ## Fallback for what Lilita lacks (the rupee sign, Devanagari): Baloo 2 at ExtraBold.
@@ -131,6 +134,10 @@ static func validate(reveals) -> Array:
 			if typeof(m) != TYPE_DICTIONARY or not _is_time(m.get("t")) or (m.has("by") and (typeof(m["by"]) != TYPE_ARRAY \
 					or m["by"].size() != 3)) or not (m.has("by") or m.has("turn") or m.has("tip")):
 				e.append(w + ": each move is {\"t\": time, \"by\": [x, y, z] metres, \"dur\": s, \"turn\": degrees, \"tip\": degrees}")
+		if (String(r.get("shape", "")) == "link") != r.has("to"):
+			e.append(w + ": shape 'link' needs 'to' (the point it reaches), and 'to' only works on links")
+		if r.has("tilt") and not (typeof(r["tilt"]) in [TYPE_INT, TYPE_FLOAT]):
+			e.append(w + ": tilt must be a number (degrees, sideways lean)")
 		if r.has("yaw") and r.has("face"):
 			e.append(w + ": give 'yaw' or 'face', not both")
 	return e
@@ -178,7 +185,7 @@ static func _is_time(v) -> bool:
 static func check(reveals, L: Dictionary) -> Array:
 	var e := []
 	for r in (reveals if reveals is Array else []):
-		for k in ["at", "face"]:
+		for k in ["at", "face", "to"]:
 			if r.has(k):
 				var p := Shot.point(L, r[k])
 				if p.has("error"):
@@ -509,6 +516,46 @@ static func _story_parts(kind: String, size: float, col: Color, mat: Material) -
 			for k in 6:
 				P.append(_part(_box(Vector3(size * 0.05, size * 0.05, size * 0.012)), Vector3(size * (-0.175 + 0.07 * k), size * 0.0, 0), mat,
 					Vector3(0, 0, PI / 4)))
+		"cake_slice":
+			# A wedge (36 degrees) of the two-tier cake, tip at the centre, crust toward +z.
+			P.append(_part(_wedge(size * 0.5, size * 0.32, 0.63), Vector3(0, size * 0.04, 0), mat))
+			P.append(_part(_wedge(size * 0.33, size * 0.26, 0.63), Vector3(0, size * 0.36, 0), mat))
+			P.append(_part(Toon.sphere(size * 0.05), Vector3(0, size * 0.66, size * 0.22), Toon.material(Color("d61f3a"), 0.0)))
+		"bowling_ball":
+			# Centred on its own origin (place it 'size / 2' up) so 'roll' turns it in place.
+			P.append(_part(Toon.sphere(size * 0.5), Vector3.ZERO, mat))
+			for hole in [Vector3(-0.09, 0.2, 0.42), Vector3(0.09, 0.2, 0.42), Vector3(0.0, 0.31, 0.37)]:
+				P.append(_part(Toon.sphere(size * 0.05), hole * size, Toon.material(Color("0b0d14"), 0.0)))
+		"globe":
+			# Blue sphere with green land blobs, centred on its origin (spin it).
+			P.append(_part(Toon.sphere(size * 0.5), Vector3.ZERO, mat))
+			var land := Toon.material(Color("5fbf5a"), 0.0)
+			for b in [[0.3, 0.25, 0.32, 0.2], [-0.25, 0.1, 0.38, 0.22], [0.05, -0.3, 0.38, 0.16], [0.4, -0.1, -0.2, 0.18],
+					[-0.35, 0.3, -0.2, 0.17], [0.0, 0.42, -0.2, 0.15], [-0.1, -0.15, -0.45, 0.2]]:
+				var dir := Vector3(b[0], b[1], b[2]).normalized()
+				P.append([Toon.sphere(size * float(b[3])), Transform3D(Basis.IDENTITY.scaled(Vector3(1.0, 0.7, 1.0)), dir * size * 0.43), land])
+		"tape":
+			# Duct tape: two crossed grey strips (an X), facing +z.
+			for a in [0.6, -0.6]:
+				P.append([_box(Vector3(size, size * 0.18, size * 0.02)), Transform3D(Basis.from_euler(Vector3(0, 0, a)), Vector3(0, size * 0.5, 0)), mat])
+		"knife":
+			# A giant kitchen knife standing tip-down (size = its length), blade facing +z.
+			P.append(_part(_box(Vector3(size * 0.16, size * 0.62, size * 0.025)), Vector3(0, size * 0.33, 0), mat))
+			P.append(_part(_cyl(0.0, size * 0.08, size * 0.08), Vector3(size * 0.0, size * 0.0, 0), mat, Vector3(PI, 0, 0)))
+			P.append(_part(_box(Vector3(size * 0.2, size * 0.04, size * 0.06)), Vector3(0, size * 0.66, 0), Toon.material(Color("3a3f4a"), o)))
+			P.append(_part(_box(Vector3(size * 0.12, size * 0.3, size * 0.07)), Vector3(0, size * 0.83, 0), Toon.material(Color("5a3420"), o)))
+		"orbit":
+			# A thin ring centred on its own origin (unlike "ring"), so yaw / tilt turn it about its centre:
+			# cables wound round a globe.
+			var om := TorusMesh.new()
+			om.inner_radius = size * 0.485
+			om.outer_radius = size * 0.5
+			om.rings = 64
+			om.ring_segments = 8
+			P.append(_part(om, Vector3.ZERO, _glow_mat(col), Vector3(PI / 2, 0, 0)))
+		"link":
+			# Unit length along +y; the pose stretches it from 'at' to 'to'.
+			P.append(_part(_cyl(size * 0.5, size * 0.5, 1.0), Vector3(0, 0.5, 0), _glow_mat(col)))
 		"podium":
 			# Winners' podium: 1 in the middle (tallest), 2 on screen left, 3 on screen right.
 			for b in [[0.0, 0.5, "1"], [-0.36, 0.34, "2"], [0.36, 0.24, "3"]]:
@@ -540,6 +587,28 @@ const INDIA_SPAN := 29.0
 static func india_point(lon: float, lat: float, size: float) -> Vector3:
 	var k := size / INDIA_SPAN
 	return Vector3((lon - INDIA_CENTER[0]) * k, size * 0.03, -(lat - INDIA_CENTER[1]) * k)
+
+
+## A wedge of a cylinder: tip on the axis, opening toward +z, 'angle' radians wide, y from 0 to h.
+static func _wedge(r: float, h: float, angle: float) -> ArrayMesh:
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var n := 10
+	var up := Vector3(0, h, 0)
+	var o := Vector3.ZERO
+	for i in n:
+		var a0 := PI * 0.5 - angle * 0.5 + angle * float(i) / n
+		var a1 := PI * 0.5 - angle * 0.5 + angle * float(i + 1) / n
+		var p0 := Vector3(cos(a0) * r, 0, sin(a0) * r)
+		var p1 := Vector3(cos(a1) * r, 0, sin(a1) * r)
+		for v in [o + up, p1 + up, p0 + up, o, p0, p1, p0, p1, p1 + up, p0, p1 + up, p0 + up]:
+			st.add_vertex(v)
+	var e0 := Vector3(cos(PI * 0.5 - angle * 0.5) * r, 0, sin(PI * 0.5 - angle * 0.5) * r)
+	var e1 := Vector3(cos(PI * 0.5 + angle * 0.5) * r, 0, sin(PI * 0.5 + angle * 0.5) * r)
+	for v in [o, e0 + up, e0, o, o + up, e0 + up, o, e1, e1 + up, o, e1 + up, o + up]:
+		st.add_vertex(v)
+	st.generate_normals()
+	return st.commit()
 
 
 ## A flat extruded polygon (XZ outline), from y = 0 to y = h.
@@ -758,8 +827,11 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 					off.y -= x * x * (2.0 + size * 2.0)
 				"rise":
 					off.y += x * x * (3.0 + size * 2.0)
+		if r.has("to"):
+			_pose_link(h, r, p["pos"], Shot.point(L, r["to"]), a, t, until, xt)
+			continue
 		var age := t - t0
-		var tip := 0.0
+		var tip := deg_to_rad(float(r.get("tilt", 0.0)))
 		yaw += deg_to_rad(float(r.get("spin", 0.0))) * age
 		off.y += sin(age * 2.6) * float(r.get("bob", 0.0))
 		# Timed moves after the entrance: slide by an offset (world metres), maybe turn.
@@ -782,6 +854,20 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 		h.scale = Vector3.ONE * maxf(s, 0.001)
 		out[String(r["id"])] = {"pos": h.position + Vector3.UP * size * 0.5, "forward": Vector3(sin(yaw), 0, cos(yaw))}
 	return out
+
+
+## A link: a glowing line from 'at' to 'to' that grows out along its length (red link graphs, cables).
+static func _pose_link(h: Node3D, r: Dictionary, p: Vector3, q: Dictionary, a: float, t: float, until: float, xt: float) -> void:
+	if q.has("error"):
+		h.visible = false
+		return
+	var d: Vector3 = q["pos"] - p
+	var k := _cubic_out(a) if String(r.get("enter", "grow")) != "none" else 1.0
+	if t >= until:
+		k *= 1.0 - clampf((t - until) / xt, 0.0, 1.0)
+	var length := maxf(d.length() * k, 0.001)
+	var b := _ybasis(d if d.length() > 0.0001 else Vector3.UP)
+	h.transform = Transform3D(Basis(b.x, b.y * length, b.z), p)
 
 
 ## Counter value at t, set on its text; returns the landing pop scale.

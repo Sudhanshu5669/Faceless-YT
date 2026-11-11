@@ -209,6 +209,26 @@
           "note": "The launch stage: Jio, free stuff, the JioPhone, the podium"
         },
         {
+          "id": "nation",
+          "floor": "marble",
+          "floor_colors": [
+            "#2a2238",
+            "#4a3a5a"
+          ],
+          "wall": "none",
+          "neon": [],
+          "neon_colors": [
+            "#5fe3ff",
+            "#ff4fd8"
+          ],
+          "size": [
+            26,
+            26
+          ],
+          "light": "#ffe7c4",
+          "note": "524 million: the crowd stands in the shape of India, seen from above"
+        },
+        {
           "id": "court",
           "floor": "wood",
           "floor_colors": [
@@ -421,6 +441,27 @@
         },
         "look_at": {
           "anchor": "launch",
+          "offset": [
+            0,
+            1.0,
+            0
+          ]
+        },
+        "lens_mm": 26
+      },
+      {
+        "name": "nation",
+        "t": 1,
+        "at": {
+          "anchor": "nation",
+          "offset": [
+            0,
+            2.6,
+            23.400000000000002
+          ]
+        },
+        "look_at": {
+          "anchor": "nation",
           "offset": [
             0,
             1.0,

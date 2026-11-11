@@ -350,6 +350,9 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool) -> dict:
         for j, m in enumerate(rv.get("moves", [])):
             if isinstance(m, dict) and "t" in m:
                 m["t"] = round(ref(m["t"], "scene", f"{w}.moves[{j}].t"), 3)
+                # "until": the move ends on a word (a ball reaching each pin on its name).
+                if "until" in m:
+                    m["dur"] = max(0.05, round(ref(m.pop("until"), "scene", f"{w}.moves[{j}].until") - m["t"], 3))
         c = rv.get("counter")
         if isinstance(c, dict):
             if "land" in c:

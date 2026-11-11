@@ -256,6 +256,9 @@ func _frame_state(shot: Dictionary, k: int) -> Dictionary:
 	var s := Episode.camera_at(shot, float(ft["p"]), _at_time(float(ft["t"])), look)
 	if not s.has("error"):
 		Shot.apply(camera, s)
+	var iris := Episode.iris_at(shot, float(ft["p"]))
+	RenderingServer.global_shader_parameter_set("iris_shape", float(iris["shape"]))
+	RenderingServer.global_shader_parameter_set("iris_radius", float(iris["radius"]))
 	return s
 
 

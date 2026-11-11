@@ -49,6 +49,8 @@ An **episode** films one set with a cast as an ordered list of timed shots. It l
 | `camera` | A camera description (CAMERA_SPEC.md: view, template, or `at`/`look_at`/lens…), or a **move**. No `t`: time comes from the timeline. |
 | `scene_t` | Optional: scene time at the start of this shot. Default: where the previous shot ended. Use it for replays, overlapping coverage of the same moment, or time jumps. |
 | `note` | Free text for the director (intent, what must read). |
+| `whip_in`, `whip_out` | `left` `right` `up` `down`: a fast camera swing at the cut (adds a whoosh; use `format.motion_blur`). |
+| `iris_in`, `iris_out` | `binoculars` or `circle`: the frame seen through a mask; `iris_in` holds 0.7 s, then opens over 0.6 s. Push the previous shot's camera into a pair of binoculars for a point-of-view cut. Drawn by the grade overlay (`iris_shape` / `iris_radius` shader globals, set per frame). |
 
 **Scene time** runs continuously across cuts: shot 2 starts where shot 1 ended unless it sets
 `scene_t`. Actor cues are in scene time, so the edit never changes what the actors do, only
