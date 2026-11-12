@@ -17,7 +17,7 @@ and the fact sources are also in `episodes/jio_story/script.md`.)
 references removed. The new single take is recorded and aligned (124.6 s). Keep the complete v2
 narration script and voice settings so later renders reuse that take.
 
-**Next: get the user's verdict on `beat_19`.** Shots 1-18 are approved.
+**Shots 1-19 are approved (beat_19 on 2026-11-13). Next: build beat_20.**
 Beat 19 (launch) uses the new `jio_launch` bay (dark auditorium) and `gags/jio_launch.gd`: the date
 on the LED screen, Mukesh slams a launch button on "launch" (screen flashes to the Jio disc, crowd
 throws its arms up, `cheer` sfx), flings three handfuls of Jio SIM cards into the crowd/at the lens on
