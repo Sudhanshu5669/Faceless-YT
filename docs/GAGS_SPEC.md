@@ -59,6 +59,9 @@ Rules (the same as the rest of the engine):
   rounded shapes, bright saturated colours, and an emissive accent where light should pop.
 - **Cheap.** Hundreds of copies: one `MultiMesh` (see `library/gags/cash_stream.gd`). Reuse meshes.
 - **Readable in 9:16.** Keep the action on the vertical axis; return anchors the camera can follow.
+- **Animate by the motion rules** (docs/MOTION_SPEC.md): `const Motion = preload("res://scripts/timeline/motion.gd")`
+  gives phases, easings, arcs, volume-keeping squash, impact/wobble settles, follow-through and shake.
+  Block the action (anticipation → action → contact → settle) and put the contact on the narration word.
 - `ctx`: `point` (Callable, resolves a point at this moment), `age` (t - g.t), `holder` (the node
   placed at `at`; the content is its child "content").
 

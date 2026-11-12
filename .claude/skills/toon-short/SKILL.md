@@ -53,6 +53,28 @@ number**. The camera never stops moving, and the end **loops back to the opening
     office sign, brand colours, a caricature of the real founder, its real tweet/headline on a UI card)
     rather than a labelled box. See HANDOFF.md "THE REAL GAP" for the engine pieces this needs.
 
+## Motion craft: how every gag moves (docs/MOTION_SPEC.md)
+
+The reference feels alive because every action has weight. For each beat, before writing code:
+
+1. **One sentence:** who does what to which object, with what force, ending where, feeling how.
+2. **Phase table:** rest → **anticipation** (0.12–0.25 s, opposite the action) → action (eased,
+   on an **arc**) → **contact on the narration word** → overshoot → settle (`Motion.wobble`).
+3. **Weight on contact:** squash with volume kept (`Motion.squash(Motion.impact(dt, s))`) sized by
+   force, and a feedback bundle by tier: small (squash 0.15, `pop`), medium (shake 0.4, `thud`),
+   large (shake 0.8, flash, `sting`/`cash`). Shake: the shot's `"shake": [{"t": word, "amount"}]`.
+4. **Follow-through:** attached parts (labels, flags, tails, signs, hair) lag the body (`f(t - 0.06)`)
+   and settle after it. Secondary action starts and ends later than the primary.
+5. **Easing:** ease-out to arrive, ease-in to leave, in-out to reposition, `out_back` to pop.
+   Linear only for loops. Light things snap (0.15–0.3 s), heavy things lumber (0.5–0.9 s).
+6. **Stagger** groups 40–80 ms apart (≤ 0.8 s total); ≤ a third of things moving at once.
+7. **Hold the payoff ≥ 0.4 s**, with something still alive (a wobble, a blink, a bob).
+8. **Check stills:** the action reads from 3 frames (start, contact, settle) with no effects.
+
+Gags preload `res://scripts/timeline/motion.gd`. For deeper craft, load the installed skills
+`disney-animation-rule-skill` (phase blocking, deterministic procedural motion), `game-feel` (impact
+juice tiers, trauma shake) and `animation-principles` (curves, durations, stagger).
+
 ## Ideation: the gag for each line (do this before any JSON)
 
 For every narration line, write 3-5 candidate sight gags, then pick one. A good gag is:
@@ -178,4 +200,7 @@ report. Don't fake it with coordinates.
 - [ ] The opening hook lands in the first 2 s, and the ending loops to the opening set.
 - [ ] Facts checked; real logos, caricatures and recreated tweets/headlines are faithful (no invented quotes).
 - [ ] Storyboard viewed, reveals visible, faces readable, nothing under the captions.
+- [ ] Every action has anticipation, an eased move on an arc, a contact on its word and a settle;
+      impacts squash and big ones shake the camera; nothing moves linearly except loops.
+- [ ] Nothing pops in uncaused (rule 11), and each payoff holds ≥ 0.4 s with something still alive.
 - [ ] When a new look, shot or face preset is good and reusable, save it to the library.

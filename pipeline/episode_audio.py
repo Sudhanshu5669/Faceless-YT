@@ -327,6 +327,10 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
         s["duration"] = rs["duration"]
         s["scene_t"] = round(rs["scene_t"], 3)
         s.pop("skip", None)
+        # Camera shake on impacts (docs/MOTION_SPEC.md): times to scene seconds.
+        for j, sh in enumerate(s.get("shake", [])):
+            if isinstance(sh, dict) and "t" in sh:
+                sh["t"] = round(ref(sh["t"], "scene", f"shot {s['name']} shake[{j}]"), 3)
     for a in out.get("actors", []):
         aid = a.get("id", "?")
         for c in a.get("cues", []):

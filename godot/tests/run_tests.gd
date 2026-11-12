@@ -18,6 +18,7 @@ const Paths = preload("res://scripts/core/paths.gd")
 const SetEvents = preload("res://scripts/timeline/set_events.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
 const Reveals = preload("res://scripts/timeline/reveals.gd")
+const Motion = preload("res://scripts/timeline/motion.gd")
 
 const SEEDS := [1, 333, 9001]
 const PARAM_SETS := [
@@ -86,6 +87,7 @@ func _run_all() -> void:
 	_run("downtown: deterministic, anchors, lots in blocks, tiles clear of crossings, walkways", _t_downtown)
 	_run("toons: faces valid, short legs, retargeted, expressions follow cues", _t_toons)
 	_run("reveals: validation, enter/exit timing, counters land on time", _t_reveals)
+	_run("motion: easings hit their ends, squash keeps volume, shake is pure and decays", _t_motion)
 	print("[TownForge] tests: %d passed, %d failed" % [_passed, _failed])
 	quit(1 if _failed > 0 else 0)
 
@@ -1102,4 +1104,40 @@ func _t_reveals() -> Array:
 	if Reveals.format_number(3.5, 1, true, "", " BILLION") != "3.5 BILLION" or Reveals.format_number(6880, 0, true, "", "") != "6,880":
 		e.append("format_number: %s / %s" % [Reveals.format_number(3.5, 1, true, "", " BILLION"), Reveals.format_number(6880, 0, true, "", "")])
 	node.free()
+	return e
+
+
+func _t_motion() -> Array:
+	var e := []
+	for f in [Motion.out_cubic, Motion.out_quint, Motion.in_cubic, Motion.in_out, Motion.smooth, Motion.out_back, Motion.in_back, Motion.out_bounce]:
+		if absf(f.call(0.0)) > 0.001 or absf(f.call(1.0) - 1.0) > 0.001:
+			e.append("an easing does not run 0 -> 1: %s" % f)
+	if Motion.out_back(0.8) <= 1.0:
+		e.append("out_back should overshoot past 1")
+	if Motion.in_back(0.2) >= 0.0:
+		e.append("in_back should dip below 0 (anticipation)")
+	for a in [-0.4, -0.1, 0.0, 0.3]:
+		var v := Motion.squash(a)
+		if absf(v.x * v.y * v.z - 1.0) > 0.001:
+			e.append("squash(%s) does not keep volume: %s" % [a, v])
+	var table := [["wind", 0.2], ["throw", 0.1], ["settle", 0.3]]
+	if Motion.phase(1.25, 1.0, table)["name"] != "throw":
+		e.append("phase lookup: 1.25 s should be in 'throw'")
+	if absf(Motion.phase_start(1.0, table, "settle") - 1.3) > 0.0001:
+		e.append("phase_start of 'settle' should be 1.3")
+	if Motion.wobble(-0.1) != 0.0 or absf(Motion.wobble(0.0) - 1.0) > 0.001 or absf(Motion.wobble(2.0)) > 0.01:
+		e.append("wobble should be 0 before, 1 at, ~0 long after the event")
+	var ev := [{"t": 2.0, "amount": 0.8}]
+	if Motion.shake(1.9, ev) != Vector3.ZERO:
+		e.append("shake before its event")
+	if Motion.shake(2.1, ev) == Vector3.ZERO:
+		e.append("no shake just after a heavy hit")
+	if Motion.shake(2.1, ev) != Motion.shake(2.1, ev):
+		e.append("shake is not a pure function of t")
+	if Motion.shake(3.0, ev) != Vector3.ZERO:
+		e.append("shake should have decayed to zero by 1 s after an 0.8 hit")
+	var bad := Episode.validate({"shots": [{"name": "a", "duration": 1.0, "camera": "street", "shake": [{"t": 0.5, "amount": 3}]}]})
+	if not "
+".join(PackedStringArray(bad)).contains("shake amount"):
+		e.append("episode validation should reject a shake amount > 1")
 	return e

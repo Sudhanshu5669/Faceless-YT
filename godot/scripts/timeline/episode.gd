@@ -26,7 +26,12 @@ const KEYS := ["schema_version", "id", "title", "description", "set", "look", "a
 ## also turns "fit" durations and time references into numbers before Godot runs.
 const AUDIO_KEYS := ["narration", "lines", "sfx", "music", "ambience", "captions", "end_black", "review"]
 const FORMAT_KEYS := ["resolution", "fps", "motion_blur"]
-const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "note", "whip_in", "whip_out", "iris_in", "iris_out"]
+const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "note", "whip_in", "whip_out", "iris_in", "iris_out", "shake"]
+## Camera shake on impacts: "shake": [{"t": word ref, "amount": 0..1}] (docs/MOTION_SPEC.md).
+## Trauma model: light 0.15, medium 0.4, heavy 0.8. These are the offsets at full trauma.
+const SHAKE_MOVE := 0.07      # metres, camera-local x / y
+const SHAKE_ROLL := 2.5       # degrees
+const Motion = preload("res://scripts/timeline/motion.gd")
 ## Iris transitions: the frame seen through a mask that opens (in) or closes (out).
 const IRISES := ["circle", "binoculars"]
 const IRIS_HOLD := 0.7   # iris_in: seconds the mask holds before opening
@@ -112,6 +117,15 @@ static func validate(ep: Dictionary) -> Array:
 		for k in ["iris_in", "iris_out"]:
 			if s.has(k) and not (String(s[k]) in IRISES):
 				e.append("%s: %s must be one of %s" % [where, k, IRISES])
+		if s.has("shake"):
+			if typeof(s["shake"]) != TYPE_ARRAY:
+				e.append(where + ": shake must be a list of {\"t\", \"amount\"}")
+			else:
+				for sh in s["shake"]:
+					if typeof(sh) != TYPE_DICTIONARY or not (typeof(sh.get("t")) in [TYPE_INT, TYPE_FLOAT]):
+						e.append(where + ": each shake needs 't' (scene seconds or a word reference, resolved by tf)")
+					elif sh.has("amount") and (float(sh["amount"]) <= 0.0 or float(sh["amount"]) > 1.0):
+						e.append(where + ": shake amount must be in (0, 1] (light 0.15, medium 0.4, heavy 0.8)")
 		var n := String(s.get("name", ""))
 		if n == "" or not n.is_valid_filename() or n.contains(" "):
 			e.append(where + ": needs a 'name' usable as a file name (no spaces)")
@@ -181,7 +195,8 @@ static func timeline(ep: Dictionary, fps: int) -> Array:
 		out.append({"index": i, "name": String(s["name"]), "duration": dur, "frames": frames,
 			"first_frame": frame, "scene_t": scene_t, "camera": s["camera"],
 			"whip_in": String(s.get("whip_in", "")), "whip_out": String(s.get("whip_out", "")),
-			"iris_in": String(s.get("iris_in", "")), "iris_out": String(s.get("iris_out", ""))})
+			"iris_in": String(s.get("iris_in", "")), "iris_out": String(s.get("iris_out", "")),
+			"shake": s.get("shake", [])})
 		scene_t += dur
 		frame += frames
 	return out
@@ -223,7 +238,23 @@ static func camera_at(shot: Dictionary, p: float, L: Dictionary, look: Dictionar
 		s = mix(a, b, ease_progress(p, String(cam.get("ease", "in_out"))))
 	if s.has("error"):
 		return s
-	return _whip(s, shot, p)
+	return _shake(_whip(s, shot, p), shot, p)
+
+
+## Camera shake: trauma from the shot's impacts, moved in the camera's own plane (+ a roll).
+static func _shake(s: Dictionary, shot: Dictionary, p: float) -> Dictionary:
+	var ev: Array = shot.get("shake", [])
+	if ev.is_empty():
+		return s
+	var t := float(shot.get("scene_t", 0.0)) + p * float(shot.get("duration", 1.0))
+	var k := Motion.shake(t, ev, 1.6, float(String(shot.get("name", "")).hash() % 97))
+	if k == Vector3.ZERO:
+		return s
+	var tr: Transform3D = s["transform"]
+	var out := s.duplicate()
+	var b := tr.basis.rotated(tr.basis.z.normalized(), deg_to_rad(SHAKE_ROLL) * k.z)
+	out["transform"] = Transform3D(b, tr.origin + tr.basis.x * SHAKE_MOVE * k.x + tr.basis.y * SHAKE_MOVE * k.y)
+	return out
 
 
 ## The iris mask at move progress p: {"shape": 0 circle | 1 binoculars, "radius": screen heights}

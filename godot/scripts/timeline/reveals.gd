@@ -19,6 +19,7 @@ extends RefCounted
 const KitDB = preload("res://scripts/world/kit_db.gd")
 const Shot = preload("res://scripts/camera/shot.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
+const Motion = preload("res://scripts/timeline/motion.gd")
 
 const KEYS := ["id", "t", "until", "prop", "shape", "text", "counter", "at", "size", "color", "yaw", "face",
 	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note", "label", "label_color", "roll", "from", "moves",
@@ -852,13 +853,25 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 				yaw = atan2(d.x, d.z)
 		var right := Vector3(cos(yaw), 0, -sin(yaw))
 		var beam := h.get_node_or_null("beam") as MeshInstance3D
+		# Squash/stretch around force and contact only (docs/MOTION_SPEC.md); volume preserved,
+		# about the base (the contact point). Text and counters stay rigid so they read.
+		var sq := 0.0
+		var rigid: bool = r.has("text") or r.has("counter")
 		match String(r.get("enter", "pop")):
 			"pop":
 				s = _back_out(a)
+				# Shoots up tall as it grows, then the overshoot settles it round.
+				sq = 0.22 * sin(minf(a * 1.5, 1.0) * PI)
 			"grow":
 				s = smoothstep(0.0, 1.0, a)
 			"drop":
 				off.y = (1.0 - _bounce_out(a)) * (2.5 + size * 2.0)
+				# Stretched by the fall, squashed flat on the first contact, springs back.
+				var contact := 1.0 / 2.75
+				if a < contact:
+					sq = 0.28 * pow(a / contact, 2.0)
+				else:
+					sq = Motion.impact((a - contact) * et, 0.4, 3.5, 8.0)
 			"settle":
 				# A soft fall: drifts down from a little above, eases in, a small sway.
 				var k := 1.0 - pow(1.0 - a, 3.0)
@@ -902,7 +915,7 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 		yaw += deg_to_rad(float(r.get("spin", 0.0))) * age
 		off.y += sin(age * 2.6) * float(r.get("bob", 0.0))
 		# Timed moves after the entrance: slide by an offset (world metres), maybe turn.
-		var sv := Vector3.ONE
+		var sv := Vector3.ONE if rigid else Motion.squash(sq)
 		for m in r.get("moves", []):
 			var mk := clampf((t - float(m["t"])) / maxf(float(m.get("dur", 0.6)), 0.001), 0.0, 1.0)
 			mk = mk * mk * (3.0 - 2.0 * mk)
