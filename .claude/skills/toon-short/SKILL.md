@@ -85,6 +85,9 @@ For every narration line, write 3-5 candidate sight gags, then pick one. A good 
   real artifact (tweet, headline, receipt), a recognisable Indian place where it fits.
 - **Escalating** across the episode, with callbacks (the snail returns as a rocket).
 - **Readable in 9:16:** cause at the bottom, result on top, or a follow from one to the other.
+- **Real objects, never labelled cubes:** "video" is a film reel, "mobile data" is a recharge scratch
+  card or a SIM, a company is its real sign/logo/product. A box with a word on it is a placeholder,
+  not a gag (AGENTS rule 10). Text only where text exists in reality.
 - **In its own place:** where the story happens (a company's lobby, a post office, a recharge stall),
   built and dressed for it. Never park a beat in whatever set already exists; reuse only for callbacks.
 Then check `python pipeline/tf.py library`, `python pipeline/tf.py props <words>` (existing models)

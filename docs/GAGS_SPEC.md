@@ -74,6 +74,8 @@ When an episode's gag turns out generic, move it there and reference it as `libr
 |---|---|
 | `balloon` | A balloon on a string held by someone; slips away on `release` and floats up, carrying any shape (a dream slipping away). Anchors: `balloon`, `hand`. |
 | `balance_scale` | A brass balance whose beam tilts on cue keys with a damped swing; pans carry items (any shape + label). Anchors: `left`, `right`. |
+| `snail` | A snail inching along (real inchworm squash/stretch, lagging shell and eye stalks) dragging cargo on a string: a rolling `film_reel` (video). Anchors: `snail`, `cargo`. |
+| `beard` | A beard that grows from a toon's chin to the floor on a word (time-lapse ease, lands with a squash and curl, sways), + moustache, + optional cobweb. Anchors: `tip`, `web`. |
 | `cash_stream` | Bills fly in arcs from a source and pile up into a growing heap (cash cannons, money rain, burying someone). Anchors: `top`, `landing`. |
 
 Example of an episode gag: `episodes/jio_story/gags/cash_cannon.gd` (rolls in, recoils and flashes

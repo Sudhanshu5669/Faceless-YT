@@ -84,8 +84,20 @@ Shot 9 `street_2g`: the crowd jumps with their phones hunting signal (cue action
 a palm tree (catalog PalmTree_1) with a "1 BAR" sign, 2015 / 2G centred; crowd spinners removed.
 Shot 10 `price`: a new bay `recharge` (mobile-recharge shop: counter, signs), `toon_shopkeeper`
 (moustache), a small golden `library:balance_scale` weighing a glowing 1 GB cube, ₹250 PER GB counter.
-Continue in story order from shot 11 `buffer` (gags.md #11: the snail delivers the data while the
-customer grows a floor-length beard: a white cone with `tilt: 180` at the chin + a `scale` move).
+Shot 11 `buffer` (2026-11-12): continues in the recharge shop. The customer turns to us and taps play
+on "video" (loading ring pops over his head); `library:snail` inches along at his feet dragging a
+rolling film reel; `library:beard` grows from "buffers" and hits the floor on "forever" (squash, curl,
+moustache, cobweb by his head); shot `"hold": 0.7` lets the payoff land. Waiting for the user's verdict.
+Next: shot 12 `rivals`.
+
+**Motion rules (2026-11-12):** docs/MOTION_SPEC.md + `godot/scripts/timeline/motion.gd` (phases, easing,
+squash, arcs, wobble, trauma shake). Shot keys `shake` and `hold`. Reveal `pop`/`drop` squash & stretch
+now (text/counters rigid). Installed skills: disney-animation-rule-skill, game-feel, animation-principles.
+
+**No generic labelled cubes (user, 2026-11-12, AGENTS rule 10).** Debt in earlier shots to fix when
+revisited: shot 10's cyan "1 GB" cube on the gold scale (→ a recharge scratch card / data voucher),
+the street snail's "DATA" box (shot 9 reveals `snail`/`snail_data`), the purple INFOTEL box (shot 18),
+and any other `shape: box` + `label` stand-in (grep make_episode.py for `"label"`).
 The framing check now ignores whip-pan and iris moments.
 
 ### Gags: built (2026-11-12) — read docs/GAGS_SPEC.md

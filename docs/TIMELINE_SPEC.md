@@ -52,6 +52,7 @@ An **episode** films one set with a cast as an ordered list of timed shots. It l
 | `whip_in`, `whip_out` | `left` `right` `up` `down`: a fast camera swing at the cut (adds a whoosh; use `format.motion_blur`). |
 | `iris_in`, `iris_out` | `binoculars` or `circle`: the frame seen through a mask; `iris_in` holds 0.7 s, then opens over 0.6 s. Push the previous shot's camera into a pair of binoculars for a point-of-view cut. Drawn by the grade overlay (`iris_shape` / `iris_radius` shader globals, set per frame). |
 | `shake` | `[{"t": word ref, "amount": 0..1}]`: camera shake on impacts (trauma model: light 0.15, medium 0.4, heavy 0.8; decays by itself). See docs/MOTION_SPEC.md. |
+| `hold` | Seconds (0-3) of silence after the shot's lines, so a payoff can land; later shots shift (also with the single take). |
 
 **Scene time** runs continuously across cuts: shot 2 starts where shot 1 ended unless it sets
 `scene_t`. Actor cues are in scene time, so the edit never changes what the actors do, only

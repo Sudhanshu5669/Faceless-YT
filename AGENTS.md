@@ -64,6 +64,10 @@ These come from the user's own feedback; they override defaults. Details in `HAN
    happens (the TELECOM door is in Reliance Infocomm's lobby, not the family dining room that
    already existed). Build a new bay (set) and dress it (sign, brand colours, furniture from
    `tf props`) for each new place; reuse a set only for a deliberate callback or the same scene.
+10. **No generic labelled cubes** (user, 2026-11-12: "where do you see generic labelled cubes irl?").
+   Never show a thing as a box/cube with its name on it ("DATA", "VIDEO", "1 GB", "INFOTEL"). Show the
+   real object people recognise: a film reel for video, a recharge scratch card for mobile data, the
+   company's real sign or logo. Text only where text exists in reality (signs, price tags, headlines).
 
 ## Commands
 

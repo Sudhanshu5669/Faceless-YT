@@ -488,6 +488,25 @@
   {
    "sound": "tick",
    "at": {
+    "line": "n5c",
+    "word": "buffers"
+   },
+   "repeat": 4,
+   "every": 0.12,
+   "gain": -11
+  },
+  {
+   "sound": "pop",
+   "at": {
+    "line": "n5c",
+    "word": "forever.",
+    "edge": "end"
+   },
+   "gain": -9
+  },
+  {
+   "sound": "tick",
+   "at": {
     "line": "n6a",
     "word": "money"
    },
@@ -1199,6 +1218,13 @@
       "word": "250"
      },
      "expression": "wink"
+    },
+    {
+     "t": {
+      "line": "n5c",
+      "word": "forever."
+     },
+     "expression": "sleepy"
     }
    ]
   },
@@ -1239,6 +1265,37 @@
       "word": "250"
      },
      "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "n5c",
+      "offset": -0.12
+     },
+     "facing": {
+      "anchor": "recharge",
+      "offset": [
+       0,
+       1.0,
+       6
+      ]
+     },
+     "turn": 0.35,
+     "action": "phone",
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "n5c",
+      "word": "buffers"
+     },
+     "expression": "side_eye"
+    },
+    {
+     "t": {
+      "line": "n5c",
+      "word": "forever."
+     },
+     "expression": "sleepy"
     }
    ]
   },
@@ -3625,30 +3682,32 @@
   {
    "id": "big_spinner",
    "t": {
-    "line": "n5c"
+    "line": "n5c",
+    "word": "video"
    },
    "until": {
     "line": "n6a"
    },
    "shape": "spinner",
-   "size": 0.36,
+   "size": 0.5,
    "roll": 300,
    "at": {
-    "anchor": "y.head",
+    "anchor": "cust.head",
     "offset": [
      0,
-     0.42,
+     0.5,
      0
     ]
    },
    "face": {
-    "anchor": "street",
+    "anchor": "recharge",
     "offset": [
      0,
      1.0,
-     12
+     8
     ]
-   }
+   },
+   "sound": "pop"
   },
   {
    "id": "snail",
@@ -14736,6 +14795,94 @@
    }
   },
   {
+   "id": "snail",
+   "script": "library:snail",
+   "t": {
+    "line": "n5c",
+    "offset": -0.12
+   },
+   "until": {
+    "line": "n6a"
+   },
+   "at": {
+    "anchor": "recharge",
+    "offset": [
+     -0.55,
+     0,
+     1.0
+    ]
+   },
+   "face": {
+    "anchor": "recharge",
+    "offset": [
+     -1.4,
+     0,
+     1.0
+    ]
+   },
+   "params": {
+    "size": 0.34,
+    "start": {
+     "line": "n5c",
+     "offset": -0.4
+    },
+    "cargo": {
+     "kind": "film_reel",
+     "size": 0.22
+    },
+    "rope": 0.14
+   }
+  },
+  {
+   "id": "beard",
+   "script": "library:beard",
+   "t": {
+    "line": "n5c",
+    "offset": -0.12
+   },
+   "until": {
+    "line": "n6a"
+   },
+   "at": "cust",
+   "face": {
+    "anchor": "recharge",
+    "offset": [
+     0,
+     1.0,
+     6
+    ]
+   },
+   "params": {
+    "head": "cust.head",
+    "grow": {
+     "line": "n5c",
+     "word": "buffers"
+    },
+    "land": {
+     "line": "n5c",
+     "word": "forever.",
+     "edge": "end"
+    },
+    "width": 0.3,
+    "web": {
+     "at": {
+      "anchor": "cust.head",
+      "offset": [
+       -0.3,
+       0.2,
+       0
+      ]
+     },
+     "t": {
+      "line": "n5c",
+      "word": "forever.",
+      "offset": 0.15
+     },
+     "size": 0.26
+    }
+   }
+  },
+  {
    "id": "gold_scale",
    "script": "library:balance_scale",
    "t": 0,
@@ -15424,41 +15571,49 @@
    "name": "buffer",
    "duration": {
     "fit": true,
-    "tail": 0.6,
-    "min": 1.4
+    "tail": 0.15,
+    "min": 0.9
    },
+   "hold": 0.7,
    "whip_out": "right",
    "camera": {
     "from": {
      "at": {
-      "anchor": "y",
+      "anchor": "recharge",
       "offset": [
-       0,
-       1.1,
-       2.1
+       -0.75,
+       1.35,
+       2.3
       ]
      },
-     "look_at": "y.head",
-     "lens_mm": 38,
+     "look_at": {
+      "anchor": "recharge",
+      "offset": [
+       -0.78,
+       1.2,
+       0.55
+      ]
+     },
+     "lens_mm": 34,
      "dof": {
       "strength": 0.45
      }
     },
     "to": {
      "at": {
-      "anchor": "y",
+      "anchor": "recharge",
       "offset": [
-       0.3,
-       0.85,
-       2.6
+       -0.62,
+       1.0,
+       3.6
       ]
      },
      "look_at": {
-      "anchor": "y",
+      "anchor": "recharge",
       "offset": [
-       0.4,
-       0.55,
-       0
+       -0.66,
+       0.88,
+       0.6
       ]
      },
      "lens_mm": 30,

@@ -307,8 +307,9 @@ reveals = [
      "size": 0.11, "at": S("recharge", 0, 2.2, -2.35)},
     {"id": "price", "t": W("n5b", "costs"), "until": L("n5c"), "at": S("recharge", -0.2, 1.6, 0.05), "size": 0.42, "color": "#ffffff",
      "counter": {"from": 0, "to": 250, "prefix": "₹", "land": W("n5b", "250"), "label": "PER GB"}},
-    {"id": "big_spinner", "t": L("n5c"), "until": L("n6a"), "shape": "spinner", "size": 0.36, "roll": 300,
-     "at": A("y.head", [0, 0.42, 0]), "face": face_cam("street", 12)},
+    # Shot 11: he taps play on "video": the loading ring pops over his head (stacked, 9:16).
+    {"id": "big_spinner", "t": W("n5c", "video"), "until": L("n6a"), "shape": "spinner", "size": 0.5, "roll": 300,
+     "at": A("cust.head", [0, 0.5, 0]), "face": face_cam("recharge", 8), "sound": "pop"},
 ]
 SNAIL_MOVE = [{"t": W("n5a", "slow"), "until": L("n6a"), "by": [1.0, 0, 0]}]
 reveals += [
@@ -353,6 +354,9 @@ reveals += [
      "glow": 1.2, "counter": {"from": 0, "to": 9999, "prefix": "₹", "land": W("n6a", "calls."), "label": "PER MINUTE",
                               "land_color": "#ffd84a"}},
 ]
+# Shot 11: the clock ticks while the beard grows; a soft pop when it lands on the floor.
+sfx += [{"sound": "tick", "at": W("n5c", "buffers"), "repeat": 4, "every": 0.12, "gain": -11},
+        {"sound": "pop", "at": W("n5c", "forever.", edge="end"), "gain": -9}]
 sfx += [{"sound": "tick", "at": W("n6a", "money"), "repeat": 14, "every": 0.1, "gain": -10},
         {"sound": "cash", "at": W("n6a", "calls.", edge="end"), "gain": -5}]
 # The small players behind (they fall in n19); they are there from the start.
@@ -457,6 +461,15 @@ GAGS = [
      "params": {"label": "TELECOM|ANIL ONLY", "start_open": True, "close": W("n3c", "telecom."),
                 "lock": W("n3c", "telecom.", offset=0.35), "unlock": W("n8a", "Anil"), "open": W("n8a", "ends."),
                 "width": 0.95, "height": 2.0}},
+    # Shot 11: a snail drags the video (a film reel) to him; by "forever" his beard hits the floor.
+    {"id": "snail", "script": "library:snail", "t": L("n5c", offset=-0.12), "until": L("n6a"),
+     "at": S("recharge", 0.55, 0, 1.0), "face": S("recharge", 1.4, 0, 1.0),
+     "params": {"size": 0.34, "start": L("n5c", offset=-0.4), "cargo": {"kind": "film_reel", "size": 0.22}, "rope": 0.14}},
+    {"id": "beard", "script": "library:beard", "t": L("n5c", offset=-0.12), "until": L("n6a"), "at": "cust",
+     "face": face_cam("recharge", 6),
+     "params": {"head": "cust.head", "grow": W("n5c", "buffers"), "land": W("n5c", "forever.", edge="end"),
+                "width": 0.3,
+                "web": {"at": A("cust.head", [-0.3, 0.2, 0]), "t": W("n5c", "forever.", offset=0.15), "size": 0.26}}},
     {"id": "gold_scale", "script": "library:balance_scale", "t": 0, "at": S("recharge", -0.45, 0.52, 0.05),
      "face": S("recharge", 0, 1, 6),
      "params": {"size": 0.55, "color": "#f2c230",
@@ -837,10 +850,15 @@ ep = {
             {"t": W("n3c", "agree"), "expression": "sad"}]},
         # Shot 10: the recharge shop: shopkeeper behind the counter, the customer at it.
         {"id": "shopkeeper", "character": "toon_shopkeeper", "at": S("recharge", 0, 0, -0.85), "facing": S("recharge", 0, 1, 5),
-         "cues": [{"t": 0, "expression": "smug"}, {"t": W("n5b", "250"), "expression": "wink"}]},
+         "cues": [{"t": 0, "expression": "smug"}, {"t": W("n5b", "250"), "expression": "wink"},
+                  {"t": W("n5c", "forever."), "expression": "sleepy"}]},
         {"id": "cust", "character": "toon_you", "at": S("recharge", 0.8, 0, 0.55), "facing": S("recharge", 0, 1, -0.6),
          "cues": [{"t": 0, "expression": "happy"}, {"t": W("n5b", "costs"), "expression": "nervous"},
-                  {"t": W("n5b", "250"), "expression": "shocked"}]},
+                  {"t": W("n5b", "250"), "expression": "shocked"},
+                  # Shot 11: paid up, he turns to us with his phone and presses play... and waits.
+                  {"t": L("n5c", offset=-0.12), "facing": face_cam("recharge", 6), "turn": 0.35, "action": "phone",
+                   "expression": "happy"},
+                  {"t": W("n5c", "buffers"), "expression": "side_eye"}, {"t": W("n5c", "forever."), "expression": "sleepy"}]},
         # Shot 8: Mukesh on the chai-stall bench behind a newspaper.
         {"id": "mw", "character": "toon_mukesh", "at": S("chai", 0, 0, 0.42), "facing": S("chai", 0, 1, 5), "action": "sit",
          "freeze": 0.6, "cues": [{"t": 0, "expression": "deadpan", "hands": "face"}, {"t": W("n4", "watch."), "expression": "side_eye"}]},
@@ -996,8 +1014,10 @@ ep = {
          "camera": move(cam(S("street", -0.2, 2.3, 8.0), S("street", -0.4, 1.6, -0.3), 26), cam(S("street", -0.9, 2.1, 6.6), S("street", -1.4, 1.8, -0.6), 26))},
         {"name": "price", "duration": fit(0.15),
          "camera": move(cam(S("recharge", -0.55, 1.6, 3.0), S("recharge", -0.05, 1.0, -0.1), 30), cam(S("recharge", -0.4, 1.55, 2.35), S("recharge", -0.05, 1.05, -0.1), 30))},
-        {"name": "buffer", "duration": fit(0.6, 1.4), "whip_out": "right",
-         "camera": move(cam(A("y", [0, 1.1, 2.1]), "y.head", 38), cam(A("y", [0.3, 0.85, 2.6]), A("y", [0.4, 0.55, 0]), 30))},
+        # Medium on his face and the ring, pulling back to the full figure: the beard on the floor, the snail.
+        {"name": "buffer", "duration": fit(0.15), "hold": 0.7, "whip_out": "right",
+         "camera": move(cam(S("recharge", 0.75, 1.35, 2.3), S("recharge", 0.78, 1.2, 0.55), 34),
+                        cam(S("recharge", 0.62, 1.0, 3.6), S("recharge", 0.66, 0.88, 0.6), 30))},
         # n6 the durbar
         {"name": "rivals", "duration": "fit", "whip_in": "right",
          "camera": move(cam(S("rivals", 0, 2.2, 10.5), S("rivals", 0, 1.9, 0), 28), cam(S("rivals", 0, 2.0, 8.6), S("rivals", 0, 1.9, 0.4), 28))},

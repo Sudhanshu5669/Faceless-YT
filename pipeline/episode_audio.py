@@ -95,6 +95,8 @@ def validate(ep: dict) -> list[str]:
         d = s.get("duration")
         if isinstance(d, str) and d != "fit":
             e.append(f"shots[{i}] ({s.get('name')}): duration must be seconds, \"fit\" or {{\"fit\": true, \"min\", \"tail\"}}")
+        if "hold" in s and (not isinstance(s["hold"], (int, float)) or not 0 <= s["hold"] <= 3):
+            e.append(f"shots[{i}] ({s.get('name')}): hold must be 0..3 seconds (a pause after the shot's lines)")
         if "skip" in s and (not isinstance(s["skip"], (int, float)) or s["skip"] < 0):
             e.append(f"shots[{i}] ({s.get('name')}): skip must be seconds >= 0 (story time jumped at this cut)")
         if isinstance(d, dict):
@@ -262,6 +264,9 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
     shots, edit, scene, errors = [], 0.0, 0.0, []
     for s in ep["shots"]:
         d = forced.get(s["name"], s["duration"])
+        # "hold": seconds of silence after the shot's lines so a payoff can land (docs/MOTION_SPEC.md);
+        # later shots and lines shift by it. Works with the single take too.
+        hold = float(s.get("hold", 0.0))
         if d == "fit" or isinstance(d, dict):
             opts = d if isinstance(d, dict) else {}
             mine = by_shot.get(s["name"], [])
@@ -270,6 +275,7 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
                 continue
             d = max(ln["at"] + ln["dur"] for ln in mine) + float(opts.get("tail", DEFAULT_TAIL))
             d = max(d, float(opts.get("min", 0.0)))
+        d = float(d) + hold if not isinstance(d, (dict, str)) else d
         if "scene_t" in s:
             scene = float(s["scene_t"])
         # "skip": story time jumps forward at this cut (elliptical editing).
@@ -327,6 +333,7 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
         s["duration"] = rs["duration"]
         s["scene_t"] = round(rs["scene_t"], 3)
         s.pop("skip", None)
+        s.pop("hold", None)
         # Camera shake on impacts (docs/MOTION_SPEC.md): times to scene seconds.
         for j, sh in enumerate(s.get("shake", [])):
             if isinstance(sh, dict) and "t" in sh:

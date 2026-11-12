@@ -65,6 +65,8 @@ used by reveals, the camera and every gag script.
   `scale` + `pulse` give a squash on a hit or a gulp.
 - **Camera shake on a shot:** `"shake": [{"t": {"line": "n9", "word": "fire"}, "amount": 0.8}]`
   (trauma model: decays in about `amount / 1.6` s, offset 7 cm, roll 2.5° at full trauma).
+- **Hold a payoff:** a shot's `"hold": 0.7` adds that much silence after its narration (works with the
+  single take; later shots shift). Use it for the big joke landings, not every shot.
 - **Gags:** use `Motion` in `pose()` for phases, easing, arcs, squash, wobble and follow-through.
   Example pattern:
 
