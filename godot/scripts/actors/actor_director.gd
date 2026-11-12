@@ -27,8 +27,8 @@ const Toon = preload("res://scripts/actors/toon.gd")
 const Reveals = preload("res://scripts/timeline/reveals.gd")
 
 const ACTOR_KEYS := ["id", "character", "at", "facing", "action", "freeze", "phase", "route", "crowd", "cues"]
-const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold", "expression", "hands"]
-const HANDS := ["face", "chest", "none"]
+const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold", "expression", "hands", "head", "head_turn"]
+const HANDS := ["face", "chest", "chin", "none"]
 const ROUTE_KEYS := ["via", "gait", "speed", "arrive", "start", "then", "then_facing", "then_freeze"]
 const CROWD_KEYS := ["count", "radius", "area", "characters", "start_spread", "seed", "spacing", "shape"]
 ## Crowd shapes: "india" fills the map outline (north = the anchor's back), radius = half its N-S length.
@@ -147,11 +147,19 @@ static func _validate_cues(cues, where: String) -> Array:
 		if c.has("hold"):
 			if typeof(c["hold"]) != TYPE_BOOL:
 				e.append(cw + ": hold must be true or false")
-			if c.has("action") or c.has("facing") or c.has("freeze") or c.has("turn") or c.has("expression") or c.has("hands"):
+			if c.size() != 2:
 				e.append(cw + ": a hold cue only takes 't' and 'hold'")
 			continue
-		if not (c.has("action") or c.has("facing") or c.has("expression") or c.has("hands")):
-			e.append(cw + ": needs 'action', 'facing', 'expression', 'hands' or 'hold'")
+		if not (c.has("action") or c.has("facing") or c.has("expression") or c.has("hands") or c.has("head")):
+			e.append(cw + ": needs 'action', 'facing', 'expression', 'hands', 'head' or 'hold'")
+		if c.has("head"):
+			var angles = c["head"]
+			if not (angles is Array and angles.size() == 3 and angles.all(
+				func(angle): return typeof(angle) in [TYPE_INT, TYPE_FLOAT] and absf(float(angle)) <= 90.0
+			)):
+				e.append(cw + ": 'head' needs [pitch, yaw, roll] in degrees, each in -90..90")
+		if c.has("head_turn") and (not c.has("head") or not (typeof(c["head_turn"]) in [TYPE_INT, TYPE_FLOAT]) or float(c["head_turn"]) < 0.0):
+			e.append(cw + ": 'head_turn' is seconds >= 0 and needs 'head' in the same cue")
 		if c.has("hands") and not (String(c["hands"]) in HANDS):
 			e.append("%s: hands must be one of %s" % [cw, HANDS])
 		if c.has("expression") and not Toon.faces().has(String(c["expression"])):
@@ -377,6 +385,10 @@ static func _plan_one(a: Dictionary, L: Dictionary, offset: Vector3, yaw_jitter:
 			"expression": String(c.get("expression", "")), "hands": String(c.get("hands", ""))}
 		if c.has("action"):
 			pc["freeze"] = Cast.freeze_fraction(String(c["action"]), c.get("freeze"))
+		if c.has("head"):
+			var angles: Array = c["head"]
+			pc["head"] = Vector3(deg_to_rad(angles[0]), deg_to_rad(angles[1]), deg_to_rad(angles[2]))
+			pc["head_turn"] = float(c.get("head_turn", Actor.TURN_TIME))
 		if c.has("facing"):
 			var where_then: Vector3 = pos
 			if plan.has("route") and float(pc["tau"]) >= float(plan["route"]["start"]):

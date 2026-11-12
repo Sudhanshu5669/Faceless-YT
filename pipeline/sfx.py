@@ -15,7 +15,7 @@ from scipy import signal
 SR = 48000
 
 BEDS = ["room_tone", "drone", "zombies", "heartbeat", "beat"]
-ONE_SHOTS = ["glass_bang", "creak", "sting", "thud", "click", "pop", "whoosh", "ding", "tick", "cash", "whistle", "rip"]
+ONE_SHOTS = ["glass_bang", "creak", "sting", "thud", "click", "pop", "whoosh", "ding", "tick", "cash", "whistle", "rip", "cheer"]
 
 
 def _rng(name: str, salt: int = 0) -> np.random.Generator:
@@ -345,10 +345,40 @@ def rip(salt: int = 0) -> np.ndarray:
     return _fade(_norm(x, 0.7), 0.002, 0.08)
 
 
+def cheer(salt: int = 0) -> np.ndarray:
+    """A crowd erupting: many voices whooping up in pitch over applause, swelling then
+    tailing off (2.6 s)."""
+    r = _rng("cheer", salt)
+    dur = 2.6
+    t = _t(dur)
+    out = np.zeros_like(t)
+    for _ in range(26):
+        start = r.uniform(0.0, 0.35)
+        length = r.uniform(1.2, 2.2)
+        f0 = r.uniform(190, 380) * (1 + r.uniform(0.15, 0.45) * np.clip((t - start) / 0.4, 0, 1))
+        f0 *= 1 + 0.03 * np.sin(2 * np.pi * r.uniform(4, 7) * t)
+        src = 2 * (np.cumsum(f0 / SR) % 1.0) - 1.0 + 0.4 * r.standard_normal(t.size)
+        f1, f2 = r.uniform(500, 850), r.uniform(1100, 2300)
+        voice = _bandpass(src, f1 * 0.75, f1 * 1.3) + 0.6 * _bandpass(src, f2 * 0.85, f2 * 1.2)
+        k = np.clip((t - start) / length, 0, 1)
+        env = np.where((t > start) & (t < start + length), np.sin(np.pi * k) ** 0.7, 0.0)
+        out += voice * env * r.uniform(0.5, 1.0)
+    claps = np.zeros_like(t)
+    for _ in range(140):
+        i = int(r.uniform(0.05, dur - 0.1) * SR)
+        n = int(0.012 * SR)
+        claps[i:i + n] += r.standard_normal(n) * np.exp(-np.arange(n) / (0.003 * SR)) * r.uniform(0.3, 1.0)
+    claps = _bandpass(claps, 900, 6000)
+    swell = np.minimum(1.0, t / 0.12) * np.where(t > 1.7, np.exp(-(t - 1.7) * 2.5), 1.0)
+    x = _norm(out, 0.7) + 0.5 * _norm(claps, 0.7)
+    return _fade(_norm(x * swell, 0.8), 0.01, 0.2)
+
+
 def make(name: str, dur: float = 0.0, salt: int = 0) -> np.ndarray:
     beds = {"room_tone": room_tone, "drone": drone, "zombies": zombies, "heartbeat": heartbeat, "beat": beat}
     shots = {"glass_bang": glass_bang, "creak": creak, "sting": sting, "thud": thud, "click": click,
-             "pop": pop, "whoosh": whoosh, "ding": ding, "tick": tick, "cash": cash, "whistle": whistle, "rip": rip}
+             "pop": pop, "whoosh": whoosh, "ding": ding, "tick": tick, "cash": cash, "whistle": whistle, "rip": rip,
+             "cheer": cheer}
     if name in beds:
         return beds[name](dur)
     if name in shots:

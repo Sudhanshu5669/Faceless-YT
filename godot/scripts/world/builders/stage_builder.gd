@@ -35,14 +35,15 @@ static func _bay(b: Dictionary, seed_value: int) -> Node3D:
 	# Floor (slightly bigger than the bay so wide shots never see its edge).
 	var fw := w + (30.0 if outdoor else 2.0)
 	var fd := d + (30.0 if outdoor else 2.0)
-	var floor := _plane(Vector2(fw, fd), _surface(FLOOR_PATTERNS[String(b["floor"])], Color(String(fc[0])),
-		Color(String(fc[1])), Color(String(nc[0])), 1.0 if String(b["floor"]) != "wood" else 0.25, false))
-	floor.name = "floor"
-	floor.position = Vector3(0, 0, (fd - d) * -0.5 + (fd - d) * 0.5)
-	if String(b["floor"]) == "road":
-		# The footpath runs along the shop fronts.
-		(floor.material_override as ShaderMaterial).set_shader_parameter("foot_z", -d * 0.5 + 2.2)
-	n.add_child(floor)
+	var floor_kind := String(b["floor"])
+	if floor_kind != "none":
+		var floor := _plane(Vector2(fw, fd), _surface(FLOOR_PATTERNS[floor_kind], Color(String(fc[0])),
+			Color(String(fc[1])), Color(String(nc[0])), 1.0 if floor_kind != "wood" else 0.25, false))
+		floor.name = "floor"
+		if floor_kind == "road":
+			# The footpath runs along the shop fronts.
+			(floor.material_override as ShaderMaterial).set_shader_parameter("foot_z", -d * 0.5 + 2.2)
+		n.add_child(floor)
 	# Back wall (and sides) or an open skyline.
 	var wall_kind := String(b["wall"])
 	if wall_kind == "skyline":

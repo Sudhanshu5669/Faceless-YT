@@ -1,0 +1,14 @@
+{
+  "id": "toon_baby_anil",
+  "description": "Baby Anil in the family split metaphor, in a saffron playsuit.",
+  "tags": ["toon", "human", "jio_story"],
+  "height": 0.87,
+  "idle": "sit",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "slick", "color": "#26212a"},
+    "outfit": {"style": "tee", "color": "#eeb955"},
+    "shoes": "#e6dcce",
+    "face": "happy"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "toon_mukesh_doctor",
+  "description": "Mukesh Ambani wearing a white lab coat in the oxygen metaphor.",
+  "tags": ["toon", "human", "jio_story"],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "slick", "color": "#1e1d22"},
+    "outfit": {"style": "labcoat", "tie": "#3b777b"},
+    "shoes": "#1b1b1f",
+    "mustache": "#1e1d22",
+    "girth": 1.18,
+    "face": "happy"
+  }
+}

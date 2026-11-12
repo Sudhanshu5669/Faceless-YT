@@ -113,7 +113,7 @@ static func build(gags) -> Node3D:
 
 ## Place and animate every gag for scene time t (L carries actor + reveal anchors).
 ## Returns anchors {"<id>": ..., "<id>.<name>": ...}.
-static func pose(root: Node3D, gags, t: float, L: Dictionary) -> Dictionary:
+static func pose(root: Node3D, gags, t: float, L: Dictionary, actors: Node3D = null) -> Dictionary:
 	var out := {}
 	if root == null:
 		return out
@@ -141,6 +141,8 @@ static func pose(root: Node3D, gags, t: float, L: Dictionary) -> Dictionary:
 		if not holder.visible:
 			continue
 		var ctx := {"point": func(ref): return Shot.point(L, ref), "age": t - t0, "holder": holder}
+		if actors != null:
+			ctx["actor"] = func(actor_id: String): return actors.get_node_or_null(NodePath(actor_id))
 		var extra = (holder.get_meta("gag")).pose(holder.get_node("content"), g, t, ctx)
 		if typeof(extra) == TYPE_DICTIONARY:
 			for k in extra:

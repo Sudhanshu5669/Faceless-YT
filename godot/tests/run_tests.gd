@@ -757,6 +757,7 @@ func _t_episode_validation() -> Array:
 		[{"schema_version": "0.1", "id": "t", "set": "x"}, "no shots"],
 		[_episode([{"name": "a", "duration": 0, "camera": ok_cam}]), "zero duration"],
 		[_episode([{"name": "a", "duration": 2, "camera": ok_cam, "zoom": 2}]), "unknown shot key"],
+		[_episode([{"name": "a", "duration": 2, "camera": ok_cam, "look": "no_such_look"}]), "unknown shot look"],
 		[_episode([{"name": "a", "duration": 2, "camera": ok_cam}, {"name": "a", "duration": 2, "camera": ok_cam}]), "duplicate shot names"],
 		[_episode([{"name": "a", "duration": 2, "camera": {"from": ok_cam}}]), "move without 'to'"],
 		[_episode([{"name": "a", "duration": 2, "camera": {"from": ok_cam, "to": ok_cam, "ease": "bounce"}}]), "unknown ease"],
@@ -775,10 +776,12 @@ func _t_episode_validation() -> Array:
 func _t_episode_timeline() -> Array:
 	var cam := {"at": "town_center", "look_at": "int_0_0"}
 	var ep := _episode([{"name": "a", "duration": 2.0, "camera": cam},
-		{"name": "b", "duration": 1.5, "scene_t": 0.5, "camera": cam},
+		{"name": "b", "duration": 1.5, "scene_t": 0.5, "camera": cam, "look": {"base": "day", "time": "14:10"}},
 		{"name": "c", "duration": 1.0, "camera": cam}])
 	var tl := Episode.timeline(ep, 30)
 	var e := []
+	if not Episode.validate(ep).is_empty() or tl[1]["look"] != ep["shots"][1]["look"] or tl[2]["look"] != null:
+		e.append("the shot look should reach the timeline and leave the next shot at the default")
 	var want := [[60, 0, 0.0], [45, 60, 0.5], [30, 105, 2.0]]
 	for i in 3:
 		if int(tl[i]["frames"]) != want[i][0] or int(tl[i]["first_frame"]) != want[i][1] or absf(float(tl[i]["scene_t"]) - want[i][2]) > 0.0001:
@@ -1020,7 +1023,8 @@ func _t_toons() -> Array:
 	var res := ActorDirector.plan_all([
 		{"id": "m", "character": "you", "at": "town_center", "action": "walk"},
 		{"id": "t", "character": "toon_you", "at": "town_center", "action": "walk",
-			"cues": [{"t": 2.0, "expression": "shocked"}]}], L)
+			"cues": [{"t": 2.0, "expression": "shocked", "action": "idle", "freeze": 0.25,
+				"head": [0, 45, 0], "head_turn": 1.0}]}], L)
 	if res.has("error"):
 		return [res["error"]]
 	var node := ActorDirector.build(res["plans"], L)
@@ -1046,6 +1050,21 @@ func _t_toons() -> Array:
 	var mat: ShaderMaterial = toon._face_mat
 	if int(mat.get_shader_parameter("mouth")) != Toon.MOUTHS.find("open"):
 		e.append("face material not switched to 'shocked'")
+	var sk: Skeleton3D = toon.retarget.dst
+	var head := sk.find_bone("Head")
+	var halfway := sk.get_bone_pose_rotation(head)
+	var body_yaw: float = toon.rotation.y
+	toon.pose_at(2.0)
+	var neutral := sk.get_bone_pose_rotation(head)
+	toon.pose_at(3.0)
+	var turned := sk.get_bone_pose_rotation(head)
+	if not is_equal_approx(neutral.angle_to(turned), PI / 4.0) or not is_equal_approx(neutral.angle_to(halfway), PI / 8.0):
+		e.append("head turn did not interpolate independently of the frozen idle pose")
+	if not is_equal_approx(body_yaw, toon.rotation.y):
+		e.append("head turn changed the actor's body yaw")
+	toon.pose_at(2.5)
+	if not halfway.is_equal_approx(sk.get_bone_pose_rotation(head)):
+		e.append("head turn changed when seeking backwards")
 	toon.pose_at(0.5)
 	if int(mat.get_shader_parameter("mouth")) != Toon.MOUTHS.find("smirk"):
 		e.append("face did not return to 'smug' at 0.5 s")

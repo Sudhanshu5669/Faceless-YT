@@ -5,5 +5,138 @@
     "updated": "2026-11-11 22:12:59",
     "fingerprint": "47d959278ee4",
     "history": []
+  },
+  "tower_open": {
+    "status": "approved",
+    "note": "Approved to proceed to the next shot.",
+    "updated": "2026-11-12 18:08:03",
+    "fingerprint": "3df83f511a4b",
+    "history": []
+  },
+  "beat_02": {
+    "status": "approved",
+    "note": "Looks good. Proceed.",
+    "updated": "2026-11-12 18:31:16",
+    "fingerprint": "67f711ac673d",
+    "history": []
+  },
+  "beat_03": {
+    "status": "approved",
+    "note": "Perfect. Now next.",
+    "updated": "2026-11-12 18:43:16",
+    "fingerprint": "9945714bf99e",
+    "history": []
+  },
+  "beat_04": {
+    "status": "approved",
+    "note": "Good. Proceed to the next shot.",
+    "updated": "2026-11-12 19:04:02",
+    "fingerprint": "9755af068d57",
+    "history": []
+  },
+  "beat_05": {
+    "status": "approved",
+    "note": "Looks good.",
+    "updated": "2026-11-12 22:51:11",
+    "fingerprint": "3e7befc2fc29",
+    "history": []
+  },
+  "beat_06": {
+    "status": "approved",
+    "note": "I love it.",
+    "updated": "2026-11-12 23:00:08",
+    "fingerprint": "6dc6a97bf862",
+    "history": []
+  },
+  "beat_07": {
+    "status": "approved",
+    "note": "I like it.",
+    "updated": "2026-11-12 23:21:25",
+    "fingerprint": "61488b28488a",
+    "history": [
+      {
+        "status": "changes",
+        "note": "Show him from behind, holding his phone with the buffering video visible.",
+        "updated": "2026-11-12 23:14:41",
+        "fingerprint": "37cc61a75fb8"
+      }
+    ]
+  },
+  "beat_08": {
+    "status": "approved",
+    "note": "Love it.",
+    "updated": "2026-11-12 23:28:30",
+    "fingerprint": "c0a2cbbfea0b",
+    "history": []
+  },
+  "beat_09": {
+    "status": "approved",
+    "note": "Good.",
+    "updated": "2026-11-12 23:32:12",
+    "fingerprint": "421c53da76be",
+    "history": []
+  },
+  "beat_10": {
+    "status": "approved",
+    "note": "Good.",
+    "updated": "2026-11-12 23:36:03",
+    "fingerprint": "b019db954385",
+    "history": []
+  },
+  "beat_11": {
+    "status": "approved",
+    "note": "Good.",
+    "updated": "2026-11-12 23:41:34",
+    "fingerprint": "b0de031d0288",
+    "history": []
+  },
+  "beat_12": {
+    "status": "approved",
+    "note": "Great.",
+    "updated": "2026-11-12 23:46:40",
+    "fingerprint": "84b28a3af811",
+    "history": []
+  },
+  "beat_13": {
+    "status": "approved",
+    "note": "Good.",
+    "updated": "2026-11-12 23:55:30",
+    "fingerprint": "82d708d59d52",
+    "history": []
+  },
+  "beat_14": {
+    "status": "approved",
+    "note": "Good.",
+    "updated": "2026-11-13 00:02:42",
+    "fingerprint": "459aff2ce765",
+    "history": []
+  },
+  "beat_15": {
+    "status": "approved",
+    "note": "Good.",
+    "updated": "2026-11-13 00:07:58",
+    "fingerprint": "8dad7952d50f",
+    "history": []
+  },
+  "beat_16": {
+    "status": "approved",
+    "note": "Good.",
+    "updated": "2026-11-13 00:15:34",
+    "fingerprint": "2228b940ff8f",
+    "history": []
+  },
+  "beat_17": {
+    "status": "approved",
+    "note": "Good.",
+    "updated": "2026-11-13 00:22:52",
+    "fingerprint": "85af2d92dbbc",
+    "history": []
+  },
+  "beat_18": {
+    "status": "approved",
+    "note": "Good.",
+    "updated": "2026-11-13 00:32:46",
+    "fingerprint": "da7a49db8cce",
+    "history": []
   }
 }

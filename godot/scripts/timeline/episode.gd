@@ -26,7 +26,8 @@ const KEYS := ["schema_version", "id", "title", "description", "set", "look", "a
 ## also turns "fit" durations and time references into numbers before Godot runs.
 const AUDIO_KEYS := ["narration", "lines", "sfx", "music", "ambience", "captions", "end_black", "review"]
 const FORMAT_KEYS := ["resolution", "fps", "motion_blur"]
-const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "note", "whip_in", "whip_out", "iris_in", "iris_out", "shake"]
+const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "look", "note", "whip_in", "whip_out", "iris_in", "iris_out", "shake"]
+const LookCompiler = preload("res://scripts/look/look_compiler.gd")
 ## Camera shake on impacts: "shake": [{"t": word ref, "amount": 0..1}] (docs/MOTION_SPEC.md).
 ## Trauma model: light 0.15, medium 0.4, heavy 0.8. These are the offsets at full trauma.
 const SHAKE_MOVE := 0.07      # metres, camera-local x / y
@@ -111,6 +112,9 @@ static func validate(ep: Dictionary) -> Array:
 		for k in s:
 			if not (k in SHOT_KEYS):
 				e.append("%s: unknown key '%s' (known: %s)" % [where, k, ", ".join(PackedStringArray(SHOT_KEYS))])
+		if s.has("look"):
+			for error in LookCompiler.compile(s["look"])["errors"]:
+				e.append("%s look: %s" % [where, error])
 		for k in ["whip_in", "whip_out"]:
 			if s.has(k) and not (String(s[k]) in WHIPS):
 				e.append("%s: %s must be one of %s" % [where, k, WHIPS])
@@ -193,7 +197,7 @@ static func timeline(ep: Dictionary, fps: int) -> Array:
 		var dur := float(s["duration"])
 		var frames := maxi(1, roundi(dur * fps))
 		out.append({"index": i, "name": String(s["name"]), "duration": dur, "frames": frames,
-			"first_frame": frame, "scene_t": scene_t, "camera": s["camera"],
+			"first_frame": frame, "scene_t": scene_t, "camera": s["camera"], "look": s.get("look"),
 			"whip_in": String(s.get("whip_in", "")), "whip_out": String(s.get("whip_out", "")),
 			"iris_in": String(s.get("iris_in", "")), "iris_out": String(s.get("iris_out", "")),
 			"shake": s.get("shake", [])})

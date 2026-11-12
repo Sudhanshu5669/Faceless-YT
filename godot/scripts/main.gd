@@ -48,6 +48,8 @@ var spec: Dictionary
 var episode: Dictionary = {}  # set when filming an episode.json
 var look_overrides := {}   # {"time": ..., "weather": {...}} layered over the spec's look
 var look: Dictionary       # compiled
+var shot_looks := {}
+var active_shot_look: Dictionary
 var layout: Dictionary
 var set_node: Node3D
 var actors_node: Node3D
@@ -153,6 +155,8 @@ func _build() -> bool:
 		return false
 	look = lc["look"]
 	Look.apply(self, look, camera)
+	active_shot_look = look
+	shot_looks.clear()
 	Kit.configure(look)
 	if set_node:
 		remove_child(set_node)
@@ -203,7 +207,7 @@ func _at_time(t: float) -> Dictionary:
 	# Reveals are placed from actor anchors, and become anchors themselves.
 	L["actor_anchors"].merge(Reveals.pose(reveals_node, spec.get("reveals", []), t, L))
 	# Gags (custom scripted set pieces) see actors and reveals, and add their own anchors.
-	L["actor_anchors"].merge(Gags.pose(gags_node, spec.get("gags", []), t, L))
+	L["actor_anchors"].merge(Gags.pose(gags_node, spec.get("gags", []), t, L, actors_node))
 	return L
 
 
@@ -265,14 +269,28 @@ func _out_size(scale: float) -> Vector2i:
 
 ## Poses actors and places the camera for frame k of a timeline shot.
 func _frame_state(shot: Dictionary, k: int) -> Dictionary:
+	var frame_look := _look_for_shot(shot)
+	if not is_same(frame_look, active_shot_look):
+		Look.apply(self, frame_look, camera)
+		active_shot_look = frame_look
 	var ft := Episode.frame_time(shot, k, _fps())
-	var s := Episode.camera_at(shot, float(ft["p"]), _at_time(float(ft["t"])), look)
+	var s := Episode.camera_at(shot, float(ft["p"]), _at_time(float(ft["t"])), frame_look)
 	if not s.has("error"):
 		Shot.apply(camera, s)
 	var iris := Episode.iris_at(shot, float(ft["p"]))
 	RenderingServer.global_shader_parameter_set("iris_shape", float(iris["shape"]))
 	RenderingServer.global_shader_parameter_set("iris_radius", float(iris["radius"]))
 	return s
+
+
+func _look_for_shot(shot: Dictionary) -> Dictionary:
+	var reference = shot.get("look")
+	if reference == null:
+		return look
+	var name: String = shot["name"]
+	if not shot_looks.has(name):
+		shot_looks[name] = LookCompiler.compile(reference)["look"]
+	return shot_looks[name]
 
 
 ## Resolves every shot's camera at its start, middle and end before rendering,
@@ -285,10 +303,11 @@ func _check_episode_cameras() -> bool:
 		return false
 	for shot in Episode.timeline(episode, _fps()):
 		var frames := int(shot["frames"])
+		var frame_look := _look_for_shot(shot)
 		var warned := {}
 		for k in [0, frames / 2, frames - 1]:
 			var ft := Episode.frame_time(shot, k, _fps())
-			var s := Episode.camera_at(shot, float(ft["p"]), _at_time(float(ft["t"])), look)
+			var s := Episode.camera_at(shot, float(ft["p"]), _at_time(float(ft["t"])), frame_look)
 			if s.has("error"):
 				_fail("shot %d (%s) at %.2f s: %s" % [shot["index"], shot["name"], ft["t"], s["error"]])
 				return false
@@ -448,7 +467,7 @@ func _framing_report(path: String) -> void:
 			if (String(shot.get("whip_in", "")) != "" and tt < Episode.WHIP_TIME) 					or (String(shot.get("whip_out", "")) != "" and tt > float(shot["duration"]) - Episode.WHIP_TIME) 					or (String(shot.get("iris_in", "")) != "" and tt < Episode.IRIS_HOLD + Episode.IRIS_OPEN):
 				continue
 			var L := _at_time(t)
-			var cam := Episode.camera_at(shot, p, L, look)
+			var cam := Episode.camera_at(shot, p, L, _look_for_shot(shot))
 			if cam.has("error"):
 				continue
 			Shot.apply(camera, cam)

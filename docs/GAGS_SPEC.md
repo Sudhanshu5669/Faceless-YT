@@ -64,6 +64,11 @@ Rules (the same as the rest of the engine):
   Block the action (anticipation → action → contact → settle) and put the contact on the narration word.
 - `ctx`: `point` (Callable, resolves a point at this moment), `age` (t - g.t), `holder` (the node
   placed at `at`; the content is its child "content").
+- `ctx.actor` looks up an actor by ID when a cast exists. A gag can call
+  `aim_hand("l" or "r", world_target, weight)` for a timed contact after the actor's normal pose.
+  Query `bone_world("hand_l")` or `bone_world("hand_r")` for the resulting hand position.
+  For a toon playing the seated action, `sit_on_floor(drop, floor_y)` lowers the body and
+  folds the legs at floor level before the hand targets are applied.
 
 ## The library
 

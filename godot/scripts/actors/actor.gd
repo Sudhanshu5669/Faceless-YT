@@ -150,7 +150,7 @@ func pose_at(t: float) -> void:
 			Toon.apply_face(_face_mat, ex)
 
 
-## Where the hands are held at scene time t ("face", "chest" or "none"): the last "hands" cue.
+## Where the hands are held at scene time t: the last "hands" cue.
 func hands_at(t: float) -> String:
 	var tau := Cast.warp(plan.get("holds", []), t)
 	var h := "none"
@@ -160,9 +160,8 @@ func hands_at(t: float) -> String:
 	return h
 
 
-## Two-bone IK on both arms after the animation pose: hands to the face (holding
-## binoculars, a camera) or in front of the chest (holding a sign). Pure function
-## of the pose, like everything else.
+## Two-bone arm IK after the animation pose, for held props and the chin rest.
+## Pure function of the pose.
 func _pose_hands(where: String) -> void:
 	var sk: Skeleton3D = retarget.dst if retarget != null else skeleton
 	var skw := _world_of(sk)
@@ -170,21 +169,70 @@ func _pose_hands(where: String) -> void:
 	var fwd := Vector3(sin(rotation.y), 0, cos(rotation.y))
 	var left := Vector3(cos(rotation.y), 0, -sin(rotation.y))
 	var head := bone_world("Head") + Vector3.UP * _head_lift
-	for side in ["l", "r"]:
+	var sides := ["r"] if where == "chin" else ["l", "r"]
+	for side in sides:
 		var sgn := 1.0 if side == "l" else -1.0
 		var target: Vector3
 		if where == "face":
 			target = head + fwd * (_head_r * 1.15) + left * sgn * (_head_r * 0.62) - Vector3.UP * (_head_r * 0.3)
+		elif where == "chin":
+			target = head + fwd * (_head_r * 0.82) - left * (_head_r * 0.60) - Vector3.UP * (_head_r * 0.68)
 		else:
 			target = bone_world("spine_03") + fwd * 0.32 + left * sgn * 0.16 - Vector3.UP * 0.05
-		_ik_arm(sk, "upperarm_" + side, "lowerarm_" + side, "hand_" + side, inv * target,
+		_ik_limb(sk, "upperarm_" + side, "lowerarm_" + side, "hand_" + side, inv * target,
 			inv.basis * (Vector3.DOWN * 0.7 + left * sgn * 0.7 - fwd * 0.2))
 
 
-func _ik_arm(sk: Skeleton3D, upper: String, lower: String, hand: String, target: Vector3, pole: Vector3) -> void:
+## Aim one arm after pose_at(), for a choreographed handoff or contact.
+func aim_hand(side: String, target: Vector3, weight: float = 1.0, shoulder_lift: float = 0.0) -> void:
+	if weight <= 0.0:
+		return
+	var sk: Skeleton3D = retarget.dst if retarget != null else skeleton
+	var inv := _world_of(sk).affine_inverse()
+	var fwd := Vector3(sin(rotation.y), 0, cos(rotation.y))
+	var left := Vector3(cos(rotation.y), 0, -sin(rotation.y))
+	var side_sign := 1.0 if side == "l" else -1.0
+	var upper := "upperarm_" + side
+	if shoulder_lift > 0.0:
+		var bone := sk.find_bone(upper)
+		if bone >= 0:
+			var parent := sk.get_bone_parent(bone)
+			var parent_basis := Cast.bone_global(sk, parent).basis if parent >= 0 else Basis.IDENTITY
+			var up := parent_basis.inverse() * inv.basis * Vector3.UP
+			sk.set_bone_pose_position(bone, sk.get_bone_pose_position(bone) + up * shoulder_lift * weight)
+	_ik_limb(sk, upper, "lowerarm_" + side, "hand_" + side, inv * target,
+		inv.basis * (Vector3.DOWN + left * side_sign * 0.72 - fwd * 0.26), weight)
+
+
+## Brace one foot against a surface, with the knee bent toward the given direction.
+func aim_foot(side: String, target: Vector3, knee: Vector3) -> void:
+	var sk: Skeleton3D = retarget.dst if retarget != null else skeleton
+	var inv := _world_of(sk).affine_inverse()
+	_ik_limb(sk, "thigh_" + side, "calf_" + side, "foot_" + side, inv * target, inv.basis * knee)
+
+
+## Lower the chair-sit pose to a floor seat and fold the legs forward.
+func sit_on_floor(drop: float, floor_y: float, lean: float = 0.0) -> void:
+	body.position.y -= drop
+	body.rotation.x = lean
+	var sk: Skeleton3D = retarget.dst if retarget != null else skeleton
+	var inv := _world_of(sk).affine_inverse()
+	var fwd := Vector3(sin(rotation.y), 0, cos(rotation.y))
+	var left := Vector3(cos(rotation.y), 0, -sin(rotation.y))
+	var base := Vector3(position.x, floor_y, position.z)
+	for side in ["l", "r"]:
+		var side_sign := 1.0 if side == "l" else -1.0
+		var target := base + fwd * (0.20 * _height_scale) + left * side_sign * (0.09 * _height_scale)
+		target.y += 0.095 * _height_scale
+		_ik_limb(sk, "thigh_" + side, "calf_" + side, "foot_" + side, inv * target,
+			inv.basis * (left * side_sign + Vector3.UP * 0.42 + fwd * 0.34))
+
+
+func _ik_limb(sk: Skeleton3D, upper: String, lower: String, end_bone: String, target: Vector3, pole: Vector3,
+		weight: float = 1.0) -> void:
 	var iu := sk.find_bone(upper)
 	var il := sk.find_bone(lower)
-	var ih := sk.find_bone(hand)
+	var ih := sk.find_bone(end_bone)
 	if iu < 0 or il < 0 or ih < 0:
 		return
 	var gu := Cast.bone_global(sk, iu)
@@ -205,12 +253,14 @@ func _ik_arm(sk: Skeleton3D, upper: String, lower: String, hand: String, target:
 	var gp := Cast.bone_global(sk, pu) if pu >= 0 else Transform3D.IDENTITY
 	var r1 := Quaternion((gl.origin - a).normalized(), (elbow - a).normalized())
 	var gu2 := Transform3D(Basis(r1) * gu.basis, a)
-	sk.set_bone_pose_rotation(iu, (gp.basis.inverse() * gu2.basis).get_rotation_quaternion())
 	var gl2 := gu2 * sk.get_bone_pose(il)
 	var gh2 := gl2 * sk.get_bone_pose(ih)
 	var r2 := Quaternion((gh2.origin - gl2.origin).normalized(), (tgt - gl2.origin).normalized())
 	var gl3 := Transform3D(Basis(r2) * gl2.basis, gl2.origin)
-	sk.set_bone_pose_rotation(il, (gu2.basis.inverse() * gl3.basis).get_rotation_quaternion())
+	var upper_pose := (gp.basis.inverse() * gu2.basis).get_rotation_quaternion()
+	var lower_pose := (gu2.basis.inverse() * gl3.basis).get_rotation_quaternion()
+	sk.set_bone_pose_rotation(iu, sk.get_bone_pose_rotation(iu).slerp(upper_pose, weight))
+	sk.set_bone_pose_rotation(il, sk.get_bone_pose_rotation(il).slerp(lower_pose, weight))
 
 
 ## A toon's expression at scene time t: the last "expression" cue at or before t.
@@ -345,11 +395,51 @@ func _play(action_id: String, time: float, freeze: float) -> void:
 	else:
 		_seek(String(seg["anim"]), _clip_time(seg, local))
 	body.position = Vector3(0, Cast.lift_at(cp, tt) * _height_scale, 0)
+	body.rotation.x = 0.0
 	if retarget != null:
 		retarget.apply()
+	_pose_head(_head_angles_at(_pose_t))
 	var hands := hands_at(_pose_t)
 	if hands != "none":
 		_pose_hands(hands)
+
+
+func _head_angles_at(t: float) -> Vector3:
+	var tau := Cast.warp(plan.get("holds", []), t)
+	var from := Vector3.ZERO
+	var to := Vector3.ZERO
+	var start := 0.0
+	var duration := 0.0
+	for cue in plan.get("cues", []):
+		var at := float(cue["tau"])
+		if at > tau:
+			break
+		if cue.has("head"):
+			from = to if duration <= 0.0 else from.lerp(to, smoothstep(start, start + duration, at))
+			to = cue["head"]
+			start = at
+			duration = float(cue["head_turn"])
+	return to if duration <= 0.0 else from.lerp(to, smoothstep(start, start + duration, tau))
+
+
+func _pose_head(angles: Vector3) -> void:
+	if angles.is_zero_approx():
+		return
+	var sk := skeleton
+	var bone_name := "Head"
+	if retarget != null and retarget.target_bone(bone_name) != "":
+		sk = retarget.dst
+		bone_name = retarget.target_bone(bone_name)
+	var head := sk.find_bone(bone_name)
+	if head < 0:
+		return
+	var parent := sk.get_bone_parent(head)
+	var parent_basis := Cast.bone_global(sk, parent).basis.orthonormalized() if parent >= 0 else Basis.IDENTITY
+	var actor_basis := _world_of(self).basis.orthonormalized()
+	var skeleton_basis := _world_of(sk).basis.orthonormalized()
+	var actor_in_parent := parent_basis.inverse() * skeleton_basis.inverse() * actor_basis
+	var offset := actor_in_parent * Basis.from_euler(angles) * actor_in_parent.inverse()
+	sk.set_bone_pose_rotation(head, offset.get_rotation_quaternion() * sk.get_bone_pose_rotation(head))
 
 
 static func _clip_time(seg: Dictionary, local: float) -> float:

@@ -15,7 +15,7 @@
 ## <id>.pedestal (top of the pedestal), <id>.sky (5 m above the centre).
 extends RefCounted
 
-const FLOORS := ["checker", "tiles", "grid", "wood", "plain", "carpet", "road", "marble"]
+const FLOORS := ["checker", "tiles", "grid", "wood", "plain", "carpet", "road", "marble", "none"]
 const WALLS := ["tiles", "panels", "plain", "grid", "brick", "skyline", "bazaar", "haveli", "none"]
 const NEONS := ["ring", "tubes", "strip", "arch", "frame"]
 const PEDESTALS := ["neon", "drums", "cash", "crates", "plain"]

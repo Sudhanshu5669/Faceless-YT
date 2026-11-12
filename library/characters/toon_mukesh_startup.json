@@ -1,0 +1,16 @@
+{
+  "id": "toon_mukesh_startup",
+  "description": "Mukesh Ambani in a founder's hoodie for the startup garage gag.",
+  "tags": ["toon", "human", "jio_story"],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "slick", "color": "#1e1d22"},
+    "outfit": {"style": "hoodie", "color": "#37436d"},
+    "shoes": "#1b1b1f",
+    "mustache": "#1e1d22",
+    "girth": 1.18,
+    "face": "thinking"
+  }
+}

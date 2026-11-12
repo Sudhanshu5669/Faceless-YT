@@ -1,0 +1,15 @@
+{
+  "id": "toon_baby_mukesh",
+  "description": "Baby Mukesh in the family split metaphor, in a pale blue playsuit.",
+  "tags": ["toon", "human", "jio_story"],
+  "height": 0.89,
+  "idle": "sit",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "tuft", "color": "#20202a"},
+    "outfit": {"style": "tee", "color": "#7ac7ed"},
+    "shoes": "#e1e6ef",
+    "girth": 1.13,
+    "face": "happy"
+  }
+}

@@ -179,6 +179,9 @@ during stance). Re-run it after adding gaits.
   everyone except you.
 - Turns are smooth (`turn` seconds, default 0.6; `0` snaps), and so is the turn on arriving at
   the end of a route. A held actor keeps the facing it had when the hold began.
+- A cue's `head` offset is `[pitch, yaw, roll]` in degrees relative to the actor. `head_turn`
+  sets how many seconds it takes to ease to that offset (default 0.6). Use `[0, 0, 0]` to return
+  to the underlying animation pose.
 - While walking a route, the route wins. Otherwise the most recent of "arrived" and each cue
   decides the action.
 

@@ -1,11 +1,11 @@
 # Handoff: where TownForge is, and what to do next
 
-*Last updated 2026-11-11 (late). Read this first in a new session (Claude or Codex), then
+*Last updated 2026-11-13. Read this first in a new session (Claude or Codex), then
 `AGENTS.md`, then `docs/VISION_AND_ROADMAP.md`.*
 
 ## START HERE: current task (for whoever picks this up)
 
-**2026-11-12, latest: the whole video is redone from scratch, from the user's edited script.**
+**2026-11-12, latest: the Jio rebuild is on the user's edited v2 script.**
 THE SCRIPT IS DONE: `episodes/jio_story/script_v2.html` (read it) and `episodes/jio_story/script_v2.json`
 (same data: 31 beats, each `line` = exact narration, `see` = what happens on screen, `status`, `note`).
 **Where status is "change", the user's `note` is the direction to build; it overrides `see`.** 15 beats
@@ -13,15 +13,21 @@ changed, 16 kept. (Source: the user's script board https://claude.ai/artifact/1x
 the denser planning doc with camera/sound/sources per beat is https://claude.ai/artifact/AcvhvS6ZSqgfomymyqivfE ,
 and the fact sources are also in `episodes/jio_story/script.md`.)
 
-Next steps, in order:
-1. Narration: the lines changed from v1, so set the episode's lines/narration.script to the 31 v2 lines and
-   record ONE new single take (`tf voice jio_story`; Gemini free tier allows ~10 requests/day, see memory).
-2. Rebuild `episodes/jio_story/make_episode.py` to the 31 beats (one shot or two per beat), reusing what
-   still fits (gags in `library/gags/`: balloon, balance_scale, door, cash_stream, snail, beard; the cash
-   cannon in `episodes/jio_story/gags/`), and building new places/gags the notes ask for (e.g. beat 1 opens
-   outside a skyscraper and zooms through a window to Mukesh among vaults of cash and gold with the group
-   logo on the wall; beat 3 is baby Mukesh and baby Anil sharing toys while their mother splits them).
-3. Shot by shot with the user (`tf shot jio_story NAME`, `--serve`), never the whole video at once.
+`make_episode.py` generates all 31 exact narration lines and matching shots with the old timing
+references removed. The new single take is recorded and aligned (124.6 s). Keep the complete v2
+narration script and voice settings so later renders reuse that take.
+
+**Next: get the user's verdict on `beat_19`.** Shots 1-18 are approved.
+Beat 19 (launch) uses the new `jio_launch` bay (dark auditorium) and `gags/jio_launch.gd`: the date
+on the LED screen, Mukesh slams a launch button on "launch" (screen flashes to the Jio disc, crowd
+throws its arms up, `cheer` sfx), flings three handfuls of Jio SIM cards into the crowd/at the lens on
+"And / everything / free", then the camera pushes in while he slaps red FREE tags on a desk phone
+(calls), a Jio 4G recharge voucher (data) and an app-filled phone (apps). Crowd = `LAUNCH_FANS` in
+`make_episode.py`. The Jio logo is a text recreation (white "Jio" on a blue disc), no logo file yet.
+New one-shot sound: `cheer` (pipeline/sfx.py). Review `review/shot_loop/18_beat_19.mp4` or
+`tf shot jio_story --serve`. Beats 20-31 have placeholder cameras.
+The user asked to carry the watchtower shot's realism into the other shots. Use it as the
+reference for depth in the set, lighting that fits the place, and continuous, grounded motion.
 Follow AGENTS.md "standing rules" (incl. rule 10: no generic labelled cubes) and docs/MOTION_SPEC.md.
 
 ### The user's rules (from their feedback; follow them)
@@ -103,7 +109,7 @@ Shot 11 `buffer` (2026-11-12): continues in the recharge shop. The customer turn
 on "video" (loading ring pops over his head); `library:snail` inches along at his feet dragging a
 rolling film reel; `library:beard` grows from "buffers" and hits the floor on "forever" (squash, curl,
 moustache, cobweb by his head); shot `"hold": 0.7` lets the payoff land. Waiting for the user's verdict.
-Next: shot 12 `rivals`.
+This progress is for the v1 cut. The active v2 cut starts with `tower_open`.
 
 **Motion rules (2026-11-12):** docs/MOTION_SPEC.md + `godot/scripts/timeline/motion.gd` (phases, easing,
 squash, arcs, wobble, trauma shake). Shot keys `shake` and `hold`. Reveal `pop`/`drop` squash & stretch

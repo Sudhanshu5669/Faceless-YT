@@ -47,6 +47,7 @@ An **episode** films one set with a cast as an ordered list of timed shots. It l
 | `name` | Unique, file-name safe (no spaces). Used for the shot's frame folder and for `--shots`. |
 | `duration` | Seconds on screen. |
 | `camera` | A camera description (CAMERA_SPEC.md: view, template, or `at`/`look_at`/lens…), or a **move**. No `t`: time comes from the timeline. |
+| `look` | Optional preset name or inline look for the shot's sky, lighting and grade. The episode look applies on shots without an override. |
 | `scene_t` | Optional: scene time at the start of this shot. Default: where the previous shot ended. Use it for replays, overlapping coverage of the same moment, or time jumps. |
 | `note` | Free text for the director (intent, what must read). |
 | `whip_in`, `whip_out` | `left` `right` `up` `down`: a fast camera swing at the cut (adds a whoosh; use `format.motion_blur`). |
