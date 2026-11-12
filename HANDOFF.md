@@ -5,6 +5,11 @@
 
 ## START HERE: current task (for whoever picks this up)
 
+**2026-11-12, latest: the user wants the whole video redone from scratch.** The v2 script (31 beats,
+each line with its gag, place, timing and shot) is in the user's editable doc
+https://claude.ai/artifact/AcvhvS6ZSqgfomymyqivfE . Wait for "script done", read the doc, then:
+new voice take, rebuild make_episode.py to the beats, and go shot by shot in the shot loop.
+
 **Episode `jio_story`** ("How Mukesh Ambani built Jio", toon style, 52 shots, 129.7 s). A full
 60 fps final exists (`episodes/jio_story/renders/jio_story.mp4`), but the user wants it **redone
 shot by shot with their approval**, and at a **higher visual quality**.
