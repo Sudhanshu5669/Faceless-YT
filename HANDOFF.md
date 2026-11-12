@@ -5,17 +5,24 @@
 
 ## START HERE: current task (for whoever picks this up)
 
-**2026-11-12, latest: the user wants the whole video redone from scratch.** The v2 script is on the
-user's script board https://claude.ai/artifact/1xDaZcFHEzD4MoREmX5dHB (31 beats: the line + one plain
-sentence of what you see, status keep/change/cut + note; stored in its db collection "beats", read it with
-ArtifactData list). The detailed per-beat plan (place, words, camera, sound, sources) is in the doc
-https://claude.ai/artifact/AcvhvS6ZSqgfomymyqivfE (the user found it too dense; it's our working notes).
-Wait for "script done", read the board, then:
-new voice take, rebuild make_episode.py to the beats, and go shot by shot in the shot loop.
+**2026-11-12, latest: the whole video is redone from scratch, from the user's edited script.**
+THE SCRIPT IS DONE: `episodes/jio_story/script_v2.html` (read it) and `episodes/jio_story/script_v2.json`
+(same data: 31 beats, each `line` = exact narration, `see` = what happens on screen, `status`, `note`).
+**Where status is "change", the user's `note` is the direction to build; it overrides `see`.** 15 beats
+changed, 16 kept. (Source: the user's script board https://claude.ai/artifact/1xDaZcFHEzD4MoREmX5dHB ;
+the denser planning doc with camera/sound/sources per beat is https://claude.ai/artifact/AcvhvS6ZSqgfomymyqivfE ,
+and the fact sources are also in `episodes/jio_story/script.md`.)
 
-**Episode `jio_story`** ("How Mukesh Ambani built Jio", toon style, 52 shots, 129.7 s). A full
-60 fps final exists (`episodes/jio_story/renders/jio_story.mp4`), but the user wants it **redone
-shot by shot with their approval**, and at a **higher visual quality**.
+Next steps, in order:
+1. Narration: the lines changed from v1, so set the episode's lines/narration.script to the 31 v2 lines and
+   record ONE new single take (`tf voice jio_story`; Gemini free tier allows ~10 requests/day, see memory).
+2. Rebuild `episodes/jio_story/make_episode.py` to the 31 beats (one shot or two per beat), reusing what
+   still fits (gags in `library/gags/`: balloon, balance_scale, door, cash_stream, snail, beard; the cash
+   cannon in `episodes/jio_story/gags/`), and building new places/gags the notes ask for (e.g. beat 1 opens
+   outside a skyscraper and zooms through a window to Mukesh among vaults of cash and gold with the group
+   logo on the wall; beat 3 is baby Mukesh and baby Anil sharing toys while their mother splits them).
+3. Shot by shot with the user (`tf shot jio_story NAME`, `--serve`), never the whole video at once.
+Follow AGENTS.md "standing rules" (incl. rule 10: no generic labelled cubes) and docs/MOTION_SPEC.md.
 
 ### The user's rules (from their feedback; follow them)
 1. **Shot-by-shot approval.** Make one shot, let the user see it, they approve / ask for changes /
