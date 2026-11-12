@@ -5,9 +5,12 @@
 
 ## START HERE: current task (for whoever picks this up)
 
-**2026-11-12, latest: the user wants the whole video redone from scratch.** The v2 script (31 beats,
-each line with its gag, place, timing and shot) is in the user's editable doc
-https://claude.ai/artifact/AcvhvS6ZSqgfomymyqivfE . Wait for "script done", read the doc, then:
+**2026-11-12, latest: the user wants the whole video redone from scratch.** The v2 script is on the
+user's script board https://claude.ai/artifact/1xDaZcFHEzD4MoREmX5dHB (31 beats: the line + one plain
+sentence of what you see, status keep/change/cut + note; stored in its db collection "beats", read it with
+ArtifactData list). The detailed per-beat plan (place, words, camera, sound, sources) is in the doc
+https://claude.ai/artifact/AcvhvS6ZSqgfomymyqivfE (the user found it too dense; it's our working notes).
+Wait for "script done", read the board, then:
 new voice take, rebuild make_episode.py to the beats, and go shot by shot in the shot loop.
 
 **Episode `jio_story`** ("How Mukesh Ambani built Jio", toon style, 52 shots, 129.7 s). A full
