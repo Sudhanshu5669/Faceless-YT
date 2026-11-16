@@ -178,6 +178,7 @@ var _noise: FastNoiseLite
 
 
 func build(_g: Dictionary) -> Node3D:
+	var _p: Dictionary = _g.get("params", {})
 	var root := Node3D.new()
 	_noise = FastNoiseLite.new()
 	_noise.seed = 60
@@ -197,6 +198,7 @@ func build(_g: Dictionary) -> Node3D:
 	_build_xauger(root)
 	_build_ridge(root)
 	_build_escape(root)
+	_build_stretchers(root, _p)
 	return root
 
 
@@ -931,6 +933,7 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	xp_out.merge(_pose_xauger(p, t, origin, ctx))
 	xp_out.merge(_pose_ridge(p, t, ctx, origin))
 	_pose_escape(p, t, ctx, origin)
+	_pose_stretchers(p, t, ctx, origin)
 	var res := {"hook": hook, "plug": Vector3((PLUG_A + PLUG_B) * 0.5, CROWN + 1.5, 0.0),
 		"rescue": Vector3(TOE_A - 6.0, 1.6, -1.5), "trapped": Vector3(TOE_B + 6.0, 1.6, -1.5),
 		"portal": Vector3(X_PORTAL, 4.0, -1.0), "summit": Vector3((PLUG_A + PLUG_B) * 0.5, top(30.0), 0.0)}
@@ -2306,3 +2309,119 @@ func _pose_escape(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> 
 
 func ctx_actor(ctx: Dictionary, id: String):
 	return ctx["actor"].call(id) if ctx.has("actor") else null
+
+
+# ------------------------------------------------------------------------------ line 22: out on wheeled stretchers
+
+## params.stretchers = {"from", "until", "list": [{"who" (the rescued man, lying on it), "t0", "t1" (it slides out of
+## the escape pipe onto the platform between these), "puller" (a rescuer hauling its rope)}], "garland"}: shallow steel
+## trays on four casters, pulled out of the 800 mm pipe on a rope. Garlands of marigolds are put on the men.
+var _stretchers: Array = []
+
+
+func _stretcher() -> Node3D:
+	var n := Node3D.new()
+	var steel := _mat("#9aa0a6", 0.35, 0.8)
+	var dark := _mat("#202224", 0.6, 0.4)
+	# The tray: a flat bed with low sides, about 1.9 m x 0.55 m.
+	_box(n, Vector3(1.9, 0.025, 0.55), Vector3(0, 0.1, 0), steel)
+	for sz in [-0.27, 0.27]:
+		_box(n, Vector3(1.9, 0.06, 0.02), Vector3(0, 0.14, sz), steel)
+	for sx in [-0.94, 0.94]:
+		_box(n, Vector3(0.02, 0.06, 0.55), Vector3(sx, 0.14, 0), steel)
+	# Four casters.
+	for c in [Vector2(-0.8, -0.2), Vector2(-0.8, 0.2), Vector2(0.8, -0.2), Vector2(0.8, 0.2)]:
+		_rod(n, Vector3(c.x, 0.085, c.y), Vector3(c.x, 0.05, c.y), 0.012, dark, 6)
+		var w := _rod(n, Vector3(c.x, 0.04, c.y - 0.015), Vector3(c.x, 0.04, c.y + 0.015), 0.04, dark, 12)
+		w.name = "wheel"
+	# A thin blue mattress and the rope from its head end.
+	_box(n, Vector3(1.8, 0.04, 0.5), Vector3(0, 0.135, 0), _mat("#2f5aa0", 0.8))
+	_rod(n, Vector3(-0.95, 0.14, 0), Vector3(-2.3, 0.6, 0.05), 0.01, _mat("#d9c9a2", 0.9), 5).name = "rope"
+	return n
+
+
+func _garland() -> Node3D:
+	var n := Node3D.new()
+	var marigold := _mat("#f29a12", 0.85)
+	var red := _mat("#c0261c", 0.8)
+	var ball := SphereMesh.new()
+	ball.radius = 0.028
+	ball.height = 0.05
+	ball.radial_segments = 8
+	ball.rings = 4
+	for i in 40:
+		var a := TAU * i / 40.0
+		var mi := MeshInstance3D.new()
+		mi.mesh = ball
+		mi.material_override = red if i % 8 == 0 else marigold
+		# A loop that hangs: wide at the neck, a V down the chest.
+		mi.position = Vector3(sin(a) * 0.17, -0.12 * (1.0 - cos(a)) * 0.5 - 0.1 * pow(absf(cos(a * 0.5)), 6.0), cos(a) * 0.1)
+		n.add_child(mi)
+	return n
+
+
+func _build_stretchers(root: Node3D, p: Dictionary) -> void:
+	if not p.has("stretchers"):
+		return
+	for item in p["stretchers"].get("list", []):
+		var st := _stretcher()
+		st.visible = false
+		root.add_child(st)
+		var gl := _garland()
+		gl.visible = false
+		root.add_child(gl)
+		_stretchers.append({"node": st, "garland": gl})
+
+
+func _pose_stretchers(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> void:
+	if not p.has("stretchers"):
+		return
+	var sp: Dictionary = p["stretchers"]
+	var on := t >= float(sp.get("from", 1.0e9)) and t < float(sp.get("until", 1.0e9))
+	if on:
+		_esc.visible = true
+	var list: Array = sp.get("list", [])
+	for i in mini(list.size(), _stretchers.size()):
+		var it: Dictionary = list[i]
+		var e: Dictionary = _stretchers[i]
+		var st := e["node"] as Node3D
+		var gl := e["garland"] as Node3D
+		var t0 := float(it.get("t0", 1.0e9))
+		var t1 := float(it.get("t1", 1.0e9))
+		var who = ctx_actor(ctx, String(it.get("who", "")))
+		var vis := on and t >= t0 - 0.05
+		st.visible = vis
+		gl.visible = vis and t >= t1 + 0.2
+		if who != null:
+			who.visible = vis
+		if not vis:
+			continue
+		# Out of the mouth and along the platform, slowing as the rescuers take it.
+		var k := Motion.out_cubic(Motion.seg(t, t0, t1))
+		var x := lerpf(ESC_X0 + 1.2, ESC_X0 - 2.2 - float(it.get("stop_back", 0.0)), k)
+		# Then it is wheeled away along the platform, toward the ambulances.
+		var away := Motion.in_cubic(Motion.seg(t, t1 + 0.35, t1 + 1.05))
+		x -= 5.0 * away
+		var y := lerpf(ESC_Y - ESC_R - 0.02, DECK_Y + 0.02, Motion.smooth(Motion.seg(t, t0 + (t1 - t0) * 0.45, t1)))
+		var z := ESC_Z + float(it.get("dz", 0.0)) * Motion.smooth(Motion.seg(t, t1, t1 + 0.4))
+		st.position = Vector3(x, y, z)
+		for w in st.get_children():
+			if w.name.begins_with("wheel"):
+				(w as Node3D).rotation.y = 0.0
+		if who != null:
+			# Lying on his back, head toward the platform (the way he was pulled out), garland on his chest.
+			# On his back along the tray: up (+Y) toward the platform end (-x), front (+Z) facing the sky.
+			who.global_transform = Transform3D(Basis(Vector3(0, 0, -1), Vector3(-1, 0, 0), Vector3(0, 1, 0)), origin + st.position + Vector3(0.82, 0.17, 0.0))
+			var id := String(it.get("who", ""))
+			var chest: Vector3 = who.anchor_points()[id + ".chest"]["pos"] - origin
+			gl.position = chest + Vector3(0.0, 0.12, 0.0)
+			gl.rotation = Vector3(PI * 0.5, 0.0, PI * 0.5)
+			# A hand up to wave at the crowd once he is out.
+			var wave := Motion.smooth(Motion.seg(t, t1 + 0.1, t1 + 0.4))
+			var hd: Vector3 = who.anchor_points()[id + ".head"]["pos"]
+			if wave > 0.0:
+				who.aim_hand("r", hd + Vector3(0.1, 0.45 + 0.08 * sin(t * 9.0), 0.25), wave)
+		var puller = ctx_actor(ctx, String(it.get("puller", "")))
+		if puller != null and t < t1 + 0.3:
+			puller.aim_hand("l", origin + st.position + Vector3(-1.6, 0.55, 0.0), 1.0)
+			puller.aim_hand("r", origin + st.position + Vector3(-1.4, 0.45, 0.05), 1.0)

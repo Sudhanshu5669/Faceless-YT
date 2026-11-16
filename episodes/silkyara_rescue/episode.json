@@ -148,7 +148,7 @@
   },
   {
    "id": "out",
-   "shot": "ph_out",
+   "shot": "stretchers_out",
    "at": 0.25,
    "text": "Then all forty-one come out, one by one, on wheeled stretchers."
   },
@@ -178,6 +178,184 @@
   }
  ],
  "actors": [
+  {
+   "id": "saved_1",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     11.7,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     8.7,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "laugh"
+    }
+   ]
+  },
+  {
+   "id": "saved_2",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     11.7,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     8.7,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "love"
+    }
+   ]
+  },
+  {
+   "id": "saved_3",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     11.7,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     8.7,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "cheer"
+    }
+   ]
+  },
+  {
+   "id": "saved_4",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     11.7,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     8.7,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "ndrf_1",
+   "character": "toon_tunnel_engineer",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     12.1,
+     0,
+     2596.55
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     8.7,
+     0.8,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "out",
+      "edge": "start",
+      "offset": 1.3
+     },
+     "expression": "grin"
+    }
+   ]
+  },
+  {
+   "id": "ndrf_2",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     10.9,
+     0,
+     2596.55
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     8.7,
+     0.8,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "out",
+      "edge": "start",
+      "offset": 2.0
+     },
+     "expression": "cheer"
+    }
+   ]
+  },
   {
    "id": "watch_official",
    "character": "toon_official",
@@ -8352,33 +8530,6 @@
     },
     "thrower": "sec_eng",
     "catcher": "sec_catch",
-    "appear": {
-     "feed_push": {
-      "line": "plan",
-      "edge": "start",
-      "offset": -1.6
-     },
-     "plan_op": {
-      "line": "plan",
-      "edge": "start",
-      "offset": -1.6
-     },
-     "plan_sig": {
-      "line": "plan",
-      "edge": "start",
-      "offset": -1.6
-     },
-     "plan_eng": {
-      "line": "plan",
-      "edge": "start",
-      "offset": -1.6
-     },
-     "plan_crawl": {
-      "line": "plan",
-      "edge": "start",
-      "offset": -1.6
-     }
-    },
     "vanish": {
      "sec_eng": {
       "line": "plan",
@@ -8609,6 +8760,121 @@
       "line": "snap",
       "edge": "start",
       "offset": 2.97
+     }
+    },
+    "stretchers": {
+     "from": {
+      "line": "out",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "until": {
+      "line": "out",
+      "edge": "start",
+      "offset": 4.5
+     },
+     "list": [
+      {
+       "who": "saved_1",
+       "t0": {
+        "line": "out",
+        "edge": "start",
+        "offset": -0.1
+       },
+       "t1": {
+        "line": "out",
+        "edge": "start",
+        "offset": 0.8
+       },
+       "dz": 0.0,
+       "stop_back": 0.0,
+       "puller": "ndrf_1"
+      },
+      {
+       "who": "saved_2",
+       "t0": {
+        "line": "out",
+        "edge": "start",
+        "offset": 0.95
+       },
+       "t1": {
+        "line": "out",
+        "edge": "start",
+        "offset": 1.85
+       },
+       "dz": 0.0,
+       "stop_back": 0.0,
+       "puller": "ndrf_2"
+      },
+      {
+       "who": "saved_3",
+       "t0": {
+        "line": "out",
+        "edge": "start",
+        "offset": 2.0
+       },
+       "t1": {
+        "line": "out",
+        "edge": "start",
+        "offset": 2.9
+       },
+       "dz": 0.0,
+       "stop_back": 0.0,
+       "puller": "ndrf_1"
+      },
+      {
+       "who": "saved_4",
+       "t0": {
+        "line": "out",
+        "edge": "start",
+        "offset": 3.0
+       },
+       "t1": {
+        "line": "out",
+        "edge": "start",
+        "offset": 3.85
+       },
+       "dz": 0.0,
+       "stop_back": 0.0,
+       "puller": "ndrf_2"
+      }
+     ]
+    },
+    "appear": {
+     "feed_push": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "plan_op": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "plan_sig": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "plan_eng": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "plan_crawl": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "ndrf_1": {
+      "line": "out",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "ndrf_2": {
+      "line": "out",
+      "edge": "start",
+      "offset": -0.3
      }
     },
     "escape": {
@@ -15623,8 +15889,8 @@
    ]
   },
   {
-   "name": "ph_out",
-   "duration": 5.22,
+   "name": "stretchers_out",
+   "duration": 4.1,
    "look": {
     "base": "night_fog",
     "time": "05:30",
@@ -15633,45 +15899,22 @@
      "fog": 0
     },
     "ambient": {
-     "color": "#6a7ca6",
-     "energy": 0.35
+     "color": "#8a8fa6",
+     "energy": 0.18
     },
     "sun": {
      "energy": 0
     },
     "moon": {
-     "energy": 0,
-     "visible": false
+     "energy": 0
     },
-    "sky": {
-     "top": "#0c1a33",
-     "horizon": "#8c8296",
-     "stars": 0.25,
-     "clouds": 0.1,
-     "cloud_color": "#2c3550"
-    },
-    "lights": [
-     {
-      "elevation": 32,
-      "azimuth": 20,
-      "color": "#8197c8",
-      "energy": 0.1,
-      "shadows": false
-     }
-    ],
     "fog": {
-     "begin": 150,
-     "end": 4000,
-     "color": "#2b3650",
-     "volumetric": 0.003,
-     "anisotropy": 0.5,
-     "length": 160
-    },
-    "ground_fog": {
-     "density": 0.0,
-     "height": 6.0,
-     "falloff": 0.15,
-     "color": "#3a4560"
+     "begin": 34,
+     "end": 180,
+     "color": "#3b352f",
+     "volumetric": 0.011,
+     "anisotropy": 0.55,
+     "length": 90
     },
     "glow": {
      "enabled": true,
@@ -15680,29 +15923,52 @@
      "threshold": 1.0
     },
     "grade": {
-     "contrast": 1.12,
-     "saturation": 1.04,
-     "vignette": 0.32
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
     }
    },
+   "note": "The escape pipe's mouth: wheeled stretchers slide out one after another, a rescuer hauling each rope, the man on it waving; marigold garlands; the counter of men out runs to 41.",
    "camera": {
-    "at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      3,
-      20
-     ]
+    "from": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       12.6,
+       1.75,
+       2599.6
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       9.6,
+       0.8,
+       2597.4
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       13.0,
+       1.85,
+       2599.8
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       9.9,
+       0.8,
+       2597.4
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 24
+    "ease": "in_out"
    }
   },
   {
@@ -16039,6 +16305,75 @@
   }
  ],
  "reveals": [
+  {
+   "id": "out_count",
+   "t": {
+    "line": "out",
+    "edge": "start",
+    "offset": 0.2
+   },
+   "until": {
+    "line": "out",
+    "edge": "start",
+    "offset": 4.4
+   },
+   "at": {
+    "anchor": "section",
+    "offset": [
+     10.1,
+     2.05,
+     2597.4
+    ]
+   },
+   "size": 0.38,
+   "enter": "pop",
+   "counter": {
+    "keys": [
+     [
+      {
+       "line": "out",
+       "edge": "start",
+       "offset": 0.2
+      },
+      0
+     ],
+     [
+      {
+       "line": "out",
+       "edge": "start",
+       "offset": 1.1
+      },
+      8
+     ],
+     [
+      {
+       "line": "out",
+       "edge": "start",
+       "offset": 2.1
+      },
+      19
+     ],
+     [
+      {
+       "line": "out",
+       "edge": "start",
+       "offset": 3.1
+      },
+      31
+     ],
+     [
+      {
+       "line": "out",
+       "edge": "start",
+       "offset": 3.86
+      },
+      41
+     ]
+    ],
+    "label": "OUT"
+   },
+   "sound": "ding"
+  },
   {
    "id": "dug_count",
    "t": {

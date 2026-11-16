@@ -762,6 +762,27 @@ TRAP_CAST = [
 ]
 
 
+# ---------------------------------------------------------------------------------- line 22
+# "Then all forty-one come out, one by one, on wheeled stretchers."  (Each was pulled out through the pipe on a
+# wheeled stretcher, NDRF/SDRF teams receiving them; garlands at the mouth: Wikipedia, NPR.) At the escape pipe's
+# mouth (the cutaway's `escape` platform): stretchers slide out one after another, a rescuer hauling each rope, the
+# man on it waving, a marigold garland put on; the "out" counter runs to 41. Word times: all 0.3, forty-one 0.5,
+# come 1.04, out 1.29, one 1.79, by 1.95, one 2.27, wheeled 2.85, stretchers 3.32-3.86.
+def LO(x):
+    return {"line": "out", "edge": "start", "offset": round(x, 3)}
+
+
+OUT_MEN = [{"id": f"saved_{i + 1}", "character": [W, LIME, BLUE, RED][i], "at": X(ESC_X0 - 3.0, 0, ESC_Z), "facing": X(ESC_X0, 0, ESC_Z),
+            "action": "idle", "cues": [{"t": 0.0, "expression": ["laugh", "love", "cheer", "happy"][i]}]} for i in range(4)]
+OUT_CREW = [
+    {"id": "ndrf_1", "character": ENG, "at": X(ESC_X0 - 3.4, 0, ESC_Z - 0.85), "facing": X(ESC_X0, 0.8, ESC_Z), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "determined"}, {"t": LO(1.3), "expression": "grin"}]},
+    {"id": "ndrf_2", "character": W, "at": X(ESC_X0 - 2.2, 0, ESC_Z - 0.85), "facing": X(ESC_X0, 0.8, ESC_Z), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "happy"}, {"t": LO(2.0), "expression": "cheer"}]},
+]
+OUT_TIMES = [(-0.1, 0.8, 0.0), (0.95, 1.85, 0.0), (2.0, 2.9, 0.0), (3.0, 3.85, 0.0)]
+
+
 def NOSE(x, y, z):
     """A point riding with the auger's nose (gag anchor; x mirrored like the other gag anchors)."""
     return {"anchor": "mountain_section.nose", "offset": [round(-x, 3), round(y, 3), round(z, 3)]}
@@ -810,19 +831,18 @@ def build():
             {"id": "dig", "shot": "pipe_enter", "at": 0.25, "text": "One after another, they crawl into the pipe and dig with hammers and chisels."},
             {"id": "twelve", "shot": "hand_dig", "at": 0.3, "text": "Twelve metres, in about a day."},
             {"id": "through", "shot": "tally17", "at": 0.25, "text": "Day seventeen, just after seven in the evening: they break through."},
-            {"id": "out", "shot": "ph_out", "at": 0.25, "text": "Then all forty-one come out, one by one, on wheeled stretchers."},
+            {"id": "out", "shot": "stretchers_out", "at": 0.25, "text": "Then all forty-one come out, one by one, on wheeled stretchers."},
             {"id": "ambulances", "shot": "ph_ambulances", "at": 0.25, "text": "Forty-one men. Forty-one ambulances waiting outside."},
             {"id": "bulldozer", "shot": "ph_bulldozer", "at": 0.25, "text": "Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan."},
             {"id": "dda", "shot": "ph_dda", "at": 0.25, "text": "Delhi's development authority says the house stood on its land."},
             {"id": "street", "shot": "ph_street", "at": 0.25, "text": "He got forty-one men out of a mountain. That night, his family slept on the street."},
         ],
-        "actors": WATCH_CAST + TRAP_CAST + DIG_CAST + FACE_CAST + MEG_CAST + YARD_CAST + RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
+        "actors": OUT_MEN + OUT_CREW + WATCH_CAST + TRAP_CAST + DIG_CAST + FACE_CAST + MEG_CAST + YARD_CAST + RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
         "gags": [
             PIT_GAG,
             FACE_GAG,
             {"id": "mountain_section", "script": "gags/mountain_section.gd", "at": {"anchor": "section", "offset": [0, 0, SECTION_Z]}, "t": 0,
              "params": {"throw": SIXTY(T_THROW), "catch": SIXTY(T_CATCH), "thrower": "sec_eng", "catcher": "sec_catch",
-                        "appear": {"feed_push": PLAN_START, **{a["id"]: PLAN_START for a in PLAN_CAST}},
                         "vanish": {i: PLAN_START for i in ["sec_eng", "sec_resc_1", "sec_resc_2", "sec_resc_3", "feed_push"]},
                         "rig": {"from": PLAN_START, "until": LDG(-0.3), "push0": L10("push", 0.0), "push1": L10("rubble", 0.45), "bite": L10("steel", 0.1), "dist": 2.3},
                         "spare": {"from": PLAN_START, "crawler": "plan_crawl"},
@@ -831,6 +851,11 @@ def build():
                                    "hide": [[LDG(-0.3), LT(-0.3)]], "manual": LT(-0.3),
                                    "inside": [{"id": "rh_1", "back": 0.0}, {"id": "rh_2", "back": 1.55}],
                                    "girder": LS(-0.3), "hit": LS(1.45), "snap": LS(2.97)},
+                        "stretchers": {"from": LO(-0.3), "until": LO(4.5),
+                                       "list": [{"who": f"saved_{i + 1}", "t0": LO(a), "t1": LO(b), "dz": dz, "stop_back": 0.0,
+                                                 "puller": "ndrf_1" if i % 2 == 0 else "ndrf_2"} for i, (a, b, dz) in enumerate(OUT_TIMES)]},
+                        "appear": {**{"feed_push": PLAN_START, **{a["id"]: PLAN_START for a in PLAN_CAST}},
+                                   **{a["id"]: LO(-0.3) for a in OUT_CREW}},
                         "escape": {"from": LDG(-0.3), "until": LDG(5.8),
                                    "crew": [{"id": f"rh_{i + 1}", "t0": LDG(a), "t1": LDG(b), "t2": LDG(c)} for i, (a, b, c) in enumerate(DIG_TIMES)]},
                         "ridge": {"from": LV(-0.3), "lever": LV(1.0), "start": LV(1.5), "down0": LV(1.6), "down1": LV(4.6), "deep": 6.0, "xray": LV(2.44),
@@ -1213,13 +1238,20 @@ def build():
              "camera": {"from": {"at": PF(-1.75, 0.7, 0.2), "look_at": PF(0.4, 0.4, 0.0), "lens_mm": 22},
                         "to": {"at": PF(-1.65, 0.69, 0.19), "look_at": PF(0.4, 0.4, 0.0), "lens_mm": 24}, "ease": "in_out"},
              "shake": [{"t": LH(3.5), "amount": 0.25}]},
-            {"name": "ph_out", "duration": 5.22, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "stretchers_out", "duration": 4.1, "look": SECTION_CLOSE_LOOK,
+             "note": "The escape pipe's mouth: wheeled stretchers slide out one after another, a rescuer hauling each rope, the man "
+                     "on it waving; marigold garlands; the counter of men out runs to 41.",
+             "camera": {"from": {"at": X(ESC_X0 - 3.9, 1.75, -0.4), "look_at": X(ESC_X0 - 0.9, 0.8, -2.6), "lens_mm": 24},
+                        "to": {"at": X(ESC_X0 - 4.3, 1.85, -0.2), "look_at": X(ESC_X0 - 1.2, 0.8, -2.6), "lens_mm": 24}, "ease": "in_out"}},
             {"name": "ph_ambulances", "duration": 3.12, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_bulldozer", "duration": 7.74, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_dda", "duration": 4.8, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_street", "duration": 7.32, "look": SECTION_LOOK, "camera": X_CAM},
         ],
         "reveals": [
+            {"id": "out_count", "t": LO(0.2), "until": LO(4.4), "at": X(ESC_X0 - 1.4, 2.05, -2.6), "size": 0.38, "enter": "pop",
+             "counter": {"keys": [[LO(0.2), 0], [LO(1.1), 8], [LO(2.1), 19], [LO(3.1), 31], [LO(3.86), 41]], "label": "OUT"},
+             "sound": "ding"},
             {"id": "dug_count", "t": LT(-0.25), "until": LT(1.9), "at": NOSE(-0.7, 1.3, 0.3), "size": 0.3, "enter": "pop",
              "counter": {"from": 0, "to": 12, "land": {"line": "twelve", "word": "Twelve", "offset": 0.05}, "suffix": " m"}, "sound": "ding"},
             {"id": "day_count", "t": LT(0.75), "until": LT(1.9), "at": NOSE(-0.7, 0.92, 0.3), "size": 0.24, "enter": "pop",
