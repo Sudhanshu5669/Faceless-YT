@@ -1,0 +1,27 @@
+{
+  "id": "toon_tunnel_worker",
+  "description": "Tunnel worker: yellow hard hat with headlamp, orange hi-vis vest.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.62,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#f2c230",
+      "lamp": true
+    },
+    "outfit": {
+      "style": "hivis",
+      "color": "#f26a1b",
+      "accent": "#2a3550"
+    },
+    "shoes": "#2c2a28",
+    "face": "neutral",
+    "girth": 1.0
+  }
+}

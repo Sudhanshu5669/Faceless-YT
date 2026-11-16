@@ -1,0 +1,10998 @@
+{
+ "id": "silkyara_rescue",
+ "title": "41 Workers Trapped Inside a Mountain",
+ "set": "specs/sets/silkyara.json",
+ "format": {
+  "resolution": [
+   1080,
+   1920
+  ],
+  "fps": 30,
+  "motion_blur": 2
+ },
+ "narration": {
+  "model": "qwen3-tts-1.7b-customvoice",
+  "voice": "Aiden"
+ },
+ "captions": {
+  "enabled": true,
+  "max_words": 2,
+  "position": 0.87
+ },
+ "lines": [
+  {
+   "id": "dawn",
+   "shot": "mountain",
+   "at": 0.2,
+   "text": "Before dawn in Uttarakhand."
+  },
+  {
+   "id": "inside",
+   "shot": "work",
+   "at": 0.18,
+   "text": "Forty-one workers are deep inside the Silkyara tunnel when part of it collapses."
+  },
+  {
+   "id": "alive",
+   "shot": "alive",
+   "at": 0.85,
+   "text": "They're alive."
+  },
+  {
+   "id": "plug",
+   "shot": "plug_catch",
+   "at": 0.85,
+   "text": "Sixty metres of rock now stand between them and the way out."
+  },
+  {
+   "id": "space",
+   "shot": "tunnel_space",
+   "at": 0.25,
+   "text": "Behind it: two kilometres of finished tunnel, eight and a half metres high."
+  },
+  {
+   "id": "lifeline",
+   "shot": "lifeline_lights",
+   "at": 0.5,
+   "text": "The lights still work. And so does one pipe."
+  },
+  {
+   "id": "feed",
+   "shot": "feed_out",
+   "at": 0.35,
+   "text": "Through it come oxygen, puffed rice and dry fruit."
+  },
+  {
+   "id": "sane",
+   "shot": "laps",
+   "at": 0.3,
+   "text": "To stay sane, they walk the tunnel and do yoga."
+  },
+  {
+   "id": "airlift",
+   "shot": "airlift_hold",
+   "at": 0.35,
+   "text": "A twenty-five-tonne auger drill is flown in from Delhi by the air force."
+  },
+  {
+   "id": "plan",
+   "shot": "plan_rig",
+   "at": 0.3,
+   "text": "The plan: push a steel pipe through the rubble, wide enough to crawl through."
+  },
+  {
+   "id": "meal",
+   "shot": "day9_tally",
+   "at": 0.3,
+   "text": "Day nine. A narrow pipe gets through first, and the first hot meal goes in: khichdi, packed in bottles."
+  },
+  {
+   "id": "faces",
+   "shot": "scope_pipe",
+   "at": 0.3,
+   "text": "The next day, a camera crawls down the same pipe. For the first time, the world sees their faces."
+  }
+ ],
+ "actors": [
+  {
+   "id": "out_walk_1",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     3.0,
+     0,
+     41.5
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     1.0,
+     0,
+     0
+    ]
+   },
+   "action": "walk",
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       2.5,
+       0,
+       37.3
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": 0.0,
+    "arrive": 3.4,
+    "then": "idle"
+   }
+  },
+  {
+   "id": "out_walk_2",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     0.6,
+     0,
+     43.4
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     -0.4,
+     0,
+     0
+    ]
+   },
+   "action": "walk",
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       0.3,
+       0,
+       38.9
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": 0.0,
+    "arrive": 3.5,
+    "then": "idle"
+   }
+  },
+  {
+   "id": "out_walk_3",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     2.6,
+     0,
+     20.5
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     1.5,
+     0,
+     0
+    ]
+   },
+   "action": "walk_carry",
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       2.2,
+       0,
+       16.6
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "start": 0.0,
+    "arrive": 3.4,
+    "then": "idle"
+   }
+  },
+  {
+   "id": "out_fire_1",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     7.25,
+     0,
+     18.15
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     6.2,
+     0,
+     17.5
+    ]
+   },
+   "action": "interact"
+  },
+  {
+   "id": "out_fire_2",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     5.25,
+     0,
+     18.3
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     6.2,
+     0,
+     17.5
+    ]
+   },
+   "action": "talk",
+   "phase": 0.7
+  },
+  {
+   "id": "out_fire_3",
+   "character": "toon_tunnel_engineer",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     6.5,
+     0,
+     16.4
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     6.2,
+     0,
+     17.5
+    ]
+   },
+   "action": "fold_arms"
+  },
+  {
+   "id": "meal_cook",
+   "character": "toon_site_cook",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     -11.0,
+     0,
+     27.32
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     -11.0,
+     0,
+     29.5
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": "khichdi,",
+      "offset": 0.1
+     },
+     "expression": "grin"
+    }
+   ]
+  },
+  {
+   "id": "meal_runner",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     -12.32,
+     0,
+     27.55
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     -12.2,
+     0,
+     29.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": "khichdi,",
+      "offset": 0.3
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "sec_eng",
+   "character": "toon_tunnel_engineer",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     9.2,
+     0,
+     2598.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     2.5,
+     3.0,
+     2600.8
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": -1.65
+     },
+     "action": "throw"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.15
+     },
+     "action": "idle",
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "sec_resc_1",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     13.0,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     0,
+     3,
+     2598.0
+    ]
+   },
+   "action": "torch",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.3
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "sec_resc_2",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     11.2,
+     0,
+     2596.0
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     0,
+     3,
+     2598.0
+    ]
+   },
+   "action": "fold_arms",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    }
+   ]
+  },
+  {
+   "id": "sec_resc_3",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     16.0,
+     0,
+     2598.7
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     0,
+     3,
+     2598.0
+    ]
+   },
+   "action": "phone",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "sec_catch",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     -69.7,
+     0,
+     2598.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     -64.0,
+     3.0,
+     2600.9
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": -0.55
+     },
+     "expression": "surprised",
+     "head": [
+      -14,
+      0,
+      0
+     ],
+     "head_turn": 0.12
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": -0.42
+     },
+     "action": "interact"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.05
+     },
+     "expression": "determined",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.9
+     },
+     "expression": "nervous"
+    }
+   ]
+  },
+  {
+   "id": "sec_trap_1",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     -70.2,
+     0,
+     2596.6
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     -65.0,
+     2.0,
+     2598.0
+    ]
+   },
+   "action": "idle",
+   "phase": 0.0,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.2
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.8
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "sec_trap_2",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     -71.6,
+     0,
+     2598.6
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     -65.0,
+     2.0,
+     2598.0
+    ]
+   },
+   "action": "fold_arms",
+   "phase": 0.37,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.27
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.86
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "sec_trap_3",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     -73.0,
+     0,
+     2596.1
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     -65.0,
+     2.0,
+     2598.0
+    ]
+   },
+   "action": "idle",
+   "phase": 0.74,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.34
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.92
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "sec_trap_4",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     -74.4,
+     0,
+     2597.8
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     -65.0,
+     2.0,
+     2598.0
+    ]
+   },
+   "action": "lantern",
+   "phase": 1.11,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.41
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.98
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "sec_trap_5",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     -76.3,
+     0,
+     2597.0
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     -65.0,
+     2.0,
+     2598.0
+    ]
+   },
+   "action": "idle",
+   "phase": 1.48,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.48
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 1.04
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "sec_trap_6",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     -78.2,
+     0,
+     2598.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     -65.0,
+     2.0,
+     2598.0
+    ]
+   },
+   "action": "fold_arms",
+   "phase": 1.85,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 0.55
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "plug",
+      "word": "Sixty",
+      "offset": 1.1
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "feed_push",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     9.55,
+     0,
+     2599.05
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     8.3,
+     0,
+     2598.75
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "it",
+      "offset": 0.12
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "plan_op",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     12.25,
+     0,
+     2595.65
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     12.45,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "plan",
+      "word": "push",
+      "offset": -0.25
+     },
+     "action": "interact"
+    },
+    {
+     "t": {
+      "line": "plan",
+      "word": "rubble",
+      "offset": 0.2
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "plan_sig",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     8.7,
+     0,
+     2595.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     7.5,
+     0,
+     2597.5
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "plan",
+      "word": "push",
+      "offset": -0.1
+     },
+     "action": "call_out",
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "plan",
+      "word": "rubble",
+      "offset": 0.0
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "plan_eng",
+   "character": "toon_tunnel_engineer",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     16.1,
+     0,
+     2595.0
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     10.5,
+     0,
+     2597.5
+    ]
+   },
+   "action": "fold_arms",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "plan",
+      "word": "rubble",
+      "offset": 0.3
+     },
+     "expression": "smug"
+    }
+   ]
+  },
+  {
+   "id": "plan_crawl",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     33.4,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     38.5,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "section",
+      "offset": [
+       35.25,
+       0,
+       2597.4
+      ]
+     }
+    ],
+    "gait": "sneak",
+    "start": {
+     "line": "plan",
+     "word": "wide",
+     "offset": -0.35
+    },
+    "arrive": {
+     "line": "plan",
+     "word": 13,
+     "offset": 0.9
+    },
+    "then": "crouch"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "plan",
+      "word": "crawl",
+      "offset": 0.0
+     },
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "plan",
+      "word": 13,
+      "offset": 0.35
+     },
+     "expression": "grin"
+    }
+   ]
+  },
+  {
+   "id": "life_lamp",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     1.7,
+     -118.0,
+     -10.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.3,
+     -118.0,
+     -16.5
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous",
+     "head": [
+      8,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "lifeline",
+      "word": "lights",
+      "offset": 0.12
+     },
+     "expression": "surprised",
+     "head": [
+      -16,
+      -10,
+      0
+     ],
+     "head_turn": 0.22
+    },
+    {
+     "t": {
+      "line": "lifeline",
+      "word": "still",
+      "offset": 0.1
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "life_valve",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.82,
+     -118.0,
+     -5.9
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -4.3,
+     -118.0,
+     -6.5
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -3.05,
+       -118.0,
+       -7.15
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "lifeline",
+     "edge": "end",
+     "offset": 0.4
+    },
+    "arrive": {
+     "line": "feed",
+     "word": "Through",
+     "offset": 0.3
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -4.0,
+      -118.0,
+      -6.5
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      14,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "lifeline",
+      "word": "pipe",
+      "offset": 0.02
+     },
+     "expression": "surprised",
+     "head": [
+      -8,
+      40,
+      0
+     ],
+     "head_turn": 0.12
+    },
+    {
+     "t": {
+      "line": "lifeline",
+      "word": "pipe",
+      "offset": 0.35
+     },
+     "expression": "laugh"
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "puffed",
+      "offset": 0.1
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "dry",
+      "offset": 0.35
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "fruit.",
+      "offset": 0.5
+     },
+     "expression": "laugh"
+    }
+   ]
+  },
+  {
+   "id": "life_mate",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -2.25,
+     -118.0,
+     -4.7
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.9,
+     -118.0,
+     -6.4
+    ]
+   },
+   "action": "fold_arms",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.92,
+       -118.0,
+       -6.08
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "lifeline",
+     "edge": "end",
+     "offset": 0.25
+    },
+    "arrive": {
+     "line": "feed",
+     "word": "Through",
+     "offset": 0.2
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -3.95,
+      -118.0,
+      -6.4
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "lifeline",
+      "word": "pipe",
+      "offset": 0.1
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "lifeline",
+      "word": "pipe",
+      "offset": 0.22
+     },
+     "action": "jump"
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "Through",
+      "offset": 0.0
+     },
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "oxygen",
+      "offset": 0.06
+     },
+     "expression": "surprised",
+     "head": [
+      14,
+      0,
+      0
+     ],
+     "head_turn": 0.08
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "oxygen",
+      "offset": 0.45
+     },
+     "expression": "happy",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "puffed",
+      "offset": 0.1
+     },
+     "expression": "star_eyes",
+     "head": [
+      10,
+      0,
+      0
+     ],
+     "head_turn": 0.25
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "dry",
+      "offset": 0.12
+     },
+     "expression": "laugh"
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "fruit",
+      "offset": 0.7
+     },
+     "expression": "love"
+    }
+   ]
+  },
+  {
+   "id": "lap_1",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.25,
+     -118.0,
+     2.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.25,
+     -118.0,
+     7.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -1.15,
+       -118.0,
+       15.0
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "sane",
+     "word": "To",
+     "offset": -1.2
+    },
+    "arrive": {
+     "line": "sane",
+     "word": "To",
+     "offset": 9.8
+    },
+    "then": "idle"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "laugh",
+     "head": [
+      0,
+      18,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "lap_2",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.35,
+     -118.0,
+     2.35
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.35,
+     -118.0,
+     7.35
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.5,
+       -118.0,
+       15.35
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "sane",
+     "word": "To",
+     "offset": -1.26
+    },
+    "arrive": {
+     "line": "sane",
+     "word": "To",
+     "offset": 9.74
+    },
+    "then": "idle"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy",
+     "head": [
+      0,
+      -16,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "lap_3",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.35,
+     -118.0,
+     5.1
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.35,
+     -118.0,
+     10.1
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -1.25,
+       -118.0,
+       18.1
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "sane",
+     "word": "To",
+     "offset": -1.32
+    },
+    "arrive": {
+     "line": "sane",
+     "word": "To",
+     "offset": 9.68
+    },
+    "then": "idle"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "lap_4",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.45,
+     -118.0,
+     5.45
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.45,
+     -118.0,
+     10.45
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.6,
+       -118.0,
+       18.45
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "sane",
+     "word": "To",
+     "offset": -1.38
+    },
+    "arrive": {
+     "line": "sane",
+     "word": "To",
+     "offset": 9.62
+    },
+    "then": "idle"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy",
+     "head": [
+      0,
+      -12,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "lap_5",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.0,
+     -118.0,
+     8.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.0,
+     -118.0,
+     13.4
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.9,
+       -118.0,
+       21.4
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "sane",
+     "word": "To",
+     "offset": -1.44
+    },
+    "arrive": {
+     "line": "sane",
+     "word": "To",
+     "offset": 9.56
+    },
+    "then": "idle"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "lap_6",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.4,
+     -118.0,
+     10.9
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.4,
+     -118.0,
+     15.9
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.55,
+       -118.0,
+       23.9
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "sane",
+     "word": "To",
+     "offset": -1.5
+    },
+    "arrive": {
+     "line": "sane",
+     "word": "To",
+     "offset": 9.5
+    },
+    "then": "idle"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy",
+     "head": [
+      0,
+      14,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "lap_7",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.35,
+     -118.0,
+     11.3
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.35,
+     -118.0,
+     16.3
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -1.25,
+       -118.0,
+       24.3
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "sane",
+     "word": "To",
+     "offset": -1.56
+    },
+    "arrive": {
+     "line": "sane",
+     "word": "To",
+     "offset": 9.44
+    },
+    "then": "idle"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "laugh",
+     "head": [
+      0,
+      -14,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "yoga_lead",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.0,
+     -118.0,
+     25.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.0,
+     -118.0,
+     21.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 0.3
+     },
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 1.25
+     },
+     "expression": "shocked",
+     "head": [
+      6,
+      25,
+      0
+     ],
+     "head_turn": 0.15
+    }
+   ]
+  },
+  {
+   "id": "yoga_1",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     1.8,
+     -118.0,
+     22.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.8,
+     -118.0,
+     27.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 1.2
+     },
+     "expression": "laugh",
+     "head": [
+      4,
+      20,
+      0
+     ],
+     "head_turn": 0.18
+    }
+   ]
+  },
+  {
+   "id": "yoga_2",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     0.6,
+     -118.0,
+     22.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     0.6,
+     -118.0,
+     27.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 1.25
+     },
+     "expression": "laugh",
+     "head": [
+      4,
+      20,
+      0
+     ],
+     "head_turn": 0.18
+    }
+   ]
+  },
+  {
+   "id": "yoga_3",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.6,
+     -118.0,
+     22.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.6,
+     -118.0,
+     27.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 0.35
+     },
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 1.05
+     },
+     "expression": "dead"
+    }
+   ]
+  },
+  {
+   "id": "yoga_4",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.8,
+     -118.0,
+     22.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.8,
+     -118.0,
+     27.4
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 1.35
+     },
+     "expression": "laugh",
+     "head": [
+      4,
+      -20,
+      0
+     ],
+     "head_turn": 0.18
+    }
+   ]
+  },
+  {
+   "id": "yoga_5",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     1.2,
+     -118.0,
+     20.6
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.2,
+     -118.0,
+     25.6
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 1.4
+     },
+     "expression": "laugh",
+     "head": [
+      4,
+      20,
+      0
+     ],
+     "head_turn": 0.18
+    }
+   ]
+  },
+  {
+   "id": "yoga_6",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.0,
+     -118.0,
+     20.6
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.0,
+     -118.0,
+     25.6
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 1.45
+     },
+     "expression": "laugh",
+     "head": [
+      4,
+      20,
+      0
+     ],
+     "head_turn": 0.18
+    }
+   ]
+  },
+  {
+   "id": "yoga_7",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.2,
+     -118.0,
+     20.6
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.2,
+     -118.0,
+     25.6
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "sane",
+      "word": "yoga",
+      "offset": 1.5
+     },
+     "expression": "laugh",
+     "head": [
+      4,
+      -20,
+      0
+     ],
+     "head_turn": 0.18
+    }
+   ]
+  },
+  {
+   "id": "meal_draw",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     4.25,
+     -118.0,
+     0.32
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     5.0,
+     -118.0,
+     0.6
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      6,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": "nine.",
+      "offset": 0.35
+     },
+     "expression": "sad",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "meal_catch",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     1.6,
+     -118.0,
+     -15.7
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.6,
+     -118.0,
+     -17.5
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": "narrow",
+      "offset": 0.3
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": "bottles.",
+      "offset": -0.25
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": "bottles.",
+      "offset": 0.5
+     },
+     "expression": "love"
+    }
+   ]
+  },
+  {
+   "id": "meal_w1",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     2.95,
+     -118.0,
+     -15.55
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.6,
+     -118.0,
+     -16.6
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": "narrow",
+      "offset": 0.4
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": 7,
+      "offset": 0.2
+     },
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": "bottles.",
+      "offset": 0.6
+     },
+     "expression": "laugh"
+    }
+   ]
+  },
+  {
+   "id": "meal_w2",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     2.35,
+     -118.0,
+     -14.55
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.6,
+     -118.0,
+     -16.6
+    ]
+   },
+   "action": "fold_arms",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": "narrow",
+      "offset": 0.5
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "meal",
+      "word": 7,
+      "offset": 0.3
+     },
+     "expression": "cheer"
+    }
+   ]
+  },
+  {
+   "id": "air_marshal",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     5.0,
+     0,
+     5976.0
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     0,
+     0,
+     6000.0
+    ]
+   },
+   "action": "torch",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "airlift",
+      "word": "force",
+      "offset": 0.3
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "air_officer",
+   "character": "toon_tunnel_engineer",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     19.5,
+     0,
+     6021.5
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     0,
+     0,
+     6010.0
+    ]
+   },
+   "action": "fold_arms",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "airlift",
+      "word": "force",
+      "offset": 0.4
+     },
+     "expression": "star_eyes"
+    }
+   ]
+  },
+  {
+   "id": "air_crew",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     18.5,
+     0,
+     6024.5
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     0,
+     0,
+     6010.0
+    ]
+   },
+   "action": "phone",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "airlift",
+      "word": "force",
+      "offset": 0.5
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "welder",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     3.95,
+     -118.0,
+     -6.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     9.0,
+     -118.0,
+     -6.0
+    ]
+   },
+   "action": "fix",
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.703
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.195
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.403
+     },
+     "action": "crouch",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       1.542,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "nervous"
+    }
+   ]
+  },
+  {
+   "id": "weld_mate",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     3.25,
+     -118.0,
+     -5.45
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     5.0,
+     -118.0,
+     -6.2
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.711
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.251
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.471
+     },
+     "action": "crouch",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -2.15,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "scaf_mid",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     3.2,
+     -118.0,
+     -6.3
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.0,
+     -118.0,
+     -5.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.687
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.142
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.04
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.436,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "scaf_foot",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     2.05,
+     -118.0,
+     -5.1
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     3.4,
+     -118.0,
+     -6.0
+    ]
+   },
+   "action": "idle",
+   "phase": 1.4,
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.9,
+       -118.0,
+       4.77
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.228
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.393
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.7
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.228
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.196
+     },
+     "action": "crouch",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       2.804,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "chai_1",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.5,
+     -118.0,
+     5.3
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.2,
+     -118.0,
+     8.6
+    ]
+   },
+   "action": "sit",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.02,
+       -118.0,
+       10.83
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.279
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 1.963
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.746
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.279
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.633
+     },
+     "action": "crouch",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       2.919,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "chai_2",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.5,
+     -118.0,
+     4.15
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     2.0,
+     -118.0,
+     4.6
+    ]
+   },
+   "action": "sit",
+   "phase": 1.9,
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -3.19,
+       -118.0,
+       13.29
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.275
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.331
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.765
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.275
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.868
+     },
+     "action": "fold_arms",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.428,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "crying"
+    }
+   ]
+  },
+  {
+   "id": "chai_3",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.5,
+     -118.0,
+     3.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     2.0,
+     -118.0,
+     4.4
+    ]
+   },
+   "action": "sit_talk",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.53,
+       -118.0,
+       11.36
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.276
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.228
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.684
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.276
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.357
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       2.35,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "nervous"
+    }
+   ]
+  },
+  {
+   "id": "barrow",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -2.7,
+     -118.0,
+     3.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     2.0,
+     -118.0,
+     1.9
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.1,
+       -118.0,
+       1.9
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.05
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -1.05
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.734
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.246
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.807
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       1.84,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "crying"
+    }
+   ]
+  },
+  {
+   "id": "pipe_a",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     1.05,
+     -118.0,
+     -0.6
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.05,
+     -118.0,
+     -9.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       1.05,
+       -118.0,
+       -5.0
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.45
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.9
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.731
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.225
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.315
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.233,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "nervous"
+    }
+   ]
+  },
+  {
+   "id": "pipe_b",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     1.05,
+     -118.0,
+     2.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.05,
+     -118.0,
+     -9.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       1.05,
+       -118.0,
+       -2.4
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.45
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.9
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.736
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.275
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.342
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       0.015,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "bag_1",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     2.3,
+     -118.0,
+     0.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.9,
+     -118.0,
+     -9.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       1.95,
+       -118.0,
+       -3.9
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.25
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.75
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.691
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.268
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.464
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.459,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "bag_2",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     2.0,
+     -118.0,
+     -3.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     2.6,
+     -118.0,
+     2.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.7,
+       -118.0,
+       0.2
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.05
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.95
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.728
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.279
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.766
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -3.309,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "nervous"
+    }
+   ]
+  },
+  {
+   "id": "walk_1",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.3,
+     -118.0,
+     -14.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.3,
+     -118.0,
+     2.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.6,
+       -118.0,
+       -7.3
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.25
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.65
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.71
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.132
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.358
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       0.705,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "walk_2",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.9,
+     -118.0,
+     5.2
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.9,
+     -118.0,
+     -9.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.05,
+       -118.0,
+       0.3
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.25
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.85
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.759
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.237
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.164
+     },
+     "action": "crouch",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -2.307,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "walk_3",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     2.2,
+     -118.0,
+     -13.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     2.2,
+     -118.0,
+     2.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.5,
+       -118.0,
+       -7.7
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.05
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.75
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.72
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.157
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.79
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       0.06,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "walk_4",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.2,
+     -118.0,
+     -7.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.0,
+     -118.0,
+     4.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -1.1,
+       -118.0,
+       -4.6
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.35
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.95
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.734
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.166
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.301
+     },
+     "action": "shake_head",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       2.223,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "engineer",
+   "character": "toon_tunnel_engineer",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.45,
+     -118.0,
+     -2.9
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     4.0,
+     -118.0,
+     -6.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -1.3,
+       -118.0,
+       9.11
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.206
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.676
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.76
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.206
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.522
+     },
+     "action": "talk",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       3.12,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "foreman",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.15,
+     -118.0,
+     -3.35
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.45,
+     -118.0,
+     -2.9
+    ]
+   },
+   "action": "talk",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.65,
+       -118.0,
+       7.48
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.265
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.563
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.726
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.265
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.762
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       0.01,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "dig_1",
+   "character": "toon_tunnel_digger",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -2.1,
+     -118.0,
+     -8.5
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.2,
+     -118.0,
+     -9.3
+    ]
+   },
+   "action": "chop",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -3.82,
+       -118.0,
+       -2.88
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.185
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 1.774
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.739
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.185
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.382
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.097,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "dig_2",
+   "character": "toon_tunnel_digger",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -2.35,
+     -118.0,
+     -10.7
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.3,
+     -118.0,
+     -9.8
+    ]
+   },
+   "action": "chop",
+   "phase": 0.5,
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.0,
+       -118.0,
+       -8.6
+      ]
+     },
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -3.12,
+       -118.0,
+       -4.54
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.096
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 1.831
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.719
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.096
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.529
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       1.604,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "nervous"
+    }
+   ]
+  },
+  {
+   "id": "dig_3",
+   "character": "toon_tunnel_digger",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.95,
+     -118.0,
+     -9.6
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.3,
+     -118.0,
+     -9.5
+    ]
+   },
+   "action": "chop",
+   "phase": 1.1,
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.0,
+       -118.0,
+       -8.6
+      ]
+     },
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.12,
+       -118.0,
+       -3.35
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.171
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 1.851
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.727
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.171
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.867
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       1.209,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "crying"
+    }
+   ]
+  },
+  {
+   "id": "dig_boss",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.35,
+     -118.0,
+     -10.9
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.0,
+     -118.0,
+     -9.6
+    ]
+   },
+   "action": "fold_arms",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.0,
+       -118.0,
+       -8.6
+      ]
+     },
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.29,
+       -118.0,
+       -2.92
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.174
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.072
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.731
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.174
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.431
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       2.236,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "signal",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.15,
+     -118.0,
+     -12.6
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -2.6,
+     -118.0,
+     -22.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.0,
+       -118.0,
+       -8.6
+      ]
+     },
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -1.73,
+       -118.0,
+       -5.99
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.084
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.027
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.711
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.084
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.95
+     },
+     "action": "shake_head",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       1.327,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "spray_1",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     3.55,
+     -118.0,
+     -12.3
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     9.0,
+     -118.0,
+     -12.9
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.3,
+       -118.0,
+       -8.6
+      ]
+     },
+     {
+      "anchor": "tunnel",
+      "offset": [
+       1.34,
+       -118.0,
+       -6.21
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.124
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 1.992
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.782
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.124
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.991
+     },
+     "action": "crouch",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.767,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "spray_2",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     3.1,
+     -118.0,
+     -11.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     3.55,
+     -118.0,
+     -12.3
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.3,
+       -118.0,
+       -8.6
+      ]
+     },
+     {
+      "anchor": "tunnel",
+      "offset": [
+       3.46,
+       -118.0,
+       -1.32
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.151
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.285
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.769
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.151
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.948
+     },
+     "action": "crouch",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -2.548,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "spray_3",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     2.9,
+     -118.0,
+     -13.7
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     3.6,
+     -118.0,
+     -12.4
+    ]
+   },
+   "action": "fold_arms",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.3,
+       -118.0,
+       -8.6
+      ]
+     },
+     {
+      "anchor": "tunnel",
+      "offset": [
+       3.0,
+       -118.0,
+       -3.27
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.095
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.335
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.68
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.095
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.054
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -2.822,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "rebar_1",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     3.75,
+     -118.0,
+     -8.9
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     9.0,
+     -118.0,
+     -9.2
+    ]
+   },
+   "action": "crouch",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       0.02,
+       -118.0,
+       -1.53
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.15
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.08
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.788
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.15
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.079
+     },
+     "action": "crouch",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -2.649,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "rebar_2",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     3.7,
+     -118.0,
+     -10.1
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     9.0,
+     -118.0,
+     -9.9
+    ]
+   },
+   "action": "fix",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.3,
+       -118.0,
+       -8.6
+      ]
+     },
+     {
+      "anchor": "tunnel",
+      "offset": [
+       1.63,
+       -118.0,
+       -1.26
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.113
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.16
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.788
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.113
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.422
+     },
+     "action": "fold_arms",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -3.041,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "drill_1",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -4.0,
+     -118.0,
+     -5.1
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -9.0,
+     -118.0,
+     -5.1
+    ]
+   },
+   "action": "push",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.6,
+       -118.0,
+       2.91
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.191
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.184
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.77
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.191
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.686
+     },
+     "action": "shake_head",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.905,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "drill_2",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.35,
+     -118.0,
+     -5.9
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -4.3,
+     -118.0,
+     -5.3
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.48,
+       -118.0,
+       2.73
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.199
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.188
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.76
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.199
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.896
+     },
+     "action": "call_out",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.508,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "drill_3",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -4.05,
+     -118.0,
+     -6.5
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -9.0,
+     -118.0,
+     -6.5
+    ]
+   },
+   "action": "fix",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -3.37,
+       -118.0,
+       -1.48
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.243
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 1.984
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.76
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.243
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.433
+     },
+     "action": "fold_arms",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       2.147,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "survey_1",
+   "character": "toon_tunnel_engineer",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     0.9,
+     -118.0,
+     -6.8
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.3,
+     -118.0,
+     -22.0
+    ]
+   },
+   "action": "phone",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       1.07,
+       -118.0,
+       4.97
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.171
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.602
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.756
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.171
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.188
+     },
+     "action": "fold_arms",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       2.853,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "survey_2",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     0.15,
+     -118.0,
+     -7.5
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     0.9,
+     -118.0,
+     -6.8
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -0.55,
+       -118.0,
+       0.98
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.244
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.21
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.753
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.244
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.358
+     },
+     "action": "call_out",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.532,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "store_1",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     2.7,
+     -118.0,
+     2.9
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     3.6,
+     -118.0,
+     1.7
+    ]
+   },
+   "action": "talk",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.08,
+       -118.0,
+       11.37
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.307
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.27
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.762
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.307
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.2
+     },
+     "action": "crouch",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.152,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "store_2",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     3.0,
+     -118.0,
+     0.3
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     3.6,
+     -118.0,
+     1.5
+    ]
+   },
+   "action": "pick_up",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.92,
+       -118.0,
+       8.8
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.282
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.246
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.785
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.282
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.167
+     },
+     "action": "fold_arms",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       3.351,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "radio",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -3.7,
+     -118.0,
+     -0.5
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.0,
+     -118.0,
+     -6.0
+    ]
+   },
+   "action": "phone",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.05,
+       -118.0,
+       7.39
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.246
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.147
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.779
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.246
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.428
+     },
+     "action": "phone",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.854,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "drums",
+   "character": "toon_tunnel_worker_red",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -4.0,
+     -118.0,
+     -3.3
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -4.2,
+     -118.0,
+     -1.9
+    ]
+   },
+   "action": "interact",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -2.94,
+       -118.0,
+       8.82
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 0.181
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": 2.669
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.741
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.181
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.32
+     },
+     "action": "call_out",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -2.773,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "mid_walk",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.3,
+     -118.0,
+     -6.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.3,
+     -118.0,
+     4.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -1.5,
+       -118.0,
+       -1.6
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.35
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -1.05
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.699
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.195
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -11.739
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.275,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "rear_1",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     2.9,
+     -118.0,
+     11.6
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     2.9,
+     -118.0,
+     -9.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       2.9,
+       -118.0,
+       6.6
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.25
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.65
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.738
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.32
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.314
+     },
+     "action": "fold_arms",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       2.429,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "crying"
+    }
+   ]
+  },
+  {
+   "id": "rear_2",
+   "character": "toon_tunnel_worker_lime",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     1.2,
+     -118.0,
+     12.4
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     1.2,
+     -118.0,
+     -9.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       1.3,
+       -118.0,
+       7.6
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.25
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.55
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.679
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.353
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -10.785
+     },
+     "action": "call_out",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       1.019,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "rear_3",
+   "character": "toon_tunnel_worker_blue",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.2,
+     -118.0,
+     11.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     -1.2,
+     -118.0,
+     -9.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "tunnel",
+      "offset": [
+       -1.2,
+       -118.0,
+       5.5
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "start": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -5.05
+    },
+    "arrive": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.75
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "tunnel",
+     "offset": [
+      -0.0,
+      -118.0,
+      -18.0
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.675
+     },
+     "head": [
+      -16,
+      0,
+      0
+     ],
+     "head_turn": 0.18,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.299
+     },
+     "action": "crouch",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.1,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "alive",
+      "word": "alive",
+      "offset": -9.304
+     },
+     "action": "idle",
+     "facing": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.138,
+       -118.0,
+       -18.0
+      ]
+     },
+     "expression": "crying"
+    }
+   ]
+  }
+ ],
+ "gags": [
+  {
+   "id": "portal",
+   "script": "gags/silkyara_exterior.gd",
+   "at": "slope",
+   "t": 0,
+   "params": {
+    "appear": {
+     "meal_cook": {
+      "line": "meal",
+      "edge": "start",
+      "offset": -2.0
+     },
+     "meal_runner": {
+      "line": "meal",
+      "edge": "start",
+      "offset": -2.0
+     }
+    },
+    "kitchen": {
+     "from": {
+      "line": "meal",
+      "edge": "start",
+      "offset": -2.0
+     },
+     "pour0": {
+      "line": "meal",
+      "word": "khichdi,",
+      "offset": -0.05
+     },
+     "pour1": {
+      "line": "meal",
+      "word": "khichdi,",
+      "offset": 0.45
+     },
+     "cook": "meal_cook",
+     "pourer": "meal_runner"
+    },
+    "lamps": [
+     "out_walk_1",
+     "out_walk_2",
+     "out_walk_3"
+    ],
+    "truck": {
+     "t0": 0.0,
+     "t1": 3.2,
+     "z0": 27.0,
+     "z1": 17.5
+    }
+   }
+  },
+  {
+   "id": "mountain_section",
+   "script": "gags/mountain_section.gd",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     0,
+     0,
+     2600.0
+    ]
+   },
+   "t": 0,
+   "params": {
+    "throw": {
+     "line": "plug",
+     "word": "Sixty",
+     "offset": -1.3
+    },
+    "catch": {
+     "line": "plug",
+     "word": "Sixty",
+     "offset": 0.0
+    },
+    "thrower": "sec_eng",
+    "catcher": "sec_catch",
+    "appear": {
+     "feed_push": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "plan_op": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "plan_sig": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "plan_eng": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "plan_crawl": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     }
+    },
+    "vanish": {
+     "sec_eng": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "sec_resc_1": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "sec_resc_2": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "sec_resc_3": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "feed_push": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     }
+    },
+    "rig": {
+     "from": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "push0": {
+      "line": "plan",
+      "word": "push",
+      "offset": 0.0
+     },
+     "push1": {
+      "line": "plan",
+      "word": "rubble",
+      "offset": 0.45
+     },
+     "bite": {
+      "line": "plan",
+      "word": "steel",
+      "offset": 0.1
+     },
+     "dist": 2.3
+    },
+    "spare": {
+     "from": {
+      "line": "plan",
+      "edge": "start",
+      "offset": -1.6
+     },
+     "crawler": "plan_crawl"
+    },
+    "xpipe": {
+     "from": {
+      "line": "feed",
+      "edge": "start",
+      "offset": -0.7
+     },
+     "until": {
+      "line": "feed",
+      "word": "puffed",
+      "offset": 0.2
+     },
+     "flow": {
+      "line": "feed",
+      "word": "Through",
+      "offset": -0.15
+     },
+     "hit": {
+      "line": "feed",
+      "word": "oxygen",
+      "offset": 0.0
+     },
+     "jar1": {
+      "line": "feed",
+      "word": "puffed",
+      "offset": 0.05
+     },
+     "x0": -6.5,
+     "x1": 32.5
+    },
+    "wide": {
+     "line": "plug",
+     "word": "Sixty",
+     "offset": 0.82
+    },
+    "measure_until": {
+     "line": "lifeline",
+     "edge": "start",
+     "offset": -0.3
+    },
+    "point_pipe": {
+     "line": "lifeline",
+     "word": "pipe"
+    },
+    "light_start": {
+     "line": "lifeline",
+     "edge": "start",
+     "offset": -0.3
+    },
+    "light_on": {
+     "line": "lifeline",
+     "word": "lights"
+    }
+   }
+  },
+  {
+   "id": "airlift",
+   "script": "gags/airlift.gd",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     0,
+     0,
+     6000.0
+    ]
+   },
+   "t": 0,
+   "params": {
+    "land": {
+     "line": "airlift",
+     "word": "air",
+     "offset": 0.05
+    },
+    "stop": {
+     "line": "airlift",
+     "word": "force",
+     "offset": 0.55
+    },
+    "ramp": {
+     "line": "airlift",
+     "word": "force",
+     "offset": 0.6
+    }
+   }
+  },
+  {
+   "id": "collapse",
+   "script": "gags/tunnel_collapse.gd",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     0,
+     -118.0,
+     0
+    ]
+   },
+   "t": 0,
+   "params": {
+    "impact": {
+     "line": "inside",
+     "word": "collapses",
+     "offset": -0.05
+    },
+    "alive": {
+     "line": "alive",
+     "word": "alive"
+    },
+    "crew": {
+     "welder": {
+      "role": "welder",
+      "y": 3.225,
+      "cower": 0.245,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "weld_mate": {
+      "role": "point",
+      "y": 3.225,
+      "cower": 0.301,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "scaf_mid": {
+      "y": 1.725,
+      "cower": 0.192,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "scaf_foot": {
+      "role": "point",
+      "phase": 1.4,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "chai_1": {
+      "role": "chai",
+      "y": 0.1,
+      "hero": "tea",
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "chai_2": {
+      "role": "chai",
+      "y": 0.1,
+      "phase": 1.9,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "chai_3": {
+      "y": 0.1,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "barrow": {
+      "role": "barrow",
+      "cower": 0.296,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "pipe_a": {
+      "role": "pipe_a",
+      "mate": "pipe_b",
+      "cower": 0.275,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "pipe_b": {
+      "cower": 0.325,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "bag_1": {
+      "role": "bag",
+      "cower": 0.318,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "bag_2": {
+      "cower": 0.329,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "walk_1": {
+      "cower": 0.182,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "walk_2": {
+      "cower": 0.287,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "walk_3": {
+      "cower": 0.207,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "walk_4": {
+      "cower": 0.216,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "engineer": {
+      "role": "engineer",
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "foreman": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "dig_1": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "dig_2": {
+      "phase": 0.5,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "dig_3": {
+      "phase": 1.1,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "dig_boss": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "signal": {
+      "role": "signal",
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "spray_1": {
+      "role": "sprayer",
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "spray_2": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "spray_3": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "rebar_1": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "rebar_2": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "drill_1": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "drill_2": {
+      "role": "point",
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "drill_3": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "survey_1": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "survey_2": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "store_1": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "store_2": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "radio": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "drums": {
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "mid_walk": {
+      "cower": 0.245,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true
+     },
+     "rear_1": {
+      "cower": 0.37,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "rear_2": {
+      "cower": 0.403,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "rear_3": {
+      "cower": 0.349,
+      "rise": true,
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "life_lamp": {
+      "y": 0.0,
+      "from": {
+       "line": "lifeline",
+       "edge": "start",
+       "offset": -2.0
+      },
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "lamp": true,
+      "role": "lamp_click",
+      "lamp_off": {
+       "line": "lifeline",
+       "word": "lights",
+       "offset": 0.0
+      }
+     },
+     "life_valve": {
+      "y": 0.0,
+      "from": {
+       "line": "lifeline",
+       "edge": "start",
+       "offset": -2.0
+      },
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "role": "valve"
+     },
+     "life_mate": {
+      "y": 0.0,
+      "from": {
+       "line": "lifeline",
+       "edge": "start",
+       "offset": -2.0
+      },
+      "until": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      }
+     },
+     "yoga_lead": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "role": "yoga",
+      "yoga": {
+       "start": {
+        "line": "sane",
+        "word": "and",
+        "offset": -0.05
+       },
+       "pose": "tree"
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "yoga_1": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "role": "yoga",
+      "yoga": {
+       "start": {
+        "line": "sane",
+        "word": "do",
+        "offset": -0.08
+       },
+       "pose": "y"
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "yoga_2": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "role": "yoga",
+      "yoga": {
+       "start": {
+        "line": "sane",
+        "word": "do",
+        "offset": -0.03
+       },
+       "pose": "tree"
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "yoga_3": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "role": "yoga",
+      "yoga": {
+       "start": {
+        "line": "sane",
+        "word": "do",
+        "offset": 0.02
+       },
+       "pose": "wobble",
+       "fall": {
+        "line": "sane",
+        "word": "yoga",
+        "offset": 0.65
+       }
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "yoga_4": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "role": "yoga",
+      "yoga": {
+       "start": {
+        "line": "sane",
+        "word": "do",
+        "offset": 0.07
+       },
+       "pose": "y"
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "yoga_5": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "role": "yoga",
+      "yoga": {
+       "start": {
+        "line": "sane",
+        "word": "do",
+        "offset": 0.12
+       },
+       "pose": "y"
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "yoga_6": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "role": "yoga",
+      "yoga": {
+       "start": {
+        "line": "sane",
+        "word": "do",
+        "offset": 0.17
+       },
+       "pose": "tree"
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "yoga_7": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "role": "yoga",
+      "yoga": {
+       "start": {
+        "line": "sane",
+        "word": "do",
+        "offset": 0.22
+       },
+       "pose": "y"
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "lap_1": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "lap_2": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "lap_3": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "lap_4": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "lap_5": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "lap_6": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "lap_7": {
+      "y": 0.0,
+      "from": {
+       "line": "sane",
+       "edge": "start",
+       "offset": -0.35
+      },
+      "until": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "meal_draw": {
+      "y": 0.0,
+      "from": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "meal_catch": {
+      "y": 0.0,
+      "from": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      }
+     },
+     "meal_w1": {
+      "y": 0.0,
+      "from": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      },
+      "lamp": true
+     },
+     "meal_w2": {
+      "y": 0.0,
+      "from": {
+       "line": "meal",
+       "edge": "start",
+       "offset": -2.0
+      },
+      "lamp": true
+     }
+    },
+    "tally": {
+     "from": {
+      "line": "meal",
+      "edge": "start",
+      "offset": -2.0
+     },
+     "x": -4.6,
+     "y": 1.38,
+     "z": 1.0,
+     "draw0": {
+      "line": "meal",
+      "word": "Day",
+      "offset": -0.15
+     },
+     "draw1": {
+      "line": "meal",
+      "word": "nine.",
+      "offset": 0.2
+     },
+     "drawer": "meal_draw"
+    },
+    "narrow": {
+     "from": {
+      "line": "meal",
+      "edge": "start",
+      "offset": -2.0
+     },
+     "at": [
+      -1.6,
+      1.0,
+      -16.45
+     ],
+     "t0": {
+      "line": "meal",
+      "word": "narrow",
+      "offset": -0.1
+     },
+     "t1": {
+      "line": "meal",
+      "word": 7,
+      "offset": 0.0
+     },
+     "bottle": {
+      "line": "meal",
+      "word": "packed",
+      "offset": 0.05
+     },
+     "catch": {
+      "line": "meal",
+      "word": "packed",
+      "offset": 0.45
+     },
+     "open": {
+      "line": "meal",
+      "word": "bottles.",
+      "offset": 0.25
+     },
+     "catcher": "meal_catch"
+    },
+    "mats": {
+     "from": {
+      "line": "sane",
+      "edge": "start",
+      "offset": -0.35
+     },
+     "until": {
+      "line": "meal",
+      "edge": "start",
+      "offset": -2.0
+     },
+     "at": [
+      [
+       0.0,
+       25.4,
+       0.0
+      ],
+      [
+       -1.8,
+       22.4,
+       0.0
+      ],
+      [
+       -0.6,
+       22.4,
+       0.0
+      ],
+      [
+       0.6,
+       22.4,
+       0.0
+      ],
+      [
+       1.8,
+       22.4,
+       0.0
+      ],
+      [
+       -1.2,
+       20.6,
+       0.0
+      ],
+      [
+       0.0,
+       20.6,
+       0.0
+      ],
+      [
+       1.2,
+       20.6,
+       0.0
+      ]
+     ]
+    },
+    "full_power": {
+     "line": "sane",
+     "edge": "start",
+     "offset": -0.35
+    },
+    "valve": {
+     "z": -6.4,
+     "open": {
+      "line": "lifeline",
+      "word": "pipe",
+      "offset": 0.0
+     },
+     "close": {
+      "line": "feed",
+      "word": "Through",
+      "offset": -0.4
+     }
+    },
+    "jars": {
+     "from": {
+      "line": "feed",
+      "word": "Through",
+      "offset": -0.4
+     },
+     "until": {
+      "line": "sane",
+      "edge": "start",
+      "offset": -0.35
+     },
+     "list": [
+      {
+       "t": {
+        "line": "feed",
+        "word": "puffed",
+        "offset": 0.0
+       },
+       "kind": "rice",
+       "catcher": "life_mate"
+      },
+      {
+       "t": {
+        "line": "feed",
+        "word": "dry",
+        "offset": 0.0
+       },
+       "kind": "fruit",
+       "catcher": "life_valve"
+      }
+     ]
+    },
+    "trickles": [
+     {
+      "x": 3.5,
+      "z": 5.3,
+      "t": {
+       "line": "inside",
+       "word": "collapses",
+       "offset": -2.0
+      },
+      "land": 1.55,
+      "spread": 0.05,
+      "build": 0.7
+     },
+     {
+      "x": 0.6,
+      "z": -23.0,
+      "t": {
+       "line": "inside",
+       "word": "collapses",
+       "offset": -3.25
+      },
+      "build": 2.0,
+      "spread": 0.12
+     },
+     {
+      "x": -1.6,
+      "z": -27.0,
+      "t": {
+       "line": "inside",
+       "word": "collapses",
+       "offset": -2.05
+      },
+      "build": 1.4,
+      "spread": 0.12
+     },
+     {
+      "x": 1.9,
+      "z": -21.5,
+      "t": {
+       "line": "inside",
+       "word": "collapses",
+       "offset": -1.15
+      },
+      "build": 0.8,
+      "spread": 0.15
+     },
+     {
+      "x": -0.8,
+      "z": -19.0,
+      "t": {
+       "line": "inside",
+       "word": "collapses",
+       "offset": -0.75
+      },
+      "build": 0.5,
+      "spread": 0.15
+     }
+    ]
+   }
+  }
+ ],
+ "sfx": [
+  {
+   "file": "audio/mountain_wind_short.wav",
+   "at": 0,
+   "gain": -10
+  },
+  {
+   "file": "audio/underground.wav",
+   "at": {
+    "line": "inside",
+    "offset": -0.18
+   },
+   "gain": -13
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "inside",
+    "word": "collapses",
+    "offset": -1.0
+   },
+   "gain": -14,
+   "repeat": 6,
+   "every": 0.1
+  },
+  {
+   "sound": "creak",
+   "at": {
+    "line": "inside",
+    "word": "collapses",
+    "offset": -0.85
+   },
+   "gain": -9
+  },
+  {
+   "file": "audio/rockfall.wav",
+   "at": {
+    "line": "inside",
+    "word": "collapses",
+    "offset": -0.5
+   },
+   "gain": -1
+  },
+  {
+   "sound": "rip",
+   "at": {
+    "line": "inside",
+    "word": "collapses",
+    "offset": 0.22
+   },
+   "gain": -9
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "inside",
+    "word": "collapses",
+    "offset": 0.4
+   },
+   "gain": -6
+  },
+  {
+   "file": "audio/rockfall.wav",
+   "at": {
+    "line": "inside",
+    "word": "collapses",
+    "offset": 0.3
+   },
+   "gain": -5
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "inside",
+    "word": "collapses",
+    "offset": 0.85
+   },
+   "gain": -7,
+   "salt": 3
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "inside",
+    "word": "collapses",
+    "offset": 1.2
+   },
+   "gain": -7
+  },
+  {
+   "file": "audio/cough.wav",
+   "at": {
+    "line": "alive",
+    "offset": -0.7
+   },
+   "gain": -9
+  },
+  {
+   "file": "audio/cough.wav",
+   "at": {
+    "line": "alive",
+    "offset": 1.15
+   },
+   "gain": -13
+  },
+  {
+   "file": "audio/underground.wav",
+   "at": {
+    "line": "plug",
+    "word": "Sixty",
+    "offset": -1.9
+   },
+   "gain": -15
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "plug",
+    "word": "Sixty",
+    "offset": -1.325
+   },
+   "gain": -16
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "plug",
+    "word": "Sixty",
+    "offset": -1.25
+   },
+   "gain": -20,
+   "repeat": 14,
+   "every": 0.08
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "plug",
+    "word": "Sixty",
+    "offset": 0.0
+   },
+   "gain": -6
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "plug",
+    "word": "Sixty",
+    "offset": 0.0
+   },
+   "gain": -12
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "lifeline",
+    "word": "lights",
+    "offset": 0.0
+   },
+   "gain": -8
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "lifeline",
+    "word": "pipe",
+    "offset": -0.95
+   },
+   "gain": -13,
+   "repeat": 6,
+   "every": 0.15
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "lifeline",
+    "word": "pipe",
+    "offset": -0.02
+   },
+   "gain": -7
+  },
+  {
+   "sound": "rip",
+   "at": {
+    "line": "lifeline",
+    "word": "pipe",
+    "offset": 0.0
+   },
+   "gain": -13
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "feed",
+    "word": "Through",
+    "offset": -0.15
+   },
+   "gain": -9
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "feed",
+    "word": "it",
+    "offset": 0.0
+   },
+   "gain": -6
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "feed",
+    "word": "it",
+    "offset": 0.1
+   },
+   "gain": -17,
+   "repeat": 9,
+   "every": 0.12
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "feed",
+    "word": "puffed",
+    "offset": -0.03
+   },
+   "gain": -8
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "feed",
+    "word": "puffed",
+    "offset": 0.32
+   },
+   "gain": -9
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "feed",
+    "word": "dry",
+    "offset": -0.03
+   },
+   "gain": -8
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "feed",
+    "word": "dry",
+    "offset": 0.32
+   },
+   "gain": -9
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "sane",
+    "word": "To",
+    "offset": -0.3
+   },
+   "gain": -21,
+   "repeat": 10,
+   "every": 0.24
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "sane",
+    "word": "yoga",
+    "offset": 1.07
+   },
+   "gain": -8
+  },
+  {
+   "sound": "creak",
+   "at": {
+    "line": "airlift",
+    "word": "twenty-five-tonne",
+    "offset": 0.7
+   },
+   "gain": -9
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "airlift",
+    "word": "is",
+    "offset": 0.2
+   },
+   "gain": -6
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "airlift",
+    "word": "by",
+    "offset": -0.05
+   },
+   "gain": -3
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "airlift",
+    "word": "air",
+    "offset": 0.05
+   },
+   "gain": -3
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "airlift",
+    "word": "force",
+    "offset": 0.6
+   },
+   "gain": -6
+  },
+  {
+   "sound": "sting",
+   "at": {
+    "line": "airlift",
+    "word": "force",
+    "offset": 1.1
+   },
+   "gain": -10
+  },
+  {
+   "sound": "creak",
+   "at": {
+    "line": "plan",
+    "word": "push",
+    "offset": -0.1
+   },
+   "gain": -8
+  },
+  {
+   "sound": "rip",
+   "at": {
+    "line": "plan",
+    "word": "steel",
+    "offset": 0.1
+   },
+   "gain": -10
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "plan",
+    "word": "steel",
+    "offset": 0.1
+   },
+   "gain": -15,
+   "repeat": 10,
+   "every": 0.11
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "plan",
+    "word": "rubble",
+    "offset": 0.0
+   },
+   "gain": -7
+  },
+  {
+   "sound": "creak",
+   "at": {
+    "line": "plan",
+    "word": "crawl",
+    "offset": 0.1
+   },
+   "gain": -12
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "meal",
+    "word": "Day",
+    "offset": -0.1
+   },
+   "gain": -16,
+   "repeat": 3,
+   "every": 0.12
+  },
+  {
+   "sound": "rip",
+   "at": {
+    "line": "meal",
+    "word": "narrow",
+    "offset": -0.1
+   },
+   "gain": -12
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "meal",
+    "word": 7,
+    "offset": 0.0
+   },
+   "gain": -9
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "meal",
+    "word": 7,
+    "offset": 0.02
+   },
+   "gain": -12
+  },
+  {
+   "sound": "pop",
+   "at": {
+    "line": "meal",
+    "word": "khichdi,",
+    "offset": 0.3
+   },
+   "gain": -10
+  },
+  {
+   "sound": "pop",
+   "at": {
+    "line": "meal",
+    "word": "packed",
+    "offset": 0.05
+   },
+   "gain": -8
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "meal",
+    "word": "packed",
+    "offset": 0.45
+   },
+   "gain": -8
+  },
+  {
+   "sound": "pop",
+   "at": {
+    "line": "meal",
+    "word": "bottles.",
+    "offset": 0.3
+   },
+   "gain": -9
+  }
+ ],
+ "shots": [
+  {
+   "name": "mountain",
+   "duration": 2.5,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.55
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 40,
+     "end": 8000,
+     "color": "#3a4766",
+     "volumetric": 0.004,
+     "anisotropy": 0.5,
+     "length": 320
+    },
+    "ground_fog": {
+     "density": 0.012,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "Before dawn: tilt down off the snow range, over the forested slope, to the lit mouth.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "slope",
+      "offset": [
+       46.0,
+       64.0,
+       190.0
+      ]
+     },
+     "look_at": {
+      "anchor": "slope",
+      "offset": [
+       -25.0,
+       75.0,
+       -500.0
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "slope",
+      "offset": [
+       5.6,
+       3.4,
+       47.0
+      ]
+     },
+     "look_at": {
+      "anchor": "slope",
+      "offset": [
+       -0.4,
+       4.4,
+       0.0
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.3,
+      "focus": 38.0
+     }
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "work",
+   "duration": 2.25,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    }
+   },
+   "note": "The night shift: a slow push down a busy bore as the dumper drives in.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.7,
+       -117.0,
+       7.6
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.4,
+       -115.3,
+       -12.0
+      ]
+     },
+     "lens_mm": 20
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.2,
+       -116.88,
+       5.3
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.4,
+       -115.4,
+       -12.0
+      ]
+     },
+     "lens_mm": 21
+    },
+    "ease": "linear"
+   }
+  },
+  {
+   "name": "chai",
+   "duration": 1.3,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    }
+   },
+   "note": "Tea break. Grit patters on his helmet, the lamps dip, he looks up.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -2.45,
+       -117.0,
+       7.5
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -3.42,
+       -116.58,
+       5.3
+      ]
+     },
+     "lens_mm": 34,
+     "dof": {
+      "strength": 0.5,
+      "focus": 2.4
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -2.5,
+       -117.02,
+       7.3
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -3.42,
+       -116.5,
+       5.3
+      ]
+     },
+     "lens_mm": 36,
+     "dof": {
+      "strength": 0.5,
+      "focus": 2.2
+     }
+    },
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.83
+     },
+     "amount": 0.14
+    }
+   ]
+  },
+  {
+   "name": "collapse",
+   "duration": 2.05,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    }
+   },
+   "note": "The crown comes down between the crew and the way out; the dust takes the bore.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.5,
+       -116.2,
+       1.6
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.2,
+       -114.7,
+       -22.0
+      ]
+     },
+     "lens_mm": 34
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.6,
+       -116.2,
+       4.2
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.1,
+       -115.1,
+       -22.0
+      ]
+     },
+     "lens_mm": 31
+    },
+    "ease": "in"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.35
+     },
+     "amount": 0.15
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": -0.05
+     },
+     "amount": 0.6
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.37
+     },
+     "amount": 0.9
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 0.85
+     },
+     "amount": 0.7
+    },
+    {
+     "t": {
+      "line": "inside",
+      "word": "collapses",
+      "offset": 1.35
+     },
+     "amount": 0.5
+    }
+   ]
+  },
+  {
+   "name": "alive",
+   "duration": {
+    "fit": true,
+    "min": 2.7,
+    "tail": 0.95
+   },
+   "skip": 13.0,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#8a8fa6",
+     "energy": 0.03
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#4a4138",
+     "volumetric": 0.012,
+     "anisotropy": 0.6,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.0,
+     "vignette": 0.38
+    }
+   },
+   "note": "Later. Headlamps in the dust; the power stutters back on the word; forty-one faces.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.4,
+       -115.3,
+       -12.2
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.1,
+       -116.85,
+       -1.5
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.3,
+       -115.5,
+       -11.0
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.1,
+       -116.8,
+       -1.5
+      ]
+     },
+     "lens_mm": 31
+    },
+    "ease": "out"
+   }
+  },
+  {
+   "name": "plug_throw",
+   "duration": 0.95,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#8a8fa6",
+     "energy": 0.18
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 34,
+     "end": 180,
+     "color": "#3b352f",
+     "volumetric": 0.011,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    }
+   },
+   "note": "Rescue side of the plug: the engineer winds up and flings the tape's hook up into the gap.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       10.1,
+       1.4,
+       2601.4
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       9.44,
+       1.3,
+       2598.45
+      ]
+     },
+     "lens_mm": 31,
+     "dof": {
+      "strength": 0.2
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       10.25,
+       1.6,
+       2601.2
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       8.65,
+       1.55,
+       2598.5
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.2
+     }
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "plug_catch",
+   "duration": 1.75,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#8a8fa6",
+     "energy": 0.18
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 34,
+     "end": 180,
+     "color": "#3b352f",
+     "volumetric": 0.011,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    }
+   },
+   "note": "Trapped side: the hook shoots out of the gap, slides down, he catches it on 'Sixty'; 60 m lands.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       -67.85,
+       1.48,
+       2601.3
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       -69.47,
+       1.48,
+       2598.4
+      ]
+     },
+     "lens_mm": 34,
+     "dof": {
+      "strength": 0.19
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       -68.12,
+       1.42,
+       2601.0
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       -69.45,
+       1.45,
+       2598.47
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.19
+     }
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "plug_wide",
+   "duration": 3.6,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "Pull out and track along the cutaway: the lit trapped men, 60 m of rubble, the way out.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       -75.0,
+       11.0,
+       2664.0
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       -71.0,
+       14.0,
+       2600.0
+      ]
+     },
+     "lens_mm": 25
+    },
+    "to": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       93.0,
+       13.5,
+       2676.0
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       92.0,
+       15.0,
+       2600.0
+      ]
+     },
+     "lens_mm": 25
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "tunnel_space",
+   "duration": {
+    "fit": true,
+    "min": 4.0,
+    "tail": 0.45
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "Inside the surviving bore: move through the workers and look up to the ribbed crown.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.4,
+       -115.7,
+       -11.5
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.0,
+       -116.6,
+       1.0
+      ]
+     },
+     "lens_mm": 28
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.1,
+       -116.0,
+       -8.0
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.1,
+       -112.4,
+       8.0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "lifeline_lights",
+   "duration": 1.85,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "At the rubble, his headlamp in our eyes; he clicks it off on 'lights' and looks up: the lamps burn all the way down the bore.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       1.2,
+       -116.6,
+       -13.6
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       1.95,
+       -116.25,
+       2.0
+      ]
+     },
+     "lens_mm": 33
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       1.05,
+       -116.38,
+       -12.95
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       2.0,
+       -115.65,
+       6.0
+      ]
+     },
+     "lens_mm": 31
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "lifeline_pipe",
+   "duration": 2.4,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "The water main out of the rubble: he spins the gate valve open and water bursts out on 'pipe'.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.3,
+       -115.85,
+       -9.6
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -3.85,
+       -117.15,
+       -6.2
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.6,
+       -116.05,
+       -9.1
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -3.8,
+       -117.15,
+       -6.25
+      ]
+     },
+     "lens_mm": 33
+    },
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "lifeline",
+      "word": "pipe",
+      "offset": 0.02
+     },
+     "amount": 0.12
+    }
+   ]
+  },
+  {
+   "name": "feed_out",
+   "duration": 2.0,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "X-ray of the supply pipe through the rubble: blue oxygen lines race through it, a jar of puffed rice rides the air.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "mountain_section.jar",
+      "offset": [
+       -0.95,
+       0.32,
+       0.72
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.jar",
+      "offset": [
+       0.45,
+       -0.04,
+       0.0
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "mountain_section.jar",
+      "offset": [
+       -0.62,
+       0.2,
+       0.52
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.jar",
+      "offset": [
+       0.4,
+       -0.03,
+       0.0
+      ]
+     },
+     "lens_mm": 22
+    },
+    "ease": "in"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "feed",
+      "word": "oxygen",
+      "offset": 0.0
+     },
+     "amount": 0.3
+    }
+   ]
+  },
+  {
+   "name": "feed_in",
+   "duration": 3.35,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "Inside: jars shoot out of the supply line on puffs of air: puffed rice into one man's hands, dry fruit into the other's.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -4.55,
+       -116.55,
+       -4.95
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -3.0,
+       -117.0,
+       -6.6
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -4.45,
+       -116.62,
+       -5.15
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -3.0,
+       -117.0,
+       -6.6
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "feed",
+      "word": "puffed",
+      "offset": 0.0
+     },
+     "amount": 0.15
+    },
+    {
+     "t": {
+      "line": "feed",
+      "word": "dry",
+      "offset": 0.0
+     },
+     "amount": 0.15
+    }
+   ]
+  },
+  {
+   "name": "laps",
+   "duration": 2.35,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "Days later: pairs and singles walking laps away from us down the lit bore, lamps receding.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.6,
+       -116.55,
+       0.4
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.9,
+       -116.75,
+       24.0
+      ]
+     },
+     "lens_mm": 28
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.4,
+       -116.5,
+       3.1
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.9,
+       -116.7,
+       24.0
+      ]
+     },
+     "lens_mm": 28
+    },
+    "ease": "linear"
+   }
+  },
+  {
+   "name": "yoga",
+   "duration": 2.45,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "Yoga on cardboard mats: the leader in front, the group copies; one wobbles and topples.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.7,
+       -116.7,
+       25.3
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.3,
+       -117.05,
+       21.4
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -1.5,
+       -116.78,
+       24.8
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.3,
+       -117.08,
+       21.4
+      ]
+     },
+     "lens_mm": 28
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "airlift_hold",
+   "duration": 2.28,
+   "look": {
+    "base": "day",
+    "time": "08:10",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "sun": {
+     "elevation": 17,
+     "azimuth": 125,
+     "energy": 0.0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "ambient": {
+     "color": "#8a93a3",
+     "energy": 0.07
+    },
+    "sky": {
+     "top": "#4f7fbf",
+     "horizon": "#d8d4cb",
+     "stars": 0,
+     "clouds": 0.0
+    },
+    "fog": {
+     "begin": 250,
+     "end": 9000,
+     "color": "#2a2e33",
+     "volumetric": 0.02,
+     "anisotropy": 0.5,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.6,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.0,
+     "vignette": 0.35
+    }
+   },
+   "note": "Inside the Hercules: the 25-tonne auger rig chained in the hold; the floor flexes; 25 t lands on 'tonne'.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "airlift.plane",
+      "offset": [
+       -1.05,
+       -0.05,
+       -11.3
+      ]
+     },
+     "look_at": {
+      "anchor": "airlift.plane",
+      "offset": [
+       0.15,
+       -0.3,
+       -1.0
+      ]
+     },
+     "lens_mm": 22
+    },
+    "to": {
+     "at": {
+      "anchor": "airlift.plane",
+      "offset": [
+       -0.85,
+       -0.2,
+       -10.4
+      ]
+     },
+     "look_at": {
+      "anchor": "airlift.plane",
+      "offset": [
+       0.15,
+       -0.35,
+       -1.0
+      ]
+     },
+     "lens_mm": 23
+    },
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "airlift",
+      "word": "A",
+      "offset": 0.0
+     },
+     "amount": 0.12
+    },
+    {
+     "t": {
+      "line": "airlift",
+      "word": "twenty-five-tonne",
+      "offset": 0.75
+     },
+     "amount": 0.3
+    }
+   ]
+  },
+  {
+   "name": "airlift_sky",
+   "duration": 1.4,
+   "look": {
+    "base": "day",
+    "time": "08:10",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "sun": {
+     "elevation": 17,
+     "azimuth": 125,
+     "energy": 1.6,
+     "color": "#ffe2b8",
+     "shadows": true
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "ambient": {
+     "color": "#a9bcd6",
+     "energy": 0.55
+    },
+    "sky": {
+     "top": "#4f7fbf",
+     "horizon": "#d8d4cb",
+     "stars": 0,
+     "clouds": 0.0
+    },
+    "fog": {
+     "begin": 250,
+     "end": 9000,
+     "color": "#b4c0cc",
+     "volumetric": 0.0006,
+     "anisotropy": 0.6,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.6,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "grade": {
+     "contrast": 1.08,
+     "saturation": 1.05,
+     "vignette": 0.25
+    }
+   },
+   "note": "Air to air: the grey IAF Hercules, belly sagging, props a blur, dropping into the valley.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "airlift.plane",
+      "offset": [
+       24.0,
+       -6.0,
+       -34.0
+      ]
+     },
+     "look_at": {
+      "anchor": "airlift.plane",
+      "offset": [
+       -0.0,
+       1.5,
+       0.0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "airlift.plane",
+      "offset": [
+       21.0,
+       -5.0,
+       -24.0
+      ]
+     },
+     "look_at": {
+      "anchor": "airlift.plane",
+      "offset": [
+       -0.0,
+       1.5,
+       2.0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "airlift_ramp",
+   "duration": 2.55,
+   "look": {
+    "base": "day",
+    "time": "08:10",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "sun": {
+     "elevation": 17,
+     "azimuth": 125,
+     "energy": 1.6,
+     "color": "#ffe2b8",
+     "shadows": true
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "ambient": {
+     "color": "#a9bcd6",
+     "energy": 0.55
+    },
+    "sky": {
+     "top": "#4f7fbf",
+     "horizon": "#d8d4cb",
+     "stars": 0,
+     "clouds": 0.0
+    },
+    "fog": {
+     "begin": 250,
+     "end": 9000,
+     "color": "#b4c0cc",
+     "volumetric": 0.0006,
+     "anisotropy": 0.6,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.6,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "grade": {
+     "contrast": 1.08,
+     "saturation": 1.05,
+     "vignette": 0.25
+    }
+   },
+   "note": "On the airstrip: it rolls to a halt, nose dips, the ramp drops on 'force' and the rig is there.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       -8.0,
+       1.5,
+       6034.0
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.0,
+       9.0,
+       6022.0
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       -6.5,
+       1.5,
+       6030.0
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.0,
+       2.2,
+       6004.0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "plan_rig",
+   "duration": 1.3,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "The auger rig set up at the rescue face of the rubble, its crew at the controls.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       21.0,
+       3.4,
+       2598.4
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       8.5,
+       0.9,
+       2595.2
+      ]
+     },
+     "lens_mm": 25
+    },
+    "to": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       19.9,
+       3.1,
+       2598.4
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       8.3,
+       0.9,
+       2595.2
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "rig_push",
+   "duration": 2.3,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "Low along the casing: the rams shove, the spinning auger and the pipe bite into the heap.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       10.9,
+       1.55,
+       2599.55
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       6.5,
+       1.25,
+       2597.3
+      ]
+     },
+     "lens_mm": 27
+    },
+    "to": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       10.5,
+       1.45,
+       2599.5
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       6.3,
+       1.25,
+       2597.3
+      ]
+     },
+     "lens_mm": 29
+    },
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "plan",
+      "word": "push",
+      "offset": 0.0
+     },
+     "amount": 0.15
+    },
+    {
+     "t": {
+      "line": "plan",
+      "word": "rubble",
+      "offset": 0.0
+     },
+     "amount": 0.25
+    }
+   ]
+  },
+  {
+   "name": "pipe_crawl",
+   "duration": 2.2,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "From inside a spare 800 mm pipe: a rescuer squeezes in on hands and knees, squashed flat, and grins.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       37.7,
+       0.45,
+       2597.4
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       29.5,
+       0.6,
+       2597.4
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       37.2,
+       0.44,
+       2597.4
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       29.5,
+       0.58,
+       2597.4
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "day9_tally",
+   "duration": 1.55,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "Day nine: the ninth chalk tally on the lining wall.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       3.75,
+       -116.53,
+       2.05
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       4.95,
+       -116.64,
+       0.88
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       3.9,
+       -116.55,
+       1.85
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       4.95,
+       -116.64,
+       0.88
+      ]
+     },
+     "lens_mm": 32
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "narrow_pipe",
+   "duration": 2.15,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "A 6-inch pipe noses out of the rubble with a puff of dust; the men lean in.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.45,
+       -116.25,
+       -13.7
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       1.55,
+       -117.0,
+       -16.4
+      ]
+     },
+     "lens_mm": 27
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       -0.25,
+       -116.4,
+       -14.05
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       1.55,
+       -117.0,
+       -16.4
+      ]
+     },
+     "lens_mm": 29
+    },
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "meal",
+      "word": 7,
+      "offset": 0.0
+     },
+     "amount": 0.15
+    }
+   ]
+  },
+  {
+   "name": "khichdi_cook",
+   "duration": 2.1,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.55
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 40,
+     "end": 8000,
+     "color": "#3a4766",
+     "volumetric": 0.004,
+     "anisotropy": 0.5,
+     "length": 320
+    },
+    "ground_fog": {
+     "density": 0.012,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "Outside at night: low across the blue flame ring and the steaming degchi; the cook stirs under the bulb.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "slope",
+      "offset": [
+       -11.6,
+       1.38,
+       28.85
+      ]
+     },
+     "look_at": {
+      "anchor": "slope",
+      "offset": [
+       -11.0,
+       0.86,
+       27.85
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.2,
+      "focus": 1.2
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "slope",
+      "offset": [
+       -11.48,
+       1.3,
+       28.68
+      ]
+     },
+     "look_at": {
+      "anchor": "slope",
+      "offset": [
+       -11.0,
+       0.86,
+       27.85
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.2,
+      "focus": 1.05
+     }
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "khichdi_pour",
+   "duration": 1.25,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.55
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 40,
+     "end": 8000,
+     "color": "#3a4766",
+     "volumetric": 0.004,
+     "anisotropy": 0.5,
+     "length": 320
+    },
+    "ground_fog": {
+     "density": 0.012,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "Close: a ladle of yellow khichdi slops into the funnel of a plastic bottle.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "slope",
+      "offset": [
+       -12.28,
+       1.2,
+       28.82
+      ]
+     },
+     "look_at": {
+      "anchor": "slope",
+      "offset": [
+       -12.0,
+       1.12,
+       28.15
+      ]
+     },
+     "lens_mm": 34,
+     "dof": {
+      "strength": 0.3,
+      "focus": 0.75
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "slope",
+      "offset": [
+       -12.24,
+       1.17,
+       28.72
+      ]
+     },
+     "look_at": {
+      "anchor": "slope",
+      "offset": [
+       -12.0,
+       1.1,
+       28.15
+      ]
+     },
+     "lens_mm": 36,
+     "dof": {
+      "strength": 0.3,
+      "focus": 0.65
+     }
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "khichdi_bottle",
+   "duration": 2.0,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "Inside, close: the bottle shoots out of the narrow pipe into his hands; he twists the cap off, steam curls up past his face.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.75,
+       -116.58,
+       -14.75
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       1.6,
+       -116.88,
+       -15.62
+      ]
+     },
+     "lens_mm": 34,
+     "dof": {
+      "strength": 0.4,
+      "focus": 1.15
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       0.88,
+       -116.62,
+       -14.92
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       1.6,
+       -116.86,
+       -15.62
+      ]
+     },
+     "lens_mm": 38,
+     "dof": {
+      "strength": 0.4,
+      "focus": 0.95
+     }
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "scope_pipe",
+   "duration": 2.6,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "camera": {
+    "at": {
+     "anchor": "tunnel",
+     "offset": [
+      1.6,
+      -117.0,
+      -30.0
+     ]
+    },
+    "look_at": {
+     "anchor": "tunnel",
+     "offset": [
+      1.6,
+      -117.0,
+      -16.0
+     ]
+    },
+    "lens_mm": 18
+   }
+  },
+  {
+   "name": "scope_faces",
+   "duration": 1.6,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "camera": {
+    "at": {
+     "anchor": "tunnel",
+     "offset": [
+      1.6,
+      -117.0,
+      -16.3
+     ]
+    },
+    "look_at": {
+     "anchor": "tunnel",
+     "offset": [
+      1.6,
+      -116.8,
+      -14.0
+     ]
+    },
+    "lens_mm": 18
+   }
+  },
+  {
+   "name": "tv_watch",
+   "duration": 1.8,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.55
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 40,
+     "end": 8000,
+     "color": "#3a4766",
+     "volumetric": 0.004,
+     "anisotropy": 0.5,
+     "length": 320
+    },
+    "ground_fog": {
+     "density": 0.012,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "slope",
+     "offset": [
+      12.0,
+      1.6,
+      30.0
+     ]
+    },
+    "look_at": {
+     "anchor": "slope",
+     "offset": [
+      12.0,
+      1.2,
+      26.0
+     ]
+    },
+    "lens_mm": 30
+   }
+  }
+ ],
+ "reveals": [
+  {
+   "id": "air_count",
+   "t": {
+    "line": "airlift",
+    "word": "twenty-five-tonne",
+    "offset": -0.02
+   },
+   "until": {
+    "line": "airlift",
+    "word": "is",
+    "offset": 0.0
+   },
+   "at": {
+    "anchor": "airlift.plane",
+    "offset": [
+     -0.0,
+     1.2,
+     -6.6
+    ]
+   },
+   "size": 0.42,
+   "enter": "pop",
+   "counter": {
+    "from": 0,
+    "to": 25,
+    "land": {
+     "line": "airlift",
+     "word": "twenty-five-tonne",
+     "offset": 0.72
+    },
+    "suffix": " TONNES"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "plug_count",
+   "t": {
+    "line": "plug",
+    "word": "Sixty",
+    "offset": -0.8
+   },
+   "until": {
+    "line": "plug",
+    "word": "Sixty",
+    "offset": 0.82
+   },
+   "at": {
+    "anchor": "section",
+    "offset": [
+     -69.43,
+     2.34,
+     2598.7
+    ]
+   },
+   "size": 0.24,
+   "enter": "none",
+   "glow": 0.25,
+   "counter": {
+    "keys": [
+     [
+      {
+       "line": "plug",
+       "word": "Sixty",
+       "offset": -0.8
+      },
+      0
+     ],
+     [
+      {
+       "line": "plug",
+       "word": "Sixty",
+       "offset": -0.025
+      },
+      59
+     ],
+     [
+      {
+       "line": "plug",
+       "word": "Sixty",
+       "offset": 0.0
+      },
+      60
+     ]
+    ],
+    "suffix": " m"
+   }
+  }
+ ]
+}

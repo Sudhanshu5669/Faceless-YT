@@ -1,0 +1,15 @@
+{
+  "id": "toon_pichai",
+  "description": "Sundar Pichai caricature in a blue jacket and glasses.",
+  "tags": ["toon", "human", "jio_story"],
+  "height": 1.46,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "slick", "color": "#25232a"},
+    "outfit": {"style": "suit", "color": "#334865"},
+    "shoes": "#252329",
+    "accessories": ["glasses"],
+    "face": "thinking"
+  }
+}

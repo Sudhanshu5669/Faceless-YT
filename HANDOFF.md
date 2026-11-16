@@ -1,9 +1,370 @@
 # Handoff: where TownForge is, and what to do next
 
-*Last updated 2026-11-13. Read this first in a new session (Claude or Codex), then
+*Last updated 2026-11-15. Read this first in a new session (Claude or Codex), then
 `AGENTS.md`, then `docs/VISION_AND_ROADMAP.md`.*
 
 ## START HERE: current task (for whoever picks this up)
+
+### Silkyara rescue Short: hook APPROVED, beat 4 revised for review (2026-11-15, latest)
+
+**Progress log (newest first; Claude keeps this current so Codex can continue mid-beat):**
+- **`feed_out` approved. `feed_in` round 2** (user: "since in previous shot we showed food coming in jar, show it
+  for this shot as well. dry fruits, puffed rice, all coming in jars"): tunnel gag `_build_jars`/`_pose_jars`, param
+  `jars` {from, until, list: [{t, kind rice|fruit, catcher}]}: a wide outlet on the supply line at the valve; on
+  "puffed" a red-lidded jar of puffed rice shoots out on a blue air puff into `life_mate`'s hands, on "dry" a
+  green-lidded jar of almonds/cashews/raisins into `life_valve`'s; both held up at chest height. The helmet pour
+  (param `feed`) is no longer used. Camera now by the wall beside the outlet, facing the men.
+- **`feed_out` round 4** (user: "the jar does not instantly start moving when oxygen hits it"): the jar's travel
+  was `in_cubic` (zero speed at the hit). It is now an impulse: x = x0 + v0*dt + a*dt^2/2 with v0 = 7 m/s from the
+  hit frame, `a` solved so it still reaches x1 at `jar1`. Checked frames around the hit: it leaves on contact.
+- **`feed_out` round 3** (user: "i want the camera to come with the food and the oxygen fast"): the camera now
+  rides on gag anchor `mountain_section.jar` (just ahead of and beside the jar, looking back), still while the air
+  column arrives, then launched with it on "oxygen"; the jar travels 39 m (`xpipe.x1` = TOE_A + 40) with in_cubic
+  acceleration; pipe clamps every 1.2 m and the rubble face blur past for speed.
+- **`feed_out` round 2** (user: "looks bad. i want it to look like the oxygen is pushing the food"): restaged as
+  cause and effect. Camera low beside the cut-open pipe looking back up it; the jar rests big in frame; a blue
+  air column (additive box + streaks bunched at its front, `_xp_front`) rushes down the pipe and hits the jar's lid
+  on "oxygen" (param `xpipe.hit`, shake 0.3); the jar squashes and is driven out past the camera with the column
+  behind it and a pressure ring at the lid. The blue omni light is off (it washed the rubble blue).
+- **User review round 1 on lines 7-11 (2026-11-15), changes made by Claude, waiting for re-review:**
+  - `feed_out` ("show in a more abstract way that oxygen is travelling through the pipe as blue lines ... a jar of
+    food being passed in through the air pressure"): rebuilt as an x-ray of the supply pipe cut open along the
+    section plane (`mountain_section.gd` `_build_xpipe`/`_pose_xpipe`, param `xpipe`), 240 blue oxygen streaks,
+    a glass jar of puffed rice with a red lid riding them; the camera rides on gag anchor `mountain_section.jar`.
+    The old packet/hose staging is gone from the episode (code left in the gag). `feed_in`'s air blast moved to
+    just before "puffed" so the jar arrives -> blast -> rice.
+  - `plan_rig` ("the right half of the shot is cut"): the camera was seeing past the cutaway's cut plane; it now
+    sits at z -1.4 looking deeper into the bore and above the thrust block.
+  - `day9_tally` ("tally marks in a weird position"): boxes floating off the wall replaced by chalk decals
+    projected onto the lining (`_chalk_texture`), five-gate first then singles, lower and nearer the drawer,
+    who draws the ninth with his left hand.
+  Shots 12-17, 19-20, 22-25 have no verdict yet. Line 12 is still paused (see the next entry).
+- **User back (2026-11-15): reviewing lines 7-11 on the shot-loop board** (`tf shot silkyara_rescue --serve`,
+  joined preview `review/shot_loop/pending_lines7to11.mp4`). **Line 12 paused mid-build, NOT rendered:** "The next
+  day, a camera crawls down the same pipe. For the first time, the world sees their faces." (voiced, 6.16 s).
+  Written but unwired: tunnel gag `_build_scope`/`_pose_scope` (param `scope` {from, t0, t_out, t_stop}: endoscope
+  POV inside a 22 m open interior of the narrow pipe, anchors `collapse.scope` / `collapse.scope_ahead`), role
+  `wave`; exterior gag `_build_tv`/`_pose_tv` (param `tv`: monitor at `TV_AT` whose screen is a SubViewport camera
+  placed at `collapse.scope`). To finish: move the `portal` gag AFTER `collapse` in the gags list (so it can read
+  the scope anchors), add a waving crowd at the pipe mouth (crew role `wave`), families at the monitor (exterior
+  `appear`), real cameras for `scope_pipe` (~3.4 s), `scope_faces` (~1.5 s), `tv_watch` (~2.6 s), then render.
+- **Line 11 built (Claude):** "Day nine. A narrow pipe gets through first, and the first hot meal goes in:
+  khichdi, packed in bottles." (The Week: khichdi in bottles through the new 6-inch pipe on 20 Nov.) Five shots:
+  `day9_tally` (chalk tally on the -X wall, params `tally`, the ninth stroke drawn by `meal_draw`'s hand),
+  `narrow_pipe` (params `narrow`: the 6-inch pipe noses out of the rubble at x -1.6 with dust; a bulb on a pole
+  is the key), `khichdi_cook` + `khichdi_pour` (exterior gag `_build_kitchen` at `KITCHEN` (11, 0, 28): tarp,
+  gas stove, steaming patila, ladle into a funnelled bottle; new character `toon_site_cook`; exterior param
+  `appear` keeps the kitchen crew out of the hook), `khichdi_bottle` (bottle pops out into `meal_catch`'s hands,
+  held up by his face like a trophy, cap off, steam). The line-8 cast and mats leave at `MEAL_START`.
+  Lesson: the toon `crouch` animation turns the body away; a standing catch reads better. Rubble rocks near
+  the toe block low cameras: shoot from above them.
+- **Line 10 built (Claude):** "The plan: push a steel pipe through the rubble, wide enough to crawl through."
+  Cutaway rescue side (`mountain_section.gd`, `_build_rig`/`_pose_rig`): the line-4/7 rescuers and props retire
+  at `PLAN_START` (params `vanish`, `feed_out.until`); `PLAN_CAST` appears. The shared auger rig sits on timber at
+  the rubble toe (`RIG_AT`), carriage + casing + flight drive 2.3 m in (`rig.push0/push1`), debris spits at the bite.
+  A spare 800 mm pipe (`SPARE_A/B`, open tube, work lamp at the mouth): `plan_crawl` sneaks in and the gag squashes
+  him (scale y 0.5) as he enters. Shots `plan_rig` 1.3 / `rig_push` 2.3 / `pipe_crawl` 2.2. The second "through"
+  in the line is referenced by word index (`L10(13)`); `"occurrence": 2` also works.
+- **Line 9 built (Claude):** narration changed to "A twenty-five-tonne auger drill is flown in from Delhi by
+  the air force." (sources agree on IAF C-130J Hercules to Chinyalisaur, 15 Nov 2023, ~25 t; they disagree on
+  two vs three pieces). New gag `gags/airlift.gd` on the new `airstrip` bay, placed `AIR_Z = 6000` m out
+  (helpers `AIR()` for the strip, `PL()` for points riding with the plane via gag anchor `airlift.plane`):
+  valley airstrip by a reservoir, hook conifers, a C-130J lofted from fuselage `STATIONS` (wing, 4 engines with
+  prop blur discs, fin with tricolour flash, IAF roundels, sponsons, hinged ramp, `SKIN_SHADER` sag/droop
+  while loaded), ribbed hold with a work light on the rig. New shared builder `godot/scripts/world/auger_rig.gd`
+  (track, rams, yellow drive unit, casing pipe with spiral flight: nodes `carriage`, `flight`), for lines 10-14.
+  - `airlift_hold` (2.28 s, dim `AIR_HOLD_LOOK`): from the cockpit end along the rig; "25 TONNES" counter lands on
+    "tonne" with a creak and shake. `airlift_sky` (1.4 s): low camera ahead, the plane against the valley.
+    `airlift_ramp` (2.55 s): it passes low over the camera, slams down on "air", rolls, the ramp drops after "force".
+  - Engine change: `godot/scripts/main.gd` re-poses reveals anchored to gag anchors after the gags each frame
+    (reveals were placed before gags, so "airlift.plane" never resolved). Documented in REVEALS_SPEC. Tests pass.
+- **Line 8 built (Claude):** "To stay sane, they walk the tunnel and do yoga." Story time jumps: every hook
+  crew member (and the line 6/7 cast) has `until` = `SANE_START`, so the 41 vanish from the post-collapse
+  rows; their props hide with them. `full_power` (param) brings the trapped-side lamps back to full.
+  - `laps` (2.35 s): `LAP_CAST`, pairs and singles walking away down the lit bore; camera follows at walking pace.
+  - `yoga` (2.45 s): `YOGA_CAST`/`YOGA_CREW` on cardboard mats (param `mats`), role `yoga`: arms straight out
+    (warrior; arms raised over the head were hidden behind the toon heads), two in tree pose (foot IK to the
+    other knee), `yoga_3` wobbles and topples onto his mat ("dead" X eyes, thud), the others laugh.
+- **User away (2026-11-15): "keep working and making videos till i come back ... keep up the high quality
+  cinematic work for each shot".** Claude keeps building line by line; every new shot waits for the
+  user's review in the shot loop. Lines 6 approved ("approved. go on. you're doing a much better work").
+- **Line 7 built (Claude):** "Through it come oxygen, puffed rice and dry fruit."
+  - `feed_out` (1.35 s, cutaway rescue side, `mountain_section.gd` `_build_feed_out`): `feed_push` (hidden
+    before the scene via param `appear`) rams a clear packet of puffed rice (visible grains) into the pipe's
+    open end; the engineer `sec_eng` seats the brass coupling of the yellow compressor hose on it just
+    before the cut on "oxygen".
+  - `feed_in` (3.35 s, tunnel, `tunnel_collapse.gd` `_pose_feed`): the valve was shut off-screen (`valve.close`),
+    `life_valve` stepped back, `life_mate` walked over and crouches holding his own hard hat upside down
+    (the toon's `hardhat` node is hidden and a duplicate is held, hand IK). "oxygen": a soft blast of grit and
+    air, shake 0.2; "puffed rice": 260 grains arc into the helmet (14 % spill); "dry fruit": almonds, cashews,
+    raisins on top; faces star_eyes -> laugh -> love.
+  - Final renders, framing clean, tests pass. Preview `review/shot_loop/lines6to7_preview.mp4`.
+- **Line 6 rebuilt by Claude (2026-11-15, latest):** the user said Codex's shots were not cinematic
+  enough. Lines 4 and 5 (`plug_*`, `tunnel_space`) are approved. Line 6 "The lights still work. And so
+  does one pipe." was restaged inside the hook's own tunnel (`gags/tunnel_collapse.gd`), not the cutaway:
+  - `lifeline_lights` (1.85 s): `life_lamp` inspects the rubble with his headlamp glaring into the lens,
+    reaches to the side of his helmet and clicks it off on "lights" (crew `lamp_off`, role `lamp_click`);
+    lit by the bore's lamps he goes surprised -> happy. It does NOT switch the tunnel lamps on: they came
+    back in the approved `alive` shot, so a breaker gag would contradict it.
+  - `lifeline_pipe` (2.4 s): the water main on the +X wall (the construction water line that kept working:
+    AP / BBC via The Week) has a gate valve at `VALVE_Z = -6.4` on a branch dropped to hip height.
+    `life_valve` grips the red handwheel (role `valve`, hand IK on the rim), spins it a turn and a
+    quarter, water bursts out on "pipe" (tearing jet shader, spray, wet film), he turns to camera laughing;
+    `life_mate` jumps behind. Not used: an "answering knock" through the pipe (contact was by
+    walkie-talkie / a note, so that would be invented).
+  - New tunnel gag features: crew `from` (hidden before a scene time, so line-6 actors never appear in the
+    approved hook), `lamp_off`, roles `lamp_click` and `valve`, param `valve` {z, open}; `LAMPS` pool 20.
+    The spoil heap sits at (3.25, -9.5): keep cameras and props clear of it.
+  - Rendered final; framing clean; `tf test` passes. Joined preview of lines 4-6:
+    `review/shot_loop/lines4to6_preview.mp4`. **Waiting for the user's verdicts on `lifeline_lights` and
+    `lifeline_pipe`.** Next: line 7 "Through it come oxygen, puffed rice and dry fruit." (same valve/pipe:
+    rescuers outside push packets in; inside they shoot out of the pipe into hands).
+- **Terra handoff (2026-11-15, current):** The user asked to stop this pass and continue in GPT-6.1
+  Terra. Fable's five approved hook shots are the quality reference for the episode. The user
+  specifically said “use same models and same animation techniques, lighting etc” and wants the
+  environment to look as realistic in future shots as it does in the hook. Review the approved
+  `00_mountain.mp4`, `01_work.mp4`, `03_collapse.mp4` and `04_alive.mp4` in the shot loop alongside
+  each new render. Reuse the existing toon worker rigs and actions, hand IK for props, textured wet
+  roadway, stained concrete and steel ribs, practical lamps and motivated movement from the hook.
+  Keep hands and held objects readable at phone size. Check the motion in rendered footage around
+  release and contact as well as the framing report.
+  **Current review state:** The user judged the first `plug_throw` and `plug_catch` previews weak.
+  They asked for cinematic, realistic restaging. The revised clips are ready in
+  `episodes/silkyara_rescue/review/shot_loop/` as `05_plug_throw.mp4`, `06_plug_catch.mp4` and
+  `07_plug_wide.mp4`. Their previous versions are archived by the shot loop. The user has yet to
+  see or approve these revisions. The wide shot was refreshed for material and lighting continuity.
+  All five hook verdicts remain approved. There is no verdict for the wide shot. No commit was made.
+  **What changed:** the hero cameras moved to worker height. The engineer uses the existing throw
+  animation and left-hand IK for the reel. The hook now spends 0.26 s in its final approach before
+  the catcher takes it on “Sixty”; the hand recoils and the 60 m counter lands on the same word.
+  The close-up tape uses low emission and the wide shot brightens it as a measurement guide.
+  `godot/scripts/world/silkyara_tunnel_finish.gd` shares the hook's concrete and wet-road shaders
+  and rib mesh between `tunnel_collapse.gd` and `mountain_section.gd`. Lighting reuses the hook's
+  tunnel look, sodium fixtures and rescue-side cool floodlighting. The approved hook clips were
+  used as references, and the hook was not rerendered after extracting the shared finish.
+  **Verified:** `python pipeline/tf.py shot silkyara_rescue plug_throw,plug_catch,plug_wide --final`
+  succeeded at 1080×1920, 30 fps with two motion blur samples per frame. Framing reported zero issues.
+  `python pipeline/tf.py test` passed (42 Godot + 20 Python). Frame review shows some double edges
+  on the fastest part of the throw with two samples. Check that in playback first if doing another
+  polish pass. The tape throw is an illustrative device for the measurement.
+  **Next:** Review the revised line 4 clips with the user and address their verdicts in the shot
+  loop. Then build line 5, “Behind it: two kilometres of finished tunnel, eight and a half metres
+  high.” Use the approved inside-the-bore hook as the reference for the headlamp sweep up to the
+  crown and the receding lamps that establish distance. Line 5 has not been built.
+- **Beat 4 review renders ready (2026-11-15):** `plug_throw`, `plug_catch`, and `plug_wide` are
+  rendered at 1080×1920 and 30 fps in `episodes/silkyara_rescue/review/shot_loop/` (05–07).
+  All three framing checks passed and the rendered frames were inspected at 0.2 s intervals.
+  The cutaway gag id is now `mountain_section`, distinct from the `section` bay anchor. The engineer
+  launches the tape into fractured rubble, the trapped worker catches it with his near hand as
+  the counter and ding land on “Sixty”, and the wide track ends at the lit portal and its red dumper.
+  The count appears once, in the catch. The separate wide-shot label was removed because it tracked
+  offscreen. All five hook approvals are recorded. The three beat 4 shots await the user's verdicts.
+  **Next:** record the user's verdicts, then build beat 5 using the worker's headlamp to reveal the
+  crown and draw out the length of the finished bore (see `beats.md`).
+  The user specifically wants Fable's approved hook to set the environmental quality bar for future
+  shots. Use its practical work lights, concrete lining and site detail as visual references.
+- **Beat 4 state (stopped here, usage limit, 2026-11-15):** code is written but NOT rendered or seen yet.
+  `gags/mountain_section.gd` (cutaway: cut face, plug, back half of the bore, lamps, pines on top, tape
+  + hook + reel), bay `section` added to `specs/sets/silkyara.json`, and in `make_episode.py`: `X()`,
+  `SIXTY()`, `SECTION_CAST` (engineer `sec_eng`, catcher `sec_catch`, 3 rescuers, 6 trapped),
+  `SECTION_LOOK`, line `plug` (voiced with Qwen, 4.0 s, starts 0.85 s into `plug_catch`), shots
+  `plug_throw` 0.95 s / `plug_catch` 1.75 s / `plug_wide` 3.6 s, reveals `plug_count` (0->60 m landing on
+  "Sixty") and `plug_span` ("60 m" text over the plug from "rock"), sfx (whoosh, tick run, click).
+  **Next:** `python pipeline/tf.py shot silkyara_rescue plug_throw,plug_catch,plug_wide`, look at frames
+  every 0.2 s. Expect to tune: the throw cue timing (`T_THROW - 0.42` vs the OverhandThrow release), the
+  cameras (lens/framing in 9:16, especially the `plug_wide` track: it must end on the portal glow), the
+  counter position, and whether the script compiles (traps listed below). Then show the user the three
+  shots for verdicts (rule 1). `tf voice` prints a SoX warning; it is harmless (Qwen still renders).
+- All five hook shots approved by the user ("i love the five hook shots"); verdicts recorded with
+  `tf shot silkyara_rescue <name> --decide approved`. The user said "lets make the video further".
+- Script fixes in `episodes/silkyara_rescue/beats.md`: line 18 now says the 2014 ban was on rat-hole
+  coal mining in Meghalaya; line 19 dropped "three at a time, two-hour shifts" (single source). Line 9
+  ("flown in from Delhi, in three pieces") stays as written; the narration does not name the air force.
+- Assets imported 2026-11-15 (user approved the download): `quaternius_nature_mega` (Stylized Nature
+  MegaKit Standard, CC0: Pine_1-5, rocks, ferns, grass) and `majadroid_construction` (3D House
+  Construction Site, CC0: dumper/concrete/small trucks, office containers, crane, fence, materials).
+  Both are in `pipeline/asset_packs.json`; `tf assets import` rebuilds them from `incoming/`.
+- **Beat 4 in progress**: "Sixty metres of rock now stand between them and the way out."
+  Gag: a cutaway (section) of the mountain along the bore. An engineer on the rescue side flings the
+  hook of a surveyor's tape; it zips 60 m along the gap under the crown over the rubble; a trapped
+  worker catches it on "Sixty" and a counter lands on 60 m; then a lateral track from the trapped
+  men's lamps across the plug to the portal ("between them and the way out"). Three shots:
+  `plug_throw` (~0.9 s, no narration yet), `plug_catch` (line starts here, catch on "Sixty"),
+  `plug_wide`. New bay `section` in `specs/sets/silkyara.json`; gag `gags/mountain_section.gd`
+  (placed 2600 m in front of its anchor so the exterior terrain never intersects it). The same
+  section set is meant for beats 10, 13, 15 and 20 (the pipe pushing through the heap).
+  Status is in the bullets above this one as they are added.
+
+### Silkyara rescue Short: hook rebuilt, history (2026-11-15)
+
+**The task.** A Short about the 2023 Silkyara tunnel collapse ("41 Workers Trapped Inside a Mountain").
+Only the hook exists. The user rejected Codex's first tunnel shot (41 identical idle workers, flat
+light, one static camera) in these words: "it just added the numbers but it didn't feel busy",
+"their models looked bad", "make the shot look more alive when suddenly the wall collapses, I want
+it to look cinematic... it can be multiple shots... it is the hook", and later "we also need to make
+it look realistic". Read that as: **realistic place, toon actors** (same direction as the Mumbai
+lunch Short), people doing distinct jobs, a hook cut into several short shots.
+
+**What exists now** (10.9 s, final quality, all five clips rendered):
+
+| Shot | Scene time | What happens |
+|---|---|---|
+| `mountain` | 0.00-2.50 | Rebuilt 2026-11-15 (session 2): a drone crane down a forested Garhwal valley, off a snow range, to the floodlit portal; ends at walker height behind a worker heading in. |
+| `work` | 2.50-4.75 | Push down a working bore: barrow crossing the foreground, scaffold crew welding a rib, pipe carriers, diggers, the tipper crawling in. |
+| `chai` | 4.75-6.05 | Tea break on the pipe stack. Grit patters on a helmet, the lamps dip, he looks up. |
+| `collapse` | 6.05-8.10 | Long lens up the bore: the crown fails toward the crew (lining panels, ribs, the duct, rock), cables arc, lamps die, the crew runs at the lens, the dust wall takes the frame. |
+| `alive` | `skip` 13 s, 2.76 s | Headlamps in the hanging dust; the power stutters back on the word "alive". |
+
+The script so far is three lines (narration: local Qwen, voice Aiden, cached per line):
+"Before dawn in Uttarakhand." / "Forty-one workers are deep inside the Silkyara tunnel when part of
+it collapses." / "They're alive." The user allowed Qwen for new or changed lines.
+**Script draft v1 (2026-11-15): `episodes/silkyara_rescue/beats.md`**: 26 beats, about 2:10. It runs
+from sealed in (60 m plug, 2 km of tunnel with lights and water, the supply pipe) through the machines
+(auger, khichdi on day 9, the first video, 47 m, the blades snap on day 13, vertical drilling) and the
+rat-hole miners (12 men, 12 m by hand, the breakthrough on day 17, 41 stretchers and 41 ambulances) to
+the twist: the DDA demolishes Vakeel Hasan's house on 28 Feb 2024. Every fact is sourced in the file,
+and three lines are marked CHECK. **It waits for the user's edits.** Don't record or build beats 4+ until
+they approve it, and get the hook verdicts first.
+
+**State of approval.** No shot has a verdict (`python pipeline/tf.py shot silkyara_rescue --status`).
+Clips: `episodes/silkyara_rescue/review/shot_loop/00_mountain.mp4` … `04_alive.mp4`, joined as
+`hook_preview.mp4` in the same folder (the joined file is made by hand with ffmpeg concat; re-make it
+after re-rendering). Browser loop: `python pipeline/tf.py shot silkyara_rescue --serve`. Get a verdict
+per shot before building further (standing rule 1). **Nothing is committed**: the Silkyara files are
+untracked, next to Codex's uncommitted Mumbai lunch / Jio / Qwen work in the same tree. Commit only
+when the user asks. `tf test` passed (42 Godot + 20 Python) after the toon changes.
+
+**Files.**
+- `episodes/silkyara_rescue/make_episode.py` writes `episode.json`. **Edit the .py, then run
+  `python episodes/silkyara_rescue/make_episode.py`.** It holds the crew table (41 rows: id, character,
+  place, facing, action, extras), the looks (`TUNNEL`, `DARK`), cameras, sound, and the timing helpers
+  `T(offset)` (seconds from the roof letting go = word "collapses" - 0.05) and `A(offset)` (from the
+  word "alive").
+- `episodes/silkyara_rescue/gags/tunnel_collapse.gd` (about 1,400 lines) is the whole tunnel and
+  everything in it. Sections: the bore (`_shell`, shaders), services (ribs, duct, mains), light
+  (`_wall_light`, tower, crown stand light), the site (scaffold, pipe stack, spoil, stores), the tipper,
+  what the crew holds, the fall (panels, heap, rock, dust, billows, sparks, grit), then `pose` and its
+  parts. Params: `impact`, `alive`, `crew`, `trickles`.
+- `episodes/silkyara_rescue/gags/silkyara_exterior.gd` (rebuilt this session: valley, portal, yard, fire drum, dumper, forest, snow range, mist) and `specs/sets/silkyara.json` (Codex's set)
+- `godot/scripts/actors/toon.gd`: new hair style `hardhat` (+ `"lamp": true`) and outfit `hivis`
+  (docs/TOON_SPEC.md). Characters `library/characters/toon_tunnel_{worker,worker_lime,worker_blue,worker_red,engineer,digger}.json`.
+- `output/silkyara_backup/`: Codex's original `episode.json` and gag. `output/silkyara_cast_test.json`:
+  a line-up of the six worker characters (`python pipeline/tf.py preview-set output/silkyara_cast_test.json --out output/previews/silkyara_cast`).
+
+**How the scene is set up (read before changing it).**
+- Everything in the tunnel uses the gag's own frame: x across the bore (+x is screen right when looking
+  toward the portal), y up from the floor, z along the bore. **-z is the way out.** The crew works
+  z = -14..+10, the collapse plugs z = -36..-20 (`CZ0`, `CZ1`), the rubble toe is `PLUG_TOE` = -16.5.
+  In `make_episode.py`, `P(x, y, z)` converts to the stage anchor (it negates x and subtracts 118).
+- The tunnel bay sits 118 m under its stage anchor, so **the gag sets every crew actor's height each
+  frame** (`crew[id].y`: 0, the scaffold deck 3.225, the mid deck, the pipe-stack seat). An actor
+  missing from `params.crew` floats at y = 0, far above the tunnel. Actor anchors are computed before
+  the gag runs, so **cameras must use `P(...)` points**, not `<actor>.head`. A crew member with
+  `"hero": "name"` gets a gag anchor `collapse.name` at their head if a camera needs to follow one.
+- One route per actor. People who walk before the collapse arrive just before the warning, then duck
+  in place (cue `crouch` + the gag's hands-over-head, `cower`). Everyone else stands at a job and runs
+  on a route that starts at the impact, to a slot from `SLOTS` (assigned in `build_crew`). Runners
+  arrive after the shot ends on purpose, so nobody stops in frame. The dust is the cover for the rest.
+- Roles with props and hand IK live in `_pose_crew`: `barrow`, `pipe_a` (+ `mate`), `chai`, `engineer`,
+  `welder`, `sprayer`, `bag`, `signal`, `point`. Adding a role means a prop in `_build_crew_props` and a
+  branch in `_pose_crew`.
+- The collapse is a pure function of `dt = t - impact`. The failure runs up the bore toward the crew
+  for 0.85 s (panels release far to near), then the dust surges down it: `_front(dt)` is the dust face,
+  `_reach(z)` when it gets to a point, `_power(z, t, ...)` how bright a lamp at z burns (warning dip at
+  -0.8 s, stutter at the impact, death 0.3 s after the dust reaches it, everything dark by 1.95 s, a weak
+  return after `alive` for lamps beyond `CZ1 + 9`). Dust density hangs and thins over about 15 s, which
+  is why `alive` uses `"skip": 13`.
+- Timeline: the three cuts inside the one narration line are **fixed durations** read off the word
+  times (`python pipeline/tf.py voice silkyara_rescue`). If that line is re-recorded or rewritten,
+  re-time `work`, `chai` and `collapse`.
+
+**How to iterate (fast).** `python pipeline/tf.py shot silkyara_rescue work,chai,collapse,alive`
+renders all four at 1080x1920 in about 15 s (`--final`: 60 fps + motion blur, about 30 s). Then look
+at frames, not just the strip: `ffmpeg -ss <t> -i review/shot_loop/03_collapse.mp4 -frames:v 1 -vf scale=540:-1 out.png`
+at several times, and Read them. The collapse needs samples every 0.2-0.3 s to judge.
+`python pipeline/tf.py storyboard silkyara_rescue` gives start/mid/end of every shot.
+
+**Decisions already made, and why (don't undo by accident).**
+- The collapse is filmed on a 31-34 mm lens from z = +1.6..+4.2. From the wide camera the fall was 35 m
+  away and invisible.
+- The tipper parks on the +x side (it crawls in during `work` and stops 1.1 s before the impact). In
+  the centre lane it hid the whole fall.
+- The rock cavity behind the falling lining is a shell **outside** the bore (`_shell(..., hollow=true)`).
+  A box there blocked the view down the tunnel.
+- No daylight glow at the far end: it read as a screen, and it is before dawn.
+- Lamps stay lit for 0.3 s inside the dust so the dust wall is lit as it comes; otherwise it is a
+  black wall nobody can see.
+- Billows (`_puffs`, opaque lumpy spheres) give the dust a face; the `FogVolume` alone was only a fade.
+  They pour down from the hole at 60 % size instead of growing from a bead (that looked like bubbles).
+- Power facts: reports say electricity and the water pipe survived in the trapped section, which is why
+  the lamps come back on "alive". Verify before stating it in narration.
+
+**Known weak points, in the order I would fix them.**
+1. `mountain` (rebuilt, `gags/silkyara_exterior.gd`): near forest = Quaternius Stylized Nature MegaKit pines
+   (CC0, pack `quaternius_nature_mega`), far forest = the procedural conifer. The dumper here and in the
+   tunnel is `majadroid_construction/Trucks#Dumper Truck Red` (CC0, Majadroid, imported 2026-11-15; its
+   wheels don't turn). The cut face above the portal is a smooth lit blob. Exterior frame: portal faces +z,
+   `S(x, y, z)` in make_episode.py; `_height()` is the terrain (the raise over the bore stops 25-60 m back;
+   an unbounded raise made a 1.6 km fin that looked like a light column in the sky).
+2. The fall is dust-led: individual lining panels read for about half a second. Closer or slower
+   panels, or a second angle on the crown, would sell it more.
+3. (done) The tipper is now the Majadroid model in both the exterior and the tunnel.
+4. `alive`: from the high camera the nearest workers show helmet tops more than faces; the crowd is
+   still a loose grid.
+5. Sound was placed by measurement, not by ear: grit ticks, `creak`, two layers of `audio/rockfall.wav`
+   (its attack is 0.5 s into the file), `rip`, thuds, a `whoosh`, coughs. There is no welding, engine or
+   site ambience beyond `audio/underground.wav`. `audio/` has no SOURCES.md for Codex's four recordings:
+   ask the user or Codex where they came from before publishing.
+6. With motion blur, an instant action switch (cue `crouch`, a route starting) ghosts for one frame.
+7. The invert (floor) shader still shows faint facets in raking light.
+
+**Traps hit in this session.**
+- Gag scripts are compiled at load: GDScript has no `step()`, `floor()` returns Variant (use `floorf`),
+  and locals named after built-ins (`len`, `floor`, `load`, `step`) break things. A compile error shows
+  as "script does not compile (error 43)"; the real message is a few lines above it in the output.
+- `Basis.looking_at(d)` points **-Z** at d. Spot lights shine along -Z, so that is right for lights and
+  wrong for anything modelled along +Z.
+- Shader source is assembled with `.replace("//NOISE", NOISE_GLSL)`, not `%` formatting.
+- In Git Bash on this machine, long `python - <<'PY'` heredocs with triple-quoted strings fail with
+  "unexpected EOF". Write the patch script to a file and run it.
+- Don't `cd` into subfolders in the shell and then use relative paths; the working directory sticks.
+
+### Mumbai lunch Short (2026-11-14)
+
+The user chose **How Mumbai Delivers Your Lunch by Train** with calm camera motion,
+realistic Mumbai environments, toon actors, and recorded sound effects. The eight-shot
+script and plan are in `episodes/mumbai_lunch/beats.md`. The first shot is the kitchen.
+Review `episodes/mumbai_lunch/review/shot_loop/00_kitchen.mp4` and wait for the user's
+verdict before building the Dadar lane shot. The shot uses an audition take from local
+Qwen Aiden and Nightflame's recorded metal clasp. Further field recordings are in
+`output/mumbai_lunch/sfx/` with sources in `episodes/mumbai_lunch/audio/SOURCES.md`.
+Godot 4.7.2 reported Vulkan ray-tracing pipeline support on the RTX 4050. The review
+clip uses Forward+ lighting, ambient occlusion and a reflection probe.
+
+### Local Qwen narration for the UPI Short (2026-11-14, installed and verified)
+
+The user liked **What If UPI Went Down for 10 Minutes?** and asked for local TTS with acting
+directions so rewriting one line during animation does not spend another Gemini request.
+The integration is in the working tree. Set `narration.model` to `qwen3-tts-1.7b-customvoice`,
+use `Ryan` or another Qwen speaker, and set `style` on individual lines as needed. Qwen caches each
+line separately, loads the model once for missing takes, and uses the existing CTC timing and captions.
+The official Qwen runtime is isolated in `pipeline/qwen_tts_local.py` and `.venv/qwen-tts/`.
+This setup uses BF16 and PyTorch SDPA on CUDA.
+
+- Both model files under `models/qwen3-tts/1.7b-customvoice/` and the CUDA PyTorch wheel passed
+  SHA-256 verification. Qwen 0.1.1, PyTorch and torchaudio 2.8.0+cu128 are installed in
+  `.venv/qwen-tts/`. `pip check` passed and PyTorch detected the RTX 4050. New-machine setup is in
+  `docs/AUDIO_SPEC.md`.
+- `python pipeline/tf.py voice output/upi_voice_audition.json` generated both takes on the GPU and
+  aligned all 20 words. The combined listening sample is `output/upi_voice_audition.wav` (10.19 s).
+  Changing only the coin line in `output/upi_voice_audition_rewrite.json` generated one new take and
+  kept the setup WAV's path and modification time. The user's listening verdict is the next step.
+- Qwen printed optional SoX and FlashAttention warnings during the successful run. The Windows worker
+  publishes finished takes by rename because the sandbox denied hard-link creation.
+- `tf test` passed 42 Godot and 20 Python tests, including the one-line cache regression. In the
+  Codex Windows sandbox, set `TEMP` and `TMP` to a directory under `output/` for this command
+  to avoid the sandbox temp volume's `os.replace` error. `tf voice jio_story` also resolved all 31 shots
+  from the existing take. No commit was made.
 
 **2026-11-12, latest: the Jio rebuild is on the user's edited v2 script.**
 THE SCRIPT IS DONE: `episodes/jio_story/script_v2.html` (read it) and `episodes/jio_story/script_v2.json`
@@ -17,7 +378,25 @@ and the fact sources are also in `episodes/jio_story/script.md`.)
 references removed. The new single take is recorded and aligned (124.6 s). Keep the complete v2
 narration script and voice settings so later renders reuse that take.
 
-**Shots 1-19 are approved (beat_19 on 2026-11-13). Next: build beat_20.**
+**All 31 shots are approved. The final 60 fps render is complete.**
+Final video: `episodes/jio_story/renders/jio_story.mp4` (1080 × 1920, 60 fps, 2:10.74,
+with narration, effects, music and burned-in captions). All 31 shot files were rendered fresh
+and the complete MP4 passed video and audio decoding.
+Beat 23 now uses a truck-mounted JioPhone launcher with three bursts that pile handsets around the crowd.
+Beat 27 now uses a timed turn and sit, with Mukesh's seated pose anchored to the rising chair.
+The user asked to continue making shots while away and to leave each verdict for their return.
+The review clips are in `episodes/jio_story/review/shot_loop/`, indexed from
+`22_beat_23.mp4` through `30_beat_31.mp4`.
+Beat 22 takes place in the new `trai_office` bay. In `gags/trai_complaint.gd`, the three rivals
+run to the regulator, file a tariff complaint and cry into buckets. Mukesh hands over a ringing
+phone, Vodafone drops it, and the camera follows it to the floor as the screen reads “CALL DROPPED.”
+Review `review/shot_loop/21_beat_22.mp4`.
+Beat 21 cuts inside the same branch to the `jio_activation` bay. In `gags/activation_gate.gd`,
+a shop clock spins through the milestone, then ticks once per second as two groups of seven
+customers jog through a ratcheting turnstile. Review `review/shot_loop/20_beat_21.mp4`.
+Beat 20 uses the new `jio_store` bay and `gags/sim_queue.gd`: a clerk hands a Jio SIM to the
+first customer on “join,” the camera pulls back as the queue steps around the corner, and the
+counters land on “million” and “26.” Review `review/shot_loop/19_beat_20.mp4`.
 Beat 19 (launch) uses the new `jio_launch` bay (dark auditorium) and `gags/jio_launch.gd`: the date
 on the LED screen, Mukesh slams a launch button on "launch" (screen flashes to the Jio disc, crowd
 throws its arms up, `cheer` sfx), flings three handfuls of Jio SIM cards into the crowd/at the lens on
@@ -25,7 +404,7 @@ throws its arms up, `cheer` sfx), flings three handfuls of Jio SIM cards into th
 (calls), a Jio 4G recharge voucher (data) and an app-filled phone (apps). Crowd = `LAUNCH_FANS` in
 `make_episode.py`. The Jio logo is a text recreation (white "Jio" on a blue disc), no logo file yet.
 New one-shot sound: `cheer` (pipeline/sfx.py). Review `review/shot_loop/18_beat_19.mp4` or
-`tf shot jio_story --serve`. Beats 20-31 have placeholder cameras.
+`tf shot jio_story --serve`.
 The user asked to carry the watchtower shot's realism into the other shots. Use it as the
 reference for depth in the set, lighting that fits the place, and continuous, grounded motion.
 Follow AGENTS.md "standing rules" (incl. rule 10: no generic labelled cubes) and docs/MOTION_SPEC.md.

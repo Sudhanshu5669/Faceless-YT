@@ -1,0 +1,27 @@
+{
+  "id": "toon_tunnel_worker_red",
+  "description": "Tunnel worker: red hard hat with headlamp, lime hi-vis vest, heavy build.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.66,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#d9442e",
+      "lamp": true
+    },
+    "outfit": {
+      "style": "hivis",
+      "color": "#c8dc2c",
+      "accent": "#2a3550"
+    },
+    "shoes": "#2c2a28",
+    "face": "happy",
+    "girth": 1.25
+  }
+}

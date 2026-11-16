@@ -39,10 +39,10 @@ const INK := Color("0a0a0c")
 const SHORTEN := ["calf_l", "foot_l", "calf_r", "foot_r"]
 
 const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth", "mustache"]
-const HAIR_KEYS := ["style", "color"]
+const HAIR_KEYS := ["style", "color", "lamp"]
 const OUTFIT_KEYS := ["style", "color", "chain", "tie", "accent"]
-const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald"]
-const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt"]
+const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat"]
+const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt", "hivis"]
 const ACCESSORIES := ["glasses", "round_glasses", "sunglasses", "smart_glasses"]
 const EYES := ["lazy", "dot", "wide", "happy", "closed", "x", "star", "heart", "sleepy", "none"]
 const MOUTHS := ["smirk", "smile", "flat", "frown", "open", "grin", "laugh", "wavy", "o", "none"]
@@ -331,6 +331,9 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 	var style := String(h.get("style", "bowl"))
 	if style == "bald":
 		return
+	if style == "hardhat":
+		_hardhat(head, h, hr)
+		return
 	var col := Color(String(h.get("color", "#5a3a22")))
 	var hl: Array = HAIRLINES[style]
 	var shell := MeshInstance3D.new()
@@ -401,6 +404,83 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 			bun.material_override = _mat(col, OUTLINE * 0.7)
 			bun.position = Vector3(0, hr * 0.8, -hr * 0.75)
 			head.add_child(bun)
+
+
+## A site hard hat: ribbed dome tilted back a little, a brim all round, a front peak and
+## (with "lamp": true) a strapped headlamp whose lens is the node "lamp_lens" (its own emissive
+## material, so a gag can switch one worker's lamp).
+static func _hardhat(head: Node3D, h: Dictionary, hr: float) -> void:
+	var col := Color(String(h.get("color", "#f2c230")))
+	var shell := _mat(col, OUTLINE * 0.8)
+	var hat := Node3D.new()
+	hat.name = "hardhat"
+	hat.rotation_degrees = Vector3(-7, 0, 0)
+	head.add_child(hat)
+	var rim_deg := 62.0
+	var r := hr * 1.08
+	var tall := 1.12
+	var rim_y := cos(deg_to_rad(rim_deg)) * r * tall
+	var rim_r := sin(deg_to_rad(rim_deg)) * r
+	var dome := MeshInstance3D.new()
+	dome.mesh = _cap(rim_deg, rim_deg, rim_deg, r, 0.0)
+	dome.material_override = shell
+	dome.scale = Vector3(1, tall, 1)
+	hat.add_child(dome)
+	var brim := MeshInstance3D.new()
+	brim.mesh = _sphere(1.0, 32, 8)
+	brim.material_override = shell
+	brim.transform = Transform3D(Basis.IDENTITY.scaled(Vector3(rim_r * 1.14, hr * 0.055, rim_r * 1.14)), Vector3(0, rim_y, 0))
+	hat.add_child(brim)
+	var peak := MeshInstance3D.new()
+	peak.mesh = _sphere(1.0, 24, 8)
+	peak.material_override = shell
+	peak.transform = Transform3D(_cols(Basis.from_euler(Vector3(deg_to_rad(9), 0, 0)), Vector3(rim_r * 0.74, hr * 0.05, rim_r * 0.56)),
+		Vector3(0, rim_y - hr * 0.02, rim_r * 0.84))
+	hat.add_child(peak)
+	# Three raised ribs over the crown, front to back.
+	for x in [-0.36, 0.0, 0.36]:
+		var rib := MeshInstance3D.new()
+		rib.mesh = _half_sphere()
+		rib.material_override = _mat(col.lightened(0.12), OUTLINE * 0.35)
+		var off: float = x * r
+		var run := sqrt(maxf(rim_r * rim_r - off * off, 0.0001))
+		var rise := (sqrt(r * r - off * off) - r * cos(deg_to_rad(rim_deg))) * tall
+		rib.transform = Transform3D(Basis.IDENTITY.scaled(Vector3(hr * (0.075 if x == 0.0 else 0.055), rise + hr * 0.035, run * 0.99)),
+			Vector3(off, rim_y, 0))
+		hat.add_child(rib)
+	if not bool(h.get("lamp", false)):
+		return
+	var strap := MeshInstance3D.new()
+	strap.mesh = _cap(rim_deg, rim_deg, rim_deg, r * 1.025, 11.0)
+	strap.material_override = _mat(Color("1d1f24"), 0.0)
+	strap.scale = Vector3(1, tall, 1)
+	hat.add_child(strap)
+	var a := deg_to_rad(rim_deg - 9.0)
+	var at := Vector3(0, cos(a) * r * tall, sin(a) * r * 1.03)
+	var aim := Basis.looking_at(Vector3(0, -0.12, 1.0), Vector3.UP)   # -Z of this basis: out of the forehead, a touch down
+	var body := MeshInstance3D.new()
+	var bm := BoxMesh.new()
+	bm.size = Vector3(hr * 0.34, hr * 0.24, hr * 0.2)
+	body.mesh = bm
+	body.material_override = _mat(Color("26282e"), OUTLINE * 0.4)
+	body.transform = Transform3D(aim, at)
+	hat.add_child(body)
+	var lens := MeshInstance3D.new()
+	lens.name = "lamp_lens"
+	var lm := CylinderMesh.new()
+	lm.top_radius = hr * 0.095
+	lm.bottom_radius = hr * 0.095
+	lm.height = hr * 0.05
+	lm.radial_segments = 16
+	lens.mesh = lm
+	var glow := StandardMaterial3D.new()
+	glow.albedo_color = Color("fff6dc")
+	glow.emission_enabled = true
+	glow.emission = Color("fff0c4")
+	glow.emission_energy_multiplier = 3.5
+	lens.material_override = glow
+	lens.transform = Transform3D(aim * Basis.from_euler(Vector3(PI / 2, 0, 0)), at + aim * Vector3(0, 0, -hr * 0.1))
+	hat.add_child(lens)
 
 
 static func _accessory(head: Node3D, a: String, hr: float) -> void:
@@ -525,6 +605,79 @@ static func _outfit(torso: Node3D, o: Dictionary, style: String, col: Color, rb:
 			_surface_line(torso, [Vector2(0.0, 0.68), Vector2(0.0, 0.08)], rb, rt, bh, 0.005, Color("9aa3ad"))
 			if o.has("tie"):
 				_surface_line(torso, [Vector2(0.0, 0.92), Vector2(0.0, 0.7)], rb, rt, bh, 0.018, Color(String(o["tie"])))
+		"hivis":
+			# A safety vest: the bean is the vest, trousers below, reflective tape round the
+			# waist and over both shoulders (front and back), a zip down the front.
+			_patch(torso, _bean_patch(rb, rt, bh, 0.0, 0.3, 0.0, 360.0, 0.02), _mat(Color(String(o.get("accent", "#2a3550"))), 0.0))
+			_patch(torso, _bean_patch(rb, rt, bh, 0.345, 0.415, 0.0, 360.0, 0.04), _tape())
+			for a in [-25.0, 25.0, 155.0, 205.0]:
+				_patch(torso, _bean_patch(rb, rt, bh, 0.415, 0.93, a - 5.5, a + 5.5, 0.04), _tape())
+			_surface_line(torso, [Vector2(0.0, 0.94), Vector2(0.0, 0.31)], rb, rt, bh, 0.0045, col.darkened(0.5))
+
+
+static func _patch(torso: Node3D, mesh: Mesh, mat: Material) -> void:
+	var mi := MeshInstance3D.new()
+	mi.mesh = mesh
+	mi.material_override = mat
+	torso.add_child(mi)
+
+
+## Retro-reflective tape: pale silver that still reads in a dark set.
+static func _tape() -> StandardMaterial3D:
+	if not _mats.has("tape"):
+		var m := StandardMaterial3D.new()
+		m.albedo_color = Color("e4eaec")
+		m.roughness = 0.32
+		m.metallic = 0.25
+		m.emission_enabled = true
+		m.emission = Color("cdd6da")
+		m.emission_energy_multiplier = 0.4
+		_mats["tape"] = m
+	return _mats["tape"]
+
+
+static func _half_sphere() -> SphereMesh:
+	if not _meshes.has("half"):
+		var m := SphereMesh.new()
+		m.radius = 1.0
+		m.height = 1.0
+		m.is_hemisphere = true
+		m.radial_segments = 20
+		m.rings = 8
+		_meshes["half"] = m
+	return _meshes["half"]
+
+
+## A patch of the bean's surface (height fractions s0..s1, azimuth a0..a1 in degrees, 0 = front),
+## puffed out from the bean's middle so it lies on top: bands, stripes, panels.
+static func _bean_patch(rb: float, rt: float, bh: float, s0: float, s1: float, a0: float, a1: float, puff: float) -> ArrayMesh:
+	var key := "patch|%.4f|%.4f|%.4f|%.3f|%.3f|%.1f|%.1f|%.3f" % [rb, rt, bh, s0, s1, a0, a1, puff]
+	if _meshes.has(key):
+		return _meshes[key]
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var na := maxi(2, ceili(absf(a1 - a0) / 9.0))
+	var ns := maxi(2, ceili((s1 - s0) * 28.0))
+	var mid := Vector3(0, bh * 0.45, 0)
+	for i in ns + 1:
+		var s := lerpf(s0, s1, float(i) / ns)
+		var r := _bean_r(s, rb, rt)
+		for j in na + 1:
+			var a := deg_to_rad(lerpf(a0, a1, float(j) / na))
+			var p := Vector3(sin(a) * r, s * bh, cos(a) * r * BEAN_DEPTH)
+			st.add_vertex(mid + (p - mid) * (1.0 + puff))
+	for i in ns:
+		for j in na:
+			var a := i * (na + 1) + j
+			var b := a + 1
+			var c := a + na + 1
+			var d := c + 1
+			st.add_index(a); st.add_index(c); st.add_index(b)
+			st.add_index(b); st.add_index(c); st.add_index(d)
+	st.generate_normals()
+	var m := st.commit()
+	_meshes[key] = m
+	return m
 
 
 ## Radius of the bean at height fraction s (0 bottom .. 1 top).

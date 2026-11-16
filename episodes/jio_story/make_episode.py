@@ -1,5 +1,6 @@
 """Generate the in-production cut from the approved Jio v2 script."""
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -40,6 +41,27 @@ LAUNCH_FANS = [
     ("toon_isha", -2.20, 2.35), ("toon_shopkeeper", -1.30, 2.28), ("toon_redhead", 1.55, 2.30),
     ("toon_nerd", 2.55, 2.38), ("toon_founder", -0.15, 3.30),
 ]
+SIM_QUEUE = [
+    # Bay offsets and staggered steps through the bend in the pavement queue.
+    ("toon_partner", -0.52, 1.78, -0.43, 1.30),
+    ("toon_nerd", -1.00, 2.59, -0.65, 2.13),
+    ("toon_redhead", -1.76, 3.05, -1.28, 2.79),
+    ("toon_you", -2.60, 2.88, -2.11, 3.04),
+    ("toon_founder", -3.20, 2.23, -2.88, 2.69),
+    ("toon_isha", -3.40, 1.38, -3.30, 1.91),
+    ("toon_partner", -3.48, 0.51, -3.43, 1.04),
+    ("toon_shopkeeper", -3.50, -0.37, -3.50, 0.16),
+    ("toon_you", -3.48, -1.24, -3.50, -0.71),
+    ("toon_redhead", -3.34, -2.10, -3.45, -1.58),
+    ("toon_nerd", -3.12, -2.95, -3.28, -2.44),
+]
+GATE_CUSTOMERS = [
+    "toon_partner", "toon_nerd", "toon_redhead", "toon_you", "toon_founder", "toon_isha",
+    "toon_shopkeeper", "toon_you", "toon_redhead", "toon_partner", "toon_nerd",
+    "toon_isha", "toon_founder", "toon_boss",
+]
+GATE_SPACING = 0.12
+GATE_GROUP_SIZE = 7
 TELCO_KINGS = [
     ("airtel", "toon_boss", 0.91, -0.05, 10),
     ("vodafone", "toon_founder", 0, 0.26, 0),
@@ -101,6 +123,113 @@ def startup_word(text, **timing):
 
 def launch_word(text, **timing):
     return {"line": "n19", "word": text, **timing}
+
+
+def queue_word(text, **timing):
+    return {"line": "n20", "word": text, **timing}
+
+
+def gate_word(text, **timing):
+    return {"line": "n21", "word": text, **timing}
+
+
+def regulator_word(text, **timing):
+    return {"line": "n22", "word": text, **timing}
+
+
+def phone_word(text, **timing):
+    return {"line": "n23", "word": text, **timing}
+
+
+def rate_word(text, **timing):
+    return {"line": "n24", "word": text, **timing}
+
+
+def globe_word(text, **timing):
+    return {"line": "n25", "word": text, **timing}
+
+
+def fallout_word(text, **timing):
+    return {"line": "n26", "word": text, **timing}
+
+
+def throne_word(text, **timing):
+    return {"line": "n27", "word": text, **timing}
+
+
+def investment_word(text, **timing):
+    return {"line": "n28", "word": text, **timing}
+
+
+def today_word(text, **timing):
+    return {"line": "n29", "word": text, **timing}
+
+
+def payoff_word(text, **timing):
+    return {"line": "n30", "word": text, **timing}
+
+
+def closing_word(text, **timing):
+    return {"line": "n31", "word": text, **timing}
+
+
+def complaining_rival(index, carrier, character, x):
+    return {
+        "id": f"complaint_{carrier}",
+        "character": character,
+        "at": {"anchor": "trai_office", "offset": [x + 0.5, 0, 3.5 + 0.38 * index]},
+        "facing": 166,
+        "action": "idle",
+        "route": {
+            "via": [{"anchor": "trai_office", "offset": [x, 0, 0.40 + abs(x) * 0.29]}],
+            "gait": "jog",
+            "start": regulator_word("run", offset=index * 0.07),
+            "arrive": regulator_word("regulator", offset=index * 0.08),
+            "then_facing": 22 + 11 * index,
+        },
+        "cues": [
+            {"t": 0, "expression": "furious"},
+            {"t": regulator_word("crying", offset=index * 0.08), "expression": "crying",
+             "head": [13, -3 + 4 * index, 4], "head_turn": 0.16},
+            {"t": regulator_word("dropping"), "expression": "shocked", "head": [24, 2, 2],
+             "head_turn": 0.14},
+        ],
+    }
+
+
+def gate_crossing(index, offset=0):
+    group, place = divmod(index, GATE_GROUP_SIZE)
+    return gate_word("seven", offset=group + place * GATE_SPACING + offset)
+
+
+def gate_customer(index, character):
+    lane = {"anchor": "jio_activation"}
+    last = index == len(GATE_CUSTOMERS) - 1
+    waypoints = [[0, 0, 6.25]]
+    after_gate = 5.60
+    if last:
+        waypoints = [[0, 0, 1.46], [-1.09, 0, 2.42]]
+        after_gate = 0.81 + math.hypot(1.09, 0.96)
+    return {
+        "id": f"gate_customer_{index}",
+        "character": character,
+        "at": {**lane, "offset": [0, 0, -5.28 - index * 0.79]},
+        "facing": 0,
+        "phase": (index % 4) * 0.11,
+        "action": "idle",
+        "route": {
+            "via": [{**lane, "offset": point} for point in waypoints],
+            "gait": "jog",
+            "start": gate_crossing(index, -(5.93 + index * 0.79) / 6.6),
+            "arrive": gate_crossing(index, after_gate / 6.6),
+        },
+        "cues": [
+            {"t": 0, "expression": ["determined", "happy", "smug"][index % 3]},
+            {"t": gate_crossing(index), "expression": ["grin", "cheer", "star_eyes"][index % 3]},
+            *([{"t": gate_crossing(index, 0.36), "expression": "cheer", "head": [-12, 12, -5],
+                "head_turn": 0.16}] if last else []),
+        ],
+    }
 
 
 def build_set():
@@ -283,6 +412,74 @@ def build_set():
                 "neon_colors": ["#3f7bff", "#c84fd8"],
                 "light": "#d6dcff",
                 "mood": "dramatic",
+            }, {
+                "id": "jio_store",
+                "floor": "plain",
+                "floor_colors": ["#25232b", "#282631"],
+                "wall": "skyline",
+                "size": [12, 12],
+                "neon": [],
+                "neon_colors": ["#5e9fff", "#ffd199"],
+                "light": "#fff0d7",
+                "mood": "dramatic",
+            }, {
+                "id": "jio_activation",
+                "floor": "tiles",
+                "floor_colors": ["#303038", "#383842"],
+                "wall": "panels",
+                "wall_color": "#192438",
+                "size": [9, 13],
+                "sides": True,
+                "neon": [],
+                "neon_colors": ["#4198ff", "#ffbf77"],
+                "light": "#ffe5c4",
+                "mood": "dramatic",
+            }, {
+                "id": "trai_office",
+                "floor": "wood",
+                "floor_colors": ["#45302c", "#322726"],
+                "wall": "panels",
+                "wall_color": "#493e42",
+                "size": [8, 9],
+                "sides": True,
+                "neon": [],
+                "neon_colors": ["#8bb4f5", "#ffc087"],
+                "light": "#ffead2",
+                "mood": "dramatic",
+            }, {
+                "id": "jiophone_lane",
+                "floor": "road",
+                "floor_colors": ["#45424a", "#554c48"],
+                "wall": "bazaar",
+                "size": [12, 11],
+                "neon": [],
+                "neon_colors": ["#579bff", "#ffbd77"],
+                "light": "#ffe0b4",
+                "mood": "dramatic",
+            }, {
+                "id": "data_globe",
+                "floor": "wood",
+                "floor_colors": ["#332c31", "#271e25"],
+                "wall": "haveli",
+                "wall_color": "#463845",
+                "size": [7, 7],
+                "sides": True,
+                "neon": [],
+                "neon_colors": ["#5999ef", "#f2c396"],
+                "light": "#ffecd3",
+                "mood": "dramatic",
+            }, {
+                "id": "jio_investments",
+                "floor": "marble",
+                "floor_colors": ["#333442", "#262633"],
+                "wall": "panels",
+                "wall_color": "#1f2d50",
+                "size": [10, 9],
+                "sides": True,
+                "neon": [],
+                "neon_colors": ["#5086f2", "#f7ba86"],
+                "light": "#ffe7cc",
+                "mood": "dramatic",
             }]},
         },
         "look": "toon_drama",
@@ -365,6 +562,26 @@ def build_set():
             "name": "jio_launch",
             "at": {"anchor": "jio_launch", "offset": [0.30, 1.92, 6.0]},
             "look_at": {"anchor": "jio_launch", "offset": [0.0, 2.25, -1.9]},
+            "lens_mm": 26,
+        }, {
+            "name": "jio_store",
+            "at": {"anchor": "jio_store", "offset": [-3.1, 3.8, 7.0]},
+            "look_at": {"anchor": "jio_store", "offset": [-1.4, 1.38, 0.2]},
+            "lens_mm": 27,
+        }, {
+            "name": "jio_activation",
+            "at": {"anchor": "jio_activation", "offset": [-2.55, 3.1, 6.35]},
+            "look_at": {"anchor": "jio_activation", "offset": [0, 1.49, 0.12]},
+            "lens_mm": 29,
+        }, {
+            "name": "trai_office",
+            "at": {"anchor": "trai_office", "offset": [-1.1, 2.18, 5.25]},
+            "look_at": {"anchor": "trai_office", "offset": [0, 1.43, 0.05]},
+            "lens_mm": 26,
+        }, {
+            "name": "jiophone_lane",
+            "at": {"anchor": "jiophone_lane", "offset": [-1.2, 2.30, 5.80]},
+            "look_at": {"anchor": "jiophone_lane", "offset": [0, 1.50, 0]},
             "lens_mm": 26,
         }]},
     }
@@ -540,11 +757,95 @@ def build():
                    "dof": {"strength": 0.20}},
         "shake": [{"t": launch_word("launch"), "amount": 0.34}],
     }
+    shots[19] = {
+        "name": names[19],
+        "duration": "fit",
+        "hold": 0.25,
+        "camera": {"at": "sim_store.camera", "look_at": "sim_store.focus", "lens_mm": 25,
+                   "dof": {"strength": 0.13}},
+    }
+    shots[20] = {
+        "name": names[20],
+        "duration": "fit",
+        "hold": 0.53,
+        "camera": {"at": "activation.camera", "look_at": "activation.focus", "lens_mm": 28,
+                   "dof": {"strength": 0.16}},
+    }
+    shots[21] = {
+        "name": names[21],
+        "duration": "fit",
+        "hold": 0.36,
+        "camera": {"at": "complaint.camera", "look_at": "complaint.focus", "lens_mm": 25,
+                   "dof": {"strength": 0.13}},
+        "shake": [{"t": regulator_word("calls"), "amount": 0.26}],
+    }
+    shots[22] = {
+        "name": names[22],
+        "duration": "fit",
+        "hold": 0.25,
+        "camera": {"at": "phone_truck.camera", "look_at": "phone_truck.focus", "lens_mm": 27,
+                   "dof": {"strength": 0.18}},
+        "shake": [{"t": phone_word("give"), "amount": 0.35},
+                  {"t": phone_word("JioPhone"), "amount": 0.30}],
+    }
+    shots[23] = {
+        "name": names[23],
+        "duration": "fit",
+        "hold": 0.38,
+        "camera": {"at": "busy_recharge.camera", "look_at": "busy_recharge.focus", "lens_mm": 29,
+                   "dof": {"strength": 0.15}},
+    }
+    shots[24] = {
+        "name": names[24],
+        "duration": "fit",
+        "hold": 0.34,
+        "camera": {"at": "data_earth.camera", "look_at": "data_earth.focus", "lens_mm": 30},
+    }
+    shots[25] = {
+        "name": names[25],
+        "duration": "fit",
+        "hold": 0.25,
+        "camera": {"at": "fallen_kings.camera", "look_at": "fallen_kings.focus", "lens_mm": 28,
+                   "dof": {"strength": 0.15}},
+    }
+    shots[26] = {
+        "name": names[26],
+        "duration": "fit",
+        "hold": 0.62,
+        "camera": {"at": "jio_throne.camera", "look_at": "jio_throne.focus", "lens_mm": 29},
+        "shake": [{"t": throne_word("one"), "amount": 0.24}],
+    }
+    shots[27] = {
+        "name": names[27],
+        "duration": "fit",
+        "hold": 0.38,
+        "camera": {"at": "investment_cake.camera", "look_at": "investment_cake.focus", "lens_mm": 25,
+                   "dof": {"strength": 0.11}},
+    }
+    shots[28] = {
+        "name": names[28],
+        "duration": "fit",
+        "hold": 0.25,
+        "camera": {"at": "postal_today.camera", "look_at": "postal_today.focus", "lens_mm": 28},
+    }
+    shots[29] = {
+        "name": names[29],
+        "duration": "fit",
+        "camera": {"at": "penthouse_payoff.camera", "look_at": "penthouse_payoff.focus",
+                   "lens_mm": 27, "dof": {"strength": 0.14}},
+    }
+    shots[30] = {
+        "name": names[30],
+        "duration": "fit",
+        "hold": 0.40,
+        "camera": {"at": "penthouse_payoff.camera", "look_at": "penthouse_payoff.focus",
+                   "lens_mm": 28, "dof": {"strength": 0.19}},
+    }
     return {
         "schema_version": "0.1",
         "id": "jio_story",
         "title": "How Mukesh Ambani built Jio",
-        "description": "The 31-beat Jio v2 cut. Placeholder cameras mark shots awaiting production.",
+        "description": "The 31-beat Jio v2 cut.",
         "set": SET_PATH,
         "look": "toon_drama",
         "format": {"resolution": [1080, 1920], "fps": 60, "motion_blur": 3},
@@ -572,6 +873,15 @@ def build():
                 {"t": 0, "expression": "sad", "hands": "chin"},
                 {"t": word("lost"), "expression": "side_eye"},
                 {"t": word("business"), "expression": "sad"},
+                {"t": {"line": "n30"}, "expression": "smug", "hands": "none",
+                 "head": [-12, -16, -6], "head_turn": 0.3},
+                {"t": payoff_word("free"), "expression": "laugh", "head": [-10, 3, -3],
+                 "head_turn": 0.22},
+                {"t": {"line": "n31"}, "expression": "happy"},
+                {"t": closing_word("Jio"), "expression": "wink", "head": [-4, 0, 0],
+                 "head_turn": 0.18},
+                {"t": closing_word("live"), "expression": "sleepy", "head": [17, -3, 10],
+                 "head_turn": 0.40},
             ],
         }, {
             "id": "postal_shopper",
@@ -938,12 +1248,242 @@ def build():
                 ],
             }
             for index, (character, x, z) in enumerate(LAUNCH_FANS)
-        ]],
+        ], {
+            "id": "sim_clerk",
+            "character": "toon_shopkeeper",
+            "at": {"anchor": "jio_store", "offset": [0.34, 0, -0.32]},
+            "facing": 28,
+            "action": "idle_formal",
+            "cues": [
+                {"t": 0, "expression": "happy", "head": [12, 5, -2]},
+                {"t": queue_word("join"), "expression": "grin", "head": [-1, -7, 0],
+                 "head_turn": 0.22},
+            ],
+        }, {
+            "id": "sim_customer",
+            "character": "toon_you",
+            "at": {"anchor": "jio_store", "offset": [-0.36, 0, 0.59]},
+            "facing": 220,
+            "action": "idle",
+            "cues": [
+                {"t": 0, "expression": "happy", "head": [8, 12, 3]},
+                {"t": queue_word("join"), "expression": "star_eyes",
+                 "head": [11, -8, -3], "head_turn": 0.19},
+                {"t": queue_word("in"), "facing": 44, "turn": 0.35,
+                 "expression": "grin", "head": [-4, 3, 0], "head_turn": 0.24},
+            ],
+        }, *[
+            {
+                "id": f"sim_queue_{index}",
+                "character": character,
+                "at": {"anchor": "jio_store", "offset": [x, 0, z]},
+                "facing": math.degrees(math.atan2(x - end_x, end_z - z)),
+                "action": "idle",
+                "phase": index * 0.27,
+                "route": {
+                    "via": [{"anchor": "jio_store", "offset": [end_x, 0, end_z]}],
+                    "gait": "walk",
+                    "start": queue_word("join", offset=index * 0.07),
+                    "arrive": queue_word("join", offset=0.56 + index * 0.07),
+                },
+                "cues": [{"t": 0, "expression": ["happy", "thinking", "smug"][index % 3]}],
+            }
+            for index, (character, x, z, end_x, end_z) in enumerate(SIM_QUEUE)
+        ], *[gate_customer(index, character) for index, character in enumerate(GATE_CUSTOMERS)], *[
+            complaining_rival(index, carrier, character, x)
+            for index, (carrier, character, x, _, _) in enumerate(TELCO_KINGS)
+        ], {
+            "id": "complaint_official",
+            "character": "toon_official",
+            "at": {"anchor": "trai_office", "offset": [0.21, 0, -1.05]},
+            "facing": 12,
+            "action": "idle_formal",
+            "cues": [
+                {"t": 0, "expression": "deadpan"},
+                {"t": regulator_word("crying"), "expression": "side_eye", "head": [9, -15, 1],
+                 "head_turn": 0.22},
+                {"t": regulator_word("calls"), "expression": "shocked"},
+            ],
+        }, {
+            "id": "complaint_mukesh",
+            "character": "toon_mukesh",
+            "at": {"anchor": "trai_office", "offset": [-1.9, 0, 0.62]},
+            "facing": -70,
+            "action": "idle",
+            "route": {
+                "via": [{"anchor": "trai_office", "offset": [-1.00, 0, 1.65]}],
+                "gait": "walk",
+                "start": regulator_word("You", offset=-0.15),
+                "arrive": regulator_word("their"),
+                "then_facing": -58,
+            },
+            "cues": [
+                {"t": 0, "expression": "side_eye"},
+                {"t": regulator_word("calls"), "expression": "deadpan", "head": [21, -2, 2],
+                 "head_turn": 0.18},
+            ],
+        }, {
+            "id": "phone_mukesh",
+            "character": "toon_mukesh",
+            "at": {"anchor": "jiophone_lane", "offset": [0.20, 0, -0.25]},
+            "facing": 0,
+            "action": "idle_formal",
+            "cues": [
+                {"t": 0, "expression": "smug"},
+                {"t": phone_word("give"), "expression": "laugh"},
+                {"t": phone_word("JioPhone"), "expression": "grin"},
+                {"t": phone_word("zero"), "expression": "wink"},
+            ],
+        }, *[
+            {
+                "id": f"phone_fan_{i}",
+                "character": character,
+                "at": {"anchor": "jiophone_lane", "offset": [x, 0, z]},
+                "facing": 178 - x * 12,
+                "action": "idle",
+                "phase": i * 0.37,
+                "cues": [
+                    {"t": 0, "expression": "happy"},
+                    {"t": phone_word("give", offset=i * 0.075), "expression": "star_eyes"},
+                ],
+            }
+            for i, (character, x, z) in enumerate([
+                ("toon_partner", -1.30, 1.39), ("toon_you", 1.24, 1.36),
+                ("toon_redhead", -0.85, 2.47), ("toon_nerd", 0.83, 2.44),
+            ])
+        ], {
+            "id": "busy_recharge_owner",
+            "character": "toon_shopkeeper",
+            "at": {"anchor": "recharge_shop", "offset": [-0.28, 0, -1.58]},
+            "facing": 9,
+            "action": "idle_formal",
+            "cues": [
+                {"t": 0, "expression": "sad"},
+                {"t": rate_word("crashes"), "expression": "surprised"},
+                {"t": rate_word("20"), "expression": "laugh", "head": [8, -11, 2], "head_turn": 0.2},
+            ],
+        }, *[
+            {
+                "id": f"busy_recharge_{index}",
+                "character": character,
+                "at": {"anchor": "recharge_shop", "offset": [start_x, 0, start_z]},
+                "facing": 170,
+                "action": "idle",
+                "route": {
+                    "via": [{"anchor": "recharge_shop", "offset": [x, 0, z]}],
+                    "gait": "jog",
+                    "start": rate_word("crashes", offset=0.12 * index),
+                    "arrive": rate_word("gigabyte", offset=0.09 * index),
+                    "then_facing": 180,
+                },
+                "cues": [
+                    {"t": 0, "expression": "happy"},
+                    {"t": rate_word("20"), "expression": "star_eyes"},
+                ],
+            }
+            for index, (character, start_x, start_z, x, z) in enumerate([
+                ("toon_you", -2.70, 3.35, -0.55, 0.02),
+                ("toon_partner", 2.87, 3.48, 0.56, 0.30),
+                ("toon_nerd", -1.69, 4.07, -1.48, 0.60),
+                ("toon_redhead", 1.86, 4.15, 1.49, 0.76),
+                ("toon_founder", 0.85, 4.58, 0.50, 1.48),
+                ("toon_isha", -0.66, 4.75, -0.57, 1.54),
+            ])
+        ], {
+            "id": "globe_mukesh",
+            "character": "toon_mukesh",
+            "at": {"anchor": "data_globe", "offset": [0.83, 0, 0.18]},
+            "facing": 43,
+            "action": "idle",
+            "cues": [
+                {"t": 0, "expression": "thinking"},
+                {"t": globe_word("biggest"), "expression": "grin", "head": [-10, 0, 0], "head_turn": 0.25},
+            ],
+        }, *[
+            {
+                "id": f"fallen_{carrier}",
+                "character": character,
+                "at": {"anchor": "telecom_durbar", "offset": [x * 0.80, 0, 0.88 + index * 0.10]},
+                "facing": [-29, 0, 32][index],
+                "action": "crouch",
+                "cues": [
+                    {"t": 0, "expression": "crying"},
+                    {"t": fallout_word("bankrupt"), "expression": "panic"},
+                    {"t": fallout_word("merge"), "expression": "crying", "head": [13, 7, -6],
+                     "head_turn": 0.24},
+                ],
+            }
+            for index, (carrier, character, x, _, _) in enumerate(TELCO_KINGS)
+        ], {
+            "id": "throne_mukesh",
+            "character": "toon_mukesh",
+            "at": {"anchor": "telecom_durbar", "offset": [-0.95, 0, 0.71]},
+            "facing": -90,
+            "action": "idle",
+            "route": {
+                "via": [{"anchor": "telecom_durbar", "offset": [0, 0, 0.71]}],
+                "gait": "walk",
+                "start": {"line": "n27"},
+                "arrive": throne_word("2019", edge="end", offset=-0.22),
+                "then_facing": 0,
+            },
+            "cues": [
+                {"t": 0, "expression": "smug"},
+                {"t": throne_word("Jio", offset=0.06), "action": "sit_down"},
+                {"t": throne_word("number", offset=0.19), "action": "sit", "expression": "grin"},
+                {"t": throne_word("one"), "expression": "cool"},
+            ],
+        }, {
+            "id": "invest_mukesh",
+            "character": "toon_mukesh",
+            "at": {"anchor": "jio_investments", "offset": [0, 0, -0.66]},
+            "action": "idle_formal",
+            "cues": [{"t": 0, "expression": "smug"}, {"t": investment_word("slice"), "expression": "grin"}],
+        }, *[
+            {
+                "id": f"invest_buyer_{i}",
+                "character": character,
+                "at": {"anchor": "jio_investments", "offset": [side * 2.70, 0, 0.90]},
+                "facing": side * 75,
+                "action": "idle",
+                "route": {
+                    "via": [{"anchor": "jio_investments", "offset": [side * 0.89, 0, 0.78]}],
+                    "gait": "walk_carry",
+                    "start": investment_word(brand),
+                    "arrive": investment_word(price, offset=-0.12),
+                    "then_facing": side * 28,
+                },
+                "cues": [{"t": 0, "expression": "determined"},
+                         {"t": investment_word(price), "expression": "happy"}],
+            }
+            for i, (character, side, brand, price) in enumerate([
+                ("toon_founder", 1, "Facebook", "5.7"),
+                ("toon_pichai", -1, "Google", "4.5"),
+            ])
+        ], {
+            "id": "postal_today_shopper",
+            "character": "toon_you",
+            "at": {"anchor": "postal_street", "offset": [-0.48, 0, 0.97]},
+            "facing": 17,
+            "action": "idle",
+            "route": {
+                "via": [{"anchor": "postal_street", "offset": [0.37, 0, 3.58]}],
+                "gait": "walk",
+                "start": today_word("Today", offset=-0.10),
+                "arrive": today_word("Jio"),
+                "then": "phone",
+            },
+            "cues": [
+                {"t": 0, "expression": "happy", "head": [0, -8, 1]},
+                {"t": today_word("Jio"), "expression": "laugh", "head": [-4, 12, 1], "head_turn": 0.24},
+            ],
+        }],
         "gags": [{
             "id": "office",
             "script": "gags/tower_open.gd",
             "at": "penthouse",
             "t": 0,
+            "until": {"line": "n30"},
             "params": {
                 "arrive": word("Ambani", edge="end"),
                 "refinery": word("refineries"),
@@ -956,6 +1496,7 @@ def build():
             "script": "gags/postal_choice.gd",
             "at": "postal_street",
             "t": 0,
+            "until": {"line": "n29"},
             "params": {
                 "street_start": {"line": "n2"},
                 "street_end": {"line": "n3"},
@@ -1146,6 +1687,114 @@ def build():
                 "slaps": [launch_word("Calls"), launch_word("Data"), launch_word("Apps")],
                 "fans": len(LAUNCH_FANS),
             },
+        }, {
+            "id": "sim_store",
+            "script": "gags/sim_queue.gd",
+            "at": "jio_store",
+            "t": {"line": "n20"},
+            "until": {"line": "n21"},
+            "params": {
+                "join": queue_word("join"),
+                "wide": queue_word("days"),
+            },
+        }, {
+            "id": "activation",
+            "script": "gags/activation_gate.gd",
+            "at": "jio_activation",
+            "t": {"line": "n21"},
+            "until": {"line": "n22"},
+            "params": {
+                "rush": gate_word("seven"),
+                "days": gate_word("170"),
+                "crossings": [gate_crossing(index) for index in range(len(GATE_CUSTOMERS))],
+            },
+        }, {
+            "id": "complaint",
+            "script": "gags/trai_complaint.gd",
+            "at": "trai_office",
+            "t": {"line": "n22"},
+            "until": {"line": "n23"},
+            "params": {
+                "run": regulator_word("run"),
+                "cry": regulator_word("crying"),
+                "file": regulator_word("pricing"),
+                "ring": regulator_word("networks"),
+                "drop": regulator_word("dropping"),
+                "hit": regulator_word("calls"),
+            },
+        }, {
+            "id": "phone_truck",
+            "script": "gags/jiophone_truck.gd",
+            "at": "jiophone_lane",
+            "t": {"line": "n23"},
+            "until": {"line": "n24"},
+            "params": {
+                "releases": [phone_word("give"), phone_word("phone"), phone_word("JioPhone")],
+                "zero": phone_word("zero"),
+            },
+        }, {
+            "id": "busy_recharge",
+            "script": "gags/recharge_shop.gd",
+            "at": "recharge_shop",
+            "t": {"line": "n24"},
+            "until": {"line": "n25"},
+            "params": {"busy": rate_word("20"), "offer": rate_word("gigabyte")},
+        }, {
+            "id": "data_earth",
+            "script": "gags/data_globe.gd",
+            "at": "data_globe",
+            "t": {"line": "n25"},
+            "until": {"line": "n26"},
+            "params": {"spin": globe_word("India"), "land": globe_word("biggest"), "data": globe_word("data")},
+        }, {
+            "id": "fallen_kings",
+            "script": "gags/telco_court.gd",
+            "at": "telecom_durbar",
+            "t": {"line": "n26"},
+            "until": {"line": "n27"},
+            "params": {
+                "fallout": [fallout_word("Telenor"), fallout_word("Tata"), fallout_word("Aircel"),
+                            fallout_word("brother's")],
+                "fly": fallout_word("down"),
+                "merge": fallout_word("merge"),
+            },
+        }, {
+            "id": "jio_throne",
+            "script": "gags/telco_court.gd",
+            "at": "telecom_durbar",
+            "t": {"line": "n27"},
+            "until": {"line": "n28"},
+            "params": {"ascend": throne_word("one"), "sit": throne_word("Jio", offset=0.06),
+                       "contact": throne_word("number", offset=0.19)},
+        }, {
+            "id": "investment_cake",
+            "script": "gags/investment_cake.gd",
+            "at": "jio_investments",
+            "t": {"line": "n28"},
+            "until": {"line": "n29"},
+            "params": {
+                "arrivals": [investment_word("Facebook"), investment_word("Google")],
+                "payments": [investment_word("5.7"), investment_word("4.5")],
+                "slices": [investment_word("slice"), investment_word("billion", occurrence=2)],
+            },
+        }, {
+            "id": "postal_today",
+            "script": "gags/postal_choice.gd",
+            "at": "postal_street",
+            "t": {"line": "n29"},
+            "until": {"line": "n30"},
+            "params": {"today": today_word("Today"), "connect": today_word("Jio")},
+        }, {
+            "id": "penthouse_payoff",
+            "script": "gags/tower_open.gd",
+            "at": "penthouse",
+            "t": {"line": "n30"},
+            "params": {
+                "toast": payoff_word("free"),
+                "close": {"line": "n31"},
+                "wink": closing_word("Jio"),
+                "sleep": closing_word("live"),
+            },
         }],
         "reveals": [{
             "id": "postal_question",
@@ -1160,6 +1809,105 @@ def build():
             "exit": "none",
             "bob": 0.016,
             "sound": "pop",
+        }, {
+            "id": "sim_subscribers",
+            "counter": {"from": 0, "to": 16, "suffix": " MILLION",
+                        "land": queue_word("million"), "label": "SUBSCRIBERS"},
+            "at": {"anchor": "jio_store", "offset": [-0.30, 3.24, 0.22]},
+            "t": queue_word("Sixteen"),
+            "until": {"line": "n21"},
+            "size": 0.29,
+            "color": "#f5faff",
+            "enter": "none",
+            "exit": "none",
+        }, {
+            "id": "sim_days",
+            "counter": {"from": 1, "to": 26, "suffix": " DAYS", "land": queue_word("26")},
+            "at": {"anchor": "jio_store", "offset": [-0.30, 2.79, 0.22]},
+            "t": queue_word("in"),
+            "until": {"line": "n21"},
+            "size": 0.22,
+            "color": "#e1ecff",
+            "enter": "none",
+            "exit": "none",
+        }, {
+            "id": "activation_milestone",
+            "counter": {"from": 16, "to": 100, "suffix": " MILLION",
+                        "land": gate_word("million"), "label": "SUBSCRIBERS"},
+            "at": {"anchor": "jio_activation", "offset": [0.20, 3.48, 0.0]},
+            "t": gate_word("hundred", offset=-0.24),
+            "until": gate_word("seven", offset=-0.16),
+            "size": 0.31,
+            "color": "#f5faff",
+            "enter": "none",
+            "exit": "none",
+        }, {
+            "id": "activation_days",
+            "counter": {"from": 26, "to": 170, "suffix": " DAYS", "land": gate_word("170")},
+            "at": {"anchor": "jio_activation", "offset": [0.20, 3.01, 0.0]},
+            "t": gate_word("in"),
+            "until": gate_word("seven", offset=-0.16),
+            "size": 0.23,
+            "color": "#e1ecff",
+            "enter": "none",
+            "exit": "none",
+        }, {
+            "id": "activation_rate",
+            "counter": {"from": 0, "to": 7, "prefix": "+", "land": gate_word("seven"),
+                        "label": "CUSTOMERS / SECOND"},
+            "at": {"anchor": "jio_activation", "offset": [0.20, 3.40, 0.0]},
+            "t": gate_word("seven", offset=-0.15),
+            "until": {"line": "n22"},
+            "size": 0.41,
+            "color": "#f5faff",
+            "enter": "none",
+            "exit": "none",
+        }, {
+            "id": "effective_jiophone_price",
+            "counter": {"from": 1500, "to": 0, "prefix": "₹", "land": phone_word("zero"),
+                        "label": "EFFECTIVE PRICE"},
+            "at": {"anchor": "jiophone_lane", "offset": [0, 2.81, 0.0]},
+            "t": phone_word("effective"),
+            "until": {"line": "n24"},
+            "size": 0.36,
+            "color": "#fff0dd",
+            "enter": "none",
+            "exit": "none",
+        }, {
+            "id": "jio_rank",
+            "counter": {"from": 3, "to": 1, "prefix": "#", "land": throne_word("one"),
+                        "label": "JIO · 2019"},
+            "at": {"anchor": "telecom_durbar", "offset": [0, 3.15, 0.04]},
+            "t": throne_word("number"),
+            "until": {"line": "n28"},
+            "size": 0.47,
+            "color": "#fff0dc",
+            "enter": "none",
+            "exit": "none",
+        }, {
+            "id": "facebook_investment",
+            "counter": {"from": 0, "to": 5.7, "prefix": "$", "suffix": " BILLION", "decimals": 1,
+                        "land": investment_word("5.7"), "label": "FACEBOOK"},
+            "at": {"anchor": "jio_investments", "offset": [0, 2.45, 0.14]},
+            "t": investment_word("pays"),
+            "until": investment_word("Google"),
+            "size": 0.31, "color": "#dcecff", "enter": "none", "exit": "none",
+        }, {
+            "id": "google_investment",
+            "counter": {"from": 0, "to": 4.5, "prefix": "$", "suffix": " BILLION", "decimals": 1,
+                        "land": investment_word("4.5"), "label": "GOOGLE"},
+            "at": {"anchor": "jio_investments", "offset": [0, 2.45, 0.14]},
+            "t": investment_word("Google", offset=0.23),
+            "until": {"line": "n29"},
+            "size": 0.31, "color": "#dcecff", "enter": "none", "exit": "none",
+        }, {
+            "id": "jio_today_subscribers",
+            "counter": {"from": 100, "to": 524, "suffix": " MILLION",
+                        "land": today_word("million"), "label": "JIO SUBSCRIBERS · MAR 2026"},
+            "at": {"anchor": "postal_street", "offset": [0.02, 2.82, 1.33]},
+            "t": today_word("Today", offset=0.48),
+            "until": {"line": "n30"},
+            "size": 0.31, "color": "#dcecff", "enter": "none", "exit": "none",
         }],
         "sfx": [
             {"sound": "whoosh", "at": word("Mukesh", offset=-0.25), "gain": -12},
@@ -1218,6 +1966,48 @@ def build():
             {"sound": "pop", "at": launch_word("Calls"), "gain": -6},
             {"sound": "pop", "at": launch_word("Data"), "gain": -6},
             {"sound": "pop", "at": launch_word("Apps"), "gain": -5},
+            {"sound": "tick", "at": queue_word("Sixteen"), "repeat": 4, "every": 0.075, "gain": -18},
+            {"sound": "ding", "at": queue_word("million"), "gain": -12},
+            {"sound": "click", "at": queue_word("join"), "gain": -11},
+            {"sound": "ding", "at": queue_word("26"), "gain": -16},
+            {"sound": "tick", "at": gate_word("hundred", offset=-0.20),
+             "repeat": 5, "every": 0.10, "gain": -19},
+            {"sound": "ding", "at": gate_word("million"), "gain": -12},
+            {"sound": "ding", "at": gate_word("170"), "gain": -15},
+            {"sound": "tick", "at": gate_word("seven"), "repeat": 2, "every": 1.0, "gain": -8},
+            {"sound": "click", "at": gate_word("seven", offset=0.03),
+             "repeat": GATE_GROUP_SIZE, "every": GATE_SPACING, "gain": -15},
+            {"sound": "click", "at": gate_word("seven", offset=1.03),
+             "repeat": GATE_GROUP_SIZE, "every": GATE_SPACING, "gain": -15},
+            {"sound": "whoosh", "at": regulator_word("run"), "gain": -18},
+            {"sound": "pop", "at": regulator_word("crying"), "repeat": 4, "every": 0.12, "gain": -19},
+            {"sound": "thud", "at": regulator_word("pricing"), "gain": -17},
+            {"sound": "ding", "at": regulator_word("networks"), "repeat": 2, "every": 0.19, "gain": -14},
+            {"sound": "click", "at": regulator_word("calls"), "gain": -6},
+            {"sound": "thud", "at": regulator_word("calls"), "gain": -13},
+            {"sound": "thud", "at": phone_word("give"), "gain": -10},
+            {"sound": "thud", "at": phone_word("phone"), "gain": -13},
+            {"sound": "thud", "at": phone_word("JioPhone"), "gain": -10},
+            {"sound": "click", "at": phone_word("give", offset=0.06), "repeat": 14, "every": 0.095, "gain": -20},
+            {"sound": "cheer", "at": phone_word("give", offset=0.18), "gain": -17},
+            {"sound": "tick", "at": phone_word("effective"), "repeat": 7, "every": 0.12, "gain": -18},
+            {"sound": "ding", "at": phone_word("zero"), "gain": -10},
+            {"sound": "whoosh", "at": rate_word("crashes"), "gain": -18},
+            {"sound": "click", "at": rate_word("gigabyte"), "gain": -16},
+            {"sound": "ding", "at": rate_word("20"), "gain": -11},
+            {"sound": "whoosh", "at": globe_word("India"), "gain": -18},
+            {"sound": "ding", "at": globe_word("biggest"), "gain": -14},
+            {"sound": "cash", "at": fallout_word("bankrupt"), "gain": -15},
+            {"sound": "tick", "at": fallout_word("down"), "gain": -17},
+            {"sound": "thud", "at": fallout_word("merge"), "gain": -15},
+            {"sound": "sting", "at": throne_word("one"), "gain": -13},
+            {"sound": "thud", "at": throne_word("number", offset=0.19), "gain": -17},
+            {"sound": "cash", "at": investment_word("5.7"), "gain": -13},
+            {"sound": "cash", "at": investment_word("4.5"), "gain": -13},
+            {"sound": "pop", "at": investment_word("slice"), "gain": -16},
+            {"sound": "ding", "at": today_word("million"), "gain": -13},
+            {"sound": "ding", "at": payoff_word("free"), "gain": -15},
+            {"sound": "tick", "at": closing_word("Jio"), "gain": -17},
         ],
         "shots": shots,
     }

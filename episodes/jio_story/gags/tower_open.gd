@@ -6,6 +6,7 @@ const KitDB = preload("res://scripts/world/kit_db.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
 const Reveals = preload("res://scripts/timeline/reveals.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
+const Kit = preload("res://scripts/world/prop_kit.gd")
 
 const LOGO := "res://../library/logos/reliance-industries-golden.png"
 const DESK_Y := 0.63
@@ -17,10 +18,13 @@ const DISPLAYS := [
 ]
 
 
-func build(_gag: Dictionary) -> Node3D:
+func build(gag: Dictionary) -> Node3D:
 	var root := Node3D.new()
 	_build_facade(root)
 	_build_office(root)
+	if gag.get("params", {}).has("toast"):
+		_build_payoff(root)
+		return root
 	for i in MODEL_NAMES.size():
 		_build_display(root, i)
 	return root
@@ -269,6 +273,8 @@ func _build_display(root: Node3D, index: int) -> void:
 
 func pose(root: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var p: Dictionary = gag["params"]
+	if p.has("toast"):
+		return _pose_payoff(root, gag, t, ctx)
 	var arrival := float(p["arrive"])
 	var flight := Motion.smooth(Motion.seg(t, 0.04, arrival))
 	var glide := Motion.out_cubic(Motion.seg(t, arrival, float(p["burst"]) + 1.6))
@@ -282,6 +288,76 @@ func pose(root: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionar
 		_pose_display(slot, DISPLAYS[index], t, contact, burst)
 	var holder: Node3D = ctx["holder"]
 	return {"camera": holder.position + camera, "focus": holder.position + focus}
+
+
+func _build_payoff(root: Node3D) -> void:
+	var gold := Kit.mat("e6ae42", 0.32, 0.58)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash("penthouse_payoff_gold")
+	for i in 32:
+		var side := 1.0 if i % 2 else -1.0
+		var x := side * rng.randf_range(0.44, 0.95)
+		var z := rng.randf_range(0.66, 1.23)
+		var y := DESK_Y + 0.037 + (i % 4) * 0.046
+		var bar := Kit.add_box(root, Vector3(0.17, 0.052, 0.095), Vector3(x, y, z), gold)
+		bar.rotation.y = rng.randf_range(-0.65, 0.65)
+	var bean := Vector3(0.94, 0.22, 0.18)
+	var cushion := Kit.mat("6c3457", 0.88)
+	Kit.add_mesh(root, Kit.sphere(0.43, 0.43, cushion, 24), bean)
+	var upper := Kit.add_mesh(root, Kit.sphere(0.32, 0.49, cushion, 24), bean + Vector3(0.13, 0.12, -0.09))
+	upper.rotation.z = -0.40
+	var data := Node3D.new()
+	data.name = "data"
+	root.add_child(data)
+	var tower := Reveals.shape_node("tower", 0.68, Color("80d5e3"))
+	data.add_child(tower)
+	var face := Reveals.text_node("◡", 0.15, Color("e2f7ff"))
+	face.position = Vector3(0, 0.41, 0.095)
+	data.add_child(face)
+	var eyes := Kit.glow_mat("f8fcff", 0.48)
+	for x in [-0.055, 0.055]:
+		Kit.add_mesh(data, Kit.sphere(0.020, 0.036, eyes, 10), Vector3(x, 0.48, 0.104))
+	var stem := Kit.mat("d5b28c", 0.32, 0.55)
+	for i in 2:
+		var glass := Node3D.new()
+		glass.name = "goblet_%d" % i
+		root.add_child(glass)
+		Kit.add_mesh(glass, Kit.cylinder(0.046, 0.041, 0.025, stem, 18), Vector3.ZERO)
+		Kit.add_mesh(glass, Kit.cylinder(0.012, 0.012, 0.10, stem, 10), Vector3(0, 0.06, 0))
+		Kit.add_mesh(glass, Kit.cylinder(0.065, 0.032, 0.085, Kit.mat("96283f", 0.38), 20),
+			Vector3(0, 0.141, 0))
+		Kit.add_mesh(glass, Kit.cylinder(0.066, 0.063, 0.015, stem, 20), Vector3(0, 0.187, 0))
+
+
+func _pose_payoff(root: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
+	var p: Dictionary = gag["params"]
+	var close := float(p["close"])
+	var toast := float(p["toast"])
+	var sleep := float(p["sleep"])
+	var origin: Vector3 = ctx["holder"].position
+	var mukesh = ctx["actor"].call("mukesh")
+	var cheer := Motion.arc(Vector3(0.28, 0.62, 0.29), Vector3(0.43, 0.89, 0.30), 0.06,
+		Motion.smooth(Motion.seg(t, toast - 0.46, toast)))
+	var relax := Motion.smooth(Motion.seg(t, toast + 0.22, toast + 0.79))
+	var doze := Motion.smooth(Motion.seg(t, sleep - 0.08, sleep + 0.36))
+	mukesh.body.rotation.x = -0.17 + doze * 0.12
+	mukesh.body.position.z -= 0.06
+	mukesh.aim_hand("l", origin + cheer.lerp(Vector3(0.33, 0.66, 0.37), relax))
+	var drink := root.get_node("goblet_0") as Node3D
+	drink.position = mukesh.bone_world("hand_l") - origin + Vector3(0, 0.02, 0.033)
+	var tower := root.get_node("data") as Node3D
+	var chuckle := Motion.smooth(Motion.seg(t, toast - 0.15, toast + 0.25)) * (1.0 - relax)
+	tower.position = Vector3(0.97, 0.34 + absf(sin(t * 15.0)) * 0.060 * chuckle, 0.21)
+	tower.rotation = Vector3(-0.25, -0.25, -0.52 + chuckle * 0.11 * sin(t * 14.0))
+	var guest := root.get_node("goblet_1") as Node3D
+	guest.position = Vector3(0.90, 0.51, 0.39).lerp(Vector3(0.78, 0.81, 0.39), chuckle)
+	guest.rotation.z = 0.15 + 0.09 * chuckle
+	var intro := Motion.smooth(Motion.seg(t, float(gag["t"]), close))
+	var zoom := Motion.smooth(Motion.seg(t, close, sleep + 0.30))
+	var camera := Vector3(0.37, 1.51, 4.72).lerp(Vector3(0.32, 1.44, 4.17), intro)
+	camera = camera.lerp(Vector3(0.08, 1.19, 2.87), zoom)
+	var focus := Vector3(0.33, 1.07, 0.14).lerp(Vector3(0.01, 1.12, 0.13), zoom)
+	return {"camera": origin + camera, "focus": origin + focus}
 
 
 func _pose_display(slot: Node3D, at: Vector3, t: float, contact: float, burst: float) -> void:

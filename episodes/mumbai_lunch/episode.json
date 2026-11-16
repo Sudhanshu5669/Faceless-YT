@@ -1,0 +1,329 @@
+{
+  "id": "mumbai_lunch",
+  "set": "specs/sets/mumbai_kitchen.json",
+  "format": {
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": 60,
+    "motion_blur": 2
+  },
+  "look": {
+    "base": "day",
+    "time": "09:10",
+    "ssao": true,
+    "ambient": {
+      "color": "#cad7e3",
+      "energy": 0.26
+    },
+    "sun": {
+      "energy": 0.5
+    }
+  },
+  "narration": {
+    "model": "qwen3-tts-1.7b-customvoice",
+    "voice": "Aiden"
+  },
+  "captions": {
+    "enabled": true,
+    "max_words": 3,
+    "position": 0.85
+  },
+  "lines": [
+    {
+      "id": "hook",
+      "shot": "kitchen",
+      "text": "Imagine you're a lunchbox in Mumbai. You've got a train to catch. Your ticket is painted on your lid."
+    },
+    {
+      "id": "pickup",
+      "shot": "dadar_lane",
+      "text": "A dabbawala picks you up at the door. His bicycle is already carrying half the lane's lunch."
+    }
+  ],
+  "actors": [
+    {
+      "id": "packer",
+      "character": "toon_dadar_packer",
+      "at": {
+        "anchor": "kitchen",
+        "offset": [
+          0,
+          0,
+          -0.42
+        ]
+      },
+      "facing": "kitchen.front",
+      "cues": [
+        {
+          "t": 0,
+          "head_turn": 0.3,
+          "head": [
+            -8,
+            12,
+            -4
+          ]
+        },
+        {
+          "t": {
+            "word": "Mumbai",
+            "line": "hook"
+          },
+          "head_turn": 0.5,
+          "head": [
+            -12,
+            0,
+            1
+          ]
+        },
+        {
+          "t": {
+            "word": "ticket",
+            "line": "hook"
+          },
+          "head_turn": 0.45,
+          "head": [
+            -3,
+            -8,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "courier",
+      "character": "toon_dadar_courier",
+      "at": {
+        "anchor": "dadar",
+        "offset": [
+          0.23,
+          0,
+          -0.38
+        ]
+      },
+      "facing": {
+        "anchor": "dadar",
+        "offset": [
+          0.52,
+          0,
+          0.3
+        ]
+      },
+      "cues": [
+        {
+          "t": {
+            "line": "pickup",
+            "word": "door"
+          },
+          "head": [
+            -9,
+            0,
+            3
+          ],
+          "head_turn": 0.4
+        },
+        {
+          "t": {
+            "line": "pickup",
+            "word": "lunch"
+          },
+          "action": "walk",
+          "head": [
+            0,
+            0,
+            0
+          ],
+          "head_turn": 0.4
+        }
+      ]
+    },
+    {
+      "id": "door_packer",
+      "character": "toon_dadar_packer",
+      "at": {
+        "anchor": "dadar",
+        "offset": [
+          0.87,
+          0.05,
+          -1.04
+        ]
+      },
+      "facing": {
+        "anchor": "dadar",
+        "offset": [
+          0.52,
+          0,
+          0.3
+        ]
+      }
+    }
+  ],
+  "gags": [
+    {
+      "id": "tiffin",
+      "script": "gags/pack_tiffin.gd",
+      "at": "kitchen.counter",
+      "t": 0,
+      "params": {
+        "fold": -0.2,
+        "click": 0.52,
+        "show": {
+          "line": "hook",
+          "word": "ticket"
+        }
+      }
+    },
+    {
+      "id": "pickup",
+      "at": "dadar",
+      "script": "gags/dadar_pickup.gd",
+      "t": 0,
+      "params": {
+        "handoff": {
+          "line": "pickup",
+          "word": "picks"
+        },
+        "load": {
+          "line": "pickup",
+          "word": "carrying"
+        },
+        "roll": {
+          "line": "pickup",
+          "word": "lunch"
+        }
+      }
+    }
+  ],
+  "sfx": [
+    {
+      "file": "audio/tiffin_click.wav",
+      "at": 0.52,
+      "gain": -2
+    },
+    {
+      "file": "audio/approaching_local.wav",
+      "at": {
+        "line": "hook",
+        "word": "train"
+      },
+      "gain": -16
+    },
+    {
+      "file": "audio/tiffin_click.wav",
+      "at": {
+        "line": "pickup",
+        "word": "carrying"
+      },
+      "gain": -13
+    },
+    {
+      "file": "audio/bicycle_rolling.wav",
+      "at": {
+        "line": "pickup",
+        "word": "lunch",
+        "offset": -0.1
+      },
+      "gain": -7
+    }
+  ],
+  "shots": [
+    {
+      "name": "kitchen",
+      "duration": {
+        "fit": true,
+        "tail": 0.45
+      },
+      "camera": {
+        "to": {
+          "at": {
+            "anchor": "kitchen.counter",
+            "offset": [
+              0.42,
+              0.63,
+              0.96
+            ]
+          },
+          "look_at": "tiffin.focus",
+          "lens_mm": 32,
+          "dof": {
+            "strength": 0.23
+          }
+        },
+        "from": {
+          "at": {
+            "anchor": "kitchen.counter",
+            "offset": [
+              0.2,
+              0.28,
+              0.51
+            ]
+          },
+          "look_at": "tiffin.focus",
+          "lens_mm": 32,
+          "dof": {
+            "strength": 0.34
+          }
+        },
+        "ease": "in_out"
+      }
+    },
+    {
+      "name": "dadar_lane",
+      "duration": {
+        "fit": true,
+        "tail": 1.5
+      },
+      "look": {
+        "base": "day",
+        "time": "09:10",
+        "ssao": true,
+        "ambient": {
+          "color": "#dce2e2",
+          "energy": 0.48
+        },
+        "sun": {
+          "elevation": 32,
+          "azimuth": 36,
+          "color": "#ffe0b4",
+          "energy": 1.2,
+          "softness": 1.4
+        }
+      },
+      "camera": {
+        "from": {
+          "at": {
+            "anchor": "pickup.focus",
+            "offset": [
+              -0.06,
+              0.34,
+              1.13
+            ]
+          },
+          "look_at": "pickup.focus",
+          "lens_mm": 32,
+          "dof": {
+            "strength": 0.24
+          }
+        },
+        "to": {
+          "at": {
+            "anchor": "pickup.focus",
+            "offset": [
+              -0.48,
+              0.65,
+              3.17
+            ]
+          },
+          "look_at": "pickup.focus",
+          "lens_mm": 32,
+          "dof": {
+            "strength": 0.16
+          }
+        },
+        "ease": "out"
+      }
+    }
+  ],
+  "title": "How Mumbai Delivers Your Lunch by Train"
+}

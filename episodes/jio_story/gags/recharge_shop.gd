@@ -55,11 +55,19 @@ void fragment() {
 """
 
 
-func build(_gag: Dictionary) -> Node3D:
+func build(gag: Dictionary) -> Node3D:
 	var shop := Node3D.new()
 	_storefront(shop)
 	_rate_board(shop)
 	_stock(shop)
+	if gag.get("params", {}).has("busy"):
+		var board := shop.get_node("rate_text") as MeshInstance3D
+		board.mesh = board.mesh.duplicate()
+		var voucher := Kit.add_box(shop, Vector3(0.23, 0.15, 0.01), Vector3.ZERO, Kit.mat("2256ae"))
+		voucher.name = "voucher"
+		_lettering(voucher, "Jio", 0.060, "ffffff", Vector3(0, 0.02, 0.009))
+		_lettering(voucher, "4G DATA", 0.035, "ffffff", Vector3(0, -0.04, 0.009))
+		return shop
 	shop.add_child(_opposite_side())
 	var handset := Reveals.shape_node("phone", PHONE_HEIGHT, Color("1c3040"))
 	handset.name = "handset"
@@ -162,7 +170,10 @@ func _rate_board(shop: Node3D) -> void:
 	Kit.add_box(shop, Vector3(2.38, 0.79, 0.12), Vector3(0, 2.92, -0.85), Kit.mat("513a30"))
 	Kit.add_box(shop, Vector3(2.30, 0.71, 0.025), Vector3(0, 2.92, -0.78), Kit.mat("e7b44e"))
 	Kit.add_box(shop, Vector3(2.17, 0.59, 0.018), Vector3(0, 2.92, -0.758), Kit.mat("632e2d"))
-	_lettering(shop, "₹250 / GB", 0.40, "ffe6a9", Vector3(0, 2.91, -0.74))
+	var price := Reveals.text_node("₹250 / GB", 0.40, Color("ffe6a9"))
+	price.name = "rate_text"
+	price.position = Vector3(0, 2.91, -0.74)
+	shop.add_child(price)
 
 
 func _stock(shop: Node3D) -> void:
@@ -196,6 +207,13 @@ func _lettering(shop: Node3D, text: String, size: float, color: String, at: Vect
 
 func pose(shop: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var params: Dictionary = gag["params"]
+	if params.has("busy"):
+		return _pose_busy(shop, gag, t, ctx)
+	var future_owner = ctx["actor"].call("busy_recharge_owner")
+	future_owner.position.y -= 10.0
+	for i in 6:
+		var future = ctx["actor"].call("busy_recharge_%d" % i)
+		future.position.y -= 10.0
 	var price := float(params["price"])
 	var closeup := float(params["closeup"])
 	var start := float(gag["t"])
@@ -220,6 +238,39 @@ func pose(shop: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionar
 	owner.aim_hand("l", origin + offer)
 	handset.position = owner.bone_world("hand_l") - origin - Vector3(0.0, 0.018, 0.018)
 	handset.rotation = Vector3(-0.52 + 0.37 * lift - 0.41 * lower, 0.16, -0.12)
+	return {"camera": origin + camera, "focus": origin + focus}
+
+
+func _pose_busy(shop: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
+	var p: Dictionary = gag["params"]
+	var cheap := float(p["busy"])
+	var offer := float(p["offer"])
+	var owner = ctx["actor"].call("busy_recharge_owner")
+	var shopper = ctx["actor"].call("busy_recharge_0")
+	var previous_owner = ctx["actor"].call("recharge_owner")
+	previous_owner.position.y -= 10.0
+	for i in 4:
+		var passer = ctx["actor"].call("recharge_passer_%d" % i)
+		passer.position.y -= 10.0
+	var origin: Vector3 = ctx["holder"].position
+	owner.body.position.y += SHOP_FLOOR
+	var slide := Motion.smooth(Motion.seg(t, offer - 0.36, cheap + 0.11))
+	var slot := Motion.smooth(Motion.seg(t, cheap - 0.48, cheap))
+	var price := shop.get_node("rate_text") as MeshInstance3D
+	(price.mesh as TextMesh).text = "₹18 / GB" if t >= cheap else "₹250 / GB"
+	price.rotation.x = sin(slot * PI) * 1.55 + 0.12 * Motion.wobble(t - cheap)
+	var hand := Vector3(0.60, 1.28, -1.14).lerp(Vector3(0.52, 1.41, -0.61), slide)
+	owner.aim_hand("l", origin + hand, 1.0)
+	var reach := Motion.smooth(Motion.seg(t, offer - 0.14, cheap))
+	shopper.aim_hand("l", origin + Vector3(0.52, 1.41, -0.59), reach)
+	var palm: Vector3 = owner.bone_world("hand_l").lerp(shopper.bone_world("hand_l"),
+		Motion.smooth(Motion.seg(t, cheap, cheap + 0.15)))
+	var card := shop.get_node("voucher") as Node3D
+	card.position = palm - origin + Vector3(0, 0.055, 0.045)
+	card.rotation.z = -0.14 + 0.16 * reach
+	var move := Motion.smooth(Motion.seg(t, float(gag["t"]), cheap + 0.45))
+	var camera := Vector3(-0.80, 2.18, 6.72).lerp(Vector3(-0.52, 2.28, 5.40), move)
+	var focus := Vector3(0.0, 1.77, -0.55).lerp(Vector3(0.14, 1.88, -0.76), move)
 	return {"camera": origin + camera, "focus": origin + focus}
 
 

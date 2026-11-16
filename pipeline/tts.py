@@ -1,8 +1,7 @@
-"""Narration via Gemini text-to-speech (stdlib only).
+"""Cached narration via Gemini or local Qwen3-TTS (stdlib only in the main process).
 
-The API key comes from GEMINI_API_KEY in the environment or in .env at the repo
-root (git-ignored). Every line is cached by (model, voice, style, text) under
-library/../output/tts_cache/, so re-rendering an episode never re-bills a line.
+Gemini reads GEMINI_API_KEY from the environment or .env at the repo root.
+Takes are cached by (model, voice, style, text) under output/tts_cache/.
 """
 from __future__ import annotations
 
@@ -20,6 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / "output" / "tts_cache"
 DEFAULT_MODEL = "gemini-3.8-flash-tts"
+LOCAL_MODEL = "qwen3-tts-1.7b-customvoice"
 API = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 SAMPLE_RATE = 24000  # Gemini TTS: 24 kHz, 16-bit mono
 
@@ -38,7 +38,8 @@ def api_key() -> str:
 
 def _cache_path(text: str, voice: str, style: str, model: str) -> Path:
     h = hashlib.sha256(json.dumps([model, voice, style, text]).encode("utf-8")).hexdigest()[:20]
-    return CACHE / f"{voice}_{h}.wav"
+    prefix = "qwen" if model == LOCAL_MODEL else voice
+    return CACHE / f"{prefix}_{h}.wav"
 
 
 def _to_wav(blob: bytes, mime: str) -> bytes:
@@ -59,10 +60,12 @@ def _to_wav(blob: bytes, mime: str) -> bytes:
 
 def synthesize(text: str, voice: str, style: str = "", model: str = DEFAULT_MODEL,
                retries: int = 4) -> Path:
-    """Speak `text` with a Gemini prebuilt voice; `style` is a short delivery
-    direction ("low, tense, intimate whisper"), sent as a [bracket tag]. Returns the cached WAV path."""
+    """Speak `text` with the selected model and return the cached WAV path."""
     out = _cache_path(text, voice, style, model)
     if out.exists():
+        return out
+    if model == LOCAL_MODEL:
+        prepare_local([(text, voice, style)])
         return out
     CACHE.mkdir(parents=True, exist_ok=True)
     # Direction goes in a leading [bracket tag]: a "Say it like this: ..." prefix
@@ -92,6 +95,20 @@ def synthesize(text: str, voice: str, style: str = "", model: str = DEFAULT_MODE
         raise SystemExit(f"ERROR: Gemini TTS returned no audio: {json.dumps(data)[:400]}")
     out.write_bytes(_to_wav(base64.b64decode(inline["data"]), inline.get("mimeType", "")))
     return out
+
+
+def prepare_local(takes: list[tuple[str, str, str]]) -> None:
+    """Generate missing independent takes with one model load."""
+    requests = {}
+    for text, voice, style in takes:
+        out = _cache_path(text, voice, style, LOCAL_MODEL)
+        if not out.is_file():
+            requests[out] = {"text": text, "voice": voice, "style": style, "out": str(out)}
+    if requests:
+        import qwen_tts_local
+
+        CACHE.mkdir(parents=True, exist_ok=True)
+        qwen_tts_local.generate(list(requests.values()))
 
 
 def duration(path: Path) -> float:

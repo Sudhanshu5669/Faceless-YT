@@ -6,6 +6,7 @@ const Gen = preload("res://scripts/world/generators/stage_generator.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
 const SURFACE := preload("res://shaders/stage_surface.gdshader")
 const Reveals = preload("res://scripts/timeline/reveals.gd")
+const Kitchen = preload("res://scripts/world/builders/kitchen_dressing.gd")
 
 const FLOOR_PATTERNS := {"checker": 0, "tiles": 1, "grid": 2, "wood": 3, "plain": 4, "carpet": 5, "road": 6, "marble": 7}
 const WALL_PATTERNS := {"tiles": 1, "panels": 10, "plain": 4, "grid": 2, "brick": 11}
@@ -53,6 +54,8 @@ static func _bay(b: Dictionary, seed_value: int) -> Node3D:
 		_skyline(n, b, seed_value)
 	elif wall_kind == "haveli":
 		_haveli(n, b, seed_value)
+	elif wall_kind == "kitchen":
+		n.add_child(Kitchen.build(d, Color(String(b["wall_color"]))))
 	elif wall_kind != "none":
 		var wc := Color(String(b["wall_color"]))
 		var mat := _surface(WALL_PATTERNS[wall_kind], wc, wc.darkened(0.35), Color(String(nc[0])), 0.6, true)
@@ -68,7 +71,8 @@ static func _bay(b: Dictionary, seed_value: int) -> Node3D:
 				side.rotation_degrees = Vector3(0, -90.0 * s, 0)
 				n.add_child(side)
 	_neon(n, b, w, d)
-	_lights(n, b, w, d)
+	if wall_kind != "kitchen":
+		_lights(n, b, w, d)
 	if not b["pedestal"].is_empty():
 		_pedestal(n, b["pedestal"], nc, seed_value, String(b["id"]))
 	return n

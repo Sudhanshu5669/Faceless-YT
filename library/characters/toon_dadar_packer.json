@@ -1,0 +1,15 @@
+{
+  "id": "toon_dadar_packer",
+  "description": "A Dadar resident packing lunch in a teal kurta.",
+  "tags": ["toon", "human"],
+  "height": 1.52,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "bun", "color": "#302522"},
+    "outfit": {"style": "dress", "color": "#25635b", "accent": "#c7a575"},
+    "shoes": "#3e3227",
+    "face": "happy"
+  }
+}
+

@@ -114,6 +114,37 @@ class ResolveTest(unittest.TestCase):
         self.assertIn("PlayResY: 1920", text)
         self.assertIn(r"{\c&H00D7FF&", dialogue[0])  # the spoken word is highlighted
 
+    def test_local_rewrite_synthesizes_only_the_changed_line(self):
+        tts = episode_audio.tts
+        ep = self._episode()
+        ep["narration"] = {"model": tts.LOCAL_MODEL, "style": "Deadpan."}
+        ep["lines"][0]["style"] = "Amused disbelief."
+        path = self.tmp / "episode.json"
+
+        def generate(requests):
+            for request in requests:
+                _wav(Path(request["out"]), 0.4 * len(request["text"].split()) + 0.3)
+
+        def words(wav, text):
+            return [{"w": word, "s": 0.1 + 0.4 * i, "e": 0.4 + 0.4 * i}
+                    for i, word in enumerate(text.split())]
+
+        with mock.patch.object(tts, "CACHE", self.tmp), \
+             mock.patch("qwen_tts_local.generate", side_effect=generate) as local, \
+             mock.patch.object(tts, "api_key", side_effect=AssertionError("unexpected Gemini call")), \
+             mock.patch.object(episode_audio.align, "words", side_effect=words):
+            path.write_text(json.dumps(ep), encoding="utf-8")
+            before = episode_audio.resolve(path, verbose=False)
+            self.assertEqual([r["style"] for r in local.call_args.args[0]], ["Amused disbelief.", "Deadpan."])
+            local.reset_mock()
+            ep["lines"][0]["text"] += " four"
+            path.write_text(json.dumps(ep), encoding="utf-8")
+            after = episode_audio.resolve(path, verbose=False)
+            local.assert_called_once()
+            self.assertEqual([r["text"] for r in local.call_args.args[0]], ["one two three four"])
+            self.assertEqual(before["lines"][1]["wav"], after["lines"][1]["wav"])
+            self.assertAlmostEqual(after["shots"][0]["duration"] - before["shots"][0]["duration"], 0.4)
+
 
 class SingleTakeTest(unittest.TestCase):
     def test_match_script_tolerates_split_and_misheard_words(self):

@@ -27,7 +27,7 @@ or scene seconds.
 | `id` | Unique; also the node name and an **anchor** for cameras (`"look_at": "users"`). |
 | `t`, `until` | Appear at / leave at (time references). No `until` = stays. |
 | one of `prop` / `shape` / `text` / `counter` | What appears (below). |
-| `at` | Any point: anchor name, `{"anchor", "offset"}`, or an actor anchor such as `"you.hand"`. Re-resolved every frame, so it **follows actors**. |
+| `at` | Any point: anchor name, `{"anchor", "offset"}`, or an actor anchor such as `"you.hand"`. Re-resolved every frame, so it **follows actors** and gag anchors (`"airlift.plane"`: reveals on a gag anchor are placed again after the gags each frame). |
 | `size` | Metres (largest dimension; cap height for text). Default 0.5. |
 | `color` | Shape tint or text colour. |
 | `yaw` / `face` | Turn (degrees) or face a point. Text and counters always face the camera. |

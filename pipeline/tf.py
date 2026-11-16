@@ -6,7 +6,7 @@
   python pipeline/tf.py preview-set SPEC [options]   render preview stills + contact sheet
   python pipeline/tf.py explore [SPEC] [options]     open the fly-through window
   python pipeline/tf.py storyboard EPISODE           start/mid/end still of every shot -> storyboard.png
-  python pipeline/tf.py voice EPISODE                narration (Gemini TTS, cached) + timing table, no render
+  python pipeline/tf.py voice EPISODE                cached narration + timing table, no render
   python pipeline/tf.py review prepare EPISODE       render the approval board (environment, characters, voice, shots)
   python pipeline/tf.py review serve EPISODE         open the approval page in the browser
   python pipeline/tf.py review notes EPISODE         what the user approved / asked to change

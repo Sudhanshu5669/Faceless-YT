@@ -1,0 +1,22 @@
+{
+  "id": "toon_dadar_courier",
+  "description": "Dabbawala wearing an ivory uniform and Gandhi cap.",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.64,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bald"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#efede0"
+    },
+    "shoes": "#62574b",
+    "face": "happy"
+  }
+}

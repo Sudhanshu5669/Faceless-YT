@@ -1,0 +1,30 @@
+{
+  "id": "toon_tunnel_engineer",
+  "description": "Site engineer: white hard hat, lime hi-vis vest, glasses.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.72,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#f1efe8",
+      "lamp": false
+    },
+    "outfit": {
+      "style": "hivis",
+      "color": "#c8dc2c",
+      "accent": "#4a4f5c"
+    },
+    "shoes": "#2c2a28",
+    "face": "thinking",
+    "girth": 0.95,
+    "accessories": [
+      "glasses"
+    ]
+  }
+}

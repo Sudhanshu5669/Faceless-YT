@@ -7,7 +7,7 @@ const Reveals = preload("res://scripts/timeline/reveals.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
 
 
-func build(_gag: Dictionary) -> Node3D:
+func build(gag: Dictionary) -> Node3D:
 	var street := Node3D.new()
 	var curb := _mat("8c7563")
 	var cement := _mat("b2a18c")
@@ -20,6 +20,10 @@ func build(_gag: Dictionary) -> Node3D:
 	_dress_street(street)
 	_light(street, Vector3(-1.65, 3.3, 2.75), Vector3(-0.4, 0.9, 0.5), Color("ffd8ac"), 3.1, 42, true)
 	_light(street, Vector3(2.5, 2.4, 0.0), Vector3(0, 1, 1), Color("83ddeb"), 2.9, 45)
+	if gag.get("params", {}).has("today"):
+		var phone := Reveals.shape_node("phone", 0.27, Color("1d407d"))
+		phone.name = "today_phone"
+		street.add_child(phone)
 	return street
 
 
@@ -124,8 +128,28 @@ func _dress_street(root: Node3D) -> void:
 	root.add_child(auto)
 
 
-func pose(_street: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
+func pose(street: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var params: Dictionary = gag["params"]
+	if params.has("today"):
+		var origin: Vector3 = ctx["holder"].position
+		var previous = ctx["actor"].call("postal_shopper")
+		previous.position.y -= 10.0
+		var shopper = ctx["actor"].call("postal_today_shopper")
+		var lift := Motion.out_cubic(Motion.seg(t, float(params["today"]), float(params["today"]) + 0.55))
+		var forward := Vector3(sin(shopper.rotation.y), 0, cos(shopper.rotation.y))
+		var right := Vector3(-forward.z, 0, forward.x)
+		var head: Vector3 = shopper.bone_world("Head")
+		var target := head + right * 0.27 + forward * 0.12 + Vector3.UP * 0.10
+		shopper.aim_hand("r", target, lift)
+		var phone := street.get_node("today_phone") as Node3D
+		phone.position = shopper.bone_world("hand_r") - origin + Vector3(0, 0.02, 0)
+		phone.rotation = Vector3(0.02, shopper.rotation.y + 1.24, -0.21)
+		var move := Motion.smooth(Motion.seg(t, float(gag["t"]), float(params["connect"]) + 0.28))
+		var camera := Vector3(1.4, 1.85, 8.8).lerp(Vector3(0.68, 1.67, 7.13), move)
+		var focus := Vector3(0.02, 1.50, 0.65).lerp(Vector3(-0.14, 1.69, 1.73), move)
+		return {"camera": origin + camera, "focus": origin + focus}
+	var future = ctx["actor"].call("postal_today_shopper")
+	future.position.y -= 10.0
 	var start := float(params["street_start"])
 	var approach := Motion.smooth(Motion.seg(t, start, float(params["street_end"])))
 	var camera := Vector3(0.36, 2.15, 9.70).lerp(Vector3(0.11, 1.79, 7.82), approach)

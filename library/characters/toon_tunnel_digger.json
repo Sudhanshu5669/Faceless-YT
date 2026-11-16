@@ -1,0 +1,45 @@
+{
+  "id": "toon_tunnel_digger",
+  "description": "Tunnel worker with a pickaxe: yellow hard hat with headlamp, orange hi-vis vest, moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.64,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#f2c230",
+      "lamp": true
+    },
+    "outfit": {
+      "style": "hivis",
+      "color": "#f26a1b",
+      "accent": "#3a3f47"
+    },
+    "shoes": "#2c2a28",
+    "face": "determined",
+    "girth": 1.08,
+    "mustache": "#2a211c"
+  },
+  "props": [
+    {
+      "model": "quaternius_fantasy_props/Pickaxe_Bronze",
+      "bone": "hand_r",
+      "size": 0.95,
+      "offset": [
+        0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

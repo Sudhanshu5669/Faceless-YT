@@ -13,6 +13,7 @@ const SEATS := [Vector3(-0.91, 0, -0.05), Vector3(0, 0, 0.26), Vector3(0.91, 0, 
 const CAGE_HOOK := Vector3(0.0, 4.62, -0.10)
 const CAGE_DROP := 2.38
 const TOSSED_COINS := 6
+const WINNER_SEAT := Vector3(0, 0.40, 0.05)
 
 
 func build(gag: Dictionary) -> Node3D:
@@ -20,6 +21,13 @@ func build(gag: Dictionary) -> Node3D:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(String(gag["id"]))
 	_dress_hall(court)
+	var params: Dictionary = gag["params"]
+	if params.has("fallout"):
+		_build_fallout(court)
+		return court
+	if params.has("ascend"):
+		_build_winner(court)
+		return court
 	for index in CARRIERS.size():
 		var table := Node3D.new()
 		table.name = CARRIERS[index]
@@ -110,6 +118,146 @@ func _coin_prop(model: String, size: float, material: Material) -> Node3D:
 	return prop
 
 
+func _build_fallout(court: Node3D) -> void:
+	court.add_child(_cage(true))
+	var coins := Node3D.new()
+	coins.name = "scraps"
+	court.add_child(coins)
+	for i in 13:
+		var coin := _coin_prop("Coin", 1.55, _gold(i))
+		coin.position = Vector3((i % 5 - 2) * 0.075, 0.10 + (i / 5) * 0.025, 1.14 + sin(i * 2.4) * 0.15)
+		coin.rotation = Vector3(-1.42, i * 0.31, i * 0.43)
+		coins.add_child(coin)
+	var loose := _coin_prop("Coin", 2.6, _gold(1))
+	loose.name = "loose"
+	court.add_child(loose)
+	var fly := Node3D.new()
+	fly.name = "fly"
+	court.add_child(fly)
+	Kit.add_mesh(fly, Kit.sphere(0.029, 0.066, Kit.mat("222331"), 12), Vector3.ZERO)
+	for side in [-1, 1]:
+		var wing := Kit.add_mesh(fly, Kit.sphere(0.034, 0.012, Kit.glow_mat("bce9fb", 0.32), 12),
+			Vector3(side * 0.03, 0.019, 0))
+		wing.name = "wing_%d" % side
+	for i in 3:
+		for j in 4:
+			Kit.add_mesh(court, Kit.sphere(0.020, 0.051, Kit.glow_mat("65bafa", 0.45), 9),
+				Vector3.ZERO, Vector3.ZERO, "drop_%d_%d" % [i, j], false)
+
+
+func _pose_fallout(court: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
+	var params: Dictionary = gag["params"]
+	var beats: Array = params["fallout"]
+	var merge := float(params["merge"])
+	var escape := float(params["fly"])
+	var origin: Vector3 = ctx["holder"].position
+	var pile := Vector3(0, 0.25, 1.16)
+	var winner = ctx["actor"].call("throne_mukesh")
+	winner.position.y = -10.0
+	for i in 3:
+		var old_king = ctx["actor"].call("king_" + CARRIERS[i])
+		old_king.position.y -= 10.0
+		var actor = ctx["actor"].call("fallen_" + CARRIERS[i])
+		var reach_time := float(beats[i]) + 0.36
+		var reach := Motion.out_cubic(Motion.seg(t, reach_time - 0.28, reach_time))
+		var tug := sin((t - reach_time) * 9.0 + i * 1.3)
+		var brace := Motion.smooth(Motion.seg(t, merge - 0.30, merge + 0.12))
+		var hand := pile + Vector3((i - 1) * (0.18 - 0.11 * brace) + 0.08 * tug, 0.18 + 0.10 * tug, 0.02 * i)
+		actor.aim_hand("r" if i == 2 else "l", origin + hand, reach)
+		var eyes: Vector3 = actor.anchor_points()["fallen_" + CARRIERS[i] + ".eyes"]["pos"] - origin
+		for j in 4:
+			var drop := court.get_node("drop_%d_%d" % [i, j]) as Node3D
+			var k := fposmod(t - reach_time - j * 0.11, 0.56) / 0.56
+			drop.visible = t >= reach_time
+			drop.position = Motion.arc(eyes + Vector3(0.075 * (1 - 2 * (j % 2)), 0, 0.04),
+				eyes + Vector3(0.14 * (1 - 2 * (j % 2)), -0.60, 0.13), 0.05, k)
+	var loose := court.get_node("loose") as Node3D
+	var flip := Motion.seg(t, merge - 0.08, merge + 0.43)
+	loose.position = Motion.arc(pile, pile + Vector3(0.08, -0.10, 0.22), 0.52, flip)
+	loose.rotation.x = -PI * 0.5 + TAU * flip
+	var fly := court.get_node("fly") as Node3D
+	var buzz := Motion.smooth(Motion.seg(t, escape, escape + 1.1))
+	fly.visible = t >= escape
+	fly.position = Motion.arc(Vector3(0, 2.63, 0.28), Vector3(0.52, 2.94, 1.01), 0.22, buzz)
+	fly.position.y += 0.045 * sin((t - escape) * 22.0)
+	for side in [-1, 1]:
+		(fly.get_node("wing_%d" % side) as Node3D).rotation.z = side * sin(t * 95.0) * 0.95
+	var advance := Motion.smooth(Motion.seg(t, float(gag["t"]), escape))
+	var settle := Motion.smooth(Motion.seg(t, escape + 0.35, merge + 0.45))
+	var camera := Vector3(0.26, 2.22, 5.40).lerp(Vector3(0.03, 1.96, 4.63), advance)
+	camera = camera.lerp(Vector3(-0.10, 1.70, 4.53), settle)
+	var focus := Vector3(0, 1.55, 0.42).lerp(Vector3(0, 1.25, 0.63), settle)
+	return {"camera": origin + camera, "focus": origin + focus}
+
+
+func _build_winner(court: Node3D) -> void:
+	var seat := Node3D.new()
+	seat.name = "winner"
+	court.add_child(seat)
+	var wood := Kit.mat("7d4e39", 0.54)
+	var cushion := Kit.mat("264a91", 0.76)
+	Kit.add_box(seat, Vector3(0.74, 0.08, 0.32), WINNER_SEAT - Vector3(0, 0.04, 0.07), cushion)
+	Kit.add_box(seat, Vector3(0.76, 0.055, 0.33), WINNER_SEAT - Vector3(0, 0.10, 0.07), wood)
+	for x in [-0.31, 0.31]:
+		for z in [-0.15, 0.10]:
+			Kit.add_box(seat, Vector3(0.069, 0.31, 0.073), Vector3(x, 0.155, z), wood)
+	Kit.add_box(seat, Vector3(0.53, 0.049, 0.22), Vector3(0, 0.181, 0.37), wood)
+	for x in [-0.23, 0.23]:
+		Kit.add_box(seat, Vector3(0.05, 0.17, 0.06), Vector3(x, 0.085, 0.41), wood)
+	var plain := Kit.add_box(seat, Vector3(0.69, 0.59, 0.09), Vector3(0, 0.65, -0.22), wood)
+	plain.name = "plain_back"
+	var back := Node3D.new()
+	back.name = "throne_back"
+	back.position = Vector3(0, 0.45, -0.30)
+	seat.add_child(back)
+	var gold := _gold(1)
+	Kit.add_box(back, Vector3(0.94, 1.28, 0.10), Vector3(0, 0.52, 0), gold)
+	Kit.add_box(back, Vector3(0.79, 1.12, 0.12), Vector3(0, 0.53, 0.048), Kit.mat("244aa4"))
+	for x in [-0.49, 0.49]:
+		_cylinder(back, Vector3(x, 0.55, 0), 0.042, 0.049, 1.21, gold)
+		Kit.add_mesh(back, Kit.sphere(0.075, 0.15, gold), Vector3(x, 1.17, 0))
+	_lettering(back, "Jio", 0.24, "edf4ff", Vector3(0, 0.91, 0.119))
+	Kit.add_mesh(seat, Kit.cylinder(0.66, 0.72, 0.10, gold, 40), Vector3(0, -0.07, 0.28))
+
+
+func _pose_winner(court: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
+	for carrier in CARRIERS:
+		var old_king = ctx["actor"].call("king_" + carrier)
+		var fallen = ctx["actor"].call("fallen_" + carrier)
+		old_king.position.y -= 10.0
+		fallen.position.y -= 10.0
+	var at := float(gag["params"]["ascend"])
+	var sit := float(gag["params"]["sit"])
+	var contact := float(gag["params"]["contact"])
+	var lift := Motion.out_back(Motion.seg(t, maxf(contact, at - 0.10), at + 0.36), 1.35)
+	var seat := court.get_node("winner") as Node3D
+	var back := seat.get_node("throne_back") as Node3D
+	back.visible = lift > 0.0
+	back.scale.y = maxf(0.001, lift)
+	(seat.get_node("plain_back") as Node3D).visible = lift < 0.48
+	seat.position.y = 0.28 * lift
+	var origin: Vector3 = ctx["holder"].position
+	var actor = ctx["actor"].call("throne_mukesh")
+	var lower := Motion.smooth(Motion.seg(t, sit, contact))
+	if lower > 0.0:
+		var hip: Vector3 = (actor.bone_world("thigh_l") + actor.bone_world("thigh_r")) * 0.5
+		var target := origin + WINNER_SEAT + Vector3(0, 0.055 + seat.position.y, 0.028)
+		actor.body.position += (target - hip) * lower
+		actor.body.rotation.x = 0.17 * sin(PI * lower) - 0.055 * lower
+		for arm in ["l", "r"]:
+			var side := 1.0 if arm == "l" else -1.0
+			actor.aim_hand(arm, origin + Vector3(side * 0.21, 0.57 + seat.position.y, 0.27), lower)
+			var foot: Vector3 = actor.bone_world("foot_" + arm)
+			var rest := origin + Vector3(side * 0.125, 0.27 + seat.position.y, 0.40)
+			var brace := Motion.smooth(Motion.seg(t, contact - 0.21, contact))
+			if brace > 0.0:
+				actor.aim_foot(arm, foot.lerp(rest, brace), Vector3(0, 0.78, 1.0))
+	var k := Motion.smooth(Motion.seg(t, float(gag["t"]), at + 0.46))
+	var camera := Vector3(1.72, 1.40, 4.25).lerp(Vector3(1.08, 1.56, 3.79), k)
+	var focus := Vector3(0.14, 1.24, 0.15).lerp(Vector3(0, 1.61, 0.19), k)
+	return {"camera": origin + camera, "focus": origin + focus}
+
+
 func _goblet() -> Node3D:
 	var cup := Node3D.new()
 	cup.name = "goblet"
@@ -128,7 +276,7 @@ func _goblet() -> Node3D:
 	return cup
 
 
-func _cage() -> Node3D:
+func _cage(empty := false) -> Node3D:
 	var chain := Node3D.new()
 	chain.name = "chain"
 	chain.position = CAGE_HOOK
@@ -144,9 +292,11 @@ func _cage() -> Node3D:
 			Vector3(90, 90 * (index % 2), 0), "", false)
 		part.scale = Vector3(0.78, 1.0, 1.14)
 	# The imported cage has a dense grid that hides the captive at Shorts size.
-	var cage := _prison_bars()
+	var cage := _prison_bars(empty)
 	cage.position = Vector3(0, -CAGE_DROP, 0)
 	chain.add_child(cage)
+	if empty:
+		return chain
 	var tower := Reveals.shape_node("tower", 0.70, Color("80d5e3"))
 	tower.name = "tower"
 	tower.position = cage.position + Vector3(0, 0.10, 0.03)
@@ -159,7 +309,7 @@ func _cage() -> Node3D:
 	return chain
 
 
-func _prison_bars() -> Node3D:
+func _prison_bars(open := false) -> Node3D:
 	var cage := Node3D.new()
 	var frame := Kit.mat("53434a", 0.44, 0.51)
 	var bars := Kit.mat("6d6670", 0.37, 0.62)
@@ -172,14 +322,25 @@ func _prison_bars() -> Node3D:
 		for x in [-0.49, 0.49]:
 			_cylinder(cage, Vector3(x, 0.49, z), 0.036, 0.036, 0.88, frame)
 		for x in [-0.30, 0.0, 0.30]:
-			_cylinder(cage, Vector3(x, 0.49, z), 0.014, 0.014, 0.88, bars)
+			if not open or side < 0:
+				_cylinder(cage, Vector3(x, 0.49, z), 0.014, 0.014, 0.88, bars)
 		for depth in [-0.24, 0.0, 0.24]:
 			_cylinder(cage, Vector3(side * 0.49, 0.49, depth), 0.017, 0.017, 0.88, bars)
 	# A narrow hinged gate and its brass lock sit in the front plane.
-	for y in [0.24, 0.74]:
-		Kit.add_box(cage, Vector3(0.07, 0.06, 0.041), Vector3(-0.45, y, 0.466), brass)
-	Kit.add_box(cage, Vector3(0.16, 0.045, 0.034), Vector3(0.39, 0.44, 0.468), brass)
-	Kit.add_box(cage, Vector3(0.065, 0.083, 0.044), Vector3(0.405, 0.408, 0.50), brass)
+	if open:
+		var gate := Node3D.new()
+		gate.position = Vector3(-0.49, 0, 0.455)
+		gate.rotation.y = -1.20
+		cage.add_child(gate)
+		for x in [0.08, 0.37, 0.66, 0.93]:
+			_cylinder(gate, Vector3(x, 0.49, 0), 0.017, 0.017, 0.88, bars)
+		for y in [0.06, 0.89]:
+			Kit.add_box(gate, Vector3(0.94, 0.035, 0.032), Vector3(0.47, y, 0), brass)
+	else:
+		for y in [0.24, 0.74]:
+			Kit.add_box(cage, Vector3(0.07, 0.06, 0.041), Vector3(-0.45, y, 0.466), brass)
+		Kit.add_box(cage, Vector3(0.16, 0.045, 0.034), Vector3(0.39, 0.44, 0.468), brass)
+		Kit.add_box(cage, Vector3(0.065, 0.083, 0.044), Vector3(0.405, 0.408, 0.50), brass)
 	return cage
 
 
@@ -204,6 +365,16 @@ func _light(root: Node3D, at: Vector3, color: String, energy: float, reach: floa
 
 
 func pose(court: Node3D, gag: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
+	var mode: Dictionary = gag["params"]
+	if mode.has("fallout"):
+		return _pose_fallout(court, gag, t, ctx)
+	if mode.has("ascend"):
+		return _pose_winner(court, gag, t, ctx)
+	for carrier in CARRIERS:
+		var fallen = ctx["actor"].call("fallen_" + carrier)
+		fallen.position.y -= 10.0
+	var winner = ctx["actor"].call("throne_mukesh")
+	winner.position.y -= 10.0
 	var params: Dictionary = gag["params"]
 	var origin: Vector3 = ctx["holder"].position
 	var age := float(ctx["age"])

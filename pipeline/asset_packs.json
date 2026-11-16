@@ -293,6 +293,75 @@
           ""
         ]
       ]
+    },
+    {
+      "id": "majadroid_construction",
+      "author": "Majadroid (Maik Hoffmann)",
+      "license": "CC0",
+      "url": "https://majadroid.itch.io/3d-house-construction-site",
+      "zip": "LowPoly-House-Construction-Site-By-Majadroid*.zip",
+      "split_roots": true,
+      "files": [
+        [
+          "LowPoly-House-Construction-Site-By-Majadroid/fbx files/",
+          "Trucks.fbx",
+          ""
+        ],
+        [
+          "LowPoly-House-Construction-Site-By-Majadroid/fbx files/",
+          "Containers*.fbx",
+          ""
+        ],
+        [
+          "LowPoly-House-Construction-Site-By-Majadroid/fbx files/",
+          "Construction-Materials.fbx",
+          ""
+        ],
+        [
+          "LowPoly-House-Construction-Site-By-Majadroid/fbx files/",
+          "Fence.fbx",
+          ""
+        ],
+        [
+          "LowPoly-House-Construction-Site-By-Majadroid/fbx files/",
+          "Crane-*.fbx",
+          ""
+        ],
+        [
+          "LowPoly-House-Construction-Site-By-Majadroid/",
+          "*.png",
+          ""
+        ],
+        [
+          "LowPoly-House-Construction-Site-By-Majadroid/",
+          "INFO.txt",
+          ""
+        ]
+      ]
+    },
+    {
+      "id": "quaternius_nature_mega",
+      "author": "Quaternius",
+      "license": "CC0",
+      "url": "https://quaternius.com/packs/stylizednaturemegakit.html",
+      "zip": "Stylized Nature MegaKit*.zip",
+      "files": [
+        [
+          "glTF/",
+          "*.gltf",
+          ""
+        ],
+        [
+          "glTF/",
+          "*.bin",
+          ""
+        ],
+        [
+          "glTF/",
+          "*.png",
+          ""
+        ]
+      ]
     }
   ]
 }

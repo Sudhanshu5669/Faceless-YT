@@ -208,7 +208,30 @@ func _at_time(t: float) -> Dictionary:
 	L["actor_anchors"].merge(Reveals.pose(reveals_node, spec.get("reveals", []), t, L))
 	# Gags (custom scripted set pieces) see actors and reveals, and add their own anchors.
 	L["actor_anchors"].merge(Gags.pose(gags_node, spec.get("gags", []), t, L, actors_node))
+	# Reveals that ride on a gag's anchors (a counter over a flying plane) are placed again now
+	# that this frame's gag anchors exist.
+	var on_gags := _reveals_on_gags()
+	if not on_gags.is_empty():
+		L["actor_anchors"].merge(Reveals.pose(reveals_node, on_gags, t, L))
 	return L
+
+
+var _gag_reveals = null
+
+
+func _reveals_on_gags() -> Array:
+	if _gag_reveals != null:
+		return _gag_reveals
+	var ids := {}
+	for g in spec.get("gags", []):
+		ids[String(g.get("id", ""))] = true
+	_gag_reveals = []
+	for r in spec.get("reveals", []):
+		var at = r.get("at")
+		var ref := String(at.get("anchor", "")) if at is Dictionary else String(at)
+		if ids.has(ref.get_slice(".", 0)) and ref.contains("."):
+			_gag_reveals.append(r)
+	return _gag_reveals
 
 
 func _entry_time(entry) -> float:

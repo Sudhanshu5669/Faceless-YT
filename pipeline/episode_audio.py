@@ -1,6 +1,6 @@
 """Voice-first episodes: narration, timing, captions and the sound mix.
 
-resolve(episode.json) synthesizes every line (Gemini TTS, cached), times each
+resolve(episode.json) synthesizes and caches every line, times each
 word, sizes "fit" shots to their narration, and turns time references into
 numbers, producing the episode Godot renders. mix() builds the soundtrack
 (voice, effects, ducked beds, -14 LUFS) and write_captions() the word-by-word
@@ -27,7 +27,7 @@ import tts
 
 NARRATION_KEYS = {"voice", "style", "model", "speed", "batch_words", "single_take", "script"}
 LINE_KEYS = {"id", "text", "voice", "style", "fx", "shot", "at", "gain", "caption", "speed"}
-SFX_KEYS = {"sound", "at", "gain", "repeat", "every", "salt"}
+SFX_KEYS = {"sound", "file", "at", "gain", "repeat", "every", "salt"}
 AMBIENCE_KEYS = {"sound", "gain", "curve", "duck"}
 CAPTION_KEYS = {"enabled", "max_words", "position", "style"}
 CAPTION_STYLES = {"karaoke", "toon"}
@@ -80,8 +80,8 @@ def validate(ep: dict) -> list[str]:
         for k in s:
             if k not in SFX_KEYS:
                 e.append(f"sfx[{i}]: unknown key '{k}' (known: {', '.join(sorted(SFX_KEYS))})")
-        if "sound" not in s or "at" not in s:
-            e.append(f"sfx[{i}]: needs 'sound' and 'at'")
+        if ("sound" in s) == ("file" in s) or "at" not in s:
+            e.append(f"sfx[{i}]: needs 'at' and exactly one of 'sound' or 'file'")
     for i, a in enumerate(ep.get("ambience", [])):
         for k in a:
             if k not in AMBIENCE_KEYS:
@@ -110,46 +110,54 @@ def resolve(path: Path, verbose: bool = True) -> dict:
     ep = json.loads(path.read_text(encoding="utf-8"))
     _err(validate(ep))
     narr = ep.get("narration", {})
-    # 1. Voice first: speak and time every line. Lines sharing a voice + style
-    # are spoken in ONE request (consistent delivery, and the free tier allows
-    # only ~10 TTS requests per model per day), then cut apart at the pauses.
     # TOWNFORGE_TTS_MODEL overrides for drafting (e.g. a lighter model with spare quota).
     model = os.environ.get("TOWNFORGE_TTS_MODEL") or narr.get("model", tts.DEFAULT_MODEL)
-    forced: dict[str, float] = {}
+    local = model == tts.LOCAL_MODEL
     if narr.get("single_take"):
+        if local:
+            raise EpisodeError("ERROR: Qwen narration uses independent lines; disable narration.single_take")
         lines, forced = _single_take(ep, narr, model)
         return _finish_resolve(ep, lines, forced, verbose, path.parent)
-    groups: dict[tuple, list[str]] = {}
-    for ln in ep.get("lines", []):
-        key = (ln.get("voice", narr.get("voice", "Charon")), ln.get("style", narr.get("style", "")))
-        if ln["text"] not in groups.setdefault(key, []):
-            groups[key].append(ln["text"])
+    episode_lines = ep.get("lines", [])
+    default_voice = narr.get("voice", "Ryan" if local else "Charon")
+    default_style = narr.get("style", "")
+    line_keys = [(ln.get("voice", default_voice), ln.get("style", default_style), ln["text"])
+                 for ln in episode_lines]
+    groups: dict[tuple[str, str], list[str]] = {}
+    for voice, style, text in dict.fromkeys(line_keys):
+        groups.setdefault((voice, style), []).append(text)
+    if local:
+        tts.prepare_local([(text, voice, style) for voice, style, text in line_keys])
     takes: dict[tuple, dict] = {}
     for (voice, style), texts in groups.items():
-        # Long TTS requests get cut off: batches of at most BATCH_WORDS words.
-        chunks, cur, n_words = [], [], 0
-        for t in texts:
-            w = len(align.script_words(t))
-            if cur and n_words + w > int(narr.get("batch_words", BATCH_WORDS)):
-                chunks.append(cur)
-                cur, n_words = [], 0
-            cur.append(t)
-            n_words += w
-        if cur:
-            chunks.append(cur)
+        chunks = [[text] for text in texts] if local else _batch_lines(texts, int(narr.get("batch_words", BATCH_WORDS)))
         for chunk in chunks:
             for text, take in zip(chunk, speak_batch(chunk, voice, style, model)):
                 takes[(voice, style, text)] = take
     lines = []
-    for ln in ep.get("lines", []):
-        key = (ln.get("voice", narr.get("voice", "Charon")), ln.get("style", narr.get("style", "")), ln["text"])
+    for ln, key in zip(episode_lines, line_keys):
         take = takes[key]
         speed = float(ln.get("speed", narr.get("speed", 1.0)))
         if abs(speed - 1.0) > 0.001:
             take = _tempo(take, speed)
         lines.append({**ln, "wav": take["wav"], "dur": take["dur"], "words": take["words"],
                       "at": float(ln.get("at", 0.15))})
-    return _finish_resolve(ep, lines, forced, verbose, path.parent)
+    return _finish_resolve(ep, lines, {}, verbose, path.parent)
+
+
+def _batch_lines(texts: list[str], word_limit: int) -> list[list[str]]:
+    """Pack Gemini requests up to the word limit without splitting a line."""
+    chunks, current, total = [], [], 0
+    for text in texts:
+        count = len(align.script_words(text))
+        if current and total + count > word_limit:
+            chunks.append(current)
+            current, total = [], 0
+        current.append(text)
+        total += count
+    if current:
+        chunks.append(current)
+    return chunks
 
 
 SINGLE_LEAD = 0.12   # silence before the take starts
@@ -404,8 +412,9 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
     sfx = []
     for i, s in enumerate(list(ep.get("sfx", [])) + reveal_sfx):
         t0 = ref(s["at"], "edit", f"sfx[{i}]")
+        source = {"sound": s["sound"]} if "sound" in s else {"file": _effect_file(ep_dir, s["file"])}
         for n in range(int(s.get("repeat", 1))):
-            sfx.append({"sound": s["sound"], "t": t0 + n * float(s.get("every", 0.5)),
+            sfx.append({**source, "t": t0 + n * float(s.get("every", 0.5)),
                         "gain": float(s.get("gain", 0.0)), "salt": int(s.get("salt", 0)) + n})
     total = sum(s["duration"] for s in shots)
     end_black = float(ep.get("end_black", 0.0))
@@ -420,6 +429,20 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
     if verbose:
         print_timing(res)
     return res
+
+
+def _effect_file(ep_dir: Path, filename: str) -> str:
+    root = ep_dir.resolve()
+    path = (root / filename).resolve()
+    if Path(filename).is_absolute() or not path.is_relative_to(root) or path.suffix.lower() != ".wav":
+        raise EpisodeError(f"ERROR: sound file must name a WAV inside the episode: {filename}")
+    try:
+        with wave.open(str(path), "rb") as wav:
+            if wav.getsampwidth() != 2 or wav.getnchannels() != 1 or not wav.getnframes():
+                raise EpisodeError(f"ERROR: sound file must be a nonempty mono 16-bit PCM WAV: {filename}")
+    except (OSError, EOFError, wave.Error) as exc:
+        raise EpisodeError(f"ERROR: cannot read sound file {filename}: {exc}") from exc
+    return str(path)
 
 
 def _tempo(take: dict, speed: float) -> dict:
@@ -555,7 +578,8 @@ def mix(res: dict, out_wav: Path, ffmpeg: str = "ffmpeg") -> Path:
             x = sfx.toy_chorus(x)
         place(voice, x * _db(float(ln.get("gain", 0.0))), ln["edit"])
     for s in res["sfx"]:
-        place(fx, sfx.make(s["sound"], salt=s["salt"]) * _db(s["gain"]), s["t"])
+        sound = _load_wav(s["file"]) if "file" in s else sfx.make(s["sound"], salt=s["salt"])
+        place(fx, sound * _db(s["gain"]), s["t"])
     # Ducking: beds dip under the narration (envelope follower on the voice bus).
     env = np.abs(voice)
     att, rel = np.exp(-1.0 / (0.01 * sr)), np.exp(-1.0 / (0.35 * sr))

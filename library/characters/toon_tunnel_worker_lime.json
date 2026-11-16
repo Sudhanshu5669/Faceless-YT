@@ -1,0 +1,28 @@
+{
+  "id": "toon_tunnel_worker_lime",
+  "description": "Tunnel worker: yellow hard hat with headlamp, lime hi-vis vest, moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.7,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#f2c230",
+      "lamp": true
+    },
+    "outfit": {
+      "style": "hivis",
+      "color": "#c8dc2c",
+      "accent": "#3a3f47"
+    },
+    "shoes": "#2c2a28",
+    "face": "determined",
+    "girth": 1.12,
+    "mustache": "#2a211c"
+  }
+}

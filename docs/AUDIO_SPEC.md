@@ -1,6 +1,6 @@
 # Sound: narration, timing, captions, effects
 
-Episodes are **voice first**: the narration is spoken (Gemini TTS) before anything is rendered,
+Episodes are **voice first**: the narration is spoken before anything is rendered,
 and its real length sets the shot lengths. Every time in the episode can point at a word of the
 narration, so re-recording a line re-times the whole edit by itself.
 
@@ -11,8 +11,8 @@ python pipeline/tf.py render <id>            # picture + soundtrack + captions -
 python pipeline/tf.py render <id> --remix    # sound and captions only, over the rendered picture
 ```
 
-The key is `GEMINI_API_KEY` in `.env` at the repo root (git-ignored). Every take is cached in
-`output/tts_cache/` by (model, voice, style, text), so re-renders never call the API again.
+Gemini uses `GEMINI_API_KEY` in `.env` at the repo root (git-ignored). Both models cache each
+take in `output/tts_cache/` by model, voice, style and text.
 
 ## Narration and lines
 
@@ -27,8 +27,8 @@ The key is `GEMINI_API_KEY` in `.env` at the repo root (git-ignored). Every take
 
 | Field | Meaning |
 |---|---|
-| `voice` | A Gemini prebuilt voice (Charon, Kore, Enceladus, Algenib, Leda, Puck…). Default: `narration.voice`. |
-| `style` | Short delivery direction, sent as a `[bracket tag]` (a "Say it like…:" prefix gets read aloud). |
+| `voice` | A speaker for the selected model, such as Gemini `Charon` or Qwen `Ryan`. Defaults to `narration.voice`. |
+| `style` | Short delivery direction. Gemini receives a bracket tag. Qwen receives a separate instruction. |
 | `speed` | Time-stretch with pitch kept (ffmpeg `atempo`); word times are rescaled. |
 | `shot`, `at` | The line starts `at` seconds into that shot (it may run past the cut). |
 | `fx` | `toy` (pitched up, band-limited, bit-crushed) or `toy_chorus` (many toys, out of sync). |
@@ -42,6 +42,33 @@ the same voice and style are spoken in batches of up to 30 words per request, th
 quietest point between lines (an episode is about 4–5 requests). TTS sometimes stops before the last
 word; the pipeline detects this (from the word timings) and retakes once with a throwaway word
 after the last line.
+
+### Local narration on Windows
+
+Qwen3-TTS 1.7B CustomVoice runs in an optional CUDA environment and uses the same word alignment,
+shot timing and captions as Gemini. Install from the repo root in PowerShell with Python 3.10 or later.
+
+```powershell
+python -m venv .venv/qwen-tts
+.venv/qwen-tts/Scripts/python.exe -m pip install torch==2.8.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+.venv/qwen-tts/Scripts/python.exe -m pip install qwen-tts==0.1.1
+.venv/qwen-tts/Scripts/hf.exe download Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --local-dir models/qwen3-tts/1.7b-customvoice
+```
+
+Select it in `episode.json` and run `python pipeline/tf.py voice <id>`.
+
+```json
+"narration": {
+  "model": "qwen3-tts-1.7b-customvoice",
+  "voice": "Ryan",
+  "style": "Conversational, with dry comic timing."
+}
+```
+
+Qwen speaks English here and supports per-line `style` overrides. Keep each `text` short enough
+to retake as a unit. Changing a line's text, voice or direction regenerates that line and reuses
+the other takes. `single_take` applies to Gemini. Both the weights and the Python environment live
+in git-ignored folders. Generation reads the weights from disk and works offline.
 
 **Word timings are measured, not guessed: CTC forced alignment** (`pipeline/ctc_align.py`, ported
 from Auto-Slop-Generator; cached as `<take>.ctc.json`). An acoustic model (wav2vec2-base-960h, ONNX,
@@ -86,8 +113,9 @@ The resolver writes `episodes/<id>/build/episode.resolved.json` (numbers only) f
 - One-shots: `glass_bang`, `creak`, `sting` (1.4 s swell into a boom: place it 1.4 s early), `thud`, `click`.
 - Beds (cover the whole episode): `room_tone`, `drone`, `zombies` (a groaning crowd), `heartbeat`.
   `curve` = [[time, level 0..1], …], linear. `duck` = how far the bed dips under narration.
-- All sounds are synthesized (`pipeline/sfx.py`, numpy + scipy), deterministic and license-free.
-  A CC0 sample pack can replace any of them under the same name later.
+- To use a recorded effect, set `file` in place of `sound` on a one-shot. Use a mono 16-bit PCM WAV
+  relative to the episode directory, for example `"file": "audio/tiffin_click.wav"`.
+  Trim the recording at the intended sync point and keep its source and license with the episode.
 - The mix is limited and normalised to **−14 LUFS**, −1.5 dBTP (YouTube).
 
 ## Captions

@@ -1,0 +1,28 @@
+{
+  "id": "toon_tunnel_worker_blue",
+  "description": "Tunnel machine operator: blue hard hat, orange hi-vis vest.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.56,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#2f6fc4",
+      "lamp": true
+    },
+    "outfit": {
+      "style": "hivis",
+      "color": "#f26a1b",
+      "accent": "#3b3a36"
+    },
+    "shoes": "#2c2a28",
+    "face": "sleepy",
+    "girth": 0.92,
+    "mustache": "#1d1a18"
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "silkyara",
+    "generator": "stage",
+    "seed": 17,
+    "params": {
+      "bays": [
+        {
+          "id": "slope",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "tunnel",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "section",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "airstrip",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        }
+      ]
+    }
+  },
+  "look": {
+    "base": "day",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+      "fog": 0.2
+    },
+    "ambient": {
+      "color": "#899eb8",
+      "energy": 0.39
+    },
+    "sun": {
+      "elevation": -3.5,
+      "azimuth": -74,
+      "energy": 0
+    },
+    "moon": {
+      "energy": 0,
+      "visible": false
+    },
+    "fog": {
+      "begin": 53,
+      "end": 535,
+      "color": "#5e687a",
+      "volumetric": 0.0013
+    },
+    "grade": {
+      "contrast": 1.04,
+      "vignette": 0.12
+    },
+    "sky": {
+      "top": "#2a4059",
+      "horizon": "#b99b8e",
+      "stars": 0,
+      "clouds": 0.31,
+      "cloud_color": "#5e6480",
+      "cloud_speed": 0.06
+    },
+    "lights": [
+      {
+        "elevation": 10,
+        "azimuth": -73,
+        "color": "#dfaf9d",
+        "energy": 0.62,
+        "shadows": true
+      },
+      {
+        "elevation": 52,
+        "azimuth": 137,
+        "color": "#7797bf",
+        "energy": 0.37,
+        "shadows": false
+      }
+    ],
+    "ground_fog": {
+      "density": 0.009,
+      "height": 8.0,
+      "falloff": 0.075,
+      "color": "#737b88"
+    }
+  }
+}

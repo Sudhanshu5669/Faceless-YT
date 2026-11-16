@@ -1,0 +1,25 @@
+{
+  "id": "toon_site_cook",
+  "description": "Tunnel site cook in a white vest, with a moustache.",
+  "tags": [
+    "toon",
+    "human"
+  ],
+  "height": 1.62,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "tuft",
+      "color": "#231a16"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#ecebe4"
+    },
+    "shoes": "#4a3a2e",
+    "mustache": "#231a16",
+    "girth": 1.12,
+    "face": "happy"
+  }
+}

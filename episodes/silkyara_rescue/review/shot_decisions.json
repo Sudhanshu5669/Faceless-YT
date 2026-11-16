@@ -1,0 +1,156 @@
+{
+  "mountain": {
+    "status": "approved",
+    "note": "User: i love the five hook shots.",
+    "updated": "2026-11-15 17:00:57",
+    "fingerprint": "cf703e3c26a6",
+    "history": []
+  },
+  "work": {
+    "status": "approved",
+    "note": "User: i love the five hook shots.",
+    "updated": "2026-11-15 17:00:57",
+    "fingerprint": "5606cffd24e2",
+    "history": []
+  },
+  "chai": {
+    "status": "approved",
+    "note": "User: i love the five hook shots.",
+    "updated": "2026-11-15 17:00:57",
+    "fingerprint": "01802edc3b87",
+    "history": []
+  },
+  "collapse": {
+    "status": "approved",
+    "note": "User: i love the five hook shots.",
+    "updated": "2026-11-15 17:00:58",
+    "fingerprint": "f92004de67c7",
+    "history": []
+  },
+  "alive": {
+    "status": "approved",
+    "note": "User: i love the five hook shots.",
+    "updated": "2026-11-15 17:00:58",
+    "fingerprint": "739d7fb10fe5",
+    "history": []
+  },
+  "plug_throw": {
+    "status": "approved",
+    "note": "User: looks good. go on",
+    "updated": "2026-11-15 17:33:14",
+    "fingerprint": "4ed14538afcf",
+    "history": []
+  },
+  "plug_catch": {
+    "status": "approved",
+    "note": "User: looks good. go on",
+    "updated": "2026-11-15 17:33:14",
+    "fingerprint": "f884ebc980b7",
+    "history": []
+  },
+  "plug_wide": {
+    "status": "approved",
+    "note": "User: looks good. go on",
+    "updated": "2026-11-15 17:33:14",
+    "fingerprint": "81bc14adcdcb",
+    "history": []
+  },
+  "tunnel_space": {
+    "status": "approved",
+    "note": "User: looks good, continue",
+    "updated": "2026-11-15 17:40:08",
+    "fingerprint": "5cc92d4568c6",
+    "history": []
+  },
+  "lifeline_lights": {
+    "status": "approved",
+    "note": "User: approved. go on. you're doing a much better work",
+    "updated": "2026-11-15 18:17:49",
+    "fingerprint": "e5f4486d2edf",
+    "history": []
+  },
+  "lifeline_pipe": {
+    "status": "approved",
+    "note": "User: approved. go on. you're doing a much better work",
+    "updated": "2026-11-15 18:17:49",
+    "fingerprint": "583f38e72410",
+    "history": []
+  },
+  "feed_out": {
+    "status": "approved",
+    "note": "It is not clear that this shot is from the outside people. what i rather want here to happen is that we show in a more abstract way that oxygen is travelling through the pipe as blue lines. there is a jar of food being passed in through the air pressure as well.",
+    "updated": "2026-11-15 20:03:37",
+    "fingerprint": "1c8164329945",
+    "history": [
+      {
+        "status": "changes",
+        "note": "It is not clear that this shot is from the outside people. what i rather want here to happen is that we show in a more abstract way that oxygen is travelling through the pipe as blue lines. there is a jar of food being passed in through the air pressure as well.",
+        "updated": "2026-11-15 19:34:01",
+        "fingerprint": "689c78dc0cb2"
+      }
+    ]
+  },
+  "plan_rig": {
+    "status": "changes",
+    "note": "the right half of the shot is cut here. fix it",
+    "updated": "2026-11-15 19:35:13",
+    "fingerprint": "bf36e404bc56",
+    "history": []
+  },
+  "day9_tally": {
+    "status": "changes",
+    "note": "the tally marks are in a weird position",
+    "updated": "2026-11-15 19:35:46",
+    "fingerprint": "4fe845e3d1ff",
+    "history": []
+  },
+  "feed_in": {
+    "status": "approved",
+    "note": "since in previous shot we showed food coming in jar, show it for this shot as well. dry fruits, puffed rice, all coming in jars.",
+    "updated": "2026-11-15 20:20:08",
+    "fingerprint": "e4a138d30e5b",
+    "history": [
+      {
+        "status": "changes",
+        "note": "since in previous shot we showed food coming in jar, show it for this shot as well. dry fruits, puffed rice, all coming in jars.",
+        "updated": "2026-11-15 20:04:25",
+        "fingerprint": "5c2f39551a33"
+      }
+    ]
+  },
+  "khichdi_bottle": {
+    "status": "changes",
+    "note": "This shot looks unprofessional and non cinematic. make it look cinematic",
+    "updated": "2026-11-15 20:19:24",
+    "fingerprint": "3e999a164809",
+    "history": []
+  },
+  "khichdi_pour": {
+    "status": "changes",
+    "note": "does not look cinematic and realistic",
+    "updated": "2026-11-15 20:19:36",
+    "fingerprint": "e23b22ab6e66",
+    "history": []
+  },
+  "khichdi_cook": {
+    "status": "changes",
+    "note": "does not look realistic.",
+    "updated": "2026-11-15 20:19:43",
+    "fingerprint": "5c97ce372136",
+    "history": []
+  },
+  "laps": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-15 20:20:10",
+    "fingerprint": "f85b52bcfc1d",
+    "history": []
+  },
+  "yoga": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-15 20:20:12",
+    "fingerprint": "aa2e11d26e34",
+    "history": []
+  }
+}

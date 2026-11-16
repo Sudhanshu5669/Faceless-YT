@@ -56,6 +56,11 @@ static func apply(parent: Node, look: Dictionary, camera: Node3D = null) -> void
 	env.glow_bloom = float(glow["bloom"])
 	env.glow_hdr_threshold = float(glow["threshold"])
 
+	env.ssr_enabled = bool(look.get("ssr", false))
+	env.ssr_max_steps = 96
+	env.ssr_fade_in = 0.15
+	env.ssr_fade_out = 2.0
+	env.ssr_depth_tolerance = 0.2
 	env.ssao_enabled = bool(look["ssao"])
 	env.ssao_radius = 1.2
 	env.ssao_intensity = 1.6

@@ -40,8 +40,8 @@ Proportions (measured on the reference): head ≈ 38 % of the height, torso ≈ 
 | Key | Values |
 |---|---|
 | `skin` | Head colour. White is the norm; green (`#7ed957`) is the "evil true face" gag. |
-| `hair.style` | `bowl`, `tuft` (bowl + spike on top), `slick` (combed back), `curly` (ball curls), `cap` (baseball cap), `beanie`, `bob`, `bun`, `bald`. |
-| `outfit.style` | `hoodie` (drawstrings, pocket, hood), `suit` (+ `"chain": true` gold chain, `"tie": "#hex"`), `tee`, `labcoat` (+ `tie`), `dress`. `accent` recolours drawstrings. |
+| `hair.style` | `bowl`, `tuft` (bowl + spike on top), `slick` (combed back), `curly` (ball curls), `cap` (baseball cap), `beanie`, `bob`, `bun`, `bald`, `hardhat` (site helmet: ribbed dome, brim, front peak; `color` is the shell; `"lamp": true` adds a strapped headlamp whose lens is the node `lamp_lens` with its own emissive material, so a gag can switch one worker's lamp). |
+| `outfit.style` | `hoodie` (drawstrings, pocket, hood), `suit` (+ `"chain": true` gold chain, `"tie": "#hex"`), `tee`, `labcoat` (+ `tie`), `dress`, `shirt`, `hivis` (safety vest in `color` with reflective tape round the waist and over the shoulders, a zip, trousers in `accent`; the tape glows faintly so it reads in a dark set). `accent` recolours drawstrings. |
 | `accessories` | `glasses`, `round_glasses`, `sunglasses`, `smart_glasses` (thick frame + LED). |
 | `face` | Default expression (a key of `library/toon/faces.json`). |
 | `girth` | Torso width, 0.7..1.5. |
@@ -49,7 +49,9 @@ Proportions (measured on the reference): head ≈ 38 % of the height, torso ≈ 
 A toon takes no `model` or `colors`. Ready-made cast: `toon_you` (everyman, blue hoodie),
 `toon_boss` (billionaire: suit, gold chain, curls), `toon_boss_evil` (same, green skin),
 `toon_agent`, `toon_partner`, `toon_founder`, `toon_scientist`, `toon_scientist_b`,
-`toon_redhead`, `toon_nerd`. Run `python pipeline/tf.py library` to list them.
+`toon_redhead`, `toon_nerd`. Site crew (hard hat + hi-vis): `toon_tunnel_worker`, `_lime`, `_blue`,
+`_red`, `toon_tunnel_engineer` (white helmet, glasses), `toon_tunnel_digger` (pickaxe in hand).
+Run `python pipeline/tf.py library` to list them.
 
 ## Expressions
 

@@ -43,6 +43,7 @@ const SCHEMA := {
 	"ground_fog": {"density": "number", "height": "number", "falloff": "number", "color": "color", "emission": "color"},
 	"glow": {"enabled": "bool", "intensity": "number", "bloom": "number", "threshold": "number"},
 	"ssao": "bool",
+	"ssr": "bool",
 	"grade": {
 		"brightness": "number", "contrast": "number", "saturation": "number",
 		"gradient_map": "colors", "vignette": "number", "grain": "number",
@@ -92,6 +93,7 @@ const RENDER_DEFAULTS := {
 	"ground_fog": {"density": 0.0, "height": 8.0, "falloff": 0.25, "color": "#9aa6bb", "emission": "#000000"},
 	"glow": {"enabled": true, "intensity": 0.85, "bloom": 0.03, "threshold": 0.9},
 	"ssao": true,
+	"ssr": false,
 	"grade": {"brightness": 1.0, "contrast": 1.05, "saturation": 1.05, "gradient_map": [], "vignette": 0.2, "grain": 0.0},
 	"palette": {},
 	"weather": {"rain": 0.0, "snow": 0.0, "wind": 0.2},

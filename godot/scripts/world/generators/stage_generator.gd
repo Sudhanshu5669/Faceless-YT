@@ -16,7 +16,7 @@
 extends RefCounted
 
 const FLOORS := ["checker", "tiles", "grid", "wood", "plain", "carpet", "road", "marble", "none"]
-const WALLS := ["tiles", "panels", "plain", "grid", "brick", "skyline", "bazaar", "haveli", "none"]
+const WALLS := ["tiles", "panels", "plain", "grid", "brick", "skyline", "bazaar", "haveli", "kitchen", "none"]
 const NEONS := ["ring", "tubes", "strip", "arch", "frame"]
 const PEDESTALS := ["neon", "drums", "cash", "crates", "plain"]
 const BAY_KEYS := ["id", "floor", "floor_colors", "wall", "wall_color", "neon", "neon_colors", "size",
@@ -134,6 +134,8 @@ static func generate(params: Dictionary, seed_value: int) -> Dictionary:
 		A[id + ".front"] = _anchor(c + Vector3(0, 0, d * 0.5 - 0.8), fwd)
 		A[id + ".wall"] = _anchor(c + Vector3(0, 2.2, -d * 0.5 + 0.06), fwd)
 		A[id + ".sky"] = _anchor(c + Vector3(0, 5.0, 0), fwd)
+		if bay["wall"] == "kitchen":
+			A[id + ".counter"] = _anchor(c + Vector3(0, 0.9, 0), fwd)
 		if not bay["pedestal"].is_empty():
 			A[id + ".pedestal"] = _anchor(c + Vector3(0, float(bay["pedestal"]["height"]), 0), fwd)
 		i += 1
