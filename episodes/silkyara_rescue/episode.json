@@ -91,6 +91,12 @@
    "shot": "scope_pipe",
    "at": 0.3,
    "text": "The next day, a camera crawls down the same pipe. For the first time, the world sees their faces."
+  },
+  {
+   "id": "drill",
+   "shot": "auger_chew",
+   "at": 0.25,
+   "text": "The big drill chews in. Twenty metres. Thirty. Forty-seven."
   }
  ],
  "actors": [
@@ -6963,6 +6969,94 @@
      },
      "crawler": "plan_crawl"
     },
+    "xauger": {
+     "from": {
+      "line": "drill",
+      "edge": "start",
+      "offset": -0.25
+     },
+     "chew": {
+      "line": "drill",
+      "edge": "start",
+      "offset": 0.97
+     },
+     "boulder_at": 1.3,
+     "metres": 57,
+     "keys": [
+      [
+       {
+        "line": "drill",
+        "edge": "start",
+        "offset": -0.25
+       },
+       0.0
+      ],
+      [
+       {
+        "line": "drill",
+        "edge": "start",
+        "offset": 0.9
+       },
+       1.3
+      ],
+      [
+       {
+        "line": "drill",
+        "edge": "start",
+        "offset": 1.25
+       },
+       1.6
+      ],
+      [
+       {
+        "line": "drill",
+        "edge": "start",
+        "offset": 1.42
+       },
+       1.6
+      ],
+      [
+       {
+        "line": "drill",
+        "edge": "start",
+        "offset": 1.92
+       },
+       20.0
+      ],
+      [
+       {
+        "line": "drill",
+        "edge": "start",
+        "offset": 2.55
+       },
+       20.0
+      ],
+      [
+       {
+        "line": "drill",
+        "edge": "start",
+        "offset": 3.38
+       },
+       30.0
+      ],
+      [
+       {
+        "line": "drill",
+        "edge": "start",
+        "offset": 3.65
+       },
+       30.0
+      ],
+      [
+       {
+        "line": "drill",
+        "edge": "start",
+        "offset": 4.35
+       },
+       47.0
+      ]
+     ]
+    },
     "xpipe": {
      "from": {
       "line": "feed",
@@ -8224,6 +8318,87 @@
   }
  ],
  "sfx": [
+  {
+   "sound": "rip",
+   "at": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 0.75
+   },
+   "gain": -6
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 0.97
+   },
+   "gain": -2
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 1.42
+   },
+   "gain": -9
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 1.92
+   },
+   "gain": -7
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 2.55
+   },
+   "gain": -9
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 3.38
+   },
+   "gain": -7
+  },
+  {
+   "sound": "whoosh",
+   "at": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 3.65
+   },
+   "gain": -9
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 4.35
+   },
+   "gain": -5
+  },
+  {
+   "sound": "ding",
+   "at": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 4.35
+   },
+   "gain": -9
+  },
   {
    "file": "audio/mountain_wind_short.wav",
    "at": 0,
@@ -11593,9 +11768,489 @@
     },
     "ease": "in_out"
    }
+  },
+  {
+   "name": "auger_chew",
+   "duration": 1.75,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "X-ray of the plug at the rescue face: the casing's cutting head grinds into a boulder and it bursts on \"chews\"; spoil rides back along the spinning flight.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -2.5,
+       0.75,
+       3.1
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -0.45,
+       0.0,
+       0.15
+      ]
+     },
+     "lens_mm": 25
+    },
+    "to": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -2.1,
+       0.62,
+       2.6
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -0.45,
+       0.0,
+       0.15
+      ]
+     },
+     "lens_mm": 27
+    },
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "drill",
+      "edge": "start",
+      "offset": 0.97
+     },
+     "amount": 0.35
+    }
+   ]
+  },
+  {
+   "name": "auger_ride",
+   "duration": 3.9,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "Riding with the nose through the cut-open rubble: it surges and stalls, the counter on it lands on 20, 30, 47.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -1.35,
+       0.6,
+       2.5
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       0.7,
+       0.0,
+       0.1
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -1.2,
+       0.55,
+       2.3
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       0.7,
+       0.0,
+       0.1
+      ]
+     },
+     "lens_mm": 22
+    },
+    "ease": "linear"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "drill",
+      "edge": "start",
+      "offset": 1.92
+     },
+     "amount": 0.18
+    },
+    {
+     "t": {
+      "line": "drill",
+      "edge": "start",
+      "offset": 3.38
+     },
+     "amount": 0.18
+    },
+    {
+     "t": {
+      "line": "drill",
+      "edge": "start",
+      "offset": 4.35
+     },
+     "amount": 0.25
+    }
+   ]
   }
  ],
  "reveals": [
+  {
+   "id": "bore_count",
+   "t": {
+    "line": "drill",
+    "edge": "start",
+    "offset": 1.45
+   },
+   "at": {
+    "anchor": "mountain_section.nose",
+    "offset": [
+     -0.0,
+     1.05,
+     0.25
+    ]
+   },
+   "size": 0.3,
+   "enter": "pop",
+   "glow": 0.25,
+   "counter": {
+    "keys": [
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 1.482
+      },
+      2
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 1.545
+      },
+      3
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 1.607
+      },
+      5
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 1.67
+      },
+      11
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 1.732
+      },
+      16
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 1.795
+      },
+      19
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 1.857
+      },
+      20
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 1.92
+      },
+      20
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 2.55
+      },
+      20
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 2.654
+      },
+      20
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 2.757
+      },
+      21
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 2.861
+      },
+      22
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 2.965
+      },
+      25
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 3.069
+      },
+      28
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 3.172
+      },
+      29
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 3.276
+      },
+      30
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 3.38
+      },
+      30
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 3.65
+      },
+      30
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 3.737
+      },
+      30
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 3.825
+      },
+      31
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 3.912
+      },
+      34
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 4.0
+      },
+      38
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 4.087
+      },
+      43
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 4.175
+      },
+      46
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 4.262
+      },
+      47
+     ],
+     [
+      {
+       "line": "drill",
+       "edge": "start",
+       "offset": 4.35
+      },
+      47
+     ]
+    ],
+    "suffix": " m"
+   }
+  },
   {
    "id": "air_count",
    "t": {

@@ -554,6 +554,44 @@ KITCHEN_CAST = [
 ]
 
 
+# ---------------------------------------------------------------------------------- line 13
+# "The big drill chews in. Twenty metres. Thirty. Forty-seven."
+# An x-ray of the plug (the 800 mm casing cut open on the section plane, like line 7's oxygen pipe): the auger's
+# head bites a boulder on "chews", then the string surges and stalls on each number (each surge is a time-lapse of
+# days: sections welded on at the rig, pushed in). The counter rides the nose and lands on the spoken number.
+# Times are from the line's start (word times from the aligned take: chews 0.92, in 1.35, Twenty 1.83,
+# Thirty 3.31, Forty-seven 4.24).
+def LD(x):
+    return {"line": "drill", "edge": "start", "offset": round(x, 3)}
+
+
+DRILL_START = LD(-0.25)
+BORE_KEYS = [(-0.25, 0.0), (0.9, 1.3), (1.25, 1.6), (1.42, 1.6), (1.92, 20.0), (2.55, 20.0),
+             (3.38, 30.0), (3.65, 30.0), (4.35, 47.0)]
+
+
+def _in_out(x):
+    return 4 * x ** 3 if x < 0.5 else 1 - (-2 * x + 2) ** 3 / 2
+
+
+def bore_counter_keys(t_from):
+    """The counter follows the same eased surges as the gag (sampled), from t_from on."""
+    keys = []
+    for (t0, d0), (t1, d1) in zip(BORE_KEYS, BORE_KEYS[1:]):
+        n = 1 if d0 == d1 else 8
+        for i in range(n):
+            t = t0 + (t1 - t0) * i / n
+            if t >= t_from:
+                keys.append([LD(t), round(d0 + (d1 - d0) * _in_out(i / n))])
+    keys.append([LD(BORE_KEYS[-1][0]), int(BORE_KEYS[-1][1])])
+    return keys
+
+
+def NOSE(x, y, z):
+    """A point riding with the auger's nose (gag anchor; x mirrored like the other gag anchors)."""
+    return {"anchor": "mountain_section.nose", "offset": [round(-x, 3), round(y, 3), round(z, 3)]}
+
+
 def cam(at, look, lens, dof=None, **kw):
     c = {"at": P(*at), "look_at": P(*look), "lens_mm": lens}
     if dof:
@@ -585,6 +623,7 @@ def build():
             {"id": "plan", "shot": "plan_rig", "at": 0.3, "text": "The plan: push a steel pipe through the rubble, wide enough to crawl through."},
             {"id": "meal", "shot": "day9_tally", "at": 0.3, "text": "Day nine. A narrow pipe gets through first, and the first hot meal goes in: khichdi, packed in bottles."},
             {"id": "faces", "shot": "scope_pipe", "at": 0.3, "text": "The next day, a camera crawls down the same pipe. For the first time, the world sees their faces."},
+            {"id": "drill", "shot": "auger_chew", "at": 0.25, "text": "The big drill chews in. Twenty metres. Thirty. Forty-seven."},
         ],
         "actors": OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
         "gags": [
@@ -594,6 +633,8 @@ def build():
                         "vanish": {i: PLAN_START for i in ["sec_eng", "sec_resc_1", "sec_resc_2", "sec_resc_3", "feed_push"]},
                         "rig": {"from": PLAN_START, "push0": L10("push", 0.0), "push1": L10("rubble", 0.45), "bite": L10("steel", 0.1), "dist": 2.3},
                         "spare": {"from": PLAN_START, "crawler": "plan_crawl"},
+                        "xauger": {"from": DRILL_START, "chew": LD(0.97), "boulder_at": 1.3, "metres": 57,
+                                   "keys": [[LD(t), d] for t, d in BORE_KEYS]},
                         "xpipe": {"from": FEED_START, "until": L7("puffed", 0.2), "flow": L7("Through", -0.15),
                                   "hit": L7("oxygen", 0.0), "jar1": L7("puffed", 0.05), "x0": TOE_A + 1.0, "x1": TOE_A + 40.0},
                         "wide": SIXTY(0.82), "measure_until": {"line": "lifeline", "edge": "start", "offset": -0.3},
@@ -627,6 +668,12 @@ def build():
                         "lamps": OUTSIDE_LAMPS, "truck": {"t0": 0.0, "t1": 3.2, "z0": 27.0, "z1": 17.5}}},
         ],
         "sfx": [
+            {"sound": "rip", "at": LD(0.75), "gain": -6},
+            {"sound": "thud", "at": LD(0.97), "gain": -2},
+            {"sound": "whoosh", "at": LD(1.42), "gain": -9}, {"sound": "thud", "at": LD(1.92), "gain": -7},
+            {"sound": "whoosh", "at": LD(2.55), "gain": -9}, {"sound": "thud", "at": LD(3.38), "gain": -7},
+            {"sound": "whoosh", "at": LD(3.65), "gain": -9}, {"sound": "thud", "at": LD(4.35), "gain": -5},
+            {"sound": "ding", "at": LD(4.35), "gain": -9},
             {"file": "audio/mountain_wind_short.wav", "at": 0, "gain": -10},
             {"file": "audio/underground.wav", "at": {"line": "inside", "offset": -0.18}, "gain": -13},
             # grit on a helmet, then the mountain: the recording's attack is 0.5 s in
@@ -849,8 +896,23 @@ def build():
              "camera": {"from": {"at": S(-16.92, 1.3, 31.1), "look_at": S(-18.1, 1.2, 31.95), "lens_mm": 30, "dof": {"strength": 0.25, "focus": 1.3}},
                         "to": {"at": S(-17.0, 1.29, 31.16), "look_at": S(-18.1, 1.2, 31.95), "lens_mm": 33, "dof": {"strength": 0.25, "focus": 1.2}},
                         "ease": "in_out"}},
+            {"name": "auger_chew", "duration": 1.75, "look": SECTION_LOOK,
+             "note": "X-ray of the plug at the rescue face: the casing's cutting head grinds into a boulder and it bursts on "
+                     "\"chews\"; spoil rides back along the spinning flight.",
+             "camera": {"from": {"at": NOSE(2.5, 0.75, 3.1), "look_at": NOSE(0.45, 0.0, 0.15), "lens_mm": 25},
+                        "to": {"at": NOSE(2.1, 0.62, 2.6), "look_at": NOSE(0.45, 0.0, 0.15), "lens_mm": 27},
+                        "ease": "in_out"},
+             "shake": [{"t": LD(0.97), "amount": 0.35}]},
+            {"name": "auger_ride", "duration": 3.9, "look": SECTION_LOOK,
+             "note": "Riding with the nose through the cut-open rubble: it surges and stalls, the counter on it lands on 20, 30, 47.",
+             "camera": {"from": {"at": NOSE(1.35, 0.6, 2.5), "look_at": NOSE(-0.7, 0.0, 0.1), "lens_mm": 24},
+                        "to": {"at": NOSE(1.2, 0.55, 2.3), "look_at": NOSE(-0.7, 0.0, 0.1), "lens_mm": 22},
+                        "ease": "linear"},
+             "shake": [{"t": LD(1.92), "amount": 0.18}, {"t": LD(3.38), "amount": 0.18}, {"t": LD(4.35), "amount": 0.25}]},
         ],
         "reveals": [
+            {"id": "bore_count", "t": LD(1.45), "at": NOSE(0.0, 1.05, 0.25), "size": 0.3, "enter": "pop", "glow": 0.25,
+             "counter": {"keys": bore_counter_keys(1.45), "suffix": " m"}},
             {"id": "air_count", "t": L9("twenty-five-tonne", -0.02), "until": L9("is", 0.0), "at": PL(0.0, 1.2, -6.6),
              "size": 0.42, "enter": "pop", "counter": {"from": 0, "to": 25, "land": L9("twenty-five-tonne", 0.72), "suffix": " TONNES"},
              "sound": "ding"},

@@ -194,6 +194,7 @@ func build(_g: Dictionary) -> Node3D:
 	_build_feed_out(root)
 	_build_rig(root)
 	_build_xpipe(root)
+	_build_xauger(root)
 	return root
 
 
@@ -580,12 +581,14 @@ func _build_plug(root: Node3D) -> void:
 		stone.material_override = rock
 		stone.transform = Transform3D(Basis.from_euler(Vector3(rng.randf() * TAU, rng.randf() * TAU, 0)).scaled(Vector3(s, s * 0.7, s * 0.6)), Vector3(bx, by, -0.05))
 		root.add_child(stone)
+		_plug_bits.append(stone)
 	var shot := _mat("#6f6b63", 0.9)
 	var steel := _mat("#5a3a24", 0.6, 0.6)
 	for i in 9:
 		var px := rng.randf_range(PLUG_A + 3.0, PLUG_B - 3.0)
 		var panel := _box(root, Vector3(rng.randf_range(1.8, 3.2), 0.25, rng.randf_range(1.2, 2.0)), Vector3(px, rng.randf_range(1.5, 6.5), -0.3), shot)
 		panel.rotation = Vector3(rng.randf_range(-0.4, 0.4), rng.randf() * PI, rng.randf_range(-1.2, 1.2))
+		_plug_bits.append(panel)
 	for i in 4:
 		var px := rng.randf_range(PLUG_A + 6.0, PLUG_B - 6.0)
 		var py := rng.randf_range(2.0, 6.0)
@@ -923,6 +926,7 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_tape_mat.emission_energy_multiplier = 0.09 if close else 1.05
 	_ribbon(shown, 0.023 if close else 0.065)
 	var xp_out := _pose_xpipe(p, t, origin)
+	xp_out.merge(_pose_xauger(p, t, origin))
 	var res := {"hook": hook, "plug": Vector3((PLUG_A + PLUG_B) * 0.5, CROWN + 1.5, 0.0),
 		"rescue": Vector3(TOE_A - 6.0, 1.6, -1.5), "trapped": Vector3(TOE_B + 6.0, 1.6, -1.5),
 		"portal": Vector3(X_PORTAL, 4.0, -1.0), "summit": Vector3((PLUG_A + PLUG_B) * 0.5, top(30.0), 0.0)}
@@ -1449,3 +1453,323 @@ func _pose_xpipe(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
 	(_xp_ring.material_override as StandardMaterial3D).emission_energy_multiplier = 3.0 + (5.0 if t > hit else 0.0)
 	_xp_glow.light_energy = 0.0
 	return {"jar": origin + _xp_jar.position}
+
+
+# ------------------------------------------------------------------------------ line 13: the auger chews through the plug
+
+## params.xauger = {"from", "until", "keys": [[t, metres], ...], "chew" (the head bites the boulder), "metres" (how
+## many spoken metres the whole plug is at pipe height, 57)}: the 800 mm casing string cut open along the section
+## plane (an x-ray, like the oxygen pipe of line 7), its back half lying on the plug's cut face, the auger's flight
+## spinning inside it, spoil riding back along the flight, a cutting head at the nose. Between consecutive keys the
+## bored distance eases in and out; equal values are a stall. A boulder sits in the way at the start and shatters
+## on "chew". Anchor: nose (the cutting head).
+const AX_Y := 1.37          # the casing's axis, the same height as the rig's casing
+const AX_R := 0.42
+const AX_Z := 0.44          # the back half lies on the cut face (z = 0)
+const AX_LEN := 72.0        # length of the pipe string behind the nose (clipped where it leaves the rubble)
+const AX_PITCH := 0.55
+const SPOIL := 90
+const GRIT := 36
+
+## Steel, clipped to the part of the string inside the rubble: model-space x < -keep is discarded.
+const XA_SHADER := """
+shader_type spatial;
+render_mode cull_disabled;
+uniform float keep = 1000.0;
+uniform vec3 color : source_color = vec3(0.3, 0.32, 0.34);
+uniform float metal = 0.7;
+uniform float rough = 0.45;
+uniform float glow = 0.0;
+varying vec3 lp;
+void vertex() { lp = VERTEX; }
+//NOISE
+void fragment() {
+	if (lp.x < -keep) { discard; }
+	float n = fbm(vec3(lp.x * 2.0, lp.y * 6.0, lp.z * 6.0));
+	ALBEDO = color * (0.8 + 0.4 * n);
+	METALLIC = metal;
+	ROUGHNESS = rough + 0.2 * n;
+	EMISSION = color * glow;
+}
+"""
+
+var _xa: Node3D
+var _xa_string: Node3D
+var _xa_flight: Node3D
+var _xa_mats: Array = []
+var _xa_spoil: MultiMesh
+var _xa_grit: MultiMesh
+var _xa_boulder: MeshInstance3D
+var _xa_chunks: Array = []
+var _xa_glow: OmniLight3D
+var _xa_entry := 0.0
+var _xa_collars: Array = []
+var _plug_bits: Array = []      # boulders and wreckage on the plug's cut face (cleared off the auger's path)
+var _xa_exit := 0.0
+
+
+func _xa_mat(color: String, metal: float, rough: float, glow: float = 0.0) -> ShaderMaterial:
+	var m := _shader(XA_SHADER)
+	m.set_shader_parameter("color", Color(color))
+	m.set_shader_parameter("metal", metal)
+	m.set_shader_parameter("rough", rough)
+	m.set_shader_parameter("glow", glow)
+	_xa_mats.append(m)
+	return m
+
+
+## A cylinder of radius r along -x from 0 to -AX_LEN (in the string's own frame, so the clip shader cuts it).
+func _xa_cyl(st: SurfaceTool, r: float, cy: float, cz: float, sides: int) -> void:
+	var x := 0.0
+	while x > -AX_LEN:
+		var xb := x - 2.0
+		for k in sides:
+			var a0 := TAU * k / sides
+			var a1 := TAU * (k + 1) / sides
+			var q := [Vector3(x, cy + cos(a0) * r, cz + sin(a0) * r), Vector3(xb, cy + cos(a0) * r, cz + sin(a0) * r),
+				Vector3(x, cy + cos(a1) * r, cz + sin(a1) * r), Vector3(xb, cy + cos(a1) * r, cz + sin(a1) * r)]
+			for o in [0, 1, 2, 1, 3, 2]:
+				st.add_vertex(q[o])
+		x = xb
+
+
+func _build_xauger(root: Node3D) -> void:
+	_xa = Node3D.new()
+	_xa.visible = false
+	root.add_child(_xa)
+	# Where the casing enters and would leave the plug at its height.
+	var x := TOE_A
+	while x < PLUG_A and _heap_top(x) < AX_Y:
+		x += 0.05
+	_xa_entry = x
+	x = TOE_B
+	while x > PLUG_B and _heap_top(x) < AX_Y:
+		x -= 0.05
+	_xa_exit = x
+	_xa_string = Node3D.new()
+	_xa.add_child(_xa_string)
+	# The back half of the casing (model x from 0 at the nose back to -AX_LEN), open toward the camera.
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var n := 20
+	var xs := 0.0
+	while xs > -AX_LEN:
+		var xb := xs - 1.0
+		for k in n:
+			var a0 := PI * 0.5 + PI * float(k) / n
+			var a1 := PI * 0.5 + PI * float(k + 1) / n
+			var p := [Vector3(xs, sin(a0) * AX_R, cos(a0) * AX_R), Vector3(xb, sin(a0) * AX_R, cos(a0) * AX_R),
+				Vector3(xs, sin(a1) * AX_R, cos(a1) * AX_R), Vector3(xb, sin(a1) * AX_R, cos(a1) * AX_R)]
+			for o in [0, 2, 1, 1, 2, 3]:
+				st.add_vertex(p[o])
+		xs = xb
+	st.generate_normals()
+	var half := MeshInstance3D.new()
+	half.mesh = st.commit()
+	half.material_override = _xa_mat("#3a3f44", 0.65, 0.5)
+	_xa_string.add_child(half)
+	# Bright cut edges along both lips, and weld collars every 6 m of pipe (each a section added at the rig).
+	var ls := SurfaceTool.new()
+	ls.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for sy in [-1.0, 1.0]:
+		_xa_cyl(ls, 0.018, sy * AX_R, 0.0, 6)
+	ls.generate_normals()
+	var lips := MeshInstance3D.new()
+	lips.mesh = ls.commit()
+	lips.material_override = _xa_mat("#d4d8dc", 0.9, 0.25, 0.15)
+	_xa_string.add_child(lips)
+	var collar := _xa_mat("#8a8f94", 0.8, 0.35)
+	var cx := -1.5
+	while cx > -AX_LEN:
+		var c := MeshInstance3D.new()
+		var tm := TorusMesh.new()
+		tm.inner_radius = AX_R - 0.01
+		tm.outer_radius = AX_R + 0.035
+		tm.rings = 32
+		tm.ring_segments = 6
+		c.mesh = tm
+		c.material_override = collar
+		c.rotation.z = PI * 0.5
+		c.position = Vector3(cx, 0, 0)
+		_xa_string.add_child(c)
+		_xa_collars.append(c)
+		cx -= 6.0
+	# The cutting shoe: a heavier ring at the nose.
+	var shoe := MeshInstance3D.new()
+	var sm := TorusMesh.new()
+	sm.inner_radius = AX_R - 0.02
+	sm.outer_radius = AX_R + 0.06
+	sm.rings = 36
+	sm.ring_segments = 8
+	shoe.mesh = sm
+	shoe.material_override = _xa_mat("#b9a77a", 0.85, 0.3)
+	shoe.rotation.z = PI * 0.5
+	_xa_string.add_child(shoe)
+	# The auger: a helical flight round a shaft, along -x from the nose, spinning about x.
+	_xa_flight = Node3D.new()
+	_xa_string.add_child(_xa_flight)
+	var fs := SurfaceTool.new()
+	fs.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var steps := int(AX_LEN / AX_PITCH * 22.0)
+	for i in steps:
+		var u0 := float(i) / steps
+		var u1 := float(i + 1) / steps
+		var b0 := AX_LEN * u0 / AX_PITCH * TAU
+		var b1 := AX_LEN * u1 / AX_PITCH * TAU
+		var xa := -0.25 - AX_LEN * u0
+		var xb2 := -0.25 - AX_LEN * u1
+		var q := [Vector3(xa, cos(b0) * 0.1, sin(b0) * 0.1), Vector3(xa, cos(b0) * 0.37, sin(b0) * 0.37),
+			Vector3(xb2, cos(b1) * 0.1, sin(b1) * 0.1), Vector3(xb2, cos(b1) * 0.37, sin(b1) * 0.37)]
+		for o in [0, 1, 2, 1, 3, 2]:
+			fs.add_vertex(q[o])
+	fs.generate_normals()
+	_xa_cyl(fs, 0.1, 0.0, 0.0, 14)
+	var flight := MeshInstance3D.new()
+	flight.mesh = fs.commit()
+	flight.material_override = _xa_mat("#9aa0a6", 0.85, 0.3)
+	_xa_flight.add_child(flight)
+	# The cutting head: a hub and four arms of carbide teeth, just proud of the shoe.
+	var head_m := _xa_mat("#2a2c2e", 0.8, 0.4)
+	var tooth_m := _xa_mat("#e3e5e8", 0.95, 0.15, 0.1)
+	_rod(_xa_flight, Vector3(-0.3, 0, 0), Vector3(0.12, 0, 0), 0.17, head_m, 12)
+	for k in 4:
+		var a := k * PI * 0.5
+		var arm := _box(_xa_flight, Vector3(0.1, 0.36, 0.07), Vector3(0.08, cos(a) * 0.2, sin(a) * 0.2), head_m)
+		arm.rotation.x = -a
+		for j in 3:
+			var r := 0.14 + j * 0.11
+			var tooth := _box(_xa_flight, Vector3(0.09, 0.05, 0.05), Vector3(0.15, cos(a) * r, sin(a) * r), tooth_m)
+			tooth.rotation.x = -a
+	# Spoil riding back along the flight, and grit spat out at the face.
+	var stone := SphereMesh.new()
+	stone.radius = 0.5
+	stone.height = 1.0
+	stone.radial_segments = 6
+	stone.rings = 3
+	stone.material = _mat("#5e564c", 0.95)
+	_xa_spoil = MultiMesh.new()
+	_xa_spoil.transform_format = MultiMesh.TRANSFORM_3D
+	_xa_spoil.mesh = stone
+	_xa_spoil.instance_count = SPOIL
+	var smi := MultiMeshInstance3D.new()
+	smi.multimesh = _xa_spoil
+	_xa.add_child(smi)
+	_xa_grit = MultiMesh.new()
+	_xa_grit.transform_format = MultiMesh.TRANSFORM_3D
+	_xa_grit.mesh = stone
+	_xa_grit.instance_count = GRIT
+	var gmi := MultiMeshInstance3D.new()
+	gmi.multimesh = _xa_grit
+	_xa.add_child(gmi)
+	# The boulder in the way, bulging out of the cut face, and the chunks it breaks into.
+	var rock := _shader(RUBBLE_SHADER)
+	_xa_boulder = MeshInstance3D.new()
+	_xa_boulder.mesh = _stone_mesh(901, 0.3)
+	_xa_boulder.material_override = rock
+	_xa.add_child(_xa_boulder)
+	for i in 6:
+		var ch := MeshInstance3D.new()
+		ch.mesh = _stone_mesh(910 + i, 0.4)
+		ch.material_override = rock
+		ch.visible = false
+		_xa.add_child(ch)
+		_xa_chunks.append(ch)
+	# Hot work-light at the head (the grinding face), off between bites.
+	_xa_glow = OmniLight3D.new()
+	_xa_glow.light_color = Color("#ffb46a")
+	_xa_glow.omni_range = 1.2
+	_xa_glow.omni_attenuation = 1.8
+	_xa_glow.light_energy = 0.0
+	_xa_glow.shadow_enabled = false
+	_xa.add_child(_xa_glow)
+
+
+## Metres bored at t: between consecutive keys it eases in and out (a held value is a stall).
+func _xa_metres(keys: Array, t: float) -> Array:
+	if keys.is_empty():
+		return [0.0, 0.0]
+	if t <= float(keys[0][0]):
+		return [float(keys[0][1]), 0.0]
+	for i in keys.size() - 1:
+		var t0 := float(keys[i][0])
+		var t1 := float(keys[i + 1][0])
+		if t < t1:
+			var d0 := float(keys[i][1])
+			var d1 := float(keys[i + 1][1])
+			var k := Motion.seg(t, t0, t1)
+			var moving := 1.0 if absf(d1 - d0) > 0.01 else 0.0
+			return [lerpf(d0, d1, Motion.in_out(k)), moving * sin(k * PI)]
+	return [float(keys.back()[1]), 0.0]
+
+
+func _pose_xauger(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
+	if not p.has("xauger"):
+		return {}
+	var xa: Dictionary = p["xauger"]
+	var per := (_xa_exit - _xa_entry) / float(xa.get("metres", 57.0))
+	var keys: Array = xa.get("keys", [])
+	var md := _xa_metres(keys, t)
+	var d: float = md[0]
+	var surge: float = md[1]
+	var chew := float(xa.get("chew", 1.0e9))
+	var nose := _xa_entry + d * per
+	# The anchor exists at every time (reveals and cameras riding the nose are checked outside the scene too).
+	var res := {"nose": origin + Vector3(nose, AX_Y, AX_Z)}
+	_xa.visible = t >= float(xa.get("from", 1.0e9)) and t < float(xa.get("until", 1.0e9))
+	for b in _plug_bits:
+		(b as Node3D).visible = not (_xa.visible and absf((b as Node3D).position.y - AX_Y) < 2.2)
+	if not _xa.visible:
+		return res
+	# The rig shoves in pulses: a judder on the string while it bites.
+	var grind := clampf(surge + (1.0 - Motion.seg(t, chew + 0.45, chew + 0.8)) * Motion.seg(t, chew - 0.1, chew), 0.0, 1.0)
+	var judder := Vector3(0.0, sin(t * 61.0) * 0.012, cos(t * 47.0) * 0.008) * grind
+	_xa_string.position = Vector3(nose, AX_Y, AX_Z) + judder
+	var keep := maxf(nose - _xa_entry + 0.25, 0.0)
+	for m in _xa_mats:
+		(m as ShaderMaterial).set_shader_parameter("keep", keep)
+	for c in _xa_collars:
+		(c as Node3D).visible = (c as Node3D).position.x > -keep
+	# The flight turns all the time (faster while it bites).
+	var spin := t * 7.0 + d * 3.0
+	_xa_flight.rotation.x = -spin
+	# Spoil: chunks walk back along the flight inside the casing, one turn per pitch.
+	for i in SPOIL:
+		var life := 2.2
+		var age := fposmod(t * (1.0 + grind) + _hash(i * 1.7) * life, life)
+		var back := age * 1.6
+		var ang := spin + _hash(i * 3.1) * TAU
+		var r := 0.2 + _hash(i * 5.3) * 0.14
+		var pos := Vector3(nose - 0.35 - back, AX_Y + cos(ang) * r * 0.8 - 0.06, AX_Z + sin(ang) * r * 0.5 - 0.12)
+		var s := 0.04 + _hash(i * 7.9) * 0.08
+		var show := back < keep - 0.4
+		_xa_spoil.set_instance_transform(i, Transform3D(Basis.from_euler(Vector3(age * 5.0, i, age * 3.0)).scaled(Vector3.ONE * (s if show else 0.0001)), pos))
+	# Grit spat out of the gap at the face while it bites.
+	for i in GRIT:
+		var life := 0.55
+		var age := fposmod(t + _hash(i * 2.9) * life, life)
+		var dir := Vector3(-0.4 - _hash(i * 4.1) * 1.2, 0.6 + _hash(i * 6.2) * 1.6, 0.8 + _hash(i * 8.3) * 1.4)
+		var pos := Vector3(nose + 0.1, AX_Y + (_hash(i * 9.4) - 0.5) * 0.6, AX_Z + 0.3) + dir * age + Vector3(0, -5.0 * age * age, 0)
+		var s := (0.025 + _hash(i * 1.3) * 0.045) * grind
+		_xa_grit.set_instance_transform(i, Transform3D(Basis.from_euler(Vector3(age * 9.0, i, 0)).scaled(Vector3.ONE * maxf(s, 0.0001)), pos))
+	# The boulder: in the way until "chew", then it splits and the pieces fly out of the face.
+	var bx := _xa_entry + float(xa.get("boulder_at", 1.3)) * per + 0.55
+	var bc := Vector3(bx, AX_Y + 0.05, 0.12)
+	var broken := t >= chew
+	_xa_boulder.visible = not broken
+	var shiver := Vector3(sin(t * 80.0), cos(t * 67.0), 0.0) * 0.02 * Motion.seg(t, chew - 0.3, chew)
+	_xa_boulder.transform = Transform3D(Basis.from_euler(Vector3(0.4, 1.1, 0.2)).scaled(Vector3(0.95, 0.75, 0.7)), bc + shiver)
+	for i in _xa_chunks.size():
+		var ch := _xa_chunks[i] as MeshInstance3D
+		ch.visible = broken
+		if broken:
+			var age := t - chew
+			var a := TAU * i / _xa_chunks.size()
+			var v := Vector3(0.6 + _hash(i * 3.3) * 1.2, 1.2 + sin(a) * 1.4, 1.6 + _hash(i * 5.1) * 1.4)
+			var pos := bc + Vector3(cos(a) * 0.2, sin(a) * 0.2, 0.0) + v * age + Vector3(0, -7.0 * age * age, 0)
+			pos.y = maxf(pos.y, 0.15)
+			var s := 0.32 + _hash(i * 7.7) * 0.18
+			ch.transform = Transform3D(Basis.from_euler(Vector3(age * 6.0 + i, age * 4.0, i)).scaled(Vector3(s, s * 0.8, s * 0.7)), pos)
+	var flick := 0.8 + 0.2 * sin(t * 37.0) + 0.1 * sin(t * 71.0)
+	_xa_glow.position = Vector3(nose + 0.25, AX_Y + 0.1, AX_Z + 0.45)
+	_xa_glow.light_energy = 1.1 * grind * flick
+	return res

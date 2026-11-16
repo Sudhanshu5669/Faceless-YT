@@ -8,6 +8,20 @@
 ### Silkyara rescue Short: hook APPROVED, beat 4 revised for review (2026-11-15, latest)
 
 **Progress log (newest first; Claude keeps this current so Codex can continue mid-beat):**
+- **Line 13 built (2026-11-16), waiting for review.** "The big drill chews in. Twenty metres. Thirty. Forty-seven."
+  (Qwen take 4.9 s; word times from the line start: chews 0.92, in 1.35, Twenty 1.83, Thirty 3.31, Forty-seven 4.24.)
+  An x-ray of the plug in the cutaway (`mountain_section.gd` `_build_xauger`/`_pose_xauger`, param `xauger`): the
+  800 mm casing cut open on the section plane (back half on the cut face, like line 7's oxygen pipe), the auger
+  flight spinning inside, spoil riding back, carbide head at the nose, grit, a hot light at the face. Everything on
+  the string is clipped by `XA_SHADER` (model-space x < -keep) so it only exists inside the rubble; build string
+  parts along the string's own x (`_xa_cyl`), not as centred primitives. `BORE_KEYS` (make_episode.py) drive both
+  the gag and the counter (`bore_counter_keys` samples the same in_out easing), so "20 m / 30 m / 47 m" land on the
+  words. 57 spoken metres span the plug at pipe height. Anchor `mountain_section.nose` exists at all times
+  (a reveal rides it). While the auger shows, plug boulders/wreckage near pipe height are hidden (`_plug_bits`).
+  - `auger_chew` (1.75 s): camera rides with the nose (NOSE()), the head grinds into a boulder that bursts on
+    "chews" (shake, thud). `auger_ride` (3.9 s): riding ahead of the nose, surge-stall-surge with whoosh/thud.
+  - Next: line 14 "Day thirteen, it hits steel, and its blades snap off inside the pipe." (same x-ray: a girder in
+    the rubble, sparks, a blade shears, the flight jams), then 15 "About ten metres short." (the gap with a 10 m counter).
 - **Line 12 built (2026-11-16).** "The next day, a camera crawls down the same pipe. For the first time, the world
   sees their faces." Shots 0-25 approved; `scope_faces`, `tv_screen`, `tv_react` approved; `scope_pipe` reworked
   after "why does the camera look disconnected from the pipe", waiting for re-review.
