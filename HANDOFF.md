@@ -36,6 +36,31 @@ Known weak spots Claude would look at first: `drill_down` (the x-ray plunge is m
 dashed line), `miners_arrive` (tools are small at that distance), `pit_tape` (the pit walls read flat from the
 rim), `hand_dig` (the two miners in the x-ray pipe are only helmets and bodies).
 
+**IN PROGRESS when Claude stopped (2026-11-16): lines 24-26, the Khajuri Khas lane.**
+`episodes/silkyara_rescue/gags/khajuri_lane.gd` is WRITTEN BUT NEVER COMPILED, WIRED OR RENDERED. It has: the lane
+(3.6 m wide along z, brick/plaster neighbours with grilles, slabs, water tanks, cables overhead), Hasan's house front
+(+x side, z 0..5) as 0.5 m panels that tumble out band by band at each excavator bite, the pink room behind, a rubble
+heap with rebar, a sodium streetlamp (`night` param turns it on), a tracked excavator (house/boom/stick/bucket),
+dust, held props (`held`: "garland" or "plan" = a DDA clipboard site plan), and `sit` (family sitting / lying).
+Params documented at the top of the file. To finish:
+1. In `make_episode.py` add a place helper like `MEG()`: `KH_Z = 18000.0`, `KH(x,y,z)` = `{"anchor": "airstrip",
+   "offset": [-x, y, z + KH_Z]}`, and a gag entry `{"id": "lane", "script": "gags/khajuri_lane.gd", "at": {"anchor":
+   "airstrip", "offset": [0, 0, KH_Z]}, "t": 0, "params": {...}}` (put it near `PIT_GAG`/`FACE_GAG` in `"gags"`).
+2. New characters: `toon_vakeel_hasan` (respectful, not a caricature: dark slick hair, moustache, cream shirt),
+   his wife, two children (smaller `height`). The DDA official can be `toon_official`.
+3. Shots, with word times (seconds from each line's start):
+   - line 24 "bulldozer": Three 0.1, months 0.54, later 0.96, bulldozers 1.89, house 3.17, man 3.73, led 4.19,
+     miners 4.69, Vakeel 5.58, Hasan 6.06 (end 6.66). Machine rolls in, first bite on "bulldozers"; then Hasan in
+     the lane holding the marigold garland (callback to line 22) as his house comes down behind him on "Vakeel Hasan".
+   - line 25 "dda": development 0.44, authority 1.01, says 1.55, house 1.95, stood 2.29, land 2.9 (end 3.16).
+     A DDA official holds up the site plan (fair, not mocking); push in on the plan on "land".
+   - line 26 "street": forty-one 0.4, men 0.98, mountain 1.71, That 2.73, night 2.97, family 3.77, slept 4.28,
+     street 4.92 (end 5.24). Night (`night` param), the family on the lane by the rubble under the one streetlamp
+     with what they saved (steel trunk, rolled mattress, gas cylinder); a child lies down on "slept". Final shot.
+   Replace the placeholder shots `ph_bulldozer`, `ph_dda`, `ph_street` and point each line's `"shot"` at the new first shot.
+4. Looks: a hazy Delhi day (`{"base": "day", "time": "11:00", "weather": {"clouds": 0.5, "fog": 0.2}}`) and a dark
+   night look with the lamp as the key. Check every shot's frames before committing (traps listed below).
+
 **Still to build (voiced already, placeholder shots `ph_*` render as an empty wide).** Line 22 uses the cutaway gag's `stretchers` param, line 23 the exterior gag's `ambulances` param (Kenney ambulance x41, flashing bars).
 | Line | Narration | Plan |
 |---|---|---|
