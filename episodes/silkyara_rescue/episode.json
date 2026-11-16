@@ -106,8 +106,8 @@
   },
   {
    "id": "short",
-   "shot": "ph_short",
-   "at": 0.25,
+   "shot": "gap_short",
+   "at": 0.2,
    "text": "About ten metres short."
   },
   {
@@ -12519,8 +12519,8 @@
    ]
   },
   {
-   "name": "ph_short",
-   "duration": 2.28,
+   "name": "gap_short",
+   "duration": 2.2,
    "look": {
     "base": "night_fog",
     "time": "05:30",
@@ -12581,24 +12581,47 @@
      "vignette": 0.32
     }
    },
+   "note": "From behind the jammed head, down the rubble still in the way to the trapped side's lamps; a line grows from the head to the far face and the counter lands on 10 m on \"ten\".",
    "camera": {
-    "at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      3,
-      20
-     ]
+    "from": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       2.6,
+       0.6,
+       1.25
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       -68.5,
+       1.2,
+       2598.2
+      ]
+     },
+     "lens_mm": 28
     },
-    "look_at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       1.9,
+       0.55,
+       1.15
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       -68.5,
+       1.25,
+       2598.2
+      ]
+     },
+     "lens_mm": 30
     },
-    "lens_mm": 24
+    "ease": "in_out"
    }
   },
   {
@@ -13516,6 +13539,61 @@
   }
  ],
  "reveals": [
+  {
+   "id": "gap_line",
+   "shape": "link",
+   "t": {
+    "line": "short",
+    "word": "About",
+    "offset": 0.0
+   },
+   "at": {
+    "anchor": "mountain_section.nose",
+    "offset": [
+     -0.45,
+     0.0,
+     0.35
+    ]
+   },
+   "to": {
+    "anchor": "section",
+    "offset": [
+     -66.9,
+     1.37,
+     2600.44
+    ]
+   },
+   "size": 0.035
+  },
+  {
+   "id": "gap_count",
+   "t": {
+    "line": "short",
+    "word": "About",
+    "offset": 0.1
+   },
+   "at": {
+    "anchor": "section",
+    "offset": [
+     -60.9,
+     2.3,
+     2601.3
+    ]
+   },
+   "size": 0.65,
+   "enter": "pop",
+   "counter": {
+    "from": 0,
+    "to": 10,
+    "land": {
+     "line": "short",
+     "word": "ten",
+     "offset": 0.05
+    },
+    "suffix": " m"
+   },
+   "sound": "ding"
+  },
   {
    "id": "bore_count",
    "t": {
