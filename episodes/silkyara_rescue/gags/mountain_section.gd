@@ -196,6 +196,7 @@ func build(_g: Dictionary) -> Node3D:
 	_build_xpipe(root)
 	_build_xauger(root)
 	_build_ridge(root)
+	_build_escape(root)
 	return root
 
 
@@ -929,6 +930,7 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var xp_out := _pose_xpipe(p, t, origin)
 	xp_out.merge(_pose_xauger(p, t, origin))
 	xp_out.merge(_pose_ridge(p, t, ctx, origin))
+	_pose_escape(p, t, ctx, origin)
 	var res := {"hook": hook, "plug": Vector3((PLUG_A + PLUG_B) * 0.5, CROWN + 1.5, 0.0),
 		"rescue": Vector3(TOE_A - 6.0, 1.6, -1.5), "trapped": Vector3(TOE_B + 6.0, 1.6, -1.5),
 		"portal": Vector3(X_PORTAL, 4.0, -1.0), "summit": Vector3((PLUG_A + PLUG_B) * 0.5, top(30.0), 0.0)}
@@ -1216,7 +1218,7 @@ func _pose_rig(p: Dictionary, t: float, ctx: Dictionary) -> void:
 		_fo.visible = false
 	if p.has("rig"):
 		var r: Dictionary = p["rig"]
-		_rig.visible = t >= float(r.get("from", 1.0e9))
+		_rig.visible = t >= float(r.get("from", 1.0e9)) and t < float(r.get("until", 1.0e9))
 		var push0 := float(r.get("push0", 1.0e9))
 		var push1 := float(r.get("push1", 1.0e9))
 		var dist := float(r.get("dist", 2.0))
@@ -2138,3 +2140,141 @@ func _pose_ridge(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> D
 		var s := (0.04 + _hash(i * 5.5) * 0.06) if on else 0.0001
 		_ridge_mud.set_instance_transform(i, Transform3D(Basis.from_scale(Vector3.ONE * s), pos))
 	return res
+
+
+# ------------------------------------------------------------------------------ line 19: into the pipe, one after another
+
+## params.escape = {"from", "until", "crew": [{"id", "t0" (steps up to the mouth), "t1" (goes in head first),
+## "t2" (out of sight)}]}: the auger is gone; the 800 mm escape pipe's open end sticks out of the rubble's toe over a
+## timber platform, a yellow air duct snaking into it, a work lamp on a stand. The miners queue on the platform and
+## crawl in one after another (the gag drives their positions: queue, step up, dive, slide in).
+const ESC_X0 := TOE_A - 1.2       # the pipe's open mouth
+const ESC_Y := 1.0                # its axis
+const ESC_Z := -2.6
+const ESC_R := 0.42
+const DECK_Y := 0.55
+
+var _esc: Node3D
+
+
+func _build_escape(root: Node3D) -> void:
+	_esc = Node3D.new()
+	_esc.visible = false
+	root.add_child(_esc)
+	var steel := _mat("#5b5f60", 0.5, 0.65)
+	steel.cull_mode = BaseMaterial3D.CULL_DISABLED
+	var tube := CylinderMesh.new()
+	tube.top_radius = ESC_R
+	tube.bottom_radius = ESC_R
+	tube.height = 7.0
+	tube.radial_segments = 36
+	tube.cap_top = false
+	tube.cap_bottom = false
+	var t := MeshInstance3D.new()
+	t.mesh = tube
+	t.material_override = steel
+	t.rotation.z = PI * 0.5
+	t.position = Vector3(ESC_X0 + 3.5, ESC_Y, ESC_Z)
+	_esc.add_child(t)
+	# The cut, ground-off lip of the mouth, a weld collar, and the dark inside.
+	var lip := MeshInstance3D.new()
+	var lm := TorusMesh.new()
+	lm.inner_radius = ESC_R - 0.02
+	lm.outer_radius = ESC_R + 0.03
+	lm.rings = 40
+	lm.ring_segments = 8
+	lip.mesh = lm
+	lip.material_override = _mat("#9a9fa3", 0.3, 0.85)
+	lip.rotation.z = PI * 0.5
+	lip.position = Vector3(ESC_X0, ESC_Y, ESC_Z)
+	_esc.add_child(lip)
+	var inside := MeshInstance3D.new()
+	var dm := CylinderMesh.new()
+	dm.top_radius = ESC_R - 0.01
+	dm.bottom_radius = ESC_R - 0.01
+	dm.height = 0.01
+	inside.mesh = dm
+	inside.material_override = _mat("#050505", 0.9)
+	inside.rotation.z = PI * 0.5
+	inside.position = Vector3(ESC_X0 + 3.0, ESC_Y, ESC_Z)
+	_esc.add_child(inside)
+	# A timber platform up to the mouth: planks on cribbing, two steps.
+	var timber := _mat("#6b4a2b", 0.9)
+	for k in 7:
+		_box(_esc, Vector3(3.4, 0.06, 0.24), Vector3(ESC_X0 - 1.7, DECK_Y, ESC_Z - 0.78 + k * 0.26), timber)
+	for c in [Vector3(-0.2, 0, -0.7), Vector3(-0.2, 0, 0.7), Vector3(-3.1, 0, -0.7), Vector3(-3.1, 0, 0.7), Vector3(-1.6, 0, 0.0)]:
+		_box(_esc, Vector3(0.3, DECK_Y - 0.03, 0.3), Vector3(ESC_X0 + c.x, (DECK_Y - 0.03) * 0.5, ESC_Z + c.z), timber)
+	for k in 2:
+		_box(_esc, Vector3(0.32, 0.06, 1.0), Vector3(ESC_X0 - 3.6 - k * 0.32, DECK_Y * (0.66 - k * 0.33), ESC_Z), timber)
+	# The air duct: a ribbed yellow flexible hose from the blower into the mouth, along the pipe's floor.
+	var duct := _mat("#e2b21b", 0.6)
+	var pts := [Vector3(ESC_X0 - 6.0, 0.25, ESC_Z + 1.9), Vector3(ESC_X0 - 3.8, 0.3, ESC_Z + 1.3), Vector3(ESC_X0 - 1.6, DECK_Y + 0.1, ESC_Z + 0.6),
+		Vector3(ESC_X0 - 0.3, ESC_Y - 0.28, ESC_Z + 0.2), Vector3(ESC_X0 + 1.2, ESC_Y - 0.3, ESC_Z + 0.2)]
+	for i in pts.size() - 1:
+		var a: Vector3 = pts[i]
+		var b: Vector3 = pts[i + 1]
+		_rod(_esc, a, b, 0.1, duct, 12)
+		var n := int(a.distance_to(b) / 0.12)
+		for k in n:
+			var r := MeshInstance3D.new()
+			var tm := TorusMesh.new()
+			tm.inner_radius = 0.095
+			tm.outer_radius = 0.112
+			tm.rings = 14
+			tm.ring_segments = 5
+			r.mesh = tm
+			r.material_override = duct
+			var dir := (b - a).normalized()
+			var ref := Vector3.UP if absf(dir.y) < 0.9 else Vector3.RIGHT
+			var x := ref.cross(dir).normalized()
+			r.transform = Transform3D(Basis(x, dir, x.cross(dir)), a.lerp(b, (k + 0.5) / n))
+			_esc.add_child(r)
+	_box(_esc, Vector3(1.0, 0.8, 0.8), Vector3(ESC_X0 - 6.5, 0.4, ESC_Z + 2.1), _mat("#2f6b3a", 0.6, 0.3))   # blower
+	# A work lamp on a tripod stand, aimed into the mouth.
+	var stand := Vector3(ESC_X0 - 2.6, 0.0, ESC_Z - 1.5)
+	for k in 3:
+		var a := TAU * k / 3.0
+		_rod(_esc, stand + Vector3(cos(a) * 0.35, 0, sin(a) * 0.35), stand + Vector3(0, 1.9, 0), 0.02, _mat("#2a2a2a", 0.5, 0.6), 5)
+	_box(_esc, Vector3(0.3, 0.22, 0.12), stand + Vector3(0, 2.0, 0.05), _lit("#fff1d6", 6.0))
+	var lamp := SpotLight3D.new()
+	lamp.transform = Transform3D(Basis.looking_at((Vector3(ESC_X0, ESC_Y, ESC_Z) - (stand + Vector3(0, 2.0, 0))).normalized()), stand + Vector3(0, 2.0, 0.1))
+	lamp.light_color = Color("#ffe6c4")
+	lamp.light_energy = 5.0
+	lamp.spot_range = 9.0
+	lamp.spot_angle = 40.0
+	lamp.shadow_enabled = true
+	_esc.add_child(lamp)
+
+
+func _pose_escape(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> void:
+	if not p.has("escape"):
+		return
+	var ep: Dictionary = p["escape"]
+	_esc.visible = t >= float(ep.get("from", 1.0e9)) and t < float(ep.get("until", 1.0e9))
+	var crew: Array = ep.get("crew", [])
+	for i in crew.size():
+		var c: Dictionary = crew[i]
+		var a = ctx["actor"].call(String(c.get("id", ""))) if ctx.has("actor") else null
+		if a == null:
+			continue
+		var t0 := float(c.get("t0", 1.0e9))
+		var t1 := float(c.get("t1", 1.0e9))
+		var t2 := float(c.get("t2", 1.0e9))
+		a.visible = _esc.visible and t < t2
+		if not a.visible:
+			continue
+		var queue := Vector3(ESC_X0 - 1.15 - i * 0.85, DECK_Y + 0.03, ESC_Z + (0.12 if i % 2 else -0.1))
+		var step := Vector3(ESC_X0 - 0.55, DECK_Y + 0.03, ESC_Z)
+		var pos := queue.lerp(step, Motion.in_out(Motion.seg(t, t0, t1 - 0.05)))
+		# In head first: down onto the knees, pitched forward, sliding into the mouth.
+		var dive := Motion.in_out(Motion.seg(t, t1, t1 + 0.4))
+		var slide := Motion.in_cubic(Motion.seg(t, t1 + 0.3, t2))
+		pos.y += (ESC_Y - 0.36 - pos.y) * dive
+		pos.x += 0.7 * dive + 1.6 * slide
+		a.global_position = origin + pos
+		a.rotation = Vector3(1.3 * dive, PI * 0.5, 0.0)
+		if dive > 0.0:
+			var hd: Vector3 = a.anchor_points()[String(c.get("id", "")) + ".head"]["pos"]
+			for side in ["l", "r"]:
+				var sg := 1.0 if side == "l" else -1.0
+				a.aim_hand(side, hd + Vector3(0.35, -0.25, sg * 0.18), dive)

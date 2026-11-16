@@ -1,0 +1,26 @@
+{
+  "id": "toon_rathole_digger_b",
+  "description": "Rat-hole miner at the rescue: white helmet with a headlamp, navy shirt.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#ecebe6",
+      "lamp": true
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#2c3e66"
+    },
+    "shoes": "#2b2622",
+    "face": "determined",
+    "girth": 0.94
+  }
+}

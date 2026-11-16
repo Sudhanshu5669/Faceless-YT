@@ -130,7 +130,7 @@
   },
   {
    "id": "dig",
-   "shot": "ph_dig",
+   "shot": "pipe_enter",
    "at": 0.25,
    "text": "One after another, they crawl into the pipe and dig with hammers and chisels."
   },
@@ -178,6 +178,184 @@
   }
  ],
  "actors": [
+  {
+   "id": "rh_1",
+   "character": "toon_rathole_digger_a",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     9.85,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     3.7,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "phase": 0.0,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "rh_2",
+   "character": "toon_rathole_digger_b",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     10.7,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     3.7,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "phase": 0.3,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "rh_3",
+   "character": "toon_rathole_digger_c",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     11.55,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     3.7,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "phase": 0.6,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "rh_4",
+   "character": "toon_rathole_digger_a",
+   "at": {
+    "anchor": "section",
+    "offset": [
+     12.4,
+     0,
+     2597.4
+    ]
+   },
+   "facing": {
+    "anchor": "section",
+    "offset": [
+     3.7,
+     0,
+     2597.4
+    ]
+   },
+   "action": "idle",
+   "phase": 0.9,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "face_dig",
+   "character": "toon_rathole_digger_c",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     2.35,
+     0,
+     15000.0
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     -2.0,
+     0,
+     15000.0
+    ]
+   },
+   "action": "crouch",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      -88,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "face_haul",
+   "character": "toon_rathole_digger_b",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     4.35,
+     0,
+     15000.04
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     -2.0,
+     0,
+     15000.04
+    ]
+   },
+   "action": "crouch",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking",
+     "head": [
+      -60,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
   {
    "id": "meg_crawler",
    "character": "toon_meghalaya_miner",
@@ -7937,6 +8115,69 @@
    }
   },
   {
+   "id": "pipeface",
+   "script": "gags/pipe_face.gd",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     0,
+     0,
+     15000.0
+    ]
+   },
+   "t": 0,
+   "params": {
+    "floor": {
+     "face_dig": [
+      -2.35,
+      0.0
+     ],
+     "face_haul": [
+      -4.35,
+      0.04
+     ]
+    },
+    "digger": {
+     "id": "face_dig",
+     "strikes": [
+      {
+       "line": "dig",
+       "edge": "start",
+       "offset": 3.71
+      },
+      {
+       "line": "dig",
+       "edge": "start",
+       "offset": 4.2
+      },
+      {
+       "line": "dig",
+       "edge": "start",
+       "offset": 4.78
+      },
+      {
+       "line": "dig",
+       "edge": "start",
+       "offset": 5.25
+      }
+     ]
+    },
+    "hauler": {
+     "id": "face_haul",
+     "t0": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 3.5
+     },
+     "t1": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 5.6
+     }
+    }
+   }
+  },
+  {
    "id": "mountain_section",
    "script": "gags/mountain_section.gd",
    "at": {
@@ -8021,6 +8262,11 @@
       "edge": "start",
       "offset": -1.6
      },
+     "until": {
+      "line": "dig",
+      "edge": "start",
+      "offset": -0.3
+     },
      "push0": {
       "line": "plan",
       "word": "push",
@@ -8051,6 +8297,11 @@
       "line": "drill",
       "edge": "start",
       "offset": -0.25
+     },
+     "until": {
+      "line": "dig",
+      "edge": "start",
+      "offset": -0.3
      },
      "chew": {
       "line": "drill",
@@ -8164,6 +8415,92 @@
       "edge": "start",
       "offset": 2.97
      }
+    },
+    "escape": {
+     "from": {
+      "line": "dig",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "until": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 5.8
+     },
+     "crew": [
+      {
+       "id": "rh_1",
+       "t0": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 0.0
+       },
+       "t1": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 0.45
+       },
+       "t2": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 1.15
+       }
+      },
+      {
+       "id": "rh_2",
+       "t0": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 0.6
+       },
+       "t1": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 1.2
+       },
+       "t2": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 1.9
+       }
+      },
+      {
+       "id": "rh_3",
+       "t0": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 1.5
+       },
+       "t1": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 2.15
+       },
+       "t2": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 2.85
+       }
+      },
+      {
+       "id": "rh_4",
+       "t0": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 2.4
+       },
+       "t1": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 3.05
+       },
+       "t2": {
+        "line": "dig",
+        "edge": "start",
+        "offset": 3.75
+       }
+      }
+     ]
     },
     "ridge": {
      "from": {
@@ -9868,6 +10205,42 @@
     "offset": 4.86
    },
    "gain": -8
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "dig",
+    "edge": "start",
+    "offset": 3.71
+   },
+   "gain": -2
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "dig",
+    "edge": "start",
+    "offset": 4.2
+   },
+   "gain": -2
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "dig",
+    "edge": "start",
+    "offset": 4.78
+   },
+   "gain": -2
+  },
+  {
+   "sound": "click",
+   "at": {
+    "line": "dig",
+    "edge": "start",
+    "offset": 5.25
+   },
+   "gain": -4
   },
   {
    "file": "audio/mountain_wind_short.wav",
@@ -14390,8 +14763,8 @@
    }
   },
   {
-   "name": "ph_dig",
-   "duration": 6.48,
+   "name": "pipe_enter",
+   "duration": 3.7,
    "look": {
     "base": "night_fog",
     "time": "05:30",
@@ -14400,45 +14773,22 @@
      "fog": 0
     },
     "ambient": {
-     "color": "#6a7ca6",
-     "energy": 0.35
+     "color": "#8a8fa6",
+     "energy": 0.18
     },
     "sun": {
      "energy": 0
     },
     "moon": {
-     "energy": 0,
-     "visible": false
+     "energy": 0
     },
-    "sky": {
-     "top": "#0c1a33",
-     "horizon": "#8c8296",
-     "stars": 0.25,
-     "clouds": 0.1,
-     "cloud_color": "#2c3550"
-    },
-    "lights": [
-     {
-      "elevation": 32,
-      "azimuth": 20,
-      "color": "#8197c8",
-      "energy": 0.1,
-      "shadows": false
-     }
-    ],
     "fog": {
-     "begin": 150,
-     "end": 4000,
-     "color": "#2b3650",
-     "volumetric": 0.003,
-     "anisotropy": 0.5,
-     "length": 160
-    },
-    "ground_fog": {
-     "density": 0.0,
-     "height": 6.0,
-     "falloff": 0.15,
-     "color": "#3a4560"
+     "begin": 34,
+     "end": 180,
+     "color": "#3b352f",
+     "volumetric": 0.011,
+     "anisotropy": 0.55,
+     "length": 90
     },
     "glow": {
      "enabled": true,
@@ -14447,29 +14797,135 @@
      "threshold": 1.0
     },
     "grade": {
-     "contrast": 1.12,
-     "saturation": 1.04,
-     "vignette": 0.32
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
     }
    },
+   "note": "The auger gone, the escape pipe's mouth over a timber platform, the air duct snaking in; one after another the miners slide in head first.",
    "camera": {
-    "at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      3,
-      20
-     ]
+    "from": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       12.0,
+       1.6,
+       2599.15
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       9.1,
+       0.95,
+       2597.4
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "section",
+      "offset": [
+       11.5,
+       1.5,
+       2599.0
+      ]
+     },
+     "look_at": {
+      "anchor": "section",
+      "offset": [
+       8.9,
+       0.95,
+       2597.4
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 24
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "pipe_dig",
+   "duration": 2.35,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#8a8fa6",
+     "energy": 0.03
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.08,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    }
+   },
+   "note": "Inside the pipe, from the rock face: a miner lying in the tube, headlamp on, hammers a chisel into the rock on \"dig\", \"hammers\", \"chisels\"; chips fly; behind him another drags spoil back in a tasla.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.02,
+       0.5,
+       15000.25
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       1.4,
+       0.3,
+       14999.96
+      ]
+     },
+     "lens_mm": 18
+    },
+    "to": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.03,
+       0.48,
+       15000.24
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       1.4,
+       0.3,
+       14999.96
+      ]
+     },
+     "lens_mm": 19
+    },
+    "ease": "in_out"
    }
   },
   {
