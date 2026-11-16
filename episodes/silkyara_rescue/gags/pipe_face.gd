@@ -238,6 +238,16 @@ func build(g: Dictionary) -> Node3D:
 	bounce.omni_range = 1.6
 	bounce.omni_attenuation = 1.3
 	root.add_child(bounce)
+	# The trapped side, beyond the face (seen only when it gives way): the lined tunnel wall and floor, lamp-lit.
+	var lining := _mat("#6d675e", 0.9)
+	_box(root, Vector3(0.1, 4.0, 5.0), Vector3(3.2, -0.6, 0.0), lining)
+	_box(root, Vector3(3.2, 0.1, 5.0), Vector3(1.6, -1.05, 0.0), _mat("#4a4540", 0.95))
+	var warm := OmniLight3D.new()
+	warm.position = Vector3(2.4, 1.0, -0.8)
+	warm.light_color = Color("#ffc983")
+	warm.light_energy = 2.0
+	warm.omni_range = 5.0
+	root.add_child(warm)
 	# Light from the trapped side, when the face gives way (line 21).
 	_light_in = OmniLight3D.new()
 	_light_in.position = Vector3(0.9, R, 0)
@@ -347,6 +357,26 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	if p.has("through"):
 		var tp: Dictionary = p["through"]
 		var k := Motion.out_cubic(Motion.seg(t, float(tp.get("t", 1.0e9)), float(tp.get("t", 1.0e9)) + 0.6))
-		_face.position = Vector3(0.8 * k, -0.25 * k, 0.0)
+		_face.position = Vector3(0.5 * k, -1.4 * k * k, 0.0)
+		_face.rotation.z = -0.5 * k
 		_light_in.light_energy = float(tp.get("light", 3.0)) * k
+	# params.standing = {actor id: [x, y, z, yaw]}: the trapped men beyond the face, posed upright.
+	for id in p.get("standing", {}):
+		var a = ctx["actor"].call(String(id)) if ctx.has("actor") else null
+		if a == null:
+			continue
+		var sp: Array = p["standing"][id]
+		a.global_transform = Transform3D(G.basis * Basis(Vector3.UP, float(sp[3])), G * Vector3(float(sp[0]), float(sp[1]), float(sp[2])))
+	# params.clasp = {"t", "outside", "inside"}: a trapped man's hand reaches into the pipe and grips the digger's.
+	if p.has("clasp"):
+		var cl: Dictionary = p["clasp"]
+		var tc := float(cl.get("t", 1.0e9))
+		var k := Motion.out_back(Motion.seg(t, tc, tc + 0.45), 1.4)
+		var meet := Vector3(0.12, R - 0.05, 0.02)
+		var oa = ctx["actor"].call(String(cl.get("outside", ""))) if ctx.has("actor") else null
+		var ia = ctx["actor"].call(String(cl.get("inside", ""))) if ctx.has("actor") else null
+		if oa != null and k > 0.0:
+			oa.aim_hand("r", G * meet, clampf(k, 0.0, 1.0), 0.08)
+		if ia != null and k > 0.0:
+			ia.aim_hand("r", G * (meet + Vector3(-0.08, 0.0, 0.0)), clampf(k, 0.0, 1.0))
 	return {"face": G * face_pt, "cam": G * Vector3(0.0, R + 0.12, 0.22)}

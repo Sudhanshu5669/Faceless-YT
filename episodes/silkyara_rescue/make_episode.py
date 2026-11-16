@@ -694,6 +694,11 @@ PIT_GAG = {"id": "pit", "script": "gags/meghalaya_pit.gd", "at": {"anchor": "air
                       "floor": {"meg_crawler": -10.0, "meg_official": 0.0, "meg_watch": 0.0}}}
 
 
+def LH(x):
+    """Line 21 (\"Day seventeen... they break through.\"), defined early: line 19's pipe gag uses it."""
+    return {"line": "through", "edge": "start", "offset": round(x, 3)}
+
+
 # ---------------------------------------------------------------------------------- line 19
 # "One after another, they crawl into the pipe and dig with hammers and chisels."
 # The auger is gone: the escape pipe's open end over a timber platform in the cutaway (`escape`), the miners (white
@@ -727,7 +732,10 @@ PIPE_LOOK = dict(TUNNEL, ambient={"color": "#8a8fa6", "energy": 0.03}, glow={"en
 FACE_GAG = {"id": "pipeface", "script": "gags/pipe_face.gd", "at": {"anchor": "airstrip", "offset": [0, 0, PF_Z]}, "t": 0,
             "params": {"floor": {"face_dig": [-2.35, 0.0], "face_haul": [-4.35, 0.04]},
                        "digger": {"id": "face_dig", "strikes": [LDG(3.71), LDG(4.2), LDG(4.78), LDG(5.25)]},
-                       "hauler": {"id": "face_haul", "t0": LDG(3.5), "t1": LDG(5.6)}}}
+                       "hauler": {"id": "face_haul", "t0": LDG(3.5), "t1": LDG(5.6)},
+                       "through": {"t": LH(3.5), "light": 3.0},
+                       "standing": {"trap_a": [1.15, -1.0, 0.3, -1.5708], "trap_b": [1.35, -1.0, -0.5, -1.5708]},
+                       "clasp": {"t": LH(3.8), "outside": "trap_a", "inside": "face_dig"}}}
 
 
 # ---------------------------------------------------------------------------------- line 20
@@ -736,6 +744,22 @@ FACE_GAG = {"id": "pipeface", "script": "gags/pipe_face.gd", "at": {"anchor": "a
 # lands on "Twelve", "~24 h" on "day". Word times: Twelve 0.1, metres 0.42, about 0.91, day 1.24-1.52.
 def LT(x):
     return {"line": "twelve", "edge": "start", "offset": round(x, 3)}
+
+
+# ---------------------------------------------------------------------------------- line 21
+# "Day seventeen, just after seven in the evening: they break through."  (28 Nov 2023, around 7 pm.)
+# The chalk tally (16 marks, the 17th drawn); an official's wristwatch at 7:05 outside the portal at night; then
+# from the trapped side, the last of the face tumbles away on "break", light floods in on the digger and a trapped
+# worker's hand grips his on "through". Word times: seventeen 0.34, just 1.33, seven 1.91, evening 2.45,
+# break 3.46, through 3.78-4.1.
+WATCH_CAST = [{"id": "watch_official", "character": "toon_official", "at": S(1.0, 0, 6.0), "facing": S(1.0, 1.0, 0.0), "action": "idle",
+               "cues": [{"t": 0.0, "expression": "nervous", "head": [22, 0, 0], "head_turn": 0.3}]}]
+TRAP_CAST = [
+    {"id": "trap_a", "character": W, "at": PF(1.15, 0, 0.3), "facing": PF(-2.0, 0, 0.3), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "nervous"}, {"t": LH(3.6), "expression": "surprised"}, {"t": LH(3.95), "expression": "love"}]},
+    {"id": "trap_b", "character": LIME, "at": PF(1.35, 0, -0.5), "facing": PF(-2.0, 0, -0.5), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "sad"}, {"t": LH(3.65), "expression": "shocked"}, {"t": LH(4.0), "expression": "cheer"}]},
+]
 
 
 def NOSE(x, y, z):
@@ -785,14 +809,14 @@ def build():
             {"id": "banned", "shot": "rathole_crawl", "at": 0.25, "text": "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."},
             {"id": "dig", "shot": "pipe_enter", "at": 0.25, "text": "One after another, they crawl into the pipe and dig with hammers and chisels."},
             {"id": "twelve", "shot": "hand_dig", "at": 0.3, "text": "Twelve metres, in about a day."},
-            {"id": "through", "shot": "ph_through", "at": 0.25, "text": "Day seventeen, just after seven in the evening: they break through."},
+            {"id": "through", "shot": "tally17", "at": 0.25, "text": "Day seventeen, just after seven in the evening: they break through."},
             {"id": "out", "shot": "ph_out", "at": 0.25, "text": "Then all forty-one come out, one by one, on wheeled stretchers."},
             {"id": "ambulances", "shot": "ph_ambulances", "at": 0.25, "text": "Forty-one men. Forty-one ambulances waiting outside."},
             {"id": "bulldozer", "shot": "ph_bulldozer", "at": 0.25, "text": "Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan."},
             {"id": "dda", "shot": "ph_dda", "at": 0.25, "text": "Delhi's development authority says the house stood on its land."},
             {"id": "street", "shot": "ph_street", "at": 0.25, "text": "He got forty-one men out of a mountain. That night, his family slept on the street."},
         ],
-        "actors": DIG_CAST + FACE_CAST + MEG_CAST + YARD_CAST + RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
+        "actors": WATCH_CAST + TRAP_CAST + DIG_CAST + FACE_CAST + MEG_CAST + YARD_CAST + RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
         "gags": [
             PIT_GAG,
             FACE_GAG,
@@ -822,7 +846,8 @@ def build():
              "params": {"impact": T(0.0), "alive": ALIVE, "crew": {**crew, **LIFE_CREW, **LINE8_CREW, **MEAL_CREW, **FACES_CREW},
                         "tally": {"from": MEAL_START, "x": -4.6, "y": 1.38, "z": 1.0, "draw0": L11("Day", -0.15),
                                   "draw1": L11("nine.", 0.2), "drawer": "meal_draw",
-                                  "later": [{"t": LS(-0.3), "marks": 12, "draw0": LS(0.2), "draw1": LS(0.62)}]},
+                                  "later": [{"t": LS(-0.3), "marks": 12, "draw0": LS(0.2), "draw1": LS(0.62)},
+                                            {"t": LH(-0.3), "marks": 16, "draw0": LH(0.35), "draw1": LH(0.8)}]},
                         "narrow": {"from": MEAL_START, "at": [-1.6, 1.0, -16.45], "t0": L11("narrow", -0.1), "t1": L11(7, 0.0),
                                    "bottle": L11("packed", 0.05), "catch": L11("packed", 0.45), "open": L11("bottles.", 0.25),
                                    "catcher": "meal_catch", "bottle_until": FACES_START}, "mats": MATS, "full_power": SANE_START,
@@ -840,8 +865,10 @@ def build():
                         ]}},
             {"id": "portal", "script": "gags/silkyara_exterior.gd", "at": "slope", "t": 0,
              "params": {"appear": {**{a["id"]: MEAL_START for a in KITCHEN_CAST}, **{a["id"]: FACES_START for a in TV_CAST},
-                                   **{a["id"]: LM(-0.3) for a in YARD_CAST}},
-                        "vanish": {a["id"]: {"line": "banned", "edge": "start", "offset": -0.3} for a in YARD_CAST},
+                                   **{a["id"]: LM(-0.3) for a in YARD_CAST}, "watch_official": LH(-0.3)},
+                        "watch": {"who": "watch_official", "t0": LH(1.1), "t1": LH(3.3), "time": [7, 5], "at": [1.0, 1.0, 5.42], "face": [0.0, 0.62, 0.78]},
+                        "vanish": {**{a["id"]: {"line": "banned", "edge": "start", "offset": -0.3} for a in YARD_CAST},
+                                   "watch_official": LH(3.2)},
                         "miners": {"from": LM(-0.3), "until": {"line": "banned", "edge": "start", "offset": -0.3},
                                    "truck": {"t0": LM(-0.3), "t1": LM(0.5), "z0": 24.0, "z1": 15.5, "x": -5.6},
                                    "tools": {m["id"]: MINER_TOOLS[i] for i, m in enumerate(MINERS)}},
@@ -867,6 +894,9 @@ def build():
             {"sound": "thud", "at": LB(4.86), "gain": -8},
             {"sound": "click", "at": LDG(3.71), "gain": -2}, {"sound": "click", "at": LDG(4.2), "gain": -2},
             {"sound": "click", "at": LDG(4.78), "gain": -2}, {"sound": "click", "at": LDG(5.25), "gain": -4},
+            {"sound": "tick", "at": LH(0.4), "gain": -12, "repeat": 3, "every": 0.13}, {"sound": "tick", "at": LH(1.9), "gain": -10},
+            {"sound": "thud", "at": LH(3.5), "gain": -1}, {"sound": "creak", "at": LH(3.55), "gain": -6},
+            {"sound": "sting", "at": LH(3.8), "gain": -8},
             {"file": "audio/mountain_wind_short.wav", "at": 0, "gain": -10},
             {"file": "audio/underground.wav", "at": {"line": "inside", "offset": -0.18}, "gain": -13},
             # grit on a helmet, then the mountain: the recording's attack is 0.5 s in
@@ -1169,7 +1199,20 @@ def build():
                      "\"12 m\" lands on \"Twelve\", \"~24 h\" on \"day\".",
              "camera": {"from": {"at": NOSE(1.7, 0.75, 2.6), "look_at": NOSE(-1.1, 0.05, 0.2), "lens_mm": 24},
                         "to": {"at": NOSE(1.55, 0.7, 2.4), "look_at": NOSE(-1.1, 0.05, 0.2), "lens_mm": 25}, "ease": "linear"}},
-            {"name": "ph_through", "duration": 5.22, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "tally17", "duration": 1.45, "look": dict(TUNNEL, ssr=True),
+             "note": "Day seventeen: sixteen chalk marks and the seventeenth going up.",
+             "camera": {"from": cam((-3.75, 1.47, 2.4), (-4.95, 1.36, 1.12), 24),
+                        "to": cam((-3.85, 1.45, 2.25), (-4.95, 1.36, 1.12), 26), "ease": "in_out"}},
+            {"name": "watch_705", "duration": 1.9, "look": MOUNTAIN,
+             "note": "Night at the portal: close on an official's raised wrist; his watch says just after seven.",
+             "camera": {"from": {"at": S(1.16, 1.3, 5.62), "look_at": S(1.0, 1.0, 5.42), "lens_mm": 40, "dof": {"strength": 0.45, "focus": 0.39}},
+                        "to": {"at": S(1.14, 1.27, 5.6), "look_at": S(1.0, 1.0, 5.42), "lens_mm": 45, "dof": {"strength": 0.45, "focus": 0.35}}, "ease": "in_out"}},
+            {"name": "break_through", "duration": 1.5, "look": PIPE_LOOK,
+             "note": "From the trapped side: the last rubble tumbles away on \"break\", light floods onto the digger's face; a "
+                     "trapped worker's hand reaches in and grips his on \"through\".",
+             "camera": {"from": {"at": PF(-1.75, 0.7, 0.2), "look_at": PF(0.4, 0.4, 0.0), "lens_mm": 22},
+                        "to": {"at": PF(-1.65, 0.69, 0.19), "look_at": PF(0.4, 0.4, 0.0), "lens_mm": 24}, "ease": "in_out"},
+             "shake": [{"t": LH(3.5), "amount": 0.25}]},
             {"name": "ph_out", "duration": 5.22, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_ambulances", "duration": 3.12, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_bulldozer", "duration": 7.74, "look": SECTION_LOOK, "camera": X_CAM},

@@ -217,6 +217,7 @@ func build(g: Dictionary) -> Node3D:
 	_build_kitchen(root)
 	_build_tv(root)
 	_build_miners(root)
+	_build_watch(root)
 	for id in g.get("params", {}).get("lamps", []):
 		var spot := SpotLight3D.new()
 		spot.light_color = Color("#e9f2ff")
@@ -1090,6 +1091,7 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_kitchen(p, t, ctx)
 	_pose_tv(p, t, ctx)
 	_pose_miners(root, p, t, ctx)
+	_pose_watch(p, t, ctx)
 	# The dumper rolls toward the mouth, easing to a crawl.
 	var tr: Dictionary = p.get("truck", {})
 	var t0 := float(tr.get("t0", 0.0))
@@ -1143,7 +1145,11 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var at := head + Vector3(0, 0.1, -0.05)
 		var target := Vector3(head.x * 0.7, 0.0, head.z - 9.0)
 		spot.transform = Transform3D(_aim(target - at), at)
-	return {"portal": Vector3(0, 4.2, HW), "fire": FIRE_AT + Vector3(0, 1.2, 0), "truck": _truck.position + Vector3(0, 2.0, 0)}
+	var res := {"portal": Vector3(0, 4.2, HW), "fire": FIRE_AT + Vector3(0, 1.2, 0), "truck": _truck.position + Vector3(0, 2.0, 0)}
+	if _watch != null:
+		res["watch"] = _watch.global_position
+		res["watch_up"] = _watch.global_position + _watch.global_transform.basis.y.normalized() * 0.3
+	return res
 
 
 # ------------------------------------------------------------------------------ line 11: the site kitchen
@@ -1635,3 +1641,92 @@ func _pose_miners(root: Node3D, p: Dictionary, t: float, ctx: Dictionary) -> voi
 			var xf = _bone_xf(a, "hand_r")
 			if xf != null:
 				tn.global_transform = xf
+
+
+# ------------------------------------------------------------------------------ line 21: just after seven in the evening
+
+## params.watch = {"who", "t0" (raises his wrist), "t1" (lowers it), "time": [h, m]}: an analog wristwatch on his left
+## wrist, the dial turned to his eyes; no numerals, just the hands (and the hour marks).
+var _watch: Node3D
+
+
+func _build_watch(root: Node3D) -> void:
+	_watch = Node3D.new()
+	_watch.visible = false
+	root.add_child(_watch)
+	var steel := _mat("#b9bdc1", 0.25, 0.9)
+	var case_m := MeshInstance3D.new()
+	var cm := CylinderMesh.new()
+	cm.top_radius = 0.024
+	cm.bottom_radius = 0.025
+	cm.height = 0.01
+	cm.radial_segments = 28
+	case_m.mesh = cm
+	case_m.material_override = steel
+	_watch.add_child(case_m)
+	var dial := MeshInstance3D.new()
+	var dm := CylinderMesh.new()
+	dm.top_radius = 0.021
+	dm.bottom_radius = 0.021
+	dm.height = 0.002
+	dm.radial_segments = 28
+	dial.mesh = dm
+	dial.material_override = _mat("#bdb6a6", 0.65)
+	dial.position = Vector3(0, 0.005, 0)
+	_watch.add_child(dial)
+	for i in 12:
+		var a := TAU * i / 12.0
+		if i % 3 == 0:
+			continue
+		var tick := _box(_watch, Vector3(0.0018, 0.001, 0.003), Vector3(sin(a) * 0.017, 0.0065, -cos(a) * 0.017), _mat("#1d1d1d", 0.5))
+		tick.rotation.y = -a
+	for n in ["hour", "minute"]:
+		var hand := Node3D.new()
+		hand.name = n
+		hand.position = Vector3(0, 0.0075, 0)
+		_watch.add_child(hand)
+		var ln := 0.011 if n == "hour" else 0.016
+		_box(hand, Vector3(0.0022 if n == "hour" else 0.0016, 0.0008, ln), Vector3(0, 0, -ln * 0.5), _mat("#111111", 0.4))
+	_box(_watch, Vector3(0.12, 0.006, 0.022), Vector3(0, -0.004, 0), _mat("#3b2a1e", 0.7))       # strap, along the forearm
+	var font := load("res://fonts/baloo2/Baloo2.ttf")
+	for i in 4:
+		var a := TAU * i / 4.0
+		var lb := Label3D.new()
+		lb.text = ["12", "3", "6", "9"][i]
+		lb.font = font
+		lb.font_size = 40
+		lb.pixel_size = 0.00012
+		lb.outline_size = 0
+		lb.modulate = Color("#1d1d1d")
+		lb.position = Vector3(sin(a) * 0.0135, 0.0068, -cos(a) * 0.0135)
+		lb.rotation.x = -PI * 0.5
+		_watch.add_child(lb)
+
+
+func _pose_watch(p: Dictionary, t: float, ctx: Dictionary) -> void:
+	if _watch == null or not p.has("watch"):
+		return
+	var wp: Dictionary = p["watch"]
+	var a = ctx["actor"].call(String(wp.get("who", ""))) if ctx.has("actor") else null
+	_watch.visible = a != null and a.visible
+	if not _watch.visible:
+		return
+	var tm: Array = wp.get("time", [7, 5])
+	var hrs := float(tm[0]) + float(tm[1]) / 60.0
+	(_watch.get_node("hour") as Node3D).rotation.y = -TAU * fposmod(hrs, 12.0) / 12.0
+	(_watch.get_node("minute") as Node3D).rotation.y = -TAU * float(tm[1]) / 60.0
+	# The wrist is raised to a fixed spot in front of his chest (params.watch.at, gag frame), the dial turned up
+	# toward his face (params.watch.face); his left hand goes to it.
+	var at_a: Array = wp.get("at", [1.0, 1.05, 5.62])
+	var at := Vector3(float(at_a[0]), float(at_a[1]), float(at_a[2]))
+	var face_a: Array = wp.get("face", [0.0, 0.55, 0.85])
+	var normal := Vector3(float(face_a[0]), float(face_a[1]), float(face_a[2])).normalized()
+	var k := Motion.smooth(Motion.seg(t, float(wp.get("t0", 1.0e9)), float(wp.get("t0", 1.0e9)) + 0.35)) * (1.0 - Motion.smooth(Motion.seg(t, float(wp.get("t1", 1.0e9)), float(wp.get("t1", 1.0e9)) + 0.35)))
+	var low := at + Vector3(0, -0.35, 0.15)
+	var pos := low.lerp(at, k)
+	var root_xf: Transform3D = _watch.get_parent().global_transform
+	a.aim_hand("l", root_xf * (pos + Vector3(0.0, -0.02, 0.06)), 1.0, 0.04)
+	var side := normal.cross(Vector3.FORWARD).normalized()
+	var fw := side.cross(normal).normalized()
+	# Right-handed: (-side) x normal = -fw, so the dial is not mirrored and 12 (local -z) points along fw.
+	_watch.transform = Transform3D(Basis(-side, normal, -fw).scaled(Vector3.ONE * 2.2), pos)
