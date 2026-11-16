@@ -596,6 +596,33 @@ def LS(x):
     return {"line": "snap", "edge": "start", "offset": round(x, 3)}
 
 
+# ---------------------------------------------------------------------------------- line 16
+# "So a second rig starts drilling straight down, from the top of the mountain."
+# (SJVN's vertical drilling from the hilltop began on 26 Nov 2023; it needed about 86 m.)
+# A crawler drill rig on the ridge over the trapped section: the operator throws the lever on "rig", the rotary
+# head spins and feeds down on "drilling"; then the camera plunges down the cut face along the planned borehole to
+# the trapped men's lamps far below. Word times from the line start: rig 1.02, drilling 1.81, straight 2.31,
+# down 2.81, top 3.9, mountain 4.4-4.72.
+def LV(x):
+    return {"line": "vertical", "edge": "start", "offset": round(x, 3)}
+
+
+RIDGE_X, RIDGE_Z = 76.0, -1.8
+
+
+def GA(anchor, x, y, z):
+    """A point relative to one of the section gag's anchors (x mirrored like the other gag anchors)."""
+    return {"anchor": "mountain_section." + anchor, "offset": [round(-x, 3), round(y, 3), round(z, 3)]}
+
+
+RIDGE_CAST = [
+    {"id": "ridge_op", "character": ENG, "at": X(RIDGE_X + 0.2, 0, RIDGE_Z + 2.2), "facing": X(RIDGE_X - 1.2, 0.6, RIDGE_Z + 4.0),
+     "action": "idle", "cues": [{"t": 0.0, "expression": "determined"}, {"t": LV(1.6), "expression": "grin"}]},
+    {"id": "ridge_hand", "character": W, "at": X(RIDGE_X + 3.3, 0, RIDGE_Z + 1.6), "facing": X(RIDGE_X + 1.85, 2.0, RIDGE_Z),
+     "action": "fold_arms", "phase": 0.4, "cues": [{"t": 0.0, "expression": "thinking"}, {"t": LV(1.9), "expression": "surprised"}]},
+]
+
+
 def NOSE(x, y, z):
     """A point riding with the auger's nose (gag anchor; x mirrored like the other gag anchors)."""
     return {"anchor": "mountain_section.nose", "offset": [round(-x, 3), round(y, 3), round(z, 3)]}
@@ -638,7 +665,7 @@ def build():
             {"id": "drill", "shot": "auger_chew", "at": 0.25, "text": "The big drill chews in. Twenty metres. Thirty. Forty-seven."},
             {"id": "snap", "shot": "tally13", "at": 0.25, "text": "Day thirteen, it hits steel, and its blades snap off inside the pipe."},
             {"id": "short", "shot": "gap_short", "at": 0.2, "text": "About ten metres short."},
-            {"id": "vertical", "shot": "ph_vertical", "at": 0.25, "text": "So a second rig starts drilling straight down, from the top of the mountain."},
+            {"id": "vertical", "shot": "ridge_rig", "at": 0.25, "text": "So a second rig starts drilling straight down, from the top of the mountain."},
             {"id": "miners", "shot": "ph_miners", "at": 0.25, "text": "Then they call in twelve rat-hole miners."},
             {"id": "banned", "shot": "ph_banned", "at": 0.25, "text": "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."},
             {"id": "dig", "shot": "ph_dig", "at": 0.25, "text": "One after another, they crawl into the pipe and dig with hammers and chisels."},
@@ -650,7 +677,7 @@ def build():
             {"id": "dda", "shot": "ph_dda", "at": 0.25, "text": "Delhi's development authority says the house stood on its land."},
             {"id": "street", "shot": "ph_street", "at": 0.25, "text": "He got forty-one men out of a mountain. That night, his family slept on the street."},
         ],
-        "actors": OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
+        "actors": RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
         "gags": [
             {"id": "mountain_section", "script": "gags/mountain_section.gd", "at": {"anchor": "section", "offset": [0, 0, SECTION_Z]}, "t": 0,
              "params": {"throw": SIXTY(T_THROW), "catch": SIXTY(T_CATCH), "thrower": "sec_eng", "catcher": "sec_catch",
@@ -661,6 +688,8 @@ def build():
                         "xauger": {"from": DRILL_START, "chew": LD(0.97), "boulder_at": 1.3, "metres": 57,
                                    "keys": [[LD(t), d] for t, d in BORE_KEYS] + [[LS(1.38), 47.0], [LS(1.8), 47.3]],
                                    "girder": LS(-0.3), "hit": LS(1.45), "snap": LS(2.97)},
+                        "ridge": {"from": LV(-0.3), "lever": LV(1.0), "start": LV(1.5), "down0": LV(1.6), "down1": LV(4.6), "deep": 6.0, "xray": LV(2.44),
+                                  "crew": [a["id"] for a in RIDGE_CAST], "op": "ridge_op"},
                         "xpipe": {"from": FEED_START, "until": L7("puffed", 0.2), "flow": L7("Through", -0.15),
                                   "hit": L7("oxygen", 0.0), "jar1": L7("puffed", 0.05), "x0": TOE_A + 1.0, "x1": TOE_A + 40.0},
                         "wide": SIXTY(0.82), "measure_until": {"line": "lifeline", "edge": "start", "offset": -0.3},
@@ -705,6 +734,8 @@ def build():
             {"sound": "rip", "at": LS(1.38), "gain": -3}, {"sound": "thud", "at": LS(1.45), "gain": -4},
             {"sound": "thud", "at": LS(2.97), "gain": 0}, {"sound": "sting", "at": LS(2.97), "gain": -10},
             {"sound": "creak", "at": LS(3.3), "gain": -6},
+            {"sound": "click", "at": LV(1.0), "gain": -4}, {"sound": "creak", "at": LV(1.5), "gain": -6},
+            {"sound": "whoosh", "at": LV(2.5), "gain": -5},
             {"file": "audio/mountain_wind_short.wav", "at": 0, "gain": -10},
             {"file": "audio/underground.wav", "at": {"line": "inside", "offset": -0.18}, "gain": -13},
             # grit on a helmet, then the mountain: the recording's attack is 0.5 s in
@@ -960,7 +991,17 @@ def build():
                      "from the head to the far face and the counter lands on 10 m on \"ten\".",
              "camera": {"from": {"at": NOSE(-2.6, 0.6, 1.25), "look_at": X(68.5, 1.2, -1.8), "lens_mm": 28},
                         "to": {"at": NOSE(-1.9, 0.55, 1.15), "look_at": X(68.5, 1.25, -1.8), "lens_mm": 30}, "ease": "in_out"}},
-            {"name": "ph_vertical", "duration": 6.48, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ridge_rig", "duration": 2.7, "look": SECTION_LOOK,
+             "note": "The mountain top over the trapped section: a crawler drill rig, its mast against the sky; the operator throws "
+                     "the lever on \"rig\", the rotary head spins and feeds down on \"drilling\", mud spits from the collar.",
+             "camera": {"from": {"at": GA("ridge", -4.6, 2.5, 8.4), "look_at": GA("ridge", 0.6, 3.2, 0.6), "lens_mm": 22},
+                        "to": {"at": GA("ridge", -3.9, 2.3, 7.6), "look_at": GA("ridge", 0.6, 3.0, 0.6), "lens_mm": 23}, "ease": "in_out"},
+             "shake": [{"t": LV(1.5), "amount": 0.12}]},
+            {"name": "drill_down", "duration": 2.7, "look": SECTION_LOOK,
+             "note": "X-ray down the cut face: from the bit a few metres in, the camera plunges along the glowing planned line "
+                     "through about a hundred metres of rock to the trapped men's lamps below.",
+             "camera": {"from": {"at": GA("hole", -1.6, 3.2, 4.6), "look_at": GA("hole", 0.0, -3.0, 0.0), "lens_mm": 24},
+                        "to": {"at": GA("deep", -1.2, 4.5, 4.2), "look_at": GA("deep", 0.0, -1.0, -1.2), "lens_mm": 24}, "ease": "in_out"}},
             {"name": "ph_miners", "duration": 3.54, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_banned", "duration": 6.9, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_dig", "duration": 6.48, "look": SECTION_LOOK, "camera": X_CAM},

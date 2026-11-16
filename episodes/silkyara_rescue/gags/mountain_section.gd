@@ -195,6 +195,7 @@ func build(_g: Dictionary) -> Node3D:
 	_build_rig(root)
 	_build_xpipe(root)
 	_build_xauger(root)
+	_build_ridge(root)
 	return root
 
 
@@ -927,6 +928,7 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_ribbon(shown, 0.023 if close else 0.065)
 	var xp_out := _pose_xpipe(p, t, origin)
 	xp_out.merge(_pose_xauger(p, t, origin))
+	xp_out.merge(_pose_ridge(p, t, ctx, origin))
 	var res := {"hook": hook, "plug": Vector3((PLUG_A + PLUG_B) * 0.5, CROWN + 1.5, 0.0),
 		"rescue": Vector3(TOE_A - 6.0, 1.6, -1.5), "trapped": Vector3(TOE_B + 6.0, 1.6, -1.5),
 		"portal": Vector3(X_PORTAL, 4.0, -1.0), "summit": Vector3((PLUG_A + PLUG_B) * 0.5, top(30.0), 0.0)}
@@ -1874,4 +1876,265 @@ func _pose_xauger(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
 	var flick := 0.8 + 0.2 * sin(t * 37.0) + 0.1 * sin(t * 71.0)
 	_xa_glow.position = Vector3(nose + 0.25, AX_Y + 0.1, AX_Z + 0.45)
 	_xa_glow.light_energy = 1.1 * grind * flick + 2.2 * steel * flick
+	return res
+
+
+# ------------------------------------------------------------------------------ line 16: the vertical drill on the ridge
+
+## params.ridge = {"from", "lever" (the operator throws it), "start" (the rotary head spins), "down0", "down1"
+## (it feeds down), "deep" (metres the bit is in by down1), "crew": [actor ids standing on the ridge, placed on the
+## surface by this gag], "op" (the operator, his hand on the lever)}: a crawler drill rig with a lattice mast on the
+## mountain top over the trapped section, and an x-ray of the borehole on the cut face below it with the planned
+## line glowing down to the crown. Anchors: ridge (the rig's base), hole (the top of the x-ray borehole), deep (the
+## crown below it).
+const RIDGE_X := 76.0
+const RIDGE_Z := -1.8
+const HOLE_Z := 0.35
+const MAST_H := 11.0
+
+var _ridge: Node3D
+var _ridge_head: Node3D
+var _ridge_rod: MeshInstance3D
+var _ridge_lever: Node3D
+var _ridge_hole: MeshInstance3D
+var _ridge_bit: Node3D
+var _ridge_dashes: MultiMesh
+var _ridge_mud: MultiMesh
+var _ridge_ys := 0.0
+var _ridge_ys0 := 0.0
+
+
+func _build_ridge(root: Node3D) -> void:
+	_ridge = Node3D.new()
+	_ridge.visible = false
+	root.add_child(_ridge)
+	_ridge_ys = top(RIDGE_X, RIDGE_Z)
+	_ridge_ys0 = top(RIDGE_X, 0.0)
+	var base := Vector3(RIDGE_X, _ridge_ys, RIDGE_Z)
+	var yellow := _mat("#e0a21c", 0.5, 0.25)
+	var dark := _mat("#1d1f21", 0.7, 0.4)
+	var steel := _mat("#6a6f74", 0.45, 0.7)
+	# A levelled pad of gravel cut into the slope, a ramp of the access road coming up to it.
+	_box(_ridge, Vector3(11.0, 0.6, 8.0), base + Vector3(-1.5, -0.25, -0.6), _mat("#6d6458", 0.95))
+	var hx := RIDGE_X + 1.85
+	# The carrier: a real truck chassis (Majadroid Base Truck), cab toward -x, the mast standing at its tail.
+	var truck := KitDB.static_node("majadroid_construction/Trucks#Base Truck", 1.0)
+	truck.rotation.y = -PI * 0.5
+	truck.position = Vector3(hx - 4.0, _ridge_ys + 0.05, RIDGE_Z)
+	_ridge.add_child(truck)
+	# Outrigger jacks at the four corners take its weight off the tyres.
+	for c in [Vector3(-6.4, 0, -1.75), Vector3(-6.4, 0, 1.75), Vector3(-1.3, 0, -1.75), Vector3(-1.3, 0, 1.75)]:
+		var at: Vector3 = Vector3(hx, _ridge_ys, RIDGE_Z) + c
+		_box(_ridge, Vector3(0.22, 0.95, 0.22), at + Vector3(0, 0.55, 0), yellow)
+		_box(_ridge, Vector3(0.6, 0.06, 0.6), at + Vector3(0, 0.08, 0), steel)
+		_box(_ridge, Vector3(0.18, 0.18, 1.2), at + Vector3(0, 1.0, -signf(c.z) * 0.55), yellow)
+	# On the bed: the hydraulic power pack (louvred, an exhaust) and hoses running to the mast.
+	var pack := Vector3(hx - 3.6, _ridge_ys + 1.95, RIDGE_Z)
+	_box(_ridge, Vector3(2.2, 1.3, 2.0), pack, yellow)
+	for k in 7:
+		_box(_ridge, Vector3(0.06, 0.8, 0.02), pack + Vector3(-0.9 + k * 0.28, 0.0, 1.01), dark)
+	_rod(_ridge, pack + Vector3(-0.8, 0.65, -0.6), pack + Vector3(-0.8, 1.6, -0.6), 0.07, dark, 8)
+	var hose := _mat("#141414", 0.7)
+	for k in 3:
+		_rod(_ridge, pack + Vector3(1.1, 0.2 - k * 0.15, 0.4 - k * 0.3), Vector3(hx - 0.9, _ridge_ys + 2.4 + k * 0.6, RIDGE_Z + 0.3 - k * 0.25), 0.035, hose, 6)
+	# The mast stands on the ground at the tail, braced back to the bed.
+	var mast := Vector3(hx - 0.75, _ridge_ys + 0.1, RIDGE_Z)
+	for sz in [-0.32, 0.32]:
+		_box(_ridge, Vector3(0.16, MAST_H, 0.16), mast + Vector3(0, MAST_H * 0.5, sz), yellow)
+	var y := 0.5
+	while y < MAST_H:
+		_rod(_ridge, mast + Vector3(0, y, -0.32), mast + Vector3(0, y + 0.8, 0.32), 0.03, yellow, 6)
+		_rod(_ridge, mast + Vector3(0, y, 0.32), mast + Vector3(0, y, -0.32), 0.03, yellow, 6)
+		y += 0.8
+	_box(_ridge, Vector3(0.6, 0.4, 0.9), mast + Vector3(0, MAST_H + 0.1, 0), steel)          # crown block
+	_box(_ridge, Vector3(1.4, 0.12, 1.6), mast + Vector3(0.4, 0.06, 0), steel)                # mast foot plate
+	_rod(_ridge, Vector3(hx - 2.6, _ridge_ys + 1.4, RIDGE_Z + 0.9), mast + Vector3(0, 5.0, 0.3), 0.07, steel, 8)
+	_rod(_ridge, Vector3(hx - 2.6, _ridge_ys + 1.4, RIDGE_Z - 0.9), mast + Vector3(0, 5.0, -0.3), 0.07, steel, 8)
+	# The driller's console beside the tail, angled to the hole: gauges and the feed lever.
+	var console := Vector3(hx - 1.05, _ridge_ys + 0.05, RIDGE_Z + 2.15)
+	var cn := Node3D.new()
+	cn.position = console
+	cn.rotation.y = -PI * 0.5          # side-on to us: its face (gauges, lever) toward the driller, who faces the hole
+	_ridge.add_child(cn)
+	_box(cn, Vector3(0.7, 1.0, 0.45), Vector3(0, 0.5, 0), steel)
+	_box(cn, Vector3(0.75, 0.06, 0.55), Vector3(0, 1.03, 0.04), dark)
+	for k in 3:
+		var gauge := _rod(cn, Vector3(-0.22 + k * 0.22, 0.85, 0.23), Vector3(-0.22 + k * 0.22, 0.85, 0.25), 0.07, _mat("#e8e6df", 0.4), 12)
+		gauge.name = "gauge_%d" % k
+	# Drill pipes racked on timber sleepers on the near side of the pad, and a couple of drums.
+	var timber := _mat("#6b4a2b", 0.9)
+	for sx in [-3.2, 0.2]:
+		_box(_ridge, Vector3(0.25, 0.2, 2.0), Vector3(hx + sx - 2.5, _ridge_ys + 0.15, RIDGE_Z + 4.1), timber)
+	var pipe_m := _mat("#5d6064", 0.45, 0.7)
+	for k in 7:
+		var row := 0 if k < 4 else 1
+		var col := k if k < 4 else k - 4
+		var zz := RIDGE_Z + 3.45 + col * 0.22 + row * 0.11
+		var yy := _ridge_ys + 0.33 + row * 0.19
+		_rod(_ridge, Vector3(hx - 6.6, yy, zz), Vector3(hx - 0.6, yy, zz), 0.1, pipe_m, 12)
+	for k in 2:
+		var drum := KitDB.static_node("majadroid_construction/Construction-Materials#Barrel", 0.85)
+		drum.position = Vector3(hx - 7.6 + k * 0.95, _ridge_ys + 0.05, RIDGE_Z + 2.6 - k * 0.3)
+		_ridge.add_child(drum)
+	# The control lever on the console.
+	_ridge_lever = Node3D.new()
+	_ridge_lever.position = Vector3(0.18, 1.06, 0.12)
+	cn.add_child(_ridge_lever)
+	_rod(_ridge_lever, Vector3.ZERO, Vector3(0, 0.38, 0), 0.02, steel, 6)
+	_box(_ridge_lever, Vector3(0.07, 0.07, 0.07), Vector3(0, 0.4, 0), _mat("#c0392b", 0.4))
+	# The rotary head (slides down the mast) and the drill rod under it.
+	_ridge_head = Node3D.new()
+	_ridge.add_child(_ridge_head)
+	_box(_ridge_head, Vector3(0.8, 0.7, 1.0), Vector3(0.3, 0, 0), _mat("#c0392b", 0.5, 0.3))
+	_rod(_ridge_head, Vector3(0.75, -0.2, 0), Vector3(0.75, -0.55, 0), 0.16, steel, 14)
+	var rm := CylinderMesh.new()
+	rm.top_radius = 0.07
+	rm.bottom_radius = 0.07
+	rm.height = 1.0
+	rm.radial_segments = 10
+	_ridge_rod = MeshInstance3D.new()
+	_ridge_rod.mesh = rm
+	_ridge_rod.material_override = _mat("#9aa0a6", 0.3, 0.85)
+	_ridge.add_child(_ridge_rod)
+	# Casing collar where it goes in, a generator, a work light on the mast.
+	_rod(_ridge, base + Vector3(1.85, -0.1, 0), base + Vector3(1.85, 0.45, 0), 0.32, steel, 18)
+	_box(_ridge, Vector3(1.8, 1.2, 1.0), base + Vector3(-1.2, 0.3, -3.0), _mat("#2f6b3a", 0.6, 0.3))
+	var lamp := SpotLight3D.new()
+	lamp.transform = Transform3D(Basis.looking_at(Vector3(-0.2, -1.0, 0.45).normalized()), mast + Vector3(-0.3, 7.5, 0.6))
+	lamp.light_color = Color("#ffe2b8")
+	lamp.light_energy = 9.0
+	lamp.spot_range = 16.0
+	lamp.spot_angle = 48.0
+	lamp.shadow_enabled = true
+	_ridge.add_child(lamp)
+	_box(_ridge, Vector3(0.25, 0.2, 0.35), mast + Vector3(-0.3, 7.6, 0.6), _lit("#fff1d6", 8.0))
+	# The x-ray: the borehole cut open on the section face, growing as the bit goes in; the bit; the planned line.
+	var hm := CylinderMesh.new()
+	hm.top_radius = 0.33
+	hm.bottom_radius = 0.33
+	hm.height = 1.0
+	hm.radial_segments = 20
+	hm.cap_top = false
+	hm.cap_bottom = false
+	_ridge_hole = MeshInstance3D.new()
+	_ridge_hole.mesh = hm
+	var hmat := _mat("#2b2e31", 0.6, 0.5)
+	hmat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	_ridge_hole.material_override = hmat
+	_ridge.add_child(_ridge_hole)
+	_ridge_bit = Node3D.new()
+	_ridge.add_child(_ridge_bit)
+	for k in 3:
+		var a := TAU * k / 3.0
+		var cone := MeshInstance3D.new()
+		var cm := CylinderMesh.new()
+		cm.top_radius = 0.0
+		cm.bottom_radius = 0.13
+		cm.height = 0.24
+		cone.mesh = cm
+		cone.material_override = _mat("#b9a77a", 0.35, 0.85)
+		cone.position = Vector3(cos(a) * 0.12, -0.05, sin(a) * 0.12)
+		cone.rotation = Vector3(PI + sin(a) * 0.5, 0, -cos(a) * 0.5)
+		_ridge_bit.add_child(cone)
+	_rod(_ridge_bit, Vector3(0, 0.05, 0), Vector3(0, 3.0, 0), 0.07, _mat("#9aa0a6", 0.3, 0.85), 10)
+	var bit_glow := OmniLight3D.new()
+	bit_glow.light_color = Color("#ffcf8a")
+	bit_glow.light_energy = 1.6
+	bit_glow.omni_range = 3.5
+	bit_glow.position = Vector3(0, 0.3, 0.6)
+	_ridge_bit.add_child(bit_glow)
+	var dash := BoxMesh.new()
+	dash.size = Vector3(0.08, 1.2, 0.08)
+	var dm := _lit("#ffd84a", 3.0)
+	dm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	dash.material = dm
+	_ridge_dashes = MultiMesh.new()
+	_ridge_dashes.transform_format = MultiMesh.TRANSFORM_3D
+	_ridge_dashes.mesh = dash
+	_ridge_dashes.instance_count = 60
+	var dmi := MultiMeshInstance3D.new()
+	dmi.multimesh = _ridge_dashes
+	dmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_ridge.add_child(dmi)
+	# Mud and chips spat out round the collar.
+	var mud := SphereMesh.new()
+	mud.radius = 0.5
+	mud.height = 1.0
+	mud.radial_segments = 6
+	mud.rings = 3
+	mud.material = _mat("#5b4a3a", 0.95)
+	_ridge_mud = MultiMesh.new()
+	_ridge_mud.transform_format = MultiMesh.TRANSFORM_3D
+	_ridge_mud.mesh = mud
+	_ridge_mud.instance_count = 40
+	var mmi := MultiMeshInstance3D.new()
+	mmi.multimesh = _ridge_mud
+	_ridge.add_child(mmi)
+
+
+func _pose_ridge(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> Dictionary:
+	var res := {"ridge": origin + Vector3(RIDGE_X, _ridge_ys, RIDGE_Z), "hole": origin + Vector3(RIDGE_X + 1.85, _ridge_ys0, HOLE_Z),
+		"deep": origin + Vector3(RIDGE_X + 1.85, CROWN + 1.0, HOLE_Z)}
+	if not p.has("ridge"):
+		return res
+	var rp: Dictionary = p["ridge"]
+	_ridge.visible = t >= float(rp.get("from", 1.0e9))
+	# The ridge crew stand on the mountain's surface wherever they are.
+	var holder: Node3D = ctx["holder"]
+	for id in rp.get("crew", []):
+		var a = ctx["actor"].call(String(id)) if ctx.has("actor") else null
+		if a == null:
+			continue
+		a.visible = _ridge.visible
+		# They all work on the levelled pad (height is the same in the gag's frame and the world's).
+		a.global_position.y = holder.global_position.y + _ridge_ys + 0.05
+	if not _ridge.visible:
+		return res
+	var base := Vector3(RIDGE_X, _ridge_ys, RIDGE_Z)
+	var mast := Vector3(RIDGE_X + 1.85 - 0.75, _ridge_ys + 0.1, RIDGE_Z)
+	var lever := float(rp.get("lever", 1.0e9))
+	var start := float(rp.get("start", 1.0e9))
+	var d0 := float(rp.get("down0", 1.0e9))
+	var d1 := float(rp.get("down1", 1.0e9))
+	var throw := Motion.out_back(Motion.seg(t, lever - 0.05, lever + 0.18), 2.0)
+	_ridge_lever.rotation.x = 0.75 * throw
+	var op = ctx["actor"].call(String(rp.get("op", ""))) if ctx.has("actor") else null
+	if op != null:
+		var grip: Vector3 = _ridge_lever.global_transform * Vector3(0, 0.4, 0)
+		op.aim_hand("r", grip, Motion.smooth(Motion.seg(t, lever - 0.5, lever - 0.15)), 0.05)
+		op.aim_hand("l", op.global_position + (op.global_transform.basis * Vector3(0.25, 0.95, 0.35)), 0.0)
+	# The rotary head: spins from "start", feeds down the mast between down0 and down1.
+	var feed := Motion.in_out(Motion.seg(t, d0, d1))
+	var hy := lerpf(MAST_H - 1.0, 2.0, feed)
+	var judder := Vector3(0, sin(t * 53.0), 0) * 0.015 * Motion.seg(t, start, start + 0.1)
+	_ridge_head.position = mast + Vector3(0, hy, 0) + judder
+	_ridge_head.rotation.y = maxf(t - start, 0.0) * 9.0
+	var rod_top := mast + Vector3(0.75, hy - 0.55, 0)
+	var rod_bot := base + Vector3(1.85, -0.1, 0)
+	_ridge_rod.transform = Transform3D(Basis.from_scale(Vector3(1, maxf(rod_top.y - rod_bot.y, 0.01), 1)), (rod_top + rod_bot) * 0.5)
+	_ridge_rod.position.x = rod_bot.x
+	# The x-ray: drilled depth and the bit at its bottom; the planned line glows down to the crown.
+	var depth := float(rp.get("deep", 6.0)) * Motion.in_out(Motion.seg(t, start + 0.2, d1))
+	var hx := RIDGE_X + 1.85
+	var xray_on := t >= float(rp.get("xray", 0.0))
+	_ridge_hole.visible = depth > 0.05 and xray_on
+	_ridge_bit.visible = xray_on
+	_ridge_hole.transform = Transform3D(Basis.from_scale(Vector3(1, maxf(depth, 0.01), 1)), Vector3(hx, _ridge_ys0 - depth * 0.5, HOLE_Z))
+	_ridge_bit.position = Vector3(hx, _ridge_ys0 - depth, HOLE_Z)
+	_ridge_bit.rotation.y = maxf(t - start, 0.0) * 9.0
+	var line_on := Motion.smooth(Motion.seg(t, start, start + 0.6))
+	var span := _ridge_ys0 - depth - (CROWN + 0.5)
+	for i in _ridge_dashes.instance_count:
+		var u := (float(i) + 0.5) / _ridge_dashes.instance_count
+		var yy := _ridge_ys0 - depth - u * span
+		var vis := xray_on and line_on > 0.0 and u < line_on * 1.05
+		_ridge_dashes.set_instance_transform(i, Transform3D(Basis.from_scale(Vector3.ONE * (1.0 if vis else 0.0001) * minf(span / _ridge_dashes.instance_count / 1.6, 1.0)), Vector3(hx, yy, HOLE_Z)))
+	for i in _ridge_mud.instance_count:
+		var life := 0.8
+		var age := fposmod(t + _hash(i * 2.1) * life, life)
+		var on := t > start + 0.15 and t - age > start
+		var dir := Vector3(cos(i * 2.4) * 0.8, 1.2 + _hash(i * 3.3), sin(i * 2.4) * 0.8)
+		var pos := base + Vector3(1.85, 0.45, 0) + dir * age * 1.4 + Vector3(0, -4.0 * age * age, 0)
+		var s := (0.04 + _hash(i * 5.5) * 0.06) if on else 0.0001
+		_ridge_mud.set_instance_transform(i, Transform3D(Basis.from_scale(Vector3.ONE * s), pos))
 	return res
