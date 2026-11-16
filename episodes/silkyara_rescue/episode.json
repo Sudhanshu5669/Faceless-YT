@@ -97,6 +97,84 @@
    "shot": "auger_chew",
    "at": 0.25,
    "text": "The big drill chews in. Twenty metres. Thirty. Forty-seven."
+  },
+  {
+   "id": "snap",
+   "shot": "tally13",
+   "at": 0.25,
+   "text": "Day thirteen, it hits steel, and its blades snap off inside the pipe."
+  },
+  {
+   "id": "short",
+   "shot": "ph_short",
+   "at": 0.25,
+   "text": "About ten metres short."
+  },
+  {
+   "id": "vertical",
+   "shot": "ph_vertical",
+   "at": 0.25,
+   "text": "So a second rig starts drilling straight down, from the top of the mountain."
+  },
+  {
+   "id": "miners",
+   "shot": "ph_miners",
+   "at": 0.25,
+   "text": "Then they call in twelve rat-hole miners."
+  },
+  {
+   "id": "banned",
+   "shot": "ph_banned",
+   "at": 0.25,
+   "text": "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."
+  },
+  {
+   "id": "dig",
+   "shot": "ph_dig",
+   "at": 0.25,
+   "text": "One after another, they crawl into the pipe and dig with hammers and chisels."
+  },
+  {
+   "id": "twelve",
+   "shot": "ph_twelve",
+   "at": 0.25,
+   "text": "Twelve metres, in about a day."
+  },
+  {
+   "id": "through",
+   "shot": "ph_through",
+   "at": 0.25,
+   "text": "Day seventeen, just after seven in the evening: they break through."
+  },
+  {
+   "id": "out",
+   "shot": "ph_out",
+   "at": 0.25,
+   "text": "Then all forty-one come out, one by one, on wheeled stretchers."
+  },
+  {
+   "id": "ambulances",
+   "shot": "ph_ambulances",
+   "at": 0.25,
+   "text": "Forty-one men. Forty-one ambulances waiting outside."
+  },
+  {
+   "id": "bulldozer",
+   "shot": "ph_bulldozer",
+   "at": 0.25,
+   "text": "Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan."
+  },
+  {
+   "id": "dda",
+   "shot": "ph_dda",
+   "at": 0.25,
+   "text": "Delhi's development authority says the house stood on its land."
+  },
+  {
+   "id": "street",
+   "shot": "ph_street",
+   "at": 0.25,
+   "text": "He got forty-one men out of a mountain. That night, his family slept on the street."
   }
  ],
  "actors": [
@@ -7054,8 +7132,39 @@
         "offset": 4.35
        },
        47.0
+      ],
+      [
+       {
+        "line": "snap",
+        "edge": "start",
+        "offset": 1.38
+       },
+       47.0
+      ],
+      [
+       {
+        "line": "snap",
+        "edge": "start",
+        "offset": 1.8
+       },
+       47.3
       ]
-     ]
+     ],
+     "girder": {
+      "line": "snap",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "hit": {
+      "line": "snap",
+      "edge": "start",
+      "offset": 1.45
+     },
+     "snap": {
+      "line": "snap",
+      "edge": "start",
+      "offset": 2.97
+     }
     },
     "xpipe": {
      "from": {
@@ -8001,7 +8110,27 @@
       "word": "nine.",
       "offset": 0.2
      },
-     "drawer": "meal_draw"
+     "drawer": "meal_draw",
+     "later": [
+      {
+       "t": {
+        "line": "snap",
+        "edge": "start",
+        "offset": -0.3
+       },
+       "marks": 12,
+       "draw0": {
+        "line": "snap",
+        "edge": "start",
+        "offset": 0.2
+       },
+       "draw1": {
+        "line": "snap",
+        "edge": "start",
+        "offset": 0.62
+       }
+      }
+     ]
     },
     "narrow": {
      "from": {
@@ -8398,6 +8527,62 @@
     "offset": 4.35
    },
    "gain": -9
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "snap",
+    "edge": "start",
+    "offset": 0.22
+   },
+   "gain": -12,
+   "repeat": 3,
+   "every": 0.12
+  },
+  {
+   "sound": "rip",
+   "at": {
+    "line": "snap",
+    "edge": "start",
+    "offset": 1.38
+   },
+   "gain": -3
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "snap",
+    "edge": "start",
+    "offset": 1.45
+   },
+   "gain": -4
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "snap",
+    "edge": "start",
+    "offset": 2.97
+   },
+   "gain": 0
+  },
+  {
+   "sound": "sting",
+   "at": {
+    "line": "snap",
+    "edge": "start",
+    "offset": 2.97
+   },
+   "gain": -10
+  },
+  {
+   "sound": "creak",
+   "at": {
+    "line": "snap",
+    "edge": "start",
+    "offset": 3.3
+   },
+   "gain": -6
   },
   {
    "file": "audio/mountain_wind_short.wav",
@@ -12016,6 +12201,1318 @@
      "amount": 0.25
     }
    ]
+  },
+  {
+   "name": "tally13",
+   "duration": 1.2,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#7d8fb5",
+     "energy": 0.085
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 40,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.014,
+     "anisotropy": 0.55,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.06,
+     "vignette": 0.3
+    },
+    "ssr": true
+   },
+   "note": "Day thirteen: the same chalk tally, now twelve marks; the thirteenth goes up.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       3.95,
+       -116.53,
+       2.05
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       4.95,
+       -116.64,
+       0.92
+      ]
+     },
+     "lens_mm": 31
+    },
+    "to": {
+     "at": {
+      "anchor": "tunnel",
+      "offset": [
+       4.05,
+       -116.55,
+       1.85
+      ]
+     },
+     "look_at": {
+      "anchor": "tunnel",
+      "offset": [
+       4.95,
+       -116.64,
+       0.92
+      ]
+     },
+     "lens_mm": 33
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "steel_hit",
+   "duration": 1.25,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "X-ray at the nose: the head grinds into a buried rib girder; sparks fountain at us.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -1.7,
+       0.35,
+       1.9
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -0.6,
+       0.05,
+       0.2
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -1.5,
+       0.3,
+       1.7
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -0.6,
+       0.05,
+       0.2
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "snap",
+      "edge": "start",
+      "offset": 1.45
+     },
+     "amount": 0.35
+    }
+   ]
+  },
+  {
+   "name": "blades_snap",
+   "duration": 2.43,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "note": "Close on the flight: on \"snap\" it shears, a piece flies at us, the rest wedge in the casing and it jams dead; pull back along the pipe on \"inside the pipe\".",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       -0.7,
+       0.55,
+       1.6
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       0.6,
+       0.0,
+       0.2
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       1.6,
+       0.85,
+       3.0
+      ]
+     },
+     "look_at": {
+      "anchor": "mountain_section.nose",
+      "offset": [
+       0.9,
+       0.0,
+       0.2
+      ]
+     },
+     "lens_mm": 24
+    },
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "snap",
+      "edge": "start",
+      "offset": 2.97
+     },
+     "amount": 0.45
+    }
+   ]
+  },
+  {
+   "name": "ph_short",
+   "duration": 2.28,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_vertical",
+   "duration": 6.48,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_miners",
+   "duration": 3.54,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_banned",
+   "duration": 6.9,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_dig",
+   "duration": 6.48,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_twelve",
+   "duration": 3.12,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_through",
+   "duration": 5.22,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_out",
+   "duration": 5.22,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_ambulances",
+   "duration": 3.12,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_bulldozer",
+   "duration": 7.74,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_dda",
+   "duration": 4.8,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
+  },
+  {
+   "name": "ph_street",
+   "duration": 7.32,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#6a7ca6",
+     "energy": 0.35
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#0c1a33",
+     "horizon": "#8c8296",
+     "stars": 0.25,
+     "clouds": 0.1,
+     "cloud_color": "#2c3550"
+    },
+    "lights": [
+     {
+      "elevation": 32,
+      "azimuth": 20,
+      "color": "#8197c8",
+      "energy": 0.1,
+      "shadows": false
+     }
+    ],
+    "fog": {
+     "begin": 150,
+     "end": 4000,
+     "color": "#2b3650",
+     "volumetric": 0.003,
+     "anisotropy": 0.5,
+     "length": 160
+    },
+    "ground_fog": {
+     "density": 0.0,
+     "height": 6.0,
+     "falloff": 0.15,
+     "color": "#3a4560"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.1,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.32
+    }
+   },
+   "camera": {
+    "at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      3,
+      20
+     ]
+    },
+    "look_at": {
+     "anchor": "section",
+     "offset": [
+      0,
+      2,
+      0
+     ]
+    },
+    "lens_mm": 24
+   }
   }
  ],
  "reveals": [
@@ -12025,6 +13522,11 @@
     "line": "drill",
     "edge": "start",
     "offset": 1.45
+   },
+   "until": {
+    "line": "snap",
+    "edge": "start",
+    "offset": 0.9
    },
    "at": {
     "anchor": "mountain_section.nose",

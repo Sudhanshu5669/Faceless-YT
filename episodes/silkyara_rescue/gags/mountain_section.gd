@@ -1476,6 +1476,7 @@ const XA_SHADER := """
 shader_type spatial;
 render_mode cull_disabled;
 uniform float keep = 1000.0;
+uniform float front = -1000.0;
 uniform vec3 color : source_color = vec3(0.3, 0.32, 0.34);
 uniform float metal = 0.7;
 uniform float rough = 0.45;
@@ -1484,7 +1485,7 @@ varying vec3 lp;
 void vertex() { lp = VERTEX; }
 //NOISE
 void fragment() {
-	if (lp.x < -keep) { discard; }
+	if (lp.x < -keep || lp.x > -front) { discard; }
 	float n = fbm(vec3(lp.x * 2.0, lp.y * 6.0, lp.z * 6.0));
 	ALBEDO = color * (0.8 + 0.4 * n);
 	METALLIC = metal;
@@ -1504,6 +1505,10 @@ var _xa_chunks: Array = []
 var _xa_glow: OmniLight3D
 var _xa_entry := 0.0
 var _xa_collars: Array = []
+var _xa_flight_mat: ShaderMaterial
+var _xa_girder: Node3D
+var _xa_sparks: MultiMesh
+var _xa_pieces: Array = []
 var _plug_bits: Array = []      # boulders and wreckage on the plug's cut face (cleared off the auger's path)
 var _xa_exit := 0.0
 
@@ -1626,7 +1631,61 @@ func _build_xauger(root: Node3D) -> void:
 	_xa_cyl(fs, 0.1, 0.0, 0.0, 14)
 	var flight := MeshInstance3D.new()
 	flight.mesh = fs.commit()
-	flight.material_override = _xa_mat("#9aa0a6", 0.85, 0.3)
+	_xa_flight_mat = _xa_mat("#9aa0a6", 0.85, 0.3)
+	flight.material_override = _xa_flight_mat
+	# The front of the flight in three pieces, for when it shears (line 14).
+	for seg in [[-0.25, -0.7], [-0.7, -1.15], [-1.15, -1.6]]:
+		var ps := SurfaceTool.new()
+		ps.begin(Mesh.PRIMITIVE_TRIANGLES)
+		var x0: float = seg[0]
+		var x1: float = seg[1]
+		var cxp := (x0 + x1) * 0.5
+		var pn := 60
+		for i in pn:
+			var xa0 := lerpf(x0, x1, float(i) / pn)
+			var xa1 := lerpf(x0, x1, float(i + 1) / pn)
+			var c0 := (-0.25 - xa0) / AX_PITCH * TAU
+			var c1 := (-0.25 - xa1) / AX_PITCH * TAU
+			var q := [Vector3(xa0 - cxp, cos(c0) * 0.1, sin(c0) * 0.1), Vector3(xa0 - cxp, cos(c0) * 0.37, sin(c0) * 0.37),
+				Vector3(xa1 - cxp, cos(c1) * 0.1, sin(c1) * 0.1), Vector3(xa1 - cxp, cos(c1) * 0.37, sin(c1) * 0.37)]
+			for o in [0, 1, 2, 1, 3, 2]:
+				ps.add_vertex(q[o])
+		ps.generate_normals()
+		var piece := MeshInstance3D.new()
+		piece.mesh = ps.commit()
+		var pm := _mat("#9aa0a6", 0.3, 0.85)
+		pm.cull_mode = BaseMaterial3D.CULL_DISABLED
+		piece.material_override = pm
+		piece.visible = false
+		piece.set_meta("cx", cxp)
+		_xa_string.add_child(piece)
+		_xa_pieces.append(piece)
+	# The steel in the rubble: a buried H-section girder from the collapsed ribs, rusty, slanting across the path.
+	_xa_girder = Node3D.new()
+	_xa_girder.visible = false
+	_xa.add_child(_xa_girder)
+	var rust := _mat("#5e3320", 0.75, 0.55)
+	_box(_xa_girder, Vector3(0.24, 3.2, 0.03), Vector3(0, 0, 0.16), rust)
+	_box(_xa_girder, Vector3(0.24, 3.2, 0.03), Vector3(0, 0, -0.16), rust)
+	_box(_xa_girder, Vector3(0.03, 3.2, 0.32), Vector3.ZERO, rust)
+	_xa_girder.rotation = Vector3(0.0, 0.0, 0.55)
+	# Sparks: thin white-hot streaks fanning out of the cut.
+	var spark := CapsuleMesh.new()
+	spark.radius = 0.006
+	spark.height = 0.09
+	spark.radial_segments = 4
+	spark.rings = 1
+	var spark_m := _lit("#ffd28a", 9.0)
+	spark_m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	spark.material = spark_m
+	_xa_sparks = MultiMesh.new()
+	_xa_sparks.transform_format = MultiMesh.TRANSFORM_3D
+	_xa_sparks.mesh = spark
+	_xa_sparks.instance_count = 140
+	var spmi := MultiMeshInstance3D.new()
+	spmi.multimesh = _xa_sparks
+	spmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_xa.add_child(spmi)
 	_xa_flight.add_child(flight)
 	# The cutting head: a hub and four arms of carbide teeth, just proud of the shoe.
 	var head_m := _xa_mat("#2a2c2e", 0.8, 0.4)
@@ -1722,6 +1781,8 @@ func _pose_xauger(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
 		return res
 	# The rig shoves in pulses: a judder on the string while it bites.
 	var grind := clampf(surge + (1.0 - Motion.seg(t, chew + 0.45, chew + 0.8)) * Motion.seg(t, chew - 0.1, chew), 0.0, 1.0)
+	var steel := Motion.seg(t, float(xa.get("hit", 1.0e9)), float(xa.get("hit", 1.0e9)) + 0.05) * (1.0 - Motion.seg(t, float(xa.get("snap", 1.0e9)), float(xa.get("snap", 1.0e9)) + 0.3))
+	grind = maxf(grind, steel)
 	var judder := Vector3(0.0, sin(t * 61.0) * 0.012, cos(t * 47.0) * 0.008) * grind
 	_xa_string.position = Vector3(nose, AX_Y, AX_Z) + judder
 	var keep := maxf(nose - _xa_entry + 0.25, 0.0)
@@ -1729,9 +1790,50 @@ func _pose_xauger(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
 		(m as ShaderMaterial).set_shader_parameter("keep", keep)
 	for c in _xa_collars:
 		(c as Node3D).visible = (c as Node3D).position.x > -keep
-	# The flight turns all the time (faster while it bites).
-	var spin := t * 7.0 + d * 3.0
+	# The flight turns all the time; once its blades snap it is jammed dead.
+	var hit := float(xa.get("hit", 1.0e9))
+	var snap := float(xa.get("snap", 1.0e9))
+	var spin := minf(t, snap) * 7.0 + d * 3.0 + 4.0 * maxf(minf(t, snap) - hit, 0.0)
 	_xa_flight.rotation.x = -spin
+	_xa_girder.visible = t >= float(xa.get("girder", 1.0e9))
+	_xa_girder.position = Vector3(_xa_entry + 47.0 * per + 0.62, AX_Y + 0.05, 0.22)
+	# Steel: sparks fan out of the cut from "hit" until the blades go.
+	var sparking := Motion.seg(t, hit, hit + 0.05) * (1.0 - Motion.seg(t, snap, snap + 0.25))
+	for i in _xa_sparks.instance_count:
+		var life := 0.45 + _hash(i * 1.9) * 0.35
+		var age := fposmod(t + _hash(i * 4.3) * life, life)
+		var born := t - age
+		var xf := Transform3D(Basis.from_scale(Vector3.ONE * 0.0001), Vector3(nose, AX_Y, AX_Z))
+		if born >= hit and born < snap and sparking > 0.0:
+			var a := (_hash(i * 2.7) - 0.5) * 2.4
+			var v := Vector3(-0.6 + _hash(i * 6.1) * 2.6, sin(a) * 3.2 + 1.2, 1.6 + _hash(i * 3.7) * 2.8)
+			var pos := Vector3(nose + 0.32, AX_Y + (_hash(i * 8.8) - 0.5) * 0.5, AX_Z + 0.25) + v * age + Vector3(0, -6.0 * age * age, 0)
+			var vel := v + Vector3(0, -12.0 * age, 0)
+			var basis := Basis.looking_at(vel.normalized(), Vector3.UP if absf(vel.normalized().y) < 0.95 else Vector3.RIGHT) * Basis(Vector3.RIGHT, PI * 0.5)
+			xf = Transform3D(basis.scaled(Vector3(1.0, 0.6 + vel.length() * 0.25, 1.0) * (1.0 - age / life)), pos)
+		_xa_sparks.set_instance_transform(i, xf)
+	# Snap: the front of the flight is gone from the spinning auger; its three pieces twist and wedge in the casing,
+	# one flies out of the cut.
+	var sheared := t >= snap
+	_xa_flight_mat.set_shader_parameter("front", 1.6 if sheared else -1000.0)
+	for i in _xa_pieces.size():
+		var pc := _xa_pieces[i] as MeshInstance3D
+		pc.visible = sheared and _xa.visible
+		if not pc.visible:
+			continue
+		var age := t - snap
+		var cxp: float = pc.get_meta("cx")
+		var base := Basis(Vector3.RIGHT, -spin)
+		if i == 0:
+			# Thrown out of the open side toward us, tumbling.
+			var v := Vector3(1.2, 1.6, 4.2)
+			pc.position = Vector3(cxp, 0, 0) + v * age + Vector3(0, -7.0 * age * age, 0)
+			pc.basis = base * Basis(Vector3(0.3, 1.0, 0.4).normalized(), age * 11.0)
+		else:
+			var k := Motion.out_back(clampf(age / 0.18, 0.0, 1.0), 2.0)
+			var twist := Vector3(0.4, 0.8, 0.5).normalized() if i == 1 else Vector3(-0.6, 0.3, 0.7).normalized()
+			pc.position = Vector3(cxp + 0.08 * k * (1.0 if i == 1 else -1.0), -0.12 * k, (0.06 if i == 1 else -0.08) * k)
+			pc.basis = base * Basis(twist, (0.9 if i == 1 else -1.1) * k)
 	# Spoil: chunks walk back along the flight inside the casing, one turn per pitch.
 	for i in SPOIL:
 		var life := 2.2
@@ -1771,5 +1873,5 @@ func _pose_xauger(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
 			ch.transform = Transform3D(Basis.from_euler(Vector3(age * 6.0 + i, age * 4.0, i)).scaled(Vector3(s, s * 0.8, s * 0.7)), pos)
 	var flick := 0.8 + 0.2 * sin(t * 37.0) + 0.1 * sin(t * 71.0)
 	_xa_glow.position = Vector3(nose + 0.25, AX_Y + 0.1, AX_Z + 0.45)
-	_xa_glow.light_energy = 1.1 * grind * flick
+	_xa_glow.light_energy = 1.1 * grind * flick + 2.2 * steel * flick
 	return res

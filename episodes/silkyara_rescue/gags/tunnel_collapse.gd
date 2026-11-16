@@ -1850,6 +1850,7 @@ func _pose_yoga(actor, c: Dictionary, t: float, id: String, fwd: Vector3, left: 
 ## hands, the cap comes off and it steams.
 var _tally: Node3D
 var _tally_new: MeshInstance3D
+var _tally_later: Array = []
 var _narrow: Node3D
 var _narrow_pipe: Node3D
 var _bottle: Node3D
@@ -1888,6 +1889,25 @@ func _build_meal(root: Node3D, p: Dictionary) -> void:
 		stroke.rotation.z = -PI * 0.5
 		stroke.name = "ninth"
 		_tally.add_child(stroke)
+		# Later days (params.tally.later = [{"t", "marks", "draw0", "draw1"}]): the wall with more marks, and the
+		# next stroke drawn the same way.
+		for lt in tp.get("later", []):
+			var lay := _tally_layout(int(lt.get("marks", 12)))
+			var md := Decal.new()
+			md.texture_albedo = _chalk_groups(int(lt.get("marks", 12)), 256, int(160.0 * float(lay["span"])), float(lay["span"]))
+			md.size = Vector3(0.36, 0.9, float(lay["len"]))
+			md.rotation.z = -PI * 0.5
+			md.albedo_mix = 1.0
+			md.position = Vector3(0, 0, float(lay["c"]))
+			md.visible = false
+			_tally.add_child(md)
+			var sd := Decal.new()
+			sd.texture_albedo = _chalk_texture(1, 128, 24)
+			sd.size = Vector3(0.3, 0.9, 0.05)
+			sd.rotation.z = -PI * 0.5
+			sd.visible = false
+			_tally.add_child(sd)
+			_tally_later.append({"marks": md, "stroke": sd, "z": float(lay["next_z"])})
 	if p.has("narrow"):
 		var np: Dictionary = p["narrow"]
 		_narrow = Node3D.new()
@@ -2000,6 +2020,33 @@ func _pose_meal(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> vo
 			var tip := origin + _tally.position + Vector3(-0.3, 0.15 - 0.3 * k, -0.27)
 			var w := Motion.smooth(Motion.seg(t, d0 - 0.35, d0)) * (1.0 - Motion.smooth(Motion.seg(t, d1 + 0.15, d1 + 0.5)))
 			drawer.aim_hand("l", tip, w, 0.05 * w)
+		var later: Array = tp.get("later", [])
+		var current := -1
+		for i in later.size():
+			if t >= float(later[i].get("t", 1.0e9)):
+				current = i
+		if current >= 0:
+			(_tally.get_child(0) as Node3D).visible = false
+			ninth.visible = false
+		for i in _tally_later.size():
+			var e: Dictionary = _tally_later[i]
+			var on := i == current
+			(e["marks"] as Decal).visible = on
+			var sd := e["stroke"] as Decal
+			sd.visible = false
+			if not on:
+				continue
+			var l0 := float(later[i].get("draw0", 1.0e9))
+			var l1 := float(later[i].get("draw1", 1.0e9))
+			var lk := Motion.in_out(Motion.seg(t, l0, l1))
+			var lh := 0.3 * maxf(lk, 0.001)
+			sd.size = Vector3(lh, 0.9, 0.05)
+			sd.position = Vector3(0, 0.15 - lh * 0.5, float(e["z"]))
+			sd.visible = lk > 0.0
+			if drawer != null and drawer.visible:
+				var ltip := origin + _tally.position + Vector3(-0.3, 0.15 - 0.3 * lk, float(e["z"]))
+				var lw := Motion.smooth(Motion.seg(t, l0 - 0.35, l0)) * (1.0 - Motion.smooth(Motion.seg(t, l1 + 0.15, l1 + 0.5)))
+				drawer.aim_hand("l", ltip, lw, 0.05 * lw)
 	if _narrow == null:
 		return
 	var np: Dictionary = p["narrow"]
@@ -2275,6 +2322,55 @@ func _pose_wave(actor, c: Dictionary, t: float, id: String, fwd: Vector3, left: 
 
 ## Chalk strokes on a transparent image. n = 8: a five-gate (four and a slash) and three more; n = 1: one stroke.
 ## Image x runs down the wall (the decal's local X points down after its roll), image y runs along it.
+## Where a tally of n marks sits on the wall (same scale and left edge as the eight-mark tally): its length, its
+## centre along z, the span in gate units, and where the next stroke goes.
+func _tally_layout(n: int) -> Dictionary:
+	var gates := n / 5
+	var rem := n % 5
+	var u_next := gates * 0.6 + 0.02 + rem * 0.12
+	var span := u_next + 0.1
+	var length := 0.56 * span
+	var c := 0.28 - 0.5 * length
+	return {"span": span, "len": length, "c": c, "next_z": (1.0 - u_next / span - 0.5) * length + c}
+
+
+## A tally of n chalk marks in gates of five (four strokes and a slash), the same hand as _chalk_texture.
+func _chalk_groups(n: int, w: int, h: int, span: float) -> ImageTexture:
+	var img := Image.create(w, h, false, Image.FORMAT_RGBA8)
+	img.fill(Color(1, 1, 1, 0))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 190 + n
+	var strokes := []
+	var gates := n / 5
+	for gi in gates:
+		var base := gi * 0.6
+		for k in 4:
+			var v := base + 0.08 + k * 0.1
+			strokes.append([v + rng.randf_range(-0.01, 0.01), 0.06, v + rng.randf_range(-0.015, 0.015), 0.94])
+		strokes.append([base + 0.02, 0.82, base + 0.44, 0.18])
+	for k in n % 5:
+		var v := gates * 0.6 + 0.02 + k * 0.12
+		strokes.append([v + rng.randf_range(-0.01, 0.01), 0.06, v + rng.randf_range(-0.015, 0.015), 0.94])
+	for st in strokes:
+		for i in 221:
+			var u := float(i) / 220.0
+			var cx := lerpf(float(st[1]), float(st[3]), u) * (w - 1)
+			var cy := (1.0 - lerpf(float(st[0]), float(st[2]), u) / span) * (h - 1)
+			for dx in range(-4, 5):
+				for dy in range(-4, 5):
+					var px := int(cx) + dx
+					var py := int(cy) + dy
+					if px < 0 or py < 0 or px >= w or py >= h:
+						continue
+					var d := Vector2(dx, dy).length()
+					if d > 3.2:
+						continue
+					var a := (1.0 - d / 3.2) * (0.55 + 0.45 * _hash(px * 0.37 + py * 1.91))
+					var old := img.get_pixel(px, py)
+					img.set_pixel(px, py, Color(0.93, 0.92, 0.88, maxf(old.a, a)))
+	return ImageTexture.create_from_image(img)
+
+
 func _chalk_texture(n: int, w: int, h: int) -> ImageTexture:
 	var img := Image.create(w, h, false, Image.FORMAT_RGBA8)
 	img.fill(Color(1, 1, 1, 0))

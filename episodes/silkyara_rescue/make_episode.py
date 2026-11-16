@@ -587,9 +587,21 @@ def bore_counter_keys(t_from):
     return keys
 
 
+# ---------------------------------------------------------------------------------- line 14
+# "Day thirteen, it hits steel, and its blades snap off inside the pipe."  (Day 13 = 24 Nov 2023; Tribune timeline.)
+# The day-nine chalk tally again, now twelve marks and the thirteenth drawn on "thirteen"; then the x-ray: the head
+# grinds into a buried rib girder on "steel" (sparks), and on "snap" the front of the flight shears and jams.
+# Word times from the line start: thirteen 0.26, steel 1.41, blades 2.51, snap 2.95, inside 3.54, pipe 3.98-4.18.
+def LS(x):
+    return {"line": "snap", "edge": "start", "offset": round(x, 3)}
+
+
 def NOSE(x, y, z):
     """A point riding with the auger's nose (gag anchor; x mirrored like the other gag anchors)."""
     return {"anchor": "mountain_section.nose", "offset": [round(-x, 3), round(y, 3), round(z, 3)]}
+
+
+X_CAM = {"at": {"anchor": "section", "offset": [0, 3, 20]}, "look_at": {"anchor": "section", "offset": [0, 2, 0]}, "lens_mm": 24}   # placeholder
 
 
 def cam(at, look, lens, dof=None, **kw):
@@ -624,6 +636,19 @@ def build():
             {"id": "meal", "shot": "day9_tally", "at": 0.3, "text": "Day nine. A narrow pipe gets through first, and the first hot meal goes in: khichdi, packed in bottles."},
             {"id": "faces", "shot": "scope_pipe", "at": 0.3, "text": "The next day, a camera crawls down the same pipe. For the first time, the world sees their faces."},
             {"id": "drill", "shot": "auger_chew", "at": 0.25, "text": "The big drill chews in. Twenty metres. Thirty. Forty-seven."},
+            {"id": "snap", "shot": "tally13", "at": 0.25, "text": "Day thirteen, it hits steel, and its blades snap off inside the pipe."},
+            {"id": "short", "shot": "ph_short", "at": 0.25, "text": "About ten metres short."},
+            {"id": "vertical", "shot": "ph_vertical", "at": 0.25, "text": "So a second rig starts drilling straight down, from the top of the mountain."},
+            {"id": "miners", "shot": "ph_miners", "at": 0.25, "text": "Then they call in twelve rat-hole miners."},
+            {"id": "banned", "shot": "ph_banned", "at": 0.25, "text": "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."},
+            {"id": "dig", "shot": "ph_dig", "at": 0.25, "text": "One after another, they crawl into the pipe and dig with hammers and chisels."},
+            {"id": "twelve", "shot": "ph_twelve", "at": 0.25, "text": "Twelve metres, in about a day."},
+            {"id": "through", "shot": "ph_through", "at": 0.25, "text": "Day seventeen, just after seven in the evening: they break through."},
+            {"id": "out", "shot": "ph_out", "at": 0.25, "text": "Then all forty-one come out, one by one, on wheeled stretchers."},
+            {"id": "ambulances", "shot": "ph_ambulances", "at": 0.25, "text": "Forty-one men. Forty-one ambulances waiting outside."},
+            {"id": "bulldozer", "shot": "ph_bulldozer", "at": 0.25, "text": "Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan."},
+            {"id": "dda", "shot": "ph_dda", "at": 0.25, "text": "Delhi's development authority says the house stood on its land."},
+            {"id": "street", "shot": "ph_street", "at": 0.25, "text": "He got forty-one men out of a mountain. That night, his family slept on the street."},
         ],
         "actors": OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
         "gags": [
@@ -634,7 +659,8 @@ def build():
                         "rig": {"from": PLAN_START, "push0": L10("push", 0.0), "push1": L10("rubble", 0.45), "bite": L10("steel", 0.1), "dist": 2.3},
                         "spare": {"from": PLAN_START, "crawler": "plan_crawl"},
                         "xauger": {"from": DRILL_START, "chew": LD(0.97), "boulder_at": 1.3, "metres": 57,
-                                   "keys": [[LD(t), d] for t, d in BORE_KEYS]},
+                                   "keys": [[LD(t), d] for t, d in BORE_KEYS] + [[LS(1.38), 47.0], [LS(1.8), 47.3]],
+                                   "girder": LS(-0.3), "hit": LS(1.45), "snap": LS(2.97)},
                         "xpipe": {"from": FEED_START, "until": L7("puffed", 0.2), "flow": L7("Through", -0.15),
                                   "hit": L7("oxygen", 0.0), "jar1": L7("puffed", 0.05), "x0": TOE_A + 1.0, "x1": TOE_A + 40.0},
                         "wide": SIXTY(0.82), "measure_until": {"line": "lifeline", "edge": "start", "offset": -0.3},
@@ -645,7 +671,8 @@ def build():
             {"id": "collapse", "script": "gags/tunnel_collapse.gd", "at": {"anchor": "tunnel", "offset": [0, DEPTH, 0]}, "t": 0,
              "params": {"impact": T(0.0), "alive": ALIVE, "crew": {**crew, **LIFE_CREW, **LINE8_CREW, **MEAL_CREW, **FACES_CREW},
                         "tally": {"from": MEAL_START, "x": -4.6, "y": 1.38, "z": 1.0, "draw0": L11("Day", -0.15),
-                                  "draw1": L11("nine.", 0.2), "drawer": "meal_draw"},
+                                  "draw1": L11("nine.", 0.2), "drawer": "meal_draw",
+                                  "later": [{"t": LS(-0.3), "marks": 12, "draw0": LS(0.2), "draw1": LS(0.62)}]},
                         "narrow": {"from": MEAL_START, "at": [-1.6, 1.0, -16.45], "t0": L11("narrow", -0.1), "t1": L11(7, 0.0),
                                    "bottle": L11("packed", 0.05), "catch": L11("packed", 0.45), "open": L11("bottles.", 0.25),
                                    "catcher": "meal_catch", "bottle_until": FACES_START}, "mats": MATS, "full_power": SANE_START,
@@ -674,6 +701,10 @@ def build():
             {"sound": "whoosh", "at": LD(2.55), "gain": -9}, {"sound": "thud", "at": LD(3.38), "gain": -7},
             {"sound": "whoosh", "at": LD(3.65), "gain": -9}, {"sound": "thud", "at": LD(4.35), "gain": -5},
             {"sound": "ding", "at": LD(4.35), "gain": -9},
+            {"sound": "tick", "at": LS(0.22), "gain": -12, "repeat": 3, "every": 0.12},
+            {"sound": "rip", "at": LS(1.38), "gain": -3}, {"sound": "thud", "at": LS(1.45), "gain": -4},
+            {"sound": "thud", "at": LS(2.97), "gain": 0}, {"sound": "sting", "at": LS(2.97), "gain": -10},
+            {"sound": "creak", "at": LS(3.3), "gain": -6},
             {"file": "audio/mountain_wind_short.wav", "at": 0, "gain": -10},
             {"file": "audio/underground.wav", "at": {"line": "inside", "offset": -0.18}, "gain": -13},
             # grit on a helmet, then the mountain: the recording's attack is 0.5 s in
@@ -909,9 +940,36 @@ def build():
                         "to": {"at": NOSE(1.2, 0.55, 2.3), "look_at": NOSE(-0.7, 0.0, 0.1), "lens_mm": 22},
                         "ease": "linear"},
              "shake": [{"t": LD(1.92), "amount": 0.18}, {"t": LD(3.38), "amount": 0.18}, {"t": LD(4.35), "amount": 0.25}]},
+            {"name": "tally13", "duration": 1.2, "look": dict(TUNNEL, ssr=True),
+             "note": "Day thirteen: the same chalk tally, now twelve marks; the thirteenth goes up.",
+             "camera": {"from": cam((-3.95, 1.47, 2.05), (-4.95, 1.36, 0.92), 31),
+                        "to": cam((-4.05, 1.45, 1.85), (-4.95, 1.36, 0.92), 33), "ease": "in_out"}},
+            {"name": "steel_hit", "duration": 1.25, "look": SECTION_LOOK,
+             "note": "X-ray at the nose: the head grinds into a buried rib girder; sparks fountain at us.",
+             "camera": {"from": {"at": NOSE(1.7, 0.35, 1.9), "look_at": NOSE(0.6, 0.05, 0.2), "lens_mm": 24},
+                        "to": {"at": NOSE(1.5, 0.3, 1.7), "look_at": NOSE(0.6, 0.05, 0.2), "lens_mm": 26}, "ease": "in_out"},
+             "shake": [{"t": LS(1.45), "amount": 0.35}]},
+            {"name": "blades_snap", "duration": 2.43, "look": SECTION_LOOK,
+             "note": "Close on the flight: on \"snap\" it shears, a piece flies at us, the rest wedge in the casing and it "
+                     "jams dead; pull back along the pipe on \"inside the pipe\".",
+             "camera": {"from": {"at": NOSE(0.7, 0.55, 1.6), "look_at": NOSE(-0.6, 0.0, 0.2), "lens_mm": 24},
+                        "to": {"at": NOSE(-1.6, 0.85, 3.0), "look_at": NOSE(-0.9, 0.0, 0.2), "lens_mm": 24}, "ease": "in_out"},
+             "shake": [{"t": LS(2.97), "amount": 0.45}]},
+            {"name": "ph_short", "duration": 2.28, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_vertical", "duration": 6.48, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_miners", "duration": 3.54, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_banned", "duration": 6.9, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_dig", "duration": 6.48, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_twelve", "duration": 3.12, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_through", "duration": 5.22, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_out", "duration": 5.22, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_ambulances", "duration": 3.12, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_bulldozer", "duration": 7.74, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_dda", "duration": 4.8, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ph_street", "duration": 7.32, "look": SECTION_LOOK, "camera": X_CAM},
         ],
         "reveals": [
-            {"id": "bore_count", "t": LD(1.45), "at": NOSE(0.0, 1.05, 0.25), "size": 0.3, "enter": "pop", "glow": 0.25,
+            {"id": "bore_count", "t": LD(1.45), "until": LS(0.9), "at": NOSE(0.0, 1.05, 0.25), "size": 0.3, "enter": "pop", "glow": 0.25,
              "counter": {"keys": bore_counter_keys(1.45), "suffix": " m"}},
             {"id": "air_count", "t": L9("twenty-five-tonne", -0.02), "until": L9("is", 0.0), "at": PL(0.0, 1.2, -6.6),
              "size": 0.42, "enter": "pop", "counter": {"from": 0, "to": 25, "land": L9("twenty-five-tonne", 0.72), "suffix": " TONNES"},

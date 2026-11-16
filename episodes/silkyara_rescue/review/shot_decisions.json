@@ -270,5 +270,33 @@
     "updated": "2026-11-16 13:08:35",
     "fingerprint": "f7768201889d",
     "history": []
+  },
+  "auger_chew": {
+    "status": "approved",
+    "note": "approved",
+    "updated": "2026-11-16 13:41:45",
+    "fingerprint": "233664d1fc73",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-16 13:41:07",
+        "fingerprint": "233664d1fc73"
+      }
+    ]
+  },
+  "auger_ride": {
+    "status": "approved",
+    "note": "approved",
+    "updated": "2026-11-16 13:41:45",
+    "fingerprint": "8b3bc70a4c64",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-16 13:41:08",
+        "fingerprint": "8b3bc70a4c64"
+      }
+    ]
   }
 }
