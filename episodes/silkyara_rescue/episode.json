@@ -124,7 +124,7 @@
   },
   {
    "id": "banned",
-   "shot": "ph_banned",
+   "shot": "rathole_crawl",
    "at": 0.25,
    "text": "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."
   },
@@ -178,6 +178,163 @@
   }
  ],
  "actors": [
+  {
+   "id": "meg_crawler",
+   "character": "toon_meghalaya_miner",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     -0.0,
+     0,
+     12000.9
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     -0.0,
+     0,
+     11996.0
+    ]
+   },
+   "action": "crouch",
+   "route": {
+    "via": [
+     {
+      "anchor": "airstrip",
+      "offset": [
+       -0.0,
+       0,
+       11997.15
+      ]
+     }
+    ],
+    "gait": "sneak",
+    "start": {
+     "line": "banned",
+     "edge": "start",
+     "offset": -0.25
+    },
+    "arrive": {
+     "line": "banned",
+     "edge": "start",
+     "offset": 1.4
+    },
+    "then": "crouch"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      -40,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    },
+    {
+     "t": {
+      "line": "banned",
+      "edge": "start",
+      "offset": 1.4
+     },
+     "expression": "panic",
+     "head": [
+      -55,
+      0,
+      0
+     ],
+     "head_turn": 0.15
+    }
+   ]
+  },
+  {
+   "id": "meg_official",
+   "character": "toon_official",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     3.2,
+     0,
+     12004.0
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     -3.4,
+     0,
+     12004.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "airstrip",
+      "offset": [
+       -3.0,
+       0,
+       12004.0
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "banned",
+     "edge": "start",
+     "offset": 2.55
+    },
+    "arrive": {
+     "line": "banned",
+     "edge": "start",
+     "offset": 3.5
+    },
+    "then": "idle"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "banned",
+      "edge": "start",
+      "offset": 3.6
+     },
+     "expression": "deadpan"
+    }
+   ]
+  },
+  {
+   "id": "meg_watch",
+   "character": "toon_meghalaya_miner",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     -1.6,
+     0,
+     11996.4
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     -0.0,
+     0,
+     12003.0
+    ]
+   },
+   "action": "fold_arms",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    }
+   ]
+  },
   {
    "id": "miner_1",
    "character": "toon_rathole_miner_a",
@@ -7739,6 +7896,47 @@
  ],
  "gags": [
   {
+   "id": "pit",
+   "script": "gags/meghalaya_pit.gd",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     0,
+     0,
+     12000.0
+    ]
+   },
+   "t": 0,
+   "params": {
+    "crawl": {
+     "who": "meg_crawler",
+     "grit": {
+      "line": "banned",
+      "edge": "start",
+      "offset": 1.35
+     }
+    },
+    "tape": {
+     "who": "meg_official",
+     "t0": {
+      "line": "banned",
+      "edge": "start",
+      "offset": 2.55
+     },
+     "t1": {
+      "line": "banned",
+      "edge": "start",
+      "offset": 3.45
+     }
+    },
+    "floor": {
+     "meg_crawler": -10.0,
+     "meg_official": 0.0,
+     "meg_watch": 0.0
+    }
+   }
+  },
+  {
    "id": "mountain_section",
    "script": "gags/mountain_section.gd",
    "at": {
@@ -9643,6 +9841,33 @@
    "gain": -14,
    "repeat": 6,
    "every": 0.1
+  },
+  {
+   "sound": "creak",
+   "at": {
+    "line": "banned",
+    "edge": "start",
+    "offset": 1.3
+   },
+   "gain": -6
+  },
+  {
+   "sound": "rip",
+   "at": {
+    "line": "banned",
+    "edge": "start",
+    "offset": 2.6
+   },
+   "gain": -9
+  },
+  {
+   "sound": "thud",
+   "at": {
+    "line": "banned",
+    "edge": "start",
+    "offset": 4.86
+   },
+   "gain": -8
   },
   {
    "file": "audio/mountain_wind_short.wav",
@@ -13967,86 +14192,201 @@
    }
   },
   {
-   "name": "ph_banned",
-   "duration": 6.9,
+   "name": "rathole_crawl",
+   "duration": 2.65,
    "look": {
-    "base": "night_fog",
-    "time": "05:30",
-    "ssao": true,
+    "base": "day",
+    "time": "10:30",
     "weather": {
-     "fog": 0
+     "clouds": 0.55,
+     "fog": 0.12
     },
-    "ambient": {
-     "color": "#6a7ca6",
-     "energy": 0.35
-    },
-    "sun": {
-     "energy": 0
-    },
-    "moon": {
-     "energy": 0,
-     "visible": false
-    },
-    "sky": {
-     "top": "#0c1a33",
-     "horizon": "#8c8296",
-     "stars": 0.25,
-     "clouds": 0.1,
-     "cloud_color": "#2c3550"
-    },
-    "lights": [
-     {
-      "elevation": 32,
-      "azimuth": 20,
-      "color": "#8197c8",
-      "energy": 0.1,
-      "shadows": false
-     }
-    ],
-    "fog": {
-     "begin": 150,
-     "end": 4000,
-     "color": "#2b3650",
-     "volumetric": 0.003,
-     "anisotropy": 0.5,
-     "length": 160
-    },
-    "ground_fog": {
-     "density": 0.0,
-     "height": 6.0,
-     "falloff": 0.15,
-     "color": "#3a4560"
-    },
-    "glow": {
-     "enabled": true,
-     "intensity": 0.9,
-     "bloom": 0.1,
-     "threshold": 1.0
-    },
+    "ssao": true,
     "grade": {
-     "contrast": 1.12,
-     "saturation": 1.04,
-     "vignette": 0.32
+     "contrast": 1.1,
+     "saturation": 0.95,
+     "vignette": 0.35
     }
    },
+   "note": "The bottom of a rat-hole pit in Meghalaya: a miner with a headlamp crawls into a hole barely higher than his knees; grit sifts from its roof on \"dangerous\".",
    "camera": {
-    "at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      3,
-      20
-     ]
+    "from": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.05,
+       -9.52,
+       11994.65
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.0,
+       -9.62,
+       12001.0
+      ]
+     },
+     "lens_mm": 20
     },
-    "look_at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.05,
+       -9.55,
+       11994.75
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.0,
+       -9.6,
+       12001.0
+      ]
+     },
+     "lens_mm": 21
     },
-    "lens_mm": 24
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "banned",
+      "edge": "start",
+      "offset": 1.35
+     },
+     "amount": 0.12
+    }
+   ]
+  },
+  {
+   "name": "pit_tape",
+   "duration": 1.6,
+   "look": {
+    "base": "day",
+    "time": "10:30",
+    "weather": {
+     "clouds": 0.55,
+     "fog": 0.12
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 0.95,
+     "vignette": 0.35
+    }
+   },
+   "note": "At the rim: an official walks red-and-white barrier tape across the pit on \"banned\".",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       -1.2,
+       1.55,
+       12008.2
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.0,
+       0.5,
+       12002.0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       -1.0,
+       1.5,
+       12007.6
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.0,
+       0.5,
+       12002.0
+      ]
+     },
+     "lens_mm": 27
+    },
+    "ease": "in_out"
+   }
+  },
+  {
+   "name": "ngt_notice",
+   "duration": 2.6,
+   "look": {
+    "base": "day",
+    "time": "10:30",
+    "weather": {
+     "clouds": 0.55,
+     "fog": 0.12
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 0.95,
+     "vignette": 0.35
+    }
+   },
+   "note": "The National Green Tribunal's order on the post, the taped-off pit behind it; push in to \"April 2014\".",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "pit.notice",
+      "offset": [
+       -0.25,
+       0.05,
+       0.95
+      ]
+     },
+     "look_at": {
+      "anchor": "pit.notice",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.35,
+      "focus": 0.98
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "pit.notice",
+      "offset": [
+       -0.12,
+       0.0,
+       0.62
+      ]
+     },
+     "look_at": {
+      "anchor": "pit.notice",
+      "offset": [
+       0.0,
+       -0.02,
+       0.0
+      ]
+     },
+     "lens_mm": 34,
+     "dof": {
+      "strength": 0.35,
+      "focus": 0.63
+     }
+    },
+    "ease": "in_out"
    }
   },
   {

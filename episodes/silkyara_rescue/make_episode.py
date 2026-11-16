@@ -657,6 +657,43 @@ YARD_OFFICIALS = [
 YARD_CAST = MINERS + YARD_OFFICIALS
 
 
+# ---------------------------------------------------------------------------------- line 18
+# "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."
+# (The National Green Tribunal banned rat-hole coal mining in Meghalaya in April 2014.) A rat-hole coal pit in the
+# Jaintia Hills (gags/meghalaya_pit.gd, far off on its own): a miner crawls into a hole in the seam at the bottom of
+# the shaft and grit sifts from its roof on "dangerous"; an official runs barrier tape across the pit on "banned";
+# the order on the post. Word times: dangerous 1.34, banned 2.85, Meghalaya's 3.43, coal 4.09, 2014 4.86.
+def LB(x):
+    return {"line": "banned", "edge": "start", "offset": round(x, 3)}
+
+
+MEG_Z = 12000.0
+
+
+def MEG(x, y, z):
+    """A point in the Meghalaya pit's frame."""
+    return {"anchor": "airstrip", "offset": [round(-x, 3), round(y, 3), round(z + MEG_Z, 3)]}
+
+
+MEG_LOOK = {"base": "day", "time": "10:30", "weather": {"clouds": 0.55, "fog": 0.12}, "ssao": True,
+            "grade": {"contrast": 1.1, "saturation": 0.95, "vignette": 0.35}}
+MEG_CAST = [
+    {"id": "meg_crawler", "character": "toon_meghalaya_miner", "at": MEG(0.0, 0, 0.9), "facing": MEG(0.0, 0, -4.0), "action": "crouch",
+     "route": {"via": [MEG(0.0, 0, -2.85)], "gait": "sneak", "start": LB(-0.25), "arrive": LB(1.4), "then": "crouch"},
+     "cues": [{"t": 0.0, "expression": "determined", "head": [-40, 0, 0], "head_turn": 0.3},
+              {"t": LB(1.4), "expression": "panic", "head": [-55, 0, 0], "head_turn": 0.15}]},
+    {"id": "meg_official", "character": "toon_official", "at": MEG(-3.2, 0, 4.0), "facing": MEG(3.4, 0, 4.0), "action": "idle",
+     "route": {"via": [MEG(3.0, 0, 4.0)], "gait": "walk", "start": LB(2.55), "arrive": LB(3.5), "then": "idle"},
+     "cues": [{"t": 0.0, "expression": "determined"}, {"t": LB(3.6), "expression": "deadpan"}]},
+    {"id": "meg_watch", "character": "toon_meghalaya_miner", "at": MEG(1.6, 0, -3.6), "facing": MEG(0.0, 0, 3.0), "action": "fold_arms",
+     "cues": [{"t": 0.0, "expression": "sad"}]},
+]
+PIT_GAG = {"id": "pit", "script": "gags/meghalaya_pit.gd", "at": {"anchor": "airstrip", "offset": [0, 0, MEG_Z]}, "t": 0,
+           "params": {"crawl": {"who": "meg_crawler", "grit": LB(1.35)},
+                      "tape": {"who": "meg_official", "t0": LB(2.55), "t1": LB(3.45)},
+                      "floor": {"meg_crawler": -10.0, "meg_official": 0.0, "meg_watch": 0.0}}}
+
+
 def NOSE(x, y, z):
     """A point riding with the auger's nose (gag anchor; x mirrored like the other gag anchors)."""
     return {"anchor": "mountain_section.nose", "offset": [round(-x, 3), round(y, 3), round(z, 3)]}
@@ -701,7 +738,7 @@ def build():
             {"id": "short", "shot": "gap_short", "at": 0.2, "text": "About ten metres short."},
             {"id": "vertical", "shot": "ridge_rig", "at": 0.25, "text": "So a second rig starts drilling straight down, from the top of the mountain."},
             {"id": "miners", "shot": "miners_arrive", "at": 0.25, "text": "Then they call in twelve rat-hole miners."},
-            {"id": "banned", "shot": "ph_banned", "at": 0.25, "text": "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."},
+            {"id": "banned", "shot": "rathole_crawl", "at": 0.25, "text": "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."},
             {"id": "dig", "shot": "ph_dig", "at": 0.25, "text": "One after another, they crawl into the pipe and dig with hammers and chisels."},
             {"id": "twelve", "shot": "ph_twelve", "at": 0.25, "text": "Twelve metres, in about a day."},
             {"id": "through", "shot": "ph_through", "at": 0.25, "text": "Day seventeen, just after seven in the evening: they break through."},
@@ -711,8 +748,9 @@ def build():
             {"id": "dda", "shot": "ph_dda", "at": 0.25, "text": "Delhi's development authority says the house stood on its land."},
             {"id": "street", "shot": "ph_street", "at": 0.25, "text": "He got forty-one men out of a mountain. That night, his family slept on the street."},
         ],
-        "actors": YARD_CAST + RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
+        "actors": MEG_CAST + YARD_CAST + RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
         "gags": [
+            PIT_GAG,
             {"id": "mountain_section", "script": "gags/mountain_section.gd", "at": {"anchor": "section", "offset": [0, 0, SECTION_Z]}, "t": 0,
              "params": {"throw": SIXTY(T_THROW), "catch": SIXTY(T_CATCH), "thrower": "sec_eng", "catcher": "sec_catch",
                         "appear": {"feed_push": PLAN_START, **{a["id"]: PLAN_START for a in PLAN_CAST}},
@@ -776,6 +814,8 @@ def build():
             {"sound": "click", "at": LV(1.0), "gain": -4}, {"sound": "creak", "at": LV(1.5), "gain": -6},
             {"sound": "whoosh", "at": LV(2.5), "gain": -5},
             {"sound": "tick", "at": LM(0.35), "gain": -14, "repeat": 6, "every": 0.1},
+            {"sound": "creak", "at": LB(1.3), "gain": -6}, {"sound": "rip", "at": LB(2.6), "gain": -9},
+            {"sound": "thud", "at": LB(4.86), "gain": -8},
             {"file": "audio/mountain_wind_short.wav", "at": 0, "gain": -10},
             {"file": "audio/underground.wav", "at": {"line": "inside", "offset": -0.18}, "gain": -13},
             # grit on a helmet, then the mountain: the recording's attack is 0.5 s in
@@ -1047,7 +1087,22 @@ def build():
                      "a pickup has just pulled up behind; officials step aside. The count lands on 12 on \"twelve\".",
              "camera": {"from": {"at": S(0.9, 1.75, 1.6), "look_at": S(-1.8, 1.25, 11.0), "lens_mm": 30},
                         "to": {"at": S(0.8, 1.7, 2.1), "look_at": S(-1.8, 1.25, 11.0), "lens_mm": 32}, "ease": "in_out"}},
-            {"name": "ph_banned", "duration": 6.9, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "rathole_crawl", "duration": 2.65, "look": MEG_LOOK,
+             "note": "The bottom of a rat-hole pit in Meghalaya: a miner with a headlamp crawls into a hole barely higher than his "
+                     "knees; grit sifts from its roof on \"dangerous\".",
+             "camera": {"from": {"at": MEG(0.05, -9.52, -5.35), "look_at": MEG(0.0, -9.62, 1.0), "lens_mm": 20},
+                        "to": {"at": MEG(0.05, -9.55, -5.25), "look_at": MEG(0.0, -9.6, 1.0), "lens_mm": 21}, "ease": "in_out"},
+             "shake": [{"t": LB(1.35), "amount": 0.12}]},
+            {"name": "pit_tape", "duration": 1.6, "look": MEG_LOOK,
+             "note": "At the rim: an official walks red-and-white barrier tape across the pit on \"banned\".",
+             "camera": {"from": {"at": MEG(1.2, 1.55, 8.2), "look_at": MEG(0.0, 0.5, 2.0), "lens_mm": 26},
+                        "to": {"at": MEG(1.0, 1.5, 7.6), "look_at": MEG(0.0, 0.5, 2.0), "lens_mm": 27}, "ease": "in_out"}},
+            {"name": "ngt_notice", "duration": 2.6, "look": MEG_LOOK,
+             "note": "The National Green Tribunal's order on the post, the taped-off pit behind it; push in to \"April 2014\".",
+             "camera": {"from": {"at": {"anchor": "pit.notice", "offset": [-0.25, 0.05, 0.95]}, "look_at": {"anchor": "pit.notice", "offset": [0.0, 0.0, 0.0]}, "lens_mm": 32,
+                                 "dof": {"strength": 0.35, "focus": 0.98}},
+                        "to": {"at": {"anchor": "pit.notice", "offset": [-0.12, 0.0, 0.62]}, "look_at": {"anchor": "pit.notice", "offset": [0.0, -0.02, 0.0]}, "lens_mm": 34,
+                               "dof": {"strength": 0.35, "focus": 0.63}}, "ease": "in_out"}},
             {"name": "ph_dig", "duration": 6.48, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_twelve", "duration": 3.12, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_through", "duration": 5.22, "look": SECTION_LOOK, "camera": X_CAM},

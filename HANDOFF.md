@@ -8,6 +8,26 @@
 ### Silkyara rescue Short: hook APPROVED, beat 4 revised for review (2026-11-15, latest)
 
 **Progress log (newest first; Claude keeps this current so Codex can continue mid-beat):**
+- **2026-11-16: the user switched to autonomous building** ("just keep going. i am tired of human in the loop",
+  then "dont compromise on realism"). Lines 13-17 approved/built; Claude builds each remaining line, checks every
+  shot's frames itself, commits per line; the user reviews everything at the end. All of lines 15-26 are already
+  voiced (placeholder shots `ph_<line id>` are swapped for real ones as each line is built; word times are in each
+  line's comment block in make_episode.py).
+  - Line 14 (`tally13`, `steel_hit`, `blades_snap`): tally param `later` redraws the wall with more marks
+    (`_tally_layout`/`_chalk_groups`); xauger params `girder`/`hit`/`snap` (sparks, the flight's front shears into
+    three pieces via the shader's `front` cut, jammed).
+  - Line 15 (`gap_short`): link reveal from the jammed head to the far face + "10 m" counter.
+  - Line 16 (`ridge_rig`, `drill_down`): `_build_ridge` on the section's mountain top over the trapped side: the
+    Majadroid Base Truck as carrier, mast at its tail, outriggers, power pack, side-on console with the lever, pipe
+    rack; ridge crew are put on the pad height by the gag; x-ray borehole + dashed planned line from `xray` on.
+    Gag-anchor offsets mirror x: use `GA(anchor, x, y, z)` / `NOSE()`.
+  - Line 17 (`miners_arrive`, `DAY_YARD` look): `toon_rathole_miner_a..d`; exterior gag `miners` param: a
+    Majadroid pickup rolls up, tools follow the hand bone (`_bone_xf`), taslas ride on heads (scaled 1.55 to the
+    toon head). Exterior param `vanish` hides actors after a time.
+  - Line 18 (`rathole_crawl`, `pit_tape`, `ngt_notice`): new place `gags/meghalaya_pit.gd` at airstrip + MEG_Z 12000
+    (`MEG()`): the shaft, seam, rat holes, ladder, tripod hoist, NGT "April 2014" notice (Label3D), barrier tape.
+    The set's ground knows nothing of the pit: gag param `floor` puts actors at the pit floor. Ground quads must be
+    wound to face up (culled otherwise). Coal: `COAL_SHADER` (matt, lumpy).
 - **Line 13 built (2026-11-16), waiting for review.** "The big drill chews in. Twenty metres. Thirty. Forty-seven."
   (Qwen take 4.9 s; word times from the line start: chews 0.92, in 1.35, Twenty 1.83, Thirty 3.31, Forty-seven 4.24.)
   An x-ray of the plug in the cutaway (`mountain_section.gd` `_build_xauger`/`_pose_xauger`, param `xauger`): the
