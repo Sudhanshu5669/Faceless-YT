@@ -623,6 +623,40 @@ RIDGE_CAST = [
 ]
 
 
+# ---------------------------------------------------------------------------------- line 17
+# "Then they call in twelve rat-hole miners."  (Twelve men, most from the Delhi firm Rockwell Enterprises,
+# reached Silkyara on 26-27 Nov 2023: Outlook, Al Jazeera.) Daytime at the portal: a pickup rolls up and the
+# twelve walk to the mouth in ordinary clothes with their own tools (club hammers, chisels, phawdas, steel taslas
+# carried on the head); two officials step aside. Word times: call 0.4, twelve 0.95, rat-hole 1.49, miners 2.22.
+def LM(x):
+    return {"line": "miners", "edge": "start", "offset": round(x, 3)}
+
+
+DAY_YARD = {"base": "day", "time": "15:40", "weather": {"clouds": 0.35, "fog": 0.0}, "ssao": True,
+            "grade": {"contrast": 1.08, "saturation": 1.03, "vignette": 0.3}}
+MINER_CHARS = ["toon_rathole_miner_a", "toon_rathole_miner_b", "toon_rathole_miner_c", "toon_rathole_miner_d"]
+MINER_TOOLS = ["hammer", "tasla", "phawda", "hammer", "chisel", "tasla", "hammer", "phawda", "tasla", "hammer", "chisel", "tasla"]
+MINERS = []
+# A loose group, not a file: where each one is when the shot opens (x, z), and how far he walks to the mouth.
+_GROUP = [(-1.6, 9.0), (-2.7, 9.4), (-0.7, 9.9), (-3.4, 10.3), (-1.9, 10.6), (-2.9, 11.3), (-0.9, 11.2), (-1.5, 12.1),
+          (-3.6, 12.0), (-2.4, 12.6), (-0.6, 12.9), (-1.8, 13.6)]
+for _i, (_x, _z0) in enumerate(_GROUP):
+    MINERS.append({"id": f"miner_{_i + 1}", "character": MINER_CHARS[_i % 4], "at": S(_x, 0, _z0), "facing": S(_x * 0.6, 0, 0.0),
+                   "action": "walk", "phase": round(_i * 0.29, 2),
+                   "route": {"via": [S(_x * 0.75, 0, _z0 - 4.2 - (_i % 3) * 0.3)], "gait": "walk",
+                             "start": LM(-0.3 + (_i % 4) * 0.12), "arrive": LM(3.0)},
+                   "cues": [{"t": 0.0, "expression": ["determined", "neutral", "thinking", "determined"][_i % 4]}]})
+YARD_OFFICIALS = [
+    {"id": "yard_official", "character": "toon_official", "at": S(0.6, 0, 6.2), "facing": S(-2.0, 0, 10.0), "action": "idle",
+     "route": {"via": [S(1.9, 0, 5.6)], "gait": "walk", "start": LM(0.1), "arrive": LM(1.1), "then": "idle"},
+     "cues": [{"t": 0.0, "expression": "nervous"}, {"t": LM(1.2), "expression": "surprised"}]},
+    {"id": "yard_eng", "character": ENG, "at": S(-3.8, 0, 5.8), "facing": S(-2.5, 0, 10.0), "action": "fold_arms",
+     "route": {"via": [S(-5.0, 0, 5.4)], "gait": "walk", "start": LM(0.2), "arrive": LM(1.2), "then": "fold_arms"},
+     "cues": [{"t": 0.0, "expression": "thinking"}, {"t": LM(1.5), "expression": "determined"}]},
+]
+YARD_CAST = MINERS + YARD_OFFICIALS
+
+
 def NOSE(x, y, z):
     """A point riding with the auger's nose (gag anchor; x mirrored like the other gag anchors)."""
     return {"anchor": "mountain_section.nose", "offset": [round(-x, 3), round(y, 3), round(z, 3)]}
@@ -666,7 +700,7 @@ def build():
             {"id": "snap", "shot": "tally13", "at": 0.25, "text": "Day thirteen, it hits steel, and its blades snap off inside the pipe."},
             {"id": "short", "shot": "gap_short", "at": 0.2, "text": "About ten metres short."},
             {"id": "vertical", "shot": "ridge_rig", "at": 0.25, "text": "So a second rig starts drilling straight down, from the top of the mountain."},
-            {"id": "miners", "shot": "ph_miners", "at": 0.25, "text": "Then they call in twelve rat-hole miners."},
+            {"id": "miners", "shot": "miners_arrive", "at": 0.25, "text": "Then they call in twelve rat-hole miners."},
             {"id": "banned", "shot": "ph_banned", "at": 0.25, "text": "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."},
             {"id": "dig", "shot": "ph_dig", "at": 0.25, "text": "One after another, they crawl into the pipe and dig with hammers and chisels."},
             {"id": "twelve", "shot": "ph_twelve", "at": 0.25, "text": "Twelve metres, in about a day."},
@@ -677,7 +711,7 @@ def build():
             {"id": "dda", "shot": "ph_dda", "at": 0.25, "text": "Delhi's development authority says the house stood on its land."},
             {"id": "street", "shot": "ph_street", "at": 0.25, "text": "He got forty-one men out of a mountain. That night, his family slept on the street."},
         ],
-        "actors": RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
+        "actors": YARD_CAST + RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
         "gags": [
             {"id": "mountain_section", "script": "gags/mountain_section.gd", "at": {"anchor": "section", "offset": [0, 0, SECTION_Z]}, "t": 0,
              "params": {"throw": SIXTY(T_THROW), "catch": SIXTY(T_CATCH), "thrower": "sec_eng", "catcher": "sec_catch",
@@ -718,7 +752,12 @@ def build():
                             {"x": -0.8, "z": -19.0, "t": T(-0.7), "build": 0.5, "spread": 0.15},
                         ]}},
             {"id": "portal", "script": "gags/silkyara_exterior.gd", "at": "slope", "t": 0,
-             "params": {"appear": {**{a["id"]: MEAL_START for a in KITCHEN_CAST}, **{a["id"]: FACES_START for a in TV_CAST}},
+             "params": {"appear": {**{a["id"]: MEAL_START for a in KITCHEN_CAST}, **{a["id"]: FACES_START for a in TV_CAST},
+                                   **{a["id"]: LM(-0.3) for a in YARD_CAST}},
+                        "vanish": {a["id"]: {"line": "banned", "edge": "start", "offset": -0.3} for a in YARD_CAST},
+                        "miners": {"from": LM(-0.3), "until": {"line": "banned", "edge": "start", "offset": -0.3},
+                                   "truck": {"t0": LM(-0.3), "t1": LM(0.5), "z0": 24.0, "z1": 15.5, "x": -5.6},
+                                   "tools": {m["id"]: MINER_TOOLS[i] for i, m in enumerate(MINERS)}},
                         "tv": {"from": FACES_START, "feed": "collapse.scope", "aim": "collapse.scope_ahead"},
                         "kitchen": {"from": MEAL_START, "pour0": L11("khichdi,", -0.05), "pour1": L11("khichdi,", 0.45), "cook": "meal_cook", "pourer": "meal_runner"},
                         "lamps": OUTSIDE_LAMPS, "truck": {"t0": 0.0, "t1": 3.2, "z0": 27.0, "z1": 17.5}}},
@@ -736,6 +775,7 @@ def build():
             {"sound": "creak", "at": LS(3.3), "gain": -6},
             {"sound": "click", "at": LV(1.0), "gain": -4}, {"sound": "creak", "at": LV(1.5), "gain": -6},
             {"sound": "whoosh", "at": LV(2.5), "gain": -5},
+            {"sound": "tick", "at": LM(0.35), "gain": -14, "repeat": 6, "every": 0.1},
             {"file": "audio/mountain_wind_short.wav", "at": 0, "gain": -10},
             {"file": "audio/underground.wav", "at": {"line": "inside", "offset": -0.18}, "gain": -13},
             # grit on a helmet, then the mountain: the recording's attack is 0.5 s in
@@ -1002,7 +1042,11 @@ def build():
                      "through about a hundred metres of rock to the trapped men's lamps below.",
              "camera": {"from": {"at": GA("hole", -1.6, 3.2, 4.6), "look_at": GA("hole", 0.0, -3.0, 0.0), "lens_mm": 24},
                         "to": {"at": GA("deep", -1.2, 4.5, 4.2), "look_at": GA("deep", 0.0, -1.0, -1.2), "lens_mm": 24}, "ease": "in_out"}},
-            {"name": "ph_miners", "duration": 3.54, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "miners_arrive", "duration": 3.1, "look": DAY_YARD,
+             "note": "Day at the portal: twelve rat-hole miners walk to the mouth with their own tools, taslas on their heads; "
+                     "a pickup has just pulled up behind; officials step aside. The count lands on 12 on \"twelve\".",
+             "camera": {"from": {"at": S(0.9, 1.75, 1.6), "look_at": S(-1.8, 1.25, 11.0), "lens_mm": 30},
+                        "to": {"at": S(0.8, 1.7, 2.1), "look_at": S(-1.8, 1.25, 11.0), "lens_mm": 32}, "ease": "in_out"}},
             {"name": "ph_banned", "duration": 6.9, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_dig", "duration": 6.48, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_twelve", "duration": 3.12, "look": SECTION_LOOK, "camera": X_CAM},
@@ -1014,6 +1058,8 @@ def build():
             {"name": "ph_street", "duration": 7.32, "look": SECTION_LOOK, "camera": X_CAM},
         ],
         "reveals": [
+            {"id": "miner_count", "t": LM(0.3), "until": LM(2.9), "at": S(-1.8, 3.1, 11.0), "size": 0.75, "enter": "pop",
+             "counter": {"from": 0, "to": 12, "land": {"line": "miners", "word": "twelve", "offset": 0.05}}, "sound": "ding"},
             {"id": "gap_line", "shape": "link", "t": {"line": "short", "word": "About", "offset": 0.0},
              "at": NOSE(0.45, 0.0, 0.35), "to": X(66.9, 1.37, 0.44), "size": 0.035},
             {"id": "gap_count", "t": {"line": "short", "word": "About", "offset": 0.1}, "at": X(60.9, 2.3, 1.3), "size": 0.65,

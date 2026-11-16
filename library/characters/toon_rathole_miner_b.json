@@ -1,0 +1,25 @@
+{
+  "id": "toon_rathole_miner_b",
+  "description": "Rat-hole miner in a navy shirt, bowl-cut hair.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bowl",
+      "color": "#1d1916"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#2c3e66"
+    },
+    "shoes": "#2b2622",
+    "face": "determined",
+    "girth": 0.92
+  }
+}

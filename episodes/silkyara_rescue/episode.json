@@ -118,7 +118,7 @@
   },
   {
    "id": "miners",
-   "shot": "ph_miners",
+   "shot": "miners_arrive",
    "at": 0.25,
    "text": "Then they call in twelve rat-hole miners."
   },
@@ -178,6 +178,736 @@
   }
  ],
  "actors": [
+  {
+   "id": "miner_1",
+   "character": "toon_rathole_miner_a",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     1.6,
+     0,
+     9.0
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     0.96,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 0.0,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       1.2,
+       0,
+       4.8
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": -0.3
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "miner_2",
+   "character": "toon_rathole_miner_b",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     2.7,
+     0,
+     9.4
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     1.62,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 0.29,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       2.025,
+       0,
+       4.9
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": -0.18
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    }
+   ]
+  },
+  {
+   "id": "miner_3",
+   "character": "toon_rathole_miner_c",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     0.7,
+     0,
+     9.9
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     0.42,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 0.58,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       0.525,
+       0,
+       5.1
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": -0.06
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    }
+   ]
+  },
+  {
+   "id": "miner_4",
+   "character": "toon_rathole_miner_d",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     3.4,
+     0,
+     10.3
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     2.04,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 0.87,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       2.55,
+       0,
+       6.1
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 0.06
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "miner_5",
+   "character": "toon_rathole_miner_a",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     1.9,
+     0,
+     10.6
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     1.14,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 1.16,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       1.425,
+       0,
+       6.1
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": -0.3
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "miner_6",
+   "character": "toon_rathole_miner_b",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     2.9,
+     0,
+     11.3
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     1.74,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 1.45,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       2.175,
+       0,
+       6.5
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": -0.18
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    }
+   ]
+  },
+  {
+   "id": "miner_7",
+   "character": "toon_rathole_miner_c",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     0.9,
+     0,
+     11.2
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     0.54,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 1.74,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       0.675,
+       0,
+       7.0
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": -0.06
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    }
+   ]
+  },
+  {
+   "id": "miner_8",
+   "character": "toon_rathole_miner_d",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     1.5,
+     0,
+     12.1
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     0.9,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 2.03,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       1.125,
+       0,
+       7.6
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 0.06
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "miner_9",
+   "character": "toon_rathole_miner_a",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     3.6,
+     0,
+     12.0
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     2.16,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 2.32,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       2.7,
+       0,
+       7.2
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": -0.3
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "miner_10",
+   "character": "toon_rathole_miner_b",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     2.4,
+     0,
+     12.6
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     1.44,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 2.61,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       1.8,
+       0,
+       8.4
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": -0.18
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    }
+   ]
+  },
+  {
+   "id": "miner_11",
+   "character": "toon_rathole_miner_c",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     0.6,
+     0,
+     12.9
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     0.36,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 2.9,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       0.45,
+       0,
+       8.4
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": -0.06
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    }
+   ]
+  },
+  {
+   "id": "miner_12",
+   "character": "toon_rathole_miner_d",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     1.8,
+     0,
+     13.6
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     1.08,
+     0,
+     0.0
+    ]
+   },
+   "action": "walk",
+   "phase": 3.19,
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       1.35,
+       0,
+       8.8
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 0.06
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 3.0
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "yard_official",
+   "character": "toon_official",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     -0.6,
+     0,
+     6.2
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     2.0,
+     0,
+     10.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       -1.9,
+       0,
+       5.6
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 0.1
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 1.1
+    },
+    "then": "idle"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "miners",
+      "edge": "start",
+      "offset": 1.2
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "yard_eng",
+   "character": "toon_tunnel_engineer",
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     3.8,
+     0,
+     5.8
+    ]
+   },
+   "facing": {
+    "anchor": "slope",
+    "offset": [
+     2.5,
+     0,
+     10.0
+    ]
+   },
+   "action": "fold_arms",
+   "route": {
+    "via": [
+     {
+      "anchor": "slope",
+      "offset": [
+       5.0,
+       0,
+       5.4
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 0.2
+    },
+    "arrive": {
+     "line": "miners",
+     "edge": "start",
+     "offset": 1.2
+    },
+    "then": "fold_arms"
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "miners",
+      "edge": "start",
+      "offset": 1.5
+     },
+     "expression": "determined"
+    }
+   ]
+  },
   {
    "id": "ridge_op",
    "character": "toon_tunnel_engineer",
@@ -8511,6 +9241,189 @@
       "line": "faces",
       "edge": "start",
       "offset": -0.3
+     },
+     "miner_1": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_2": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_3": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_4": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_5": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_6": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_7": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_8": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_9": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_10": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_11": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_12": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "yard_official": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "yard_eng": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     }
+    },
+    "vanish": {
+     "miner_1": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_2": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_3": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_4": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_5": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_6": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_7": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_8": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_9": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_10": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_11": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "miner_12": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "yard_official": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "yard_eng": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     }
+    },
+    "miners": {
+     "from": {
+      "line": "miners",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "until": {
+      "line": "banned",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "truck": {
+      "t0": {
+       "line": "miners",
+       "edge": "start",
+       "offset": -0.3
+      },
+      "t1": {
+       "line": "miners",
+       "edge": "start",
+       "offset": 0.5
+      },
+      "z0": 24.0,
+      "z1": 15.5,
+      "x": -5.6
+     },
+     "tools": {
+      "miner_1": "hammer",
+      "miner_2": "tasla",
+      "miner_3": "phawda",
+      "miner_4": "hammer",
+      "miner_5": "chisel",
+      "miner_6": "tasla",
+      "miner_7": "hammer",
+      "miner_8": "phawda",
+      "miner_9": "tasla",
+      "miner_10": "hammer",
+      "miner_11": "chisel",
+      "miner_12": "tasla"
      }
     },
     "tv": {
@@ -8719,6 +9632,17 @@
     "offset": 2.5
    },
    "gain": -5
+  },
+  {
+   "sound": "tick",
+   "at": {
+    "line": "miners",
+    "edge": "start",
+    "offset": 0.35
+   },
+   "gain": -14,
+   "repeat": 6,
+   "every": 0.1
   },
   {
    "file": "audio/mountain_wind_short.wav",
@@ -12983,86 +13907,63 @@
    }
   },
   {
-   "name": "ph_miners",
-   "duration": 3.54,
+   "name": "miners_arrive",
+   "duration": 3.1,
    "look": {
-    "base": "night_fog",
-    "time": "05:30",
-    "ssao": true,
+    "base": "day",
+    "time": "15:40",
     "weather": {
-     "fog": 0
+     "clouds": 0.35,
+     "fog": 0.0
     },
-    "ambient": {
-     "color": "#6a7ca6",
-     "energy": 0.35
-    },
-    "sun": {
-     "energy": 0
-    },
-    "moon": {
-     "energy": 0,
-     "visible": false
-    },
-    "sky": {
-     "top": "#0c1a33",
-     "horizon": "#8c8296",
-     "stars": 0.25,
-     "clouds": 0.1,
-     "cloud_color": "#2c3550"
-    },
-    "lights": [
-     {
-      "elevation": 32,
-      "azimuth": 20,
-      "color": "#8197c8",
-      "energy": 0.1,
-      "shadows": false
-     }
-    ],
-    "fog": {
-     "begin": 150,
-     "end": 4000,
-     "color": "#2b3650",
-     "volumetric": 0.003,
-     "anisotropy": 0.5,
-     "length": 160
-    },
-    "ground_fog": {
-     "density": 0.0,
-     "height": 6.0,
-     "falloff": 0.15,
-     "color": "#3a4560"
-    },
-    "glow": {
-     "enabled": true,
-     "intensity": 0.9,
-     "bloom": 0.1,
-     "threshold": 1.0
-    },
+    "ssao": true,
     "grade": {
-     "contrast": 1.12,
-     "saturation": 1.04,
-     "vignette": 0.32
+     "contrast": 1.08,
+     "saturation": 1.03,
+     "vignette": 0.3
     }
    },
+   "note": "Day at the portal: twelve rat-hole miners walk to the mouth with their own tools, taslas on their heads; a pickup has just pulled up behind; officials step aside. The count lands on 12 on \"twelve\".",
    "camera": {
-    "at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      3,
-      20
-     ]
+    "from": {
+     "at": {
+      "anchor": "slope",
+      "offset": [
+       -0.9,
+       1.75,
+       1.6
+      ]
+     },
+     "look_at": {
+      "anchor": "slope",
+      "offset": [
+       1.8,
+       1.25,
+       11.0
+      ]
+     },
+     "lens_mm": 30
     },
-    "look_at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "slope",
+      "offset": [
+       -0.8,
+       1.7,
+       2.1
+      ]
+     },
+     "look_at": {
+      "anchor": "slope",
+      "offset": [
+       1.8,
+       1.25,
+       11.0
+      ]
+     },
+     "lens_mm": 32
     },
-    "lens_mm": 24
+    "ease": "in_out"
    }
   },
   {
@@ -13814,6 +14715,39 @@
   }
  ],
  "reveals": [
+  {
+   "id": "miner_count",
+   "t": {
+    "line": "miners",
+    "edge": "start",
+    "offset": 0.3
+   },
+   "until": {
+    "line": "miners",
+    "edge": "start",
+    "offset": 2.9
+   },
+   "at": {
+    "anchor": "slope",
+    "offset": [
+     1.8,
+     3.1,
+     11.0
+    ]
+   },
+   "size": 0.75,
+   "enter": "pop",
+   "counter": {
+    "from": 0,
+    "to": 12,
+    "land": {
+     "line": "miners",
+     "word": "twelve",
+     "offset": 0.05
+    }
+   },
+   "sound": "ding"
+  },
   {
    "id": "gap_line",
    "shape": "link",

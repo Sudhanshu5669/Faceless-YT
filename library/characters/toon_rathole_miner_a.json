@@ -1,0 +1,26 @@
+{
+  "id": "toon_rathole_miner_a",
+  "description": "Rat-hole miner in a maroon tee, combed-back hair, moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#1b1714"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#7a2430"
+    },
+    "shoes": "#2b2622",
+    "face": "determined",
+    "girth": 0.95,
+    "mustache": "#1f1915"
+  }
+}

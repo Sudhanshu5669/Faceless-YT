@@ -1,0 +1,26 @@
+{
+  "id": "toon_rathole_miner_c",
+  "description": "Rat-hole miner in an olive tee and a grey cap, moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "cap",
+      "color": "#3a3d40"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#5a6b34"
+    },
+    "shoes": "#2b2622",
+    "face": "determined",
+    "girth": 0.97,
+    "mustache": "#1f1915"
+  }
+}

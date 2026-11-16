@@ -216,6 +216,7 @@ func build(g: Dictionary) -> Node3D:
 	_build_mist(root)
 	_build_kitchen(root)
 	_build_tv(root)
+	_build_miners(root)
 	for id in g.get("params", {}).get("lamps", []):
 		var spot := SpotLight3D.new()
 		spot.light_color = Color("#e9f2ff")
@@ -1088,6 +1089,7 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var p: Dictionary = g.get("params", {})
 	_pose_kitchen(p, t, ctx)
 	_pose_tv(p, t, ctx)
+	_pose_miners(root, p, t, ctx)
 	# The dumper rolls toward the mouth, easing to a crawl.
 	var tr: Dictionary = p.get("truck", {})
 	var t0 := float(tr.get("t0", 0.0))
@@ -1363,6 +1365,10 @@ func _pose_kitchen(p: Dictionary, t: float, ctx: Dictionary) -> void:
 		var a = ctx["actor"].call(String(id)) if ctx.has("actor") else null
 		if a != null:
 			a.visible = t >= float(p["appear"][id])
+	for id in p.get("vanish", {}):
+		var a = ctx["actor"].call(String(id)) if ctx.has("actor") else null
+		if a != null and t >= float(p["vanish"][id]):
+			a.visible = false
 	if _kitchen == null or not p.has("kitchen"):
 		return
 	var kp: Dictionary = p["kitchen"]
@@ -1520,3 +1526,112 @@ func _pose_tv(p: Dictionary, t: float, ctx: Dictionary) -> void:
 	var from: Vector3 = a["pos"]
 	var to: Vector3 = b["pos"]
 	_tv_cam.global_transform = Transform3D(Basis.looking_at(to - from, Vector3.UP), from)
+
+
+# ------------------------------------------------------------------------------ line 17: the rat-hole miners arrive
+
+## params.miners = {"from", "until", "truck": {"t0", "t1", "z0", "z1", "x"} (a pickup rolls up and stops),
+## "tools": {actor id: "hammer" | "phawda" | "tasla" | "chisel"}}: their own tools, held in the right hand (the
+## tasla, a steel pan, rides on the head with the left hand steadying its rim, the way it is carried on Indian
+## sites). Tools follow the hand bone every frame.
+const PICKUP := "majadroid_construction/Trucks#Small Truck"
+
+var _pickup: Node3D
+var _tools := {}
+
+
+func _tool(kind: String) -> Node3D:
+	var n := Node3D.new()
+	var wood := _mat("#7a5532", 0.8)
+	var steel := _mat("#5e6266", 0.45, 0.75)
+	match kind:
+		"hammer":
+			# A club hammer: a short ash handle (along +Y from the grip) and a heavy steel head.
+			_rod(n, Vector3(0, -0.06, 0), Vector3(0, 0.26, 0), 0.016, wood, 8)
+			_box(n, Vector3(0.13, 0.055, 0.055), Vector3(0, 0.27, 0), steel)
+		"chisel":
+			_rod(n, Vector3(0, -0.08, 0), Vector3(0, 0.22, 0), 0.011, steel, 6)
+			_box(n, Vector3(0.018, 0.03, 0.012), Vector3(0, 0.235, 0), _mat("#c9ccd0", 0.3, 0.85))
+		"phawda":
+			# A phawda: a long handle with the blade at right angles, like a hoe.
+			_rod(n, Vector3(0, -0.35, 0), Vector3(0, 0.65, 0), 0.02, wood, 8)
+			_box(n, Vector3(0.24, 0.22, 0.012), Vector3(0, 0.73, 0.1), steel)
+			_box(n, Vector3(0.05, 0.05, 0.08), Vector3(0, 0.66, 0.04), steel)
+		"tasla":
+			# A tasla: a shallow pressed-steel pan, about 45 cm across.
+			var pan := MeshInstance3D.new()
+			var st := SurfaceTool.new()
+			st.begin(Mesh.PRIMITIVE_TRIANGLES)
+			var prof := [Vector2(0.0, 0.0), Vector2(0.15, 0.0), Vector2(0.21, 0.07), Vector2(0.225, 0.1), Vector2(0.23, 0.105)]
+			for i in prof.size() - 1:
+				var a: Vector2 = prof[i]
+				var b: Vector2 = prof[i + 1]
+				for k in 28:
+					var t0 := TAU * k / 28.0
+					var t1 := TAU * (k + 1) / 28.0
+					var q := [Vector3(cos(t0) * a.x, a.y, sin(t0) * a.x), Vector3(cos(t1) * a.x, a.y, sin(t1) * a.x),
+						Vector3(cos(t0) * b.x, b.y, sin(t0) * b.x), Vector3(cos(t1) * b.x, b.y, sin(t1) * b.x)]
+					for o in [0, 2, 1, 1, 2, 3]:
+						st.add_vertex(q[o])
+			st.generate_normals()
+			pan.mesh = st.commit()
+			var pm := _mat("#a3a8ad", 0.38, 0.75)
+			pm.cull_mode = BaseMaterial3D.CULL_DISABLED
+			pan.material_override = pm
+			n.add_child(pan)
+	return n
+
+
+func _build_miners(root: Node3D) -> void:
+	_pickup = KitDB.static_node(PICKUP, 0.92)
+	_pickup.visible = false
+	root.add_child(_pickup)
+
+
+## The world transform of an actor's bone (orthonormal), or null.
+func _bone_xf(a, bone: String):
+	var sk: Skeleton3D = a.retarget.dst if a.retarget != null else a.skeleton
+	if sk == null:
+		return null
+	var bi := sk.find_bone(bone)
+	if bi < 0:
+		return null
+	var xf := sk.global_transform * sk.get_bone_global_pose(bi)
+	return Transform3D(xf.basis.orthonormalized(), xf.origin)
+
+
+func _pose_miners(root: Node3D, p: Dictionary, t: float, ctx: Dictionary) -> void:
+	if not p.has("miners"):
+		return
+	var mp: Dictionary = p["miners"]
+	var on := t >= float(mp.get("from", 1.0e9)) and t < float(mp.get("until", 1.0e9))
+	var tr: Dictionary = mp.get("truck", {})
+	_pickup.visible = on
+	if on:
+		var k := Motion.out_cubic(Motion.seg(t, float(tr.get("t0", 0.0)), float(tr.get("t1", 0.0))))
+		var z := lerpf(float(tr.get("z0", 26.0)), float(tr.get("z1", 15.0)), k)
+		var brake := Motion.impact(t - float(tr.get("t1", 0.0)), 0.04, 2.0, 6.0) if t > float(tr.get("t1", 0.0)) else 0.0
+		_pickup.position = Vector3(float(tr.get("x", -5.0)), 0.0, z)
+		_pickup.rotation = Vector3(brake, PI, 0.0)
+	for id in mp.get("tools", {}):
+		var kind := String(mp["tools"][id])
+		var a = ctx["actor"].call(String(id)) if ctx.has("actor") else null
+		if not _tools.has(id):
+			var node := _tool(kind)
+			root.add_child(node)
+			_tools[id] = node
+		var tn := _tools[id] as Node3D
+		tn.visible = on and a != null and a.visible
+		if not tn.visible:
+			continue
+		if kind == "tasla":
+			var hd: Vector3 = a.anchor_points()[String(id) + ".head"]["pos"]
+			var yaw: float = a.rotation.y
+			# Scaled to the toon head (a real 45 cm pan would sit on it like a cap).
+			tn.global_transform = Transform3D(Basis(Vector3.UP, yaw).rotated(Vector3(cos(yaw), 0, -sin(yaw)), 0.1).scaled(Vector3.ONE * 1.55), hd + Vector3(0, 0.33, 0))
+			var left := Vector3(cos(yaw), 0, -sin(yaw))
+			a.aim_hand("l", hd + Vector3(0, 0.45, 0) + left * 0.36, 1.0, 0.08)
+		else:
+			var xf = _bone_xf(a, "hand_r")
+			if xf != null:
+				tn.global_transform = xf

@@ -1,0 +1,25 @@
+{
+  "id": "toon_rathole_miner_d",
+  "description": "Rat-hole miner in a grey tee, tufted hair.",
+  "tags": [
+    "toon",
+    "human",
+    "worker"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "tuft",
+      "color": "#1a1613"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#8a8f96"
+    },
+    "shoes": "#2b2622",
+    "face": "determined",
+    "girth": 0.93
+  }
+}
