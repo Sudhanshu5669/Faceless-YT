@@ -313,6 +313,14 @@ def L11(word, offset=0.0):
     return {"line": "meal", "word": word, "offset": round(offset, 3)}
 
 
+# Line 12 starts 0.3 s into scope_pipe; the scene begins with that shot.
+FACES_START = {"line": "faces", "edge": "start", "offset": -0.3}
+
+
+def L12(word, offset=0.0):
+    return {"line": "faces", "word": word, "offset": round(offset, 3)}
+
+
 def L6(word, offset=0.0):
     return {"line": "lifeline", "word": word, "offset": round(offset, 3)}
 
@@ -498,6 +506,46 @@ MEAL_CAST = [
 MEAL_CREW = {a["id"]: {"y": 0.0, "from": MEAL_START} for a in MEAL_CAST}
 for _id in ["meal_w1", "meal_w2"]:
     MEAL_CREW[_id]["lamp"] = True
+
+# ---------------------------------------------------------------------------------- line 12
+# "The next day, a camera crawls down the same pipe. For the first time, the world sees their faces."
+# (21 Nov 2023: an endoscopic camera pushed through the 6-inch pipe; the first video of the 41 went out.)
+# Shot 1: chase the endoscope head down the inside of the pipe toward the light. Shot 2: its POV as it noses
+# out: the men crowd the lens and wave. Shot 3: outside, an official, the engineer and relatives lean in to the
+# monitor that shows the same feed (a SubViewport camera on the scope's lens).
+for _a in MEAL_CAST:
+    _f = {"meal_catch": "laugh", "meal_w1": "cheer", "meal_w2": "laugh"}.get(_a["id"])
+    if _f:
+        _a["cues"] += [{"t": FACES_START, "expression": "surprised"}, {"t": L12("For", 0.1), "expression": _f}]
+for _i, _id in enumerate(["meal_catch", "meal_w1", "meal_w2"]):
+    MEAL_CREW[_id].update({"role": "wave", "wave": {"start": L12("For", 0.05 * _i), "phase": _i * 1.3,
+                                                    "hand": "l" if _i == 1 else "r"}})
+FACE_AT = (-1.6, 1.0, -16.07)     # the scope's lens once it is out
+FACES_CAST = []
+for _i, (_x, _z, _char, _face) in enumerate([(-0.85, -15.15, W, "laugh"), (-2.3, -14.85, RED, "cheer"),
+                                              (-1.15, -14.35, BLUE, "happy"), (-2.0, -13.95, LIME, "laugh")]):
+    FACES_CAST.append({"id": f"face_{_i + 1}", "character": _char, "at": P(_x, 0, _z), "facing": P(*FACE_AT),
+                       "action": "idle", "phase": round(_i * 0.41, 2),
+                       "cues": [{"t": 0.0, "expression": "surprised"}, {"t": L12("For", 0.1 + 0.06 * _i), "expression": _face}]})
+FACES_CREW = {a["id"]: {"y": 0.0, "from": FACES_START, "lamp": i % 2 == 0, "role": "wave",
+                        "wave": {"start": L12("For", 0.08 + 0.07 * i), "phase": 0.7 + i * 1.1, "hand": "l" if i % 2 else "r"}}
+              for i, a in enumerate(FACES_CAST)}
+
+# Outside at the monitor (exterior gag frame; TV_AT = (-17.5, 0, 31), screen facing +z).
+TV_CAST = [
+    {"id": "tv_official", "character": "toon_official", "at": S(-17.0, 0, 32.0), "facing": S(-17.5, 1.3, 31.0), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "nervous"}, {"t": L12("world", 0.1), "expression": "surprised"},
+              {"t": L12("faces.", 0.1), "expression": "happy"}]},
+    {"id": "tv_engineer", "character": ENG, "at": S(-16.55, 0, 32.35), "facing": S(-17.5, 1.3, 31.0), "action": "fold_arms",
+     "cues": [{"t": 0.0, "expression": "determined"}, {"t": L12("faces.", 0.0), "expression": "grin"}]},
+    {"id": "tv_brother", "character": "toon_shopkeeper", "at": S(-18.4, 0, 31.95), "facing": S(-17.5, 1.3, 31.0), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "sad"}, {"t": L12("sees", 0.0), "expression": "shocked"},
+              {"t": L12("faces.", 0.05), "expression": "crying"}]},
+    {"id": "tv_mother", "character": "toon_partner", "at": S(-18.0, 0, 31.7), "facing": S(-17.5, 1.3, 31.0), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "nervous"}, {"t": L12("faces.", -0.1), "expression": "crying"}]},
+    {"id": "tv_father", "character": "toon_dadar_packer", "at": S(-17.95, 0, 32.45), "facing": S(-17.5, 1.3, 31.0), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "thinking"}, {"t": L12("faces.", 0.15), "expression": "laugh"}]},
+]
 KITCHEN_CAST = [
     {"id": "meal_cook", "character": "toon_site_cook", "at": S(11.0, 0, 27.32), "facing": S(11.0, 0, 29.5), "action": "idle",
      "cues": [{"t": 0.0, "expression": "happy"}, {"t": L11("khichdi,", 0.1), "expression": "grin"}]},
@@ -538,12 +586,8 @@ def build():
             {"id": "meal", "shot": "day9_tally", "at": 0.3, "text": "Day nine. A narrow pipe gets through first, and the first hot meal goes in: khichdi, packed in bottles."},
             {"id": "faces", "shot": "scope_pipe", "at": 0.3, "text": "The next day, a camera crawls down the same pipe. For the first time, the world sees their faces."},
         ],
-        "actors": OUTSIDE + KITCHEN_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
+        "actors": OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
         "gags": [
-            {"id": "portal", "script": "gags/silkyara_exterior.gd", "at": "slope", "t": 0,
-             "params": {"appear": {a["id"]: MEAL_START for a in KITCHEN_CAST},
-                        "kitchen": {"from": MEAL_START, "pour0": L11("khichdi,", -0.05), "pour1": L11("khichdi,", 0.45), "cook": "meal_cook", "pourer": "meal_runner"},
-                        "lamps": OUTSIDE_LAMPS, "truck": {"t0": 0.0, "t1": 3.2, "z0": 27.0, "z1": 17.5}}},
             {"id": "mountain_section", "script": "gags/mountain_section.gd", "at": {"anchor": "section", "offset": [0, 0, SECTION_Z]}, "t": 0,
              "params": {"throw": SIXTY(T_THROW), "catch": SIXTY(T_CATCH), "thrower": "sec_eng", "catcher": "sec_catch",
                         "appear": {"feed_push": PLAN_START, **{a["id"]: PLAN_START for a in PLAN_CAST}},
@@ -558,12 +602,13 @@ def build():
             {"id": "airlift", "script": "gags/airlift.gd", "at": {"anchor": "airstrip", "offset": [0, 0, AIR_Z]}, "t": 0,
              "params": {"land": L9("air", 0.05), "stop": L9("force", 0.55), "ramp": L9("force", 0.6)}},
             {"id": "collapse", "script": "gags/tunnel_collapse.gd", "at": {"anchor": "tunnel", "offset": [0, DEPTH, 0]}, "t": 0,
-             "params": {"impact": T(0.0), "alive": ALIVE, "crew": {**crew, **LIFE_CREW, **LINE8_CREW, **MEAL_CREW},
+             "params": {"impact": T(0.0), "alive": ALIVE, "crew": {**crew, **LIFE_CREW, **LINE8_CREW, **MEAL_CREW, **FACES_CREW},
                         "tally": {"from": MEAL_START, "x": -4.6, "y": 1.38, "z": 1.0, "draw0": L11("Day", -0.15),
                                   "draw1": L11("nine.", 0.2), "drawer": "meal_draw"},
                         "narrow": {"from": MEAL_START, "at": [-1.6, 1.0, -16.45], "t0": L11("narrow", -0.1), "t1": L11(7, 0.0),
                                    "bottle": L11("packed", 0.05), "catch": L11("packed", 0.45), "open": L11("bottles.", 0.25),
-                                   "catcher": "meal_catch"}, "mats": MATS, "full_power": SANE_START,
+                                   "catcher": "meal_catch", "bottle_until": FACES_START}, "mats": MATS, "full_power": SANE_START,
+                        "scope": {"from": FACES_START, "t0": FACES_START, "t_out": L12("pipe.", 0.3), "t_stop": L12("For", 0.45)},
                         "valve": {"z": VALVE_Z, "open": L6("pipe", 0.0), "close": L7("Through", -0.4)},
                         "jars": {"from": L7("Through", -0.4), "until": SANE_START,
                                  "list": [{"t": L7("puffed", 0.0), "kind": "rice", "catcher": "life_mate"},
@@ -575,6 +620,11 @@ def build():
                             {"x": 1.9, "z": -21.5, "t": T(-1.1), "build": 0.8, "spread": 0.15},
                             {"x": -0.8, "z": -19.0, "t": T(-0.7), "build": 0.5, "spread": 0.15},
                         ]}},
+            {"id": "portal", "script": "gags/silkyara_exterior.gd", "at": "slope", "t": 0,
+             "params": {"appear": {**{a["id"]: MEAL_START for a in KITCHEN_CAST}, **{a["id"]: FACES_START for a in TV_CAST}},
+                        "tv": {"from": FACES_START, "feed": "collapse.scope", "aim": "collapse.scope_ahead"},
+                        "kitchen": {"from": MEAL_START, "pour0": L11("khichdi,", -0.05), "pour1": L11("khichdi,", 0.45), "cook": "meal_cook", "pourer": "meal_runner"},
+                        "lamps": OUTSIDE_LAMPS, "truck": {"t0": 0.0, "t1": 3.2, "z0": 27.0, "z1": 17.5}}},
         ],
         "sfx": [
             {"file": "audio/mountain_wind_short.wav", "at": 0, "gain": -10},
@@ -780,9 +830,25 @@ def build():
              "camera": {"from": cam((-0.95, 1.85, -17.2), (-1.75, 1.15, -15.5), 26, {"strength": 0.3, "focus": 2.0}),
                         "to": cam((-1.0, 1.82, -17.1), (-1.75, 1.17, -15.5), 29, {"strength": 0.3, "focus": 1.9}),
                         "ease": "in_out"}},
-            {"name": "scope_pipe", "duration": 2.6, "look": dict(TUNNEL, ssr=True), "camera": cam((-1.6, 1.0, -30.0), (-1.6, 1.0, -16.0), 18)},
-            {"name": "scope_faces", "duration": 1.6, "look": dict(TUNNEL, ssr=True), "camera": cam((-1.6, 1.0, -16.3), (-1.6, 1.2, -14.0), 18)},
-            {"name": "tv_watch", "duration": 1.8, "look": MOUNTAIN, "camera": {"at": S(-12.0, 1.6, 30.0), "look_at": S(-12.0, 1.2, 26.0), "lens_mm": 30}},
+            {"name": "scope_pipe", "duration": 3.25, "look": dict(TUNNEL, ssr=True),
+             "note": "Inside the 6-inch pipe, riding just behind the endoscope head: its LED ring lights the rusty steel and the "
+                     "weld seams racing past; the mouth is a warm disc of light ahead that grows.",
+             "camera": {"from": {"at": {"anchor": "collapse.scope_chase"}, "look_at": {"anchor": "collapse.scope_chase_ahead"}, "lens_mm": 20},
+                        "to": {"at": {"anchor": "collapse.scope_chase"}, "look_at": {"anchor": "collapse.scope_chase_ahead"}, "lens_mm": 18},
+                        "ease": "linear"}},
+            {"name": "scope_faces", "duration": 1.5, "look": dict(TUNNEL, ssr=True),
+             "note": "The endoscope's view as it noses out: the men crowd the lens, laughing and waving.",
+             "camera": {"at": {"anchor": "collapse.scope"}, "look_at": {"anchor": "collapse.scope_ahead"}, "lens_mm": 16}},
+            {"name": "tv_screen", "duration": 1.0, "look": KITCHEN_LOOK,
+             "note": "Outside at night, over the shoulders of the official and a mother: the site monitor shows the men waving.",
+             "camera": {"from": {"at": S(-17.45, 1.45, 32.3), "look_at": S(-17.5, 1.31, 30.93), "lens_mm": 38, "dof": {"strength": 0.2, "focus": 1.4}},
+                        "to": {"at": S(-17.47, 1.4, 32.0), "look_at": S(-17.5, 1.31, 30.93), "lens_mm": 40, "dof": {"strength": 0.2, "focus": 1.07}},
+                        "ease": "in_out"}},
+            {"name": "tv_react", "duration": 1.35, "look": KITCHEN_LOOK,
+             "note": "From beside the monitor: the mother and brother, lit by the screen, break into tears; the official smiles.",
+             "camera": {"from": {"at": S(-16.92, 1.3, 31.1), "look_at": S(-18.1, 1.2, 31.95), "lens_mm": 30, "dof": {"strength": 0.25, "focus": 1.3}},
+                        "to": {"at": S(-17.0, 1.29, 31.16), "look_at": S(-18.1, 1.2, 31.95), "lens_mm": 33, "dof": {"strength": 0.25, "focus": 1.2}},
+                        "ease": "in_out"}},
         ],
         "reveals": [
             {"id": "air_count", "t": L9("twenty-five-tonne", -0.02), "until": L9("is", 0.0), "at": PL(0.0, 1.2, -6.6),

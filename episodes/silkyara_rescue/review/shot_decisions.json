@@ -91,18 +91,32 @@
     ]
   },
   "plan_rig": {
-    "status": "changes",
+    "status": "approved",
     "note": "the right half of the shot is cut here. fix it",
-    "updated": "2026-11-15 19:35:13",
-    "fingerprint": "bf36e404bc56",
-    "history": []
+    "updated": "2026-11-16 12:57:19",
+    "fingerprint": "c6edffcbe421",
+    "history": [
+      {
+        "status": "changes",
+        "note": "the right half of the shot is cut here. fix it",
+        "updated": "2026-11-15 19:35:13",
+        "fingerprint": "bf36e404bc56"
+      }
+    ]
   },
   "day9_tally": {
-    "status": "changes",
+    "status": "approved",
     "note": "the tally marks are in a weird position",
-    "updated": "2026-11-15 19:35:46",
-    "fingerprint": "4fe845e3d1ff",
-    "history": []
+    "updated": "2026-11-16 12:57:30",
+    "fingerprint": "be16c5073618",
+    "history": [
+      {
+        "status": "changes",
+        "note": "the tally marks are in a weird position",
+        "updated": "2026-11-15 19:35:46",
+        "fingerprint": "4fe845e3d1ff"
+      }
+    ]
   },
   "feed_in": {
     "status": "approved",
@@ -119,25 +133,46 @@
     ]
   },
   "khichdi_bottle": {
-    "status": "changes",
+    "status": "approved",
     "note": "This shot looks unprofessional and non cinematic. make it look cinematic",
-    "updated": "2026-11-15 20:19:24",
-    "fingerprint": "3e999a164809",
-    "history": []
+    "updated": "2026-11-16 12:57:44",
+    "fingerprint": "3c9ed5c5d75e",
+    "history": [
+      {
+        "status": "changes",
+        "note": "This shot looks unprofessional and non cinematic. make it look cinematic",
+        "updated": "2026-11-15 20:19:24",
+        "fingerprint": "3e999a164809"
+      }
+    ]
   },
   "khichdi_pour": {
-    "status": "changes",
+    "status": "approved",
     "note": "does not look cinematic and realistic",
-    "updated": "2026-11-15 20:19:36",
-    "fingerprint": "e23b22ab6e66",
-    "history": []
+    "updated": "2026-11-16 12:57:40",
+    "fingerprint": "248d28f020c8",
+    "history": [
+      {
+        "status": "changes",
+        "note": "does not look cinematic and realistic",
+        "updated": "2026-11-15 20:19:36",
+        "fingerprint": "e23b22ab6e66"
+      }
+    ]
   },
   "khichdi_cook": {
-    "status": "changes",
+    "status": "approved",
     "note": "does not look realistic.",
-    "updated": "2026-11-15 20:19:43",
-    "fingerprint": "5c97ce372136",
-    "history": []
+    "updated": "2026-11-16 12:57:36",
+    "fingerprint": "ae6af86ed61e",
+    "history": [
+      {
+        "status": "changes",
+        "note": "does not look realistic.",
+        "updated": "2026-11-15 20:19:43",
+        "fingerprint": "5c97ce372136"
+      }
+    ]
   },
   "laps": {
     "status": "approved",
@@ -151,6 +186,83 @@
     "note": "",
     "updated": "2026-11-15 20:20:12",
     "fingerprint": "aa2e11d26e34",
+    "history": []
+  },
+  "airlift_hold": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 12:57:01",
+    "fingerprint": "b1d9a918b3bb",
+    "history": []
+  },
+  "airlift_sky": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 12:57:02",
+    "fingerprint": "80232f1c81c4",
+    "history": []
+  },
+  "airlift_ramp": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 12:57:04",
+    "fingerprint": "dd688870ee08",
+    "history": []
+  },
+  "rig_push": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 12:57:23",
+    "fingerprint": "93139d1ece6c",
+    "history": []
+  },
+  "pipe_crawl": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 12:57:26",
+    "fingerprint": "377330b947a1",
+    "history": []
+  },
+  "narrow_pipe": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 12:57:33",
+    "fingerprint": "f52d6b1a1359",
+    "history": []
+  },
+  "scope_pipe": {
+    "status": "approved",
+    "note": "Why does the camera look disconnected from the pipe in this",
+    "updated": "2026-11-16 13:14:38",
+    "fingerprint": "3392943537b0",
+    "history": [
+      {
+        "status": "changes",
+        "note": "Why does the camera look disconnected from the pipe in this",
+        "updated": "2026-11-16 13:08:14",
+        "fingerprint": "3392943537b0"
+      }
+    ]
+  },
+  "scope_faces": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 13:08:32",
+    "fingerprint": "757e462d2cca",
+    "history": []
+  },
+  "tv_screen": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 13:08:34",
+    "fingerprint": "69b5a7eb5e0a",
+    "history": []
+  },
+  "tv_react": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 13:08:35",
+    "fingerprint": "f7768201889d",
     "history": []
   }
 }

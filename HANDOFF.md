@@ -8,6 +8,23 @@
 ### Silkyara rescue Short: hook APPROVED, beat 4 revised for review (2026-11-15, latest)
 
 **Progress log (newest first; Claude keeps this current so Codex can continue mid-beat):**
+- **Line 12 built (2026-11-16).** "The next day, a camera crawls down the same pipe. For the first time, the world
+  sees their faces." Shots 0-25 approved; `scope_faces`, `tv_screen`, `tv_react` approved; `scope_pipe` reworked
+  after "why does the camera look disconnected from the pipe", waiting for re-review.
+  - `scope_pipe` (3.25 s): chase camera on gag anchor `collapse.scope_chase` (on the pipe axis, 0.3 m behind the
+    head, NOT with its judder). The head slides on the pipe floor (lifted to the axis just before `t_out`), its cable
+    leaves the back of the head (`_span` stretches a unit cylinder). The pipe interior is lit IN ITS SHADER
+    (`PIPE_SHADER`, unshaded: LED pool ahead of the head + daylight from the mouth): scene lights leak straight
+    through the thin tube from the tunnel and burn it white. Keep the camera on the axis: 4 cm from the wall, the
+    near plane clips through it.
+  - `scope_faces` (1.5 s): the scope's POV; line-11 men + `FACES_CAST` crowd and wave (crew role `wave`); faces
+    go surprised (FACES_START) -> laugh on "For". LEDs dim after `t_out` so faces don't burn.
+  - `tv_screen` (1.0 s) / `tv_react` (1.35 s): the exterior `tv` monitor (SubViewport camera on `collapse.scope`);
+    `TV_CAST` (official, engineer, relatives) in a horseshoe. The portal gag now runs AFTER the collapse gag
+    so it can read the scope anchors. `tv_watch` was split into these two.
+  - **Next: line 13** "The big drill chews in. Twenty metres. Thirty. Forty-seven." (beats.md Act 2: lines
+    13-16, then Act 3 rat-hole miners and the rescue, 17-23, then the Vakeel Hasan twist, 24-26). The user asked
+    why the story stopped at line 12: it hasn't; 14 lines remain to build.
 - **Khichdi shots reworked (2026-11-16), waiting for re-review.** User notes were: `khichdi_cook` "does not look
   realistic", `khichdi_pour` "does not look cinematic and realistic", `khichdi_bottle` "unprofessional and non
   cinematic". Also still waiting: `plan_rig`, `day9_tally` (fixed 11-15) and the unreviewed airlift/rig/narrow shots.

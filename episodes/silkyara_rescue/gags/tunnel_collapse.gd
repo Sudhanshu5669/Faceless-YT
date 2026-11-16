@@ -2023,7 +2023,7 @@ func _pose_meal(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> vo
 	var tc := float(np.get("catch", tb + 0.35))
 	var top := float(np.get("open", 1.0e9))
 	var catcher = ctx["actor"].call(String(np.get("catcher", ""))) if ctx.has("actor") else null
-	_bottle.visible = t >= tb and _narrow.visible
+	_bottle.visible = t >= tb and t < float(np.get("bottle_until", 1.0e9)) and _narrow.visible
 	if _bottle.visible:
 		var hands := mouth + Vector3(0, -0.25, 0.75)
 		var show := hands
@@ -2069,11 +2069,51 @@ func _pose_meal(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> vo
 
 ## params.scope = {"from", "t0", "t_out", "t_stop"}: an endoscope crawls the narrow pipe from deep in the plug
 ## (t0) to its mouth (t_out) and pokes out (t_stop). The narrow pipe gets a long open interior for the POV.
-## Anchors: scope (the lens), scope_ahead (where it looks). Role "wave": a hand waving over the head.
+## Anchors: scope (the lens), scope_ahead (where it looks), scope_chase / scope_chase_ahead (a camera riding
+## just behind the head, inside the pipe). Role "wave": a hand waving over the head.
 const SCOPE_LEN := 22.0
+## The inside of the narrow pipe: dark mill-scaled steel, rust blooms, and scratches running along its length
+## (the drill string scraped through), so the walls rushing past read as speed. Mesh-local: the pipe's axis is Y.
+## Lit in the shader, not by the scene: inside the rubble the tunnel's lamps would shine straight through the thin
+## tube. Light = a pool round the endoscope's LEDs (mostly ahead of it), the warm daylight of the mouth bleeding
+## in, and nearly black between. `head` / `mouth` are world positions, `fwd` the pipe's direction (set per frame).
+const PIPE_SHADER := """
+shader_type spatial;
+render_mode cull_disabled, unshaded;
+uniform vec3 head = vec3(0.0);
+uniform vec3 mouth = vec3(0.0);
+uniform vec3 fwd = vec3(0.0, 0.0, 1.0);
+uniform float out_light = 1.0;
+varying vec3 lp;
+varying vec3 wp;
+void vertex() { lp = VERTEX; wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
+//NOISE
+float lighting() {
+	float s = dot(wp - head, fwd);                  // + ahead of the head
+	float led = s > 0.0 ? 0.65 * exp(-s * 0.45) : 0.4 * exp(s * 7.0);
+	float m = dot(mouth - wp, fwd);                 // distance back from the mouth
+	float day = out_light * 1.4 * exp(-max(m, 0.0) * 0.9);
+	return 0.015 + led + day;
+}
+void fragment() {
+	float a = atan(lp.z, lp.x);
+	float rust = smoothstep(0.45, 0.75, fbm(vec3(a * 3.0, lp.y * 1.6, 0.0)));
+	float scratch = smoothstep(0.82, 0.97, n3(vec3(a * 40.0, lp.y * 0.6, 0.0)));
+	float band = smoothstep(0.7, 0.95, n3(vec3(a * 4.0, lp.y * 0.25, 3.0)));
+	vec3 steel = vec3(0.16, 0.15, 0.145) * (0.8 + 0.4 * fbm(vec3(a * 9.0, lp.y * 6.0, 1.0)));
+	vec3 col = mix(steel, vec3(0.34, 0.16, 0.07), rust * 0.85);
+	col = mix(col, vec3(0.55, 0.53, 0.5), scratch * (1.0 - rust) * 0.6);
+	col *= 1.0 - band * 0.35;
+	float l = lighting();
+	// Scratches glint where the light is.
+	col += vec3(0.5, 0.52, 0.55) * scratch * (1.0 - rust) * 0.12 * min(l, 1.0);
+	ALBEDO = col * l * vec3(1.0, 0.97, 0.92);
+}
+"""
 
 var _scope: Node3D
 var _scope_tube: MeshInstance3D
+var _pipe_mat: ShaderMaterial
 var _scope_light: SpotLight3D
 var _scope_cable: MeshInstance3D
 
@@ -2086,12 +2126,15 @@ func _build_scope(root: Node3D, p: Dictionary) -> void:
 	tube.top_radius = 0.078
 	tube.bottom_radius = 0.078
 	tube.height = SCOPE_LEN
-	tube.radial_segments = 24
+	tube.radial_segments = 64
 	tube.rings = 40
 	tube.cap_top = false
 	tube.cap_bottom = false
-	var inner := _mat("#6e5646", 0.55, 0.6)
-	inner.cull_mode = BaseMaterial3D.CULL_DISABLED
+	var pipe_sh := Shader.new()
+	pipe_sh.code = PIPE_SHADER.replace("//NOISE", NOISE_GLSL)
+	var inner := ShaderMaterial.new()
+	inner.shader = pipe_sh
+	_pipe_mat = inner
 	_scope_tube = MeshInstance3D.new()
 	_scope_tube.mesh = tube
 	_scope_tube.material_override = inner
@@ -2129,12 +2172,30 @@ func _build_scope(root: Node3D, p: Dictionary) -> void:
 	_scope.add_child(ring)
 	_scope_light = SpotLight3D.new()
 	_scope_light.light_color = Color("#e6f3ff")
-	_scope_light.light_energy = 2.2
+	_scope_light.light_energy = 0.9
 	_scope_light.spot_range = 9.0
 	_scope_light.spot_angle = 55.0
 	_scope_light.rotation.y = PI          # SpotLight shines along -Z; the scope looks along +Z
 	_scope.add_child(_scope_light)
-	_scope_cable = _rod(root, Vector3.ZERO, Vector3(0, 0, -1.0), 0.012, _mat("#0d0d0d", 0.6), 6)
+	# LED spill on the pipe wall right round the head, so the steel rushing past reads.
+	var spill := OmniLight3D.new()
+	spill.light_color = Color("#dfeeff")
+	spill.light_energy = 0.05
+	spill.omni_range = 0.9
+	spill.omni_attenuation = 2.0
+	spill.position = Vector3(0, 0, 0.05)
+	spill.name = "spill"
+	_scope.add_child(spill)
+	var cm := CylinderMesh.new()
+	cm.top_radius = 0.011
+	cm.bottom_radius = 0.011
+	cm.height = 1.0
+	cm.radial_segments = 10
+	cm.rings = 1
+	_scope_cable = MeshInstance3D.new()
+	_scope_cable.mesh = cm
+	_scope_cable.material_override = _mat("#141414", 0.45, 0.2)
+	root.add_child(_scope_cable)
 
 
 func _pose_scope(p: Dictionary, t: float, out: Dictionary, origin: Vector3) -> void:
@@ -2160,22 +2221,41 @@ func _pose_scope(p: Dictionary, t: float, out: Dictionary, origin: Vector3) -> v
 		z = mouth.z - (SCOPE_LEN - 1.5) * (1.0 - (0.7 * k + 0.3 * Motion.smooth(k)))
 	else:
 		z = mouth.z + 0.38 * Motion.out_cubic(Motion.seg(t, t_out, t_stop))
-	# It wobbles as it is shoved along, and nods once it is out (someone outside steering it).
-	var wob := Vector3(sin(t * 7.3) * 0.012, cos(t * 5.1) * 0.012, 0.0) * (1.0 if t < t_out else 0.3)
-	_scope.position = Vector3(mouth.x, mouth.y, z) + wob
+	# Inside, the head slides along the floor of the pipe (its weight and the cable's keep it down), juddering over
+	# the weld seams; just before the mouth it is lifted to the axis, and once out it nods (steered from outside).
+	var low := -0.045 * (1.0 - Motion.smooth(Motion.seg(t, t_out - 0.45, t_out - 0.05)))
+	var base := Vector3(mouth.x, mouth.y + low, z)
+	var wob := Vector3(sin(t * 7.3) * 0.005, absf(sin(t * 23.0)) * 0.003, 0.0) if t < t_out else Vector3(sin(t * 7.3) * 0.004, cos(t * 5.1) * 0.004, 0.0)
+	_scope.position = base + wob
 	var look := Vector3(0.0, 0.0, 1.0)
 	if t > t_out:
 		var u := Motion.smooth(Motion.seg(t, t_out, t_stop + 0.4))
 		look = Vector3(0.12 * sin((t - t_out) * 1.3), 0.32 * u, 1.0).normalized()
 	_scope.basis = Basis.looking_at(-look, Vector3.UP)
-	var behind := _scope.position + Vector3(0, -0.03, -0.12)
-	var tail := Vector3(mouth.x, mouth.y - 0.03, mouth.z - SCOPE_LEN)
-	var d := behind - tail
-	_scope_cable.transform = Transform3D(Basis(Vector3.RIGHT, Vector3(0, 0, 1).cross(Vector3.RIGHT).normalized(), Vector3(0, 0, 1)).orthonormalized() * Basis.from_scale(Vector3(1, maxf(d.length(), 0.01), 1)), (behind + tail) * 0.5)
-	_scope_cable.rotation = Vector3(PI * 0.5, 0, 0)
-	_scope_cable.scale = Vector3(1, maxf(d.length(), 0.01), 1)
+	# Out of the pipe the LEDs dim so the faces in front of the lens do not burn out.
+	_scope_light.light_energy = lerpf(0.9, 0.7, Motion.smooth(Motion.seg(t, t_out - 0.2, t_out + 0.25)))
+	(_scope.get_node("spill") as OmniLight3D).light_energy = lerpf(0.05, 0.15, Motion.smooth(Motion.seg(t, t_out - 0.2, t_out + 0.25)))
+	_pipe_mat.set_shader_parameter("head", origin + _scope.position)
+	_pipe_mat.set_shader_parameter("mouth", origin + mouth)
+	_pipe_mat.set_shader_parameter("fwd", Vector3(0, 0, 1))
+	# The cable comes out of the back of the head and trails along the floor of the pipe to the rig outside.
+	var back := _scope.position - look * 0.12
+	var tail := Vector3(mouth.x, mouth.y - 0.06, mouth.z - SCOPE_LEN)
+	_span(_scope_cable, back, tail)
 	out["scope"] = origin + _scope.position + look * 0.03
 	out["scope_ahead"] = origin + _scope.position + look * 3.0
+	# The chase camera rides steady just above and behind the head (not with its judder), looking down the pipe.
+	out["scope_chase"] = origin + Vector3(base.x, mouth.y, base.z - 0.3)
+	out["scope_chase_ahead"] = origin + Vector3(base.x, mouth.y - 0.01, base.z + 4.0)
+
+
+## Stretch a unit-length (height 1, centred, along +Y) cylinder node from a to b.
+func _span(node: Node3D, a: Vector3, b: Vector3) -> void:
+	var d := b - a
+	var y := d.normalized()
+	var x := y.cross(Vector3.FORWARD if absf(y.z) < 0.99 else Vector3.RIGHT).normalized()
+	var z := x.cross(y)
+	node.transform = Transform3D(Basis(x, y * maxf(d.length(), 0.001), z), (a + b) * 0.5)
 
 
 ## Waving: the right hand over the head, swinging side to side.
