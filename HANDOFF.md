@@ -5,7 +5,7 @@
 
 ## START HERE: current task (for whoever picks this up)
 
-### Silkyara rescue Short: lines 1-21 built, 22-26 still to build (2026-11-16, latest)
+### Silkyara rescue Short: lines 1-23 built, 24-26 still to build (2026-11-16, latest)
 
 **For the user: how to review what was built.**
 1. Start the review page: `python pipeline/tf.py shot silkyara_rescue --serve`, then open
@@ -14,7 +14,7 @@
    **reject**. Verdicts are saved in `episodes/silkyara_rescue/review/shot_decisions.json` as you click.
 3. To see the list of verdicts in the terminal: `python pipeline/tf.py shot silkyara_rescue --status`.
 4. When you start a new session with Claude or Codex, say: **"read HANDOFF.md, then read my shot verdicts and
-   fix the ones marked changes, then build lines 22-26"**. The model reads your notes with `--status`.
+   fix the ones marked changes, then build lines 24-26"**. The model reads your notes with `--status`.
 5. A clip on the page is the last render. If a shot looks stale, press its render button or run
    `python pipeline/tf.py shot silkyara_rescue <shot_name>`.
 
@@ -29,16 +29,16 @@
 | 19 | One after another, they crawl into the pipe and dig with hammers and chisels. | `pipe_enter`, `pipe_dig` |
 | 20 | Twelve metres, in about a day. | `hand_dig` |
 | 21 | Day seventeen, just after seven in the evening: they break through. | `tally17`, `watch_705`, `break_through` |
+| 22 | Then all forty-one come out, one by one, on wheeled stretchers. | `stretchers_out` |
+| 23 | Forty-one men. Forty-one ambulances waiting outside. | `ambulance_line` |
 
 Known weak spots Claude would look at first: `drill_down` (the x-ray plunge is mostly dark rock and a yellow
 dashed line), `miners_arrive` (tools are small at that distance), `pit_tape` (the pit walls read flat from the
 rim), `hand_dig` (the two miners in the x-ray pipe are only helmets and bodies).
 
-**Still to build (voiced already, placeholder shots `ph_*` render as an empty wide):**
+**Still to build (voiced already, placeholder shots `ph_*` render as an empty wide).** Line 22 uses the cutaway gag's `stretchers` param, line 23 the exterior gag's `ambulances` param (Kenney ambulance x41, flashing bars).
 | Line | Narration | Plan |
 |---|---|---|
-| 22 | Then all forty-one come out, one by one, on wheeled stretchers. | At the escape pipe's mouth (cutaway gag `escape` platform, night): a wheeled stretcher slides out with a worker on it, NDRF rescuers pull it, garlands; a counter of men out runs to 41. Needs a stretcher prop (wheeled tray: steel frame, 4 casters, rope) in `mountain_section.gd`. |
-| 23 | Forty-one men. Forty-one ambulances waiting outside. | Exterior gag at night: pull back from the portal over a long line of ambulances down the access road, beacons blinking (`kenney_cars/ambulance`, recolour white/red, add a beacon like `_beacon`). Counter 41 on the second "Forty-one". |
 | 24 | Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan. | New place (rule 9): a narrow lane in Khajuri Khas, Delhi (far off like the Meghalaya pit, its own gag): a small 2-storey brick house; a yellow excavator/bulldozer arm bites into it. Vakeel Hasan as a toon (respectful, not a caricature) holding the garland from line 22. DDA demolition was 28 Feb 2024. |
 | 25 | Delhi's development authority says the house stood on its land. | A DDA official with a land map / notice board at the lane; fair, not mocking. |
 | 26 | He got forty-one men out of a mountain. That night, his family slept on the street. | Night, the family on the footpath under one streetlamp with what they saved; the single lamp echoes the hook's headlamps. Last shot of the Short. |

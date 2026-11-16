@@ -783,6 +783,15 @@ OUT_CREW = [
 OUT_TIMES = [(-0.1, 0.8, 0.0), (0.95, 1.85, 0.0), (2.0, 2.9, 0.0), (3.0, 3.85, 0.0)]
 
 
+# ---------------------------------------------------------------------------------- line 23
+# "Forty-one men. Forty-one ambulances waiting outside."  (41 ambulances were lined up at the site: Wikipedia, NPR.)
+# Night at the portal: a crane-up pull-back from the mouth over a line of 41 ambulances down the access road,
+# beacons flashing; "41 MEN" on the first "Forty-one", "41 AMBULANCES" on the second.
+# Word times: Forty-one 0.08, men 0.58, Forty-one 1.39, ambulances 1.97, waiting 2.73, outside 3.06-3.56.
+def LA(x):
+    return {"line": "ambulances", "edge": "start", "offset": round(x, 3)}
+
+
 def NOSE(x, y, z):
     """A point riding with the auger's nose (gag anchor; x mirrored like the other gag anchors)."""
     return {"anchor": "mountain_section.nose", "offset": [round(-x, 3), round(y, 3), round(z, 3)]}
@@ -832,7 +841,7 @@ def build():
             {"id": "twelve", "shot": "hand_dig", "at": 0.3, "text": "Twelve metres, in about a day."},
             {"id": "through", "shot": "tally17", "at": 0.25, "text": "Day seventeen, just after seven in the evening: they break through."},
             {"id": "out", "shot": "stretchers_out", "at": 0.25, "text": "Then all forty-one come out, one by one, on wheeled stretchers."},
-            {"id": "ambulances", "shot": "ph_ambulances", "at": 0.25, "text": "Forty-one men. Forty-one ambulances waiting outside."},
+            {"id": "ambulances", "shot": "ambulance_line", "at": 0.25, "text": "Forty-one men. Forty-one ambulances waiting outside."},
             {"id": "bulldozer", "shot": "ph_bulldozer", "at": 0.25, "text": "Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan."},
             {"id": "dda", "shot": "ph_dda", "at": 0.25, "text": "Delhi's development authority says the house stood on its land."},
             {"id": "street", "shot": "ph_street", "at": 0.25, "text": "He got forty-one men out of a mountain. That night, his family slept on the street."},
@@ -891,6 +900,7 @@ def build():
             {"id": "portal", "script": "gags/silkyara_exterior.gd", "at": "slope", "t": 0,
              "params": {"appear": {**{a["id"]: MEAL_START for a in KITCHEN_CAST}, **{a["id"]: FACES_START for a in TV_CAST},
                                    **{a["id"]: LM(-0.3) for a in YARD_CAST}, "watch_official": LH(-0.3)},
+                        "ambulances": {"from": LA(-0.3), "n": 41, "z0": 13.0, "gap": 5.4},
                         "watch": {"who": "watch_official", "t0": LH(1.1), "t1": LH(3.3), "time": [7, 5], "at": [1.0, 1.0, 5.42], "face": [0.0, 0.62, 0.78]},
                         "vanish": {**{a["id"]: {"line": "banned", "edge": "start", "offset": -0.3} for a in YARD_CAST},
                                    "watch_official": LH(3.2)},
@@ -1243,12 +1253,21 @@ def build():
                      "on it waving; marigold garlands; the counter of men out runs to 41.",
              "camera": {"from": {"at": X(ESC_X0 - 3.9, 1.75, -0.4), "look_at": X(ESC_X0 - 0.9, 0.8, -2.6), "lens_mm": 24},
                         "to": {"at": X(ESC_X0 - 4.3, 1.85, -0.2), "look_at": X(ESC_X0 - 1.2, 0.8, -2.6), "lens_mm": 24}, "ease": "in_out"}},
-            {"name": "ph_ambulances", "duration": 3.12, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "ambulance_line", "duration": 3.85, "look": MOUNTAIN,
+             "note": "Night: from the lit tunnel mouth the camera cranes up and back over a line of 41 ambulances waiting down the "
+                     "access road, beacons flashing red and blue.",
+             "camera": {"from": {"at": S(1.5, 2.2, 8.0), "look_at": S(4.0, 1.6, 18.0), "lens_mm": 26},
+                        "to": {"at": S(-6.0, 22.0, 2.0), "look_at": S(9.0, 0.0, 90.0), "lens_mm": 24}, "ease": "in_out"}},
             {"name": "ph_bulldozer", "duration": 7.74, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_dda", "duration": 4.8, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_street", "duration": 7.32, "look": SECTION_LOOK, "camera": X_CAM},
         ],
         "reveals": [
+            {"id": "men_count", "t": LA(0.0), "until": LA(1.3), "at": S(4.0, 3.6, 16.0), "size": 0.75, "enter": "pop",
+             "counter": {"from": 0, "to": 41, "land": {"line": "ambulances", "word": "men.", "offset": 0.0}, "label": "MEN"}},
+            {"id": "amb_count", "t": LA(1.3), "until": LA(3.9), "at": S(7.0, 12.0, 46.0), "size": 3.2, "enter": "pop",
+             "counter": {"from": 0, "to": 41, "land": {"line": "ambulances", "word": "ambulances", "offset": 0.1}, "label": "AMBULANCES"},
+             "sound": "ding"},
             {"id": "out_count", "t": LO(0.2), "until": LO(4.4), "at": X(ESC_X0 - 1.4, 2.05, -2.6), "size": 0.38, "enter": "pop",
              "counter": {"keys": [[LO(0.2), 0], [LO(1.1), 8], [LO(2.1), 19], [LO(3.1), 31], [LO(3.86), 41]], "label": "OUT"},
              "sound": "ding"},

@@ -218,6 +218,7 @@ func build(g: Dictionary) -> Node3D:
 	_build_tv(root)
 	_build_miners(root)
 	_build_watch(root)
+	_build_ambulances(root, g.get("params", {}))
 	for id in g.get("params", {}).get("lamps", []):
 		var spot := SpotLight3D.new()
 		spot.light_color = Color("#e9f2ff")
@@ -1092,6 +1093,7 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_tv(p, t, ctx)
 	_pose_miners(root, p, t, ctx)
 	_pose_watch(p, t, ctx)
+	_pose_ambulances(p, t)
 	# The dumper rolls toward the mouth, easing to a crawl.
 	var tr: Dictionary = p.get("truck", {})
 	var t0 := float(tr.get("t0", 0.0))
@@ -1730,3 +1732,73 @@ func _pose_watch(p: Dictionary, t: float, ctx: Dictionary) -> void:
 	var fw := side.cross(normal).normalized()
 	# Right-handed: (-side) x normal = -fw, so the dial is not mirrored and 12 (local -z) points along fw.
 	_watch.transform = Transform3D(Basis(-side, normal, -fw).scaled(Vector3.ONE * 2.2), pos)
+
+
+# ------------------------------------------------------------------------------ line 23: forty-one ambulances
+
+## params.ambulances = {"from", "n", "z0" (the first one, near the portal), "gap"}: a line of ambulances parked nose to
+## tail down the access road (yard, then the road out), rear doors toward the portal, beacons flashing red and blue.
+const AMBULANCE := "kenney_cars/ambulance"
+var _ambs: Node3D
+var _amb_red: StandardMaterial3D
+var _amb_blue: StandardMaterial3D
+var _amb_lights: Array = []
+
+
+func _build_ambulances(root: Node3D, p: Dictionary) -> void:
+	if not p.has("ambulances"):
+		return
+	var ap: Dictionary = p["ambulances"]
+	_ambs = Node3D.new()
+	_ambs.visible = false
+	root.add_child(_ambs)
+	_amb_red = _lit("#ff2a1c", 6.0)
+	_amb_blue = _lit("#2a5cff", 6.0)
+	var n := int(ap.get("n", 41))
+	var z := float(ap.get("z0", 12.0))
+	var gap := float(ap.get("gap", 5.6))
+	for i in n:
+		var x := _road_x(z) - 1.6 if z > 48.0 else 4.2
+		var y := _height(x, z) if z > 60.0 else 0.0
+		var a := KitDB.static_node(AMBULANCE, 1.45)
+		# Facing down the road (away from the portal), rear doors toward it.
+		var ahead := Vector3(_road_x(z + 1.0) - 1.6 if z + 1.0 > 48.0 else 4.2, 0, z + 1.0) - Vector3(x, 0, z)
+		a.rotation.y = atan2(ahead.x, ahead.z)
+		a.position = Vector3(x, y, z)
+		_ambs.add_child(a)
+		# The light bar on the roof: a red and a blue lens.
+		var bar := Node3D.new()
+		bar.position = a.position + Vector3(0, 2.62, 0)
+		bar.rotation.y = a.rotation.y
+		_ambs.add_child(bar)
+		_box(bar, Vector3(0.35, 0.1, 0.18), Vector3(-0.22, 0, 1.4), _amb_red if i % 2 == 0 else _amb_blue).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		_box(bar, Vector3(0.35, 0.1, 0.18), Vector3(0.22, 0, 1.4), _amb_blue if i % 2 == 0 else _amb_red).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		if i < 8:
+			var l := OmniLight3D.new()
+			l.position = bar.position + Vector3(0, 0.4, 0)
+			l.omni_range = 9.0
+			l.light_energy = 0.0
+			l.light_volumetric_fog_energy = 1.5
+			_ambs.add_child(l)
+			_amb_lights.append(l)
+		z += gap
+
+
+func _pose_ambulances(p: Dictionary, t: float) -> void:
+	if _ambs == null:
+		return
+	var ap: Dictionary = p["ambulances"]
+	_ambs.visible = t >= float(ap.get("from", 1.0e9))
+	_truck.visible = not _ambs.visible       # the hook's dumper is long gone by now
+	if not _ambs.visible:
+		return
+	# Red and blue alternate, three flashes a second.
+	var ph := fposmod(t * 3.0, 1.0)
+	var r_on := 1.0 if ph < 0.5 else 0.08
+	_amb_red.emission_energy_multiplier = 7.0 * r_on
+	_amb_blue.emission_energy_multiplier = 7.0 * (1.08 - r_on)
+	for i in _amb_lights.size():
+		var l := _amb_lights[i] as OmniLight3D
+		var red := (i % 2 == 0) == (ph < 0.5)
+		l.light_color = Color("#ff3322") if red else Color("#3366ff")
+		l.light_energy = 2.2
