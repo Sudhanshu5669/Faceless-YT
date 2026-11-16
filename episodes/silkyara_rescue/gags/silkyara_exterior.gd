@@ -1146,15 +1146,23 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 
 # ------------------------------------------------------------------------------ line 11: the site kitchen
 
-## params.kitchen = {"from", "pour0", "pour1" (the karchi tips khichdi into the funnel), "cook", "pourer"};
+## params.kitchen = {"from", "pour0" (the khichdi leaves the karchi), "pour1" (the karchi goes back), "cook", "pourer"};
 ## params.appear = {actor id: scene time}: hidden before it (so the kitchen crew never shows in the hook).
-## Local layout: the bhatti and degchi at the origin, the cook at (0, 0, -0.72) facing +z, the bottling table
-## at TABLE with the funnel in a bottle at FUNNEL_AT and a steel bucket of khichdi at BUCKET.
+## Local layout: the bhatti and degchi at the origin, the cook at (0, 0, -0.72) facing +z stirring with both hands;
+## the bottling table at TABLE with the pourer behind it at (1.5, 0, -0.6): he ladles khichdi from the steel
+## bucket at BUCKET into an open wide-mouth bottle standing at BOTTLE_AT.
+## Light: a tube light lashed to the front pole (key, 3/4 from camera right), a bare bulb behind the cook (rim, and
+## it backlights the steam), the orange flame glow under the pot.
 const KITCHEN := Vector3(11.0, 0.0, 28.0)
 const SiteKitchen = preload("res://scripts/world/site_kitchen.gd")
-const TABLE := Vector3(1.25, 0.0, 0.15)
-const FUNNEL_AT := Vector3(1.0, 0.8, 0.15)
-const BUCKET := Vector3(1.38, 0.8, 0.3)
+const TABLE := Vector3(1.5, 0.0, 0.05)
+const TABLE_TOP := 0.78
+const BUCKET := Vector3(1.13, TABLE_TOP, -0.02)
+const BOTTLE_AT := Vector3(1.56, TABLE_TOP, -0.1)
+const KARCHI_DIR := Vector3(-0.93, 0.37, 0.0)     # a karchi's handle direction in its own frame
+const POT_Y := 0.31                               # the bhatti ring (toon bodies are short under the big heads)
+const POT_R := 0.34
+const POT_H := 0.37
 
 var _kitchen: Node3D
 var _ladle: Node3D
@@ -1162,8 +1170,22 @@ var _stir: Node3D
 var _pot_steam: MultiMeshInstance3D
 var _bucket_steam: MultiMeshInstance3D
 var _bottle_fill: Node3D
+var _fill_bottle: Node3D
 var _dollop: MeshInstance3D
 var _bhatti_flames: Node3D
+var _bubbles: MultiMesh
+
+
+## A karchi with its cup at `cup` and its handle running toward `toward`, rolled by `roll` about the handle.
+func _karchi_xf(cup: Vector3, toward: Vector3, roll: float) -> Transform3D:
+	var h := KARCHI_DIR.normalized()
+	var hy := Vector3(-h.y, h.x, 0.0)
+	var local := Basis(h, hy, h.cross(hy))
+	var d := (toward - cup).normalized()
+	var up := (Vector3.UP - d * Vector3.UP.dot(d)).normalized()
+	var world := Basis(d, up, d.cross(up))
+	var b := Basis(d, roll) * world * local.inverse()
+	return Transform3D(b.orthonormalized(), cup)
 
 
 func _build_kitchen(root: Node3D) -> void:
@@ -1172,31 +1194,48 @@ func _build_kitchen(root: Node3D) -> void:
 	_kitchen.visible = false
 	root.add_child(_kitchen)
 	# The bhatti, the degchi on it, the LPG cylinder and its hose.
-	var bh := SiteKitchen.bhatti(0.42)
+	var bh := SiteKitchen.bhatti(POT_Y - 0.01)
 	_kitchen.add_child(bh)
 	_bhatti_flames = bh.get_node("flames")
-	var pot := SiteKitchen.degchi(0.36, 0.42)
-	pot.position = Vector3(0, 0.43, 0)
+	var pot := SiteKitchen.degchi(POT_R, POT_H)
+	pot.position = Vector3(0, POT_Y, 0)
 	_kitchen.add_child(pot)
 	var cyl := SiteKitchen.lpg_cylinder()
 	cyl.position = Vector3(-0.72, 0, 0.42)
 	_kitchen.add_child(cyl)
 	var hose := _mat("#1c1c1c", 0.7)
 	_rod(_kitchen, Vector3(-0.72, 0.8, 0.42), Vector3(-0.55, 0.3, 0.3), 0.012, hose, 6)
-	_rod(_kitchen, Vector3(-0.55, 0.3, 0.3), Vector3(-0.15, 0.32, 0.12), 0.012, hose, 6)
-	# The cook's stirring karchi (in the pot) and the pourer's karchi (at the bucket).
-	_stir = SiteKitchen.karchi(0.85)
+	_rod(_kitchen, Vector3(-0.55, 0.3, 0.3), Vector3(-0.15, POT_Y - 0.1, 0.12), 0.012, hose, 6)
+	# Khichdi blurping in the pot: small bubbles that swell and burst.
+	var bub := SphereMesh.new()
+	bub.radius = 0.5
+	bub.height = 0.5
+	bub.is_hemisphere = true
+	bub.radial_segments = 12
+	bub.rings = 4
+	bub.material = SiteKitchen.khichdi_material()
+	_bubbles = MultiMesh.new()
+	_bubbles.transform_format = MultiMesh.TRANSFORM_3D
+	_bubbles.mesh = bub
+	_bubbles.instance_count = 6
+	var bmi := MultiMeshInstance3D.new()
+	bmi.multimesh = _bubbles
+	_kitchen.add_child(bmi)
+	# The cook's long stirring karchi and the pourer's shorter one.
+	_stir = SiteKitchen.karchi(0.5)
+	_stir.get_node("load").visible = false
 	_kitchen.add_child(_stir)
-	_ladle = SiteKitchen.karchi(0.6)
+	_ladle = SiteKitchen.karchi(0.45)
+	_ladle.scale = Vector3.ONE * 0.8
 	_kitchen.add_child(_ladle)
 	# The bottling table: planks on trestles, a steel sheet on top.
 	var wood := _mat("#5d4129", 0.85)
-	for k in 5:
-		_box(_kitchen, Vector3(0.24, 0.035, 1.2), Vector3(TABLE.x - 0.5 + k * 0.25, 0.76, TABLE.z), wood)
-	for c in [Vector3(-0.5, 0, -0.5), Vector3(0.5, 0, -0.5), Vector3(-0.5, 0, 0.5), Vector3(0.5, 0, 0.5)]:
-		_box(_kitchen, Vector3(0.05, 0.76, 0.05), TABLE + c + Vector3(0, 0.38, 0), wood)
-	_box(_kitchen, Vector3(1.0, 0.004, 0.55), Vector3(TABLE.x, 0.78, TABLE.z), _mat("#9da1a4", 0.35, 0.8))
-	# The bucket of khichdi.
+	for k in 4:
+		_box(_kitchen, Vector3(1.1, 0.035, 0.16), Vector3(TABLE.x, TABLE_TOP - 0.02, TABLE.z - 0.24 + k * 0.16), wood)
+	for c in [Vector3(-0.48, 0, -0.26), Vector3(0.48, 0, -0.26), Vector3(-0.48, 0, 0.26), Vector3(0.48, 0, 0.26)]:
+		_box(_kitchen, Vector3(0.05, TABLE_TOP - 0.04, 0.05), TABLE + c + Vector3(0, (TABLE_TOP - 0.04) * 0.5, 0), wood)
+	_box(_kitchen, Vector3(1.08, 0.004, 0.62), Vector3(TABLE.x, TABLE_TOP - 0.001, TABLE.z), _mat("#8f9396", 0.45, 0.75))
+	# The steel bucket of khichdi, a lumpy top, steaming.
 	var steel := _mat("#b9bdc0", 0.28, 0.9)
 	steel.cull_mode = BaseMaterial3D.CULL_DISABLED
 	var b := MeshInstance3D.new()
@@ -1205,50 +1244,42 @@ func _build_kitchen(root: Node3D) -> void:
 	b.position = BUCKET
 	_kitchen.add_child(b)
 	var bf := MeshInstance3D.new()
-	var bfm := CylinderMesh.new()
-	bfm.top_radius = 0.135
-	bfm.bottom_radius = 0.135
-	bfm.height = 0.01
-	bf.mesh = bfm
+	bf.mesh = SiteKitchen.khichdi_surface(0.133, 11)
 	bf.material_override = SiteKitchen.khichdi_material()
-	bf.position = BUCKET + Vector3(0, 0.17, 0)
+	bf.position = BUCKET + Vector3(0, 0.185, 0)
 	_kitchen.add_child(bf)
-	# The bottle being filled, with the funnel in it, and the filled ones in a blue crate.
-	var bottle := SiteKitchen.pet_bottle(false)
-	bottle.position = FUNNEL_AT
-	_kitchen.add_child(bottle)
-	_bottle_fill = bottle.get_node("fill")
-	var fun := SiteKitchen.funnel()
-	fun.position = FUNNEL_AT + Vector3(0, 0.215, 0)
-	_kitchen.add_child(fun)
+	# The bottle being filled (open), empties waiting, and the filled, capped ones in a blue crate.
+	_fill_bottle = SiteKitchen.wide_bottle(false)
+	_fill_bottle.position = BOTTLE_AT
+	_kitchen.add_child(_fill_bottle)
+	_bottle_fill = _fill_bottle.get_node("fill")
+	for i in 3:
+		var e := SiteKitchen.wide_bottle(false)
+		e.position = Vector3(1.2 + i * 0.1, TABLE_TOP, 0.22 + (i % 2) * 0.03)
+		(e.get_node("fill") as Node3D).visible = false
+		_kitchen.add_child(e)
 	var crate_m := _mat("#1e5aa8", 0.55)
-	var crate_at := Vector3(TABLE.x + 0.32, 0.8, TABLE.z - 0.18)
-	_box(_kitchen, Vector3(0.42, 0.012, 0.3), crate_at + Vector3(0, 0.006, 0), crate_m)
-	for side in [[Vector3(0.42, 0.12, 0.012), Vector3(0, 0.06, 0.15)], [Vector3(0.42, 0.12, 0.012), Vector3(0, 0.06, -0.15)],
-			[Vector3(0.012, 0.12, 0.3), Vector3(0.21, 0.06, 0)], [Vector3(0.012, 0.12, 0.3), Vector3(-0.21, 0.06, 0)]]:
+	var crate_at := Vector3(1.86, TABLE_TOP, 0.05)
+	_box(_kitchen, Vector3(0.3, 0.012, 0.42), crate_at + Vector3(0, 0.006, 0), crate_m)
+	for side in [[Vector3(0.3, 0.11, 0.012), Vector3(0, 0.055, 0.21)], [Vector3(0.3, 0.11, 0.012), Vector3(0, 0.055, -0.21)],
+			[Vector3(0.012, 0.11, 0.42), Vector3(0.15, 0.055, 0)], [Vector3(0.012, 0.11, 0.42), Vector3(-0.15, 0.055, 0)]]:
 		_box(_kitchen, side[0], crate_at + side[1], crate_m)
 	for i in 8:
-		var full := SiteKitchen.pet_bottle(true)
-		full.position = crate_at + Vector3(-0.15 + (i % 4) * 0.1, 0.012, -0.06 + (i / 4) * 0.12)
+		var full := SiteKitchen.wide_bottle(true)
+		full.position = crate_at + Vector3(-0.07 + (i % 2) * 0.14, 0.012, -0.15 + (i / 2) * 0.1)
 		full.rotation.y = i * 0.7
 		_kitchen.add_child(full)
-	# Behind: sacks of rice and dal, a blue water drum, a stack of steel plates.
+	# Behind: sacks of rice and dal, a blue water drum.
 	for i in 3:
 		var sk := SiteKitchen.sack(i + 3)
-		sk.position = Vector3(-1.2 + i * 0.5, 0, -0.9 - (i % 2) * 0.2)
+		sk.position = Vector3(-1.2 + i * 0.5, 0, -0.95 - (i % 2) * 0.2)
 		sk.rotation.y = i * 1.3
 		_kitchen.add_child(sk)
 	var drum := MeshInstance3D.new()
 	drum.mesh = SiteKitchen.lathe([Vector2(0.25, 0.0), Vector2(0.27, 0.05), Vector2(0.27, 0.45), Vector2(0.26, 0.5), Vector2(0.27, 0.55), Vector2(0.27, 0.85), Vector2(0.24, 0.9), Vector2(0.0, 0.9)], 32, true)
 	drum.material_override = _mat("#2a62b8", 0.5)
-	drum.position = Vector3(2.15, 0, -0.55)
+	drum.position = Vector3(2.15, 0, -0.75)
 	_kitchen.add_child(drum)
-	for k in 9:
-		var plate := MeshInstance3D.new()
-		plate.mesh = SiteKitchen.lathe([Vector2(0.0, 0.0), Vector2(0.11, 0.0), Vector2(0.14, 0.012), Vector2(0.145, 0.016)], 28)
-		plate.material_override = steel
-		plate.position = Vector3(TABLE.x - 0.38, 0.785 + k * 0.009, TABLE.z - 0.18)
-		_kitchen.add_child(plate)
 	# The tarp: blue, sagging between bamboo poles.
 	var bamboo := _mat("#a8874f", 0.8)
 	var corners := [Vector3(-1.4, 0, -1.3), Vector3(2.4, 0, -1.3), Vector3(-1.4, 0, 1.4), Vector3(2.4, 0, 1.4)]
@@ -1277,9 +1308,24 @@ func _build_kitchen(root: Node3D) -> void:
 	tm.cull_mode = BaseMaterial3D.CULL_DISABLED
 	tarp.material_override = tm
 	_kitchen.add_child(tarp)
-	# One bulb on a flex hanging from the tarp: the key light.
-	var bulb_at := Vector3(0.55, 1.75, -0.15)
-	_rod(_kitchen, bulb_at + Vector3(0, 0.06, 0), bulb_at + Vector3(0, 0.5, 0), 0.006, _mat("#111111", 0.6), 5)
+	# Key: a tube light lashed to the front-right pole with wire, angled in at the pot.
+	var tube_a := Vector3(2.33, 1.62, 1.18)
+	var tube_b := Vector3(2.33, 2.12, 1.32)
+	var tube := _rod(_kitchen, tube_a, tube_b, 0.014, _lit("#fff3dc", 6.0), 8)
+	tube.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_rod(_kitchen, tube_a + Vector3(0.03, -0.02, 0), tube_b + Vector3(0.03, 0.02, 0), 0.02, _mat("#d8d6d0", 0.5), 6)
+	var key := OmniLight3D.new()
+	key.position = (tube_a + tube_b) * 0.5 + Vector3(-0.12, 0, -0.1)
+	key.light_color = Color("#ffeed6")
+	key.light_energy = 1.7
+	key.omni_range = 5.0
+	key.omni_attenuation = 1.4
+	key.shadow_enabled = true
+	key.light_size = 0.25
+	_kitchen.add_child(key)
+	# Rim: a bare bulb on a flex behind the cook; it also lights the steam from behind.
+	var bulb_at := Vector3(0.3, 1.85, -1.15)
+	_rod(_kitchen, bulb_at + Vector3(0, 0.06, 0), bulb_at + Vector3(0, 0.45, 0), 0.006, _mat("#111111", 0.6), 5)
 	var bulb := MeshInstance3D.new()
 	var bm := SphereMesh.new()
 	bm.radius = 0.035
@@ -1289,24 +1335,24 @@ func _build_kitchen(root: Node3D) -> void:
 	bulb.position = bulb_at
 	bulb.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_kitchen.add_child(bulb)
-	var key := OmniLight3D.new()
-	key.position = bulb_at - Vector3(0, 0.05, 0)
-	key.light_color = Color("#ffc983")
-	key.light_energy = 1.9
-	key.omni_range = 5.5
-	key.omni_attenuation = 1.3
-	key.shadow_enabled = true
-	key.light_volumetric_fog_energy = 1.5
-	_kitchen.add_child(key)
-	_pot_steam = SiteKitchen.steam(26, 0.3)
+	var rim := OmniLight3D.new()
+	rim.position = bulb_at - Vector3(0, 0.05, 0)
+	rim.light_color = Color("#ffb86a")
+	rim.light_energy = 1.6
+	rim.omni_range = 4.0
+	rim.omni_attenuation = 1.2
+	rim.shadow_enabled = true
+	rim.light_volumetric_fog_energy = 2.0
+	_kitchen.add_child(rim)
+	_pot_steam = SiteKitchen.steam(22, 0.2)
 	_kitchen.add_child(_pot_steam)
-	_bucket_steam = SiteKitchen.steam(10, 0.22)
+	_bucket_steam = SiteKitchen.steam(8, 0.16)
 	_kitchen.add_child(_bucket_steam)
-	# The dollop of khichdi falling from the karchi into the funnel.
+	# The dollop of khichdi sliding off the karchi into the bottle's mouth.
 	_dollop = MeshInstance3D.new()
 	var dm := SphereMesh.new()
-	dm.radius = 0.05
-	dm.height = 0.08
+	dm.radius = 0.034
+	dm.height = 0.05
 	_dollop.mesh = dm
 	_dollop.material_override = SiteKitchen.khichdi_material()
 	_kitchen.add_child(_dollop)
@@ -1323,44 +1369,64 @@ func _pose_kitchen(p: Dictionary, t: float, ctx: Dictionary) -> void:
 	_kitchen.visible = t >= float(kp.get("from", 1.0e9))
 	if not _kitchen.visible:
 		return
-	var origin: Vector3 = ctx["holder"].global_position
+	var origin: Vector3 = _kitchen.global_position
 	for i in _bhatti_flames.get_child_count():
 		var f := _bhatti_flames.get_child(i) as Node3D
 		f.scale = Vector3(1, 0.8 + 0.4 * absf(sin(t * 19.0 + i * 1.7)), 1)
-	SiteKitchen.steam_pose(_pot_steam, t, Vector3(0, 0.82, 0), 0.32, 0.42, 2.4, 0.28)
-	SiteKitchen.steam_pose(_bucket_steam, t + 3.0, BUCKET + Vector3(0, 0.2, 0), 0.11, 0.3, 1.8, 0.14)
-	# The cook stirs: the karchi's cup circles in the pot, the handle sweeping with it.
-	var a := t * 3.2
-	var cup := Vector3(cos(a) * 0.17, 0.8, sin(a) * 0.12)
-	_stir.position = cup
-	_stir.rotation = Vector3(0, PI * 0.5 + 0.35 * sin(a), 0)
+	# Steam leans away from the cook's face (toward -x, the camera's left) in a light breeze.
+	SiteKitchen.steam_pose(_pot_steam, t, Vector3(0, POT_Y + POT_H * 0.82, 0.04), 0.28, 0.38, 2.6, 0.26, 1.0, Vector3(-0.55, 0, 0.25))
+	SiteKitchen.steam_pose(_bucket_steam, t + 3.0, BUCKET + Vector3(0, 0.2, 0), 0.1, 0.26, 1.8, 0.12, 1.0, Vector3(-0.2, 0, 0.1))
+	for i in _bubbles.instance_count:
+		var life := 0.9 + _hash(i * 4.1) * 0.7
+		var age := fposmod(t + _hash(i * 2.3) * life, life) / life
+		var ba := _hash(i * 7.7) * TAU
+		var br := 0.06 + _hash(i * 3.9) * 0.22
+		var at := Vector3(cos(ba) * br * POT_R / 0.36, POT_Y + POT_H * 0.78 + 0.012, sin(ba) * br * POT_R / 0.36)
+		var s := 0.035 * Motion.out_cubic(minf(age / 0.85, 1.0)) * (1.0 if age < 0.85 else 0.0) + 0.0001
+		_bubbles.set_instance_transform(i, Transform3D(Basis.from_scale(Vector3(s, s * 0.8, s)), at))
+	# The cook folds the khichdi over: the cup sweeps the pot slowly, both hands on the handle.
+	var a := t * 2.1
+	var cup := Vector3(cos(a) * 0.14, POT_Y + POT_H * 0.78 - 0.02 - 0.03 * (0.5 + 0.5 * sin(a)), 0.03 + sin(a) * 0.09)
+	var grip := Vector3(0.08 + 0.05 * cos(a), 0.83 + 0.02 * sin(a * 2.0), -0.36 + 0.03 * sin(a))
+	_stir.transform = _karchi_xf(cup, grip, 0.0)
 	var cook = ctx["actor"].call(String(kp.get("cook", ""))) if ctx.has("actor") else null
 	if cook != null:
-		var hand := (_stir.global_transform * Vector3(-0.85, 0.36, 0))
-		cook.aim_hand("r", hand, 1.0)
-		cook.aim_hand("l", hand + Vector3(0.06, -0.12, -0.05), 0.7)
-	# The pour: dip in the bucket, lift and carry over the funnel, tip, khichdi drops, the bottle fills.
+		var d := (grip - cup).normalized()
+		cook.aim_hand("r", origin + grip + d * 0.08, 1.0)
+		cook.aim_hand("l", origin + grip - d * 0.17 + Vector3(0.03, 0, 0), 1.0)
+	# The pour: scoop in the bucket, lift, carry over the bottle, tip; the khichdi slides out and plops in; two
+	# taps on the rim to shake the karchi clean; back to the bucket. The bottle stands on the table (a hand
+	# on it shows through the clear plastic and hides the fill).
 	var pour0 := float(kp.get("pour0", 1.0e9))
 	var pour1 := float(kp.get("pour1", 1.0e9))
-	var dip := BUCKET + Vector3(0, 0.2, 0)
-	var over := FUNNEL_AT + Vector3(0.06, 0.48, 0)
-	var carry := Motion.in_out(Motion.seg(t, pour0 - 0.75, pour0 - 0.12))
-	var lp := dip.lerp(over, carry) + Vector3(0, 0.14 * sin(carry * PI), 0)
-	var tip := Motion.out_cubic(Motion.seg(t, pour0 - 0.12, pour0 + 0.22)) * (1.0 - Motion.smooth(Motion.seg(t, pour1, pour1 + 0.45)))
-	_ladle.position = lp
-	_ladle.rotation = Vector3(0, PI, 1.9 * tip)
+	var mouth := BOTTLE_AT + Vector3(0, 0.218, 0)
+	var dip := BUCKET + Vector3(0, 0.15, 0)
+	var over := mouth + Vector3(-0.035, 0.075, 0.0)
+	var carry := Motion.in_out(Motion.seg(t, pour0 - 0.62, pour0 - 0.12)) * (1.0 - Motion.in_out(Motion.seg(t, pour1 + 0.15, pour1 + 0.75)))
+	var lp := dip.lerp(over, carry) + Vector3(0, 0.12 * sin(carry * PI), 0)
+	var taps := 0.0
+	for tt in [pour0 + 0.34, pour0 + 0.5]:
+		if t > tt:
+			taps += Motion.impact(t - tt, 0.012, 9.0, 18.0)
+	lp.y += taps
+	var tip := Motion.out_cubic(Motion.seg(t, pour0 - 0.14, pour0 + 0.12)) * (1.0 - Motion.smooth(Motion.seg(t, pour1, pour1 + 0.3)))
+	var hand_at := lp + Vector3(-0.3, 0.2, -0.18)
+	_ladle.transform = _karchi_xf(lp, hand_at, 1.75 * tip).scaled_local(Vector3.ONE * 0.8)
 	var load := _ladle.get_node("load") as Node3D
-	load.visible = t < pour0 + 0.05
-	var fall := Motion.in_cubic(Motion.seg(t, pour0 + 0.03, pour0 + 0.32))
-	_dollop.visible = t > pour0 + 0.03 and t < pour0 + 0.34
-	_dollop.position = lp + Vector3(-0.03, -0.02 - (lp.y - FUNNEL_AT.y - 0.2) * fall, 0)
-	_dollop.scale = Vector3(1.0 - 0.45 * fall, 1.0 + 1.2 * fall, 1.0 - 0.45 * fall)
-	var fill := 0.25 + 0.6 * Motion.out_cubic(Motion.seg(t, pour0 + 0.25, pour0 + 0.7))
+	load.visible = t < pour0 + 0.02 or t > pour1 + 0.4
+	var fall := Motion.in_cubic(Motion.seg(t, pour0, pour0 + 0.16))
+	_dollop.visible = t > pour0 and t < pour0 + 0.17
+	_dollop.position = lp.lerp(mouth + Vector3(0, -0.02, 0), fall) + Vector3(0, 0.02, 0)
+	_dollop.scale = Vector3(1.0 - 0.3 * fall, 1.0 + 0.7 * fall, 1.0 - 0.3 * fall)
+	var fill := 0.3 + 0.45 * Motion.out_back(Motion.seg(t, pour0 + 0.14, pour0 + 0.36), 1.2)
 	_bottle_fill.scale = Vector3(1, fill, 1)
+	# The bottle jolts as the dollop lands.
+	var jolt := Motion.impact(t - pour0 - 0.15, 0.006, 6.0, 14.0) if t > pour0 + 0.15 else 0.0
+	_fill_bottle.position = BOTTLE_AT + Vector3(0, -absf(jolt), 0)
 	var pourer = ctx["actor"].call(String(kp.get("pourer", ""))) if ctx.has("actor") else null
 	if pourer != null:
-		var grip := _ladle.global_transform * Vector3(-0.5, 0.22, 0)
-		pourer.aim_hand("r", grip, 1.0)
+		var hold := _ladle.global_transform * (KARCHI_DIR.normalized() * 0.44)
+		pourer.aim_hand("r", hold, 1.0)
 
 
 # ------------------------------------------------------------------------------ line 12: the monitor in the yard

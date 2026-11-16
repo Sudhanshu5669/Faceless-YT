@@ -8,6 +8,22 @@
 ### Silkyara rescue Short: hook APPROVED, beat 4 revised for review (2026-11-15, latest)
 
 **Progress log (newest first; Claude keeps this current so Codex can continue mid-beat):**
+- **Khichdi shots reworked (2026-11-16), waiting for re-review.** User notes were: `khichdi_cook` "does not look
+  realistic", `khichdi_pour` "does not look cinematic and realistic", `khichdi_bottle` "unprofessional and non
+  cinematic". Also still waiting: `plan_rig`, `day9_tally` (fixed 11-15) and the unreviewed airlift/rig/narrow shots.
+  - Bottles are now **wide-mouth clear plastic bottles** (`SiteKitchen.wide_bottle`, as at Silkyara; thick
+    khichdi can't go through a funnel into a narrow PET neck). The funnel is gone. The khichdi top is a lumpy
+    surface (`khichdi_surface`) with bubbles, not a flat disc; its shader is double-sided.
+  - `khichdi_cook` (`KITCHEN_LOOK`, darker ambient): medium 3/4 shot, the lit tunnel mouth behind the cook. Key is
+    a tube light on the front pole, rim is a bulb behind him that backlights the steam. Steam drifts away from his
+    face (`steam_pose` wind). He folds the khichdi with both hands on a short karchi (`_karchi_xf` aims a karchi
+    at a grip). The pot is lowered (`POT_Y`): toon heads start at ~0.95 m, so hands must sit at ~0.83 m.
+  - `khichdi_pour`: overhead food insert. The karchi tips (roll +), a dollop slides into the open bottle, the fill
+    rises, two taps on the rim. Eye-level and low inserts failed: the big toon head fills the action area.
+    No hand on the clear bottle (it shows through and hides the fill).
+  - `khichdi_bottle`: reverse angle from the rubble slope over the narrow pipe's mouth. The bottle slides out
+    toward camera, he catches it and holds it up on his left (the side the bulb lights), cap off, steam. A hand lamp
+    near the pipe lights the faces. `meal_catch` stepped back to z -15.35.
 - **`feed_out` approved. `feed_in` round 2** (user: "since in previous shot we showed food coming in jar, show it
   for this shot as well. dry fruits, puffed rice, all coming in jars"): tunnel gag `_build_jars`/`_pose_jars`, param
   `jars` {from, until, list: [{t, kind rice|fruit, catcher}]}: a wide outlet on the supply line at the valve; on

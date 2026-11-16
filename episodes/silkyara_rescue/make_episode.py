@@ -278,6 +278,10 @@ for i, (dx, dz, char, act, face) in enumerate([(2.2, -3.4, W, "idle", "nervous")
                          "cues": [{"t": 0.0, "expression": face}, {"t": SIXTY(0.2 + i * 0.07), "expression": "surprised"},
                                   {"t": SIXTY(0.8 + i * 0.06), "expression": "happy" if i % 2 else "determined"}]})
 
+# The site kitchen at night: darker surroundings so the tube light and bulb under the tarp carry the shot.
+KITCHEN_LOOK = dict(MOUNTAIN, ambient={"color": "#6a7ca6", "energy": 0.28},
+                    grade={"contrast": 1.14, "saturation": 1.05, "vignette": 0.4})
+
 SECTION_LOOK = dict(MOUNTAIN,
                     ambient={"color": "#6a7ca6", "energy": 0.35},
                     fog={"begin": 150, "end": 4000, "color": "#2b3650", "volumetric": 0.003, "anisotropy": 0.5, "length": 160},
@@ -481,7 +485,7 @@ MEAL_CAST = [
     {"id": "meal_draw", "character": W, "at": P(-4.25, 0, 0.32), "facing": P(-5.0, 0, 0.6), "action": "idle",
      "cues": [{"t": 0.0, "expression": "determined", "head": [6, 0, 0], "head_turn": 0.2},
               {"t": L11("nine.", 0.35), "expression": "sad", "head": [0, 0, 0], "head_turn": 0.3}]},
-    {"id": "meal_catch", "character": LIME, "at": P(-1.6, 0, -15.7), "facing": P(-1.6, 0, -17.5), "action": "idle",
+    {"id": "meal_catch", "character": LIME, "at": P(-1.6, 0, -15.35), "facing": P(-1.6, 0, -17.5), "action": "idle",
      "cues": [{"t": 0.0, "expression": "nervous"}, {"t": L11("narrow", 0.3), "expression": "surprised"},
               {"t": L11("bottles.", -0.25), "expression": "star_eyes"}, {"t": L11("bottles.", 0.5), "expression": "love"}]},
     {"id": "meal_w1", "character": W, "at": P(-2.95, 0, -15.55), "facing": P(-1.6, 0, -16.6), "action": "idle",
@@ -497,7 +501,7 @@ for _id in ["meal_w1", "meal_w2"]:
 KITCHEN_CAST = [
     {"id": "meal_cook", "character": "toon_site_cook", "at": S(11.0, 0, 27.32), "facing": S(11.0, 0, 29.5), "action": "idle",
      "cues": [{"t": 0.0, "expression": "happy"}, {"t": L11("khichdi,", 0.1), "expression": "grin"}]},
-    {"id": "meal_runner", "character": BLUE, "at": S(12.32, 0, 27.55), "facing": S(12.2, 0, 29.0), "action": "idle",
+    {"id": "meal_runner", "character": BLUE, "at": S(12.5, 0, 27.4), "facing": S(12.5, 0, 29.0), "action": "idle",
      "cues": [{"t": 0.0, "expression": "determined"}, {"t": L11("khichdi,", 0.3), "expression": "happy"}]},
 ]
 
@@ -758,20 +762,23 @@ def build():
                         "to": cam((0.25, 1.6, -14.05), (-1.55, 1.0, -16.4), 29),
                         "ease": "in_out"},
              "shake": [{"t": L11(7, 0.0), "amount": 0.15}]},
-            {"name": "khichdi_cook", "duration": 2.1, "look": MOUNTAIN,
-             "note": "Outside at night: low across the blue flame ring and the steaming degchi; the cook stirs under the bulb.",
-             "camera": {"from": {"at": S(11.6, 1.38, 28.85), "look_at": S(11.0, 0.86, 27.85), "lens_mm": 26, "dof": {"strength": 0.2, "focus": 1.2}},
-                        "to": {"at": S(11.48, 1.3, 28.68), "look_at": S(11.0, 0.86, 27.85), "lens_mm": 28, "dof": {"strength": 0.2, "focus": 1.05}},
+            {"name": "khichdi_cook", "duration": 2.1, "look": KITCHEN_LOOK,
+             "note": "Outside at night under the tarp: the cook folds a big degchi of khichdi with both hands on the karchi; "
+                     "steam backlit by the bulb, the lit tunnel mouth soft behind him. Slow push in.",
+             "camera": {"from": {"at": S(12.3, 1.34, 29.75), "look_at": S(11.0, 0.98, 27.55), "lens_mm": 35, "dof": {"strength": 0.25, "focus": 2.5}},
+                        "to": {"at": S(12.18, 1.3, 29.52), "look_at": S(11.0, 0.98, 27.55), "lens_mm": 40, "dof": {"strength": 0.25, "focus": 2.25}},
                         "ease": "in_out"}},
-            {"name": "khichdi_pour", "duration": 1.25, "look": MOUNTAIN,
-             "note": "Close: a ladle of yellow khichdi slops into the funnel of a plastic bottle.",
-             "camera": {"from": {"at": S(12.28, 1.2, 28.82), "look_at": S(12.0, 1.12, 28.15), "lens_mm": 34, "dof": {"strength": 0.3, "focus": 0.75}},
-                        "to": {"at": S(12.24, 1.17, 28.72), "look_at": S(12.0, 1.1, 28.15), "lens_mm": 36, "dof": {"strength": 0.3, "focus": 0.65}},
+            {"name": "khichdi_pour", "duration": 1.25, "look": KITCHEN_LOOK,
+             "note": "Overhead food insert at the bottling table: a karchi tips khichdi into an open wide-mouth bottle he steadies; it plops, "
+                     "the bottle fills; filled, capped bottles soft in the foreground.",
+             "camera": {"from": {"at": S(12.74, 1.56, 28.18), "look_at": S(12.56, 1.0, 27.9), "lens_mm": 50, "dof": {"strength": 0.45, "focus": 0.66}},
+                        "to": {"at": S(12.72, 1.5, 28.15), "look_at": S(12.56, 1.0, 27.9), "lens_mm": 55, "dof": {"strength": 0.45, "focus": 0.6}},
                         "ease": "in_out"}},
             {"name": "khichdi_bottle", "duration": 2.0, "look": dict(TUNNEL, ssr=True),
-             "note": "Inside, close: the bottle shoots out of the narrow pipe into his hands; he twists the cap off, steam curls up past his face.",
-             "camera": {"from": cam((-0.75, 1.42, -14.75), (-1.6, 1.12, -15.62), 34, {"strength": 0.4, "focus": 1.15}),
-                        "to": cam((-0.88, 1.38, -14.92), (-1.6, 1.14, -15.62), 38, {"strength": 0.4, "focus": 0.95}),
+             "note": "Inside, reverse angle over the narrow pipe: the bottle slides out into his hands; he lifts it by his face, "
+                     "cap off, steam.",
+             "camera": {"from": cam((-0.95, 1.85, -17.2), (-1.75, 1.15, -15.5), 26, {"strength": 0.3, "focus": 2.0}),
+                        "to": cam((-1.0, 1.82, -17.1), (-1.75, 1.17, -15.5), 29, {"strength": 0.3, "focus": 1.9}),
                         "ease": "in_out"}},
             {"name": "scope_pipe", "duration": 2.6, "look": dict(TUNNEL, ssr=True), "camera": cam((-1.6, 1.0, -30.0), (-1.6, 1.0, -16.0), 18)},
             {"name": "scope_faces", "duration": 1.6, "look": dict(TUNNEL, ssr=True), "camera": cam((-1.6, 1.0, -16.3), (-1.6, 1.2, -14.0), 18)},

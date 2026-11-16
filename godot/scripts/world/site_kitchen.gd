@@ -39,6 +39,7 @@ vec2 cells(vec3 p) {
 
 const KHICHDI_SHADER := """
 shader_type spatial;
+render_mode cull_disabled;
 varying vec3 lp;
 void vertex() { lp = VERTEX; }
 //NOISE
@@ -166,16 +167,97 @@ static func degchi(r: float = 0.36, h: float = 0.4) -> Node3D:
 		hd.rotation.x = PI * 0.5
 		n.add_child(hd)
 	var food := MeshInstance3D.new()
-	var fm := CylinderMesh.new()
-	fm.top_radius = r * 0.97
-	fm.bottom_radius = r * 0.97
-	fm.height = 0.02
-	fm.radial_segments = 48
-	food.mesh = fm
+	food.mesh = khichdi_surface(r * 0.975)
 	food.material_override = khichdi_material()
 	food.position = Vector3(0, h * 0.78, 0)
 	food.name = "food"
 	n.add_child(food)
+	return n
+
+
+## The top of a pot of thick khichdi, radius r: a lumpy, folded surface (not a flat disc), slightly domed,
+## creeping up the wall at the edge where it was scraped. y = 0 is the mean level.
+static func khichdi_surface(r: float, seed: int = 7) -> ArrayMesh:
+	var nz := FastNoiseLite.new()
+	nz.seed = seed
+	nz.frequency = 9.0
+	var nz2 := FastNoiseLite.new()
+	nz2.seed = seed + 1
+	nz2.frequency = 26.0
+	var rings := 18
+	var segs := 64
+	var pts := []
+	for i in rings + 1:
+		var u := float(i) / rings
+		var row := []
+		for k in segs:
+			var a := TAU * k / segs
+			var x := cos(a) * r * u
+			var z := sin(a) * r * u
+			var y := 0.012 * (1.0 - u * u) + 0.012 * nz.get_noise_2d(x, z) + 0.004 * nz2.get_noise_2d(x, z)
+			y += 0.012 * smoothstep(0.86, 1.0, u)      # it climbs the wall a little
+			row.append(Vector3(x, y * minf(u * 4.0, 1.0) + (0.012 if i == 0 else 0.0) * (1.0 - minf(u * 4.0, 1.0)), z))
+		pts.append(row)
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for i in rings:
+		for k in segs:
+			var k1 := (k + 1) % segs
+			var a: Vector3 = pts[i][k]
+			var b: Vector3 = pts[i][k1]
+			var c: Vector3 = pts[i + 1][k]
+			var d: Vector3 = pts[i + 1][k1]
+			for v in [a, b, c, b, d, c]:
+				st.add_vertex(v)
+	st.generate_normals()
+	return st.commit()
+
+
+## A wide-mouth clear plastic bottle (about 1 l, the kind the Silkyara khichdi went down the pipe in): straight
+## body with two moulded rings, a short shoulder, a wide neck and a screw cap (node "cap", origin at the neck
+## top's base). The khichdi inside is node "fill" (scale.y 0..1). Origin at the base; 0.23 m tall capped.
+static func wide_bottle(capped: bool = true, cap_color: String = "#1f56b5") -> Node3D:
+	var n := Node3D.new()
+	var prof := [Vector2(0.0, 0.0), Vector2(0.04, 0.0), Vector2(0.045, 0.005), Vector2(0.046, 0.018),
+		Vector2(0.046, 0.06), Vector2(0.0445, 0.064), Vector2(0.046, 0.068),
+		Vector2(0.046, 0.15), Vector2(0.0445, 0.154), Vector2(0.046, 0.158),
+		Vector2(0.046, 0.172), Vector2(0.043, 0.187), Vector2(0.037, 0.196), Vector2(0.036, 0.199),
+		Vector2(0.038, 0.201), Vector2(0.038, 0.204), Vector2(0.036, 0.206), Vector2(0.036, 0.218)]
+	var pet := mat("#ffffff", 0.1)
+	pet.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	pet.albedo_color = Color(0.9, 0.95, 1.0, 0.12)
+	pet.metallic_specular = 0.9
+	pet.rim_enabled = true
+	pet.rim = 0.4
+	pet.rim_tint = 0.2
+	pet.cull_mode = BaseMaterial3D.CULL_DISABLED
+	_mi(n, lathe(prof, 36), pet)
+	var fill := Node3D.new()
+	fill.name = "fill"
+	n.add_child(fill)
+	var food := MeshInstance3D.new()
+	food.mesh = lathe([Vector2(0.0, 0.003), Vector2(0.04, 0.004), Vector2(0.0435, 0.016), Vector2(0.0435, 0.17),
+		Vector2(0.03, 0.176), Vector2(0.0, 0.178)], 28)
+	food.material_override = khichdi_material()
+	fill.add_child(food)
+	var cap := Node3D.new()
+	cap.name = "cap"
+	cap.position = Vector3(0, 0.206, 0)
+	cap.visible = capped
+	n.add_child(cap)
+	var cm := mat(cap_color, 0.4)
+	_mi(cap, lathe([Vector2(0.0, 0.024), Vector2(0.038, 0.024), Vector2(0.0405, 0.021), Vector2(0.0405, 0.0),
+		Vector2(0.037, 0.0)], 32), cm)
+	for i in 28:
+		var a := TAU * i / 28.0
+		var rib := MeshInstance3D.new()
+		var bm := BoxMesh.new()
+		bm.size = Vector3(0.003, 0.018, 0.003)
+		rib.mesh = bm
+		rib.material_override = cm
+		rib.position = Vector3(cos(a) * 0.041, 0.011, sin(a) * 0.041)
+		rib.rotation.y = -a
+		cap.add_child(rib)
 	return n
 
 
@@ -406,7 +488,8 @@ static func steam(n: int, alpha: float = 0.28) -> MultiMeshInstance3D:
 
 
 ## Steam rising from a disc of radius r at `at` (local to the steam node's parent), life seconds per puff.
-static func steam_pose(mi: MultiMeshInstance3D, t: float, at: Vector3, r: float, rise: float = 0.5, life: float = 2.2, size: float = 0.25, on: float = 1.0) -> void:
+## `wind` is how far a puff has drifted sideways by the end of its life.
+static func steam_pose(mi: MultiMeshInstance3D, t: float, at: Vector3, r: float, rise: float = 0.5, life: float = 2.2, size: float = 0.25, on: float = 1.0, wind: Vector3 = Vector3(0.08, 0, 0)) -> void:
 	var mm := mi.multimesh
 	for i in mm.instance_count:
 		var h := fposmod(sin(i * 127.1 + 3.7) * 43758.5453, 1.0)
@@ -415,7 +498,7 @@ static func steam_pose(mi: MultiMeshInstance3D, t: float, at: Vector3, r: float,
 		var k := age / life
 		var a := h2 * TAU
 		var p := at + Vector3(cos(a) * r * 0.7 * h, 0, sin(a) * r * 0.7 * h)
-		p += Vector3(sin(age * 1.7 + i) * 0.06 * k + 0.08 * k, rise * age, cos(age * 1.3 + i) * 0.05 * k)
+		p += Vector3(sin(age * 1.7 + i) * 0.06 * k, rise * age, cos(age * 1.3 + i) * 0.05 * k) + wind * k * k
 		var s := size * (0.35 + k * 1.4)
 		mm.set_instance_transform(i, Transform3D(Basis.from_scale(Vector3(s, s, s)), p))
 		mm.set_instance_color(i, Color(1, 1, 1, on * smoothstep(0.0, 0.15, k) * (1.0 - smoothstep(0.55, 1.0, k))))

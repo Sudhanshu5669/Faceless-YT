@@ -1927,13 +1927,22 @@ func _build_meal(root: Node3D, p: Dictionary) -> void:
 		key.shadow_enabled = true
 		key.light_volumetric_fog_energy = 0.8
 		_narrow.add_child(key)
-		# The bottle: clear plastic, yellow khichdi inside, a blue cap. Cartoon-big so it reads.
-		# The same 1 l PET bottle of khichdi as the kitchen fills (origin at its middle here).
+		# A hand lamp left on the rubble beside the pipe: catches the pipe's lip and the faces from the front.
+		var hand_lamp := OmniLight3D.new()
+		hand_lamp.position = Vector3(-1.05, 1.55, -15.95)
+		hand_lamp.light_color = Color("#ffd8a8")
+		hand_lamp.light_energy = 0.7
+		hand_lamp.omni_range = 3.2
+		hand_lamp.omni_attenuation = 1.5
+		hand_lamp.shadow_enabled = true
+		_narrow.add_child(hand_lamp)
+		# The bottle: the same wide-mouth plastic bottle of khichdi the kitchen fills, a little big so it reads
+		# (origin at its middle here).
 		_bottle = Node3D.new()
 		_bottle.visible = false
 		root.add_child(_bottle)
-		var real := SiteKitchen.pet_bottle(true)
-		real.position = Vector3(0, -0.13, 0)
+		var real := SiteKitchen.wide_bottle(true)
+		real.position = Vector3(0, -0.144, 0)
 		real.scale = Vector3.ONE * 1.25
 		_bottle.add_child(real)
 		_cap = real.get_node("cap")
@@ -2025,8 +2034,8 @@ func _pose_meal(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> vo
 			var fwd := Vector3(sin(yaw), 0, cos(yaw))
 			var left := Vector3(cos(yaw), 0, -sin(yaw))
 			hands = head + fwd * 0.45 + Vector3(0, -0.45, 0)
-			# Held up beside his face like a trophy once it is caught.
-			show = head + fwd * 0.32 - left * 0.46 + Vector3(0, -0.12, 0)
+			# Held up beside his face like a trophy once it is caught: on his left, the side the bulb lights.
+			show = head + fwd * 0.55 + left * 0.17 + Vector3(0, -0.08, 0)
 		hands = hands.lerp(show, Motion.out_back(Motion.seg(t, tc + 0.05, tc + 0.4), 1.4))
 		var k := clampf((t - tb) / maxf(tc - tb, 0.01), 0.0, 1.0)
 		var start := _narrow_pipe.position + Vector3(0, 0, -0.1)
@@ -2034,17 +2043,17 @@ func _pose_meal(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> vo
 		_bottle.position = pos
 		_bottle.rotation = Vector3(PI * 0.5 * (1.0 - k), 0, 0)
 		var lift := Motion.out_cubic(Motion.seg(t, top, top + 0.35))
-		_cap.position = Vector3(0, 0.25 + 0.08 * lift, 0.03 * lift)
+		_cap.position = Vector3(0, 0.206 + 0.08 * lift, 0.03 * lift)
 		_cap.rotation.y = -6.0 * Motion.seg(t, top - 0.3, top)
 		_cap.visible = t < top + 0.45
 		if catcher != null and t >= tc - 0.12:
 			var bw := origin + _bottle.position
-			catcher.aim_hand("r", bw + Vector3(0, -0.08, 0), 1.0, 0.05)
+			catcher.aim_hand("l", bw + Vector3(0, -0.08, 0), 1.0, 0.05)
 			if t > top - 0.35 and t < top + 0.4:
-				catcher.aim_hand("l", bw + Vector3(0, 0.24, 0), 1.0, 0.05)
+				catcher.aim_hand("r", bw + Vector3(0, 0.17, 0), 1.0, 0.05)
 	if _bottle_steam != null:
 		var on := Motion.smooth(Motion.seg(t, top, top + 0.3)) if _bottle.visible else 0.0
-		SiteKitchen.steam_pose(_bottle_steam, t, _bottle.position + Vector3(0, 0.2, 0), 0.02, 0.32, 1.4, 0.09, on)
+		SiteKitchen.steam_pose(_bottle_steam, t, _bottle.position + Vector3(0, 0.16, 0), 0.025, 0.32, 1.4, 0.09, on, Vector3(0.05, 0, 0.1))
 	for i in _steam.instance_count:
 		var xf := Transform3D(Basis.from_scale(Vector3.ONE * 0.0001), mouth)
 		if false and _bottle.visible and t > top:
