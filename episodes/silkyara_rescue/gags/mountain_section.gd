@@ -928,7 +928,7 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_tape_mat.emission_energy_multiplier = 0.09 if close else 1.05
 	_ribbon(shown, 0.023 if close else 0.065)
 	var xp_out := _pose_xpipe(p, t, origin)
-	xp_out.merge(_pose_xauger(p, t, origin))
+	xp_out.merge(_pose_xauger(p, t, origin, ctx))
 	xp_out.merge(_pose_ridge(p, t, ctx, origin))
 	_pose_escape(p, t, ctx, origin)
 	var res := {"hook": hook, "plug": Vector3((PLUG_A + PLUG_B) * 0.5, CROWN + 1.5, 0.0),
@@ -1765,7 +1765,7 @@ func _xa_metres(keys: Array, t: float) -> Array:
 	return [float(keys.back()[1]), 0.0]
 
 
-func _pose_xauger(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
+func _pose_xauger(p: Dictionary, t: float, origin: Vector3, ctx: Dictionary = {}) -> Dictionary:
 	if not p.has("xauger"):
 		return {}
 	var xa: Dictionary = p["xauger"]
@@ -1779,6 +1779,28 @@ func _pose_xauger(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
 	# The anchor exists at every time (reveals and cameras riding the nose are checked outside the scene too).
 	var res := {"nose": origin + Vector3(nose, AX_Y, AX_Z)}
 	_xa.visible = t >= float(xa.get("from", 1.0e9)) and t < float(xa.get("until", 1.0e9))
+	for w in xa.get("hide", []):
+		if t >= float(w[0]) and t < float(w[1]):
+			_xa.visible = false
+	# By hand (line 20): the auger and its broken blades are out, the girder cut away; miners lie in the pipe's nose.
+	var manual := t >= float(xa.get("manual", 1.0e9))
+	_xa_flight.visible = not manual
+	for pc in _xa_pieces:
+		if manual:
+			(pc as Node3D).visible = false
+	for ins in xa.get("inside", []):
+		var ia = ctx_actor(ctx, String(ins.get("id", "")))
+		if ia == null or not manual or not _xa.visible:
+			continue
+		ia.visible = true
+		var back := float(ins.get("back", 1.0))
+		ia.global_position = origin + Vector3(nose - back - 1.55, AX_Y - AX_R + 0.04, AX_Z - 0.05)
+		ia.rotation = Vector3(1.38, PI * 0.5, 0.0)
+	if not manual or not _xa.visible:
+		for ins in xa.get("inside", []):
+			var ha = ctx_actor(ctx, String(ins.get("id", "")))
+			if ha != null and t >= float(xa.get("manual", 1.0e9)):
+				ha.visible = false
 	for b in _plug_bits:
 		(b as Node3D).visible = not (_xa.visible and absf((b as Node3D).position.y - AX_Y) < 2.2)
 	if not _xa.visible:
@@ -1799,7 +1821,7 @@ func _pose_xauger(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
 	var snap := float(xa.get("snap", 1.0e9))
 	var spin := minf(t, snap) * 7.0 + d * 3.0 + 4.0 * maxf(minf(t, snap) - hit, 0.0)
 	_xa_flight.rotation.x = -spin
-	_xa_girder.visible = t >= float(xa.get("girder", 1.0e9))
+	_xa_girder.visible = t >= float(xa.get("girder", 1.0e9)) and not manual
 	_xa_girder.position = Vector3(_xa_entry + 47.0 * per + 0.62, AX_Y + 0.05, 0.22)
 	# Steel: sparks fan out of the cut from "hit" until the blades go.
 	var sparking := Motion.seg(t, hit, hit + 0.05) * (1.0 - Motion.seg(t, snap, snap + 0.25))
@@ -1822,7 +1844,7 @@ func _pose_xauger(p: Dictionary, t: float, origin: Vector3) -> Dictionary:
 	_xa_flight_mat.set_shader_parameter("front", 1.6 if sheared else -1000.0)
 	for i in _xa_pieces.size():
 		var pc := _xa_pieces[i] as MeshInstance3D
-		pc.visible = sheared and _xa.visible
+		pc.visible = sheared and _xa.visible and not manual
 		if not pc.visible:
 			continue
 		var age := t - snap
@@ -2251,6 +2273,8 @@ func _pose_escape(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> 
 		return
 	var ep: Dictionary = p["escape"]
 	_esc.visible = t >= float(ep.get("from", 1.0e9)) and t < float(ep.get("until", 1.0e9))
+	if t >= float(ep.get("until", 1.0e9)):
+		return          # the crew are someone else's after this (line 20: in the x-ray pipe)
 	var crew: Array = ep.get("crew", [])
 	for i in crew.size():
 		var c: Dictionary = crew[i]
@@ -2278,3 +2302,7 @@ func _pose_escape(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> 
 			for side in ["l", "r"]:
 				var sg := 1.0 if side == "l" else -1.0
 				a.aim_hand(side, hd + Vector3(0.35, -0.25, sg * 0.18), dive)
+
+
+func ctx_actor(ctx: Dictionary, id: String):
+	return ctx["actor"].call(id) if ctx.has("actor") else null

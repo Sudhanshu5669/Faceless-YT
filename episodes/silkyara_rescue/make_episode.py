@@ -730,6 +730,14 @@ FACE_GAG = {"id": "pipeface", "script": "gags/pipe_face.gd", "at": {"anchor": "a
                        "hauler": {"id": "face_haul", "t0": LDG(3.5), "t1": LDG(5.6)}}}
 
 
+# ---------------------------------------------------------------------------------- line 20
+# "Twelve metres, in about a day."  (By hand they cleared about 12 m in roughly 24-26 hours: Tribune, Outlook.)
+# The x-ray again: the blades are out, two miners lie in the pipe's nose, and it creeps the last stretch; "12 m"
+# lands on "Twelve", "~24 h" on "day". Word times: Twelve 0.1, metres 0.42, about 0.91, day 1.24-1.52.
+def LT(x):
+    return {"line": "twelve", "edge": "start", "offset": round(x, 3)}
+
+
 def NOSE(x, y, z):
     """A point riding with the auger's nose (gag anchor; x mirrored like the other gag anchors)."""
     return {"anchor": "mountain_section.nose", "offset": [round(-x, 3), round(y, 3), round(z, 3)]}
@@ -776,7 +784,7 @@ def build():
             {"id": "miners", "shot": "miners_arrive", "at": 0.25, "text": "Then they call in twelve rat-hole miners."},
             {"id": "banned", "shot": "rathole_crawl", "at": 0.25, "text": "Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014."},
             {"id": "dig", "shot": "pipe_enter", "at": 0.25, "text": "One after another, they crawl into the pipe and dig with hammers and chisels."},
-            {"id": "twelve", "shot": "ph_twelve", "at": 0.25, "text": "Twelve metres, in about a day."},
+            {"id": "twelve", "shot": "hand_dig", "at": 0.3, "text": "Twelve metres, in about a day."},
             {"id": "through", "shot": "ph_through", "at": 0.25, "text": "Day seventeen, just after seven in the evening: they break through."},
             {"id": "out", "shot": "ph_out", "at": 0.25, "text": "Then all forty-one come out, one by one, on wheeled stretchers."},
             {"id": "ambulances", "shot": "ph_ambulances", "at": 0.25, "text": "Forty-one men. Forty-one ambulances waiting outside."},
@@ -794,8 +802,10 @@ def build():
                         "vanish": {i: PLAN_START for i in ["sec_eng", "sec_resc_1", "sec_resc_2", "sec_resc_3", "feed_push"]},
                         "rig": {"from": PLAN_START, "until": LDG(-0.3), "push0": L10("push", 0.0), "push1": L10("rubble", 0.45), "bite": L10("steel", 0.1), "dist": 2.3},
                         "spare": {"from": PLAN_START, "crawler": "plan_crawl"},
-                        "xauger": {"from": DRILL_START, "until": LDG(-0.3), "chew": LD(0.97), "boulder_at": 1.3, "metres": 57,
-                                   "keys": [[LD(t), d] for t, d in BORE_KEYS] + [[LS(1.38), 47.0], [LS(1.8), 47.3]],
+                        "xauger": {"from": DRILL_START, "until": LT(2.4), "chew": LD(0.97), "boulder_at": 1.3, "metres": 57,
+                                   "keys": [[LD(t), d] for t, d in BORE_KEYS] + [[LS(1.38), 47.0], [LS(1.8), 47.3], [LT(-0.3), 47.3], [LT(1.6), 56.4]],
+                                   "hide": [[LDG(-0.3), LT(-0.3)]], "manual": LT(-0.3),
+                                   "inside": [{"id": "rh_1", "back": 0.0}, {"id": "rh_2", "back": 1.55}],
                                    "girder": LS(-0.3), "hit": LS(1.45), "snap": LS(2.97)},
                         "escape": {"from": LDG(-0.3), "until": LDG(5.8),
                                    "crew": [{"id": f"rh_{i + 1}", "t0": LDG(a), "t1": LDG(b), "t2": LDG(c)} for i, (a, b, c) in enumerate(DIG_TIMES)]},
@@ -1154,7 +1164,11 @@ def build():
                      "\"dig\", \"hammers\", \"chisels\"; chips fly; behind him another drags spoil back in a tasla.",
              "camera": {"from": {"at": PF(-0.02, 0.5, 0.25), "look_at": PF(-1.4, 0.3, -0.04), "lens_mm": 18},
                         "to": {"at": PF(-0.03, 0.48, 0.24), "look_at": PF(-1.4, 0.3, -0.04), "lens_mm": 19}, "ease": "in_out"}},
-            {"name": "ph_twelve", "duration": 3.12, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "hand_dig", "duration": 2.2, "look": SECTION_LOOK,
+             "note": "X-ray: the blades out, two miners lie in the pipe's nose; it creeps through the last of the rubble. "
+                     "\"12 m\" lands on \"Twelve\", \"~24 h\" on \"day\".",
+             "camera": {"from": {"at": NOSE(1.7, 0.75, 2.6), "look_at": NOSE(-1.1, 0.05, 0.2), "lens_mm": 24},
+                        "to": {"at": NOSE(1.55, 0.7, 2.4), "look_at": NOSE(-1.1, 0.05, 0.2), "lens_mm": 25}, "ease": "linear"}},
             {"name": "ph_through", "duration": 5.22, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_out", "duration": 5.22, "look": SECTION_LOOK, "camera": X_CAM},
             {"name": "ph_ambulances", "duration": 3.12, "look": SECTION_LOOK, "camera": X_CAM},
@@ -1163,11 +1177,15 @@ def build():
             {"name": "ph_street", "duration": 7.32, "look": SECTION_LOOK, "camera": X_CAM},
         ],
         "reveals": [
+            {"id": "dug_count", "t": LT(-0.25), "until": LT(1.9), "at": NOSE(-0.7, 1.3, 0.3), "size": 0.3, "enter": "pop",
+             "counter": {"from": 0, "to": 12, "land": {"line": "twelve", "word": "Twelve", "offset": 0.05}, "suffix": " m"}, "sound": "ding"},
+            {"id": "day_count", "t": LT(0.75), "until": LT(1.9), "at": NOSE(-0.7, 0.92, 0.3), "size": 0.24, "enter": "pop",
+             "counter": {"from": 0, "to": 24, "land": {"line": "twelve", "word": "day.", "offset": 0.0}, "prefix": "~", "suffix": " h"}},
             {"id": "miner_count", "t": LM(0.3), "until": LM(2.9), "at": S(-1.8, 3.1, 11.0), "size": 0.75, "enter": "pop",
              "counter": {"from": 0, "to": 12, "land": {"line": "miners", "word": "twelve", "offset": 0.05}}, "sound": "ding"},
-            {"id": "gap_line", "shape": "link", "t": {"line": "short", "word": "About", "offset": 0.0},
+            {"id": "gap_line", "shape": "link", "t": {"line": "short", "word": "About", "offset": 0.0}, "until": LV(-0.3),
              "at": NOSE(0.45, 0.0, 0.35), "to": X(66.9, 1.37, 0.44), "size": 0.035},
-            {"id": "gap_count", "t": {"line": "short", "word": "About", "offset": 0.1}, "at": X(60.9, 2.3, 1.3), "size": 0.65,
+            {"id": "gap_count", "t": {"line": "short", "word": "About", "offset": 0.1}, "until": LV(-0.3), "at": X(60.9, 2.3, 1.3), "size": 0.65,
              "enter": "pop", "counter": {"from": 0, "to": 10, "land": {"line": "short", "word": "ten", "offset": 0.05}, "suffix": " m"},
              "sound": "ding"},
             {"id": "bore_count", "t": LD(1.45), "until": LS(0.9), "at": NOSE(0.0, 1.05, 0.25), "size": 0.3, "enter": "pop", "glow": 0.25,
