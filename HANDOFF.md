@@ -1,11 +1,60 @@
 # Handoff: where TownForge is, and what to do next
 
-*Last updated 2026-11-15. Read this first in a new session (Claude or Codex), then
+*Last updated 2026-11-16. Read this first in a new session (Claude or Codex), then
 `AGENTS.md`, then `docs/VISION_AND_ROADMAP.md`.*
 
 ## START HERE: current task (for whoever picks this up)
 
-### Silkyara rescue Short: hook APPROVED, beat 4 revised for review (2026-11-15, latest)
+### Silkyara rescue Short: lines 1-21 built, 22-26 still to build (2026-11-16, latest)
+
+**For the user: how to review what was built.**
+1. Start the review page: `python pipeline/tf.py shot silkyara_rescue --serve`, then open
+   http://127.0.0.1:8770/ (it opens by itself). Every shot is listed in order with its clip.
+2. Watch each shot that has no verdict yet. Click **approve**, **changes** (write what to fix in the note) or
+   **reject**. Verdicts are saved in `episodes/silkyara_rescue/review/shot_decisions.json` as you click.
+3. To see the list of verdicts in the terminal: `python pipeline/tf.py shot silkyara_rescue --status`.
+4. When you start a new session with Claude or Codex, say: **"read HANDOFF.md, then read my shot verdicts and
+   fix the ones marked changes, then build lines 22-26"**. The model reads your notes with `--status`.
+5. A clip on the page is the last render. If a shot looks stale, press its render button or run
+   `python pipeline/tf.py shot silkyara_rescue <shot_name>`.
+
+**Waiting for your review** (built 2026-11-16 by Claude while you were away, each one self-checked frame by frame):
+| Line | Narration | Shots |
+|---|---|---|
+| 14 | Day thirteen, it hits steel, and its blades snap off inside the pipe. | `tally13`, `steel_hit`, `blades_snap` |
+| 15 | About ten metres short. | `gap_short` |
+| 16 | So a second rig starts drilling straight down, from the top of the mountain. | `ridge_rig`, `drill_down` |
+| 17 | Then they call in twelve rat-hole miners. | `miners_arrive` |
+| 18 | Rat-hole mining is so dangerous that it was banned in Meghalaya's coal mines in 2014. | `rathole_crawl`, `pit_tape`, `ngt_notice` |
+| 19 | One after another, they crawl into the pipe and dig with hammers and chisels. | `pipe_enter`, `pipe_dig` |
+| 20 | Twelve metres, in about a day. | `hand_dig` |
+| 21 | Day seventeen, just after seven in the evening: they break through. | `tally17`, `watch_705`, `break_through` |
+
+Known weak spots Claude would look at first: `drill_down` (the x-ray plunge is mostly dark rock and a yellow
+dashed line), `miners_arrive` (tools are small at that distance), `pit_tape` (the pit walls read flat from the
+rim), `hand_dig` (the two miners in the x-ray pipe are only helmets and bodies).
+
+**Still to build (voiced already, placeholder shots `ph_*` render as an empty wide):**
+| Line | Narration | Plan |
+|---|---|---|
+| 22 | Then all forty-one come out, one by one, on wheeled stretchers. | At the escape pipe's mouth (cutaway gag `escape` platform, night): a wheeled stretcher slides out with a worker on it, NDRF rescuers pull it, garlands; a counter of men out runs to 41. Needs a stretcher prop (wheeled tray: steel frame, 4 casters, rope) in `mountain_section.gd`. |
+| 23 | Forty-one men. Forty-one ambulances waiting outside. | Exterior gag at night: pull back from the portal over a long line of ambulances down the access road, beacons blinking (`kenney_cars/ambulance`, recolour white/red, add a beacon like `_beacon`). Counter 41 on the second "Forty-one". |
+| 24 | Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan. | New place (rule 9): a narrow lane in Khajuri Khas, Delhi (far off like the Meghalaya pit, its own gag): a small 2-storey brick house; a yellow excavator/bulldozer arm bites into it. Vakeel Hasan as a toon (respectful, not a caricature) holding the garland from line 22. DDA demolition was 28 Feb 2024. |
+| 25 | Delhi's development authority says the house stood on its land. | A DDA official with a land map / notice board at the lane; fair, not mocking. |
+| 26 | He got forty-one men out of a mountain. That night, his family slept on the street. | Night, the family on the footpath under one streetlamp with what they saved; the single lamp echoes the hook's headlamps. Last shot of the Short. |
+Word times for 22-26 are in the voice cache; get them the same way as the others (see "word times" below).
+
+**How Claude built and checked each line (keep doing this):** write the line's block in `make_episode.py`
+(a time helper like `LH(x)`, cast, gag params, shots, sfx), `python episodes/silkyara_rescue/make_episode.py`,
+`python pipeline/tf.py shot silkyara_rescue <shots>`, then pull frames
+(`ffmpeg -i episodes/silkyara_rescue/review/shot_loop/NN_name.mp4 -vf "select='eq(n\,0)+eq(n\,30)',scale=360:-1,tile=2x1" -frames:v 1 out.png`)
+and look at them before committing. `tf framing` must report nothing; `tf test` must pass. Commit per line on main.
+Word times: `grep -l "<a word of the line>" output/tts_cache/*.ctc.json`, then print `w`/`s` of each entry.
+Traps from this session: toon bodies are wide (cameras near an actor end up inside the body or head); the gag
+frames of `PF()`/`MEG()` places sit far off on the `airstrip` anchor and gag anchors mirror x (use `GA()`,
+`NOSE()`); actor ids must be unique across the whole episode (`dig_1` was taken); a gag that poses actors in
+its own frame must map through `root.global_transform`; the set's ground ignores gag geometry, so gags put
+actors on their own floors (`floor` params).
 
 **Progress log (newest first; Claude keeps this current so Codex can continue mid-beat):**
 - **2026-11-16: the user switched to autonomous building** ("just keep going. i am tired of human in the loop",
