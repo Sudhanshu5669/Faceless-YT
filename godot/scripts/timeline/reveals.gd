@@ -71,7 +71,7 @@ static func font() -> FontFile:
 			var heavy := FontVariation.new()
 			heavy.base_font = fb
 			heavy.variation_opentype = {TextServerManager.get_primary_interface().name_to_tag("wght"): 800}
-			_font.fallbacks = [heavy]
+			_font.fallbacks = [heavy, fb]
 	return _font
 
 

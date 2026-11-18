@@ -1,0 +1,27 @@
+{
+  "id": "toon_deckhand",
+  "description": "Merchant seaman on deck in a storm: white hard hat, orange foul-weather jacket.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.45,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#f2f0ea"
+    },
+    "outfit": {
+      "style": "hivis",
+      "color": "#e5641c",
+      "accent": "#2d3442"
+    },
+    "shoes": "#22252b",
+    "mustache": "#25242a",
+    "face": "panic",
+    "girth": 1.1
+  }
+}

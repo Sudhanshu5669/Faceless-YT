@@ -151,6 +151,24 @@ static func _add_body_light(parent: Node, node_name: String, b: Dictionary) -> v
 	parent.add_child(dl)
 
 
+static var _panoramas := {}
+
+
+static func _panorama(rel: String) -> Texture2D:
+	if _panoramas.has(rel):
+		return _panoramas[rel]
+	var path := Paths.repo_path(rel) if not rel.begins_with("res://") else ProjectSettings.globalize_path(rel)
+	var img := Image.load_from_file(path)
+	var tex: Texture2D = null
+	if img:
+		img.generate_mipmaps()
+		tex = ImageTexture.create_from_image(img)
+	else:
+		push_error("look: sky panorama not found: " + path)
+	_panoramas[rel] = tex
+	return tex
+
+
 static func _sky_material(look: Dictionary) -> ShaderMaterial:
 	var sky: Dictionary = look["sky"]
 	var m := ShaderMaterial.new()
@@ -163,6 +181,15 @@ static func _sky_material(look: Dictionary) -> ShaderMaterial:
 	m.set_shader_parameter("cloud_color", _c(sky["cloud_color"]))
 	m.set_shader_parameter("cloud_shadow", _c(sky["cloud_shadow"]))
 	m.set_shader_parameter("cloud_speed", float(sky["cloud_speed"]))
+	# An equirectangular star map (repo-relative path) behind everything: space shots.
+	var pano := String(sky.get("panorama", ""))
+	if pano != "":
+		var tex := _panorama(pano)
+		if tex:
+			m.set_shader_parameter("panorama", tex)
+			m.set_shader_parameter("panorama_energy", float(sky.get("panorama_energy", 1.0)))
+			m.set_shader_parameter("panorama_yaw", deg_to_rad(float(sky.get("panorama_yaw", 0.0))))
+			m.set_shader_parameter("panorama_tilt", deg_to_rad(float(sky.get("panorama_tilt", 0.0))))
 
 	var bodies := []
 	var sun: Dictionary = look["sun"]

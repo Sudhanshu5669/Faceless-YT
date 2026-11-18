@@ -1,0 +1,26 @@
+{
+  "id": "toon_auto_driver",
+  "description": "Ahmedabad auto-rickshaw driver: khaki uniform shirt, moustache, oiled side-parted hair.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#17161a"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#b39a68"
+    },
+    "shoes": "#3b2b1f",
+    "mustache": "#17161a",
+    "face": "deadpan",
+    "girth": 1.12
+  }
+}

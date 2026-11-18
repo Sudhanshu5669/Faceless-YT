@@ -1,0 +1,169 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "mangalyaan",
+    "generator": "stage",
+    "seed": 2014,
+    "params": {
+      "bays": [
+        {
+          "id": "lane",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "lab",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "space",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "pad",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "ship",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "control",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "mars",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "club",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "atm",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        }
+      ]
+    }
+  },
+  "look": {
+    "base": "night_fog",
+    "time": "22:00",
+    "weather": {
+      "fog": 0.05
+    },
+    "ambient": {
+      "color": "#7a849c",
+      "energy": 0.15
+    },
+    "sun": {
+      "energy": 0
+    },
+    "moon": {
+      "energy": 0.05,
+      "visible": false
+    },
+    "grade": {
+      "contrast": 1.05,
+      "vignette": 0.2
+    }
+  }
+}

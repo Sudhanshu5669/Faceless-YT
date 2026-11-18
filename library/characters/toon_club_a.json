@@ -1,0 +1,27 @@
+{
+  "id": "toon_club_a",
+  "description": "Club member from the 2014 cartoon: tuxedo and bow tie, bald with white sideburns and moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bald",
+      "color": "#e3e3e0"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#141418",
+      "bow": true
+    },
+    "shoes": "#0e0e10",
+    "mustache": "#e6e6e2",
+    "face": "smug",
+    "girth": 1.2
+  }
+}

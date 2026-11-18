@@ -1,0 +1,28 @@
+{
+  "id": "toon_cleanroom_a",
+  "description": "ISRO clean-room technician: white hood, coverall and mask.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hood",
+      "color": "#f3f5f7"
+    },
+    "outfit": {
+      "style": "coverall",
+      "color": "#eef1f4"
+    },
+    "shoes": "#dfe5ea",
+    "accessories": [
+      "mask"
+    ],
+    "face": "determined",
+    "girth": 0.95
+  }
+}

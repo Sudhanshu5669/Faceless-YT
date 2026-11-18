@@ -38,12 +38,12 @@ const LIMB_COLOR := Color("17171a")
 const INK := Color("0a0a0c")
 const SHORTEN := ["calf_l", "foot_l", "calf_r", "foot_r"]
 
-const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth", "mustache"]
+const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth", "mustache", "beard"]
 const HAIR_KEYS := ["style", "color", "lamp"]
-const OUTFIT_KEYS := ["style", "color", "chain", "tie", "accent"]
-const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat"]
-const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt", "hivis"]
-const ACCESSORIES := ["glasses", "round_glasses", "sunglasses", "smart_glasses"]
+const OUTFIT_KEYS := ["style", "color", "chain", "tie", "accent", "vest", "bow", "badge"]
+const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat", "hood", "turban", "side"]
+const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt", "hivis", "kurta", "coverall"]
+const ACCESSORIES := ["glasses", "round_glasses", "sunglasses", "smart_glasses", "rimless", "mask"]
 const EYES := ["lazy", "dot", "wide", "happy", "closed", "x", "star", "heart", "sleepy", "none"]
 const MOUTHS := ["smirk", "smile", "flat", "frown", "open", "grin", "laugh", "wavy", "o", "none"]
 const FACE_KEYS := ["description", "eyes", "look", "eye_size", "eye_y", "lid", "lid_tilt", "brows",
@@ -54,6 +54,7 @@ const HAIRLINES := {
 	"bowl": [52, 84, 104, 1.07], "tuft": [52, 84, 104, 1.07], "slick": [46, 80, 100, 1.05],
 	"curly": [50, 82, 100, 1.02], "cap": [48, 74, 86, 1.06], "beanie": [44, 76, 88, 1.08],
 	"bob": [50, 104, 116, 1.1], "bun": [50, 86, 104, 1.06],
+	"hood": [44, 118, 150, 1.07], "side": [47, 82, 102, 1.05],
 }
 
 static var _faces: Dictionary = {}
@@ -114,7 +115,7 @@ static func validate(t, where: String) -> Array:
 	for k in t:
 		if not (k in KEYS):
 			e.append("%s: toon has unknown key '%s' (known: %s)" % [where, k, ", ".join(PackedStringArray(KEYS))])
-	for k in ["skin", "shoes", "mustache"]:
+	for k in ["skin", "shoes", "mustache", "beard"]:
 		if t.has(k) and not Color.html_is_valid(String(t[k])):
 			e.append("%s: toon.%s is not a hex colour" % [where, k])
 	var hair: Dictionary = t.get("hair", {})
@@ -173,6 +174,9 @@ static func build(body: Node3D, src: Skeleton3D, t: Dictionary) -> Dictionary:
 	if t.has("mustache"):
 		face.set_shader_parameter("mustache", 1.0)
 		face.set_shader_parameter("mustache_color", Color(String(t["mustache"])))
+	if t.has("beard"):
+		face.set_shader_parameter("beard", 1.0)
+		face.set_shader_parameter("beard_color", Color(String(t["beard"])))
 	face.next_pass = _outline(OUTLINE)
 	apply_face(face, String(t.get("face", "smug")))
 	var head := MeshInstance3D.new()
@@ -189,7 +193,7 @@ static func build(body: Node3D, src: Skeleton3D, t: Dictionary) -> Dictionary:
 	# Torso (the outfit).
 	var o: Dictionary = t.get("outfit", {})
 	var style := String(o.get("style", "tee"))
-	var col := Color(String(o.get("color", "#2f7be0" if style == "hoodie" else ("#f2f2f2" if style in ["labcoat", "shirt"] else "#1c1c20"))))
+	var col := Color(String(o.get("color", "#2f7be0" if style == "hoodie" else ("#f2f2f2" if style in ["labcoat", "shirt", "kurta", "coverall"] else "#1c1c20"))))
 	var bh := (BEAN_TOP - BEAN_BOTTOM) * H
 	var rb := BEAN_R * H * girth * (1.25 if style == "dress" else 1.0)
 	var rt := BEAN_R_TOP * H * lerpf(1.0, girth, 0.5)
@@ -334,6 +338,9 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 	if style == "hardhat":
 		_hardhat(head, h, hr)
 		return
+	if style == "turban":
+		_turban(head, h, hr)
+		return
 	var col := Color(String(h.get("color", "#5a3a22")))
 	var hl: Array = HAIRLINES[style]
 	var shell := MeshInstance3D.new()
@@ -344,7 +351,7 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 	mat.set_shader_parameter("color", col.darkened(0.25) if style == "curly" else col)
 	mat.set_shader_parameter("radius", hr)
 	mat.set_shader_parameter("mode", 1 if style == "slick" else 0)
-	mat.set_shader_parameter("strands", 0.0 if style in ["curly", "cap", "beanie"] else (0.07 if style == "slick" else 0.22))
+	mat.set_shader_parameter("strands", 0.0 if style in ["curly", "cap", "beanie", "hood"] else (0.07 if style == "slick" else (0.12 if style == "side" else 0.22)))
 	mat.next_pass = _outline(OUTLINE * 0.8)
 	shell.material_override = mat
 	if style == "beanie":
@@ -398,6 +405,38 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 			band.material_override = _mat(col.darkened(0.15), OUTLINE * 0.6)
 			band.scale = shell.scale
 			head.add_child(band)
+		"side":
+			# A side parting: the hair sweeps from a parting on the left into a soft wave over the right brow.
+			var wave := MeshInstance3D.new()
+			wave.mesh = _sphere(1.0, 20, 10)
+			wave.material_override = mat
+			wave.transform = Transform3D(_cols(Basis.from_euler(Vector3(deg_to_rad(-30), deg_to_rad(-18), deg_to_rad(12))),
+				Vector3(hr * 0.42, hr * 0.13, hr * 0.3)), Vector3(-hr * 0.22, hr * 0.78, hr * 0.5))
+			head.add_child(wave)
+			var part := MeshInstance3D.new()
+			part.mesh = _cylinder()
+			part.material_override = _mat(col.darkened(0.45), 0.0)
+			part.transform = Transform3D(_cols(Basis.from_euler(Vector3(PI / 2 - 0.5, 0, 0)), Vector3(hr * 0.012, hr * 0.5, hr * 0.012)),
+				Vector3(hr * 0.3, hr * 0.92, hr * 0.12))
+			head.add_child(part)
+		"hood":
+			# A clean-room hood: the shell reaches down round the cheeks and under the chin, with a
+			# soft elastic rim framing the face.
+			var rim := MeshInstance3D.new()
+			var tm := TorusMesh.new()
+			tm.inner_radius = hr * 0.82
+			tm.outer_radius = hr * 0.98
+			tm.rings = 32
+			tm.ring_segments = 8
+			rim.mesh = tm
+			rim.material_override = _mat(col.darkened(0.05), OUTLINE * 0.5)
+			rim.transform = Transform3D(Basis.from_euler(Vector3(PI / 2, 0, 0)).scaled(Vector3(1.0, 1.0, 1.12)), Vector3(0, -hr * 0.02, hr * 0.5))
+			head.add_child(rim)
+			var collar := MeshInstance3D.new()
+			collar.mesh = _sphere(1.0, 24, 10)
+			collar.material_override = _mat(col.darkened(0.03), OUTLINE * 0.6)
+			collar.transform = Transform3D(Basis.IDENTITY.scaled(Vector3(hr * 0.72, hr * 0.32, hr * 0.62)), Vector3(0, -hr * 0.82, -hr * 0.12))
+			head.add_child(collar)
 		"bun":
 			var bun := MeshInstance3D.new()
 			bun.mesh = _sphere(hr * 0.3, 20, 10)
@@ -483,7 +522,71 @@ static func _hardhat(head: Node3D, h: Dictionary, hr: float) -> void:
 	hat.add_child(lens)
 
 
+## A wrapped turban (pagdi): a full dome over the crown with diagonal wraps crossing in front.
+static func _turban(head: Node3D, h: Dictionary, hr: float) -> void:
+	var col := Color(String(h.get("color", "#f2efe6")))
+	var t := Node3D.new()
+	t.name = "turban"
+	head.add_child(t)
+	var dome := MeshInstance3D.new()
+	dome.mesh = _cap(58, 80, 96, hr * 1.13, 0.0)
+	dome.material_override = _mat(col, OUTLINE * 0.8)
+	dome.scale = Vector3(1.04, 1.12, 1.02)
+	t.add_child(dome)
+	for i in 4:
+		var wrap := MeshInstance3D.new()
+		var tm := TorusMesh.new()
+		tm.inner_radius = hr * 0.86
+		tm.outer_radius = hr * 1.08
+		tm.rings = 28
+		tm.ring_segments = 10
+		wrap.mesh = tm
+		wrap.material_override = _mat(col.darkened(0.04 + 0.03 * float(i % 2)), OUTLINE * 0.45)
+		var tilt := deg_to_rad(16.0 + 7.0 * float(i)) * (1.0 if i % 2 == 0 else -1.0)
+		wrap.transform = Transform3D(Basis.from_euler(Vector3(deg_to_rad(-10.0), 0, tilt)).scaled(Vector3(1.0, 0.5, 1.0)),
+			Vector3(0, hr * (0.42 + 0.13 * float(i)), -hr * 0.02))
+		t.add_child(wrap)
+	var knot := MeshInstance3D.new()
+	knot.mesh = _sphere(hr * 0.2, 16, 8)
+	knot.material_override = _mat(col.darkened(0.08), OUTLINE * 0.5)
+	knot.position = Vector3(hr * 0.05, hr * 0.98, hr * 0.62)
+	t.add_child(knot)
+
+
 static func _accessory(head: Node3D, a: String, hr: float) -> void:
+	if a == "mask":
+		var mask := MeshInstance3D.new()
+		mask.mesh = _sphere(1.0, 24, 12)
+		mask.material_override = _mat(Color("e9eef2"), OUTLINE * 0.4)
+		mask.transform = Transform3D(Basis.IDENTITY.scaled(Vector3(hr * 0.58, hr * 0.36, hr * 0.3)), Vector3(0, -hr * 0.36, hr * 0.8))
+		head.add_child(mask)
+		return
+	if a == "rimless":
+		# Rimless glasses: two pale lenses with a thin gold bridge and temples, no frame.
+		for s in [-1.0, 1.0]:
+			var lens := MeshInstance3D.new()
+			lens.mesh = _sphere(1.0, 16, 8)
+			var lm := StandardMaterial3D.new()
+			lm.albedo_color = Color(0.85, 0.9, 0.95, 0.35)
+			lm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			lm.roughness = 0.05
+			lm.metallic_specular = 1.0
+			lens.material_override = lm
+			lens.transform = Transform3D(Basis.IDENTITY.scaled(Vector3(hr * 0.19, hr * 0.14, hr * 0.02)), Vector3(0.40 * hr * s, hr * 0.07, hr * 0.98))
+			head.add_child(lens)
+			var temple := MeshInstance3D.new()
+			temple.mesh = _cylinder()
+			temple.material_override = _mat(Color("c9a64a"), 0.0)
+			var from := Vector3(0.59 * hr * s, hr * 0.1, hr * 0.92)
+			var to := Vector3(0.94 * hr * s, hr * 0.1, hr * 0.12)
+			temple.transform = Transform3D(_cols(_basis_y(to - from), Vector3(hr * 0.012, from.distance_to(to), hr * 0.012)), (from + to) * 0.5)
+			head.add_child(temple)
+		var br := MeshInstance3D.new()
+		br.mesh = _cylinder()
+		br.material_override = _mat(Color("c9a64a"), 0.0)
+		br.transform = Transform3D(_cols(_basis_y(Vector3.RIGHT), Vector3(hr * 0.012, hr * 0.42, hr * 0.012)), Vector3(0, hr * 0.12, hr * 1.0))
+		head.add_child(br)
+		return
 	var dark := a in ["sunglasses", "smart_glasses"]
 	var frame_col := Color("101012")
 	var lens_col := Color("15171c") if dark else Color("dfe8f0")
@@ -613,6 +716,65 @@ static func _outfit(torso: Node3D, o: Dictionary, style: String, col: Color, rb:
 			for a in [-25.0, 25.0, 155.0, 205.0]:
 				_patch(torso, _bean_patch(rb, rt, bh, 0.415, 0.93, a - 5.5, a + 5.5, 0.04), _tape())
 			_surface_line(torso, [Vector2(0.0, 0.94), Vector2(0.0, 0.31)], rb, rt, bh, 0.0045, col.darkened(0.5))
+
+
+		"kurta":
+			# A kurta (the bean, in `color`) with a band collar and a short placket; with "vest": a
+			# sleeveless band-collared jacket over it (Modi jacket) from the hips up, buttoned down the front.
+			if o.has("vest"):
+				var vc := Color(String(o["vest"]))
+				_patch(torso, _bean_patch(rb, rt, bh, 0.27, 0.955, 0.0, 360.0, 0.035), _mat(vc, OUTLINE * 0.5))
+				_surface_line(torso, [Vector2(0.0, 0.95), Vector2(0.0, 0.28)], rb, rt, bh, 0.0035, vc.darkened(0.35))
+				for s2 in [0.85, 0.7, 0.55, 0.4]:
+					var b := MeshInstance3D.new()
+					b.mesh = _sphere(0.012, 8, 4)
+					b.material_override = _mat(vc.lightened(0.35), 0.0)
+					b.position = _surface(0.0, s2, rb, rt, bh) * Vector3(1, 1, 1.04) + Vector3(0, 0, 0.01)
+					torso.add_child(b)
+				for s in [-1.0, 1.0]:
+					var pk := MeshInstance3D.new()
+					pk.mesh = BoxMesh.new()
+					(pk.mesh as BoxMesh).size = Vector3(0.05, 0.006, 0.01)
+					pk.material_override = _mat(vc.darkened(0.25), 0.0)
+					pk.position = _surface(0.045 * s, 0.62, rb, rt, bh) * Vector3(1, 1, 1.04) + Vector3(0, 0, 0.012)
+					torso.add_child(pk)
+			_surface_line(torso, [Vector2(-0.045, 0.975), Vector2(0.045, 0.975)], rb, rt, bh, 0.012, (Color(String(o["vest"])) if o.has("vest") else col).darkened(0.1))
+		"coverall":
+			# A clean-room coverall: the zip runs from the collar to the crotch, with a chest pocket.
+			_surface_line(torso, [Vector2(0.0, 0.96), Vector2(0.0, 0.08)], rb, rt, bh, 0.004, col.darkened(0.28))
+			_surface_line(torso, [Vector2(0.04, 0.72), Vector2(0.11, 0.72)], rb, rt, bh, 0.003, col.darkened(0.2))
+			for s in [-1.0, 1.0]:
+				_surface_line(torso, [Vector2(0.08 * s, 0.97), Vector2(0.02 * s, 0.9)], rb, rt, bh, 0.012, col.darkened(0.08))
+	if bool(o.get("bow", false)):
+		# A black bow tie at the collar (tuxedo).
+		for s in [-1.0, 1.0]:
+			var w := MeshInstance3D.new()
+			w.mesh = _sphere(1.0, 12, 6)
+			w.material_override = _mat(Color("0d0d10"), OUTLINE * 0.3)
+			w.transform = Transform3D(Basis.IDENTITY.scaled(Vector3(0.028, 0.017, 0.01)), _surface(0.027 * s, 0.94, rb, rt, bh) + Vector3(0, 0, 0.012))
+			torso.add_child(w)
+		for s in [-1.0, 1.0]:
+			_surface_line(torso, [Vector2(0.07 * s, 0.97), Vector2(0.03 * s, 0.6)], rb, rt, bh, 0.012, Color("f2f2ee"))
+	if o.has("badge"):
+		# An ID card on a lanyard: the strap in `badge` colour round the neck, a white card on the chest.
+		var bc := Color(String(o["badge"]))
+		for s in [-1.0, 1.0]:
+			_surface_line(torso, [Vector2(0.06 * s, 0.97), Vector2(0.035 * s, 0.75), Vector2(0.0, 0.62)], rb, rt, bh, 0.0045, bc)
+		var card := MeshInstance3D.new()
+		card.name = "id_card"
+		var cm := BoxMesh.new()
+		cm.size = Vector3(0.05, 0.07, 0.004)
+		card.mesh = cm
+		card.material_override = _mat(Color("f4f4f0"), OUTLINE * 0.25)
+		card.position = _surface(0.0, 0.55, rb, rt, bh) + Vector3(0, 0, 0.012)
+		torso.add_child(card)
+		var stripe := MeshInstance3D.new()
+		var sm := BoxMesh.new()
+		sm.size = Vector3(0.05, 0.016, 0.005)
+		stripe.mesh = sm
+		stripe.material_override = _mat(bc, 0.0)
+		stripe.position = card.position + Vector3(0, 0.024, 0.001)
+		torso.add_child(stripe)
 
 
 static func _patch(torso: Node3D, mesh: Mesh, mat: Material) -> void:

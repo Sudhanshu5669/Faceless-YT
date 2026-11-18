@@ -32,6 +32,9 @@ uniform float tears = 0.0;
 // Character features (not expressions): a moustache in the hair colour.
 uniform float mustache = 0.0;
 uniform vec3 mustache_color : source_color = vec3(0.1, 0.1, 0.11);
+// A short trimmed beard along the jaw and chin, in beard_color (drawn under the mouth).
+uniform float beard = 0.0;
+uniform vec3 beard_color : source_color = vec3(0.9, 0.9, 0.9);
 
 const vec3 MOUTH_IN = vec3(0.20, 0.13, 0.13);
 const vec3 TONGUE = vec3(0.93, 0.50, 0.56);
@@ -220,6 +223,16 @@ void fragment() {
 				float d = sd_seg(p, vec2(0.40 * s, -0.06), vec2(0.43 * s, -0.55)) - 0.045 * tears;
 				col = mix(col, TEAR, cover(d));
 			}
+		}
+		if (beard > 0.0) {
+			// The jawline rises toward the ears; the beard fills everything under it on the front half.
+			float jaw = -0.24 + 0.34 * smoothstep(0.42, 0.92, abs(lp.x));
+			float d = lp.y - jaw;
+			float fuzz = 0.025 * sin(lp.x * 60.0) * sin(lp.y * 47.0);
+			float cov = (1.0 - smoothstep(-0.02, 0.02, d + fuzz)) * smoothstep(-0.25, 0.05, lp.z);
+			vec3 bc = beard_color * (0.9 + 0.1 * sin(lp.x * 90.0 + lp.y * 40.0));
+			col = mix(col, bc, cov);
+			col = mix(col, beard_color * 0.72, (1.0 - smoothstep(0.0, 0.025, abs(d + fuzz))) * smoothstep(-0.25, 0.05, lp.z) * 0.6);
 		}
 		paint_mouth(col, p);
 		if (mustache > 0.0) {

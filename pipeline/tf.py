@@ -509,8 +509,10 @@ def cmd_storyboard(cfg: dict, args) -> int:
     out.mkdir(parents=True, exist_ok=True)
     for f in out.glob("*.png"):
         f.unlink()
-    n_shots = len(ep.get("shots", []))
-    code = run_godot(cfg, ["--episode", str(resolved), "--storyboard", str(out)],
+    only = [s for s in (getattr(args, "shots", None) or "").split(",") if s]
+    n_shots = len(only) if only else len(ep.get("shots", []))
+    extra = (["--shots", ",".join(only)] if only else []) + (["--scale", str(args.scale)] if getattr(args, "scale", None) else [])
+    code = run_godot(cfg, ["--episode", str(resolved), "--storyboard", str(out)] + extra,
                      pre_args=["--fixed-fps", "30", "--quit-after", str(1000 + 100 * n_shots)],
                      timeout=300 + 20 * n_shots)
     if code != 0:
@@ -755,6 +757,8 @@ def main(argv: list[str] | None = None) -> int:
     vp.add_argument("episode", help="episodes/<id>/episode.json or <id>")
     sb = sub.add_parser("storyboard", help="start/mid/end stills of every shot")
     sb.add_argument("episode", help="episodes/<id>/episode.json or <id>")
+    sb.add_argument("--shots", help="only these shots (comma-separated)")
+    sb.add_argument("--scale", type=float, help="still size as a fraction of the episode resolution (default 1/3)")
     sub.add_parser("library", help="list looks, shot templates and views")
     lk = sub.add_parser("look", help="manage looks")
     lk_sub = lk.add_subparsers(dest="look_command", required=True)

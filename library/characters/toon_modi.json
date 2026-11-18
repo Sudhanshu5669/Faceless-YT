@@ -1,0 +1,31 @@
+{
+  "id": "toon_modi",
+  "description": "Narendra Modi (caricature): white hair and trimmed white beard, rimless glasses, cream kurta under a saffron sleeveless jacket.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.42,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#e9e7e1"
+    },
+    "outfit": {
+      "style": "kurta",
+      "color": "#efe7d6",
+      "vest": "#d3823a"
+    },
+    "shoes": "#3a2a20",
+    "mustache": "#e6e4de",
+    "beard": "#e9e7e1",
+    "accessories": [
+      "rimless"
+    ],
+    "face": "neutral",
+    "girth": 1.12
+  }
+}

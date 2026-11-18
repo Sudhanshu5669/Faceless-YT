@@ -1,0 +1,29 @@
+{
+  "id": "toon_radhakrishnan",
+  "description": "K. Radhakrishnan, ISRO chairman 2009-2014 (caricature): grey hair combed back, glasses, grey moustache, white shirt, slim.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#8e9096"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#f3f3f1"
+    },
+    "shoes": "#1f1e22",
+    "mustache": "#7d7f85",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "nervous",
+    "girth": 0.9
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "toon_isro_eng",
+  "description": "ISRO engineer (the hero, 'you'): black side-parted hair, moustache, glasses, pale blue shirt, ISRO ID card on a blue lanyard.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#1c1b20"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#b5cde8",
+      "badge": "#1d5fae"
+    },
+    "shoes": "#2a211c",
+    "mustache": "#1c1b20",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "thinking",
+    "girth": 1.05
+  }
+}

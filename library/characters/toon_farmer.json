@@ -1,0 +1,26 @@
+{
+  "id": "toon_farmer",
+  "description": "The man from the 2014 cartoon: white turban, white kurta, black moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "turban",
+      "color": "#f2eee4"
+    },
+    "outfit": {
+      "style": "kurta",
+      "color": "#efece4"
+    },
+    "shoes": "#6b4a2b",
+    "mustache": "#1d1c20",
+    "face": "neutral",
+    "girth": 1.0
+  }
+}

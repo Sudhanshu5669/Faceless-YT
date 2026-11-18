@@ -571,7 +571,10 @@ func _run_storyboard(out_dir: String) -> void:
 	var fps := _fps()
 	get_window().content_scale_size = _out_size(float(args.get("scale", 1.0 / 3.0)))
 	DirAccess.make_dir_recursive_absolute(out_dir)
+	var only := PackedStringArray(String(args.get("shots", "")).split(",", false))
 	for shot in Episode.timeline(episode, fps):
+		if not only.is_empty() and not (String(shot["name"]) in only):
+			continue
 		var frames := int(shot["frames"])
 		var keys := [0, frames / 2, frames - 1]
 		for j in keys.size():

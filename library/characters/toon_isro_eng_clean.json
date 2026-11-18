@@ -1,0 +1,29 @@
+{
+  "id": "toon_isro_eng_clean",
+  "description": "The ISRO engineer in the clean room: white hood and coverall, glasses.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hood",
+      "color": "#f3f5f7"
+    },
+    "outfit": {
+      "style": "coverall",
+      "color": "#eef1f4"
+    },
+    "shoes": "#dfe5ea",
+    "mustache": "#1c1b20",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "determined",
+    "girth": 1.05
+  }
+}

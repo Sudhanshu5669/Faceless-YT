@@ -1,0 +1,25 @@
+{
+  "id": "toon_atm_customer",
+  "description": "A customer at an ATM in November 2016: striped shirt, side-parted hair.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#211f24"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#e2c79a"
+    },
+    "shoes": "#2a2420",
+    "face": "neutral",
+    "girth": 1.0
+  }
+}

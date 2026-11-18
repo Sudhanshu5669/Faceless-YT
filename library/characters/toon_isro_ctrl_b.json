@@ -1,0 +1,29 @@
+{
+  "id": "toon_isro_ctrl_b",
+  "description": "ISRO mission controller (variety cast).",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bowl",
+      "color": "#26252a"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#9fb7cf",
+      "badge": "#1d5fae"
+    },
+    "shoes": "#2a2420",
+    "face": "nervous",
+    "girth": 1.1,
+    "accessories": [
+      "glasses"
+    ]
+  }
+}

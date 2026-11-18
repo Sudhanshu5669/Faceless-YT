@@ -34,6 +34,7 @@ shot), the explore window and later video renders all use it.
 | `route` | Movement, below. |
 | `crowd` | Turns this entry into many actors, below. |
 | `cues` | Timed changes: new action, new facing, hold/release. Below. |
+| `keep_y` | `true`: the feet stay at the point's own height instead of snapping to the set's ground (tiers, galleries, a ship's deck built by a gag). |
 
 ### Routes
 

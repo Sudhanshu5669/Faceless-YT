@@ -11,6 +11,11 @@ uniform float clouds = 0.0;
 uniform vec3 cloud_color : source_color = vec3(1.0);
 uniform vec3 cloud_shadow : source_color = vec3(0.6);
 uniform float cloud_speed = 0.006;
+// An equirectangular star map (space shots): added over everything when panorama_energy > 0.
+uniform sampler2D panorama : source_color, filter_linear_mipmap, repeat_enable;
+uniform float panorama_energy = 0.0;
+uniform float panorama_yaw = 0.0;
+uniform float panorama_tilt = 0.0;
 // Scene time (set by main.gd), not engine TIME: a shot looks the same whatever was rendered before it.
 global uniform float scene_time;
 
@@ -50,6 +55,14 @@ void sky() {
 	vec3 d = normalize(EYEDIR);
 	float h = d.y;
 	vec3 col = mix(horizon_color, top_color, smoothstep(0.0, 1.0, pow(max(h, 0.0), 0.45)));
+
+	if (panorama_energy > 0.0) {
+		vec3 q = d;
+		float ct = cos(panorama_tilt), st = sin(panorama_tilt);
+		q = vec3(q.x, q.y * ct - q.z * st, q.y * st + q.z * ct);
+		vec2 uv = vec2(atan(q.x, -q.z) / 6.2831853 + 0.5 + panorama_yaw / 6.2831853, acos(clamp(q.y, -1.0, 1.0)) / 3.14159265);
+		col += texture(panorama, uv).rgb * panorama_energy;
+	}
 
 	if (stars > 0.0 && h > 0.0) {
 		vec2 uv = vec2(atan(d.x, d.z), asin(clamp(h, -1.0, 1.0))) * 90.0;

@@ -29,7 +29,8 @@ const SCHEMA := {
 	"sky": {
 		"top": "color", "horizon": "color", "stars": "number", "star_color": "color",
 		"clouds": "unit", "cloud_color": "color", "cloud_shadow": "color", "cloud_speed": "number",
-		"bodies": "bodies",
+		"bodies": "bodies", "panorama": "string", "panorama_energy": "number", "panorama_yaw": "number",
+		"panorama_tilt": "number",
 	},
 	"sun": LIGHT_BODY,
 	"moon": LIGHT_BODY,
@@ -73,7 +74,7 @@ const RENDER_DEFAULTS := {
 	"sky": {
 		"top": "#4a78b8", "horizon": "#c4d6e6", "stars": 0.0, "star_color": "#ffffff",
 		"clouds": 0.0, "cloud_color": "#ffffff", "cloud_shadow": "#9aa4b4", "cloud_speed": 0.006,
-		"bodies": [],
+		"bodies": [], "panorama": "", "panorama_energy": 1.0, "panorama_yaw": 0.0, "panorama_tilt": 0.0,
 	},
 	"sun": {
 		"elevation": 50.0, "azimuth": 40.0, "color": "#fff2dd", "energy": 2.2, "shadows": true,

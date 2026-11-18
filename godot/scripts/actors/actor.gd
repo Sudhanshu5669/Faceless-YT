@@ -274,6 +274,9 @@ func expression_at(t: float) -> String:
 
 
 func _grounded(p: Vector3) -> Vector3:
+	# "keep_y": feet stay at the point's own height (tiers, galleries, decks built by gags).
+	if bool(plan.get("keep_y", false)):
+		return p
 	return Vector3(p.x, SetBuilder.ground_height(layout, p.x, p.z), p.z)
 
 
