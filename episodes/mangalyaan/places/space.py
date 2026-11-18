@@ -109,7 +109,7 @@ SHOTS = {
     "maven_arrival": {"look": LOOK, "camera": move(
         cam(A("maven", 12, 4, 16), A("maven", -4, -2, -10), 32), cam(A("maven", 10, 3, 13), A("maven", -4, -2, -10), 32), "in_out")},
     "price_tags": {"look": LOOK, "camera": move(
-        cam(A("maven", 1.5, 0.5, 25), A("maven", 0, -0.5, 1.5), 32), cam(A("maven", 1.2, 0, 22.5), A("maven", 0, -0.5, 1.5), 32), "in_out")},
+        cam(A("maven", 1.0, 0.0, 25), A("maven", 0, -0.4, 1.5), 34), cam(A("maven", 0.8, -0.2, 23.5), A("maven", 0, -0.4, 1.5), 34), "in_out")},
     "test_fire": {"look": LOOK, "camera": move(
         cam(A("mom_m", -10, 2.0, 3.5), A("mom_m", 0, 0, 2.0), 30), cam(A("mom_m", -9, 1.8, 3.2), A("mom_m", 0, 0, 2.0), 30), "in_out")},
     "moi_start": {"look": LOOK, "camera": move(

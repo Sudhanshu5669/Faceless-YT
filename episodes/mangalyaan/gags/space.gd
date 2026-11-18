@@ -531,8 +531,17 @@ func _grunt_craft(k: float) -> Node3D:
 	sm.radius = 1.0
 	sm.height = 2.0
 	fire.mesh = sm
-	_grunt_fire_mat = Kit.shader(FLAME_SHADER)
-	_grunt_fire_mat.set_shader_parameter("edge", Color(1.0, 0.35, 0.08))
+	_grunt_fire_mat = Kit.shader("""
+shader_type spatial;
+render_mode unshaded, blend_add, depth_draw_never, cull_back;
+uniform float power = 0.0;
+uniform float flick = 0.0;
+void fragment() {
+	float rim = clamp(dot(NORMAL, VIEW), 0.0, 1.0);
+	float f = 0.85 + 0.15 * sin(flick * 40.0);
+	ALBEDO = mix(vec3(1.0, 0.3, 0.05), vec3(1.0, 0.9, 0.6), rim * rim) * rim * power * f * 6.0;
+}
+""")
 	fire.material_override = _grunt_fire_mat
 	fire.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	n.add_child(fire)
@@ -588,12 +597,12 @@ func _tag(root: Node3D, price: String, sub: String) -> Node3D:
 	var card := Node3D.new()
 	card.name = "card"
 	n.add_child(card)
-	var w := 4.8
-	var h := 1.7
-	Kit.slab(card, Vector3(w, 0.03, h), 0.12, Vector3.ZERO, Kit.mat("#e9d9b0", 0.85), Vector3(PI / 2, 0, 0))
+	var w := 5.8
+	var h := 1.9
+	Kit.slab(card, Vector3(w, 0.03, h), 0.12, Vector3.ZERO, Kit.flat("#f2e6c4"), Vector3(PI / 2, 0, 0))
 	Kit.cyl(card, 0.09, 0.09, 0.05, Vector3(-w * 0.44, h * 0.32, 0), Kit.mat("#b8a77d", 0.6), 16, Vector3(PI / 2, 0, 0))
-	Kit.text(card, price, 0.56, Color("1c1a17"), Vector3(0.22, 0.14, 0.03))
-	Kit.text(card, sub, 0.24, Color("4a4237"), Vector3(0.22, -0.42, 0.03), Vector3.ZERO, false)
+	Kit.text(card, price, 0.72, Color("16130f"), Vector3(0.25, 0.16, 0.03), Vector3.ZERO, true, 1.0)
+	Kit.text(card, sub, 0.3, Color("3a332a"), Vector3(0.25, -0.48, 0.03), Vector3.ZERO, true, 1.0)
 	var string := Kit.rod(n, Vector3(-w * 0.44, h * 0.32, 0), Vector3(-w * 0.44, h * 0.32 + 12.0, 0), 0.012, Kit.mat("#d9d2c0", 0.8), 6)
 	string.name = "string"
 	return n
@@ -916,15 +925,18 @@ func _pose_failures(node: Node3D, t: float, out: Dictionary) -> void:
 		var t1 := _f("china", 1, t0 + 1.4)
 		var u := clampf((t - t0) / maxf(t1 - t0, 0.01), 0.0, 1.0)
 		var th := 0.35 + u * 0.55
-		var r := RE * lerpf(1.28, 1.01, Motion.in_cubic(u))
+		var r := RE * lerpf(1.3, 1.075, Motion.in_cubic(u))
 		var gb := Basis.from_euler(Vector3(deg_to_rad(20), deg_to_rad(-50), 0))
 		var p := gb * Vector3(cos(th) * r, 0, -sin(th) * r)
 		var dir := gb * Vector3(-sin(th), 0, -cos(th))
 		_look_along(_grunt, p, dir)
 		_grunt.rotate_object_local(Vector3.RIGHT, u * 1.6)
 		var heat := smoothstep(0.35, 0.8, u)
+		# Breaking up: the craft shrinks into its own fireball and is gone before it gets anywhere near the ground.
+		var gone := smoothstep(0.78, 0.95, u)
+		_grunt.scale = Vector3.ONE * maxf(1.0 - gone, 0.001)
 		_grunt_fire.visible = heat > 0.0
-		_grunt_fire.scale = Vector3(2.4, 2.4, 6.0) * (0.6 + heat)
+		_grunt_fire.scale = Vector3(2.4, 2.4, 6.0) * (0.6 + heat) * (1.0 + 1.5 * gone)
 		_grunt_fire.position = Vector3(0, 0, 3.0 * heat)
 		_grunt_fire_mat.set_shader_parameter("power", heat * 1.2)
 		_grunt_fire_mat.set_shader_parameter("flick", t)

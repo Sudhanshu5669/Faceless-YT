@@ -601,7 +601,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			pull = Motion.in_out(clampf((t - t0 - 0.3) / 0.7, 0.0, 1.0))
 			var gp := node.global_transform.affine_inverse() * hold_at
 			_gulel.position = gp
-			_gulel.basis = Basis.looking_at(-(node.global_transform.basis.inverse() * fwd), Vector3.UP).scaled(Vector3.ONE * 1.8)
+			_gulel.basis = Basis.looking_at(node.global_transform.basis.inverse() * fwd, Vector3.UP).scaled(Vector3.ONE * 1.8)
 			who.aim_hand("l", hold_at + Vector3(0, -0.06, 0), up_u)
 			var pouch := hold_at + Vector3(0, 0.05, 0) - fwd * (0.05 + 0.15 * pull) - left * 0.06
 			who.aim_hand("r", pouch, up_u)
