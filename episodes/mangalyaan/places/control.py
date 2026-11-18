@@ -49,9 +49,9 @@ def build_cast():
             jump = (n % 3 == 0)
             cues = [
                 {"t": 0.0, "expression": "thinking"},
-                {"t": W("l13b", "fires", 0.25 + 0.04 * n), "expression": "happy"},
+                {"t": W("l13b", "fires", 0.2 + 0.03 * (n % 6)), "expression": "happy"},
                 {"t": W("l14a"), "expression": "determined"},
-                {"t": W("l15a", "watch", 0.1 + 0.03 * n), "expression": "nervous"},
+                {"t": W("l15a", "watch", 0.1 + 0.03 * (n % 6)), "expression": "nervous"},
                 {"t": W("l16", "room", 0.05 * (n % 5)), "expression": "nervous", "hands": "chest" if n % 2 == 0 else "face"},
                 {"t": W("l17a", "comes", 0.15 + 0.03 * (n % 4)), "expression": "shocked", "hands": "none"},
                 {"t": W("l17c", "First", -0.1 + 0.05 * (n % 6)), "action": "jump" if jump else "stand_up",
@@ -120,8 +120,6 @@ SHOTS = {
     "test_fire_key": {"look": LOOK, "camera": move(
         cam(P(1.75, 1.22, -5.66), P(2.1, 0.78, -4.95), 32, {"strength": 0.35}),
         cam(P(1.8, 1.15, -5.64), P(2.08, 0.74, -4.98), 34, {"strength": 0.4}), "in_out")},
-    "test_exhale": {"look": LOOK, "camera": move(
-        cam(P(-2.6, 2.4, -7.4), P(0.0, 0.95, -2.0), 22), cam(P(-2.3, 2.3, -7.1), P(0.0, 0.95, -2.0), 22), "out")},
     "room_static": {"look": LOOK, "camera": move(
         cam(P(0.6, 1.9, -1.4), "mox.screen", 30), cam(P(0.4, 2.2, -3.4), "mox.screen", 30), "in_out")},
     "room_waits": {"look": LOOK, "camera": move(

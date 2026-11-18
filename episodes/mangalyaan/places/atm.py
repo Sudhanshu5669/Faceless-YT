@@ -35,8 +35,8 @@ GAGS = [{"id": "atm_kiosk", "script": "gags/atm_market.gd", "t": 0, "at": P(0, 0
 
 SHOTS = {
     "atm_note": {"look": LOOK, "camera": move(
-        cam(P(0.42, 1.28, -0.62), "atm_kiosk.slot", 40, {"strength": 0.5}),
-        cam(P(0.22, 1.26, -0.72), "atm_kiosk.note", 55, {"strength": 0.55}), "in_out")},
+        cam(P(-0.55, 1.3, -0.7), "atm_kiosk.slot", 36, {"strength": 0.45}),
+        cam(P(-0.55, 1.3, -0.55), "atm_kiosk.note", 50, {"strength": 0.5}), "in_out")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

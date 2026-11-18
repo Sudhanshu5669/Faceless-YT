@@ -8,7 +8,7 @@ accounts' profile pictures).
 from .common import W, frame, cam, move
 from . import space
 
-MARS_Z = 34000.0
+MARS_Z = 90000.0
 P = frame("mars", MARS_Z)
 
 LOOK = {

@@ -51,8 +51,8 @@ GAG = {
     "params": {
         "sun": SUN,
         "club": [W("l2b", "America"), W("l2b", "Soviet"), W("l2b", "Europe"), W("l2b", edge="end", offset=0.4)],
-        "nozomi": [W("l3a", "Japan", -0.3), W("l3a", "China", -0.1)],
-        "china": [W("l3a", "China", -0.15), W("l3b", offset=-0.05)],
+        "nozomi": [W("l3a1", "Japan", -0.3), W("l3a2", "China", -0.1)],
+        "china": [W("l3a2", "China", -0.15), W("l3b", offset=-0.05)],
         "arcs": [W("l3b", "More", -0.1), W("l3b", "failed", -0.2), W("l3b", "half"), W("l3b", edge="end", offset=0.8)],
         "loops": [W("l8b", "Around", -0.1), W("l8b", edge="end", offset=0.1)],
         "tmi": [W("l10b", "final", -0.35), W("l10b", edge="end", offset=0.3)],
@@ -82,11 +82,11 @@ SHOTS = {
     "mars_graveyard": {"look": LOOK, "camera": move(
         cam(D(0, 0, 105), D(0, 0, 0), 30), cam(D(0, 0, 128), D(0, 0, 0), 30), "out")},
     "orbit_loops": {"look": LOOK, "camera": move(
-        cam(P(-300, 470, -190), P(150, -20, 70), 30), cam(P(-330, 520, -120), P(150, -20, 70), 30), "in_out")},
+        cam(P(-190, 300, -120), P(120, -20, 60), 30), cam(P(-215, 340, -80), P(130, -20, 60), 30), "in_out")},
     "tmi_burn": {"look": LOOK, "camera": move(
         cam(A("mom_e", -3.5, 11, -3.5), A("mom_e", 3.5, -1.5, 4), 30), cam(A("mom_e", -3, 9.5, -2.8), A("mom_e", 3.5, -1.5, 4), 30), "in_out")},
     "slingshot": {"look": LOOK, "camera": move(
-        cam(P(-40, 160, 380), A("mom_e"), 28), cam(P(-80, 220, 300), A("mom_e"), 28), "in"), "whip_out": "up"},
+        cam(P(-150, 70, -110), A("mom_e"), 32), cam(P(-160, 80, -100), A("mom_e"), 32), "in"), "whip_out": "up"},
     "cruise_sleep": {"look": LOOK, "camera": move(
         cam(A("mom_c", 6, 2, 9), A("mom_c"), 35), cam(A("mom_c", 4.5, 1.5, 6.5), A("mom_c"), 35), "in_out")},
     "maven_arrival": {"look": LOOK, "camera": move(

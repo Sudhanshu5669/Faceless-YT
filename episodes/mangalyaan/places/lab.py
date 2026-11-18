@@ -77,8 +77,8 @@ REVEALS = [
     {"id": "months_count", "t": W("l5d", offset=-0.1), "until": W("l6a"), "at": CL(0, 4.25, 0.8), "size": 0.42,
      "counter": {"from": 15, "to": 0, "decimals": 0, "suffix": " MONTHS", "land": W("l5d", "months", 0.25),
                  "label": "TO LAUNCH"}, "sound": "ding"},
-    {"id": "budget_count", "t": W("l6a", "four", -0.2), "until": W("l6b", edge="end", offset=0.4), "at": P(0.3, 1.44, 1.35),
-     "size": 0.055, "counter": {"from": 0, "to": 450, "decimals": 0, "prefix": "₹", "suffix": " CRORE",
+    {"id": "budget_count", "t": W("l6a", "four", -0.2), "until": W("l6b", edge="end", offset=0.4), "at": P(0.22, 1.4, 1.0),
+     "size": 0.045, "counter": {"from": 0, "to": 450, "decimals": 0, "prefix": "₹", "suffix": " CRORE",
                                 "land": W("l6a", "crore"), "label": "MARS ORBITER MISSION"}, "sound": "cash"},
 ]
 

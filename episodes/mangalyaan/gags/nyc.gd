@@ -116,9 +116,9 @@ func _club(root: Node3D) -> void:
 	frosted.emission_enabled = true
 	frosted.emission = Color(0.55, 0.45, 0.3)
 	frosted.emission_energy_multiplier = 0.25
-	Kit.box(_door, Vector3(0.7, 0.9, 0.02), Vector3(0, 1.65, 0.03), frosted)
-	Kit.box(_door, Vector3(0.62, 0.14, 0.01), Vector3(0, 1.05, 0.045), Kit.mat("#c9a14a", 0.25, 0.0, 0.9))
-	Kit.text(_door, "ELITE SPACE CLUB", 0.055, Color("2a1a08"), Vector3(0, 1.05, 0.052), Vector3.ZERO, true, 0.0, Color(0, 0, 0, 0), "body")
+	Kit.box(_door, Vector3(0.7, 1.0, 0.02), Vector3(0, 1.38, 0.03), frosted)
+	Kit.box(_door, Vector3(0.62, 0.14, 0.01), Vector3(0, 2.02, 0.045), Kit.mat("#c9a14a", 0.25, 0.0, 0.9))
+	Kit.text(_door, "ELITE SPACE CLUB", 0.055, Color("2a1a08"), Vector3(0, 2.02, 0.052), Vector3.ZERO, true, 0.0, Color(0, 0, 0, 0), "body")
 	Kit.ball(_door, 0.04, Vector3(0.42, 1.05, 0.06), Kit.mat("#c9a14a", 0.25, 0.0, 0.9), 12)
 	Kit.box(root, Vector3(1.4, 2.6, 0.1), Vector3(1.4, 1.3, -2.92), Kit.mat("#1d0f07", 0.5))
 	# Fireplace on the left wall: marble surround, the fire, a mirror above.
@@ -199,7 +199,7 @@ func _newspaper(root: Node3D) -> void:
 ## Outside the club's door: a corridor, the farmer (an actor) and his cow (built here).
 func _farmer_side(root: Node3D) -> void:
 	Kit.box(root, Vector3(4, 0.1, 3), Vector3(1.4, -0.05, -4.6), Kit.mat("#5a5048", 0.7))
-	Kit.omni(root, Vector3(1.4, 2.5, -4.5), "#ffe2b0", 1.2, 4.0, false, 0.3)
+	Kit.omni(root, Vector3(1.4, 2.2, -4.0), "#ffe2b0", 2.6, 4.5, false, 0.3)
 	var cow := Node3D.new()
 	cow.position = Vector3(2.15, 0, -4.3)
 	cow.rotation = Vector3(0, -PI / 2.6, 0)
@@ -310,7 +310,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var rap := 0.0
 		for i in 3:
 			rap = maxf(rap, 1.0 - absf(t - (k0 + 0.22 * i)) / 0.1)
-		var glass := gt * Vector3(1.4, 1.65, -2.92 - 0.06 + 0.05 * (1.0 - rap))
+		var glass := gt * Vector3(1.4, 1.35, -2.92 - 0.06 + 0.05 * (1.0 - rap))
 		kr.aim_hand("r", glass, w)
 	# Letters: they rain down and heap up against the doors (the heap grows from the glass outward).
 	var lw = _p.get("letters", [])

@@ -68,7 +68,7 @@ func build(g: Dictionary) -> Node3D:
 	root.add_child(atm)
 	Kit.slab(atm, Vector3(0.9, 1.7, 0.7), 0.05, Vector3(0, 0.85, 0), Kit.mat("#2d3a4a", 0.45, 0.0, 0.6))
 	Kit.box(atm, Vector3(0.7, 0.45, 0.05), Vector3(0, 1.3, 0.36), Kit.mat("#141a22", 0.3))
-	Kit.box(atm, Vector3(0.36, 0.26, 0.02), Vector3(0, 1.32, 0.39), Kit.lit("#6fb2ff", 1.4))
+	Kit.box(atm, Vector3(0.36, 0.26, 0.02), Vector3(0, 1.32, 0.39), Kit.lit("#4f8fd6", 0.5))
 	Kit.box(atm, Vector3(0.34, 0.15, 0.12), Vector3(0, 0.98, 0.42), Kit.mat("#7d8590", 0.4), Vector3(0.6, 0, 0))
 	Kit.box(atm, Vector3(0.22, 0.012, 0.06), Vector3(0, 1.05, 0.36), Kit.mat("#050505", 0.5))
 	Kit.ball(atm, 0.012, Vector3(0.14, 1.07, 0.37), Kit.lit("#29ff6a", 3.0), 6)
@@ -119,8 +119,13 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var slot := Vector3(0.1, 1.05, -1.06)
 	var u := Motion.out_cubic(clampf((t - out) / 0.6, 0.0, 1.0))
 	var lift := Motion.in_out(clampf((t - flip) / 0.5, 0.0, 1.0))
-	_note.position = slot + Vector3(0, 0.0, 0.09 * u) + Vector3(0, 0.12, 0.25) * lift
-	_note.rotation = Vector3(-PI / 2 * (1.0 - lift), PI * lift, 0)
+	var show := Vector3(-0.15, 0.2, 0.16)
+	_note.position = slot + Vector3(0, 0.0, 0.09 * u) + show * lift
+	# Out flat from the slot, then lifted and turned so its back (the motif) faces the camera.
+	var flat := Basis.from_euler(Vector3(-PI / 2, 0, 0))
+	var to_cam := (Vector3(-0.55, 1.3, -0.55) - _note.position).normalized()
+	var face := Basis.looking_at(-to_cam, Vector3.UP)
+	_note.basis = flat.slerp(face, lift)
 	_note.visible = t > out - 0.05
 	for i in _bulbs.size():
 		(_bulbs[i] as Node3D).visible = fposmod(t * 2.0 + float(i % 3) * 0.33, 1.0) < 0.75

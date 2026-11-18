@@ -587,7 +587,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var t0 := float(gl.get("t", 1e9))
 		var act = ctx.get("actor", null)
 		var who = act.call(String(gl.get("actor", ""))) if act else null
-		if who and t > t0 - 0.6:
+		if who and t > t0 - 0.6 and t < t0 + 3.0:
 			hold = true
 			var hp: Dictionary = ctx["point"].call(String(gl.get("actor", "")) + ".head")
 			var head: Vector3 = hp.get("pos", who.bone_world("Head"))

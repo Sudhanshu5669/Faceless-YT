@@ -44,8 +44,8 @@ void vertex() {
 void fragment() {
 	float foam = smoothstep(2.4, 3.6, crest) * (0.6 + 0.4 * fbm(wp * 0.4 + vec3(t * 0.3)));
 	foam += smoothstep(0.72, 0.8, fbm(wp * 0.15 + vec3(0.0, 0.0, t * 0.1))) * 0.35;
-	vec3 water = mix(vec3(0.015, 0.035, 0.045), vec3(0.03, 0.08, 0.09), smoothstep(-2.0, 3.0, crest));
-	ALBEDO = mix(water, vec3(0.8, 0.85, 0.86), clamp(foam, 0.0, 1.0));
+	vec3 water = mix(vec3(0.03, 0.06, 0.075), vec3(0.07, 0.15, 0.17), smoothstep(-2.0, 3.0, crest));
+	ALBEDO = mix(water, vec3(0.85, 0.9, 0.92), clamp(foam * 1.3, 0.0, 1.0));
 	ROUGHNESS = mix(0.08, 0.7, foam);
 	SPECULAR = 0.6;
 }
@@ -82,7 +82,7 @@ func build(g: Dictionary) -> Node3D:
 	_sea.mesh = plane
 	_sea_mat = Kit.shader(SEA)
 	_sea.material_override = _sea_mat
-	_sea.position = Vector3(0, 2.5, 0)
+	_sea.position = Vector3(0, 0.8, 0)
 	_horizon.add_child(_sea)
 	_ship(root)
 	for i in 10:
@@ -157,6 +157,9 @@ func _ship(root: Node3D) -> void:
 			Kit.rod(root, Vector3(s * 9.8, DECK, z), Vector3(s * 9.8, DECK + 1.1, z), 0.03, steel, 4)
 	Kit.spot(root, Vector3(0, DECK + 16, 37), Vector3(2, DECK, 26), "#ffe0b0", 9.0, 30.0, 45.0, true, 1.0)
 	Kit.spot(root, Vector3(-6.5, DECK + 10, 16), Vector3(0, DECK, -20), "#ffd8a0", 6.0, 50.0, 30.0, false, 1.0)
+	# Floodlights over the side light up the breaking water round the hull.
+	for z in [-30.0, 0.0, 30.0]:
+		Kit.spot(root, Vector3(-10.5, DECK + 4, z), Vector3(-26, 0, z), "#ffe2b8", 5.0, 40.0, 40.0, false, 1.0)
 
 
 func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
@@ -164,10 +167,10 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var gt := node.global_transform
 	_sea_mat.set_shader_parameter("t", t)
 	# The sea heaves round the ship: pitch and roll of the whole horizon.
-	var pitch := 0.07 * sin(t * 0.95) + 0.025 * sin(t * 2.1)
-	var roll := 0.05 * sin(t * 0.7 + 1.0)
+	var pitch := 0.022 * sin(t * 0.95) + 0.008 * sin(t * 2.1)
+	var roll := 0.016 * sin(t * 0.7 + 1.0)
 	_horizon.rotation = Vector3(pitch, 0, roll)
-	_horizon.position = Vector3(0, 1.4 * sin(t * 0.95 + 0.6), 0)
+	_horizon.position = Vector3(0, 0.9 * sin(t * 0.95 + 0.6) - 0.6, 0)
 	# Spray: bursts over the bow every wave (on the pitch's downswing), arcing up and back, fading.
 	var w = _p.get("waves", [])
 	var t0 := float(w[0]) if w is Array and w.size() >= 1 else 0.0

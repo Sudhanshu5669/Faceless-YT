@@ -36,7 +36,7 @@ ACTORS = [
     {"id": "club_a", "character": "toon_club_a", "at": P(-1.2, 0.0, 0.95), "facing": P(-0.42, 0, 1.57), "action": "sit",
      "cues": [{"t": 0.0, "expression": "smug"},
               {"t": W("l19b", "knocking", 0.1), "expression": "side_eye", "head": [0, 30, 0]},
-              {"t": W("l20"), "expression": "nervous"}]},
+              {"t": W("l20a"), "expression": "nervous"}]},
     {"id": "club_b", "character": "toon_club_b", "at": P(0.2, 0.0, -0.45), "facing": P(-0.27, 0, 0.43), "action": "sit",
      "cues": [{"t": 0.0, "expression": "smug"},
               {"t": W("l19b", "knocking", 0.2), "expression": "side_eye", "head": [0, -35, 0]}]},
@@ -47,15 +47,15 @@ ACTORS = [
 GAGS = [
     {"id": "nyc", "script": "gags/nyc.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"knock": [W("l19b", "knocking", -0.05), W("l19b", "door")], "reader": "club_b", "knocker": "farmer",
-                "letters": [W("l20", "After", -0.2), W("l20", "apologises", -0.2)]}},
-    {"id": "nyt_apology", "script": "library:post_card", "t": W("l20", "apologises"), "until": W("l21a"),
+                "letters": [W("l20a", "After", -0.2), W("l20b", "apologises", -0.2)]}},
+    {"id": "nyt_apology", "script": "library:post_card", "t": W("l20b", "apologises"), "until": W("l21a"),
      "at": E(0.0, 3.6, 2.4), "face": E(0.0, 2.6, 9.0), "params": NYT_POST},
 ]
 
 SHOTS = {
     "club_room": {"look": LOOK, "camera": move(
-        cam(P(-2.7, 1.45, 1.9), P(-0.5, 1.0, 0.2), 28, {"strength": 0.25}),
-        cam(P(-2.45, 1.35, 1.55), P(-0.5, 1.0, 0.2), 30, {"strength": 0.25}), "in_out")},
+        cam(P(-0.2, 2.45, 2.75), P(-0.5, 0.8, 0.2), 28, {"strength": 0.2}),
+        cam(P(-0.3, 2.2, 2.25), P(-0.5, 0.8, 0.2), 30, {"strength": 0.2}), "in_out")},
     "club_door": {"look": LOOK, "shake": [{"t": W("l19b", "knocking"), "amount": 0.15}], "camera": move(
         cam(P(-1.6, 1.55, 1.9), P(1.35, 1.4, -2.9), 28, {"strength": 0.2}),
         cam(P(-1.3, 1.5, 1.5), P(1.35, 1.45, -2.9), 30, {"strength": 0.2}), "in_out")},

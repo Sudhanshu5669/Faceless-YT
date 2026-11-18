@@ -626,7 +626,7 @@ func _build_loops(root: Node3D) -> void:
 		root.add_child(tube)
 		_loops.append(tube)
 		_loop_mats.append(tm)
-	var esc := _tube_curve(func(u: float) -> Vector3: return _escape_path(u), 200, 0.55)
+	var esc := _tube_curve(func(u: float) -> Vector3: return _escape_path(u), 200, 1.2)
 	_escape_mat = Kit.shader(TRAIL_SHADER)
 	_escape_mat.set_shader_parameter("color", Color(1.0, 0.85, 0.5))
 	_escape_mat.set_shader_parameter("gain", 1.2)
@@ -935,7 +935,7 @@ func _pose_loops(node: Node3D, t: float, out: Dictionary) -> void:
 		var tm: ShaderMaterial = _loop_mats[i]
 		var ti := l0 + per * i
 		var frac := clampf((t - ti) / per, 0.0, 1.0)
-		(_loops[i] as MeshInstance3D).visible = t > ti and t < tmi0 - 0.2
+		(_loops[i] as MeshInstance3D).visible = t > ti and t < l1 + 0.15
 		tm.set_shader_parameter("reveal", _true_frac(rp, float(APOGEES[i]) * RE, frac))
 		tm.set_shader_parameter("gain", 0.9 if frac < 1.0 else 0.4)
 	if t < l1:

@@ -9,9 +9,9 @@ P = frame("ship", SHIP_Z)
 
 LOOK = {
     "base": "storm_night", "time": "01:00", "ssao": True,
-    "weather": {"rain": 0.85, "wind": 0.9, "clouds": 0.9, "fog": 0.0},
-    "sun": {"energy": 0, "visible": False}, "moon": {"energy": 0.05, "visible": False},
-    "ambient": {"color": "#4a5668", "energy": 0.12},
+    "weather": {"rain": 0.45, "wind": 0.8, "clouds": 0.85, "fog": 0.0},
+    "sun": {"energy": 0, "visible": False}, "moon": {"elevation": 30, "azimuth": 160, "energy": 0.45, "color": "#9fb4d8", "visible": False, "shadows": True},
+    "ambient": {"color": "#56657c", "energy": 0.28},
     "fog": {"begin": 30, "end": 600, "color": "#0c1116", "volumetric": 0.0},
     "ground_fog": {"density": 0.0},
     "glow": {"enabled": True, "intensity": 0.7, "bloom": 0.05, "threshold": 1.1},
@@ -31,7 +31,7 @@ GAGS = [{"id": "nalanda", "script": "gags/pacific_ship.gd", "t": 0, "at": P(0, 0
 
 SHOTS = {
     "ship_storm": {"look": LOOK, "camera": move(
-        cam(P(-46, 14, -8), P(2, 10, 24), 55, roll=-6), cam(P(-40, 12, 2), P(3, 9, 30), 60, roll=5), "in_out")},
+        cam(P(-62, 16, -30), P(0, 6, 8), 40, roll=-6), cam(P(-55, 13, -18), P(2, 7, 18), 44, roll=5), "in_out")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

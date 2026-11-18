@@ -20,8 +20,10 @@ sys.path.insert(0, str(HERE))
 # Place modules (places/<name>.py), each with PLACE = {"gags", "actors", "shots"}.
 PLACE_MODULES = ["space", "control", "lab", "lane", "mars", "pad", "club", "ship", "atm"]
 
-NARRATION = {"model": "qwen3-tts-1.7b-customvoice", "voice": "Aiden",
-             "style": "Warm, inspiring documentary narrator. Brisk and clear, with quiet wonder; lets the big numbers land.", "speed": 1.1}
+NARRATION = {"model": "gemini-3.8-flash-tts", "voice": "Charon", "single_take": True,
+             "style": "inspiring documentary narrator for a YouTube Short: brisk, warm and clear, quiet wonder, "
+                      "tense and hushed when the room waits, rising to joyful pride at the Mars orbit",
+             "speed": 1.0}
 
 # (line id, first shot, start inside that shot, text, optional style)
 LINES = [
@@ -29,7 +31,8 @@ LINES = [
     ("l1b", "auto_overtake", 0.1, "India went to Mars for seven.", None),
     ("l2a", "isro_window", 0.2, "Imagine you're ISRO, in 2012.", None),
     ("l2b", "mars_club", 0.15, "America, the Soviet Union and Europe have all reached Mars.", None),
-    ("l3a", "fail_japan", 0.15, "Japan tried. China tried. Both failed.", None),
+    ("l3a1", "fail_japan", 0.15, "Japan tried.", None),
+    ("l3a2", "fail_china", 0.0, "China tried. Both failed.", None),
     ("l3b", "mars_graveyard", 0.15, "More than half of all missions to Mars have failed.", None),
     ("l4", "moon_window", 0.2, "And you've never sent anything farther than the Moon.", None),
     ("l5a", "approval", 0.2, "In August 2012, the government says yes.", None),
@@ -67,7 +70,8 @@ LINES = [
     ("l18b", "mom_reply", 0.1, "And you reply: Howdy, Curiosity? Keep in touch. I'll be around.", None),
     ("l19a", "club_room", 0.2, "Four days later, The New York Times prints a cartoon:", None),
     ("l19b", "club_door", 0.05, "India as a farmer with a cow, knocking on the door of the Elite Space Club.", None),
-    ("l20", "letters_pile", 0.15, "After thousands of complaints, the paper apologises.", None),
+    ("l20a", "letters_pile", 0.15, "After thousands of complaints,", None),
+    ("l20b", "apology", 0.0, "the paper apologises.", None),
     ("l21a", "six_months", 0.2, "And the insane part? You were built to last six months.", None),
     ("l21b", "eight_years", 0.05, "You keep working for almost eight years.", None),
     ("l22", "atm_note", 0.2, "Your picture even ends up on India's new two-thousand-rupee note.", None),
@@ -87,7 +91,7 @@ SHOTS = [
     ("launch", "pad"), ("tmi_burn", "space"), ("slingshot", "space"),
     ("cruise_sleep", "space"), ("beard_wait", "control"),
     ("maven_arrival", "space"), ("price_tags", "space"),
-    ("test_fire_key", "control"), ("test_fire", "space"), ("test_exhale", "control"),
+    ("test_fire_key", "control"), ("test_fire", "space"),
     ("moi_start", "space"), ("moi_risk", "space"),
     ("room_static", "control"), ("signal_crawl", "space"), ("behind_mars", "space"),
     ("room_waits", "control"),
@@ -101,7 +105,7 @@ SHOTS = [
 ]
 
 # Shots that carry no line start: fixed lengths for now (retimed against the voice per place).
-FIXED = {"fail_china": 1.4, "test_exhale": 1.2, "apology": 1.6}
+FIXED = {}
 
 
 def placeholder_camera(place):
@@ -127,8 +131,6 @@ def build():
             s["duration"] = {"fit": True, "min": 1.2, "tail": 0.2}
         else:
             s["duration"] = 1.5
-        if name == "room_waits":
-            s["hold"] = 1.2
         s.update(overrides.get(name, {}))
         shots.append(s)
     lines = []
