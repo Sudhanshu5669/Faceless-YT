@@ -1,0 +1,7 @@
+# Core pipeline (sound, mixing, word timing)
+numpy
+scipy
+onnxruntime          # forced alignment (wav2vec2 model in models/alignment/, see docs/AUDIO_SPEC.md)
+
+# Optional local narration (Qwen3-TTS) lives in its own venv, .venv/qwen-tts/:
+# see docs/AUDIO_SPEC.md for the CUDA torch + qwen-tts install.

@@ -4,7 +4,8 @@ TownForge turns an approved story into a rendered, animated YouTube episode
 ("what if you…" hypotheticals, Shorts first). Godot 4.7 builds and films the
 world; Python runs the pipeline; an LLM acts as director by writing JSON specs.
 
-**Start with `HANDOFF.md`** (current state, uncommitted work, next steps), then
+**Start with `HANDOFF.md`** (current state and next steps; older session notes in
+`docs/history/`), then
 `docs/VISION_AND_ROADMAP.md` (goals, workflow, status, what's next).
 Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary:
 
@@ -25,15 +26,18 @@ Read `docs/ARCHITECTURE.md` before changing structure. The director's vocabulary
   gag uses. Distilled from the installed skills `disney-animation-rule-skill`, `game-feel`, `animation-principles`
 
 **Making a video in the house style?** Follow the `toon-short` skill
-(`.claude/skills/toon-short/SKILL.md`): script formula, beat sheet, rules, checklist.
+(`.claude/skills/toon-short/SKILL.md`): workflow, rules and checklists, with references for
+cinematics, realism, assets (how to ask before downloading), motion, script and gags, vocabulary.
 
 ## The user's standing rules (for every model: Claude, Codex, anyone)
 
-These come from the user's own feedback; they override defaults. Details in `HANDOFF.md`.
+These come from the user's own feedback; they override defaults. The `toon-short` skill explains how to apply them.
 
 1. **Shot-by-shot approval.** Make one shot, show it (`tf shot EPISODE NAME`, or the browser page
    `tf shot EPISODE --serve`), get approve / changes / reject, then the next. Read verdicts with
-   `tf shot EPISODE --status`. Never batch-render a whole video for the user's first look.
+   `tf shot EPISODE --status`. Never batch-render a whole video for the user's first look. Once an
+   episode's look is approved and the user says to keep going, build the rest autonomously,
+   self-review every shot and present them together.
 2. **9:16 framing.** Nothing may be cut off by the narrow frame: stack reveals vertically on/above a
    character, never left/right; `tf framing EPISODE` must report nothing before a shot is shown.
 3. **Action, not apparition.** Each narration line is a mini scene: a character DOES something to an
