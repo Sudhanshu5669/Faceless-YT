@@ -130,12 +130,14 @@ var _papers: MultiMesh
 var _paper_data: Array = []
 var _downlights: Array = []
 var _label_status: Label3D
+var _countdown: Label3D
+var _date_l: Label3D
 
 
 func validate(g: Dictionary) -> Array:
 	var e := []
 	for k in g.get("params", {}):
-		if not (k in ["lost", "static", "back", "erupt", "key", "hug", "beard"]):
+		if not (k in ["lost", "static", "back", "erupt", "key", "hug", "beard", "mode", "hold", "header"]):
 			e.append("mission_control: unknown param '%s'" % k)
 	return e
 
@@ -196,7 +198,12 @@ func _screen_wall(root: Node3D) -> void:
 		var l := Kit.omni(root, (s[0] as Vector3) + Vector3(0, 0, 1.5), "#6fa8ff", 1.4 if i == 0 else 0.6, 12.0, false, 0.3)
 		l.name = "screen_light_%d" % i
 	# Header strip with the mission name, the ISRO logo above it.
-	Kit.text(root, "MARS ORBITER MISSION", 0.34, Color("cfe3ff"), Vector3(0, 5.55, z + 0.05), Vector3.ZERO, true, 1.4)
+	Kit.text(root, String(_p.get("header", "MARS ORBITER MISSION")), 0.34, Color("cfe3ff"), Vector3(0, 5.55, z + 0.05), Vector3.ZERO, true, 1.4)
+	if String(_p.get("mode", "")) == "launch":
+		# The countdown board over the main screen: T- time on HOLD, and the date.
+		Kit.box(root, Vector3(4.6, 1.5, 0.1), Vector3(0, 3.35, z + 0.08), Kit.mat("#06070a", 0.4))
+		_countdown = Kit.text(root, "HOLD", 0.9, Color(1.0, 0.25, 0.15), Vector3(0, 3.6, z + 0.15), Vector3.ZERO, true, 3.0)
+		_date_l = Kit.text(root, "28 OCT 2013", 0.34, Color(1.0, 0.8, 0.3), Vector3(0, 2.9, z + 0.15), Vector3.ZERO, true, 2.5)
 	var logo := Kit.quad(root, Vector2(1.0, 1.0), Vector3(-3.3, 5.6, z + 0.05), _logo_mat())
 	Kit.quad(root, Vector2(1.0, 1.0), Vector3(3.3, 5.6, z + 0.05), _logo_mat())
 	_label_status = Kit.text(root, "LIVE", 0.22, Color("8fd3ff"), Vector3(0, 1.38, z + 0.05), Vector3.ZERO, true, 1.6)
@@ -267,10 +274,10 @@ func _consoles(root: Node3D) -> void:
 			if r.randf() < 0.6:
 				Kit.box(root, Vector3(0.21, 0.004, 0.3), Vector3(cx - 0.45, fy + 0.653, z - 0.3), Kit.mat("#ece8de", 0.85), Vector3(0, r.randf_range(-0.3, 0.3), 0))
 			# Chair: a dark office chair behind each seat.
-			Kit.cyl(root, 0.03, 0.03, 0.4, Vector3(cx, fy + 0.2, z + 0.2), edge, 8)
-			Kit.cyl(root, 0.25, 0.25, 0.04, Vector3(cx, fy + 0.02, z + 0.2), body, 5)
-			Kit.slab(root, Vector3(0.48, 0.07, 0.46), 0.08, Vector3(cx, fy + 0.43, z + 0.2), Kit.mat("#1f2228", 0.8))
-			Kit.slab(root, Vector3(0.46, 0.55, 0.07), 0.06, Vector3(cx, fy + 0.78, z + 0.47), Kit.mat("#1f2228", 0.8))
+			Kit.cyl(root, 0.03, 0.03, 0.4, Vector3(cx, fy + 0.2, z + 0.42), edge, 8)
+			Kit.cyl(root, 0.25, 0.25, 0.04, Vector3(cx, fy + 0.02, z + 0.42), body, 5)
+			Kit.slab(root, Vector3(0.48, 0.07, 0.46), 0.08, Vector3(cx, fy + 0.43, z + 0.36), Kit.mat("#1f2228", 0.8))
+			Kit.slab(root, Vector3(0.46, 0.55, 0.07), 0.06, Vector3(cx, fy + 0.78, z + 0.72), Kit.mat("#1f2228", 0.8))
 	# The command key: a red guarded button on row 1, right of centre.
 	_key = Node3D.new()
 	_key_at = Vector3(1.95, 0.665, -5.25)
@@ -368,6 +375,14 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		(m as ShaderMaterial).set_shader_parameter("t", t)
 		(m as ShaderMaterial).set_shader_parameter("lost", lost * 0.6)
 		(m as ShaderMaterial).set_shader_parameter("good", good)
+	if _countdown:
+		_countdown.text = "T –  HOLD" if fposmod(t, 1.0) < 0.65 else "T –"
+		var hw = _p.get("hold", [])
+		var days := 0
+		if hw is Array and hw.size() >= 2:
+			days = int(round(clampf((t - float(hw[0])) / maxf(float(hw[1]) - float(hw[0]), 0.01), 0.0, 1.0) * 8.0))
+		var dates := ["28 OCT 2013", "29 OCT 2013", "30 OCT 2013", "31 OCT 2013", "01 NOV 2013", "02 NOV 2013", "03 NOV 2013", "04 NOV 2013", "05 NOV 2013"]
+		_date_l.text = dates[clampi(days, 0, 8)]
 	_label_status.text = "SIGNAL ACQUIRED" if good > 0.5 else ("NO SIGNAL" if lost > 0.5 else "LIVE")
 	_label_status.modulate = (Color("6dff8a") if good > 0.5 else (Color("ff6b5e") if lost > 0.5 else Color("8fd3ff"))) * 1.6
 	# The clock: a second hand ticking (a tick per second), the minute hand creeping.

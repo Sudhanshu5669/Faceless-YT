@@ -22,8 +22,8 @@ void vertex() {
 	float h = (fbm(w * 0.04) - 0.5) * 3.0 + (fbm(w * 0.25) - 0.5) * 0.35;
 	// Ripples of dark sand in the hollows.
 	h += sin(w.x * 1.6 + w.z * 0.7 + fbm(w * 0.1) * 6.0) * 0.04;
-	float flt = smoothstep(9.0, 3.0, length(w.xz - vec2(MODEL_MATRIX[3].x, MODEL_MATRIX[3].z)));
-	VERTEX.y += h * (1.0 - flt * 0.9);
+	float flt = smoothstep(14.0, 6.0, length(w.xz - vec2(MODEL_MATRIX[3].x, MODEL_MATRIX[3].z + 60.0)));
+	VERTEX.y += h * (1.0 - flt);
 	wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 }
 void fragment() {
@@ -110,7 +110,7 @@ func build(g: Dictionary) -> Node3D:
 	var bb := Kit.bounds(rover)
 	var k := 3.0 / maxf(maxf(bb.size.x, bb.size.z), 0.001)
 	rover.scale = Vector3.ONE * k
-	rover.position = Vector3(-bb.get_center().x * k, -bb.position.y * k, -bb.get_center().z * k)
+	rover.position = Vector3(-bb.get_center().x * k, -bb.position.y * k - 0.04, -bb.get_center().z * k)
 	holder.rotation = Vector3(0, 0.0, 0)
 	root.add_child(holder)
 	_mast_at = Vector3(0.0, bb.size.y * k * 0.95, 0.0)

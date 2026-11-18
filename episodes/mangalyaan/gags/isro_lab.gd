@@ -26,6 +26,7 @@ const Paths = preload("res://scripts/core/paths.gd")
 const CLEAN := Vector3(40, 0, 0)
 const DESK_Y := 0.76
 const SCALE_K := 1.6
+const SCALE_YAW := PI / 2   # the beam runs along z: seen broadside from the right wall
 
 const PLASTER := """
 shader_type spatial;
@@ -392,6 +393,7 @@ func _scale(root: Node3D) -> void:
 	n.position = at
 	n.name = "scale"
 	n.scale = Vector3.ONE * SCALE_K
+	n.rotation = Vector3(0, SCALE_YAW, 0)
 	root.add_child(n)
 	var brass := Kit.mat("#c99a3a", 0.25, 0.0, 0.9)
 	Kit.cyl(n, 0.08, 0.1, 0.03, Vector3(0, 0.015, 0), brass, 24)
@@ -570,15 +572,15 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	for i in 2:
 		var s := -1.0 if i == 0 else 1.0
 		var tip := Vector3(s * 0.24 * cos(tilt), 0.42 + s * 0.24 * sin(tilt), 0) * SCALE_K
-		(_pans[i] as Node3D).position = sc_at + tip - Vector3(0, 0.2, 0) * SCALE_K
+		(_pans[i] as Node3D).position = sc_at + Basis(Vector3.UP, SCALE_YAW) * tip - Vector3(0, 0.2, 0) * SCALE_K
 	var lp: Vector3 = (_pans[0] as Node3D).position + Vector3(0, 0.008, 0) * SCALE_K
 	var rp: Vector3 = (_pans[1] as Node3D).position + Vector3(0, 0.008, 0) * SCALE_K
 	var cu := Motion.out_cubic(clampf((t - ct + 0.3) / 0.3, 0.0, 1.0))
 	_cash.position = lp + Vector3(0, 0.25 * (1.0 - cu), 0)
-	_cash.visible = t > ct - 0.3
+	_cash.visible = t > ct - 0.3 and scale_on
 	var gu := Motion.in_cubic(clampf((t - gvt + 0.25) / 0.25, 0.0, 1.0))
 	_gravity.position = rp + Vector3(0, 0.3 * (1.0 - gu), 0)
-	_gravity.visible = t > gvt - 0.25
+	_gravity.visible = t > gvt - 0.25 and scale_on
 	# The gulel: out of the drawer into the left hand, the right hand pulls the band back.
 	var gl = _p.get("gulel", null)
 	var hold := false
@@ -594,13 +596,14 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			var fwd := Vector3(sin(who.rotation.y), 0, cos(who.rotation.y))
 			var left := Vector3(cos(who.rotation.y), 0, -sin(who.rotation.y))
 			var up_u := Motion.out_back(clampf((t - t0 + 0.6) / 0.5, 0.0, 1.0))
-			var hold_at := head + fwd * 0.4 - left * 0.03 + Vector3(0, -0.45 + 0.4 * up_u, 0)
+			var chest: Vector3 = who.bone_world("spine_03")
+			var hold_at := chest + fwd * 0.42 + left * 0.08 + Vector3(0, 0.22 + 0.08 * up_u, 0)
 			pull = Motion.in_out(clampf((t - t0 - 0.3) / 0.7, 0.0, 1.0))
 			var gp := node.global_transform.affine_inverse() * hold_at
 			_gulel.position = gp
 			_gulel.basis = Basis.looking_at(-(node.global_transform.basis.inverse() * fwd), Vector3.UP).scaled(Vector3.ONE * 1.8)
 			who.aim_hand("l", hold_at + Vector3(0, -0.06, 0), up_u)
-			var pouch := hold_at + Vector3(0, 0.07, 0) - fwd * (0.05 + 0.22 * pull)
+			var pouch := hold_at + Vector3(0, 0.05, 0) - fwd * (0.05 + 0.15 * pull) - left * 0.06
 			who.aim_hand("r", pouch, up_u)
 	_gulel.visible = hold
 	if hold:

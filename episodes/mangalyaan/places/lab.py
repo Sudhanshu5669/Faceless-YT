@@ -77,7 +77,7 @@ REVEALS = [
     {"id": "months_count", "t": W("l5d", offset=-0.1), "until": W("l6a"), "at": CL(0, 4.25, 0.8), "size": 0.42,
      "counter": {"from": 15, "to": 0, "decimals": 0, "suffix": " MONTHS", "land": W("l5d", "months", 0.25),
                  "label": "TO LAUNCH"}, "sound": "ding"},
-    {"id": "budget_count", "t": W("l6a", "four", -0.2), "until": W("l6b", edge="end", offset=0.4), "at": P(0.22, 1.4, 1.0),
+    {"id": "budget_count", "t": W("l6a", "four", -0.2), "until": W("l6b", edge="end", offset=0.4), "at": P(0.55, 1.6, 1.2),
      "size": 0.045, "counter": {"from": 0, "to": 450, "decimals": 0, "prefix": "₹", "suffix": " CRORE",
                                 "land": W("l6a", "crore"), "label": "MARS ORBITER MISSION"}, "sound": "cash"},
 ]
@@ -104,14 +104,14 @@ SHOTS = {
     "cleanroom_build": {"look": CLEAN_LOOK, "camera": move(
         cam(CL(3.2, 2.3, 3.6), CL(0, 1.7, 0), 26), cam(CL(-2.8, 2.1, 3.6), CL(0, 1.8, 0), 26), "in_out")},
     "budget_stack": {"look": LOOK, "camera": move(
-        cam(P(-0.38, 1.42, 0.3), P(0.55, 1.12, 1.2), 30, {"strength": 0.25}),
-        cam(P(-0.33, 1.4, 0.36), P(0.55, 1.12, 1.2), 31, {"strength": 0.25}), "in_out")},
+        cam(P(1.85, 1.3, 1.05), P(0.45, 1.15, 1.0), 30, {"strength": 0.25}),
+        cam(P(1.75, 1.28, 1.05), P(0.45, 1.15, 1.0), 31, {"strength": 0.25}), "in_out")},
     "budget_gravity": {"look": LOOK, "shake": [{"t": W("l6b", "Gravity"), "amount": 0.35}], "camera": move(
-        cam(P(-0.33, 1.4, 0.36), P(0.55, 1.12, 1.2), 31, {"strength": 0.25}),
-        cam(P(-0.28, 1.38, 0.42), P(0.55, 1.1, 1.2), 32, {"strength": 0.25}), "in_out")},
+        cam(P(1.75, 1.28, 1.05), P(0.45, 1.15, 1.0), 31, {"strength": 0.25}),
+        cam(P(1.68, 1.27, 1.05), P(0.45, 1.14, 1.0), 32, {"strength": 0.25}), "in_out")},
     "gulel": {"look": LOOK, "camera": move(
-        cam(P(0.12, 1.22, 1.72), {"anchor": "hero_lab.head", "offset": [0, -0.15, 0]}, 30, {"strength": 0.3}),
-        cam(P(0.06, 1.18, 1.62), {"anchor": "hero_lab.head", "offset": [0, -0.15, 0]}, 32, {"strength": 0.3}), "in_out")},
+        cam(P(1.0, 1.32, 1.7), P(0.0, 1.0, 0.85), 28, {"strength": 0.25}),
+        cam(P(0.9, 1.28, 1.6), P(0.0, 1.0, 0.85), 30, {"strength": 0.25}), "in_out")},
     "window_mars": {"look": LOOK, "camera": move(
         cam(P(0.1, 1.48, 2.45), P(0, 1.0, 0.6), 30, {"strength": 0.3}),
         cam(P(0.2, 1.62, 4.4), P(0, 1.05, 0.6), 30, {"strength": 0.25}), "in_out")},

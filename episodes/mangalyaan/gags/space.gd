@@ -37,6 +37,7 @@ const Motion = preload("res://scripts/timeline/motion.gd")
 const Paths = preload("res://scripts/core/paths.gd")
 
 static var _mom_gd: GDScript
+static var _auto_gd: GDScript
 var FOIL_SHADER: String
 var CELL_SHADER: String
 var FLAME_SHADER: String
@@ -51,6 +52,14 @@ static func mom_script() -> GDScript:
 	return _mom_gd
 
 
+static func auto_script() -> GDScript:
+	if _auto_gd == null:
+		_auto_gd = GDScript.new()
+		_auto_gd.source_code = FileAccess.get_file_as_string(Paths.repo_path("episodes/mangalyaan/gags/auto_model.gd"))
+		_auto_gd.reload()
+	return _auto_gd
+
+
 func _mom(k: float = 1.0) -> Node3D:
 	return mom_script().new().build(k)
 
@@ -59,6 +68,8 @@ const RM := 36.0
 const M_AT := Vector3(0, 0, -6000)
 const C_AT := Vector3(-6000, 0, 0)
 const D_AT := Vector3(6000, 0, 0)
+const H_AT := Vector3(0, 0, 6000)      # the Sun-centred map of the transfer
+const AUTO_SP := Vector3(25, 6, 120)  # the auto in space, relative to Mars (nose toward Mars)
 const TEX := "incoming/sss_textures/"
 
 # Orbit-raising: perigee and apogees (Earth radii; compressed from the real 0.04 R x 4.5..30 R).
@@ -222,7 +233,7 @@ var _counter_sub: Label3D
 func validate(g: Dictionary) -> Array:
 	var e := []
 	var known := ["sun", "club", "nozomi", "china", "arcs", "loops", "tmi", "escape", "cruise", "maven", "tags", "test",
-		"moi", "ghost", "pulse", "reply", "years"]
+		"moi", "ghost", "pulse", "reply", "years", "auto", "auto_fare", "driver", "map", "map_counter"]
 	for k in g.get("params", {}):
 		if not (k in known):
 			e.append("space: unknown param '%s'" % k)
@@ -249,6 +260,8 @@ func build(g: Dictionary) -> Node3D:
 	_build_tags(root)
 	_build_ghost(root)
 	_build_diagram(root)
+	_build_space_auto(root)
+	_build_map(root)
 	return root
 
 
@@ -838,6 +851,8 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_mars_mom(node, t, out)
 	_pose_maven(node, t, out)
 	_pose_diagram(node, t, out)
+	_pose_space_auto(node, t, out, ctx)
+	_pose_map(node, t, out)
 	return out
 
 
@@ -1089,16 +1104,17 @@ func _pose_maven(node: Node3D, t: float, out: Dictionary) -> void:
 		if not on:
 			continue
 		var t0 := float(tg[0])
-		var hang := p + Vector3(0, 7.5, 0)
+		var hang := p + Vector3(0, 8.5, 2.0)
 		var drop := Motion.out_back(clampf((t - t0) / 0.45, 0.0, 1.0), 1.4)
 		var swing := 0.15 * Motion.wobble(maxf(t - t0 - 0.35, 0.0), 2.2, 2.5) if t > t0 + 0.35 else 0.0
 		tag.position = hang + Vector3(0, (1.0 - drop) * 14.0, 0)
 		tag.rotation = Vector3(0, 0, swing)
+		tag.scale = Vector3.ONE * 1.7
 		tag.visible = t > t0 - 0.05
 		out["tag_" + key] = node.global_transform * hang
 	# MOM for the price-tag shot: a second, posed MOM below MAVEN.
 	var mr: Node3D = _moms["mom_r"]
-	var mp := p + Vector3(-1.5, -10.0, 4.0)
+	var mp := p + Vector3(-0.5, -9.0, 4.0)
 	mr.visible = tg.size() >= 3 and t > float(tg[0]) - 0.5 and t < float(tg[2]) + 0.5
 	mr.position = mp
 	mr.rotation = Vector3(deg_to_rad(-20), deg_to_rad(35 + t * 4.0), deg_to_rad(10))
@@ -1107,11 +1123,12 @@ func _pose_maven(node: Node3D, t: float, out: Dictionary) -> void:
 	if tg.size() >= 3:
 		var tag2: Node3D = _tags["mom"]
 		var t0 := float(tg[1])
-		var hang := mp + Vector3(0, 3.6, 0)
+		var hang := mp + Vector3(0, 4.4, 0.5)
 		var drop := Motion.out_back(clampf((t - t0) / 0.45, 0.0, 1.0), 1.4)
 		var swing := 0.15 * Motion.wobble(maxf(t - t0 - 0.35, 0.0), 2.2, 2.5) if t > t0 + 0.35 else 0.0
 		tag2.position = hang + Vector3(0, (1.0 - drop) * 12.0, 0)
 		tag2.rotation = Vector3(0, 0, swing)
+		tag2.scale = Vector3.ONE * 1.7
 		tag2.visible = mr.visible and t > t0 - 0.05
 		out["tag_mom"] = node.global_transform * hang
 
@@ -1158,3 +1175,130 @@ func _pose_diagram(node: Node3D, t: float, out: Dictionary) -> void:
 		out["pulse"] = node.global_transform * _pulse.position
 	else:
 		_pulse_mat.set_shader_parameter("reveal", 0.0)
+
+
+
+# --- the auto in space (the hook's twist and the ending) -------------------------------------
+
+var _sauto: Node3D
+var _smom: Node3D
+
+
+func _build_space_auto(root: Node3D) -> void:
+	_sauto = auto_script().new().build()
+	root.add_child(_sauto)
+	_smom = _mom(1.0)
+	root.add_child(_smom)
+	# A warm cabin light so the driver reads against the dark.
+	Kit.omni(_sauto, Vector3(0, 1.6, 0.2), "#ffd8a8", 0.6, 3.0, false, 0.0)
+	# A soft key from the camera side (the sunlit half of the shot), so the black body and the driver read.
+	Kit.omni(_sauto, Vector3(2.5, 2.5, 0.5), "#fff0dc", 2.2, 9.0, false, 0.0)
+
+
+func _auto_on(t: float) -> bool:
+	for w in _p.get("auto", []):
+		if w is Array and w.size() >= 2 and t >= float(w[0]) - 0.3 and t <= float(w[1]) + 0.3:
+			return true
+	return false
+
+
+func _pose_space_auto(node: Node3D, t: float, out: Dictionary, ctx: Dictionary) -> void:
+	var on := _auto_on(t)
+	_sauto.visible = on
+	_smom.visible = on
+	# The auto drifts toward Mars, turning very slowly; MOM glides alongside, a little ahead.
+	var base := M_AT + AUTO_SP + Vector3(-22.0 + 8.0 - 0.4 * fposmod(t, 20.0), 0.15 * sin(t * 1.3), 0)
+	_sauto.position = base
+	_sauto.rotation = Vector3(0.04 * sin(t * 0.9), PI / 2 + 0.08 * sin(t * 0.4), 0.05 * sin(t * 0.7))
+	auto_script().roll(_sauto, t * 2.0)
+	var mp := base + Vector3(-3.5, 2.6, -4.5)
+	_look_along(_smom, mp, Vector3(-1, 0, 0))
+	_smom.rotate_object_local(Vector3.RIGHT, -PI / 2)
+	_burn(_smom, 0.0, 1.0, t)
+	# The meter: from ₹10 down to ₹7 on the word.
+	var fare := 7.0
+	var af = _p.get("auto_fare", null)
+	if af is Dictionary:
+		var t0 := float(af.get("t0", 0.0))
+		var land := float(af.get("land", t0 + 1.0))
+		if t < t0:
+			fare = 10.0
+		elif t < land:
+			fare = lerpf(10.0, 7.0, Motion.out_cubic((t - t0) / maxf(land - t0, 0.01)))
+	auto_script().set_fare(_sauto, fare)
+	# The driver rides in it while it is on screen, and is parked far away otherwise.
+	var act = ctx.get("actor", null)
+	var drv = act.call(String(_p.get("driver", ""))) if act else null
+	if drv:
+		drv.position = node.global_transform * (base + Vector3(-0.05, 0.42, 0)) if on else Vector3(0, -20000, 0)
+	out["sauto"] = node.global_transform * (base + Vector3(0, 1.0, 0))
+	out["sauto_meter"] = node.global_transform * (base + Vector3(-0.5, 1.24, 0.38))
+	out["smom"] = node.global_transform * mp
+
+
+# --- the Sun-centred map of the transfer (line 11) ------------------------------------------
+
+const R_EARTH_ORBIT := 60.0
+const R_MARS_ORBIT := 91.0
+const MAP_THETA0 := 2.4        # Earth's angle at departure (radians, around the Sun)
+
+var _map_earth: Node3D
+var _map_mars: Node3D
+var _map_mom: MeshInstance3D
+var _map_arc_mat: ShaderMaterial
+
+
+func _build_map(root: Node3D) -> void:
+	var sun := Kit.ball(root, 6.0, H_AT, Kit.lit("#fff1c8", 6.0), 32)
+	sun.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var halo := Kit.ball(root, 14.0, H_AT, Kit.flat(Color(1.0, 0.7, 0.3, 0.18), true), 24)
+	halo.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	for spec in [[R_EARTH_ORBIT, Color(0.4, 0.65, 1.0)], [R_MARS_ORBIT, Color(1.0, 0.5, 0.35)]]:
+		var ring := _tube_ellipse(float(spec[0]), float(spec[0]), 0.0, 240, 0.35)
+		ring.position = H_AT
+		var rm := Kit.shader(TRAIL_SHADER)
+		rm.set_shader_parameter("color", spec[1])
+		rm.set_shader_parameter("gain", 0.35)
+		rm.set_shader_parameter("head", 0.0)
+		ring.material_override = rm
+		root.add_child(ring)
+	_map_earth = _earth_at(root, H_AT, 4.0)
+	_map_mars = _mars_at(root, H_AT, 3.0)
+	# The transfer: half an ellipse from Earth's orbit (departure) to Mars's (arrival), round the Sun.
+	var arc := _tube_curve(func(u: float) -> Vector3: return H_AT + _map_transfer(u), 160, 0.7)
+	_map_arc_mat = Kit.shader(TRAIL_SHADER)
+	_map_arc_mat.set_shader_parameter("color", Color(1.0, 0.82, 0.4))
+	_map_arc_mat.set_shader_parameter("gain", 1.3)
+	arc.material_override = _map_arc_mat
+	root.add_child(arc)
+	_map_mom = Kit.ball(root, 1.6, H_AT, Kit.flat(Color(1.0, 0.95, 0.75), true), 12)
+	_map_mom.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+
+
+## The Hohmann-like transfer at fraction u (0 departure, 1 arrival), Sun-centred, in the XZ plane.
+func _map_transfer(u: float) -> Vector3:
+	var rp := R_EARTH_ORBIT
+	var ra := R_MARS_ORBIT
+	var e := (ra - rp) / (ra + rp)
+	var a := (rp + ra) * 0.5
+	var th := PI * u
+	var r := a * (1.0 - e * e) / (1.0 + e * cos(th))
+	var ang := MAP_THETA0 + th
+	return Vector3(cos(ang) * r, 0, -sin(ang) * r)
+
+
+func _pose_map(node: Node3D, t: float, out: Dictionary) -> void:
+	var w = _p.get("map", [])
+	var u := 0.0
+	if w is Array and w.size() >= 2:
+		u = Motion.in_out(clampf((t - float(w[0])) / maxf(float(w[1]) - float(w[0]), 0.01), 0.0, 1.0))
+	# Over the ~300-day cruise Earth goes round about 296 degrees, Mars about 157.
+	var ea := MAP_THETA0 + deg_to_rad(296.0) * u
+	var ma := MAP_THETA0 + PI - deg_to_rad(157.0) * (1.0 - u)
+	_map_earth.position = H_AT + Vector3(cos(ea) * R_EARTH_ORBIT, 0, -sin(ea) * R_EARTH_ORBIT)
+	_map_mars.position = H_AT + Vector3(cos(ma) * R_MARS_ORBIT, 0, -sin(ma) * R_MARS_ORBIT)
+	_map_arc_mat.set_shader_parameter("reveal", u)
+	_map_mom.position = H_AT + _map_transfer(u)
+	_map_mom.scale = Vector3.ONE * (1.0 + 0.25 * sin(t * 8.0))
+	out["map"] = node.global_transform * H_AT
+	out["map_mom"] = node.global_transform * _map_mom.position

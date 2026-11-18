@@ -106,20 +106,13 @@ GAGS = [
      "params": {"lost": LOST, "static": [W("l15a", "watch", 0.3), BACK], "back": BACK, "erupt": ERUPT,
                 "key": {"t": W("l13a", "wake"), "actor": "hero_mox"},
                 "hug": {"t": W("l17c", "try", -0.45), "a": "modi", "b": "radhakrishnan"},
-                "beard": [W("l11b"), W("l11b", edge="end")]}},
-    {"id": "hero_beard", "script": "library:beard", "t": W("l11b", offset=-0.3), "until": W("l12a"),
-     "at": "hero_mox", "face": P(2.2, 1.0, -9),
-     "params": {"head": "hero_mox.head", "grow": W("l11b", "cross"), "land": W("l11b", "kilometres"),
-                "color": "#d8d5ce", "width": 0.3, "head_r": 0.25}},
+                }},
 ]
 
 SHOTS = {
-    "beard_wait": {"look": LOOK, "camera": move(
-        cam(P(3.55, 1.2, -6.1), P(2.25, 0.75, -4.85), 28, {"strength": 0.25}),
-        cam(P(3.4, 1.12, -6.0), P(2.25, 0.65, -4.85), 28, {"strength": 0.25}), "in_out")},
     "test_fire_key": {"look": LOOK, "camera": move(
-        cam(P(1.75, 1.22, -5.66), P(2.1, 0.78, -4.95), 32, {"strength": 0.35}),
-        cam(P(1.8, 1.15, -5.64), P(2.08, 0.74, -4.98), 34, {"strength": 0.4}), "in_out")},
+        cam(P(3.15, 0.98, -5.45), P(2.05, 0.78, -5.1), 34, {"strength": 0.35}),
+        cam(P(3.0, 0.95, -5.4), P(2.05, 0.74, -5.15), 38, {"strength": 0.4}), "in_out")},
     "room_static": {"look": LOOK, "camera": move(
         cam(P(0.6, 1.9, -1.4), "mox.screen", 30), cam(P(0.4, 2.2, -3.4), "mox.screen", 30), "in_out")},
     "room_waits": {"look": LOOK, "camera": move(
@@ -132,10 +125,4 @@ SHOTS = {
         cam(P(0.15, 2.2, 1.0), P(0, 2.1, 4.35), 34, {"strength": 0.2}), "in_out")},
 }
 
-REVEALS = [
-    {"id": "km_count", "t": W("l11b", "cross", -0.1), "until": W("l12a"), "at": P(2.25, 1.75, -4.85), "size": 0.32,
-     "counter": {"from": 0, "to": 600000000, "decimals": 0, "group": "western", "suffix": " KM",
-                 "land": W("l11b", "kilometres"), "label": "TRAVELLED"}, "sound": "ding"},
-]
-
-PLACE = {"gags": GAGS, "actors": build_cast(), "shots": SHOTS, "reveals": REVEALS}
+PLACE = {"gags": GAGS, "actors": build_cast(), "shots": SHOTS, "reveals": []}

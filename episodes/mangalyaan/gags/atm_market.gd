@@ -119,11 +119,11 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var slot := Vector3(0.1, 1.05, -1.06)
 	var u := Motion.out_cubic(clampf((t - out) / 0.6, 0.0, 1.0))
 	var lift := Motion.in_out(clampf((t - flip) / 0.5, 0.0, 1.0))
-	var show := Vector3(-0.15, 0.2, 0.16)
+	var show := Vector3(-0.2, 0.18, 0.12)
 	_note.position = slot + Vector3(0, 0.0, 0.09 * u) + show * lift
 	# Out flat from the slot, then lifted and turned so its back (the motif) faces the camera.
 	var flat := Basis.from_euler(Vector3(-PI / 2, 0, 0))
-	var to_cam := (Vector3(-0.55, 1.3, -0.55) - _note.position).normalized()
+	var to_cam := (Vector3(-0.8, 1.35, -0.62) - _note.position).normalized()
 	var face := Basis.looking_at(-to_cam, Vector3.UP)
 	_note.basis = flat.slerp(face, lift)
 	_note.visible = t > out - 0.05

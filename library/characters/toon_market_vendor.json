@@ -1,0 +1,27 @@
+{
+  "id": "toon_market_vendor",
+  "description": "Food-cart vendor: white vest-like kurta, moustache, a towel round the neck.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan",
+    "market"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#1b1a1e"
+    },
+    "outfit": {
+      "style": "kurta",
+      "color": "#efeadf"
+    },
+    "shoes": "#5a3a22",
+    "mustache": "#1b1a1e",
+    "face": "happy",
+    "girth": 1.2
+  }
+}

@@ -234,8 +234,11 @@ func _entrance(root: Node3D) -> void:
 	glass.metallic_specular = 1.0
 	Kit.box(e, Vector3(30, 9, 0.1), Vector3(0, 4.5, -0.2), glass)
 	Kit.box(e, Vector3(30, 12, 0.3), Vector3(0, 15, -0.3), Kit.mat("#8f8d88", 0.6))
-	for x in range(-14, 15, 2):
-		Kit.box(e, Vector3(0.12, 9, 0.5), Vector3(x, 4.5, 0.0), Kit.mat("#bfc2c4", 0.3, 0.0, 0.8))
+	# Thin mullions; above the lobby the building's screen of white ceramic rods.
+	for x in range(-14, 15, 3):
+		Kit.box(e, Vector3(0.05, 9, 0.08), Vector3(x, 4.5, 0.0), Kit.mat("#3a3d40", 0.4))
+	for k in 60:
+		Kit.cyl(e, 0.04, 0.04, 30, Vector3(0, 9.6 + 0.2 * k, 0.6), Kit.mat("#e8e4dc", 0.6), 6, Vector3(0, 0, PI / 2))
 	Kit.box(e, Vector3(30, 20, 0.2), Vector3(0, 10, -6), Kit.lit("#ffe7c0", 0.6))
 	var wm := StandardMaterial3D.new()
 	wm.albedo_texture = Kit.texture("library/logos/nyt-wordmark.svg", false, 6.0)
@@ -297,9 +300,9 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var chest: Vector3 = ctx["point"].call(String(_p.get("reader", "")) + ".chest").get("pos", Vector3.ZERO)
 		var fwd := Vector3(sin(rd.rotation.y), 0, cos(rd.rotation.y))
 		var lower := clampf((t - float(kn[0]) - 0.15) / 0.35, 0.0, 1.0) if kn is Array and kn.size() >= 2 else 0.0
-		var at := chest + fwd * 0.32 + Vector3(0, 0.18 - 0.32 * Motion.out_cubic(lower), 0)
+		var at := chest + fwd * 0.4 + Vector3(0, -0.05 - 0.15 * Motion.out_cubic(lower), 0)
 		_paper.position = node.global_transform.affine_inverse() * at
-		_paper.basis = Basis.looking_at(-(node.global_transform.basis.inverse() * fwd), Vector3.UP)
+		_paper.basis = Basis.looking_at(-(node.global_transform.basis.inverse() * fwd), Vector3.UP) * Basis(Vector3.RIGHT, -0.9)
 		var side := fwd.cross(Vector3.UP).normalized()
 		rd.aim_hand("l", at - side * 0.3, 1.0)
 		rd.aim_hand("r", at + side * 0.3, 1.0)

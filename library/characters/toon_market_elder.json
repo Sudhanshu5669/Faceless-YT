@@ -1,0 +1,30 @@
+{
+  "id": "toon_market_elder",
+  "description": "Elderly man: white kurta, white hair, round glasses.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan",
+    "market"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#e3e1dc"
+    },
+    "outfit": {
+      "style": "kurta",
+      "color": "#f2efe8"
+    },
+    "shoes": "#5a3a22",
+    "mustache": "#e3e1dc",
+    "accessories": [
+      "round_glasses"
+    ],
+    "face": "neutral",
+    "girth": 1.05
+  }
+}

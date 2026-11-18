@@ -20,7 +20,7 @@ LOOK = {
 }
 
 ACTORS = [
-    {"id": "atm_user", "character": "toon_atm_customer", "at": P(0.15, 0, -0.55), "facing": P(0.1, 0, -9), "action": "interact",
+    {"id": "atm_user", "character": "toon_atm_customer", "at": P(0.25, 0, -0.3), "facing": P(0.1, 0, -9), "action": "interact",
      "cues": [{"t": 0.0, "expression": "neutral"}, {"t": W("l22", "picture"), "expression": "star_eyes"}]},
     {"id": "queue_1", "character": "toon_isro_ctrl_g", "at": P(2.2, 0, 1.2), "facing": P(0.2, 0, 0.3), "action": "phone",
      "cues": [{"t": 0.0, "expression": "deadpan"}]},
@@ -35,8 +35,8 @@ GAGS = [{"id": "atm_kiosk", "script": "gags/atm_market.gd", "t": 0, "at": P(0, 0
 
 SHOTS = {
     "atm_note": {"look": LOOK, "camera": move(
-        cam(P(-0.55, 1.3, -0.7), "atm_kiosk.slot", 36, {"strength": 0.45}),
-        cam(P(-0.55, 1.3, -0.55), "atm_kiosk.note", 50, {"strength": 0.5}), "in_out")},
+        cam(P(-0.95, 1.45, -0.55), "atm_kiosk.slot", 32, {"strength": 0.35}),
+        cam(P(-0.8, 1.35, -0.62), "atm_kiosk.note", 40, {"strength": 0.4}), "in_out")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

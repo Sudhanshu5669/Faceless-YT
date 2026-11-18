@@ -31,7 +31,7 @@ GAGS = [{"id": "nalanda", "script": "gags/pacific_ship.gd", "t": 0, "at": P(0, 0
 
 SHOTS = {
     "ship_storm": {"look": LOOK, "camera": move(
-        cam(P(-62, 16, -30), P(0, 6, 8), 40, roll=-6), cam(P(-55, 13, -18), P(2, 7, 18), 44, roll=5), "in_out")},
+        cam(P(-120, 30, -95), P(0, 8, 10), 26, roll=-5), cam(P(-110, 26, -80), P(2, 8, 14), 28, roll=4), "in_out")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

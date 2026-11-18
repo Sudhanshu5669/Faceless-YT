@@ -20,6 +20,11 @@ def D(x, y, z):
     return P(x + 6000.0, y, z)
 
 
+def H(x, y, z):
+    """Map-relative point (the Sun-centred transfer map)."""
+    return P(x, y, z + 6000.0)
+
+
 def C(x, y, z):
     return P(x - 6000.0, y, z)
 
@@ -67,12 +72,24 @@ GAG = {
         "pulse": [W("l15b", "signal", -0.1), W("l15b", edge="end")],
         "reply": [W("l18b"), W("l18b", edge="end")],
         "years": [W("l21a"), W("l21a", "six"), W("l21b", "eight"), W("l21b", edge="end", offset=0.3)],
+        "auto": [[W("l1b", offset=-0.2), W("l2a")], [W("l24", offset=-0.2), W("l24", edge="end", offset=1.0)]],
+        "auto_fare": {"t0": W("l1b", "Mars", -0.1), "land": W("l1b", "seven")},
+        "driver": "driver_space",
+        "map": [W("l11b", offset=-0.1), W("l11b", "kilometres", 0.2)],
     },
 }
 
 DOF_LOW = {"strength": 0.0}
 
 SHOTS = {
+    "auto_space": {"look": LOOK, "camera": move(
+        cam(A("sauto", -1.6, 0.5, 6.2), A("sauto", -0.2, 0.1, 0), 30, {"strength": 0.2, "focus": 6.3}),
+        cam(A("sauto", -1.2, 0.35, 4.6), A("sauto", -0.3, 0.15, 0), 34, {"strength": 0.25, "focus": 4.7}), "in_out")},
+    "cruise_map": {"look": LOOK, "camera": move(
+        cam(H(-10, 250, 150), H(0, 0, 0), 26), cam(H(-20, 220, 120), H(0, 0, 0), 26), "in_out")},
+    "auto_end": {"look": LOOK, "camera": move(
+        cam(A("sauto", -1.2, 0.35, 4.6), A("sauto", -0.3, 0.15, 0), 34, {"strength": 0.25, "focus": 4.7}),
+        cam(A("sauto", 6, 9, 34), A("sauto", -4, -2, -30), 26), "in_out")},
     "mars_club": {"look": LOOK, "camera": move(
         cam(M(-45, 30, 150), M(0, 4, 0), 24), cam(M(30, 18, 138), M(0, 4, 0), 24), "in_out")},
     "fail_japan": {"look": LOOK, "camera": move(
@@ -92,7 +109,7 @@ SHOTS = {
     "maven_arrival": {"look": LOOK, "camera": move(
         cam(A("maven", 12, 4, 16), A("maven", -4, -2, -10), 32), cam(A("maven", 10, 3, 13), A("maven", -4, -2, -10), 32), "in_out")},
     "price_tags": {"look": LOOK, "camera": move(
-        cam(A("maven", 2, 0, 28), A("maven", 0, -1, 0), 35), cam(A("maven", 1.5, -1, 25), A("maven", 0, -1.5, 0), 35), "in_out")},
+        cam(A("maven", 1.5, 0.5, 25), A("maven", 0, -0.5, 1.5), 32), cam(A("maven", 1.2, 0, 22.5), A("maven", 0, -0.5, 1.5), 32), "in_out")},
     "test_fire": {"look": LOOK, "camera": move(
         cam(A("mom_m", -10, 2.0, 3.5), A("mom_m", 0, 0, 2.0), 30), cam(A("mom_m", -9, 1.8, 3.2), A("mom_m", 0, 0, 2.0), 30), "in_out")},
     "moi_start": {"look": LOOK, "camera": move(
@@ -114,6 +131,14 @@ SHOTS = {
 }
 
 REVEALS = [
+    {"id": "km_count", "t": W("l11b", "cross", -0.1), "until": W("l12a"), "at": H(0, 30, -40), "size": 14.0,
+     "counter": {"from": 0, "to": 600000000, "decimals": 0, "suffix": " KM", "land": W("l11b", "kilometres"),
+                 "label": "MORE THAN"}, "sound": "ding"},
+    {"id": "per_km_space", "t": W("l1b", "Mars", 0.05), "until": W("l2a"), "at": A("sauto", -0.4, 2.5, 0.8), "size": 0.42,
+     "counter": {"from": 10, "to": 7, "decimals": 0, "prefix": "₹", "suffix": " / KM", "land": W("l1b", "seven"),
+                 "label": "TO MARS"}, "sound": "ding"},
+    {"id": "per_km_end", "t": W("l24", "seven", -0.05), "at": A("sauto", -0.4, 2.5, 0.8), "size": 0.42,
+     "text": "₹7 / KM", "color": "#ffd84a", "enter": "pop", "sound": "ding"},
     {"id": "delay_count", "t": W("l15b", "takes", -0.1), "until": W("l15c"), "at": D(13, 2, 18), "size": 6.0,
      "counter": {"from": 0, "to": 12, "decimals": 0, "suffix": " MIN", "land": W("l15b", "twelve"),
                  "label": "EACH WAY"}, "sound": "tick"},
@@ -125,4 +150,16 @@ REVEALS = [
                  "label": "ACTUALLY WORKED"}, "sound": "ding"},
 ]
 
-PLACE = {"gags": [GAG], "actors": [], "shots": SHOTS, "reveals": REVEALS}
+ACTORS = [
+    # The auto driver in space: the gag carries him inside the floating auto (and parks him far away otherwise).
+    {"id": "driver_space", "character": "toon_auto_driver", "at": M(25, 6.42, 120), "facing": M(-600, 6.42, 120),
+     "action": "sit", "keep_y": True, "cues": [
+         {"t": 0.0, "expression": "shocked"},
+         {"t": W("l1b", "Mars", -0.1), "expression": "shocked", "head": [-10, 0, 0]},
+         {"t": W("l1b", "seven", 0.05), "expression": "star_eyes", "head": [0, -30, 0]},
+         {"t": W("l24"), "expression": "smug", "head": [0, -30, 0]},
+         {"t": W("l24", "seven"), "expression": "grin", "head": [0, -45, 0]},
+     ]},
+]
+
+PLACE = {"gags": [GAG], "actors": ACTORS, "shots": SHOTS, "reveals": REVEALS}

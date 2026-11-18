@@ -1,0 +1,26 @@
+{
+  "id": "toon_market_kid",
+  "description": "A kid in a yellow tee.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan",
+    "market"
+  ],
+  "height": 1.05,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bowl",
+      "color": "#1c1b20"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#f2c230"
+    },
+    "shoes": "#c0392b",
+    "face": "laugh",
+    "girth": 0.9
+  }
+}

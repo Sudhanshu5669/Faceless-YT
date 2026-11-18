@@ -27,8 +27,9 @@ NARRATION = {"model": "gemini-3.8-flash-tts", "voice": "Charon", "single_take": 
 
 # (line id, first shot, start inside that shot, text, optional style)
 LINES = [
-    ("l1a", "auto_meter", 0.25, "A one-kilometre auto ride in Ahmedabad costs about ten rupees.", None),
-    ("l1b", "auto_overtake", 0.1, "India went to Mars for seven.", None),
+    ("l1a1", "hook_street", 0.25, "A one-kilometre auto ride in Ahmedabad", None),
+    ("l1a2", "auto_meter", 0.0, "costs about ten rupees.", None),
+    ("l1b", "auto_space", 0.1, "India went to Mars for seven.", None),
     ("l2a", "isro_window", 0.2, "Imagine you're ISRO, in 2012.", None),
     ("l2b", "mars_club", 0.15, "America, the Soviet Union and Europe have all reached Mars.", None),
     ("l3a1", "fail_japan", 0.15, "Japan tried.", None),
@@ -50,7 +51,7 @@ LINES = [
     ("l10b", "tmi_burn", 0.1, "A month later, the final burn.", None),
     ("l10c", "slingshot", 0.05, "ISRO calls it the mother of all slingshots.", None),
     ("l11a", "cruise_sleep", 0.3, "Then, for ten months, your main engine sleeps,", None),
-    ("l11b", "beard_wait", 0.05, "while you cross more than six hundred million kilometres of space.", None),
+    ("l11b", "cruise_map", 0.05, "while you cross more than six hundred million kilometres of space.", None),
     ("l12a", "maven_arrival", 0.2, "Two days before you arrive, NASA's MAVEN reaches Mars.", None),
     ("l12b", "price_tags", 0.1, "It cost six hundred and seventy-one million dollars. You cost about seventy-four.", None),
     ("l13a", "test_fire_key", 0.25, "September 22nd. You wake the engine up for four seconds.", None),
@@ -81,7 +82,7 @@ LINES = [
 
 # (shot, place) in edit order. Cameras and durations are filled in place by place (see beats.md).
 SHOTS = [
-    ("auto_meter", "lane"), ("auto_overtake", "lane"),
+    ("hook_street", "lane"), ("auto_meter", "lane"), ("auto_space", "space"),
     ("isro_window", "lab"), ("mars_club", "space"),
     ("fail_japan", "space"), ("fail_china", "space"), ("mars_graveyard", "space"),
     ("moon_window", "lab"), ("approval", "lab"), ("orrery", "lab"), ("calendar", "lab"),
@@ -89,7 +90,7 @@ SHOTS = [
     ("pslv_pad", "pad"), ("gulel", "lab"), ("orbit_loops", "space"),
     ("countdown_wait", "pad"), ("ship_storm", "ship"),
     ("launch", "pad"), ("tmi_burn", "space"), ("slingshot", "space"),
-    ("cruise_sleep", "space"), ("beard_wait", "control"),
+    ("cruise_sleep", "space"), ("cruise_map", "space"),
     ("maven_arrival", "space"), ("price_tags", "space"),
     ("test_fire_key", "control"), ("test_fire", "space"),
     ("moi_start", "space"), ("moi_risk", "space"),
@@ -101,7 +102,7 @@ SHOTS = [
     ("six_months", "space"), ("eight_years", "space"),
     ("atm_note", "atm"),
     ("window_mars", "lab"),
-    ("auto_end", "lane"),
+    ("auto_end", "space"),
 ]
 
 # Shots that carry no line start: fixed lengths for now (retimed against the voice per place).

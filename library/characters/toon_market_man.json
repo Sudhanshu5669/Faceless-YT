@@ -1,0 +1,26 @@
+{
+  "id": "toon_market_man",
+  "description": "Shopper: checked blue shirt, side parting.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan",
+    "market"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#1d1c21"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#4f7fbf"
+    },
+    "shoes": "#2a2420",
+    "face": "laugh",
+    "girth": 1.0
+  }
+}

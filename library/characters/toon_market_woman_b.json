@@ -1,0 +1,29 @@
+{
+  "id": "toon_market_woman_b",
+  "description": "Shopper: mustard kurta, bob, glasses.",
+  "tags": [
+    "toon",
+    "human",
+    "mangalyaan",
+    "market"
+  ],
+  "height": 1.32,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bob",
+      "color": "#231f22"
+    },
+    "outfit": {
+      "style": "kurta",
+      "color": "#d9a62a"
+    },
+    "shoes": "#3a2a20",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "neutral",
+    "girth": 0.95
+  }
+}

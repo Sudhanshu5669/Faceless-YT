@@ -19,7 +19,8 @@ const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
 const Paths = preload("res://scripts/core/paths.gd")
 
-const AUTO_AT := Vector3(0.6, 0, 0)
+const AUTO_AT := Vector3(0.9, 0, 0)
+const HALF := 4.6          # half the street's width between the house fronts
 
 const PLASTER := """
 shader_type spatial;
@@ -69,13 +70,19 @@ void fragment() {
 ## The LED fare display: dark red glass with lit segments (drawn as text over it).
 var _p := {}
 var _auto: Node3D
-var _meter_text: Label3D
-var _meter_flag: Node3D
 var _streak: Node3D
 var _trail: MeshInstance3D
 var _trail_mat: StandardMaterial3D
-var _wheel_nodes: Array = []
 static var _mom_gd: GDScript
+static var _auto_gd: GDScript
+
+
+static func auto_script() -> GDScript:
+	if _auto_gd == null:
+		_auto_gd = GDScript.new()
+		_auto_gd.source_code = FileAccess.get_file_as_string(Paths.repo_path("episodes/mangalyaan/gags/auto_model.gd"))
+		_auto_gd.reload()
+	return _auto_gd
 
 
 static func mom_script() -> GDScript:
@@ -89,7 +96,7 @@ static func mom_script() -> GDScript:
 func validate(g: Dictionary) -> Array:
 	var e := []
 	for k in g.get("params", {}):
-		if not (k in ["meter", "meter2", "streak", "streak2", "drive"]):
+		if not (k in ["meter", "drive_in", "driver", "streak", "streak2"]):
 			e.append("amdavad_lane: unknown param '%s'" % k)
 	return e
 
@@ -97,15 +104,23 @@ func validate(g: Dictionary) -> Array:
 func build(g: Dictionary) -> Node3D:
 	_p = g.get("params", {})
 	var root := Node3D.new()
-	Kit.box(root, Vector3(4.8, 0.1, 40), Vector3(0, -0.05, -8), Kit.shader(STREET))
-	Kit.box(root, Vector3(0.35, 0.06, 40), Vector3(-2.1, 0.0, -8), Kit.mat("#1d1c1a", 0.4, 0.0, 0.7))
+	Kit.box(root, Vector3(HALF * 2.0 + 0.4, 0.1, 44), Vector3(0, -0.05, -10), Kit.shader(STREET))
+	Kit.box(root, Vector3(0.35, 0.06, 44), Vector3(-HALF + 0.3, 0.0, -10), Kit.mat("#1d1c1a", 0.4, 0.0, 0.7))
 	_houses(root, -1.0)
 	_houses(root, 1.0)
-	_chabutro(root, Vector3(-0.2, 0, -13))
+	_chabutro(root, Vector3(-HALF + 1.4, 0, -21))
+	_market(root)
 	_wires(root)
 	_lights(root)
-	_auto = _build_auto()
+	_auto = auto_script().new().build()
+	_auto.position = AUTO_AT
 	root.add_child(_auto)
+	for k in 3:
+		var parked: Node3D = auto_script().new().build()
+		parked.position = [Vector3(-HALF + 1.2, 0, -6.5), Vector3(HALF - 1.1, 0, -15.0), Vector3(-HALF + 1.1, 0, -16.5)][k]
+		parked.rotation = Vector3(0, [0.15, PI - 0.1, 0.3][k], 0)
+		root.add_child(parked)
+		auto_script().set_fare(parked, -1.0)
 	_streak = Node3D.new()
 	root.add_child(_streak)
 	var mom: Node3D = mom_script().new().build(1.2)
@@ -129,12 +144,12 @@ func _houses(root: Node3D, side: float) -> void:
 		var w := r.randf_range(3.2, 5.0)
 		var floors := r.randi_range(2, 3)
 		var h := 3.1 * floors
-		var x := side * (2.3 + 4.0)
+		var x := side * (HALF + 4.0)
 		var paint := Color(String(paints[r.randi_range(0, paints.size() - 1)]))
 		var m := Kit.shader(PLASTER)
 		m.set_shader_parameter("paint", paint)
 		m.set_shader_parameter("seed", float(i) * 13.1 + side * 5.0)
-		var front := side * 2.3
+		var front := side * HALF
 		Kit.box(root, Vector3(8.0, h, w - 0.05), Vector3(x, h * 0.5, z - w * 0.5), m)
 		# Plinth step and a shop shutter or a carved door at street level.
 		Kit.box(root, Vector3(0.5, 0.35, w - 0.1), Vector3(front - side * 0.2, 0.17, z - w * 0.5), Kit.mat("#6e6a62", 0.9))
@@ -189,7 +204,7 @@ func _houses(root: Node3D, side: float) -> void:
 			# Laundry, a plant pot, a water tank on the roof.
 			if r.randf() < 0.4:
 				Kit.box(bal, Vector3(0.6, 0.5, 0.01), Vector3(r.randf_range(-0.6, 0.6), 1.35, 0.78), Kit.mat(String(["#b8323a", "#2e6ea8", "#e3c04a"][r.randi_range(0, 2)]), 0.9))
-		Kit.cyl(root, 0.5, 0.5, 1.0, Vector3(side * (2.3 + 2.0), h + 0.5, mid), Kit.mat("#141414", 0.6), 16)
+		Kit.cyl(root, 0.5, 0.5, 1.0, Vector3(side * (HALF + 2.0), h + 0.5, mid), Kit.mat("#141414", 0.6), 16)
 		z -= w
 		i += 1
 
@@ -211,14 +226,70 @@ func _chabutro(root: Node3D, at: Vector3) -> void:
 	Kit.ball(n, 0.12, Vector3(0, 5.55, 0), Kit.mat("#c9a14a", 0.4, 0.0, 0.8), 10)
 
 
+## Manek Chowk-style night market: food carts under bare bulbs, scooters on their stands, a cow resting in the
+## street, strings of bulbs across it.
+func _market(root: Node3D) -> void:
+	var r := Kit.rng("market")
+	var carts := [[-HALF + 1.0, -3.0], [HALF - 1.0, -8.5], [-HALF + 1.0, -11.5], [HALF - 1.0, -19.0], [-HALF + 1.0, -24.0]]
+	for c in carts:
+		var n := Node3D.new()
+		n.position = Vector3(float(c[0]), 0, float(c[1]))
+		n.rotation = Vector3(0, PI / 2 if float(c[0]) < 0.0 else -PI / 2, 0)
+		root.add_child(n)
+		Kit.box(n, Vector3(2.0, 0.9, 1.0), Vector3(0, 0.55, 0), Kit.mat("#8a5a2a", 0.6))
+		Kit.box(n, Vector3(2.1, 0.06, 1.1), Vector3(0, 1.02, 0), Kit.mat("#b8b8b0", 0.3, 0.0, 0.8))
+		for s in [-1.0, 1.0]:
+			Kit.rod(n, Vector3(s * 0.95, 1.0, -0.45), Vector3(s * 0.95, 2.3, -0.45), 0.025, Kit.mat("#2a2a2a", 0.5), 6)
+		Kit.box(n, Vector3(2.3, 0.04, 1.4), Vector3(0, 2.32, -0.1), Kit.mat(String(["#c0392b", "#1f6fb2", "#e2b23a", "#2f8a4a"][r.randi_range(0, 3)]), 0.7))
+		Kit.cyl(n, 0.32, 0.36, 0.12, Vector3(-0.45, 1.1, 0.1), Kit.mat("#3a3a3a", 0.3, 0.0, 0.8), 20)
+		for k in 3:
+			Kit.ball(n, 0.05, Vector3(-0.7 + 0.7 * k, 2.15, -0.1), Kit.lit("#ffd27a", 7.0), 8)
+		Kit.omni(n, Vector3(0, 2.0, 0.3), "#ffbf6a", 1.8, 5.0, true, 0.8)
+		Kit.box(n, Vector3(1.6, 0.35, 0.03), Vector3(0, 2.55, -0.5), Kit.mat("#f3e6c0", 0.6))
+	for i in 6:
+		var z := -2.0 - 3.6 * i + r.randf_range(-0.5, 0.5)
+		var side := -1.0 if i % 2 == 0 else 1.0
+		var sc := Node3D.new()
+		sc.position = Vector3(side * (HALF - 0.5), 0, z)
+		sc.rotation = Vector3(0, r.randf_range(-0.4, 0.4), side * 0.08)
+		root.add_child(sc)
+		var col := Color(String(["#c8c8c8", "#1a1a1a", "#b32424", "#2a4a8a", "#e0e0d6"][r.randi_range(0, 4)]))
+		Kit.slab(sc, Vector3(0.36, 0.42, 1.25), 0.15, Vector3(0, 0.5, 0), Kit.mat(col, 0.35, 0.0, 0.7))
+		Kit.slab(sc, Vector3(0.3, 0.12, 0.6), 0.1, Vector3(0, 0.78, 0.25), Kit.mat("#1a1a1a", 0.6))
+		Kit.rod(sc, Vector3(0, 0.6, -0.55), Vector3(0, 1.05, -0.62), 0.03, Kit.mat("#2a2a2a", 0.5), 6)
+		Kit.rod(sc, Vector3(-0.32, 1.05, -0.62), Vector3(0.32, 1.05, -0.62), 0.015, Kit.mat("#c9ccd0", 0.2), 6)
+		for zz in [-0.5, 0.48]:
+			Kit.cyl(sc, 0.2, 0.2, 0.09, Vector3(0, 0.2, zz), Kit.mat("#121212", 0.85), 16, Vector3(0, 0, PI / 2))
+	var cow := Node3D.new()
+	cow.position = Vector3(-1.6, 0, -13.5)
+	cow.rotation = Vector3(0, 0.7, 0)
+	root.add_child(cow)
+	var hide := Kit.mat("#e9e3d6", 0.8)
+	Kit.ball(cow, 1.0, Vector3(0, 0.55, 0), hide, 20, Vector3(0.45, 0.4, 0.85))
+	Kit.ball(cow, 0.2, Vector3(0, 0.75, 0.95), hide, 14, Vector3(1.0, 1.0, 1.25))
+	Kit.ball(cow, 0.24, Vector3(0, 0.95, 0.35), Kit.mat("#e2d8c4", 0.8), 12, Vector3(1.0, 0.7, 1.0))
+	for s in [-1.0, 1.0]:
+		Kit.cyl(cow, 0.02, 0.04, 0.22, Vector3(s * 0.13, 0.98, 0.9), Kit.mat("#cdbfa6", 0.6), 8, Vector3(0, 0, -s * 0.5))
+		Kit.ball(cow, 0.16, Vector3(s * 0.32, 0.18, 0.2), hide, 10, Vector3(1.0, 0.5, 2.2))
+	for k in 5:
+		var z := -2.0 - 5.0 * k
+		var prev := Vector3(-HALF, 4.6, z)
+		for j in range(1, 13):
+			var u := float(j) / 12.0
+			var pnt := Vector3(-HALF + 2.0 * HALF * u, 4.6 - 0.8 * 4.0 * u * (1.0 - u), z + 0.6 * sin(u * PI))
+			Kit.rod(root, prev, pnt, 0.008, Kit.mat("#111111", 0.6), 4)
+			Kit.ball(root, 0.05, pnt - Vector3(0, 0.06, 0), Kit.lit(String(["#ffd27a", "#ff7a5a", "#8ad6ff"][(j + k) % 3]), 5.0), 6)
+			prev = pnt
+
+
 func _wires(root: Node3D) -> void:
 	var r := Kit.rng("wires")
 	var black := Kit.mat("#0d0d0e", 0.6)
 	for i in 14:
 		var z := r.randf_range(-24.0, 8.0)
 		var y0 := r.randf_range(4.6, 6.4)
-		var a := Vector3(-2.3, y0, z)
-		var b := Vector3(2.3, y0 + r.randf_range(-0.6, 0.6), z + r.randf_range(-4.0, 4.0))
+		var a := Vector3(-HALF, y0, z)
+		var b := Vector3(HALF, y0 + r.randf_range(-0.6, 0.6), z + r.randf_range(-4.0, 4.0))
 		var sag := r.randf_range(0.25, 0.7)
 		var prev := a
 		for k in range(1, 9):
@@ -230,108 +301,15 @@ func _wires(root: Node3D) -> void:
 
 func _lights(root: Node3D) -> void:
 	# The sodium lamp on a bracket over the auto; a tube light at a shop further down; spill from windows.
-	var lamp := Vector3(-2.1, 5.2, 1.2)
-	Kit.rod(root, Vector3(-2.3, 5.4, 1.2), Vector3(-1.4, 5.25, 1.2), 0.035, Kit.mat("#2b2b2b", 0.6), 6)
-	Kit.box(root, Vector3(0.45, 0.12, 0.22), Vector3(-1.3, 5.2, 1.2), Kit.mat("#30302e", 0.5))
-	Kit.box(root, Vector3(0.36, 0.03, 0.16), Vector3(-1.3, 5.13, 1.2), Kit.lit("#ffb043", 6.0))
-	Kit.spot(root, Vector3(-1.3, 5.05, 1.2), Vector3(0.4, 0, -0.5), "#ffa53c", 14.0, 18.0, 62.0, true, 1.2)
-	Kit.box(root, Vector3(0.04, 0.04, 1.2), Vector3(2.15, 3.1, -6.5), Kit.lit("#eef6ff", 4.0))
-	Kit.spot(root, Vector3(2.0, 3.0, -6.5), Vector3(0.0, 0, -6.5), "#dfeaff", 3.0, 9.0, 70.0, false, 0.8)
+	for lz in [1.2, -11.0]:
+		Kit.rod(root, Vector3(-HALF, 5.4, lz), Vector3(-HALF + 1.1, 5.25, lz), 0.035, Kit.mat("#2b2b2b", 0.6), 6)
+		Kit.box(root, Vector3(0.45, 0.12, 0.22), Vector3(-HALF + 1.2, 5.2, lz), Kit.mat("#30302e", 0.5))
+		Kit.box(root, Vector3(0.36, 0.03, 0.16), Vector3(-HALF + 1.2, 5.13, lz), Kit.lit("#ffb043", 6.0))
+		Kit.spot(root, Vector3(-HALF + 1.2, 5.05, lz), Vector3(0.6, 0, lz - 0.5), "#ffa53c", 14.0, 20.0, 64.0, lz > 0.0, 1.2)
+	Kit.box(root, Vector3(0.04, 0.04, 1.2), Vector3(HALF - 0.15, 3.1, -6.5), Kit.lit("#eef6ff", 4.0))
+	Kit.spot(root, Vector3(HALF - 0.3, 3.0, -6.5), Vector3(1.0, 0, -6.5), "#dfeaff", 3.0, 9.0, 70.0, false, 0.8)
 	Kit.omni(root, Vector3(0, 6.0, -18.0), "#ffb15a", 2.0, 14.0, false, 0.8)
 	Kit.omni(root, Vector3(0.5, 1.6, 4.5), "#8a9cc4", 0.4, 6.0, false, 0.3)
-
-
-## The auto-rickshaw: a single front wheel under a rounded nose, a windshield, a black body with a
-## yellow canvas canopy on a frame, a bench seat at the back, two rear wheels, the meter on the left.
-func _build_auto() -> Node3D:
-	var a := Node3D.new()
-	a.position = AUTO_AT
-	var black := Kit.mat("#141414", 0.32, 0.0, 0.75)
-	var yellow := Kit.mat("#e3b41c", 0.55)
-	var chrome := Kit.mat("#c9ccd0", 0.15, 0.0, 0.95)
-	var tyre := Kit.mat("#121212", 0.85)
-	# Body: floor pan and side tub (y 0.3..0.85), nose at -z.
-	Kit.slab(a, Vector3(1.3, 0.12, 1.9), 0.15, Vector3(0, 0.32, 0.35), black)
-	Kit.slab(a, Vector3(1.32, 0.42, 0.95), 0.25, Vector3(0, 0.58, 0.85), black)
-	for s in [-1.0, 1.0]:
-		Kit.box(a, Vector3(0.04, 0.38, 0.9), Vector3(s * 0.64, 0.62, 0.0), black)
-	# Nose (rounded front fascia), headlight, indicators, the front mudguard and wheel.
-	Kit.slab(a, Vector3(0.8, 0.7, 0.45), 0.2, Vector3(0, 0.7, -0.75), black)
-	Kit.ball(a, 0.42, Vector3(0, 0.95, -0.8), black, 20, Vector3(1.0, 0.85, 0.6))
-	var hl := Kit.cyl(a, 0.1, 0.1, 0.06, Vector3(0, 0.82, -1.0), Kit.lit("#fff3d6", 2.5), 18, Vector3(PI / 2, 0, 0))
-	Kit.cyl(a, 0.115, 0.115, 0.05, Vector3(0, 0.82, -0.99), chrome, 18, Vector3(PI / 2, 0, 0))
-	Kit.spot(a, Vector3(0, 0.82, -1.05), Vector3(0, 0.0, -7.0), "#fff1d0", 2.5, 12.0, 30.0, true, 0.8)
-	for s in [-1.0, 1.0]:
-		Kit.ball(a, 0.035, Vector3(s * 0.3, 0.98, -0.98), Kit.lit("#ffa21a", 1.2), 8)
-	Kit.ball(a, 0.23, Vector3(0, 0.3, -0.98), black, 16, Vector3(0.5, 0.6, 1.0))
-	var fw := Node3D.new()
-	fw.position = Vector3(0, 0.2, -0.98)
-	a.add_child(fw)
-	Kit.cyl(fw, 0.2, 0.2, 0.1, Vector3.ZERO, tyre, 20, Vector3(0, 0, PI / 2))
-	Kit.cyl(fw, 0.1, 0.1, 0.11, Vector3.ZERO, chrome, 12, Vector3(0, 0, PI / 2))
-	_wheel_nodes.append(fw)
-	for s in [-1.0, 1.0]:
-		var rw := Node3D.new()
-		rw.position = Vector3(s * 0.58, 0.2, 0.95)
-		a.add_child(rw)
-		Kit.cyl(rw, 0.2, 0.2, 0.12, Vector3.ZERO, tyre, 20, Vector3(0, 0, PI / 2))
-		Kit.cyl(rw, 0.1, 0.1, 0.13, Vector3.ZERO, chrome, 12, Vector3(0, 0, PI / 2))
-		_wheel_nodes.append(rw)
-	# Windshield with a black frame, a wiper; handlebar; the driver's seat.
-	var glass := StandardMaterial3D.new()
-	glass.albedo_color = Color(0.7, 0.8, 0.85, 0.18)
-	glass.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	glass.roughness = 0.05
-	glass.metallic_specular = 1.0
-	Kit.box(a, Vector3(1.0, 0.6, 0.02), Vector3(0, 1.42, -0.62), glass, Vector3(0.18, 0, 0))
-	Kit.box(a, Vector3(1.06, 0.05, 0.05), Vector3(0, 1.72, -0.57), black)
-	Kit.box(a, Vector3(1.06, 0.05, 0.05), Vector3(0, 1.12, -0.68), black)
-	Kit.rod(a, Vector3(-0.2, 1.15, -0.66), Vector3(0.1, 1.55, -0.6), 0.008, black, 4)
-	Kit.rod(a, Vector3(-0.32, 1.12, -0.42), Vector3(0.32, 1.12, -0.42), 0.018, chrome, 8)
-	Kit.rod(a, Vector3(0, 1.0, -0.58), Vector3(0, 1.12, -0.42), 0.025, black, 8)
-	Kit.slab(a, Vector3(0.5, 0.1, 0.42), 0.08, Vector3(0, 0.82, -0.05), Kit.mat("#2a1c14", 0.6))
-	# Passenger bench (red rexine) and backrest.
-	Kit.slab(a, Vector3(1.15, 0.14, 0.45), 0.08, Vector3(0, 0.9, 0.78), Kit.mat("#7a1e1c", 0.45))
-	Kit.slab(a, Vector3(1.15, 0.5, 0.1), 0.06, Vector3(0, 1.2, 1.02), Kit.mat("#7a1e1c", 0.45))
-	# Canopy: steel frame, yellow canvas roof with a black band, open sides.
-	var frame := Kit.mat("#1a1a1a", 0.4, 0.0, 0.6)
-	for s in [-1.0, 1.0]:
-		Kit.rod(a, Vector3(s * 0.62, 0.85, -0.5), Vector3(s * 0.6, 1.95, -0.45), 0.02, frame, 6)
-		Kit.rod(a, Vector3(s * 0.62, 0.85, 1.1), Vector3(s * 0.62, 1.95, 1.05), 0.02, frame, 6)
-	Kit.slab(a, Vector3(1.36, 0.1, 1.85), 0.3, Vector3(0, 2.0, 0.3), yellow)
-	Kit.box(a, Vector3(1.38, 0.08, 1.87), Vector3(0, 1.92, 0.3), black)
-	Kit.box(a, Vector3(1.3, 1.05, 0.02), Vector3(0, 1.45, 1.22), yellow)
-	Kit.box(a, Vector3(0.6, 0.18, 0.025), Vector3(0, 1.65, 1.235), Kit.mat("#1a1a1a", 0.6))
-	# Number plate (Gujarat), a small tassel of lemons and chillies hanging under the nose.
-	var plate := Node3D.new()
-	plate.position = Vector3(0, 0.5, -0.99)
-	plate.rotation = Vector3(0, PI, 0)
-	a.add_child(plate)
-	Kit.box(plate, Vector3(0.36, 0.12, 0.01), Vector3.ZERO, Kit.mat("#f1eee4", 0.5))
-	Kit.text(plate, "GJ 01 TX 4721", 0.05, Color("161616"), Vector3(0, 0, -0.008), Vector3(0, PI, 0))
-	Kit.rod(a, Vector3(0, 0.42, -1.0), Vector3(0, 0.25, -1.02), 0.004, Kit.mat("#2a2a2a", 0.6), 4)
-	Kit.ball(a, 0.025, Vector3(0, 0.25, -1.02), Kit.mat("#e2d443", 0.5), 8, Vector3(1, 1.3, 1))
-	for k in 3:
-		Kit.cyl(a, 0.006, 0.0, 0.07, Vector3(-0.015 + 0.015 * k, 0.19, -1.02), Kit.mat("#2e7d2e", 0.5), 6)
-	# The fare meter: a black box on a bracket left of the handlebar, red LED digits, a flag lever.
-	var meter := Node3D.new()
-	meter.name = "meter"
-	meter.position = Vector3(-0.38, 1.24, -0.5)
-	meter.rotation = Vector3(-0.35, 0.25, 0)
-	a.add_child(meter)
-	Kit.rod(a, Vector3(-0.38, 1.0, -0.56), Vector3(-0.38, 1.17, -0.52), 0.015, black, 6)
-	Kit.slab(meter, Vector3(0.24, 0.13, 0.1), 0.02, Vector3.ZERO, Kit.mat("#17181b", 0.35, 0.0, 0.7))
-	Kit.box(meter, Vector3(0.19, 0.06, 0.01), Vector3(0, 0.02, 0.05), Kit.mat("#2a0606", 0.1, 0.0, 0.9))
-	_meter_text = Kit.text(meter, "0.00", 0.045, Color(1.0, 0.16, 0.1), Vector3(0, 0.02, 0.057), Vector3.ZERO, true, 4.0)
-	Kit.text(meter, "FARE  ₹", 0.014, Color("b9b9b9"), Vector3(0, -0.035, 0.056), Vector3.ZERO, false)
-	_meter_flag = Node3D.new()
-	_meter_flag.position = Vector3(0.13, 0.05, 0)
-	meter.add_child(_meter_flag)
-	Kit.box(_meter_flag, Vector3(0.012, 0.1, 0.012), Vector3(0, 0.05, 0), chrome)
-	Kit.box(_meter_flag, Vector3(0.05, 0.03, 0.01), Vector3(0.02, 0.1, 0), Kit.mat("#c4282b", 0.5))
-	Kit.omni(meter, Vector3(0, 0.03, 0.15), "#ff3a22", 0.06, 0.6, false, 0.1)
-	Kit.omni(a, Vector3(0, 1.75, 0.2), "#ffd9a0", 0.35, 2.2, false, 0.2)
-	return a
 
 
 func _fare(key: String, t: float) -> float:
@@ -348,21 +326,22 @@ func _fare(key: String, t: float) -> float:
 func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_p = g.get("params", {})
 	var gt := node.global_transform
-	# Meter: flag down when it starts, digits run up and land.
-	var f1 := _fare("meter", t)
-	var f2 := _fare("meter2", t)
-	var fare := f2 if f2 >= 0.0 else f1
-	_meter_text.text = "%.2f" % maxf(fare, 0.0) if fare >= 0.0 else "- - -"
-	var flag_down := fare >= 0.0
-	_meter_flag.rotation = Vector3(0, 0, -1.4 if flag_down else 0.0)
-	# The auto pulls away at the end.
-	var dt := float(_p.get("drive", 1e9))
+	# The auto drives in from far down the street and brakes to a stop by the camera.
+	var dw = _p.get("drive_in", [])
 	var dz := 0.0
-	if t > dt:
-		dz = -0.9 * pow(t - dt, 2.0)
-	_auto.position = AUTO_AT + Vector3(0, 0, dz)
-	for w in _wheel_nodes:
-		(w as Node3D).rotation = Vector3(dz / 0.2, 0, 0)
+	if dw is Array and dw.size() >= 2:
+		var u := clampf((t - float(dw[0])) / maxf(float(dw[1]) - float(dw[0]), 0.01), 0.0, 1.0)
+		dz = -22.0 * (1.0 - Motion.out_cubic(u))
+	var sway := 0.04 * sin(t * 9.0) * (1.0 if dz < -0.5 else 0.0)
+	_auto.position = AUTO_AT + Vector3(sway, 0, dz)
+	_auto.rotation = Vector3(0, PI + sway * 0.6, 0)
+	auto_script().roll(_auto, dz)
+	auto_script().set_fare(_auto, _fare("meter", t))
+	# The driver rides along.
+	var act = ctx.get("actor", null)
+	var drv = act.call(String(_p.get("driver", ""))) if act else null
+	if drv:
+		drv.position = gt * (_auto.position + Vector3(0, 0.42, 0.05))
 	# The gold streak: MOM climbs from behind the auto over the roofs into the sky, with a trail.
 	var s_on := false
 	var path := func(u: float) -> Vector3: return Vector3(0.3, 1.4, 2.5).lerp(Vector3(-0.5, 30.0, 26.0), u) + Vector3(sin(u * PI) * 1.5, 0, -sin(u * PI) * 6.0)
@@ -386,6 +365,6 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			_trail.mesh = im
 	_streak.visible = s_on
 	_trail.visible = s_on
-	return {"meter": gt * (_auto.position + Vector3(-0.38, 1.24, -0.5)), "auto": gt * _auto.position,
+	return {"meter": gt * (_auto.position + Vector3(0.38, 1.24, 0.5)), "auto": gt * (_auto.position + Vector3(0, 1.0, 0)),
 		"sky": gt * Vector3(-1.0, 20.0, -30.0), "streak": gt * _streak.position, "chabutro": gt * Vector3(-0.2, 3.0, -13),
 		"driver_seat": gt * (_auto.position + Vector3(0, 0.88, -0.05))}
