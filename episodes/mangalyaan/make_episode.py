@@ -151,7 +151,7 @@ def build():
         "captions": {"enabled": True, "max_words": 2, "position": 0.87},
         "ambience": [{"sound": "beat", "gain": -22, "duck": 0.55}],
         "sfx": [
-            {"sound": "whoosh", "at": {"line": "l1a1", "offset": -0.2}, "gain": -6},
+            {"sound": "whoosh", "at": {"line": "l1a1"}, "gain": -6},
             {"sound": "click", "at": {"line": "l1a2", "word": "costs", "offset": -0.25}},
             {"sound": "whoosh", "at": {"line": "l1b", "offset": -0.15}, "gain": -3},
             {"sound": "thud", "at": {"line": "l5a", "word": "yes"}},

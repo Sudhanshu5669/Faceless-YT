@@ -35,8 +35,7 @@
   {
    "sound": "whoosh",
    "at": {
-    "line": "l1a1",
-    "offset": -0.2
+    "line": "l1a1"
    },
    "gain": -6
   },
