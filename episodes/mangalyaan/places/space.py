@@ -83,8 +83,8 @@ DOF_LOW = {"strength": 0.0}
 
 SHOTS = {
     "auto_space": {"look": LOOK, "camera": move(
-        cam(A("sauto", -1.6, 0.5, 6.2), A("sauto", -0.2, 0.1, 0), 30, {"strength": 0.2, "focus": 6.3}),
-        cam(A("sauto", -1.2, 0.35, 4.6), A("sauto", -0.3, 0.15, 0), 34, {"strength": 0.25, "focus": 4.7}), "in_out")},
+        cam(A("sauto", -1.6, 0.9, 6.6), A("sauto", -0.3, 0.75, 0), 30, {"strength": 0.2, "focus": 6.6}),
+        cam(A("sauto", -1.3, 0.8, 5.4), A("sauto", -0.4, 0.8, 0), 32, {"strength": 0.25, "focus": 5.4}), "in_out")},
     "cruise_map": {"look": LOOK, "camera": move(
         cam(H(-10, 250, 150), H(0, 0, 0), 26), cam(H(-20, 220, 120), H(0, 0, 0), 26), "in_out")},
     "auto_end": {"look": LOOK, "camera": move(
@@ -134,10 +134,10 @@ REVEALS = [
     {"id": "km_count", "t": W("l11b", "cross", -0.1), "until": W("l12a"), "at": H(0, 30, -40), "size": 14.0,
      "counter": {"from": 0, "to": 600000000, "decimals": 0, "suffix": " KM", "land": W("l11b", "kilometres"),
                  "label": "MORE THAN"}, "sound": "ding"},
-    {"id": "per_km_space", "t": W("l1b", "Mars", 0.05), "until": W("l2a"), "at": A("sauto", -0.4, 2.5, 0.8), "size": 0.42,
+    {"id": "per_km_space", "t": W("l1b", "Mars", 0.05), "until": W("l2a"), "at": A("sauto", -0.5, 1.75, 0.6), "size": 0.34,
      "counter": {"from": 10, "to": 7, "decimals": 0, "prefix": "₹", "suffix": " / KM", "land": W("l1b", "seven"),
                  "label": "TO MARS"}, "sound": "ding"},
-    {"id": "per_km_end", "t": W("l24", "seven", -0.05), "at": A("sauto", -0.4, 2.5, 0.8), "size": 0.42,
+    {"id": "per_km_end", "t": W("l24", "seven", -0.05), "at": A("sauto", -0.5, 1.75, 0.6), "size": 0.34,
      "text": "₹7 / KM", "color": "#ffd84a", "enter": "pop", "sound": "ding"},
     {"id": "delay_count", "t": W("l15b", "takes", -0.1), "until": W("l15c"), "at": D(13, 2, 18), "size": 6.0,
      "counter": {"from": 0, "to": 12, "decimals": 0, "suffix": " MIN", "land": W("l15b", "twelve"),
