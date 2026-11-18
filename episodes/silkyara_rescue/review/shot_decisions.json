@@ -298,5 +298,255 @@
         "fingerprint": "8b3bc70a4c64"
       }
     ]
+  },
+  "tally13": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 15:03:31",
+    "fingerprint": "acc9a64a4777",
+    "history": []
+  },
+  "steel_hit": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 15:03:39",
+    "fingerprint": "9304141a2baa",
+    "history": []
+  },
+  "blades_snap": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 15:03:42",
+    "fingerprint": "3def0f70db06",
+    "history": []
+  },
+  "gap_short": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 15:03:45",
+    "fingerprint": "d14a2ce47ac7",
+    "history": []
+  },
+  "ridge_rig": {
+    "status": "approved",
+    "note": "The drill looks horrible. Plus its not even realistic.",
+    "updated": "2026-11-16 16:55:03",
+    "fingerprint": "ea972c7119c7",
+    "history": [
+      {
+        "status": "changes",
+        "note": "The drill looks horrible. Plus its not even realistic.",
+        "updated": "2026-11-16 15:04:31",
+        "fingerprint": "9b5865bfd39f"
+      }
+    ]
+  },
+  "drill_down": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 15:04:38",
+    "fingerprint": "000f4458f366",
+    "history": []
+  },
+  "miners_arrive": {
+    "status": "approved",
+    "note": "Make it look more realistic, cinematic. give them more aura",
+    "updated": "2026-11-16 17:01:37",
+    "fingerprint": "e80b7e64c1c1",
+    "history": [
+      {
+        "status": "changes",
+        "note": "Make it look more realistic, cinematic. give them more aura",
+        "updated": "2026-11-16 15:05:03",
+        "fingerprint": "e20298534ff2"
+      }
+    ]
+  },
+  "rathole_crawl": {
+    "status": "approved",
+    "note": "More scary",
+    "updated": "2026-11-16 17:42:03",
+    "fingerprint": "97db5c764e42",
+    "history": [
+      {
+        "status": "changes",
+        "note": "More scary",
+        "updated": "2026-11-16 15:05:15",
+        "fingerprint": "97db5c764e42"
+      }
+    ]
+  },
+  "pit_tape": {
+    "status": "approved",
+    "note": "More realistic",
+    "updated": "2026-11-16 17:42:07",
+    "fingerprint": "3799b3087b64",
+    "history": [
+      {
+        "status": "changes",
+        "note": "More realistic",
+        "updated": "2026-11-16 15:05:27",
+        "fingerprint": "3799b3087b64"
+      }
+    ]
+  },
+  "ngt_notice": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 15:05:33",
+    "fingerprint": "44e72353fce0",
+    "history": []
+  },
+  "pipe_enter": {
+    "status": "approved",
+    "note": "The animation is horrible. the people are moving like statues",
+    "updated": "2026-11-16 17:42:12",
+    "fingerprint": "5b1a0c0c9eda",
+    "history": [
+      {
+        "status": "changes",
+        "note": "The animation is horrible. the people are moving like statues",
+        "updated": "2026-11-16 15:05:51",
+        "fingerprint": "8a22d3565fda"
+      }
+    ]
+  },
+  "pipe_dig": {
+    "status": "approved",
+    "note": "Horrible again",
+    "updated": "2026-11-16 16:55:25",
+    "fingerprint": "4a50a0ef621c",
+    "history": [
+      {
+        "status": "changes",
+        "note": "Horrible again",
+        "updated": "2026-11-16 15:05:59",
+        "fingerprint": "b7cf68980e40"
+      }
+    ]
+  },
+  "hand_dig": {
+    "status": "approved",
+    "note": "horrible",
+    "updated": "2026-11-16 17:46:28",
+    "fingerprint": "517f0080d4b3",
+    "history": [
+      {
+        "status": "changes",
+        "note": "horrible",
+        "updated": "2026-11-16 15:06:07",
+        "fingerprint": "9c75a616b9b5"
+      }
+    ]
+  },
+  "tally17": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 15:06:11",
+    "fingerprint": "35e3f979a1a1",
+    "history": []
+  },
+  "watch_705": {
+    "status": "approved",
+    "note": "Can look more realistic",
+    "updated": "2026-11-16 17:46:35",
+    "fingerprint": "11f8baaff7b2",
+    "history": [
+      {
+        "status": "changes",
+        "note": "Can look more realistic",
+        "updated": "2026-11-16 15:06:21",
+        "fingerprint": "11f8baaff7b2"
+      }
+    ]
+  },
+  "break_through": {
+    "status": "approved",
+    "note": "The break through could be made more cinematic",
+    "updated": "2026-11-16 17:55:01",
+    "fingerprint": "efdbd07bff24",
+    "history": [
+      {
+        "status": "changes",
+        "note": "The break through could be made more cinematic",
+        "updated": "2026-11-16 15:06:37",
+        "fingerprint": "59961a8f1e78"
+      }
+    ]
+  },
+  "stretchers_out": {
+    "status": "approved",
+    "note": "Make it look more cinematic",
+    "updated": "2026-11-16 20:01:51",
+    "fingerprint": "c42f6e53857c",
+    "history": [
+      {
+        "status": "changes",
+        "note": "Horrible again",
+        "updated": "2026-11-16 15:06:44",
+        "fingerprint": "99bf708ea6a5"
+      },
+      {
+        "status": "approved",
+        "note": "Horrible again",
+        "updated": "2026-11-16 19:19:54",
+        "fingerprint": "2ffff6130ae7"
+      },
+      {
+        "status": "changes",
+        "note": "Make it look more cinematic",
+        "updated": "2026-11-16 19:20:36",
+        "fingerprint": "2ffff6130ae7"
+      }
+    ]
+  },
+  "ambulance_line": {
+    "status": "approved",
+    "note": "i want it to look more cinematic",
+    "updated": "2026-11-16 19:20:02",
+    "fingerprint": "359c13ef11b9",
+    "history": [
+      {
+        "status": "changes",
+        "note": "i want it to look more cinematic",
+        "updated": "2026-11-16 15:06:55",
+        "fingerprint": "359c13ef11b9"
+      }
+    ]
+  },
+  "pipe_in": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 16:55:23",
+    "fingerprint": "a594f2140988",
+    "history": []
+  },
+  "demolition": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 20:26:14",
+    "fingerprint": "bf5fc01faf75",
+    "history": []
+  },
+  "hasan_home": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 20:38:20",
+    "fingerprint": "aec82b456107",
+    "history": []
+  },
+  "dda_statement": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 20:43:41",
+    "fingerprint": "36cc4f38f9b3",
+    "history": []
+  },
+  "family_street": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-16 20:57:51",
+    "fingerprint": "0ec8de6ad3af",
+    "history": []
   }
 }

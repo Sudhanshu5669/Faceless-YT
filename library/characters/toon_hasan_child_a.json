@@ -1,0 +1,14 @@
+{
+  "id": "toon_hasan_child_a",
+  "description": "One of Hasan's children, in a muted blue top.",
+  "tags": ["toon", "human", "family"],
+  "height": 1.30,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "slick", "color": "#211b1b"},
+    "outfit": {"style": "tee", "color": "#526b7c"},
+    "shoes": "#383636",
+    "face": "sleepy"
+  }
+}

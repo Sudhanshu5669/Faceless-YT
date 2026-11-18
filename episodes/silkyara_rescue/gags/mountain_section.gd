@@ -19,6 +19,7 @@ extends RefCounted
 const KitDB = preload("res://scripts/world/kit_db.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
 const TunnelFinish = preload("res://scripts/world/silkyara_tunnel_finish.gd")
+const Crawl = preload("res://scripts/actors/toon_crawl.gd")
 
 const NOISE_GLSL := """
 float h3(vec3 p) { return fract(sin(dot(p, vec3(12.9898, 78.233, 37.719))) * 43758.5453); }
@@ -1510,6 +1511,8 @@ var _xa_grit: MultiMesh
 var _xa_boulder: MeshInstance3D
 var _xa_chunks: Array = []
 var _xa_glow: OmniLight3D
+var _xa_hand_tools: Node3D
+var _xa_hammer: Node3D
 var _xa_entry := 0.0
 var _xa_collars: Array = []
 var _xa_flight_mat: ShaderMaterial
@@ -1748,6 +1751,16 @@ func _build_xauger(root: Node3D) -> void:
 	_xa_glow.light_energy = 0.0
 	_xa_glow.shadow_enabled = false
 	_xa.add_child(_xa_glow)
+	# Hand tools are only visible during the manual excavation cutaway.
+	_xa_hand_tools = Node3D.new()
+	_xa.add_child(_xa_hand_tools)
+	var tool_steel := _mat("#a3a7a3", 0.48)
+	var handle := _mat("#79563b", 0.85)
+	_rod(_xa_hand_tools, Vector3(-0.35, -0.2, -0.46), Vector3(0.03, -0.13, -0.46), 0.025, tool_steel, 8)
+	_xa_hammer = Node3D.new()
+	_xa_hand_tools.add_child(_xa_hammer)
+	_rod(_xa_hammer, Vector3.ZERO, Vector3(0.0, 0.31, 0.0), 0.025, handle, 8)
+	_box(_xa_hammer, Vector3(0.22, 0.09, 0.09), Vector3(0.0, 0.32, 0.0), tool_steel)
 
 
 ## Metres bored at t: between consecutive keys it eases in and out (a held value is a stall).
@@ -1787,6 +1800,7 @@ func _pose_xauger(p: Dictionary, t: float, origin: Vector3, ctx: Dictionary = {}
 			_xa.visible = false
 	# By hand (line 20): the auger and its broken blades are out, the girder cut away; miners lie in the pipe's nose.
 	var manual := t >= float(xa.get("manual", 1.0e9))
+	_xa_hand_tools.visible = manual and _xa.visible
 	_xa_flight.visible = not manual
 	for pc in _xa_pieces:
 		if manual:
@@ -1797,8 +1811,19 @@ func _pose_xauger(p: Dictionary, t: float, origin: Vector3, ctx: Dictionary = {}
 			continue
 		ia.visible = true
 		var back := float(ins.get("back", 1.0))
-		ia.global_position = origin + Vector3(nose - back - 1.55, AX_Y - AX_R + 0.04, AX_Z - 0.05)
-		ia.rotation = Vector3(1.38, PI * 0.5, 0.0)
+		var floor_y := origin.y + AX_Y - AX_R + 0.04
+		var chest := origin + Vector3(nose - back - 0.93, AX_Y - AX_R + 0.2, AX_Z - 0.05)
+		var progress := maxf(0.0, t - float(xa.get("manual", t)))
+		Crawl.pose(ia, chest, Vector3.RIGHT, Vector3.UP, progress * 0.12 + back, {"tilt": 0.2, "floor_y": floor_y, "stride": 0.55, "arm_scale": 1.3})
+		if back < 0.1:
+			var beat := fposmod(progress, 0.7) / 0.7
+			var lift := sin(PI * clampf(beat / 0.8, 0.0, 1.0))
+			var grip := origin + Vector3(nose - 0.3 - 0.09 * lift, AX_Y - 0.12 + 0.18 * lift, AX_Z - 0.46)
+			Crawl.arm(ia, "r", grip, Vector3(0, 0, -1))
+			Crawl.arm(ia, "l", origin + Vector3(nose - 0.28, AX_Y - 0.2, AX_Z - 0.46), Vector3(0, 0, -1))
+			_xa_hand_tools.position = Vector3(nose, AX_Y, AX_Z)
+			_xa_hammer.position = grip - origin - _xa_hand_tools.position
+			_xa_hammer.rotation.z = -1.0 + lift * 1.15
 	if not manual or not _xa.visible:
 		for ins in xa.get("inside", []):
 			var ha = ctx_actor(ctx, String(ins.get("id", "")))
@@ -1921,6 +1946,7 @@ const MAST_H := 11.0
 
 var _ridge: Node3D
 var _ridge_head: Node3D
+var _ridge_spindle: Node3D
 var _ridge_rod: MeshInstance3D
 var _ridge_lever: Node3D
 var _ridge_hole: MeshInstance3D
@@ -1944,11 +1970,26 @@ func _build_ridge(root: Node3D) -> void:
 	# A levelled pad of gravel cut into the slope, a ramp of the access road coming up to it.
 	_box(_ridge, Vector3(11.0, 0.6, 8.0), base + Vector3(-1.5, -0.25, -0.6), _mat("#6d6458", 0.95))
 	var hx := RIDGE_X + 1.85
-	# The carrier: a real truck chassis (Majadroid Base Truck), cab toward -x, the mast standing at its tail.
-	var truck := KitDB.static_node("majadroid_construction/Trucks#Base Truck", 1.0)
-	truck.rotation.y = -PI * 0.5
-	truck.position = Vector3(hx - 4.0, _ridge_ys + 0.05, RIDGE_Z)
-	_ridge.add_child(truck)
+	# Crawler undercarriage: continuous track shoes, rollers and a heavy revolving deck.
+	# A truck chassis made the vertical drilling rig read as a toy crane.
+	var track := _mat("#30302d", 0.94)
+	var worn := _mat("#77746b", 0.8)
+	for side in [-1.0, 1.0]:
+		var z: float = RIDGE_Z + side * 1.18
+		_box(_ridge, Vector3(5.8, 0.65, 0.72), Vector3(hx - 3.85, _ridge_ys + 0.48, z), track)
+		for k in 19:
+			_box(_ridge, Vector3(0.11, 0.035, 0.76), Vector3(hx - 6.55 + k * 0.3, _ridge_ys + 0.82, z), worn)
+			_box(_ridge, Vector3(0.11, 0.58, 0.035), Vector3(hx - 6.55 + k * 0.3, _ridge_ys + 0.48, z + side * 0.37), worn)
+		for k in 7:
+			_rod(_ridge, Vector3(hx - 6.25 + k * 0.8, _ridge_ys + 0.42, z + side * 0.37), Vector3(hx - 6.25 + k * 0.8, _ridge_ys + 0.42, z + side * 0.39), 0.23, dark, 16)
+	_box(_ridge, Vector3(5.5, 0.35, 2.9), Vector3(hx - 3.85, _ridge_ys + 1.02, RIDGE_Z), dark)
+	# Operator's glazed cab, with a protective frame and a roof overhang.
+	var cab := Vector3(hx - 5.75, _ridge_ys + 1.85, RIDGE_Z + 0.65)
+	_box(_ridge, Vector3(1.55, 1.45, 1.3), cab, yellow)
+	_box(_ridge, Vector3(1.36, 0.92, 0.025), cab + Vector3(0, 0.12, 0.665), _mat("#344b50", 0.24))
+	_box(_ridge, Vector3(0.025, 0.92, 1.05), cab + Vector3(-0.79, 0.12, 0), _mat("#344b50", 0.24))
+	_box(_ridge, Vector3(1.7, 0.12, 1.42), cab + Vector3(0, 0.78, 0), dark)
+	_box(_ridge, Vector3(0.07, 0.96, 0.05), cab + Vector3(0, 0.12, 0.69), dark)
 	# Outrigger jacks at the four corners take its weight off the tyres.
 	for c in [Vector3(-6.4, 0, -1.75), Vector3(-6.4, 0, 1.75), Vector3(-1.3, 0, -1.75), Vector3(-1.3, 0, 1.75)]:
 		var at: Vector3 = Vector3(hx, _ridge_ys, RIDGE_Z) + c
@@ -1964,10 +2005,12 @@ func _build_ridge(root: Node3D) -> void:
 	var hose := _mat("#141414", 0.7)
 	for k in 3:
 		_rod(_ridge, pack + Vector3(1.1, 0.2 - k * 0.15, 0.4 - k * 0.3), Vector3(hx - 0.9, _ridge_ys + 2.4 + k * 0.6, RIDGE_Z + 0.3 - k * 0.25), 0.035, hose, 6)
-	# The mast stands on the ground at the tail, braced back to the bed.
+	# The mast has box-section guide rails and cross bracing, with the rotary carriage
+	# travelling on its front face. Keep the drilling axis unchanged for drill_down.
 	var mast := Vector3(hx - 0.75, _ridge_ys + 0.1, RIDGE_Z)
 	for sz in [-0.32, 0.32]:
-		_box(_ridge, Vector3(0.16, MAST_H, 0.16), mast + Vector3(0, MAST_H * 0.5, sz), yellow)
+		_box(_ridge, Vector3(0.32, MAST_H, 0.22), mast + Vector3(0, MAST_H * 0.5, sz), yellow)
+		_box(_ridge, Vector3(0.08, MAST_H, 0.07), mast + Vector3(0.19, MAST_H * 0.5, sz), steel)
 	var y := 0.5
 	while y < MAST_H:
 		_rod(_ridge, mast + Vector3(0, y, -0.32), mast + Vector3(0, y + 0.8, 0.32), 0.03, yellow, 6)
@@ -2013,7 +2056,11 @@ func _build_ridge(root: Node3D) -> void:
 	_ridge_head = Node3D.new()
 	_ridge.add_child(_ridge_head)
 	_box(_ridge_head, Vector3(0.8, 0.7, 1.0), Vector3(0.3, 0, 0), _mat("#c0392b", 0.5, 0.3))
-	_rod(_ridge_head, Vector3(0.75, -0.2, 0), Vector3(0.75, -0.55, 0), 0.16, steel, 14)
+	_ridge_spindle = Node3D.new()
+	_ridge_spindle.position = Vector3(0.75, -0.2, 0)
+	_ridge_head.add_child(_ridge_spindle)
+	_rod(_ridge_spindle, Vector3.ZERO, Vector3(0, -0.35, 0), 0.16, steel, 14)
+	_box(_ridge_spindle, Vector3(0.38, 0.08, 0.08), Vector3(0, -0.22, 0), dark)
 	var rm := CylinderMesh.new()
 	rm.top_radius = 0.07
 	rm.bottom_radius = 0.07
@@ -2135,7 +2182,7 @@ func _pose_ridge(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> D
 	var hy := lerpf(MAST_H - 1.0, 2.0, feed)
 	var judder := Vector3(0, sin(t * 53.0), 0) * 0.015 * Motion.seg(t, start, start + 0.1)
 	_ridge_head.position = mast + Vector3(0, hy, 0) + judder
-	_ridge_head.rotation.y = maxf(t - start, 0.0) * 9.0
+	_ridge_spindle.rotation.y = maxf(t - start, 0.0) * 9.0
 	var rod_top := mast + Vector3(0.75, hy - 0.55, 0)
 	var rod_bot := base + Vector3(1.85, -0.1, 0)
 	_ridge_rod.transform = Transform3D(Basis.from_scale(Vector3(1, maxf(rod_top.y - rod_bot.y, 0.01), 1)), (rod_top + rod_bot) * 0.5)
@@ -2180,6 +2227,8 @@ const ESC_R := 0.42
 const DECK_Y := 0.55
 
 var _esc: Node3D
+var _esc_lamp: SpotLight3D
+var _rescue_rim: SpotLight3D
 
 
 func _build_escape(root: Node3D) -> void:
@@ -2269,6 +2318,32 @@ func _build_escape(root: Node3D) -> void:
 	lamp.spot_angle = 40.0
 	lamp.shadow_enabled = true
 	_esc.add_child(lamp)
+	_esc_lamp = SpotLight3D.new()
+	_esc_lamp.light_color = Color("#fff0d6")
+	_esc_lamp.light_energy = 4.0
+	_esc_lamp.spot_range = 6.0
+	_esc_lamp.spot_angle = 28.0
+	_esc_lamp.shadow_enabled = true
+	_esc_lamp.visible = false
+	_esc.add_child(_esc_lamp)
+	# Motivated by a work lamp behind the rescue team; used only during extraction.
+	_rescue_rim = SpotLight3D.new()
+	var rim_at := Vector3(ESC_X0 + 1.1, 2.0, ESC_Z + 0.8)
+	var rim_dir := (Vector3(ESC_X0 - 1.7, 0.8, ESC_Z) - rim_at).normalized()
+	_rescue_rim.transform = Transform3D(Basis.looking_at(rim_dir), rim_at)
+	_rescue_rim.light_color = Color("#ffd3a1")
+	_rescue_rim.light_energy = 2.0
+	_rescue_rim.spot_range = 7.0
+	_rescue_rim.spot_angle = 38.0
+	_rescue_rim.visible = false
+	_esc.add_child(_rescue_rim)
+
+
+## Height of the timber platform (and its two steps) under a point, in the gag's frame.
+func _deck_y(x: float) -> float:
+	if x >= ESC_X0 - 3.45:
+		return DECK_Y + 0.03
+	return (DECK_Y + 0.03) * clampf((x - (ESC_X0 - 4.15)) / 0.7, 0.0, 1.0)
 
 
 func _pose_escape(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> void:
@@ -2276,6 +2351,8 @@ func _pose_escape(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> 
 		return
 	var ep: Dictionary = p["escape"]
 	_esc.visible = t >= float(ep.get("from", 1.0e9)) and t < float(ep.get("until", 1.0e9))
+	if _esc_lamp != null:
+		_esc_lamp.visible = false
 	if t >= float(ep.get("until", 1.0e9)):
 		return          # the crew are someone else's after this (line 20: in the x-ray pipe)
 	var crew: Array = ep.get("crew", [])
@@ -2284,27 +2361,41 @@ func _pose_escape(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3) -> 
 		var a = ctx["actor"].call(String(c.get("id", ""))) if ctx.has("actor") else null
 		if a == null:
 			continue
-		var t0 := float(c.get("t0", 1.0e9))
-		var t1 := float(c.get("t1", 1.0e9))
-		var t2 := float(c.get("t2", 1.0e9))
-		a.visible = _esc.visible and t < t2
+		var t0 := float(c.get("t0", 1.0e9))          # starts going down onto hands and knees
+		a.visible = _esc.visible
 		if not a.visible:
 			continue
-		var queue := Vector3(ESC_X0 - 1.15 - i * 0.85, DECK_Y + 0.03, ESC_Z + (0.12 if i % 2 else -0.1))
-		var step := Vector3(ESC_X0 - 0.55, DECK_Y + 0.03, ESC_Z)
-		var pos := queue.lerp(step, Motion.in_out(Motion.seg(t, t0, t1 - 0.05)))
-		# In head first: down onto the knees, pitched forward, sliding into the mouth.
-		var dive := Motion.in_out(Motion.seg(t, t1, t1 + 0.4))
-		var slide := Motion.in_cubic(Motion.seg(t, t1 + 0.3, t2))
-		pos.y += (ESC_Y - 0.36 - pos.y) * dive
-		pos.x += 0.7 * dive + 1.6 * slide
-		a.global_position = origin + pos
-		a.rotation = Vector3(1.3 * dive, PI * 0.5, 0.0)
-		if dive > 0.0:
-			var hd: Vector3 = a.anchor_points()[String(c.get("id", "")) + ".head"]["pos"]
-			for side in ["l", "r"]:
-				var sg := 1.0 if side == "l" else -1.0
-				a.aim_hand(side, hd + Vector3(0.35, -0.25, sg * 0.18), dive)
+		# Walking up and waiting: the route moves him, the platform carries him.
+		var here: Vector3 = a.global_position - origin
+		if t < t0:
+			a.global_position.y = origin.y + _deck_y(here.x)
+			continue
+		# Down and in: tip forward onto the hands (the chest drops and travels), then crawl, flattening onto the
+		# belly as the head ducks under the pipe's rim. Hands and knees stay planted; the body is pulled past them.
+		var h: float = a._height_scale * 1.83
+		var stride := 0.46 * h
+		var k := Motion.in_out(Motion.seg(t, t0, t0 + 0.44))
+		var d := Crawl.surge(maxf(t - (t0 + 0.34), 0.0), float(c.get("speed", 0.85)), stride, 0.6)
+		var duck := Motion.smooth(Motion.seg(d, 0.0, 0.42))
+		var x0 := float(c.get("x", ESC_X0 - 1.3))
+		var tilt := lerpf(PI * 0.5, lerpf(0.52, 0.17, duck), k)
+		# A small dip of the knees before he goes down (anticipation), eased into the drop.
+		var dip := 0.05 * sin(Motion.seg(t, t0, t0 + 0.2) * PI) * (1.0 - k)
+		var chest_y := lerpf(DECK_Y + 0.03 + 0.5 * h - dip, lerpf(DECK_Y + 0.4, ESC_Y - ESC_R + 0.26, duck), k)
+		var chest_x := x0 + 0.44 * k + d
+		var in_pipe := chest_x + 0.2 > ESC_X0
+		var info := Crawl.pose(a, origin + Vector3(chest_x, chest_y, ESC_Z), Vector3(1, 0, 0), Vector3.UP, d + float(i) * 0.3 * stride,
+			{"stride": stride, "tilt": tilt, "weight": k, "floor_y": origin.y + (ESC_Y - ESC_R if in_pipe else DECK_Y + 0.03),
+			"pipe_r": ESC_R if in_pipe else 0.0, "spread": 0.16 * h, "reach": 0.24 * h, "leg_back": 0.24 * h, "leg_spread": 0.11 * h,
+			"look": Vector2(0.0, 0.1 * (1.0 - duck))})
+		a.visible = chest_x < ESC_X0 + 2.0
+		if i == 0 and _esc_lamp != null and a.visible:
+			# The leader's headlamp: its beam sweeps down onto the rim and into the bore as he goes in.
+			var r: float = a._head_r
+			var face: Vector3 = info["face"]
+			var hup: Vector3 = info["head_up"]
+			_esc_lamp.visible = true
+			_esc_lamp.global_transform = Transform3D(Basis.looking_at(face, hup), (info["head"] as Vector3) + face * r * 1.12 + hup * r * 0.62)
 
 
 func ctx_actor(ctx: Dictionary, id: String):
@@ -2334,9 +2425,12 @@ func _stretcher() -> Node3D:
 		_rod(n, Vector3(c.x, 0.085, c.y), Vector3(c.x, 0.05, c.y), 0.012, dark, 6)
 		var w := _rod(n, Vector3(c.x, 0.04, c.y - 0.015), Vector3(c.x, 0.04, c.y + 0.015), 0.04, dark, 12)
 		w.name = "wheel"
-	# A thin blue mattress and the rope from its head end.
-	_box(n, Vector3(1.8, 0.04, 0.5), Vector3(0, 0.135, 0), _mat("#2f5aa0", 0.8))
-	_rod(n, Vector3(-0.95, 0.14, 0), Vector3(-2.3, 0.6, 0.05), 0.01, _mat("#d9c9a2", 0.9), 5).name = "rope"
+	# Thin padded rescue board, cross straps and paired hand grips.
+	_box(n, Vector3(1.8, 0.05, 0.49), Vector3(0, 0.145, 0), _mat("#c16a32", 0.86))
+	for sx in [-0.35, 0.48]:
+		_box(n, Vector3(0.085, 0.012, 0.51), Vector3(sx, 0.178, 0), dark)
+	for sz in [-0.2, 0.2]:
+		_rod(n, Vector3(-0.9, 0.16, sz), Vector3(-1.12, 0.16, sz), 0.025, steel, 10)
 	return n
 
 
@@ -2378,6 +2472,7 @@ func _pose_stretchers(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3)
 		return
 	var sp: Dictionary = p["stretchers"]
 	var on := t >= float(sp.get("from", 1.0e9)) and t < float(sp.get("until", 1.0e9))
+	_rescue_rim.visible = on
 	if on:
 		_esc.visible = true
 	var list: Array = sp.get("list", [])
@@ -2391,16 +2486,16 @@ func _pose_stretchers(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3)
 		var who = ctx_actor(ctx, String(it.get("who", "")))
 		var vis := on and t >= t0 - 0.05
 		st.visible = vis
-		gl.visible = vis and t >= t1 + 0.2
+		gl.visible = false
 		if who != null:
 			who.visible = vis
 		if not vis:
 			continue
 		# Out of the mouth and along the platform, slowing as the rescuers take it.
-		var k := Motion.out_cubic(Motion.seg(t, t0, t1))
-		var x := lerpf(ESC_X0 + 1.2, ESC_X0 - 2.2 - float(it.get("stop_back", 0.0)), k)
+		var k := Motion.in_out(Motion.seg(t, t0, t1))
+		var x := lerpf(ESC_X0 + 0.7, ESC_X0 - 1.45 - float(it.get("stop_back", 0.0)), k)
 		# Then it is wheeled away along the platform, toward the ambulances.
-		var away := Motion.in_cubic(Motion.seg(t, t1 + 0.35, t1 + 1.05))
+		var away := Motion.in_cubic(Motion.seg(t, t1 + 1.5, t1 + 2.5))
 		x -= 5.0 * away
 		var y := lerpf(ESC_Y - ESC_R - 0.02, DECK_Y + 0.02, Motion.smooth(Motion.seg(t, t0 + (t1 - t0) * 0.45, t1)))
 		var z := ESC_Z + float(it.get("dz", 0.0)) * Motion.smooth(Motion.seg(t, t1, t1 + 0.4))
@@ -2409,19 +2504,15 @@ func _pose_stretchers(p: Dictionary, t: float, ctx: Dictionary, origin: Vector3)
 			if w.name.begins_with("wheel"):
 				(w as Node3D).rotation.y = 0.0
 		if who != null:
-			# Lying on his back, head toward the platform (the way he was pulled out), garland on his chest.
-			# On his back along the tray: up (+Y) toward the platform end (-x), front (+Z) facing the sky.
-			who.global_transform = Transform3D(Basis(Vector3(0, 0, -1), Vector3(-1, 0, 0), Vector3(0, 1, 0)), origin + st.position + Vector3(0.82, 0.17, 0.0))
+			# The frozen first frame of get_up already lies on the back; retain its
+			# natural pose instead of rotating an upright idle onto the board.
+			who.global_transform = Transform3D(Basis(Vector3.UP, PI * 0.5), origin + st.position + Vector3(0.1, 0.19, 0.0))
 			var id := String(it.get("who", ""))
 			var chest: Vector3 = who.anchor_points()[id + ".chest"]["pos"] - origin
 			gl.position = chest + Vector3(0.0, 0.12, 0.0)
 			gl.rotation = Vector3(PI * 0.5, 0.0, PI * 0.5)
-			# A hand up to wave at the crowd once he is out.
-			var wave := Motion.smooth(Motion.seg(t, t1 + 0.1, t1 + 0.4))
-			var hd: Vector3 = who.anchor_points()[id + ".head"]["pos"]
-			if wave > 0.0:
-				who.aim_hand("r", hd + Vector3(0.1, 0.45 + 0.08 * sin(t * 9.0), 0.25), wave)
 		var puller = ctx_actor(ctx, String(it.get("puller", "")))
-		if puller != null and t < t1 + 0.3:
-			puller.aim_hand("l", origin + st.position + Vector3(-1.6, 0.55, 0.0), 1.0)
-			puller.aim_hand("r", origin + st.position + Vector3(-1.4, 0.45, 0.05), 1.0)
+		if puller != null:
+			puller.global_position = origin + Vector3(x - 1.08, _deck_y(x - 1.08), z + 0.6)
+			puller.aim_hand("l", origin + st.position + Vector3(-1.05, 0.17, -0.2), 1.0)
+			puller.aim_hand("r", origin + st.position + Vector3(-1.05, 0.17, 0.2), 1.0)

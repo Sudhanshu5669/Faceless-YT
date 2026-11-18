@@ -1,0 +1,14 @@
+{
+  "id": "toon_hasan_wife",
+  "description": "Hasan's wife, rendered respectfully in simple everyday clothing.",
+  "tags": ["toon", "human", "family"],
+  "height": 1.48,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "bun", "color": "#211b1b"},
+    "outfit": {"style": "tee", "color": "#80546c"},
+    "shoes": "#403735",
+    "face": "sad"
+  }
+}

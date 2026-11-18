@@ -5,7 +5,186 @@
 
 ## START HERE: current task (for whoever picks this up)
 
-### Silkyara rescue Short: lines 1-23 built, 24-26 still to build (2026-11-16, latest)
+### Silkyara final render completed at 60 fps (2026-11-16)
+
+The user approved all 55 shots and requested the full video at 60 fps. The episode generator now
+sets 1080x1920, 60 fps and two motion-blur samples; `tf framing silkyara_rescue` reported zero
+issues. The full render and soundtrack assembly completed successfully:
+`episodes/silkyara_rescue/renders/silkyara_rescue.mp4` (134.53 s, 126,348,501 bytes; H.264 video
+60/1 fps, AAC stereo 48 kHz; 26 narration lines, 145 effects, captions burned in, -14.1 LUFS).
+Sampled frames across the finished file were visually inspected. All current work remains
+uncommitted. The user should review the finished MP4 before any further changes or publication.
+
+### Final family shot awaiting review (2026-11-16)
+
+The user approved `dda_statement` and asked to continue. `family_street` replaces the final
+placeholder and is rendered at `review/shot_loop/54_family_street.mp4`. Hasan, his wife, and three
+children sit together on bedding beside the Khajuri Khas rubble, with the youngest nodding off on
+"slept". The initially attempted lying pose was visibly unnatural, so this version uses a seated
+sleeping pose. The lane is lit by the sodium streetlamp with subdued fill. The shot framing check
+reported zero issues; 42 Godot + 20 Python tests passed. Ask the user for this shot's verdict before
+any final render. All 55 shots now exist; 54 were approved before this new shot was reviewed.
+
+The Silkyara collapse and rescue occurred in November 2023; the demolition was 28 February 2024.
+Sources: https://www.pib.gov.in/PressReleasePage.aspx?PRID=1980465&lang=2&reg=48 and the DDA
+status report linked in the conversation. The approved demolition still depicts a two-storey
+facade; reporting describes the house as single-storey, a discrepancy already flagged to the user.
+
+### DDA statement shot awaiting review (2026-11-16)
+
+The user approved `hasan_home` and asked to continue. `dda_statement` replaces `ph_dda`: a neutral
+official in the Khajuri Khas lane lifts and holds illustrative DDA paperwork while the narration
+attributes the land claim to the authority. The paper carries no invented quote or plot boundary.
+The official has visible grips and a restrained lift, and the shot uses the aftermath from the
+approved location. Rendered `review/shot_loop/53_dda_statement.mp4`; framing zero issues; 42 Godot
+and 20 Python tests pass. After the user's verdict, build only the final `ph_street` shot: the family
+on the lane at night, as described below, and show it for approval. Preserve the previous verdicts.
+
+### Hasan aftermath shot awaiting review (2026-11-16)
+
+The user approved `demolition` and asked for the next shot. `hasan_home` replaces `ph_hasan` and
+is rendered for review: Hasan returns to the lane after a cut forward in time, approaches slowly,
+and is framed against the wreckage. His toon is `library/characters/toon_vakeel_hasan.json`.
+The lane gag hides the excavator and swaps the intact room for damaged wall remnants after the cut;
+the approved demolition's prior frames are unchanged. Framing reported zero issues and 42 Godot +
+20 Python tests passed. Next, after the user's verdict, build `ph_dda`, then `ph_street`.
+
+Accuracy finding: reporting says Hasan and his wife were away when the authorities arrived, so he
+is not shown watching the strike. Al Jazeera describes the house as single-storey, whereas the
+already approved `demolition` depicts a two-storey facade. Flag this discrepancy to the user before
+changing that approved shot. Sources: https://indianexpress.com/article/cities/delhi/dda-razes-house-of-man-who-led-team-that-rescued-41-from-uttarakhand-tunnel-9187056/
+and https://www.aljazeera.com/news/2024/3/3/hero-to-homeless-house-of-muslim-man-behind-india-tunnel-rescue-demolished.
+
+### Khajuri Khas ending: demolition shot awaiting review (2026-11-16)
+
+The user approved the revised `stretchers_out`; the shot loop had 51 approved shots before the
+ending work. The three final narration lines remain to be completed shot by shot. Fable's existing
+`gags/khajuri_lane.gd` is now compiled and wired at `KH_Z = 18000`. `demolition` is the first
+3.6 seconds of line 24 and has been rendered for user review; the remainder is `ph_hasan` (4.14 s),
+followed by `ph_dda` and `ph_street`. The split means the episode now has 55 shots. Do not render
+the next shot for first look until the user approves or requests changes to `demolition`.
+
+The lane's excavator now has a seated operator, glazed cab, track shoes and hydraulic details; the
+bucket strikes the facade on the word and masonry breaks out from the contact area. Fragments have
+angular meshes, and the rubble is hidden before impact. The camera and timing were adjusted after
+viewing the strip; framing reported zero issues. The demolition clip is at
+`review/shot_loop/51_demolition.mp4`. The 42 Godot and 20 Python tests passed with workspace TEMP/TMP.
+The next shot should introduce Hasan after the demolition without implying he witnessed a particular
+moment unless sourced, and should retain the shot-by-shot review. DDA's status report identifies the
+28 February 2024 Khajuri Khas demolition; see the linked report in the current conversation.
+
+### Codex continuation: ridge rig in progress (2026-11-16)
+
+The user asked to continue Fable's detailed, realistic, cinematic work and open the shot-review
+server. A server was started outside the sandbox on http://127.0.0.1:8788/ (the sandboxed
+port 8770 was unreachable). `ridge_rig` is being revised: the truck was replaced with a tracked
+undercarriage and cab, the mast rails thickened, and only the spindle now rotates. The camera was
+reframed. The latest render still looks too dark and static, with trees dominating the background;
+it is **not ready for approval**. Continue lighting, staging, movement and detail, inspect frames,
+then present this one shot before proceeding. Preserve the `ridge`, `hole`, and `deep` anchors and
+check the approved `drill_down` when changing shared geometry. The shot framing check passed.
+`tf test` passed (42 Godot, 20 Python) with TEMP/TMP set to `output/test_temp`; the sandbox temp
+directory otherwise produces Windows `os.replace` errors. `preview-set specs/sets/silkyara.json`
+failed because its default town named views do not apply to this set; no contact sheet was produced.
+
+### Silkyara rescue: the user's review round on lines 16-23 (2026-11-16, Fable session; STOPPED MID-WORK, power cut)
+
+**What the user said.** They reviewed lines 14-23 on the shot loop: seven shots approved, eleven marked **changes**.
+Their words: Opus "did not follow my instruction that i want high quality and realistic work"; "work on the realism of
+the shots and their cinematics". On seeing the first fixes: "you're working good. add your wisdom to the skill" (done:
+`.claude/skills/toon-short/SKILL.md`, section "Realism and cinematics", 15 rules. **Read it before touching a shot and
+add to it when you learn something**). Then "write handoff for now. we work later".
+
+**Verdicts to fix** (`python pipeline/tf.py shot silkyara_rescue --status`) and where each stands:
+
+| Shot | The user's note | State |
+|---|---|---|
+| `ridge_rig` | "The drill looks horrible. Plus its not even realistic." | not started |
+| `miners_arrive` | "Make it look more realistic, cinematic. give them more aura" | not started |
+| `rathole_crawl` | "More scary" | not started |
+| `pit_tape` | "More realistic" | not started |
+| `pipe_enter` | "The animation is horrible. the people are moving like statues" | **first draft rendered**, not polished |
+| `pipe_in` (new) | split out of `pipe_enter` | **first draft rendered, overexposed** |
+| `pipe_dig` | "Horrible again" | **rebuilt, close to done** (frames checked over 7 rounds) |
+| `hand_dig` | "horrible" | not started (still the old stiff pose) |
+| `watch_705` | "Can look more realistic" | not started |
+| `break_through` | "The break through could be made more cinematic" | **BROKEN right now, see below** |
+| `stretchers_out` | "Horrible again" | not started |
+| `ambulance_line` | "i want it to look more cinematic" | not started |
+
+None of the redone shots has been shown to the user. **Nothing is committed** (changed: the skill, `make_episode.py`,
+`episode.json`, `gags/pipe_face.gd`, `gags/mountain_section.gd`, `library/toon/faces.json`, new
+`godot/scripts/actors/toon_crawl.gd`, the user's `shot_decisions.json`, this file). `tf test` passed (42 Godot + 20 Python).
+
+**Built this session.**
+- **`godot/scripts/actors/toon_crawl.gd`** (new, engine; not yet in docs/ACTOR_SPEC.md: add a paragraph): procedural
+  crawling, since the animation library has no crawl clip. `Crawl.pose(actor, chest, fwd, up, distance, opts)` lays a
+  toon face down, plants hands and knees in the world and pulls the body past them (diagonal gait, shoulders roll, head
+  stays up and nods). `Crawl.surge(t, speed, stride)` = pull-and-rest speed. `Crawl.arm` / `Crawl.leg` = two-bone IK
+  with an explicit elbow / knee direction. `opts.tilt` runs from flat (0.17) through hands-and-knees (0.5) to upright
+  (PI/2), so the same call drops a standing toon onto all fours (`weight` ramps the IK in). `arm_scale` lengthens the
+  arms (a toon's hands can't reach past its own head; the diggers use 1.45). Options are listed at the top of the file.
+- **Faces** `effort` and `strain` added to `library/toon/faces.json` (not yet listed in docs/TOON_SPEC.md).
+- **`gags/pipe_face.gd` rewritten** (inside the escape pipe, far off at `PF()`): spiral-welded rusty steel
+  (`STEEL_SHADER`), the rubble face and its toe, blower hose, rope, a caged hand lamp, the lit mouth 14 m back. Params
+  `digger` (`strikes`: wind-up / blow / recoil, the stone splits on `split`, chips, sparks, dust puffs), `hauler`,
+  `crawlers` (crawl in from the mouth). **The old params `floor`, `through`, `standing`, `clasp` are gone.**
+- **`pipe_dig`** (2.35 s): camera in the rubble looking back at the digger, flat on his belly, face lit from below,
+  club hammer onto a cold chisel lying across the frame on "dig", "hammers", "chisels". Still worth one pass: the pipe
+  wall is a little bright and orange (its albedo was dropped to 0.5x after the last look, NOT re-rendered), the stone
+  he hits is darker than it should be, the hauler is hidden behind the digger's head.
+- **`pipe_enter`** (now 1.75 s; `mountain_section.gd` `_pose_escape`): four miners walk up the platform on real routes
+  (`DIG_PLAN` in make_episode.py), each drops onto hands and knees and crawls into the mouth; the leader's headlamp is
+  a real spot (`_esc_lamp`). First draft: the pipe rim is a dark blob on the right edge (camera too close to it), the
+  drop looks abrupt, nobody carries a tool yet.
+- **`pipe_in`** (new, 1.95 s): inside the pipe looking at the mouth, the miners crawl at the lens. The crawl reads but
+  **the frame is washed out white**: `_mouth_light` (energy 16) and the mouth backdrop are far too strong 3 m from the
+  camera. Drop to about 4, darken, check the face fill (`_aim_lamp(..., fill)`).
+- Inserting `pipe_in` moved every later shot's number up by one; the clips in `review/shot_loop/` were renamed to
+  match (44_pipe_dig ... 50_ambulance_line).
+
+**BROKEN until rebuilt: `break_through`.** Its old staging (the face falling away, the trapped men, the hand clasp)
+lived in the removed pipe_face params; the shot now shows the digger at an unchanged face and `TRAP_CAST`
+(`trap_a`, `trap_b`) stand unposed at `PF(1.15..)`. Plan (not started): stage it in the **hook's own tunnel**
+(`gags/tunnel_collapse.gd`, trapped side, the approved look): from behind the trapped men in the dark, a chisel point
+punches through the rubble toe with a shaft of light on "break", stones fall away, the pipe's mouth and the miner's
+lamp blaze through hanging dust, a trapped worker grips his hand on "through"; slow push-in over their shoulders.
+Add it like the `narrow` / `scope` features (a param + `_build_*` / `_pose_*`).
+
+**Plans for the shots not started** (ideas; judge them on frames):
+- `hand_dig`: the x-ray (`_pose_xauger`, `"inside": rh_1 / rh_2`): pose both with `Crawl.pose` in profile; this is
+  where hammer-on-chisel reads best (side on), with the 12 m counter.
+- `ridge_rig`: a real piling-type rig (tracked base with cab, tall box mast, rotary head, kelly bar, casing, spoil,
+  hoses), night floods through dust, a low hero angle up the mast. Keep anchors `ridge`, `hole`, `deep` and the x-ray
+  parts: the approved `drill_down` starts from them.
+- `miners_arrive`: low, long lens, backlit by a low sun through dust, the twelve walking at the lens in a loose V,
+  tools on shoulders, site workers parting and turning to watch; slower cadence.
+- `rathole_crawl`: an irregular coal hole barely wider than him (not a square corridor), black, a dim lamp, water,
+  cracked props; he belly-crawls at the lens (`Crawl`), grit pours and a prop splits on "dangerous", the light from the
+  shaft behind him is cut off.
+- `pit_tape`: a real Jaintia Hills box-cut: wet orange mud with ruts and puddles, coal heaps, bamboo ladder, log crane,
+  tin shed, baskets, mist on green hills; camera high enough to see down the shaft; the tape end held in his hand.
+  `ngt_notice` (approved) looks at the same place: re-check it afterwards.
+- `watch_705`: a modelled watch (steel case, bezel, dial markers, three hands, glass glint, crown, strap and buckle) on
+  a jacket cuff, the floodlit portal as bokeh behind.
+- `stretchers_out`: camera high in front of the mouth looking down it; rescuers haul a rope hand over hand, the
+  stretcher rolls out toward the lens, the man lies with action `get_up` frozen at 0 (a real lying pose), sits up,
+  garland over his head, the next one already coming.
+- `ambulance_line`: wet road with beacon reflections, haze so the bars bloom, start close on one turning beacon in
+  shallow focus and crane up to the line winding into fog. The Kenney ambulance reads as a toy when big in frame.
+
+**Iterating fast.** `python episodes/silkyara_rescue/make_episode.py`, then
+`python pipeline/tf.py shot silkyara_rescue <shot>` (about 28 s), then 8 evenly spaced frames in one image
+(`ffmpeg -i <clip> -vf "select='not(mod(n\,9))',scale=300:-1,tile=4x2" -frames:v 1 out.png`), one frame at 600 px, one
+with `eq=gamma=2.2`. Traps met today (all in the skill): bash heredocs holding Python with triple quotes or apostrophes
+fail ("unexpected EOF"): write patch scripts and long text with the Write/Edit tools; `metallic` in a closed dark set
+renders black blotches; never flip `NORMAL` in `vertex()` with `cull_front` (the wall then lights only from outside);
+a tube that shadows itself gives acne; shaded dust motes look like dirt on the wall (make them additive); a stone 5 cm
+from the lens is a wall; lights within 1 m of a white toon head stay under about 0.4.
+
+After these shots: lines 24-26 (the Khajuri Khas lane, below) are still to build.
+
+### Silkyara rescue Short: lines 1-23 built, 24-26 still to build (2026-11-16, before the review round above)
 
 **For the user: how to review what was built.**
 1. Start the review page: `python pipeline/tf.py shot silkyara_rescue --serve`, then open

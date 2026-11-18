@@ -1,30 +1,209 @@
 {
   "_comment": "Toon expressions: an actor cue {\"t\": ..., \"expression\": \"shocked\"} swaps the whole face instantly (that IS the acting in this style). Keys: eyes (style, or [left, right] for a wink), look [x, y] pupils, eye_size, eye_y, lid (0 = half-lidded, + = more closed), lid_tilt (+ = angry slant), brows (true/false), brow_tilt (+ worried, - angry), brow_y (raise), mouth, mouth_x (shift right), mouth_w (width), sweat, blush, tears (0..1). Eye styles: lazy, dot, wide, happy, closed, x, star, heart, sleepy, none. Mouth styles: smirk, smile, flat, frown, open, grin, laugh, wavy, o, none.",
   "faces": {
-    "neutral":    {"description": "Calm default.", "eyes": "dot", "mouth": "flat", "brow_y": -0.02},
-    "smug":       {"description": "Half-lidded smirk: the signature know-it-all look.", "eyes": "lazy", "lid": 0.0, "mouth": "smirk", "brow_tilt": 0.0},
-    "deadpan":    {"description": "Unimpressed, flat.", "eyes": "lazy", "lid": 0.08, "mouth": "flat", "brow_y": -0.03},
-    "side_eye":   {"description": "Suspicious glance sideways.", "eyes": "lazy", "lid": 0.05, "look": [0.9, 0.0], "mouth": "flat", "brow_tilt": -0.15},
-    "scheming":   {"description": "Plotting: lazy eyes with an angry slant and a smirk.", "eyes": "lazy", "lid": 0.0, "lid_tilt": 0.25, "brow_tilt": -0.35, "mouth": "smirk"},
-    "wink":       {"description": "Cheeky wink.", "eyes": ["happy", "lazy"], "mouth": "smirk", "brow_tilt": 0.0},
-    "happy":      {"description": "Plain smile.", "eyes": "dot", "mouth": "smile", "brow_y": 0.03},
-    "laugh":      {"description": "Eyes shut, mouth wide open.", "eyes": "happy", "mouth": "laugh", "brow_y": 0.05},
-    "grin":       {"description": "Wide toothy grin (evil when the skin is green).", "eyes": "lazy", "lid": -0.05, "brow_tilt": -0.3, "mouth": "grin"},
-    "cheer":      {"description": "Over the moon: closed eyes, huge open smile.", "eyes": "happy", "mouth": "laugh", "brow_y": 0.08, "blush": 0.6},
-    "star_eyes":  {"description": "Greedy / amazed: star eyes and a huge grin.", "eyes": "star", "mouth": "laugh", "brow_y": 0.08},
-    "love":       {"description": "Heart eyes.", "eyes": "heart", "mouth": "smile", "blush": 0.8},
-    "shocked":    {"description": "O_O with an open mouth.", "eyes": "wide", "mouth": "open", "brow_y": 0.08, "brow_tilt": 0.2},
-    "panic":      {"description": "Shocked plus a sweat drop: 'oh no'.", "eyes": "wide", "mouth": "open", "brow_y": 0.08, "brow_tilt": 0.35, "sweat": 1.0},
-    "surprised":  {"description": "Small 'oh'.", "eyes": "dot", "eye_size": 1.25, "mouth": "o", "brow_y": 0.08},
-    "nervous":    {"description": "Wavy mouth, sweat, worried brows.", "eyes": "dot", "mouth": "wavy", "brow_tilt": 0.4, "sweat": 1.0},
-    "angry":      {"description": "Slanted lids and brows, gritted frown.", "eyes": "lazy", "lid": 0.0, "lid_tilt": 0.4, "brow_tilt": -0.55, "brow_y": -0.06, "mouth": "frown"},
-    "furious":    {"description": "Angry with gritted teeth.", "eyes": "lazy", "lid": 0.0, "lid_tilt": 0.45, "brow_tilt": -0.6, "brow_y": -0.06, "mouth": "grin", "mouth_w": 0.8},
-    "sad":        {"description": "Droopy and down.", "eyes": "dot", "look": [0.0, -0.6], "mouth": "frown", "brow_tilt": 0.45},
-    "crying":     {"description": "Bawling: shut eyes, streaming tears, open mouth.", "eyes": "closed", "mouth": "open", "brow_tilt": 0.45, "tears": 1.0},
-    "dead":       {"description": "X_X knocked out.", "eyes": "x", "mouth": "wavy"},
-    "sleepy":     {"description": "Eyes closed, calm.", "eyes": "sleepy", "mouth": "flat"},
-    "thinking":   {"description": "Looking up, mouth to the side.", "eyes": "dot", "look": [0.5, 0.8], "mouth": "flat", "mouth_x": 0.08, "mouth_w": 0.6, "brow_tilt": -0.1, "brow_y": 0.04},
-    "determined": {"description": "Focused, ready.", "eyes": "dot", "mouth": "flat", "brow_tilt": -0.35, "brow_y": -0.04},
-    "cool":       {"description": "For sunglasses: relaxed smirk.", "eyes": "lazy", "lid": 0.1, "mouth": "smirk"}
+    "neutral": {
+      "description": "Calm default.",
+      "eyes": "dot",
+      "mouth": "flat",
+      "brow_y": -0.02
+    },
+    "smug": {
+      "description": "Half-lidded smirk: the signature know-it-all look.",
+      "eyes": "lazy",
+      "lid": 0.0,
+      "mouth": "smirk",
+      "brow_tilt": 0.0
+    },
+    "deadpan": {
+      "description": "Unimpressed, flat.",
+      "eyes": "lazy",
+      "lid": 0.08,
+      "mouth": "flat",
+      "brow_y": -0.03
+    },
+    "side_eye": {
+      "description": "Suspicious glance sideways.",
+      "eyes": "lazy",
+      "lid": 0.05,
+      "look": [
+        0.9,
+        0.0
+      ],
+      "mouth": "flat",
+      "brow_tilt": -0.15
+    },
+    "scheming": {
+      "description": "Plotting: lazy eyes with an angry slant and a smirk.",
+      "eyes": "lazy",
+      "lid": 0.0,
+      "lid_tilt": 0.25,
+      "brow_tilt": -0.35,
+      "mouth": "smirk"
+    },
+    "wink": {
+      "description": "Cheeky wink.",
+      "eyes": [
+        "happy",
+        "lazy"
+      ],
+      "mouth": "smirk",
+      "brow_tilt": 0.0
+    },
+    "happy": {
+      "description": "Plain smile.",
+      "eyes": "dot",
+      "mouth": "smile",
+      "brow_y": 0.03
+    },
+    "laugh": {
+      "description": "Eyes shut, mouth wide open.",
+      "eyes": "happy",
+      "mouth": "laugh",
+      "brow_y": 0.05
+    },
+    "grin": {
+      "description": "Wide toothy grin (evil when the skin is green).",
+      "eyes": "lazy",
+      "lid": -0.05,
+      "brow_tilt": -0.3,
+      "mouth": "grin"
+    },
+    "cheer": {
+      "description": "Over the moon: closed eyes, huge open smile.",
+      "eyes": "happy",
+      "mouth": "laugh",
+      "brow_y": 0.08,
+      "blush": 0.6
+    },
+    "star_eyes": {
+      "description": "Greedy / amazed: star eyes and a huge grin.",
+      "eyes": "star",
+      "mouth": "laugh",
+      "brow_y": 0.08
+    },
+    "love": {
+      "description": "Heart eyes.",
+      "eyes": "heart",
+      "mouth": "smile",
+      "blush": 0.8
+    },
+    "shocked": {
+      "description": "O_O with an open mouth.",
+      "eyes": "wide",
+      "mouth": "open",
+      "brow_y": 0.08,
+      "brow_tilt": 0.2
+    },
+    "panic": {
+      "description": "Shocked plus a sweat drop: 'oh no'.",
+      "eyes": "wide",
+      "mouth": "open",
+      "brow_y": 0.08,
+      "brow_tilt": 0.35,
+      "sweat": 1.0
+    },
+    "surprised": {
+      "description": "Small 'oh'.",
+      "eyes": "dot",
+      "eye_size": 1.25,
+      "mouth": "o",
+      "brow_y": 0.08
+    },
+    "nervous": {
+      "description": "Wavy mouth, sweat, worried brows.",
+      "eyes": "dot",
+      "mouth": "wavy",
+      "brow_tilt": 0.4,
+      "sweat": 1.0
+    },
+    "angry": {
+      "description": "Slanted lids and brows, gritted frown.",
+      "eyes": "lazy",
+      "lid": 0.0,
+      "lid_tilt": 0.4,
+      "brow_tilt": -0.55,
+      "brow_y": -0.06,
+      "mouth": "frown"
+    },
+    "furious": {
+      "description": "Angry with gritted teeth.",
+      "eyes": "lazy",
+      "lid": 0.0,
+      "lid_tilt": 0.45,
+      "brow_tilt": -0.6,
+      "brow_y": -0.06,
+      "mouth": "grin",
+      "mouth_w": 0.8
+    },
+    "sad": {
+      "description": "Droopy and down.",
+      "eyes": "dot",
+      "look": [
+        0.0,
+        -0.6
+      ],
+      "mouth": "frown",
+      "brow_tilt": 0.45
+    },
+    "crying": {
+      "description": "Bawling: shut eyes, streaming tears, open mouth.",
+      "eyes": "closed",
+      "mouth": "open",
+      "brow_tilt": 0.45,
+      "tears": 1.0
+    },
+    "dead": {
+      "description": "X_X knocked out.",
+      "eyes": "x",
+      "mouth": "wavy"
+    },
+    "sleepy": {
+      "description": "Eyes closed, calm.",
+      "eyes": "sleepy",
+      "mouth": "flat"
+    },
+    "thinking": {
+      "description": "Looking up, mouth to the side.",
+      "eyes": "dot",
+      "look": [
+        0.5,
+        0.8
+      ],
+      "mouth": "flat",
+      "mouth_x": 0.08,
+      "mouth_w": 0.6,
+      "brow_tilt": -0.1,
+      "brow_y": 0.04
+    },
+    "determined": {
+      "description": "Focused, ready.",
+      "eyes": "dot",
+      "mouth": "flat",
+      "brow_tilt": -0.35,
+      "brow_y": -0.04
+    },
+    "cool": {
+      "description": "For sunglasses: relaxed smirk.",
+      "eyes": "lazy",
+      "lid": 0.1,
+      "mouth": "smirk"
+    },
+    "strain": {
+      "description": "Eyes screwed shut, teeth gritted, sweating: the moment of a heavy blow or lift.",
+      "eyes": "closed",
+      "brow_tilt": -0.5,
+      "brow_y": -0.05,
+      "mouth": "grin",
+      "mouth_w": 0.75,
+      "sweat": 1.0
+    },
+    "effort": {
+      "description": "Set jaw, hard brows, a bead of sweat: working at the limit.",
+      "eyes": "dot",
+      "mouth": "flat",
+      "brow_tilt": -0.4,
+      "brow_y": -0.05,
+      "sweat": 1.0
+    }
   }
 }

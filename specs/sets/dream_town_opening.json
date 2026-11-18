@@ -1,0 +1,11 @@
+{
+  "schema_version": "0.1",
+  "set": {"id": "dream_town_opening", "generator": "stage", "seed": 19,
+    "params": {"bays": [{"id": "lane", "floor": "road", "wall": "none",
+      "floor_colors": ["#25354a", "#36465a"], "size": [24, 24], "neon": []}]}},
+  "look": "night_fog",
+  "preview": {"resolution": [540, 960], "views": [
+    {"name": "lane", "at": {"anchor": "lane", "offset": [0, 3, 12]},
+     "look_at": {"anchor": "lane", "offset": [0, 2, 0]}, "lens_mm": 30}
+  ]}
+}

@@ -7,7 +7,7 @@
    1080,
    1920
   ],
-  "fps": 30,
+  "fps": 60,
   "motion_blur": 2
  },
  "narration": {
@@ -160,24 +160,396 @@
   },
   {
    "id": "bulldozer",
-   "shot": "ph_bulldozer",
+   "shot": "demolition",
    "at": 0.25,
    "text": "Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan."
   },
   {
    "id": "dda",
-   "shot": "ph_dda",
+   "shot": "dda_statement",
    "at": 0.25,
    "text": "Delhi's development authority says the house stood on its land."
   },
   {
    "id": "street",
-   "shot": "ph_street",
+   "shot": "family_street",
    "at": 0.25,
    "text": "He got forty-one men out of a mountain. That night, his family slept on the street."
   }
  ],
  "actors": [
+  {
+   "id": "kh_wife",
+   "character": "toon_hasan_wife",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     -0.4,
+     0,
+     18003.9
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     0.2,
+     0,
+     18009.0
+    ]
+   },
+   "action": "sit",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "kh_child_a",
+   "character": "toon_hasan_child_a",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     0.95,
+     0,
+     18004.85
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     0.2,
+     0,
+     18009.0
+    ]
+   },
+   "action": "sit",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy"
+    }
+   ]
+  },
+  {
+   "id": "kh_child_b",
+   "character": "toon_hasan_child_b",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     -0.9,
+     0,
+     18004.8
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     0.2,
+     0,
+     18009.0
+    ]
+   },
+   "action": "sit",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy"
+    }
+   ]
+  },
+  {
+   "id": "kh_child_c",
+   "character": "toon_hasan_child_c",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     -0.1,
+     0,
+     18005.55
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     -0.1,
+     0,
+     18009.0
+    ]
+   },
+   "action": "sit",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy"
+    }
+   ]
+  },
+  {
+   "id": "kh_hasan",
+   "character": "toon_vakeel_hasan",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     -0.15,
+     0,
+     18004.9
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     0.7,
+     0,
+     18008.2
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "airstrip",
+      "offset": [
+       -0.15,
+       0,
+       18005.45
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "bulldozer",
+     "edge": "start",
+     "offset": 3.4
+    },
+    "arrive": {
+     "line": "bulldozer",
+     "edge": "start",
+     "offset": 4.8
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "airstrip",
+     "offset": [
+      0.7,
+      0,
+      18008.2
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad",
+     "head": [
+      12,
+      0,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "bulldozer",
+      "edge": "start",
+      "offset": 5.55
+     },
+     "expression": "sad",
+     "head": [
+      3,
+      0,
+      0
+     ],
+     "head_turn": 0.7
+    },
+    {
+     "t": {
+      "line": "street",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "action": "sit",
+     "expression": "sad",
+     "head": [
+      8,
+      0,
+      0
+     ],
+     "head_turn": 0.6
+    }
+   ]
+  },
+  {
+   "id": "kh_dda_official",
+   "character": "toon_official",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     0.05,
+     0,
+     18004.2
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     0.7,
+     0,
+     18007.2
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    },
+    {
+     "t": {
+      "line": "dda",
+      "edge": "start",
+      "offset": 1.55
+     },
+     "head": [
+      6,
+      0,
+      0
+     ],
+     "head_turn": 0.4
+    },
+    {
+     "t": {
+      "line": "dda",
+      "edge": "start",
+      "offset": 2.5
+     },
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.4
+    }
+   ]
+  },
+  {
+   "id": "kh_operator",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     0,
+     0,
+     17984.0
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     0,
+     0,
+     18000.0
+    ]
+   },
+   "action": "drive",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "exit_patient",
+   "character": "toon_tunnel_worker",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     0,
+     -118.0,
+     -15.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     0,
+     -118.0,
+     -10
+    ]
+   },
+   "action": "get_up",
+   "freeze": 0.0,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy"
+    }
+   ]
+  },
+  {
+   "id": "exit_puller",
+   "character": "toon_tunnel_engineer",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     0.72,
+     -118.0,
+     -13.0
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     0,
+     -118.0,
+     -16.0
+    ]
+   },
+   "action": "walk",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "out",
+      "edge": "start",
+      "offset": 3.4
+     },
+     "action": "idle"
+    }
+   ]
+  },
+  {
+   "id": "exit_helper",
+   "character": "toon_rathole_digger_b",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     -0.85,
+     -118.0,
+     -14.8
+    ]
+   },
+   "facing": {
+    "anchor": "tunnel",
+    "offset": [
+     0,
+     -118.0,
+     -15.2
+    ]
+   },
+   "action": "crouch",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
   {
    "id": "saved_1",
    "character": "toon_tunnel_worker",
@@ -197,92 +569,12 @@
      2597.4
     ]
    },
-   "action": "idle",
+   "action": "get_up",
+   "freeze": 0.0,
    "cues": [
     {
      "t": 0.0,
-     "expression": "laugh"
-    }
-   ]
-  },
-  {
-   "id": "saved_2",
-   "character": "toon_tunnel_worker_lime",
-   "at": {
-    "anchor": "section",
-    "offset": [
-     11.7,
-     0,
-     2597.4
-    ]
-   },
-   "facing": {
-    "anchor": "section",
-    "offset": [
-     8.7,
-     0,
-     2597.4
-    ]
-   },
-   "action": "idle",
-   "cues": [
-    {
-     "t": 0.0,
-     "expression": "love"
-    }
-   ]
-  },
-  {
-   "id": "saved_3",
-   "character": "toon_tunnel_worker_blue",
-   "at": {
-    "anchor": "section",
-    "offset": [
-     11.7,
-     0,
-     2597.4
-    ]
-   },
-   "facing": {
-    "anchor": "section",
-    "offset": [
-     8.7,
-     0,
-     2597.4
-    ]
-   },
-   "action": "idle",
-   "cues": [
-    {
-     "t": 0.0,
-     "expression": "cheer"
-    }
-   ]
-  },
-  {
-   "id": "saved_4",
-   "character": "toon_tunnel_worker_red",
-   "at": {
-    "anchor": "section",
-    "offset": [
-     11.7,
-     0,
-     2597.4
-    ]
-   },
-   "facing": {
-    "anchor": "section",
-    "offset": [
-     8.7,
-     0,
-     2597.4
-    ]
-   },
-   "action": "idle",
-   "cues": [
-    {
-     "t": 0.0,
-     "expression": "happy"
+     "expression": "sleepy"
     }
    ]
   },
@@ -305,7 +597,7 @@
      2597.4
     ]
    },
-   "action": "idle",
+   "action": "walk",
    "cues": [
     {
      "t": 0.0,
@@ -315,9 +607,9 @@
      "t": {
       "line": "out",
       "edge": "start",
-      "offset": 1.3
+      "offset": 3.25
      },
-     "expression": "grin"
+     "action": "idle"
     }
    ]
   },
@@ -327,9 +619,9 @@
    "at": {
     "anchor": "section",
     "offset": [
-     10.9,
+     9.3,
      0,
-     2596.55
+     2596.05
     ]
    },
    "facing": {
@@ -395,9 +687,9 @@
    "at": {
     "anchor": "airstrip",
     "offset": [
-     -1.15,
+     -0.65,
      0,
-     15000.3
+     14999.05
     ]
    },
    "facing": {
@@ -405,10 +697,10 @@
     "offset": [
      2.0,
      0,
-     15000.3
+     15000.0
     ]
    },
-   "action": "idle",
+   "action": "crouch",
    "cues": [
     {
      "t": 0.0,
@@ -440,7 +732,7 @@
     "offset": [
      -1.35,
      0,
-     14999.5
+     15002.0
     ]
    },
    "facing": {
@@ -448,7 +740,7 @@
     "offset": [
      2.0,
      0,
-     14999.5
+     15000.0
     ]
    },
    "action": "idle",
@@ -481,7 +773,7 @@
    "at": {
     "anchor": "section",
     "offset": [
-     9.85,
+     10.0,
      0,
      2597.4
     ]
@@ -500,6 +792,14 @@
     {
      "t": 0.0,
      "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 0.15
+     },
+     "expression": "effort"
     }
    ]
   },
@@ -509,7 +809,7 @@
    "at": {
     "anchor": "section",
     "offset": [
-     10.7,
+     10.85,
      0,
      2597.4
     ]
@@ -528,8 +828,48 @@
     {
      "t": 0.0,
      "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 1.25
+     },
+     "expression": "effort"
     }
-   ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "section",
+      "offset": [
+       10.0,
+       0,
+       2597.4
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "dig",
+     "edge": "start",
+     "offset": 0.5
+    },
+    "arrive": {
+     "line": "dig",
+     "edge": "start",
+     "offset": 1.1
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "section",
+     "offset": [
+      3.7,
+      0,
+      2597.4
+     ]
+    }
+   }
   },
   {
    "id": "rh_3",
@@ -537,7 +877,7 @@
    "at": {
     "anchor": "section",
     "offset": [
-     11.55,
+     11.7,
      0,
      2597.4
     ]
@@ -556,8 +896,48 @@
     {
      "t": 0.0,
      "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 2.35
+     },
+     "expression": "effort"
     }
-   ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "section",
+      "offset": [
+       10.85,
+       0,
+       2597.4
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "dig",
+     "edge": "start",
+     "offset": 0.65
+    },
+    "arrive": {
+     "line": "dig",
+     "edge": "start",
+     "offset": 1.3
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "section",
+     "offset": [
+      3.7,
+      0,
+      2597.4
+     ]
+    }
+   }
   },
   {
    "id": "rh_4",
@@ -565,7 +945,7 @@
    "at": {
     "anchor": "section",
     "offset": [
-     12.4,
+     12.6,
      0,
      2597.4
     ]
@@ -584,6 +964,127 @@
     {
      "t": 0.0,
      "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 3.4
+     },
+     "expression": "effort"
+    }
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "section",
+      "offset": [
+       11.7,
+       0,
+       2597.4
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "dig",
+     "edge": "start",
+     "offset": 0.85
+    },
+    "arrive": {
+     "line": "dig",
+     "edge": "start",
+     "offset": 1.5
+    },
+    "then": "idle",
+    "then_facing": {
+     "anchor": "section",
+     "offset": [
+      3.7,
+      0,
+      2597.4
+     ]
+    }
+   }
+  },
+  {
+   "id": "in_1",
+   "character": "toon_rathole_digger_a",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     13.0,
+     0,
+     15000.0
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     -2.0,
+     0,
+     15000.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "in_2",
+   "character": "toon_rathole_digger_b",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     14.0,
+     0,
+     15000.0
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     -2.0,
+     0,
+     15000.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "in_3",
+   "character": "toon_rathole_digger_c",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     15.0,
+     0,
+     15000.0
+    ]
+   },
+   "facing": {
+    "anchor": "airstrip",
+    "offset": [
+     -2.0,
+     0,
+     15000.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
     }
    ]
   },
@@ -593,7 +1094,7 @@
    "at": {
     "anchor": "airstrip",
     "offset": [
-     2.35,
+     1.4,
      0,
      15000.0
     ]
@@ -606,17 +1107,75 @@
      15000.0
     ]
    },
-   "action": "crouch",
+   "action": "idle",
    "cues": [
     {
      "t": 0.0,
-     "expression": "determined",
-     "head": [
-      -88,
-      0,
-      0
-     ],
-     "head_turn": 0.3
+     "expression": "effort"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 3.63
+     },
+     "expression": "strain"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 3.91
+     },
+     "expression": "effort"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 4.12
+     },
+     "expression": "strain"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 4.4
+     },
+     "expression": "effort"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 4.7
+     },
+     "expression": "strain"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 4.98
+     },
+     "expression": "effort"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 5.22
+     },
+     "expression": "strain"
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 5.5
+     },
+     "expression": "effort"
     }
    ]
   },
@@ -626,9 +1185,9 @@
    "at": {
     "anchor": "airstrip",
     "offset": [
-     4.35,
+     3.35,
      0,
-     15000.04
+     15000.0
     ]
    },
    "facing": {
@@ -636,20 +1195,14 @@
     "offset": [
      -2.0,
      0,
-     15000.04
+     15000.0
     ]
    },
-   "action": "crouch",
+   "action": "idle",
    "cues": [
     {
      "t": 0.0,
-     "expression": "thinking",
-     "head": [
-      -60,
-      0,
-      0
-     ],
-     "head_turn": 0.3
+     "expression": "thinking"
     }
    ]
   },
@@ -661,7 +1214,7 @@
     "offset": [
      -0.0,
      0,
-     12000.9
+     11998.85
     ]
    },
    "facing": {
@@ -680,7 +1233,7 @@
       "offset": [
        -0.0,
        0,
-       11997.15
+       11996.35
       ]
      }
     ],
@@ -693,7 +1246,7 @@
     "arrive": {
      "line": "banned",
      "edge": "start",
-     "offset": 1.4
+     "offset": 2.15
     },
     "then": "crouch"
    },
@@ -8371,6 +8924,242 @@
  ],
  "gags": [
   {
+   "id": "khajuri_lane",
+   "script": "gags/khajuri_lane.gd",
+   "at": {
+    "anchor": "airstrip",
+    "offset": [
+     0,
+     0,
+     18000.0
+    ]
+   },
+   "t": 0,
+   "params": {
+    "machine": {
+     "t0": {
+      "line": "bulldozer",
+      "edge": "start",
+      "offset": -0.25
+     },
+     "t1": {
+      "line": "bulldozer",
+      "edge": "start",
+      "offset": 1.3
+     },
+     "operator": "kh_operator",
+     "until": {
+      "line": "bulldozer",
+      "edge": "start",
+      "offset": 7.0
+     },
+     "bites": [
+      {
+       "line": "bulldozer",
+       "edge": "start",
+       "offset": 1.89
+      },
+      {
+       "line": "bulldozer",
+       "edge": "start",
+       "offset": 3.17
+      },
+      {
+       "line": "bulldozer",
+       "edge": "start",
+       "offset": 4.7
+      }
+     ]
+    },
+    "aftermath": {
+     "line": "bulldozer",
+     "edge": "start",
+     "offset": 3.35
+    },
+    "night": {
+     "line": "street",
+     "edge": "start",
+     "offset": -0.3
+    },
+    "family_from": {
+     "line": "street",
+     "edge": "start",
+     "offset": -0.3
+    },
+    "appear": {
+     "kh_hasan": {
+      "from": {
+       "line": "bulldozer",
+       "edge": "start",
+       "offset": 3.35
+      },
+      "until": {
+       "line": "bulldozer",
+       "edge": "start",
+       "offset": 7.3
+      },
+      "again": {
+       "line": "street",
+       "edge": "start",
+       "offset": -0.3
+      },
+      "again_until": {
+       "line": "street",
+       "edge": "start",
+       "offset": 8.0
+      }
+     },
+     "kh_dda_official": {
+      "from": {
+       "line": "dda",
+       "edge": "start",
+       "offset": -0.3
+      },
+      "until": {
+       "line": "street",
+       "edge": "start",
+       "offset": -0.3
+      }
+     },
+     "kh_wife": {
+      "from": {
+       "line": "street",
+       "edge": "start",
+       "offset": -0.3
+      },
+      "until": {
+       "line": "street",
+       "edge": "start",
+       "offset": 8.0
+      }
+     },
+     "kh_child_a": {
+      "from": {
+       "line": "street",
+       "edge": "start",
+       "offset": -0.3
+      },
+      "until": {
+       "line": "street",
+       "edge": "start",
+       "offset": 8.0
+      }
+     },
+     "kh_child_b": {
+      "from": {
+       "line": "street",
+       "edge": "start",
+       "offset": -0.3
+      },
+      "until": {
+       "line": "street",
+       "edge": "start",
+       "offset": 8.0
+      }
+     },
+     "kh_child_c": {
+      "from": {
+       "line": "street",
+       "edge": "start",
+       "offset": -0.3
+      },
+      "until": {
+       "line": "street",
+       "edge": "start",
+       "offset": 8.0
+      }
+     }
+    },
+    "sit": {
+     "kh_hasan": [
+      -0.4,
+      3.9,
+      0
+     ],
+     "kh_wife": [
+      0.4,
+      3.9,
+      0
+     ],
+     "kh_child_a": [
+      -0.95,
+      4.85,
+      0
+     ],
+     "kh_child_b": [
+      0.9,
+      4.8,
+      0
+     ]
+    },
+    "sleep": {
+     "id": "kh_child_c",
+     "x": 0.1,
+     "z": 5.55,
+     "at": {
+      "line": "street",
+      "edge": "start",
+      "offset": 4.28
+     }
+    },
+    "held": {
+     "kh_dda_official": "plan"
+    },
+    "present": {
+     "kh_dda_official": {
+      "from": {
+       "line": "dda",
+       "edge": "start",
+       "offset": 0.7
+      },
+      "until": {
+       "line": "dda",
+       "edge": "start",
+       "offset": 1.5
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "rescue_exit",
+   "script": "gags/rescue_exit.gd",
+   "at": {
+    "anchor": "tunnel",
+    "offset": [
+     0,
+     -118.0,
+     3.5
+    ]
+   },
+   "t": 0,
+   "params": {
+    "from": {
+     "line": "out",
+     "edge": "start",
+     "offset": -0.3
+    },
+    "until": {
+     "line": "out",
+     "edge": "start",
+     "offset": 4.6
+    },
+    "pull0": {
+     "line": "out",
+     "edge": "start",
+     "offset": -0.2
+    },
+    "pull1": {
+     "line": "out",
+     "edge": "start",
+     "offset": 3.3
+    },
+    "patient": "exit_patient",
+    "puller": "exit_puller",
+    "helper": "exit_helper"
+   }
+  },
+  {
    "id": "pit",
    "script": "gags/meghalaya_pit.gd",
    "at": {
@@ -8424,18 +9213,18 @@
    },
    "t": 0,
    "params": {
-    "floor": {
-     "face_dig": [
-      -2.35,
-      0.0
-     ],
-     "face_haul": [
-      -4.35,
-      0.04
-     ]
-    },
     "digger": {
      "id": "face_dig",
+     "from": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 3.4
+     },
+     "until": {
+      "line": "twelve",
+      "edge": "start",
+      "offset": -0.3
+     },
      "strikes": [
       {
        "line": "dig",
@@ -8455,54 +9244,98 @@
       {
        "line": "dig",
        "edge": "start",
-       "offset": 5.25
+       "offset": 5.3
       }
-     ]
+     ],
+     "split": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 4.78
+     },
+     "look_yaw": 0.32,
+     "look_pitch": -0.16
     },
     "hauler": {
      "id": "face_haul",
-     "t0": {
+     "from": {
       "line": "dig",
       "edge": "start",
-      "offset": 3.5
+      "offset": 3.4
      },
-     "t1": {
-      "line": "dig",
+     "until": {
+      "line": "twelve",
       "edge": "start",
-      "offset": 5.6
+      "offset": -0.3
      }
     },
-    "through": {
-     "t": {
+    "breakthrough": {
+     "from": {
       "line": "through",
       "edge": "start",
-      "offset": 3.5
+      "offset": 0.0
      },
-     "light": 3.0
-    },
-    "standing": {
-     "trap_a": [
-      1.15,
-      -1.0,
-      0.3,
-      -1.5708
-     ],
-     "trap_b": [
-      1.35,
-      -1.0,
-      -0.5,
-      -1.5708
-     ]
-    },
-    "clasp": {
-     "t": {
+     "hit": {
       "line": "through",
       "edge": "start",
-      "offset": 3.8
+      "offset": 3.46
      },
-     "outside": "trap_a",
-     "inside": "face_dig"
-    }
+     "until": {
+      "line": "through",
+      "edge": "start",
+      "offset": 4.8
+     },
+     "miner": "face_dig",
+     "survivor": "trap_a"
+    },
+    "crawlers": [
+     {
+      "id": "in_1",
+      "t0": {
+       "line": "dig",
+       "edge": "start",
+       "offset": 0.2
+      },
+      "x0": -13.95,
+      "speed": 0.72,
+      "until": {
+       "line": "dig",
+       "edge": "start",
+       "offset": 3.45
+      }
+     },
+     {
+      "id": "in_2",
+      "t0": {
+       "line": "dig",
+       "edge": "start",
+       "offset": 1.35
+      },
+      "x0": -14.55,
+      "speed": 0.72,
+      "z": 0.03,
+      "until": {
+       "line": "dig",
+       "edge": "start",
+       "offset": 3.45
+      }
+     },
+     {
+      "id": "in_3",
+      "t0": {
+       "line": "dig",
+       "edge": "start",
+       "offset": 2.5
+      },
+      "x0": -14.6,
+      "speed": 0.72,
+      "z": -0.03,
+      "until": {
+       "line": "dig",
+       "edge": "start",
+       "offset": 3.45
+      }
+     }
+    ]
    }
   },
   {
@@ -8555,6 +9388,26 @@
       "line": "plan",
       "edge": "start",
       "offset": -1.6
+     },
+     "rh_1": {
+      "line": "out",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "rh_2": {
+      "line": "out",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "rh_3": {
+      "line": "out",
+      "edge": "start",
+      "offset": -0.3
+     },
+     "rh_4": {
+      "line": "out",
+      "edge": "start",
+      "offset": -0.3
      }
     },
     "rig": {
@@ -8779,64 +9632,16 @@
        "t0": {
         "line": "out",
         "edge": "start",
-        "offset": -0.1
+        "offset": -0.2
        },
        "t1": {
         "line": "out",
         "edge": "start",
-        "offset": 0.8
+        "offset": 3.25
        },
        "dz": 0.0,
        "stop_back": 0.0,
        "puller": "ndrf_1"
-      },
-      {
-       "who": "saved_2",
-       "t0": {
-        "line": "out",
-        "edge": "start",
-        "offset": 0.95
-       },
-       "t1": {
-        "line": "out",
-        "edge": "start",
-        "offset": 1.85
-       },
-       "dz": 0.0,
-       "stop_back": 0.0,
-       "puller": "ndrf_2"
-      },
-      {
-       "who": "saved_3",
-       "t0": {
-        "line": "out",
-        "edge": "start",
-        "offset": 2.0
-       },
-       "t1": {
-        "line": "out",
-        "edge": "start",
-        "offset": 2.9
-       },
-       "dz": 0.0,
-       "stop_back": 0.0,
-       "puller": "ndrf_1"
-      },
-      {
-       "who": "saved_4",
-       "t0": {
-        "line": "out",
-        "edge": "start",
-        "offset": 3.0
-       },
-       "t1": {
-        "line": "out",
-        "edge": "start",
-        "offset": 3.85
-       },
-       "dz": 0.0,
-       "stop_back": 0.0,
-       "puller": "ndrf_2"
       }
      ]
     },
@@ -8894,72 +9699,36 @@
        "t0": {
         "line": "dig",
         "edge": "start",
-        "offset": 0.0
+        "offset": 0.05
        },
-       "t1": {
-        "line": "dig",
-        "edge": "start",
-        "offset": 0.45
-       },
-       "t2": {
-        "line": "dig",
-        "edge": "start",
-        "offset": 1.15
-       }
+       "x": -10.0
       },
       {
        "id": "rh_2",
        "t0": {
         "line": "dig",
         "edge": "start",
-        "offset": 0.6
+        "offset": 1.15
        },
-       "t1": {
-        "line": "dig",
-        "edge": "start",
-        "offset": 1.2
-       },
-       "t2": {
-        "line": "dig",
-        "edge": "start",
-        "offset": 1.9
-       }
+       "x": -10.0
       },
       {
        "id": "rh_3",
        "t0": {
         "line": "dig",
         "edge": "start",
-        "offset": 1.5
+        "offset": 2.25
        },
-       "t1": {
-        "line": "dig",
-        "edge": "start",
-        "offset": 2.15
-       },
-       "t2": {
-        "line": "dig",
-        "edge": "start",
-        "offset": 2.85
-       }
+       "x": -10.0
       },
       {
        "id": "rh_4",
        "t0": {
         "line": "dig",
         "edge": "start",
-        "offset": 2.4
+        "offset": 3.3
        },
-       "t1": {
-        "line": "dig",
-        "edge": "start",
-        "offset": 3.05
-       },
-       "t2": {
-        "line": "dig",
-        "edge": "start",
-        "offset": 3.75
-       }
+       "x": -10.0
       }
      ]
     },
@@ -9791,6 +10560,11 @@
        "line": "meal",
        "edge": "start",
        "offset": -2.0
+      },
+      "until": {
+       "line": "out",
+       "edge": "start",
+       "offset": -0.3
       }
      },
      "meal_catch": {
@@ -9809,6 +10583,11 @@
        },
        "phase": 0.0,
        "hand": "r"
+      },
+      "until": {
+       "line": "out",
+       "edge": "start",
+       "offset": -0.3
       }
      },
      "meal_w1": {
@@ -9828,6 +10607,11 @@
        },
        "phase": 1.3,
        "hand": "l"
+      },
+      "until": {
+       "line": "out",
+       "edge": "start",
+       "offset": -0.3
       }
      },
      "meal_w2": {
@@ -9847,6 +10631,11 @@
        },
        "phase": 2.6,
        "hand": "r"
+      },
+      "until": {
+       "line": "out",
+       "edge": "start",
+       "offset": -0.3
       }
      },
      "face_1": {
@@ -9866,6 +10655,11 @@
        },
        "phase": 0.7,
        "hand": "r"
+      },
+      "until": {
+       "line": "out",
+       "edge": "start",
+       "offset": -0.3
       }
      },
      "face_2": {
@@ -9885,6 +10679,11 @@
        },
        "phase": 1.8,
        "hand": "l"
+      },
+      "until": {
+       "line": "out",
+       "edge": "start",
+       "offset": -0.3
       }
      },
      "face_3": {
@@ -9904,6 +10703,11 @@
        },
        "phase": 2.9000000000000004,
        "hand": "r"
+      },
+      "until": {
+       "line": "out",
+       "edge": "start",
+       "offset": -0.3
       }
      },
      "face_4": {
@@ -9923,6 +10727,11 @@
        },
        "phase": 4.0,
        "hand": "l"
+      },
+      "until": {
+       "line": "out",
+       "edge": "start",
+       "offset": -0.3
       }
      }
     },
@@ -14924,39 +15733,39 @@
      "at": {
       "anchor": "mountain_section.ridge",
       "offset": [
-       4.6,
-       2.5,
-       8.4
+       6.6,
+       3.0,
+       11.5
       ]
      },
      "look_at": {
       "anchor": "mountain_section.ridge",
       "offset": [
-       -0.6,
-       3.2,
-       0.6
+       1.5,
+       4.1,
+       0.2
       ]
      },
-     "lens_mm": 22
+     "lens_mm": 20
     },
     "to": {
      "at": {
       "anchor": "mountain_section.ridge",
       "offset": [
-       3.9,
-       2.3,
-       7.6
+       5.9,
+       2.8,
+       10.5
       ]
      },
      "look_at": {
       "anchor": "mountain_section.ridge",
       "offset": [
-       -0.6,
-       3.0,
-       0.6
+       1.4,
+       4.0,
+       0.2
       ]
      },
-     "lens_mm": 23
+     "lens_mm": 20
     },
     "ease": "in_out"
    },
@@ -15082,16 +15891,16 @@
    "duration": 3.1,
    "look": {
     "base": "day",
-    "time": "15:40",
+    "time": "16:30",
     "weather": {
-     "clouds": 0.35,
-     "fog": 0.0
+     "clouds": 0.28,
+     "fog": 0.035
     },
     "ssao": true,
     "grade": {
-     "contrast": 1.08,
-     "saturation": 1.03,
-     "vignette": 0.3
+     "contrast": 1.12,
+     "saturation": 0.94,
+     "vignette": 0.34
     }
    },
    "note": "Day at the portal: twelve rat-hole miners walk to the mouth with their own tools, taslas on their heads; a pickup has just pulled up behind; officials step aside. The count lands on 12 on \"twelve\".",
@@ -15100,17 +15909,17 @@
      "at": {
       "anchor": "slope",
       "offset": [
-       -0.9,
-       1.75,
-       1.6
+       1.8,
+       1.7,
+       2.8
       ]
      },
      "look_at": {
       "anchor": "slope",
       "offset": [
        1.8,
-       1.25,
-       11.0
+       1.2,
+       9.8
       ]
      },
      "lens_mm": 30
@@ -15119,20 +15928,20 @@
      "at": {
       "anchor": "slope",
       "offset": [
-       -0.8,
-       1.7,
-       2.1
+       1.8,
+       2.3,
+       0.8
       ]
      },
      "look_at": {
       "anchor": "slope",
       "offset": [
        1.8,
-       1.25,
-       11.0
+       1.2,
+       6.4
       ]
      },
-     "lens_mm": 32
+     "lens_mm": 24
     },
     "ease": "in_out"
    }
@@ -15337,7 +16146,7 @@
   },
   {
    "name": "pipe_enter",
-   "duration": 3.7,
+   "duration": 1.75,
    "look": {
     "base": "night_fog",
     "time": "05:30",
@@ -15375,47 +16184,146 @@
      "vignette": 0.3
     }
    },
-   "note": "The auger gone, the escape pipe's mouth over a timber platform, the air duct snaking in; one after another the miners slide in head first.",
+   "note": "The auger gone: the escape pipe's open mouth over the timber platform, seen from beside it at the rubble. The first miner, headlamp on, drops onto his hands and knees and crawls in head first; the next steps up behind him, the others shuffle forward along the platform.",
    "camera": {
     "from": {
      "at": {
       "anchor": "section",
       "offset": [
-       12.0,
-       1.6,
-       2599.15
+       7.95,
+       1.62,
+       2598.75
       ]
      },
      "look_at": {
       "anchor": "section",
       "offset": [
-       9.1,
-       0.95,
-       2597.4
+       9.85,
+       1.08,
+       2597.38
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.25,
+      "focus": 2.3
+     }
     },
     "to": {
      "at": {
       "anchor": "section",
       "offset": [
-       11.5,
-       1.5,
-       2599.0
+       8.1,
+       1.45,
+       2598.6
       ]
      },
      "look_at": {
       "anchor": "section",
       "offset": [
-       8.9,
-       0.95,
-       2597.4
+       9.45,
+       1.02,
+       2597.38
       ]
      },
-     "lens_mm": 26
+     "lens_mm": 27,
+     "dof": {
+      "strength": 0.25,
+      "focus": 1.9
+     }
     },
     "ease": "in_out"
+   }
+  },
+  {
+   "name": "pipe_in",
+   "duration": 1.95,
+   "look": {
+    "base": "night_fog",
+    "time": "05:30",
+    "ssao": true,
+    "weather": {
+     "fog": 0
+    },
+    "ambient": {
+     "color": "#8a8fa6",
+     "energy": 0.02
+    },
+    "sun": {
+     "energy": 0
+    },
+    "moon": {
+     "energy": 0
+    },
+    "fog": {
+     "begin": 30,
+     "end": 160,
+     "color": "#3b352f",
+     "volumetric": 0.02,
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.05,
+     "vignette": 0.42
+    }
+   },
+   "note": "Inside the pipe looking back at its mouth, a disc of work light: the first miner crawls at us on his elbows, headlamp glaring, the second coming in behind him, the third at the mouth. The camera backs away ahead of them.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       10.85,
+       0.36,
+       15000.12
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       14.0,
+       0.47,
+       15000.0
+      ]
+     },
+     "lens_mm": 21,
+     "dof": {
+      "strength": 0.3,
+      "focus": 1.9
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       10.35,
+       0.37,
+       15000.1
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       14.0,
+       0.48,
+       15000.0
+      ]
+     },
+     "lens_mm": 21,
+     "dof": {
+      "strength": 0.3,
+      "focus": 1.35
+     }
+    },
+    "ease": "linear"
    }
   },
   {
@@ -15430,7 +16338,7 @@
     },
     "ambient": {
      "color": "#8a8fa6",
-     "energy": 0.03
+     "energy": 0.02
     },
     "sun": {
      "energy": 0
@@ -15439,67 +16347,109 @@
      "energy": 0
     },
     "fog": {
-     "begin": 40,
+     "begin": 30,
      "end": 160,
      "color": "#3b352f",
-     "volumetric": 0.014,
-     "anisotropy": 0.55,
-     "length": 90
+     "volumetric": 0.02,
+     "anisotropy": 0.6,
+     "length": 40
     },
     "glow": {
      "enabled": true,
-     "intensity": 0.8,
-     "bloom": 0.08,
+     "intensity": 0.75,
+     "bloom": 0.06,
      "threshold": 1.0
     },
     "grade": {
-     "contrast": 1.1,
-     "saturation": 1.06,
-     "vignette": 0.3
+     "contrast": 1.12,
+     "saturation": 1.05,
+     "vignette": 0.42
     }
    },
-   "note": "Inside the pipe, from the rock face: a miner lying in the tube, headlamp on, hammers a chisel into the rock on \"dig\", \"hammers\", \"chisels\"; chips fly; behind him another drags spoil back in a tasla.",
+   "note": "Inside the pipe at the face, looking back at the digger from the rubble: flat on his belly, his face lit from below by his own lamp off the rock, he drives a cold chisel into a stone with a club hammer on \"dig\", \"hammers\", \"chisels\" (chips and dust at the lens, the stone splits on the third); behind him another rakes spoil into a tasla; far back, the lit mouth.",
    "camera": {
     "from": {
      "at": {
       "anchor": "airstrip",
       "offset": [
-       0.02,
-       0.5,
-       15000.25
+       0.06,
+       0.42,
+       15000.27
       ]
      },
      "look_at": {
       "anchor": "airstrip",
       "offset": [
-       1.4,
-       0.3,
-       14999.96
+       1.1,
+       0.33,
+       14999.9
       ]
      },
-     "lens_mm": 18
+     "lens_mm": 16,
+     "dof": {
+      "strength": 0.3,
+      "focus": 0.95
+     }
     },
     "to": {
      "at": {
       "anchor": "airstrip",
       "offset": [
-       0.03,
-       0.48,
-       15000.24
+       0.17,
+       0.4,
+       15000.26
       ]
      },
      "look_at": {
       "anchor": "airstrip",
       "offset": [
-       1.4,
-       0.3,
-       14999.96
+       1.1,
+       0.31,
+       14999.88
       ]
      },
-     "lens_mm": 19
+     "lens_mm": 19,
+     "dof": {
+      "strength": 0.3,
+      "focus": 0.85
+     }
     },
     "ease": "in_out"
-   }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 3.71
+     },
+     "amount": 0.2
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 4.2
+     },
+     "amount": 0.2
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 4.78
+     },
+     "amount": 0.2
+    },
+    {
+     "t": {
+      "line": "dig",
+      "edge": "start",
+      "offset": 5.3
+     },
+     "amount": 0.2
+    }
+   ]
   },
   {
    "name": "hand_dig",
@@ -15604,7 +16554,7 @@
      },
      "lens_mm": 25
     },
-    "ease": "linear"
+    "ease": "in_out"
    }
   },
   {
@@ -15817,7 +16767,7 @@
     },
     "ambient": {
      "color": "#8a8fa6",
-     "energy": 0.03
+     "energy": 0.02
     },
     "sun": {
      "energy": 0
@@ -15826,23 +16776,23 @@
      "energy": 0
     },
     "fog": {
-     "begin": 40,
+     "begin": 30,
      "end": 160,
      "color": "#3b352f",
-     "volumetric": 0.014,
-     "anisotropy": 0.55,
-     "length": 90
+     "volumetric": 0.02,
+     "anisotropy": 0.6,
+     "length": 40
     },
     "glow": {
      "enabled": true,
-     "intensity": 0.8,
-     "bloom": 0.08,
+     "intensity": 0.75,
+     "bloom": 0.06,
      "threshold": 1.0
     },
     "grade": {
-     "contrast": 1.1,
-     "saturation": 1.06,
-     "vignette": 0.3
+     "contrast": 1.12,
+     "saturation": 1.05,
+     "vignette": 0.42
     }
    },
    "note": "From the trapped side: the last rubble tumbles away on \"break\", light floods onto the digger's face; a trapped worker's hand reaches in and grips his on \"through\".",
@@ -15851,39 +16801,39 @@
      "at": {
       "anchor": "airstrip",
       "offset": [
-       1.75,
+       -2.7,
        0.7,
-       15000.2
+       15000.0
       ]
      },
      "look_at": {
       "anchor": "airstrip",
       "offset": [
-       -0.4,
-       0.4,
+       -0.0,
+       0.38,
        15000.0
       ]
      },
-     "lens_mm": 22
+     "lens_mm": 30
     },
     "to": {
      "at": {
       "anchor": "airstrip",
       "offset": [
-       1.65,
-       0.69,
-       15000.19
+       -2.45,
+       0.68,
+       15000.0
       ]
      },
      "look_at": {
       "anchor": "airstrip",
       "offset": [
-       -0.4,
-       0.4,
+       0.1,
+       0.38,
        15000.0
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 30
     },
     "ease": "in_out"
    },
@@ -15909,8 +16859,8 @@
      "fog": 0
     },
     "ambient": {
-     "color": "#8a8fa6",
-     "energy": 0.18
+     "color": "#7d8fb5",
+     "energy": 0.085
     },
     "sun": {
      "energy": 0
@@ -15919,10 +16869,10 @@
      "energy": 0
     },
     "fog": {
-     "begin": 34,
-     "end": 180,
+     "begin": 40,
+     "end": 160,
      "color": "#3b352f",
-     "volumetric": 0.011,
+     "volumetric": 0.014,
      "anisotropy": 0.55,
      "length": 90
     },
@@ -15938,45 +16888,45 @@
      "vignette": 0.3
     }
    },
-   "note": "The escape pipe's mouth: wheeled stretchers slide out one after another, a rescuer hauling each rope, the man on it waving; marigold garlands; the counter of men out runs to 41.",
+   "note": "At the pipe mouth, a rescuer carefully guides a patient out on the low wheeled rescue stretcher.",
    "camera": {
     "from": {
      "at": {
-      "anchor": "section",
+      "anchor": "tunnel",
       "offset": [
-       12.6,
-       1.75,
-       2599.6
+       -1.55,
+       -116.05,
+       -6.7
       ]
      },
      "look_at": {
-      "anchor": "section",
+      "anchor": "tunnel",
       "offset": [
-       9.6,
-       0.8,
-       2597.4
+       -0.0,
+       -117.45,
+       -11.1
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 30
     },
     "to": {
      "at": {
-      "anchor": "section",
+      "anchor": "tunnel",
       "offset": [
-       13.0,
-       1.85,
-       2599.8
+       -1.55,
+       -116.1,
+       -4.45
       ]
      },
      "look_at": {
-      "anchor": "section",
+      "anchor": "tunnel",
       "offset": [
-       9.9,
-       0.8,
-       2597.4
+       -0.0,
+       -117.45,
+       -8.85
       ]
      },
-     "lens_mm": 24
+     "lens_mm": 30
     },
     "ease": "in_out"
    }
@@ -16088,252 +17038,304 @@
    }
   },
   {
-   "name": "ph_bulldozer",
-   "duration": 7.74,
+   "name": "demolition",
+   "duration": 3.6,
    "look": {
-    "base": "night_fog",
-    "time": "05:30",
-    "ssao": true,
+    "base": "day",
+    "time": "11:00",
     "weather": {
-     "fog": 0
+     "clouds": 0.35,
+     "fog": 0.06
     },
-    "ambient": {
-     "color": "#6a7ca6",
-     "energy": 0.35
-    },
-    "sun": {
-     "energy": 0
-    },
-    "moon": {
-     "energy": 0,
-     "visible": false
-    },
-    "sky": {
-     "top": "#0c1a33",
-     "horizon": "#8c8296",
-     "stars": 0.25,
-     "clouds": 0.1,
-     "cloud_color": "#2c3550"
-    },
-    "lights": [
-     {
-      "elevation": 32,
-      "azimuth": 20,
-      "color": "#8197c8",
-      "energy": 0.1,
-      "shadows": false
-     }
-    ],
-    "fog": {
-     "begin": 150,
-     "end": 4000,
-     "color": "#2b3650",
-     "volumetric": 0.003,
-     "anisotropy": 0.5,
-     "length": 160
-    },
-    "ground_fog": {
-     "density": 0.0,
-     "height": 6.0,
-     "falloff": 0.15,
-     "color": "#3a4560"
-    },
-    "glow": {
-     "enabled": true,
-     "intensity": 0.9,
-     "bloom": 0.1,
-     "threshold": 1.0
-    },
+    "ssao": true,
     "grade": {
-     "contrast": 1.12,
-     "saturation": 1.04,
-     "vignette": 0.32
+     "contrast": 1.1,
+     "saturation": 0.92,
+     "vignette": 0.22
     }
    },
+   "note": "In the Khajuri Khas lane, the excavator rolls up and its bucket bites into the house front.",
    "camera": {
-    "at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      3,
-      20
-     ]
+    "from": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.8,
+       1.9,
+       18007.1
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.8,
+       2.1,
+       18000.7
+      ]
+     },
+     "lens_mm": 20
     },
-    "look_at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.7,
+       1.8,
+       18006.5
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -1.5,
+       2.05,
+       18000.9
+      ]
+     },
+     "lens_mm": 20
     },
-    "lens_mm": 24
+    "ease": "in_out"
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "bulldozer",
+      "edge": "start",
+      "offset": 1.89
+     },
+     "amount": 0.25
+    },
+    {
+     "t": {
+      "line": "bulldozer",
+      "edge": "start",
+      "offset": 3.17
+     },
+     "amount": 0.2
+    }
+   ]
+  },
+  {
+   "name": "hasan_home",
+   "duration": 4.14,
+   "look": {
+    "base": "day",
+    "time": "11:00",
+    "weather": {
+     "clouds": 0.35,
+     "fog": 0.06
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 0.92,
+     "vignette": 0.22
+    }
+   },
+   "note": "After the demolition, Vakeel Hasan returns to the lane and faces what remains of his home.",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.7,
+       1.55,
+       18008.2
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.15,
+       1.05,
+       18005.2
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.16
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.6,
+       1.48,
+       18007.65
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       -0.15,
+       1.05,
+       18005.2
+      ]
+     },
+     "lens_mm": 31,
+     "dof": {
+      "strength": 0.16
+     }
+    },
+    "ease": "in_out"
    }
   },
   {
-   "name": "ph_dda",
+   "name": "dda_statement",
    "duration": 4.8,
    "look": {
-    "base": "night_fog",
-    "time": "05:30",
-    "ssao": true,
+    "base": "day",
+    "time": "11:00",
     "weather": {
-     "fog": 0
+     "clouds": 0.35,
+     "fog": 0.06
     },
-    "ambient": {
-     "color": "#6a7ca6",
-     "energy": 0.35
-    },
-    "sun": {
-     "energy": 0
-    },
-    "moon": {
-     "energy": 0,
-     "visible": false
-    },
-    "sky": {
-     "top": "#0c1a33",
-     "horizon": "#8c8296",
-     "stars": 0.25,
-     "clouds": 0.1,
-     "cloud_color": "#2c3550"
-    },
-    "lights": [
-     {
-      "elevation": 32,
-      "azimuth": 20,
-      "color": "#8197c8",
-      "energy": 0.1,
-      "shadows": false
-     }
-    ],
-    "fog": {
-     "begin": 150,
-     "end": 4000,
-     "color": "#2b3650",
-     "volumetric": 0.003,
-     "anisotropy": 0.5,
-     "length": 160
-    },
-    "ground_fog": {
-     "density": 0.0,
-     "height": 6.0,
-     "falloff": 0.15,
-     "color": "#3a4560"
-    },
-    "glow": {
-     "enabled": true,
-     "intensity": 0.9,
-     "bloom": 0.1,
-     "threshold": 1.0
-    },
+    "ssao": true,
     "grade": {
-     "contrast": 1.12,
-     "saturation": 1.04,
-     "vignette": 0.32
+     "contrast": 1.1,
+     "saturation": 0.92,
+     "vignette": 0.22
     }
    },
+   "note": "An official presents the authority's paperwork beside the site as the narration attributes its land claim to the DDA.",
    "camera": {
-    "at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      3,
-      20
-     ]
+    "from": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.7,
+       1.45,
+       18007.2
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.05,
+       1.05,
+       18004.2
+      ]
+     },
+     "lens_mm": 31,
+     "dof": {
+      "strength": 0.14
+     }
     },
-    "look_at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.55,
+       1.38,
+       18006.55
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.05,
+       1.02,
+       18004.2
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.14
+     }
     },
-    "lens_mm": 24
+    "ease": "in_out"
    }
   },
   {
-   "name": "ph_street",
+   "name": "family_street",
    "duration": 7.32,
    "look": {
     "base": "night_fog",
-    "time": "05:30",
-    "ssao": true,
+    "time": "22:00",
     "weather": {
-     "fog": 0
+     "fog": 0.15,
+     "clouds": 0.35
     },
-    "ambient": {
-     "color": "#6a7ca6",
-     "energy": 0.35
-    },
+    "ssao": true,
     "sun": {
      "energy": 0
     },
     "moon": {
-     "energy": 0,
+     "energy": 0.05,
      "visible": false
     },
-    "sky": {
-     "top": "#0c1a33",
-     "horizon": "#8c8296",
-     "stars": 0.25,
-     "clouds": 0.1,
-     "cloud_color": "#2c3550"
+    "ambient": {
+     "color": "#788398",
+     "energy": 0.16
     },
-    "lights": [
-     {
-      "elevation": 32,
-      "azimuth": 20,
-      "color": "#8197c8",
-      "energy": 0.1,
-      "shadows": false
-     }
-    ],
     "fog": {
-     "begin": 150,
-     "end": 4000,
-     "color": "#2b3650",
-     "volumetric": 0.003,
+     "begin": 30,
+     "end": 120,
+     "color": "#4b4543",
+     "volumetric": 0.012,
      "anisotropy": 0.5,
-     "length": 160
-    },
-    "ground_fog": {
-     "density": 0.0,
-     "height": 6.0,
-     "falloff": 0.15,
-     "color": "#3a4560"
+     "length": 50
     },
     "glow": {
      "enabled": true,
-     "intensity": 0.9,
-     "bloom": 0.1,
-     "threshold": 1.0
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.1
     },
     "grade": {
-     "contrast": 1.12,
-     "saturation": 1.04,
-     "vignette": 0.32
+     "contrast": 1.1,
+     "saturation": 0.9,
+     "vignette": 0.3
     }
    },
+   "note": "That night the family rests on the street near the rubble; a child nods off under the streetlamp.",
    "camera": {
-    "at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      3,
-      20
-     ]
+    "from": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.35,
+       2.15,
+       18009.8
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       0,
+       0.55,
+       18004.7
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "section",
-     "offset": [
-      0,
-      2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "airstrip",
+      "offset": [
+       0.3,
+       1.95,
+       18009.1
+      ]
+     },
+     "look_at": {
+      "anchor": "airstrip",
+      "offset": [
+       0,
+       0.55,
+       18004.7
+      ]
+     },
+     "lens_mm": 25,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 24
+    "ease": "in_out"
    }
   }
  ],
@@ -16402,75 +17404,6 @@
      "offset": 0.1
     },
     "label": "AMBULANCES"
-   },
-   "sound": "ding"
-  },
-  {
-   "id": "out_count",
-   "t": {
-    "line": "out",
-    "edge": "start",
-    "offset": 0.2
-   },
-   "until": {
-    "line": "out",
-    "edge": "start",
-    "offset": 4.4
-   },
-   "at": {
-    "anchor": "section",
-    "offset": [
-     10.1,
-     2.05,
-     2597.4
-    ]
-   },
-   "size": 0.38,
-   "enter": "pop",
-   "counter": {
-    "keys": [
-     [
-      {
-       "line": "out",
-       "edge": "start",
-       "offset": 0.2
-      },
-      0
-     ],
-     [
-      {
-       "line": "out",
-       "edge": "start",
-       "offset": 1.1
-      },
-      8
-     ],
-     [
-      {
-       "line": "out",
-       "edge": "start",
-       "offset": 2.1
-      },
-      19
-     ],
-     [
-      {
-       "line": "out",
-       "edge": "start",
-       "offset": 3.1
-      },
-      31
-     ],
-     [
-      {
-       "line": "out",
-       "edge": "start",
-       "offset": 3.86
-      },
-      41
-     ]
-    ],
-    "label": "OUT"
    },
    "sound": "ding"
   },

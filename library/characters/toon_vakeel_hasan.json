@@ -1,0 +1,16 @@
+{
+  "id": "toon_vakeel_hasan",
+  "description": "Vakeel Hasan, the Silkyara rescue miner: dark hair and moustache, in a simple cream shirt.",
+  "tags": ["toon", "human", "worker"],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "slick", "color": "#1c1917"},
+    "outfit": {"style": "tee", "color": "#d1c5ad"},
+    "shoes": "#34302d",
+    "face": "sad",
+    "girth": 0.95,
+    "mustache": "#25211d"
+  }
+}

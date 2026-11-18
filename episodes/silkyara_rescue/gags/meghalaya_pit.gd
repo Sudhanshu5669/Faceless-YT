@@ -13,6 +13,7 @@ extends RefCounted
 
 const KitDB = preload("res://scripts/world/kit_db.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
+const Crawl = preload("res://scripts/actors/toon_crawl.gd")
 
 const PIT := 5.0
 const DEPTH := 10.0
@@ -268,6 +269,16 @@ func build(_g: Dictionary) -> Node3D:
 			bx.transform = Transform3D(Basis.from_euler(Vector3(lr.randf() * TAU, lr.randf() * TAU, 0)).scaled(Vector3(sz, sz * 0.8, sz * 0.6)),
 				Vector3(cxh + cos(a) * rr.x, SEAM0 + 0.07 + HOLE_H * 0.5 + sin(a) * rr.y, -h + depth))
 			root.add_child(bx)
+		# Broken, irregular coal projections along the roof and walls catch the lamp;
+		# keep the centre clear for the miner and the camera.
+		for k in 54:
+			var a := lr.randf_range(0.0, PI)
+			var rock := MeshInstance3D.new()
+			rock.mesh = bump
+			rock.material_override = coal
+			var s := lr.randf_range(0.05, 0.13)
+			rock.transform = Transform3D(Basis.from_euler(Vector3(lr.randf() * TAU, lr.randf() * TAU, lr.randf() * TAU)).scaled(Vector3(s, s * 0.7, s * 1.8)), Vector3(cxh + cos(a) * HOLE_W * 0.49, SEAM0 + 0.07 + HOLE_H * 0.5 + sin(a) * HOLE_H * 0.49, -h - lr.randf_range(0.2, HOLE_LEN - 0.25)))
+			root.add_child(rock)
 	# Lumps of coal on the floor and a cane basket half full.
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 1818
@@ -455,22 +466,15 @@ func pose(root: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		if who != null:
 			var holder: Node3D = ctx["holder"]
 			var lp: Vector3 = holder.to_local(who.global_position)
-			# Down on hands and knees before the mouth, pitched forward, crawling.
-			var prone := smoothstep(-h + 2.4, -h + 1.2, lp.z)
-			who.rotation.x = 0.75 * prone
-			who.global_position.y = origin.y + float(p.get("floor", {}).get(String(cp.get("who", "")), 0.0)) - 0.05 * prone
-			var cfwd := Vector3(sin(who.rotation.y), 0, cos(who.rotation.y))
-			var cleft := Vector3(cos(who.rotation.y), 0, -sin(who.rotation.y))
-			var hdp: Vector3 = who.anchor_points()[String(cp.get("who", "")) + ".head"]["pos"]
-			var cyc := t * 5.0
-			for side in ["l", "r"]:
-				var sg := 1.0 if side == "l" else -1.0
-				var reach := 0.18 * sin(cyc + (0.0 if side == "l" else PI))
-				var floor_y := origin.y - DEPTH + 0.06
-				who.aim_hand(side, Vector3(hdp.x, floor_y, hdp.z) + cfwd * (0.2 + reach) + cleft * sg * 0.22, prone)
-			var hd: Vector3 = who.anchor_points()[String(cp.get("who", "")) + ".head"]["pos"]
-			var fwd := Vector3(sin(who.rotation.y), 0, cos(who.rotation.y))
-			_headlamp.global_transform = Transform3D(Basis.looking_at((fwd - Vector3(0, 0.18, 0)).normalized(), Vector3.UP), hd + Vector3(0, 0.18, 0) + fwd * 0.25)
+			# Plant alternating hands and knees and pull the body forward, instead of
+			# sliding a crouched pose. Route position is rebuilt before each seek.
+			var fwd := Vector3(sin(who.rotation.y), 0, cos(who.rotation.y)).normalized()
+			var floor_y := origin.y - DEPTH + 0.06
+			var chest := Vector3(who.global_position.x, floor_y + 0.23, who.global_position.z)
+			var crawled := maxf(0.0, 0.9 - lp.z)
+			var info := Crawl.pose(who, chest, fwd, Vector3.UP, crawled, {"tilt": 0.16, "floor_y": floor_y, "stride": 0.52, "spread": 0.16, "arm_scale": 1.3})
+			var hd: Vector3 = info["head"]
+			_headlamp.global_transform = Transform3D(Basis.looking_at((fwd - Vector3(0, 0.25, 0)).normalized(), Vector3.UP), hd + Vector3(0, 0.12, 0) + fwd * 0.18)
 		# Grit and small stones sifting from the hole's roof.
 		var g0 := float(cp.get("grit", 1.0e9))
 		for i in _grit.instance_count:

@@ -293,6 +293,9 @@ SECTION_CLOSE_LOOK = dict(TUNNEL,
                           fog={"begin": 34, "end": 180, "color": "#3b352f",
                                "volumetric": 0.011, "anisotropy": 0.55, "length": 90})
 
+RESCUE_LOOK = dict(SECTION_CLOSE_LOOK, ambient={"color": "#68788d", "energy": 0.10},
+                   grade={"contrast": 1.12, "saturation": 0.9, "vignette": 0.3})
+
 
 # ---------------------------------------------------------------------------------- line 6
 # "The lights still work. And so does one pipe."
@@ -632,8 +635,8 @@ def LM(x):
     return {"line": "miners", "edge": "start", "offset": round(x, 3)}
 
 
-DAY_YARD = {"base": "day", "time": "15:40", "weather": {"clouds": 0.35, "fog": 0.0}, "ssao": True,
-            "grade": {"contrast": 1.08, "saturation": 1.03, "vignette": 0.3}}
+DAY_YARD = {"base": "day", "time": "16:30", "weather": {"clouds": 0.28, "fog": 0.035}, "ssao": True,
+            "grade": {"contrast": 1.12, "saturation": 0.94, "vignette": 0.34}}
 MINER_CHARS = ["toon_rathole_miner_a", "toon_rathole_miner_b", "toon_rathole_miner_c", "toon_rathole_miner_d"]
 MINER_TOOLS = ["hammer", "tasla", "phawda", "hammer", "chisel", "tasla", "hammer", "phawda", "tasla", "hammer", "chisel", "tasla"]
 MINERS = []
@@ -678,8 +681,8 @@ def MEG(x, y, z):
 MEG_LOOK = {"base": "day", "time": "10:30", "weather": {"clouds": 0.55, "fog": 0.12}, "ssao": True,
             "grade": {"contrast": 1.1, "saturation": 0.95, "vignette": 0.35}}
 MEG_CAST = [
-    {"id": "meg_crawler", "character": "toon_meghalaya_miner", "at": MEG(0.0, 0, 0.9), "facing": MEG(0.0, 0, -4.0), "action": "crouch",
-     "route": {"via": [MEG(0.0, 0, -2.85)], "gait": "sneak", "start": LB(-0.25), "arrive": LB(1.4), "then": "crouch"},
+    {"id": "meg_crawler", "character": "toon_meghalaya_miner", "at": MEG(0.0, 0, -1.15), "facing": MEG(0.0, 0, -4.0), "action": "crouch",
+     "route": {"via": [MEG(0.0, 0, -3.65)], "gait": "sneak", "start": LB(-0.25), "arrive": LB(2.15), "then": "crouch"},
      "cues": [{"t": 0.0, "expression": "determined", "head": [-40, 0, 0], "head_turn": 0.3},
               {"t": LB(1.4), "expression": "panic", "head": [-55, 0, 0], "head_turn": 0.15}]},
     {"id": "meg_official", "character": "toon_official", "at": MEG(-3.2, 0, 4.0), "facing": MEG(3.4, 0, 4.0), "action": "idle",
@@ -719,23 +722,39 @@ def PF(x, y, z):
 
 
 DIG_CHARS = ["toon_rathole_digger_a", "toon_rathole_digger_b", "toon_rathole_digger_c", "toon_rathole_digger_a"]
-DIG_CAST = [{"id": f"rh_{i + 1}", "character": DIG_CHARS[i], "at": X(ESC_X0 - 1.15 - i * 0.85, 0, ESC_Z), "facing": X(ESC_X0 + 5.0, 0, ESC_Z),
-             "action": "idle", "phase": round(i * 0.3, 2), "cues": [{"t": 0.0, "expression": "determined"}]} for i in range(4)]
-DIG_TIMES = [(0.0, 0.45, 1.15), (0.6, 1.2, 1.9), (1.5, 2.15, 2.85), (2.4, 3.05, 3.75)]
+# The four at the mouth: (where he waits, walks to, from, until, then kneels). One after another.
+DIG_PLAN = [(-1.3, -1.3, 0.0, 0.0, 0.05), (-2.15, -1.3, 0.5, 1.1, 1.15), (-3.0, -2.15, 0.65, 1.3, 2.25), (-3.9, -3.0, 0.85, 1.5, 3.3)]
+DIG_CAST = []
+for _i, (_xa, _xb, _w0, _w1, _k) in enumerate(DIG_PLAN):
+    _a = {"id": f"rh_{_i + 1}", "character": DIG_CHARS[_i], "at": X(ESC_X0 + _xa, 0, ESC_Z), "facing": X(ESC_X0 + 5.0, 0, ESC_Z),
+          "action": "idle", "phase": round(_i * 0.3, 2),
+          "cues": [{"t": 0.0, "expression": "determined"}, {"t": LDG(_k + 0.1), "expression": "effort"}]}
+    if _xb != _xa:
+        _a["route"] = {"via": [X(ESC_X0 + _xb, 0, ESC_Z)], "gait": "walk", "start": LDG(_w0), "arrive": LDG(_w1), "then": "idle",
+                       "then_facing": X(ESC_X0 + 5.0, 0, ESC_Z)}
+    DIG_CAST.append(_a)
+IN_CAST = [{"id": f"in_{i + 1}", "character": DIG_CHARS[i], "at": PF(-13.0 - i, 0, 0.0), "facing": PF(2.0, 0, 0.0), "action": "idle",
+            "cues": [{"t": 0.0, "expression": ["determined", "effort", "determined"][i]}]} for i in range(3)]
 FACE_CAST = [
-    {"id": "face_dig", "character": "toon_rathole_digger_c", "at": PF(-2.35, 0, 0.0), "facing": PF(2.0, 0, 0.0), "action": "crouch",
-     "cues": [{"t": 0.0, "expression": "determined", "head": [-88, 0, 0], "head_turn": 0.3}]},
-    {"id": "face_haul", "character": "toon_rathole_digger_b", "at": PF(-4.35, 0, 0.04), "facing": PF(2.0, 0, 0.04), "action": "crouch",
-     "cues": [{"t": 0.0, "expression": "thinking", "head": [-60, 0, 0], "head_turn": 0.3}]},
+    {"id": "face_dig", "character": "toon_rathole_digger_c", "at": PF(-1.4, 0, 0.0), "facing": PF(2.0, 0, 0.0), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "effort"}]},
+    {"id": "face_haul", "character": "toon_rathole_digger_b", "at": PF(-3.35, 0, 0.0), "facing": PF(2.0, 0, 0.0), "action": "idle",
+     "cues": [{"t": 0.0, "expression": "thinking"}]},
 ]
-PIPE_LOOK = dict(TUNNEL, ambient={"color": "#8a8fa6", "energy": 0.03}, glow={"enabled": True, "intensity": 0.8, "bloom": 0.08, "threshold": 1.0})
+DIG_STRIKES = [3.71, 4.2, 4.78, 5.3]
+for _s in DIG_STRIKES:
+    FACE_CAST[0]["cues"] += [{"t": LDG(_s - 0.08), "expression": "strain"}, {"t": LDG(_s + 0.2), "expression": "effort"}]
+PIPE_LOOK = dict(TUNNEL, ambient={"color": "#8a8fa6", "energy": 0.02},
+                 fog={"begin": 30, "end": 160, "color": "#3b352f", "volumetric": 0.02, "anisotropy": 0.6, "length": 40},
+                 glow={"enabled": True, "intensity": 0.75, "bloom": 0.06, "threshold": 1.0},
+                 grade={"contrast": 1.12, "saturation": 1.05, "vignette": 0.42})
 FACE_GAG = {"id": "pipeface", "script": "gags/pipe_face.gd", "at": {"anchor": "airstrip", "offset": [0, 0, PF_Z]}, "t": 0,
-            "params": {"floor": {"face_dig": [-2.35, 0.0], "face_haul": [-4.35, 0.04]},
-                       "digger": {"id": "face_dig", "strikes": [LDG(3.71), LDG(4.2), LDG(4.78), LDG(5.25)]},
-                       "hauler": {"id": "face_haul", "t0": LDG(3.5), "t1": LDG(5.6)},
-                       "through": {"t": LH(3.5), "light": 3.0},
-                       "standing": {"trap_a": [1.15, -1.0, 0.3, -1.5708], "trap_b": [1.35, -1.0, -0.5, -1.5708]},
-                       "clasp": {"t": LH(3.8), "outside": "trap_a", "inside": "face_dig"}}}
+            "params": {"digger": {"id": "face_dig", "from": LDG(3.4), "until": {"line": "twelve", "edge": "start", "offset": -0.3}, "strikes": [LDG(x) for x in DIG_STRIKES], "split": LDG(4.78), "look_yaw": 0.32, "look_pitch": -0.16},
+                       "hauler": {"id": "face_haul", "from": LDG(3.4), "until": {"line": "twelve", "edge": "start", "offset": -0.3}},
+                       "breakthrough": {"from": LH(0.0), "hit": LH(3.46), "until": LH(4.8), "miner": "face_dig", "survivor": "trap_a"},
+                       "crawlers": [{"id": "in_1", "t0": LDG(0.2), "x0": -13.95, "speed": 0.72, "until": LDG(3.45)},
+                                    {"id": "in_2", "t0": LDG(1.35), "x0": -14.55, "speed": 0.72, "z": 0.03, "until": LDG(3.45)},
+                                    {"id": "in_3", "t0": LDG(2.5), "x0": -14.6, "speed": 0.72, "z": -0.03, "until": LDG(3.45)}]}}
 
 
 # ---------------------------------------------------------------------------------- line 20
@@ -755,9 +774,9 @@ def LT(x):
 WATCH_CAST = [{"id": "watch_official", "character": "toon_official", "at": S(1.0, 0, 6.0), "facing": S(1.0, 1.0, 0.0), "action": "idle",
                "cues": [{"t": 0.0, "expression": "nervous", "head": [22, 0, 0], "head_turn": 0.3}]}]
 TRAP_CAST = [
-    {"id": "trap_a", "character": W, "at": PF(1.15, 0, 0.3), "facing": PF(-2.0, 0, 0.3), "action": "idle",
+    {"id": "trap_a", "character": W, "at": PF(0.65, 0, -0.95), "facing": PF(-2.0, 0, 0.0), "action": "crouch",
      "cues": [{"t": 0.0, "expression": "nervous"}, {"t": LH(3.6), "expression": "surprised"}, {"t": LH(3.95), "expression": "love"}]},
-    {"id": "trap_b", "character": LIME, "at": PF(1.35, 0, -0.5), "facing": PF(-2.0, 0, -0.5), "action": "idle",
+    {"id": "trap_b", "character": LIME, "at": PF(1.35, 0, 2.0), "facing": PF(-2.0, 0, 0.0), "action": "idle",
      "cues": [{"t": 0.0, "expression": "sad"}, {"t": LH(3.65), "expression": "shocked"}, {"t": LH(4.0), "expression": "cheer"}]},
 ]
 
@@ -773,14 +792,25 @@ def LO(x):
 
 
 OUT_MEN = [{"id": f"saved_{i + 1}", "character": [W, LIME, BLUE, RED][i], "at": X(ESC_X0 - 3.0, 0, ESC_Z), "facing": X(ESC_X0, 0, ESC_Z),
-            "action": "idle", "cues": [{"t": 0.0, "expression": ["laugh", "love", "cheer", "happy"][i]}]} for i in range(4)]
+            "action": "get_up", "freeze": 0.0, "cues": [{"t": 0.0, "expression": "sleepy"}]} for i in range(1)]
 OUT_CREW = [
-    {"id": "ndrf_1", "character": ENG, "at": X(ESC_X0 - 3.4, 0, ESC_Z - 0.85), "facing": X(ESC_X0, 0.8, ESC_Z), "action": "idle",
-     "cues": [{"t": 0.0, "expression": "determined"}, {"t": LO(1.3), "expression": "grin"}]},
-    {"id": "ndrf_2", "character": W, "at": X(ESC_X0 - 2.2, 0, ESC_Z - 0.85), "facing": X(ESC_X0, 0.8, ESC_Z), "action": "idle",
+    {"id": "ndrf_1", "character": ENG, "at": X(ESC_X0 - 3.4, 0, ESC_Z - 0.85), "facing": X(ESC_X0, 0.8, ESC_Z), "action": "walk",
+     "cues": [{"t": 0.0, "expression": "determined"}, {"t": LO(3.25), "action": "idle"}]},
+    {"id": "ndrf_2", "character": W, "at": X(ESC_X0 - 0.6, 0, ESC_Z - 1.35), "facing": X(ESC_X0, 0.8, ESC_Z), "action": "idle",
      "cues": [{"t": 0.0, "expression": "happy"}, {"t": LO(2.0), "expression": "cheer"}]},
 ]
-OUT_TIMES = [(-0.1, 0.8, 0.0), (0.95, 1.85, 0.0), (2.0, 2.9, 0.0), (3.0, 3.85, 0.0)]
+OUT_TIMES = [(-0.2, 3.25, 0.0)]
+for _rescue_previous in (MEAL_CREW, FACES_CREW):
+    for _rescue_actor in _rescue_previous.values():
+        _rescue_actor["until"] = LO(-0.3)
+RESCUE_CAST = [
+    {"id": "exit_patient", "character": W, "at": P(0, 0, -15.0), "facing": P(0, 0, -10),
+     "action": "get_up", "freeze": 0.0, "cues": [{"t": 0.0, "expression": "sleepy"}]},
+    {"id": "exit_puller", "character": ENG, "at": P(-0.72, 0, -13.0), "facing": P(0, 0, -16.0),
+     "action": "walk", "cues": [{"t": 0.0, "expression": "determined"}, {"t": LO(3.4), "action": "idle"}]},
+    {"id": "exit_helper", "character": "toon_rathole_digger_b", "at": P(0.85, 0, -14.8), "facing": P(0, 0, -15.2),
+     "action": "crouch", "cues": [{"t": 0.0, "expression": "effort"}]},
+]
 
 
 # ---------------------------------------------------------------------------------- line 23
@@ -808,13 +838,67 @@ def cam(at, look, lens, dof=None, **kw):
     return c
 
 
+# Khajuri Khas is its own location, separate from the mountain rescue set.
+KH_Z = 18000.0
+
+
+def KH(x, y, z):
+    return {"anchor": "airstrip", "offset": [round(-x, 3), round(y, 3), round(z + KH_Z, 3)]}
+
+
+def LK(x):
+    return {"line": "bulldozer", "edge": "start", "offset": round(x, 3)}
+
+
+def LDA(x):
+    return {"line": "dda", "edge": "start", "offset": round(x, 3)}
+
+
+def LST(x):
+    return {"line": "street", "edge": "start", "offset": round(x, 3)}
+
+
+KH_DAY = {"base": "day", "time": "11:00", "weather": {"clouds": 0.35, "fog": 0.06}, "ssao": True,
+          "grade": {"contrast": 1.1, "saturation": 0.92, "vignette": 0.22}}
+KH_NIGHT = {"base": "night_fog", "time": "22:00", "weather": {"fog": 0.15, "clouds": 0.35}, "ssao": True,
+            "sun": {"energy": 0}, "moon": {"energy": 0.05, "visible": False},
+            "ambient": {"color": "#788398", "energy": 0.16},
+            "fog": {"begin": 30, "end": 120, "color": "#4b4543", "volumetric": 0.012, "anisotropy": 0.5, "length": 50},
+            "glow": {"enabled": True, "intensity": 0.7, "bloom": 0.05, "threshold": 1.1},
+            "grade": {"contrast": 1.1, "saturation": 0.9, "vignette": 0.3}}
+KH_MACHINE_CAST = [{"id": "kh_operator", "character": W, "at": KH(0, 0, -16), "facing": KH(0, 0, 0),
+                    "action": "drive", "cues": [{"t": 0.0, "expression": "determined"}]}]
+KH_PEOPLE = [{"id": "kh_hasan", "character": "toon_vakeel_hasan", "at": KH(0.15, 0, 4.9),
+              "facing": KH(-0.7, 0, 8.2), "action": "idle",
+              "route": {"via": [KH(0.15, 0, 5.45)], "gait": "walk", "start": LK(3.4), "arrive": LK(4.8), "then": "idle",
+                        "then_facing": KH(-0.7, 0, 8.2)},
+              "cues": [{"t": 0.0, "expression": "sad", "head": [12, 0, 0], "head_turn": 0.5},
+                       {"t": LK(5.55), "expression": "sad", "head": [3, 0, 0], "head_turn": 0.7},
+                       {"t": LST(-0.3), "action": "sit", "expression": "sad", "head": [8, 0, 0], "head_turn": 0.6}]},
+             {"id": "kh_dda_official", "character": "toon_official", "at": KH(-0.05, 0, 4.2),
+              "facing": KH(-0.7, 0, 7.2), "action": "idle",
+              "cues": [{"t": 0.0, "expression": "neutral"},
+                       {"t": LDA(1.55), "head": [6, 0, 0], "head_turn": 0.4},
+                       {"t": LDA(2.5), "head": [0, 0, 0], "head_turn": 0.4}]}]
+KH_FAMILY = [
+    {"id": "kh_wife", "character": "toon_hasan_wife", "at": KH(0.4, 0, 3.9), "facing": KH(-0.2, 0, 9), "action": "sit",
+     "cues": [{"t": 0.0, "expression": "sad"}]},
+    {"id": "kh_child_a", "character": "toon_hasan_child_a", "at": KH(-0.95, 0, 4.85), "facing": KH(-0.2, 0, 9), "action": "sit",
+     "cues": [{"t": 0.0, "expression": "sleepy"}]},
+    {"id": "kh_child_b", "character": "toon_hasan_child_b", "at": KH(0.9, 0, 4.8), "facing": KH(-0.2, 0, 9), "action": "sit",
+     "cues": [{"t": 0.0, "expression": "sleepy"}]},
+    {"id": "kh_child_c", "character": "toon_hasan_child_c", "at": KH(0.1, 0, 5.55), "facing": KH(0.1, 0, 9), "action": "sit",
+     "cues": [{"t": 0.0, "expression": "sleepy"}]},
+]
+
+
 def build():
     actors, crew = build_crew()
     episode = {
         "id": "silkyara_rescue",
         "title": "41 Workers Trapped Inside a Mountain",
         "set": "specs/sets/silkyara.json",
-        "format": {"resolution": [1080, 1920], "fps": 30, "motion_blur": 2},
+        "format": {"resolution": [1080, 1920], "fps": 60, "motion_blur": 2},
         "narration": {"model": "qwen3-tts-1.7b-customvoice", "voice": "Aiden"},
         "captions": {"enabled": True, "max_words": 2, "position": 0.87},
         "lines": [
@@ -842,17 +926,31 @@ def build():
             {"id": "through", "shot": "tally17", "at": 0.25, "text": "Day seventeen, just after seven in the evening: they break through."},
             {"id": "out", "shot": "stretchers_out", "at": 0.25, "text": "Then all forty-one come out, one by one, on wheeled stretchers."},
             {"id": "ambulances", "shot": "ambulance_line", "at": 0.25, "text": "Forty-one men. Forty-one ambulances waiting outside."},
-            {"id": "bulldozer", "shot": "ph_bulldozer", "at": 0.25, "text": "Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan."},
-            {"id": "dda", "shot": "ph_dda", "at": 0.25, "text": "Delhi's development authority says the house stood on its land."},
-            {"id": "street", "shot": "ph_street", "at": 0.25, "text": "He got forty-one men out of a mountain. That night, his family slept on the street."},
+            {"id": "bulldozer", "shot": "demolition", "at": 0.25, "text": "Three months later, bulldozers come for the house of the man who led those miners, Vakeel Hasan."},
+            {"id": "dda", "shot": "dda_statement", "at": 0.25, "text": "Delhi's development authority says the house stood on its land."},
+            {"id": "street", "shot": "family_street", "at": 0.25, "text": "He got forty-one men out of a mountain. That night, his family slept on the street."},
         ],
-        "actors": OUT_MEN + OUT_CREW + WATCH_CAST + TRAP_CAST + DIG_CAST + FACE_CAST + MEG_CAST + YARD_CAST + RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
+        "actors": KH_FAMILY + KH_PEOPLE + KH_MACHINE_CAST + RESCUE_CAST + OUT_MEN + OUT_CREW + WATCH_CAST + TRAP_CAST + DIG_CAST + IN_CAST + FACE_CAST + MEG_CAST + YARD_CAST + RIDGE_CAST + OUTSIDE + KITCHEN_CAST + TV_CAST + FACES_CAST + SECTION_CAST + FEED_CAST + PLAN_CAST + LIFE_CAST + LAP_CAST + YOGA_CAST + MEAL_CAST + AIR_CAST + actors,
         "gags": [
+            {"id": "khajuri_lane", "script": "gags/khajuri_lane.gd", "at": {"anchor": "airstrip", "offset": [0, 0, KH_Z]}, "t": 0,
+             "params": {"machine": {"t0": LK(-0.25), "t1": LK(1.3), "operator": "kh_operator", "until": LK(7.0), "bites": [LK(1.89), LK(3.17), LK(4.7)]},
+                        "aftermath": LK(3.35), "night": LST(-0.3), "family_from": LST(-0.3),
+                        "appear": {"kh_hasan": {"from": LK(3.35), "until": LK(7.3), "again": LST(-0.3), "again_until": LST(8.0)},
+                                   "kh_dda_official": {"from": LDA(-0.3), "until": LST(-0.3)},
+                                   **{a["id"]: {"from": LST(-0.3), "until": LST(8.0)} for a in KH_FAMILY}},
+                        "sit": {"kh_hasan": [-0.4, 3.9, 0], "kh_wife": [0.4, 3.9, 0], "kh_child_a": [-0.95, 4.85, 0], "kh_child_b": [0.9, 4.8, 0]},
+                        "sleep": {"id": "kh_child_c", "x": 0.1, "z": 5.55, "at": LST(4.28)},
+                        "held": {"kh_dda_official": "plan"},
+                        "present": {"kh_dda_official": {"from": LDA(0.7), "until": LDA(1.5)}}}},
+            {"id": "rescue_exit", "script": "gags/rescue_exit.gd", "at": {"anchor": "tunnel", "offset": [0, DEPTH, 3.5]}, "t": 0,
+             "params": {"from": LO(-0.3), "until": LO(4.6), "pull0": LO(-0.2), "pull1": LO(3.3),
+                        "patient": "exit_patient", "puller": "exit_puller", "helper": "exit_helper"}},
             PIT_GAG,
             FACE_GAG,
             {"id": "mountain_section", "script": "gags/mountain_section.gd", "at": {"anchor": "section", "offset": [0, 0, SECTION_Z]}, "t": 0,
              "params": {"throw": SIXTY(T_THROW), "catch": SIXTY(T_CATCH), "thrower": "sec_eng", "catcher": "sec_catch",
-                        "vanish": {i: PLAN_START for i in ["sec_eng", "sec_resc_1", "sec_resc_2", "sec_resc_3", "feed_push"]},
+                        "vanish": {**{i: PLAN_START for i in ["sec_eng", "sec_resc_1", "sec_resc_2", "sec_resc_3", "feed_push"]},
+                                   **{f"rh_{i + 1}": LO(-0.3) for i in range(4)}},
                         "rig": {"from": PLAN_START, "until": LDG(-0.3), "push0": L10("push", 0.0), "push1": L10("rubble", 0.45), "bite": L10("steel", 0.1), "dist": 2.3},
                         "spare": {"from": PLAN_START, "crawler": "plan_crawl"},
                         "xauger": {"from": DRILL_START, "until": LT(2.4), "chew": LD(0.97), "boulder_at": 1.3, "metres": 57,
@@ -866,7 +964,7 @@ def build():
                         "appear": {**{"feed_push": PLAN_START, **{a["id"]: PLAN_START for a in PLAN_CAST}},
                                    **{a["id"]: LO(-0.3) for a in OUT_CREW}},
                         "escape": {"from": LDG(-0.3), "until": LDG(5.8),
-                                   "crew": [{"id": f"rh_{i + 1}", "t0": LDG(a), "t1": LDG(b), "t2": LDG(c)} for i, (a, b, c) in enumerate(DIG_TIMES)]},
+                                   "crew": [{"id": f"rh_{i + 1}", "t0": LDG(pl[4]), "x": ESC_X0 - 1.3} for i, pl in enumerate(DIG_PLAN)]},
                         "ridge": {"from": LV(-0.3), "lever": LV(1.0), "start": LV(1.5), "down0": LV(1.6), "down1": LV(4.6), "deep": 6.0, "xray": LV(2.44),
                                   "crew": [a["id"] for a in RIDGE_CAST], "op": "ridge_op"},
                         "xpipe": {"from": FEED_START, "until": L7("puffed", 0.2), "flow": L7("Through", -0.15),
@@ -1190,8 +1288,8 @@ def build():
             {"name": "ridge_rig", "duration": 2.7, "look": SECTION_LOOK,
              "note": "The mountain top over the trapped section: a crawler drill rig, its mast against the sky; the operator throws "
                      "the lever on \"rig\", the rotary head spins and feeds down on \"drilling\", mud spits from the collar.",
-             "camera": {"from": {"at": GA("ridge", -4.6, 2.5, 8.4), "look_at": GA("ridge", 0.6, 3.2, 0.6), "lens_mm": 22},
-                        "to": {"at": GA("ridge", -3.9, 2.3, 7.6), "look_at": GA("ridge", 0.6, 3.0, 0.6), "lens_mm": 23}, "ease": "in_out"},
+             "camera": {"from": {"at": GA("ridge", -6.6, 3.0, 11.5), "look_at": GA("ridge", -1.5, 4.1, 0.2), "lens_mm": 20},
+                        "to": {"at": GA("ridge", -5.9, 2.8, 10.5), "look_at": GA("ridge", -1.4, 4.0, 0.2), "lens_mm": 20}, "ease": "in_out"},
              "shake": [{"t": LV(1.5), "amount": 0.12}]},
             {"name": "drill_down", "duration": 2.7, "look": SECTION_LOOK,
              "note": "X-ray down the cut face: from the bit a few metres in, the camera plunges along the glowing planned line "
@@ -1201,8 +1299,8 @@ def build():
             {"name": "miners_arrive", "duration": 3.1, "look": DAY_YARD,
              "note": "Day at the portal: twelve rat-hole miners walk to the mouth with their own tools, taslas on their heads; "
                      "a pickup has just pulled up behind; officials step aside. The count lands on 12 on \"twelve\".",
-             "camera": {"from": {"at": S(0.9, 1.75, 1.6), "look_at": S(-1.8, 1.25, 11.0), "lens_mm": 30},
-                        "to": {"at": S(0.8, 1.7, 2.1), "look_at": S(-1.8, 1.25, 11.0), "lens_mm": 32}, "ease": "in_out"}},
+             "camera": {"from": {"at": S(-1.8, 1.7, 2.8), "look_at": S(-1.8, 1.2, 9.8), "lens_mm": 30},
+                        "to": {"at": S(-1.8, 2.3, 0.8), "look_at": S(-1.8, 1.2, 6.4), "lens_mm": 24}, "ease": "in_out"}},
             {"name": "rathole_crawl", "duration": 2.65, "look": MEG_LOOK,
              "note": "The bottom of a rat-hole pit in Meghalaya: a miner with a headlamp crawls into a hole barely higher than his "
                      "knees; grit sifts from its roof on \"dangerous\".",
@@ -1219,21 +1317,34 @@ def build():
                                  "dof": {"strength": 0.35, "focus": 0.98}},
                         "to": {"at": {"anchor": "pit.notice", "offset": [-0.12, 0.0, 0.62]}, "look_at": {"anchor": "pit.notice", "offset": [0.0, -0.02, 0.0]}, "lens_mm": 34,
                                "dof": {"strength": 0.35, "focus": 0.63}}, "ease": "in_out"}},
-            {"name": "pipe_enter", "duration": 3.7, "look": SECTION_CLOSE_LOOK,
-             "note": "The auger gone, the escape pipe's mouth over a timber platform, the air duct snaking in; one after another "
-                     "the miners slide in head first.",
-             "camera": {"from": {"at": X(ESC_X0 - 3.3, 1.6, -0.85), "look_at": X(ESC_X0 - 0.4, 0.95, -2.6), "lens_mm": 24},
-                        "to": {"at": X(ESC_X0 - 2.8, 1.5, -1.0), "look_at": X(ESC_X0 - 0.2, 0.95, -2.6), "lens_mm": 26}, "ease": "in_out"}},
+            {"name": "pipe_enter", "duration": 1.75, "look": SECTION_CLOSE_LOOK,
+             "note": "The auger gone: the escape pipe's open mouth over the timber platform, seen from beside it at the rubble. "
+                     "The first miner, headlamp on, drops onto his hands and knees and crawls in head first; the next steps up "
+                     "behind him, the others shuffle forward along the platform.",
+             "camera": {"from": {"at": X(ESC_X0 + 0.75, 1.62, -1.25), "look_at": X(ESC_X0 - 1.15, 1.08, -2.62), "lens_mm": 24,
+                                 "dof": {"strength": 0.25, "focus": 2.3}},
+                        "to": {"at": X(ESC_X0 + 0.6, 1.45, -1.4), "look_at": X(ESC_X0 - 0.75, 1.02, -2.62), "lens_mm": 27,
+                               "dof": {"strength": 0.25, "focus": 1.9}}, "ease": "in_out"}},
+            {"name": "pipe_in", "duration": 1.95, "look": PIPE_LOOK,
+             "note": "Inside the pipe looking back at its mouth, a disc of work light: the first miner crawls at us on his elbows, "
+                     "headlamp glaring, the second coming in behind him, the third at the mouth. The camera backs away ahead of them.",
+             "camera": {"from": {"at": PF(-10.85, 0.36, 0.12), "look_at": PF(-14.0, 0.47, 0.0), "lens_mm": 21, "dof": {"strength": 0.3, "focus": 1.9}},
+                        "to": {"at": PF(-10.35, 0.37, 0.1), "look_at": PF(-14.0, 0.48, 0.0), "lens_mm": 21, "dof": {"strength": 0.3, "focus": 1.35}},
+                        "ease": "linear"}},
             {"name": "pipe_dig", "duration": 2.35, "look": PIPE_LOOK,
-             "note": "Inside the pipe, from the rock face: a miner lying in the tube, headlamp on, hammers a chisel into the rock on "
-                     "\"dig\", \"hammers\", \"chisels\"; chips fly; behind him another drags spoil back in a tasla.",
-             "camera": {"from": {"at": PF(-0.02, 0.5, 0.25), "look_at": PF(-1.4, 0.3, -0.04), "lens_mm": 18},
-                        "to": {"at": PF(-0.03, 0.48, 0.24), "look_at": PF(-1.4, 0.3, -0.04), "lens_mm": 19}, "ease": "in_out"}},
+             "note": "Inside the pipe at the face, looking back at the digger from the rubble: flat on his belly, his face lit from "
+                     "below by his own lamp off the rock, he drives a cold chisel into a stone with a club hammer on \"dig\", "
+                     "\"hammers\", \"chisels\" (chips and dust at the lens, the stone splits on the third); behind him another "
+                     "rakes spoil into a tasla; far back, the lit mouth.",
+             "camera": {"from": {"at": PF(-0.06, 0.42, 0.27), "look_at": PF(-1.1, 0.33, -0.1), "lens_mm": 16, "dof": {"strength": 0.3, "focus": 0.95}},
+                        "to": {"at": PF(-0.17, 0.4, 0.26), "look_at": PF(-1.1, 0.31, -0.12), "lens_mm": 19, "dof": {"strength": 0.3, "focus": 0.85}},
+                        "ease": "in_out"},
+             "shake": [{"t": LDG(x), "amount": 0.2} for x in DIG_STRIKES]},
             {"name": "hand_dig", "duration": 2.2, "look": SECTION_LOOK,
              "note": "X-ray: the blades out, two miners lie in the pipe's nose; it creeps through the last of the rubble. "
                      "\"12 m\" lands on \"Twelve\", \"~24 h\" on \"day\".",
              "camera": {"from": {"at": NOSE(1.7, 0.75, 2.6), "look_at": NOSE(-1.1, 0.05, 0.2), "lens_mm": 24},
-                        "to": {"at": NOSE(1.55, 0.7, 2.4), "look_at": NOSE(-1.1, 0.05, 0.2), "lens_mm": 25}, "ease": "linear"}},
+                        "to": {"at": NOSE(1.55, 0.7, 2.4), "look_at": NOSE(-1.1, 0.05, 0.2), "lens_mm": 25}, "ease": "in_out"}},
             {"name": "tally17", "duration": 1.45, "look": dict(TUNNEL, ssr=True),
              "note": "Day seventeen: sixteen chalk marks and the seventeenth going up.",
              "camera": {"from": cam((-3.75, 1.47, 2.4), (-4.95, 1.36, 1.12), 24),
@@ -1245,31 +1356,41 @@ def build():
             {"name": "break_through", "duration": 1.5, "look": PIPE_LOOK,
              "note": "From the trapped side: the last rubble tumbles away on \"break\", light floods onto the digger's face; a "
                      "trapped worker's hand reaches in and grips his on \"through\".",
-             "camera": {"from": {"at": PF(-1.75, 0.7, 0.2), "look_at": PF(0.4, 0.4, 0.0), "lens_mm": 22},
-                        "to": {"at": PF(-1.65, 0.69, 0.19), "look_at": PF(0.4, 0.4, 0.0), "lens_mm": 24}, "ease": "in_out"},
+             "camera": {"from": {"at": PF(2.7, 0.7, 0.0), "look_at": PF(0.0, 0.38, 0.0), "lens_mm": 30},
+                        "to": {"at": PF(2.45, 0.68, 0.0), "look_at": PF(-0.1, 0.38, 0.0), "lens_mm": 30}, "ease": "in_out"},
              "shake": [{"t": LH(3.5), "amount": 0.25}]},
-            {"name": "stretchers_out", "duration": 4.1, "look": SECTION_CLOSE_LOOK,
-             "note": "The escape pipe's mouth: wheeled stretchers slide out one after another, a rescuer hauling each rope, the man "
-                     "on it waving; marigold garlands; the counter of men out runs to 41.",
-             "camera": {"from": {"at": X(ESC_X0 - 3.9, 1.75, -0.4), "look_at": X(ESC_X0 - 0.9, 0.8, -2.6), "lens_mm": 24},
-                        "to": {"at": X(ESC_X0 - 4.3, 1.85, -0.2), "look_at": X(ESC_X0 - 1.2, 0.8, -2.6), "lens_mm": 24}, "ease": "in_out"}},
+            {"name": "stretchers_out", "duration": 4.1, "look": TUNNEL,
+             "note": "At the pipe mouth, a rescuer carefully guides a patient out on the low wheeled rescue stretcher.",
+             "camera": {"from": cam((1.55, 1.95, -6.7), (0.0, 0.55, -11.1), 30),
+                        "to": cam((1.55, 1.9, -4.45), (0.0, 0.55, -8.85), 30), "ease": "in_out"}},
             {"name": "ambulance_line", "duration": 3.85, "look": MOUNTAIN,
              "note": "Night: from the lit tunnel mouth the camera cranes up and back over a line of 41 ambulances waiting down the "
                      "access road, beacons flashing red and blue.",
              "camera": {"from": {"at": S(1.5, 2.2, 8.0), "look_at": S(4.0, 1.6, 18.0), "lens_mm": 26},
                         "to": {"at": S(-6.0, 22.0, 2.0), "look_at": S(9.0, 0.0, 90.0), "lens_mm": 24}, "ease": "in_out"}},
-            {"name": "ph_bulldozer", "duration": 7.74, "look": SECTION_LOOK, "camera": X_CAM},
-            {"name": "ph_dda", "duration": 4.8, "look": SECTION_LOOK, "camera": X_CAM},
-            {"name": "ph_street", "duration": 7.32, "look": SECTION_LOOK, "camera": X_CAM},
+            {"name": "demolition", "duration": 3.6, "look": KH_DAY,
+             "note": "In the Khajuri Khas lane, the excavator rolls up and its bucket bites into the house front.",
+             "camera": {"from": {"at": KH(-0.8, 1.9, 7.1), "look_at": KH(0.8, 2.1, 0.7), "lens_mm": 20},
+                        "to": {"at": KH(-0.7, 1.8, 6.5), "look_at": KH(1.5, 2.05, 0.9), "lens_mm": 20}, "ease": "in_out"},
+             "shake": [{"t": LK(1.89), "amount": 0.25}, {"t": LK(3.17), "amount": 0.2}]},
+            {"name": "hasan_home", "duration": 4.14, "look": KH_DAY,
+             "note": "After the demolition, Vakeel Hasan returns to the lane and faces what remains of his home.",
+             "camera": {"from": {"at": KH(-0.7, 1.55, 8.2), "look_at": KH(0.15, 1.05, 5.2), "lens_mm": 30, "dof": {"strength": 0.16}},
+                        "to": {"at": KH(-0.6, 1.48, 7.65), "look_at": KH(0.15, 1.05, 5.2), "lens_mm": 31, "dof": {"strength": 0.16}}, "ease": "in_out"}},
+            {"name": "dda_statement", "duration": 4.8, "look": KH_DAY,
+             "note": "An official presents the authority's paperwork beside the site as the narration attributes its land claim to the DDA.",
+             "camera": {"from": {"at": KH(-0.7, 1.45, 7.2), "look_at": KH(-0.05, 1.05, 4.2), "lens_mm": 31, "dof": {"strength": 0.14}},
+                        "to": {"at": KH(-0.55, 1.38, 6.55), "look_at": KH(-0.05, 1.02, 4.2), "lens_mm": 32, "dof": {"strength": 0.14}}, "ease": "in_out"}},
+            {"name": "family_street", "duration": 7.32, "look": KH_NIGHT,
+             "note": "That night the family rests on the street near the rubble; a child nods off under the streetlamp.",
+             "camera": {"from": {"at": KH(-0.35, 2.15, 9.8), "look_at": KH(0, 0.55, 4.7), "lens_mm": 24, "dof": {"strength": 0.12}},
+                        "to": {"at": KH(-0.3, 1.95, 9.1), "look_at": KH(0, 0.55, 4.7), "lens_mm": 25, "dof": {"strength": 0.12}}, "ease": "in_out"}},
         ],
         "reveals": [
             {"id": "men_count", "t": LA(0.0), "until": LA(1.3), "at": S(4.0, 3.6, 16.0), "size": 0.75, "enter": "pop",
              "counter": {"from": 0, "to": 41, "land": {"line": "ambulances", "word": "men.", "offset": 0.0}, "label": "MEN"}},
             {"id": "amb_count", "t": LA(1.3), "until": LA(3.9), "at": S(7.0, 12.0, 46.0), "size": 3.2, "enter": "pop",
              "counter": {"from": 0, "to": 41, "land": {"line": "ambulances", "word": "ambulances", "offset": 0.1}, "label": "AMBULANCES"},
-             "sound": "ding"},
-            {"id": "out_count", "t": LO(0.2), "until": LO(4.4), "at": X(ESC_X0 - 1.4, 2.05, -2.6), "size": 0.38, "enter": "pop",
-             "counter": {"keys": [[LO(0.2), 0], [LO(1.1), 8], [LO(2.1), 19], [LO(3.1), 31], [LO(3.86), 41]], "label": "OUT"},
              "sound": "ding"},
             {"id": "dug_count", "t": LT(-0.25), "until": LT(1.9), "at": NOSE(-0.7, 1.3, 0.3), "size": 0.3, "enter": "pop",
              "counter": {"from": 0, "to": 12, "land": {"line": "twelve", "word": "Twelve", "offset": 0.05}, "suffix": " m"}, "sound": "ding"},

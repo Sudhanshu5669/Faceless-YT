@@ -2,6 +2,30 @@
   "_comment": "Which files to take from each downloaded zip in incoming/. 'zip' is a glob; 'files' are [zip folder, glob, destination subfolder]. Everything lands in godot/assets/<id>/.",
   "packs": [
     {
+      "id": "kenney_blocky_characters",
+      "author": "Kenney",
+      "license": "CC0",
+      "url": "https://kenney.nl/assets/blocky-characters",
+      "zip": "kenney_blocky-characters.zip",
+      "files": [["Models/GLB format/", "*.glb", ""], ["Models/GLB format/Textures/", "*.png", "Textures/"]]
+    },
+    {
+      "id": "kenney_fantasy_town",
+      "author": "Kenney",
+      "license": "CC0",
+      "url": "https://kenney.nl/assets/fantasy-town-kit",
+      "zip": "kenney_fantasy-town-kit.zip",
+      "files": [["Models/GLB format/", "*.glb", ""], ["Models/GLB format/Textures/", "*.png", "Textures/"]]
+    },
+    {
+      "id": "kenney_castle",
+      "author": "Kenney",
+      "license": "CC0",
+      "url": "https://kenney.nl/assets/castle-kit",
+      "zip": "kenney_castle-kit.zip",
+      "files": [["Models/GLB format/", "*.glb", ""], ["Models/GLB format/Textures/", "*.png", "Textures/"]]
+    },
+    {
       "id": "kenney_suburban",
       "author": "Kenney",
       "license": "CC0",

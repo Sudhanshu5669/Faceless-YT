@@ -75,6 +75,62 @@ Gags preload `res://scripts/timeline/motion.gd`. For deeper craft, load the inst
 `disney-animation-rule-skill` (phase blocking, deterministic procedural motion), `game-feel` (impact
 juice tiers, trauma shake) and `animation-principles` (curves, durations, stagger).
 
+## Realism and cinematics: what makes a shot pass review (learned on silkyara_rescue, 2026-11)
+
+The user's verdicts on rejected shots were "not realistic", "not cinematic", "moving like statues",
+"horrible". Every one of them had the same causes. Check these before showing a shot.
+
+**Stage for the lens, not for the story diagram.**
+1. **Decide what must read, then pick the angle that shows it in profile.** A tool pointing at the
+   lens is a dot. Hammer → chisel → rock must lie *across* the frame. Faces want a 3/4 front view.
+   If the action and the face can't share one angle, put the action low in the frame and the face
+   above it (9:16 is tall: use it).
+2. **A toon's head is 38 % of its height and its arms are short.** Hands can't work in front of the
+   face: they end up behind or inside the head. Work happens *below the chin*; raise the camera until
+   the tools drop under the chin line, or lengthen the arms (`Crawl.long_arms(actor, 1.45)`).
+   Never shoot a toon from behind/above: you get a helmet and no acting.
+3. **Never film a stiff body being slid.** If there is no clip (crawl, haul, dig), pose it
+   procedurally: plant hands and knees in the world and pull the body past them
+   (`godot/scripts/actors/toon_crawl.gd`: `Crawl.pose`, `Crawl.surge`, `Crawl.arm`). Speed must
+   pulse (pull, rest), shoulders roll, the head stays up and nods. A lying person is the `get_up`
+   action frozen at 0, not an upright idle rotated onto its back.
+4. **Every blow has four parts** (docs/MOTION_SPEC.md): wind-up (ease-out, ~0.24 s), strike
+   (ease-in, ~0.1 s, contact ON the word), recoil (the tool bounces), consequence (body jolts,
+   face swaps to `strain`, chips + dust + 0.2 shake, the thing struck moves). The third hit pays
+   off (the stone splits).
+5. **One hero prop, exaggerated ~1.3x.** Tools sized true to life vanish beside a 0.6 m head.
+
+**Light like a film set.**
+6. **Motivate every light, and use three depths:** a key from a practical in the scene (headlamp,
+   hand lamp, flood), a rim/back light from another practical behind the subject (the man behind
+   him, the lit mouth of the pipe), and a faint fill so blacks keep detail. Subject brightest,
+   surroundings dark, never flat ambient.
+7. **White toon heads clip fast.** Keep any light within 1 m of a face under ~0.4 energy and check
+   the face is grey-with-shading, not a white disc. A headlamp's *lens* glows (emissive + bloom);
+   its *beam* is a separate spot aimed at the work, never into the lens.
+8. **Air makes depth:** volumetric fog (0.015–0.02) so beams show, additive dust motes, a soft puff
+   on impacts. Additive only: unlit shaded motes read as dirt specks on the wall behind.
+
+**Materials that survive a close-up.**
+9. **No `metallic` in enclosed dark sets.** With no sky or probe to reflect, a metal renders black
+   and noisy masks turn into black blotches. Use a dielectric with low roughness and high
+   `SPECULAR` so the lamps' highlights say "steel".
+10. **Noise at the right scale:** large smooth masks (rust, stains) at 0.3–2 cycles/m, stretched
+    along the object's grain; grain at 150+ cycles/m at ±8 %. Mid frequencies (5–40 /m) read as
+    camouflage. Add the features a real one has (spiral weld seam, butt welds, drag track, mud line).
+11. **Thin curved shells don't cast shadows** (set `cast_shadow` off): they only give acne.
+12. **Nothing within 20 cm of the lens** unless it is meant to be a blurred foreground frame. A
+    pebble 5 cm away is a wall. Clear a niche for the camera when it sits inside rubble.
+
+**Find faults fast.**
+13. **Look at 8 evenly spaced frames, then one frame at full size, then one brightened**
+    (`ffmpeg ... -vf eq=gamma=2.2`): black areas hide wrong poses. When the layout is unclear, render
+    one diagnostic side view with `"exposure": 3.5` and a far camera, then restore the real one.
+14. **Isolate before guessing:** swap a suspect material for a flat colour for one render. It tells
+    you in 30 s whether a defect is texture, shadow or geometry.
+15. **Compare against an approved shot of the same episode** side by side. If yours has less depth,
+    less contrast or less motion, it is not done.
+
 ## Ideation: the gag for each line (do this before any JSON)
 
 For every narration line, write 3-5 candidate sight gags, then pick one. A good gag is:

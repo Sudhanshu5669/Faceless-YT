@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.1",
+  "id": "dream_town",
+  "title": "In This Town, Nobody Is Allowed to Dream",
+  "set": "specs/sets/dream_town_opening.json",
+  "look": "night_fog",
+  "format": {"resolution": [1080, 1920], "fps": 30},
+  "lines": [],
+  "gags": [{"id": "opening_scene", "script": "gags/opening_scene.gd",
+    "t": 0, "at": {"anchor": "lane"}, "params": {}}],
+  "reveals": [{"id": "dream_dot", "t": 0, "shape": "sphere",
+    "at": {"anchor": "opening_scene.dot"}, "size": 0.22,
+    "color": "#ffdd33", "glow": 3.0, "enter": "none", "bob": 0.05}],
+  "shots": [{"name": "opening", "duration": 4.0,
+    "camera": {
+      "from": {"at": {"anchor": "lane", "offset": [0, 3.1, 12]},
+        "look_at": {"anchor": "lane", "offset": [0, 3.4, -1]}, "lens_mm": 26},
+      "to": {"at": {"anchor": "lane", "offset": [0, 3.1, 10.8]},
+        "look_at": {"anchor": "lane", "offset": [0, 3.4, -1]}, "lens_mm": 26},
+      "ease": "in_out"}}]
+}
