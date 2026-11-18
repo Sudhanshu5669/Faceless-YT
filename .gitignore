@@ -32,3 +32,18 @@ incoming/
 # Imported asset packs: rebuild with `python pipeline/tf.py assets import`
 godot/assets/
 library/thumbs/
+
+# Episode thumbnails are rendered by thumbnail/*.gd scripts (keep the scripts)
+episodes/*/thumbnail/*.png
+
+# Claude Code per-machine settings
+.claude/settings.local.json
+
+# Editors and OS junk
+.vscode/
+.idea/
+*.swp
+*.tmp
+Thumbs.db
+desktop.ini
+.DS_Store
