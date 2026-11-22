@@ -1,0 +1,214 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "pokhran",
+    "generator": "stage",
+    "seed": 1998,
+    "params": {
+      "bays": [
+        {
+          "id": "desk",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "range",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "orbit",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "office",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "bunker",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "airstrip",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "village",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "lawn",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "capitol",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "lok_sabha",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "rashtrapati",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "school",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        }
+      ]
+    }
+  },
+  "look": {
+    "base": "night_fog",
+    "time": "22:00",
+    "weather": {
+      "fog": 0.05
+    },
+    "ambient": {
+      "color": "#7a849c",
+      "energy": 0.15
+    },
+    "sun": {
+      "energy": 0
+    },
+    "moon": {
+      "energy": 0.05,
+      "visible": false
+    },
+    "grade": {
+      "contrast": 1.05,
+      "vignette": 0.2
+    }
+  }
+}

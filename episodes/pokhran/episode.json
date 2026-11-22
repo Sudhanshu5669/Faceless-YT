@@ -1,0 +1,1965 @@
+{
+ "schema_version": "0.1",
+ "id": "pokhran",
+ "title": "India Blew Up the White House",
+ "description": "Pokhran-II (Operation Shakti), May 1998: how India hid its nuclear tests from US spy satellites.",
+ "set": "specs/sets/pokhran.json",
+ "format": {
+  "resolution": [
+   1080,
+   1920
+  ],
+  "fps": 60,
+  "motion_blur": 2
+ },
+ "narration": {
+  "model": "gemini-3.8-flash-tts",
+  "voice": "Charon",
+  "single_take": true,
+  "style": "gripping true-story narrator for a YouTube Short, telling a heist: brisk, confident and a little sly, conspiratorial and hushed in the secret night work, tense while the team waits on the wind, then proud and punchy at the announcement",
+  "speed": 1.0
+ },
+ "captions": {
+  "enabled": true,
+  "max_words": 2,
+  "position": 0.87
+ },
+ "ambience": [
+  {
+   "sound": "beat",
+   "gain": -21,
+   "duck": 0.55
+  }
+ ],
+ "sfx": [],
+ "lines": [
+  {
+   "id": "l1a",
+   "shot": "hook_feed",
+   "at": 0.2,
+   "text": "On May 11th, 1998, India blew up the White House."
+  },
+  {
+   "id": "l1b",
+   "shot": "hook_analyst",
+   "at": 0.05,
+   "text": "And America only found out when India announced it."
+  },
+  {
+   "id": "l2a",
+   "shot": "snow_globe",
+   "at": 0.15,
+   "text": "Not that White House."
+  },
+  {
+   "id": "l2b",
+   "shot": "range_noon",
+   "at": 0.05,
+   "text": "A shaft in the Rajasthan desert,"
+  },
+  {
+   "id": "l2c",
+   "shot": "shaft_dive",
+   "at": 0.0,
+   "text": "two hundred metres deep,"
+  },
+  {
+   "id": "l2d",
+   "shot": "lid_chalk",
+   "at": 0.0,
+   "text": "code-named White House."
+  },
+  {
+   "id": "l2e",
+   "shot": "device_inside",
+   "at": 0.1,
+   "text": "With a hydrogen bomb inside."
+  },
+  {
+   "id": "l3a",
+   "shot": "rewind",
+   "at": 0.25,
+   "text": "Rewind to 1995."
+  },
+  {
+   "id": "l3b",
+   "shot": "range_1995",
+   "at": 0.1,
+   "text": "Imagine you're India's nuclear team, getting ready to test right here."
+  },
+  {
+   "id": "l3c",
+   "shot": "sat_turn",
+   "at": 0.05,
+   "text": "But American spy satellites are watching."
+  },
+  {
+   "id": "l4a",
+   "shot": "nyt_slap",
+   "at": 0.15,
+   "text": "The New York Times prints it."
+  },
+  {
+   "id": "l4b",
+   "shot": "wisner_photos",
+   "at": 0.0,
+   "text": "The US ambassador shows up with the photos."
+  },
+  {
+   "id": "l4c",
+   "shot": "rao_phone",
+   "at": 0.0,
+   "text": "President Clinton calls your Prime Minister."
+  },
+  {
+   "id": "l4d",
+   "shot": "shovel_back",
+   "at": 0.0,
+   "text": "Test cancelled."
+  },
+  {
+   "id": "l5a",
+   "shot": "office_1998",
+   "at": 0.25,
+   "text": "Now it's 1998."
+  },
+  {
+   "id": "l5b",
+   "shot": "vajpayee_order",
+   "at": 0.05,
+   "text": "A new Prime Minister, Atal Bihari Vajpayee, gives the order: do it again."
+  },
+  {
+   "id": "l5c",
+   "shot": "same_desert",
+   "at": 0.1,
+   "text": "Same desert. Same satellites."
+  },
+  {
+   "id": "l5d",
+   "shot": "team_lookup",
+   "at": 0.0,
+   "text": "But this time, they must see nothing."
+  },
+  {
+   "id": "l6a",
+   "shot": "night_work",
+   "at": 0.2,
+   "text": "So you work only at night."
+  },
+  {
+   "id": "l6b",
+   "shot": "truck_park",
+   "at": 0.05,
+   "text": "And by sunrise, every truck is back in its exact parking spot,"
+  },
+  {
+   "id": "l6c",
+   "shot": "photos_same",
+   "at": 0.0,
+   "text": "so the morning photos look the same."
+  },
+  {
+   "id": "l7a",
+   "shot": "dune_shape",
+   "at": 0.15,
+   "text": "The sand you dig out? Shaped by hand into dunes, the way the wind would make them."
+  },
+  {
+   "id": "l7b",
+   "shot": "net_drape",
+   "at": 0.05,
+   "text": "The shafts hide under camouflage nets."
+  },
+  {
+   "id": "l8a",
+   "shot": "pass_watch",
+   "at": 0.2,
+   "text": "When a satellite passes overhead,"
+  },
+  {
+   "id": "l8b",
+   "shot": "statue",
+   "at": 0.0,
+   "text": "work stops."
+  },
+  {
+   "id": "l8c",
+   "shot": "cricket",
+   "at": 0.15,
+   "text": "In between, the soldiers play cricket,"
+  },
+  {
+   "id": "l8d",
+   "shot": "cricket_feed",
+   "at": 0.0,
+   "text": "so the pictures show a bored army camp."
+  },
+  {
+   "id": "l9a",
+   "shot": "jeep_arrive",
+   "at": 0.2,
+   "text": "Your scientists arrive dressed as soldiers."
+  },
+  {
+   "id": "l9b",
+   "shot": "kalam_tape",
+   "at": 0.05,
+   "text": "Even India's missile man, Abdul Kalam, gets a fake army name: Prithviraj."
+  },
+  {
+   "id": "l10a",
+   "shot": "an32_land",
+   "at": 0.2,
+   "text": "The bombs arrive at dawn: flown in from Mumbai on an air force plane,"
+  },
+  {
+   "id": "l10b",
+   "shot": "convoy",
+   "at": 0.0,
+   "text": "then driven into the desert by an army convoy."
+  },
+  {
+   "id": "l11a",
+   "shot": "cage_lower",
+   "at": 0.15,
+   "text": "Three go down into the shafts."
+  },
+  {
+   "id": "l11b",
+   "shot": "lid_wh",
+   "at": 0.05,
+   "text": "Code names: White House,"
+  },
+  {
+   "id": "l11c",
+   "shot": "lid_taj",
+   "at": 0.0,
+   "text": "Taj Mahal,"
+  },
+  {
+   "id": "l11d",
+   "shot": "lid_kumbh",
+   "at": 0.0,
+   "text": "and Kumbhkaran."
+  },
+  {
+   "id": "l12a",
+   "shot": "clock_nine",
+   "at": 0.25,
+   "text": "May 11th. Everything is set for nine a.m."
+  },
+  {
+   "id": "l12b",
+   "shot": "windsock",
+   "at": 0.05,
+   "text": "Then the wind blows the wrong way."
+  },
+  {
+   "id": "l12c",
+   "shot": "village_far",
+   "at": 0.0,
+   "text": "If anything leaks, it must not drift toward people."
+  },
+  {
+   "id": "l13a",
+   "shot": "wait_row",
+   "at": 0.2,
+   "text": "So the most secret team in India just waits.",
+   "style": "Slower and deadpan."
+  },
+  {
+   "id": "l13b",
+   "shot": "wait_clock",
+   "at": 0.1,
+   "text": "Six hours. Staring at the wind.",
+   "style": "Slow, dry, deadpan."
+  },
+  {
+   "id": "l14a",
+   "shot": "wind_turns",
+   "at": 0.3,
+   "text": "At three forty-five p.m., the wind turns.",
+   "style": "Tense, hushed."
+  },
+  {
+   "id": "l14b",
+   "shot": "key_turn",
+   "at": 0.05,
+   "text": "The key turns.",
+   "style": "Tense, hushed."
+  },
+  {
+   "id": "l14c",
+   "shot": "desert_jumps",
+   "at": 0.05,
+   "text": "The desert jumps.",
+   "style": "Punchy."
+  },
+  {
+   "id": "l14d",
+   "shot": "khetolai_crack",
+   "at": 0.15,
+   "text": "In Khetolai, the nearest village, people say their walls cracked."
+  },
+  {
+   "id": "l15a",
+   "shot": "presser_walk",
+   "at": 0.25,
+   "text": "Hours later, Vajpayee walks out to the cameras:"
+  },
+  {
+   "id": "l15b",
+   "shot": "presser_quote",
+   "at": 0.05,
+   "text": "Today, at fifteen forty-five hours, India conducted three underground nuclear tests in the Pokhran range.",
+   "style": "Read as a quote: measured, formal, proud."
+  },
+  {
+   "id": "l16a",
+   "shot": "phones_ring",
+   "at": 0.2,
+   "text": "In Washington, the phones start ringing."
+  },
+  {
+   "id": "l16b",
+   "shot": "analyst_feed",
+   "at": 0.0,
+   "text": "America's spies had missed the whole thing."
+  },
+  {
+   "id": "l17a",
+   "shot": "senator",
+   "at": 0.15,
+   "text": "A US senator calls it a colossal failure."
+  },
+  {
+   "id": "l17b",
+   "shot": "review_drop",
+   "at": 0.05,
+   "text": "The CIA's own review finds it simply assumed India would never test."
+  },
+  {
+   "id": "l18a",
+   "shot": "two_more",
+   "at": 0.2,
+   "text": "Two days later, you test two more."
+  },
+  {
+   "id": "l18b",
+   "shot": "lok_sabha",
+   "at": 0.05,
+   "text": "On May 27th, Vajpayee tells Parliament: India is now a nuclear weapon state.",
+   "style": "Proud and firm."
+  },
+  {
+   "id": "l19a",
+   "shot": "kalam_cap",
+   "at": 0.3,
+   "text": "Four years later, the scientist with the fake army name,"
+  },
+  {
+   "id": "l19c",
+   "shot": "never_noticed",
+   "at": 0.0,
+   "text": "the one the satellites never noticed,"
+  },
+  {
+   "id": "l19b",
+   "shot": "rashtrapati",
+   "at": 0.0,
+   "text": "becomes the President of India.",
+   "style": "Warm and proud."
+  },
+  {
+   "id": "l20",
+   "shot": "tech_day",
+   "at": 0.3,
+   "text": "And every May 11th, India celebrates National Technology Day."
+  },
+  {
+   "id": "l21a",
+   "shot": "end_range",
+   "at": 0.25,
+   "text": "All because of one afternoon in the desert,"
+  },
+  {
+   "id": "l21b",
+   "shot": "end_feed",
+   "at": 0.0,
+   "text": "when India blew up the White House.",
+   "style": "Sly, landing the punchline."
+  }
+ ],
+ "actors": [],
+ "gags": [],
+ "reveals": [],
+ "shots": [
+  {
+   "name": "hook_feed",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "hook_analyst",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "snow_globe",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "range_noon",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "shaft_dive",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "lid_chalk",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "device_inside",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "rewind",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "range_1995",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "sat_turn",
+   "camera": {
+    "at": {
+     "anchor": "orbit",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "orbit",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "nyt_slap",
+   "camera": {
+    "at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "wisner_photos",
+   "camera": {
+    "at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "rao_phone",
+   "camera": {
+    "at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "shovel_back",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "office_1998",
+   "camera": {
+    "at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "vajpayee_order",
+   "camera": {
+    "at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "office",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "same_desert",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "team_lookup",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "night_work",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "truck_park",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "photos_same",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "dune_shape",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "net_drape",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "pass_watch",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "statue",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "cricket",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "cricket_feed",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "jeep_arrive",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "kalam_tape",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "an32_land",
+   "camera": {
+    "at": {
+     "anchor": "airstrip",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "airstrip",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "convoy",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "cage_lower",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "lid_wh",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "lid_taj",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "lid_kumbh",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "clock_nine",
+   "camera": {
+    "at": {
+     "anchor": "bunker",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "bunker",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "windsock",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "village_far",
+   "camera": {
+    "at": {
+     "anchor": "village",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "village",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "wait_row",
+   "camera": {
+    "at": {
+     "anchor": "bunker",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "bunker",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "wait_clock",
+   "camera": {
+    "at": {
+     "anchor": "bunker",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "bunker",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "wind_turns",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "key_turn",
+   "camera": {
+    "at": {
+     "anchor": "bunker",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "bunker",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "desert_jumps",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "khetolai_crack",
+   "camera": {
+    "at": {
+     "anchor": "village",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "village",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "presser_walk",
+   "camera": {
+    "at": {
+     "anchor": "lawn",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "lawn",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "presser_quote",
+   "camera": {
+    "at": {
+     "anchor": "lawn",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "lawn",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "phones_ring",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "analyst_feed",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "senator",
+   "camera": {
+    "at": {
+     "anchor": "capitol",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "capitol",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "review_drop",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "two_more",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "lok_sabha",
+   "camera": {
+    "at": {
+     "anchor": "lok_sabha",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "lok_sabha",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "kalam_cap",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "never_noticed",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "rashtrapati",
+   "camera": {
+    "at": {
+     "anchor": "rashtrapati",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "rashtrapati",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "tech_day",
+   "camera": {
+    "at": {
+     "anchor": "school",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "school",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "end_range",
+   "camera": {
+    "at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "range",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "end_feed",
+   "camera": {
+    "at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "desk",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  }
+ ]
+}
