@@ -36,8 +36,8 @@
   {
    "id": "l1a",
    "shot": "hook_feed",
-   "at": 0.2,
-   "text": "On May 11th, 1998, India blew up the White House."
+   "at": 0.05,
+   "text": "India blew up the White House."
   },
   {
    "id": "l1b",
@@ -47,7 +47,7 @@
   },
   {
    "id": "l2a",
-   "shot": "snow_globe",
+   "shot": "feed_rewind",
    "at": 0.15,
    "text": "Not that White House."
   },
@@ -485,13 +485,23 @@
     ]
    },
    "params": {
-    "blast": [
-     {
+    "wh": {
+     "blast": {
       "line": "l1a",
       "word": "blew",
       "offset": -0.05
+     },
+     "rewind": {
+      "line": "l2a",
+      "word": "Not",
+      "offset": -0.05
+     },
+     "switch": {
+      "line": "l2a",
+      "word": "White",
+      "offset": 0.05
      }
-    ],
+    },
     "rewind": {
      "from": {
       "line": "l3a",
@@ -502,10 +512,6 @@
       "word": "1995.",
       "offset": 0.4
      }
-    },
-    "knock": {
-     "line": "l2a",
-     "offset": -0.35
     },
     "tv": {
      "on": {
@@ -590,22 +596,22 @@
      "at": {
       "anchor": "desk",
       "offset": [
-       0.4,
-       1.46,
-       3000.09
+       0.12,
+       1.14,
+       2999.09
       ]
      },
      "look_at": {
       "anchor": "desk",
       "offset": [
-       -0.02,
-       1.0,
+       -0.01,
+       1.01,
        2998.14
       ]
      },
-     "lens_mm": 36,
+     "lens_mm": 38,
      "dof": {
-      "strength": 0.25
+      "strength": 0.2
      }
     },
     "to": {
@@ -804,37 +810,45 @@
    }
   },
   {
-   "name": "snow_globe",
+   "name": "feed_rewind",
    "camera": {
     "from": {
      "at": {
       "anchor": "desk",
       "offset": [
-       -0.42,
-       0.74,
-       2998.82
+       -0.0,
+       1.02,
+       2998.66
       ]
      },
-     "look_at": "office_us.globe",
-     "lens_mm": 60,
-     "dof": {
-      "strength": 0.6
-     }
+     "look_at": {
+      "anchor": "desk",
+      "offset": [
+       -0.0,
+       1.02,
+       2998.14
+      ]
+     },
+     "lens_mm": 40
     },
     "to": {
      "at": {
       "anchor": "desk",
       "offset": [
-       -0.45,
-       0.72,
-       2998.76
+       -0.0,
+       1.02,
+       2998.61
       ]
      },
-     "look_at": "office_us.globe",
-     "lens_mm": 70,
-     "dof": {
-      "strength": 0.7
-     }
+     "look_at": {
+      "anchor": "desk",
+      "offset": [
+       -0.0,
+       1.02,
+       2998.14
+      ]
+     },
+     "lens_mm": 40
     },
     "ease": "in_out"
    },
@@ -894,7 +908,8 @@
     "practical_lights": {
      "level": 0
     }
-   }
+   },
+   "hold": 0.45
   },
   {
    "name": "range_noon",

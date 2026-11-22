@@ -31,9 +31,9 @@ NARRATION = {"model": "gemini-3.8-flash-tts", "voice": "Charon", "single_take": 
 
 # (line id, first shot, start inside that shot, text, optional style)
 LINES = [
-    ("l1a", "hook_feed", 0.2, "On May 11th, 1998, India blew up the White House.", None),
+    ("l1a", "hook_feed", 0.05, "India blew up the White House.", None),
     ("l1b", "hook_analyst", 0.05, "And America only found out when India announced it.", None),
-    ("l2a", "snow_globe", 0.15, "Not that White House.", None),
+    ("l2a", "feed_rewind", 0.15, "Not that White House.", None),
     ("l2b", "range_noon", 0.05, "A shaft in the Rajasthan desert,", None),
     ("l2c", "shaft_dive", 0.0, "two hundred metres deep,", None),
     ("l2d", "lid_chalk", 0.0, "code-named White House.", None),
@@ -95,7 +95,7 @@ LINES = [
 
 # (shot, place) in edit order. Cameras and durations are filled in place by place (see beats.md).
 SHOTS = [
-    ("hook_feed", "desk"), ("hook_analyst", "desk"), ("snow_globe", "desk"),
+    ("hook_feed", "desk"), ("hook_analyst", "desk"), ("feed_rewind", "desk"),
     ("range_noon", "range"), ("shaft_dive", "range"), ("lid_chalk", "range"), ("device_inside", "range"),
     ("rewind", "desk"), ("range_1995", "range"), ("sat_turn", "orbit"),
     ("nyt_slap", "office"), ("wisner_photos", "office"), ("rao_phone", "office"), ("shovel_back", "range"),

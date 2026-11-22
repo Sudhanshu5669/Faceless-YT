@@ -9,7 +9,9 @@ extends RefCounted
 ## leaks through the slats in hard stripes (real shadows of real slats).
 ##
 ## params:
-##   blast   [t, ...]  the ground on the feed lifts and throws a dust ring (11 May tests)
+##   wh      {"blast", "rewind", "switch"}  the hook: the feed shows America's White House, which blows up at
+##           `blast`; from `rewind` the tape runs backwards; at `switch` the feed glitches over to Pokhran
+##   blast   [t, ...]  the ground on the Pokhran feed lifts and throws a dust ring (11 May tests)
 ##   rewind  {"from", "until"}  the feed rewinds like a VHS tape; the stamp rolls 1998 -> 1995
 ##   tv      {"on": t, "cam": point, "look": point, "fov": deg}  the wall TV flicks on and shows the
 ##           live view of a SubViewport camera placed in the world (the PM's lawn), from `on`
@@ -35,15 +37,79 @@ const PH := "incoming/polyhaven_pokhran/models/"
 const FEED := """
 shader_type spatial;
 render_mode unshaded, cull_disabled;
-uniform float t = 0.0;
+uniform float t = 0.0;           // feed time (runs backwards while the tape rewinds)
+uniform float tr = 0.0;          // real time (grain, tracking bars)
 uniform float blast = 1000000.0;
 uniform float rewind = 0.0;      // 0..1 strength of the tape-rewind look
+uniform float scene = 1.0;       // 0 = the White House, Washington; 1 = the Pokhran range
+uniform float glitch = 0.0;      // 0..1 the feed switching source
 uniform float energy = 0.62;
 uniform float power = 1.0;       // 0 = off
 uniform sampler2D aerial : source_color, filter_linear_mipmap, repeat_enable;
 varying vec2 uv2;
 //NOISE
 void vertex() { uv2 = UV; }
+
+
+float sdr(vec2 p, vec2 c, vec2 h) { vec2 d = abs(p - c) - h; return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0); }
+float fill(float sd) { return 1.0 - smoothstep(-0.2, 0.25, sd); }
+
+float wh_build(vec2 m) {
+	// The buildings' footprint, metres (north up): the residence, porticoes, colonnades, East and West Wings.
+	float b = fill(sdr(m, vec2(0.0, 0.0), vec2(26.0, 11.5)));
+	b = max(b, fill(length(m - vec2(0.0, 11.5)) - 8.5) * step(11.0, m.y));
+	b = max(b, fill(sdr(m, vec2(0.0, -14.5), vec2(9.0, 3.5))));
+	b = max(b, fill(sdr(m, vec2(-40.0, 1.0), vec2(14.0, 3.0))));
+	b = max(b, fill(sdr(m, vec2(39.0, 0.0), vec2(13.0, 3.0))));
+	b = max(b, fill(sdr(m, vec2(-68.0, 2.0), vec2(13.0, 14.0))));
+	b = max(b, fill(sdr(m, vec2(66.0, 0.0), vec2(12.0, 10.0))));
+	return b;
+}
+
+float whitehouse(vec2 w) {
+	// America's White House from orbit, greyscale, at real proportions (metres, north up): the residence with the
+	// round South Portico, the north drive's arc and fountain, the South Lawn opening to the south with its
+	// fountain, the colonnades and wings, dense tree crowns round the grounds, shadows from a low morning sun.
+	vec2 m = w * 420.0;
+	vec3 ph = texture(aerial, m * 0.006 + vec2(0.7, 0.2)).rgb;
+	float grain = dot(ph, vec3(0.33)) - 0.45;
+	float g = 0.4 + 0.08 * (fbm(vec3(m * 0.03, 2.0)) - 0.5) + 0.06 * grain;
+	g += 0.018 * sin((m.x + 0.3 * m.y) * 0.5) * step(14.0, m.y);
+	// The north drive (an arc) and the south drive (a wide oval, mostly beyond the frame).
+	float nd = abs(length((m - vec2(0.0, -14.0)) * vec2(1.0, 1.1)) - 46.0);
+	g = mix(g, 0.72 + 0.03 * grain, (1.0 - smoothstep(1.8, 2.6, nd)) * step(m.y, -14.0));
+	float sd = abs(length((m - vec2(0.0, 98.0)) * vec2(0.74, 1.0)) - 78.0);
+	g = mix(g, 0.72 + 0.03 * grain, (1.0 - smoothstep(1.6, 2.4, sd)) * step(10.0, m.y));
+	for (int i = 0; i < 2; i++) {
+		vec2 c = i == 0 ? vec2(0.0, -44.0) : vec2(0.0, 62.0);
+		float rr = i == 0 ? 4.0 : 5.5;
+		float r = length(m - c);
+		g = mix(g, 0.2, 1.0 - smoothstep(rr, rr + 0.4, r));
+		g = mix(g, 0.84, 1.0 - smoothstep(0.3, 0.8, abs(r - rr - 0.6)));
+	}
+	// Tree crowns: clumps round the grounds (thick east and west, a screen along the south), each with a
+	// lit top, a dark core and a cast shadow; never on the drives, lawns' centre or the buildings.
+	float lawn = (1.0 - smoothstep(30.0, 44.0, abs(m.x))) * step(-60.0, m.y);
+	float dens = clamp(smoothstep(34.0, 56.0, abs(m.x)) + smoothstep(48.0, 64.0, m.y) * smoothstep(12.0, 30.0, abs(m.x)), 0.0, 1.0) * (1.0 - lawn * 0.6);
+	float crown = smoothstep(0.5, 0.62, fbm(vec3(m * 0.11, 5.0)) + 0.25 * dens) * dens;
+	float crs = smoothstep(0.5, 0.62, fbm(vec3((m + vec2(-3.0, 1.0)) * 0.11, 5.0)) + 0.25 * dens) * dens;
+	float leaf = n3(vec3(m * 1.4, 6.0)) * 0.5 + n3(vec3(m * 3.1, 7.0)) * 0.5;
+	g = mix(g, g * 0.5, crs * (1.0 - crown) * 0.8);
+	g = mix(g, 0.18 + 0.2 * leaf + 0.1 * smoothstep(0.55, 0.75, fbm(vec3(m * 0.11 + 0.6, 5.0))), crown);
+	// Building shadows (morning sun from the east), then the roofs.
+	float sh = wh_build(m + vec2(3.5, 1.0));
+	float b = wh_build(m);
+	g *= 1.0 - 0.5 * sh * (1.0 - b);
+	float roof = 0.84 + 0.05 * grain;
+	float wings = max(fill(sdr(m, vec2(-68.0, 2.0), vec2(13.0, 14.0))), fill(sdr(m, vec2(66.0, 0.0), vec2(12.0, 10.0))));
+	roof = mix(roof, 0.6 + 0.05 * grain, wings);
+	float inner = fill(sdr(m, vec2(0.0, 0.0), vec2(24.0, 9.8)));
+	roof -= 0.1 * inner;
+	roof += 0.06 * fill(sdr(m, vec2(0.0, 0.0), vec2(16.0, 4.0)));
+	roof -= 0.3 * step(0.93, n3(vec3(floor(m * 0.6), 4.0))) * inner;
+	g = mix(g, roof, b);
+	return g;
+}
 
 float terrain(vec2 p) {
 	// A real aerial photograph of stony ground (Poly Haven, CC0), greyed, as the desert floor seen from orbit,
@@ -92,10 +158,12 @@ void fragment() {
 	// Shake after the blast; tape jitter while rewinding.
 	vec2 jit = vec2(0.0);
 	if (db > 0.0) jit += vec2(sin(db * 61.0), cos(db * 47.0)) * 0.012 * exp(-db * 2.2);
-	jit.x += rewind * (0.02 * sin(uv.y * 40.0 + t * 30.0) + 0.05 * step(0.92, fract(uv.y * 3.0 - t * 2.0)));
-	vec2 w = (uv + jit - 0.5) * vec2(0.42, 0.32) * 1.0 + vec2(0.004 * t, 0.0015 * t) - vec2(0.0, 0.0);
-	w.x -= rewind * t * 0.4;
-	float g = terrain(w);
+	jit.x += rewind * (0.02 * sin(uv.y * 40.0 + tr * 30.0) + 0.05 * step(0.92, fract(uv.y * 3.0 - tr * 2.0)));
+	// Switching source: blocks of the picture tear sideways.
+	float band = floor(uv.y * 14.0 + floor(tr * 20.0));
+	jit.x += glitch * 0.15 * (h3(vec3(band, floor(tr * 24.0), 3.0)) - 0.5) * step(0.5, h3(vec3(band, floor(tr * 24.0), 8.0)));
+	vec2 w = (uv + jit - 0.5) * vec2(0.42, 0.32) + vec2(0.0025 * t, 0.001 * t);
+	float g = scene < 0.5 ? whitehouse(w) : terrain(w);
 	// The blast: the ground domes up (a bright crown with a shadowed edge), then a ring of dust rolls out.
 	if (db > 0.0) {
 		float r = length(w);
@@ -109,7 +177,8 @@ void fragment() {
 	}
 	// Sensor look: contrast, grain, a slight vignette.
 	g = clamp((g - 0.5) * 1.45 + 0.5, 0.02, 0.97);
-	g += (h3(vec3(uv * 900.0, floor(t * 24.0))) - 0.5) * 0.1;
+	g += (h3(vec3(uv * 900.0, floor(tr * 24.0))) - 0.5) * (0.1 + 0.5 * glitch);
+	g = mix(g, 0.9, glitch * 0.35 * step(0.7, h3(vec3(floor(uv.y * 40.0), floor(tr * 24.0), 2.0))));
 	// Overlay: crosshair, corner brackets, ticks along the edges.
 	vec2 o = uv - 0.5;
 	float ch = (1.0 - smoothstep(0.0012, 0.0024, abs(o.x))) * step(0.03, abs(o.y)) * step(abs(o.y), 0.12);
@@ -119,10 +188,10 @@ void fragment() {
 	float tick = step(abs(uv.y - 0.025), 0.008) * step(fract(uv.x * 20.0), 0.06) + step(abs(uv.x - 0.02), 0.008) * step(fract(uv.y * 16.0), 0.06);
 	g = mix(g, 1.0, clamp(ch + br + tick, 0.0, 1.0) * 0.85);
 	// Rewind: bright horizontal tracking bars and colour bleed.
-	g += rewind * 0.5 * step(0.96, fract(uv.y * 2.0 + t * 3.0));
+	g += rewind * 0.5 * step(0.96, fract(uv.y * 2.0 + tr * 3.0));
 	// Scanlines and a slow rolling bar, phosphor tint (cold), RGB fringe.
 	float scan = 0.82 + 0.18 * sin(uv.y * 900.0);
-	float roll = 0.94 + 0.06 * sin(uv.y * 6.0 - t * 1.7);
+	float roll = 0.94 + 0.06 * sin(uv.y * 6.0 - tr * 1.7);
 	vec3 col = vec3(g) * vec3(0.86, 0.97, 1.0) * scan * roll;
 	col.r *= 1.0 - 0.06 * sin(uv.x * 1400.0);
 	float vig = 1.0 - 0.55 * pow(length(o) * 1.35, 2.6);
@@ -225,6 +294,7 @@ var _globe: Node3D
 var _fluoro: MeshInstance3D
 var _fluoro_light: Light3D
 var _stamp: Label3D
+var _coord: Label3D
 var _clock: Label3D
 
 
@@ -338,8 +408,8 @@ func _desk(root: Node3D) -> void:
 	mono.font_names = PackedStringArray(["Consolas", "Lucida Console", "Courier New", "monospace"])
 	_stamp = Kit.text(mon, stamp + "  10:15:00Z", 0.014, Color("eaf6ff"), Vector3(-0.07, SCREEN.y - DESK_TOP + 0.138, 0.086), Vector3.ZERO, false, 0.55)
 	_stamp.font = mono
-	var coord := Kit.text(mon, "27 05N  071 45E", 0.011, Color("d6ebff"), Vector3(0.12, SCREEN.y - DESK_TOP - 0.143, 0.086), Vector3.ZERO, false, 0.5)
-	coord.font = mono
+	_coord = Kit.text(mon, "27 05N  071 45E", 0.011, Color("d6ebff"), Vector3(0.12, SCREEN.y - DESK_TOP - 0.143, 0.086), Vector3.ZERO, false, 0.5)
+	_coord.font = mono
 	# A second CRT angled in, green terminal text; a beige tower; keyboard, mouse, papers.
 	var mon2 := Node3D.new()
 	mon2.position = Vector3(-0.66, DESK_TOP, -1.86)
@@ -548,26 +618,52 @@ func _tv(root: Node3D) -> void:
 func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_p = g.get("params", {})
 	var gt := node.global_transform
-	# The feed: time, blasts (the latest one that has started), rewind.
-	_feed_mat.set_shader_parameter("t", t)
-	var blast := 1e6
-	for b in _p.get("blast", []):
-		if float(b) <= t:
-			blast = float(b) if blast > 1e5 else maxf(blast, float(b))
-	_feed_mat.set_shader_parameter("blast", blast)
-	var rw = _p.get("rewind", {})
+	# The feed. The hook (params "wh"): the White House blows up at `blast`; from `rewind` the tape runs
+	# backwards (feed time falls back past the blast, faster and faster); at `switch` the feed glitches over to
+	# the Pokhran range. Later shots use "blast" (Pokhran test times) and "rewind" (1998 -> 1995).
+	var wh = _p.get("wh", {})
+	var ft := t
+	var scene := 1.0
 	var rew := 0.0
+	var glitch := 0.0
+	var blast := 1e6
+	if wh is Dictionary and wh.has("blast"):
+		var tb := float(wh["blast"])
+		var tr0 := float(wh.get("rewind", 1e9))
+		var ts := float(wh.get("switch", 1e9))
+		if t < ts:
+			scene = 0.0
+			if t >= tr0:
+				var k := clampf((t - tr0) / maxf(ts - tr0, 0.05), 0.0, 1.0)
+				ft = lerpf(tr0, tb - 0.4, Motion.in_cubic(k))
+				rew = clampf((t - tr0) / 0.12, 0.0, 1.0)
+			blast = tb if ft >= tb else 1e6
+		else:
+			rew = 1.0 - clampf((t - ts) / 0.3, 0.0, 1.0)
+		glitch = exp(-pow((t - ts) / 0.12, 2.0))
+	if scene > 0.5:
+		for bt in _p.get("blast", []):
+			if float(bt) <= t:
+				blast = float(bt) if blast > 1e5 else maxf(blast, float(bt))
 	var year := 1998
+	var rw = _p.get("rewind", {})
 	if rw is Dictionary and rw.has("from"):
 		var a := float(rw["from"])
 		var b := float(rw.get("until", a + 1.5))
-		rew = clampf((t - a) / 0.25, 0.0, 1.0) * (1.0 - clampf((t - b) / 0.25, 0.0, 1.0))
+		var r2 := clampf((t - a) / 0.25, 0.0, 1.0) * (1.0 - clampf((t - b) / 0.25, 0.0, 1.0))
+		rew = maxf(rew, r2)
 		if t >= a:
 			year = int(round(lerpf(1998.0, 1995.0, Motion.in_out(clampf((t - a) / maxf(b - a, 0.1), 0.0, 1.0)))))
+	_feed_mat.set_shader_parameter("t", ft)
+	_feed_mat.set_shader_parameter("tr", t)
+	_feed_mat.set_shader_parameter("blast", blast)
 	_feed_mat.set_shader_parameter("rewind", rew)
-	var secs := int(floor(t)) % 60
+	_feed_mat.set_shader_parameter("scene", scene)
+	_feed_mat.set_shader_parameter("glitch", glitch)
+	var secs := int(floor(ft)) % 60
 	var stamp := String(_p.get("stamp", "11 MAY 1998")).replace("1998", str(year))
 	_stamp.text = "%s  10:15:%02dZ" % [stamp, secs]
+	_coord.text = "38 53N  077 02W" if scene < 0.5 else "27 05N  071 45E"
 	# The fluorescent tube's faint flicker (a dying starter).
 	var fl := 0.92 + 0.08 * sin(t * 47.0) * sin(t * 3.1)
 	if fmod(t * 0.7, 5.0) < 0.06:

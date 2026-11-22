@@ -38,26 +38,26 @@ ACTORS = [
 ]
 
 GAGS = [{"id": "office_us", "script": "gags/analyst_room.gd", "t": 0, "at": P(0, 0, 0),
-         "params": {"blast": [W("l1a", "blew", -0.05)],
+         "params": {"wh": {"blast": W("l1a", "blew", -0.05), "rewind": W("l2a", "Not", -0.05),
+                           "switch": W("l2a", "White", 0.05)},
                     "rewind": {"from": W("l3a", "Rewind"), "until": W("l3a", "1995.", 0.4)},
-                    "knock": W("l2a", None, -0.35),
                     "tv": {"on": ANNOUNCED, "cam": lawn.TV_CAM, "look": lawn.TV_LOOK, "fov": 26.0}}}]
 
 SX, SY, SZ = SCREEN
 SHOTS = {
-    # Over the sleeping analyst's shoulder, push in until the feed fills the frame as the ground blows up.
+    # Cold open: on the monitor, push in to the feed (America's White House) as it blows up.
     "hook_feed": {"look": LOOK, "camera": move(
-        cam(P(SX - 0.4, SY + 0.44, SZ + 1.95), P(SX + 0.02, SY - 0.02, SZ), 36, {"strength": 0.25}),
+        cam(P(SX - 0.12, SY + 0.12, SZ + 0.95), P(SX + 0.01, SY - 0.01, SZ), 38, {"strength": 0.2}),
         cam(P(SX, SY, SZ + 0.5), P(SX, SY, SZ), 40), "out"),
         "shake": [{"t": W("l1a", "blew", 0.0), "amount": 0.55}]},
     # Reverse: from beside the monitor at the analyst asleep; the TV behind him flicks on; he jolts awake.
     "hook_analyst": {"look": LOOK, "camera": move(
         cam(P(-0.17, 0.9, -1.67), P(0.17, 1.4, 0.8), 16, {"strength": 0.12}),
         cam(P(-0.14, 0.94, -1.56), P(0.16, 1.48, 0.8), 18, {"strength": 0.15}), "in_out")},
-    # Macro on the snow globe as the snow swirls.
-    "snow_globe": {"look": LOOK, "camera": move(
-        cam(P(0.42, 0.74, -1.18), "office_us.globe", 60, {"strength": 0.6}),
-        cam(P(0.45, 0.72, -1.24), "office_us.globe", 70, {"strength": 0.7}), "in_out")},
+    # Back on the feed, framed as hook_feed ends: the blast rewinds, then the feed switches to Pokhran.
+    "feed_rewind": {"look": LOOK, "hold": 0.45, "camera": move(
+        cam(P(SX, SY, SZ + 0.52), P(SX, SY, SZ), 40),
+        cam(P(SX, SY, SZ + 0.47), P(SX, SY, SZ), 40), "in_out")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

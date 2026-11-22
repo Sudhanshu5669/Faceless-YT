@@ -1,4 +1,4 @@
-# "India blew up the White House": script draft v1 (for approval)
+# "India blew up the White House": script v2 (approved 2026-11-22; hook revised: no date, the feed shows the real White House, then rewinds to Pokhran)
 
 Format: toon Short, 9:16, English narration. Second person ("you" = India's test team), told as a
 heist: proud, fast, lightly cheeky toward the spies, never jokey about the weapon itself. Each
@@ -9,12 +9,14 @@ sight gags, not narration. About 400 words, roughly 155-165 s (we trim after the
 
 **HOOK**
 
-1. On May 11th, 1998, India blew up the White House. And America only found out when India announced it.
-   *[Langley, night: a sleepy American analyst with a coffee mug watches a satellite feed of empty desert.
-   The dunes on the screen jump on "blew up". Behind him a TV flicks on: Vajpayee at a microphone, on "announced".]*
+1. India blew up the White House. And America only found out when India announced it.
+   *[Cold open on a US analyst's satellite feed: America's White House from orbit, the South Lawn and the
+   portico. On "blew up" the ground domes and a dust ring rolls out. Reverse: the analyst asleep at his desk; the
+   TV behind him flicks on: Vajpayee at microphones, on "announced".]*
 2. Not that White House. A shaft in the Rajasthan desert, two hundred metres deep, code-named "White House". With a hydrogen bomb inside.
-   *[Hard cut to the Pokhran range at noon: a steel shaft lid with WHITE HOUSE chalked on it. The camera
-   dives down the dark shaft; depth counter lands on 200 m on "two hundred".]*
+   *[Back to the feed: the blast rewinds like a VHS tape and sucks back into the roof; the feed glitches, the
+   coordinates change, and it is now the Pokhran range. Then the range at noon: a steel shaft plate with WHITE HOUSE
+   chalked on it; the camera dives down the shaft; depth counter lands on 200 m.]*
 
 **ACT 1: CAUGHT**
 
