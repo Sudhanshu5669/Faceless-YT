@@ -28,7 +28,7 @@ take in `output/tts_cache/` by model, voice, style and text.
 | Field | Meaning |
 |---|---|
 | `voice` | A speaker for the selected model, such as Gemini `Charon` or Qwen `Ryan`. Defaults to `narration.voice`. |
-| `style` | Short delivery direction. Gemini receives a bracket tag. Qwen receives a separate instruction. |
+| `style` | Short delivery direction. Gemini receives a bracket tag (with `narration.single_take`, an inline tag before the line inside the one request, so the take changes mood line by line; captions and alignment use the plain text). Qwen receives a separate instruction. |
 | `speed` | Time-stretch with pitch kept (ffmpeg `atempo`); word times are rescaled. |
 | `shot`, `at` | The line starts `at` seconds into that shot (it may run past the cut). |
 | `fx` | `toy` (pitched up, band-limited, bit-crushed) or `toy_chorus` (many toys, out of sync). |

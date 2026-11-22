@@ -13,10 +13,11 @@
   "motion_blur": 2
  },
  "narration": {
-  "model": "gemini-3.8-flash-tts",
+  "model": "gemini-3.8-flash-lite-tts",
   "voice": "Charon",
   "single_take": true,
-  "style": "gripping true-story narrator for a YouTube Short, telling a heist: brisk, confident and a little sly, conspiratorial and hushed in the secret night work, tense while the team waits on the wind, then proud and punchy at the announcement",
+  "inline_tags": true,
+  "style": "highly expressive, gripping storyteller for a viral YouTube Short about a true heist",
   "speed": 1.0
  },
  "captions": {
@@ -37,358 +38,407 @@
    "id": "l1a",
    "shot": "hook_feed",
    "at": 0.05,
-   "text": "India blew up the White House."
+   "text": "India blew up the White House.",
+   "style": "mischievously"
   },
   {
    "id": "l1b",
    "shot": "hook_analyst",
    "at": 0.05,
-   "text": "And America only found out when India announced it."
+   "text": "And America only found out when India announced it.",
+   "style": "sarcastic"
   },
   {
    "id": "l2a",
    "shot": "feed_rewind",
    "at": 0.15,
-   "text": "Not that White House."
+   "text": "Not that White House.",
+   "style": "laughs"
   },
   {
    "id": "l2b",
    "shot": "range_noon",
    "at": 0.05,
-   "text": "A shaft in the Rajasthan desert,"
+   "text": "A shaft in the Rajasthan desert,",
+   "style": "whispers"
   },
   {
    "id": "l2c",
    "shot": "shaft_dive",
    "at": 0.0,
-   "text": "two hundred metres deep,"
+   "text": "two hundred metres deep,",
+   "style": "whispers"
   },
   {
    "id": "l2d",
    "shot": "lid_chalk",
    "at": 0.0,
-   "text": "code-named White House."
+   "text": "code-named White House.",
+   "style": "mischievously"
   },
   {
    "id": "l2e",
    "shot": "device_inside",
    "at": 0.1,
-   "text": "With a hydrogen bomb inside."
+   "text": "With a hydrogen bomb inside.",
+   "style": "whispers"
   },
   {
    "id": "l3a",
    "shot": "rewind",
    "at": 0.25,
-   "text": "Rewind to 1995."
+   "text": "Rewind to 1995.",
+   "style": "serious"
   },
   {
    "id": "l3b",
    "shot": "range_1995",
    "at": 0.1,
-   "text": "Imagine you're India's nuclear team, getting ready to test right here."
+   "text": "Imagine you're India's nuclear team, getting ready to test right here.",
+   "style": "excited"
   },
   {
    "id": "l3c",
    "shot": "sat_turn",
    "at": 0.05,
-   "text": "But American spy satellites are watching."
+   "text": "But American spy satellites are watching.",
+   "style": "tense"
   },
   {
    "id": "l4a",
    "shot": "nyt_slap",
    "at": 0.15,
-   "text": "The New York Times prints it."
+   "text": "The New York Times prints it.",
+   "style": "tense"
   },
   {
    "id": "l4b",
    "shot": "wisner_photos",
    "at": 0.0,
-   "text": "The US ambassador shows up with the photos."
+   "text": "The US ambassador shows up with the photos.",
+   "style": "tense"
   },
   {
    "id": "l4c",
    "shot": "rao_phone",
    "at": 0.0,
-   "text": "President Clinton calls your Prime Minister."
+   "text": "President Clinton calls your Prime Minister.",
+   "style": "tense"
   },
   {
    "id": "l4d",
    "shot": "shovel_back",
    "at": 0.0,
-   "text": "Test cancelled."
+   "text": "Test cancelled.",
+   "style": "sighs"
   },
   {
    "id": "l5a",
    "shot": "office_1998",
    "at": 0.25,
-   "text": "Now it's 1998."
+   "text": "Now it's 1998.",
+   "style": "excited"
   },
   {
    "id": "l5b",
    "shot": "vajpayee_order",
    "at": 0.05,
-   "text": "A new Prime Minister, Atal Bihari Vajpayee, gives the order: do it again."
+   "text": "A new Prime Minister, Atal Bihari Vajpayee, gives the order: do it again.",
+   "style": "proud"
   },
   {
    "id": "l5c",
    "shot": "same_desert",
    "at": 0.1,
-   "text": "Same desert. Same satellites."
+   "text": "Same desert. Same satellites.",
+   "style": "serious"
   },
   {
    "id": "l5d",
    "shot": "team_lookup",
    "at": 0.0,
-   "text": "But this time, they must see nothing."
+   "text": "But this time, they must see nothing.",
+   "style": "whispers"
   },
   {
    "id": "l6a",
    "shot": "night_work",
    "at": 0.2,
-   "text": "So you work only at night."
+   "text": "So you work only at night.",
+   "style": "whispers"
   },
   {
    "id": "l6b",
    "shot": "truck_park",
    "at": 0.05,
-   "text": "And by sunrise, every truck is back in its exact parking spot,"
+   "text": "And by sunrise, every truck is back in its exact parking spot,",
+   "style": "mischievously"
   },
   {
    "id": "l6c",
    "shot": "photos_same",
    "at": 0.0,
-   "text": "so the morning photos look the same."
+   "text": "so the morning photos look the same.",
+   "style": "chuckles"
   },
   {
    "id": "l7a",
    "shot": "dune_shape",
    "at": 0.15,
-   "text": "The sand you dig out? Shaped by hand into dunes, the way the wind would make them."
+   "text": "The sand you dig out? Shaped by hand into dunes, the way the wind would make them.",
+   "style": "excited"
   },
   {
    "id": "l7b",
    "shot": "net_drape",
    "at": 0.05,
-   "text": "The shafts hide under camouflage nets."
+   "text": "The shafts hide under camouflage nets.",
+   "style": "whispers"
   },
   {
    "id": "l8a",
    "shot": "pass_watch",
    "at": 0.2,
-   "text": "When a satellite passes overhead,"
+   "text": "When a satellite passes overhead,",
+   "style": "tense"
   },
   {
    "id": "l8b",
    "shot": "statue",
    "at": 0.0,
-   "text": "work stops."
+   "text": "work stops.",
+   "style": "whispers"
   },
   {
    "id": "l8c",
    "shot": "cricket",
    "at": 0.15,
-   "text": "In between, the soldiers play cricket,"
+   "text": "In between, the soldiers play cricket,",
+   "style": "laughs"
   },
   {
    "id": "l8d",
    "shot": "cricket_feed",
    "at": 0.0,
-   "text": "so the pictures show a bored army camp."
+   "text": "so the pictures show a bored army camp.",
+   "style": "sarcastic"
   },
   {
    "id": "l9a",
    "shot": "jeep_arrive",
    "at": 0.2,
-   "text": "Your scientists arrive dressed as soldiers."
+   "text": "Your scientists arrive dressed as soldiers.",
+   "style": "chuckles"
   },
   {
    "id": "l9b",
    "shot": "kalam_tape",
    "at": 0.05,
-   "text": "Even India's missile man, Abdul Kalam, gets a fake army name: Prithviraj."
+   "text": "Even India's missile man, Abdul Kalam, gets a fake army name: Prithviraj.",
+   "style": "mischievously"
   },
   {
    "id": "l10a",
    "shot": "an32_land",
    "at": 0.2,
-   "text": "The bombs arrive at dawn: flown in from Mumbai on an air force plane,"
+   "text": "The bombs arrive at dawn: flown in from Mumbai on an air force plane,",
+   "style": "serious"
   },
   {
    "id": "l10b",
    "shot": "convoy",
    "at": 0.0,
-   "text": "then driven into the desert by an army convoy."
+   "text": "then driven into the desert by an army convoy.",
+   "style": "serious"
   },
   {
    "id": "l11a",
    "shot": "cage_lower",
    "at": 0.15,
-   "text": "Three go down into the shafts."
+   "text": "Three go down into the shafts.",
+   "style": "serious"
   },
   {
    "id": "l11b",
    "shot": "lid_wh",
    "at": 0.05,
-   "text": "Code names: White House,"
+   "text": "Code names: White House,",
+   "style": "mischievously"
   },
   {
    "id": "l11c",
    "shot": "lid_taj",
    "at": 0.0,
-   "text": "Taj Mahal,"
+   "text": "Taj Mahal,",
+   "style": "mischievously"
   },
   {
    "id": "l11d",
    "shot": "lid_kumbh",
    "at": 0.0,
-   "text": "and Kumbhkaran."
+   "text": "and Kumbhkaran.",
+   "style": "laughs"
   },
   {
    "id": "l12a",
    "shot": "clock_nine",
    "at": 0.25,
-   "text": "May 11th. Everything is set for nine a.m."
+   "text": "May 11th. Everything is set for nine a.m.",
+   "style": "tense"
   },
   {
    "id": "l12b",
    "shot": "windsock",
    "at": 0.05,
-   "text": "Then the wind blows the wrong way."
+   "text": "Then the wind blows the wrong way.",
+   "style": "sighs"
   },
   {
    "id": "l12c",
    "shot": "village_far",
    "at": 0.0,
-   "text": "If anything leaks, it must not drift toward people."
+   "text": "If anything leaks, it must not drift toward people.",
+   "style": "serious"
   },
   {
    "id": "l13a",
    "shot": "wait_row",
    "at": 0.2,
    "text": "So the most secret team in India just waits.",
-   "style": "Slower and deadpan."
+   "style": "deadpan"
   },
   {
    "id": "l13b",
    "shot": "wait_clock",
    "at": 0.1,
    "text": "Six hours. Staring at the wind.",
-   "style": "Slow, dry, deadpan."
+   "style": "deadpan"
   },
   {
    "id": "l14a",
    "shot": "wind_turns",
    "at": 0.3,
    "text": "At three forty-five p.m., the wind turns.",
-   "style": "Tense, hushed."
+   "style": "tense"
   },
   {
    "id": "l14b",
    "shot": "key_turn",
    "at": 0.05,
    "text": "The key turns.",
-   "style": "Tense, hushed."
+   "style": "whispers"
   },
   {
    "id": "l14c",
    "shot": "desert_jumps",
    "at": 0.05,
    "text": "The desert jumps.",
-   "style": "Punchy."
+   "style": "shouting"
   },
   {
    "id": "l14d",
    "shot": "khetolai_crack",
    "at": 0.15,
-   "text": "In Khetolai, the nearest village, people say their walls cracked."
+   "text": "In Khetolai, the nearest village, people say their walls cracked.",
+   "style": "serious"
   },
   {
    "id": "l15a",
    "shot": "presser_walk",
    "at": 0.25,
-   "text": "Hours later, Vajpayee walks out to the cameras:"
+   "text": "Hours later, Vajpayee walks out to the cameras:",
+   "style": "proud"
   },
   {
    "id": "l15b",
    "shot": "presser_quote",
    "at": 0.05,
    "text": "Today, at fifteen forty-five hours, India conducted three underground nuclear tests in the Pokhran range.",
-   "style": "Read as a quote: measured, formal, proud."
+   "style": "serious"
   },
   {
    "id": "l16a",
    "shot": "phones_ring",
    "at": 0.2,
-   "text": "In Washington, the phones start ringing."
+   "text": "In Washington, the phones start ringing.",
+   "style": "excited"
   },
   {
    "id": "l16b",
    "shot": "analyst_feed",
    "at": 0.0,
-   "text": "America's spies had missed the whole thing."
+   "text": "America's spies had missed the whole thing.",
+   "style": "sarcastic"
   },
   {
    "id": "l17a",
    "shot": "senator",
    "at": 0.15,
-   "text": "A US senator calls it a colossal failure."
+   "text": "A US senator calls it a colossal failure.",
+   "style": "sarcastic"
   },
   {
    "id": "l17b",
    "shot": "review_drop",
    "at": 0.05,
-   "text": "The CIA's own review finds it simply assumed India would never test."
+   "text": "The CIA's own review finds it simply assumed India would never test.",
+   "style": "laughs"
   },
   {
    "id": "l18a",
    "shot": "two_more",
    "at": 0.2,
-   "text": "Two days later, you test two more."
+   "text": "Two days later, you test two more.",
+   "style": "proud"
   },
   {
    "id": "l18b",
    "shot": "lok_sabha",
    "at": 0.05,
    "text": "On May 27th, Vajpayee tells Parliament: India is now a nuclear weapon state.",
-   "style": "Proud and firm."
+   "style": "proud"
   },
   {
    "id": "l19a",
    "shot": "kalam_cap",
    "at": 0.3,
-   "text": "Four years later, the scientist with the fake army name,"
+   "text": "Four years later, the scientist with the fake army name,",
+   "style": "proud"
   },
   {
    "id": "l19c",
    "shot": "never_noticed",
    "at": 0.0,
-   "text": "the one the satellites never noticed,"
+   "text": "the one the satellites never noticed,",
+   "style": "chuckles"
   },
   {
    "id": "l19b",
    "shot": "rashtrapati",
    "at": 0.0,
    "text": "becomes the President of India.",
-   "style": "Warm and proud."
+   "style": "excited"
   },
   {
    "id": "l20",
    "shot": "tech_day",
    "at": 0.3,
-   "text": "And every May 11th, India celebrates National Technology Day."
+   "text": "And every May 11th, India celebrates National Technology Day.",
+   "style": "proud"
   },
   {
    "id": "l21a",
    "shot": "end_range",
    "at": 0.25,
-   "text": "All because of one afternoon in the desert,"
+   "text": "All because of one afternoon in the desert,",
+   "style": "serious"
   },
   {
    "id": "l21b",
    "shot": "end_feed",
    "at": 0.0,
    "text": "when India blew up the White House.",
-   "style": "Sly, landing the punchline."
+   "style": "mischievously"
   }
  ],
  "actors": [

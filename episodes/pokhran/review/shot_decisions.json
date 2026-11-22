@@ -1,0 +1,23 @@
+{
+  "hook_feed": {
+    "status": "approved",
+    "note": "hook approved 2026-11-22",
+    "updated": "2026-11-22 21:40:28",
+    "fingerprint": "36dec4ff2446",
+    "history": []
+  },
+  "hook_analyst": {
+    "status": "approved",
+    "note": "hook approved 2026-11-22",
+    "updated": "2026-11-22 21:40:29",
+    "fingerprint": "ec2de7c98efc",
+    "history": []
+  },
+  "feed_rewind": {
+    "status": "approved",
+    "note": "hook approved 2026-11-22",
+    "updated": "2026-11-22 21:40:29",
+    "fingerprint": "00e964174e61",
+    "history": []
+  }
+}

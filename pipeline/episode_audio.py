@@ -25,7 +25,7 @@ from pathlib import Path
 import align
 import tts
 
-NARRATION_KEYS = {"voice", "style", "model", "speed", "batch_words", "single_take", "script"}
+NARRATION_KEYS = {"voice", "style", "model", "speed", "batch_words", "single_take", "script", "inline_tags", "max_pause"}
 LINE_KEYS = {"id", "text", "voice", "style", "fx", "shot", "at", "gain", "caption", "speed"}
 SFX_KEYS = {"sound", "file", "at", "gain", "repeat", "every", "salt"}
 AMBIENCE_KEYS = {"sound", "gain", "curve", "duck"}
@@ -164,6 +164,36 @@ SINGLE_LEAD = 0.12   # silence before the take starts
 SINGLE_TAIL = 0.45   # after the last spoken word
 
 
+def _check_verbatim(wav, script_text: str) -> None:
+    """Fail when a take does not say the script: TTS can read its direction aloud or improvise (a long, specific
+    style made Gemini invent lines, 2026-11-22). The forced aligner would still place every script word, so the
+    take is transcribed and its word count compared with the script's."""
+    from ctc_align import transcribe
+    heard = len(transcribe(wav).split())
+    want = len(align.script_words(script_text))
+    if heard > want * 1.08 + 3:
+        raise EpisodeError(f"ERROR: the take has about {heard} words, the script {want}: the TTS read its direction "
+                           f"aloud or improvised. Shorten the style (no content in it), then delete {wav} to retake")
+
+
+def _check_tags_silent(wav, script_text: str, tags: list[str]) -> None:
+    """Warn when delivery tags were spoken: a tag word heard more often than the script contains it."""
+    from ctc_align import transcribe
+    heard = transcribe(wav).split()
+    plain = re.sub(r"[^a-z' ]", " ", script_text.lower()).split()
+    leaked = []
+    for tag in dict.fromkeys(t.lower() for t in tags):
+        for word in tag.split():
+            stem = word[:5].upper()
+            n_heard = sum(1 for h in heard if h.startswith(stem))
+            n_script = sum(1 for p in plain if p.upper().startswith(stem))
+            if n_heard > n_script:
+                leaked.append(f"{word} x{n_heard - n_script}")
+    if leaked:
+        print(f"[TownForge] WARNING: delivery tags read aloud in the take: {', '.join(leaked)}. "
+              f"Use other tags, another model, or narration.inline_tags false; delete {wav} to retake")
+
+
 def _single_take(ep: dict, narr: dict, model: str) -> tuple[list, dict]:
     """The whole script in ONE TTS request (one continuous performance), aligned,
     then cut at the line boundaries. Each line is placed back at its own moment in
@@ -178,7 +208,16 @@ def _single_take(ep: dict, narr: dict, model: str) -> tuple[list, dict]:
         raise EpisodeError("ERROR: single_take: the lines' texts must be the first entries of narration.script, in order")
     voice, style = narr.get("voice", "Charon"), narr.get("style", "")
     joined = " ".join(script)
-    wav = tts.synthesize(joined, voice, style, model)
+    # narration.inline_tags: each line's `style` goes in as an inline [tag] before that line in the one request, so
+    # the take changes mood line by line. Only short one-word tags are performed silently (whispers, laughs, sighs,
+    # excited, ...), and some models read even those aloud, so the take is transcribed and leaked tags are reported.
+    inline = bool(narr.get("inline_tags"))
+    tags = [eplines[k].get("style", "").strip() if inline and k < len(eplines) else "" for k in range(len(script))]
+    spoken = " ".join((f"[{tags[k]}] " if tags[k] else "") + t for k, t in enumerate(script))
+    wav = tts.synthesize(spoken, voice, style, model)
+    _check_verbatim(wav, joined)
+    if inline and any(tags):
+        _check_tags_silent(wav, joined, [t for t in tags if t])
     words = [w for w in align.words(wav, joined) if not w.get("extra")]
     counts = [len(align.script_words(t)) for t in script]
     dur = tts.duration(wav)
@@ -188,6 +227,8 @@ def _single_take(ep: dict, narr: dict, model: str) -> tuple[list, dict]:
         raise EpisodeError(f"ERROR: the single take stops early ({dur:.1f} s); unspoken: {' '.join(late[:12])}. "
                            f"Delete {wav} (and its .words.json) to retake")
     take = {"wav": str(wav), "dur": dur, "words": words}
+    if narr.get("max_pause"):
+        take = _tighten(take, float(narr["max_pause"]))
     speed = float(narr.get("speed", 1.0))
     if abs(speed - 1.0) > 0.001:
         take = _tempo(take, speed)
@@ -443,6 +484,64 @@ def _effect_file(ep_dir: Path, filename: str) -> str:
     except (OSError, EOFError, wave.Error) as exc:
         raise EpisodeError(f"ERROR: cannot read sound file {filename}: {exc}") from exc
     return str(path)
+
+
+def _tighten(take: dict, max_pause: float, floor_db: float = -42.0) -> dict:
+    """Shorten silent stretches of a take to at most `max_pause` seconds and remap its word times. Silence is
+    measured on the audio (10 ms RMS below `floor_db` relative to the take's peak), never on word timings, so
+    whispered speech the aligner is unsure about is never cut."""
+    import numpy as np
+    src = Path(take["wav"])
+    dst = src.with_name(f"{src.stem}_p{max_pause:.2f}.wav")
+    with wave.open(str(src), "rb") as w:
+        rate, ch, sw = w.getframerate(), w.getnchannels(), w.getsampwidth()
+        pcm = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)
+    hop = int(rate * 0.01)
+    n = len(pcm) // hop
+    frames = pcm[:n * hop].astype(np.float32).reshape(n, hop)
+    rms = np.sqrt((frames ** 2).mean(axis=1) + 1e-9)
+    db = 20 * np.log10(rms / (rms.max() + 1e-9))
+    quiet = db < floor_db
+    keep = int(max_pause / 0.01)
+    cuts = []   # (start_s, removed_s) in source time
+    i = 0
+    while i < n:
+        if quiet[i]:
+            j = i
+            while j < n and quiet[j]:
+                j += 1
+            if j - i > keep:
+                a = i + keep // 2          # keep half the allowed pause on each side
+                b = j - (keep - keep // 2)
+                cuts.append((a * hop, b * hop))
+            i = j
+        else:
+            i += 1
+    if not dst.exists():
+        parts, last = [], 0
+        for a, b in cuts:
+            parts.append(pcm[last:a])
+            last = b
+        parts.append(pcm[last:])
+        with wave.open(str(dst), "wb") as w:
+            w.setnchannels(ch)
+            w.setsampwidth(sw)
+            w.setframerate(rate)
+            w.writeframes(np.concatenate(parts).astype(np.int16).tobytes())
+
+    def remap(t: float) -> float:
+        x = int(t * rate)
+        removed = 0
+        for a, b in cuts:
+            if x >= b:
+                removed += b - a
+            elif x > a:
+                removed += x - a
+        return (x - removed) / rate
+
+    ws = [{**w, "s": round(remap(w["s"]), 3), "e": round(remap(w["e"]), 3)} for w in take["words"]]
+    print(f"[TownForge] tightened pauses to {max_pause:.2f} s: {take['dur']:.1f} s -> {tts.duration(dst):.1f} s")
+    return {"wav": str(dst), "dur": tts.duration(dst), "words": ws}
 
 
 def _tempo(take: dict, speed: float) -> dict:

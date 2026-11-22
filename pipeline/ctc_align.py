@@ -324,3 +324,18 @@ def align(wav_path: Path, words: list[str]) -> list[dict]:
             r["s"] = r["e"] = nxt
         nxt = r["s"]
     return out
+
+
+def transcribe(wav_path: Path) -> str:
+    """Greedy CTC transcript of a take (upper case, no punctuation): used to check that bracketed delivery tags
+    were performed, not read aloud."""
+    _, vocab = _load()
+    inv = {v: k for k, v in vocab.items()}
+    blank = vocab.get("<pad>", 0)
+    ids = _logits(_decode(Path(wav_path))).argmax(-1)
+    out, prev = [], -1
+    for i in ids:
+        if i != prev and i != blank:
+            out.append(inv.get(int(i), ""))
+        prev = i
+    return "".join(out).replace("|", " ").strip()
