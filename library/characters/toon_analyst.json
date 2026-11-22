@@ -1,0 +1,30 @@
+{
+  "id": "toon_analyst",
+  "description": "US imagery analyst, 1998 (fictional stand-in for 'America's spies'): receding brown hair, rectangular glasses, short-sleeved white shirt, loosened navy tie, ID badge.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#6b4a32"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#eeede8",
+      "tie": "#1f2d55",
+      "badge": "#d9dde4"
+    },
+    "shoes": "#2a2420",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "sleepy",
+    "girth": 1.12
+  }
+}

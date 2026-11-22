@@ -1,0 +1,620 @@
+extends RefCounted
+## A US imagery analyst's office near Washington, the night of 10-11 May 1998 (EDT): 15:45 IST is 06:15
+## in Washington, the end of a night shift. A stand-in for "America's spies" (no real person).
+##
+## Local frame: the floor centre is the origin; the analyst's desk stands against the front wall (z -2.2),
+## its top at y 0.62; the analyst sits at (0, 0, -0.6) facing -z, at the hero CRT (screen centre
+## SCREEN). The wall TV hangs on the back wall (z +2.2) on a bracket, facing -z. The window with venetian
+## blinds is in the -x wall (frame right when the camera looks +z from the desk): sodium street light
+## leaks through the slats in hard stripes (real shadows of real slats).
+##
+## params:
+##   blast   [t, ...]  the ground on the feed lifts and throws a dust ring (11 May tests)
+##   rewind  {"from", "until"}  the feed rewinds like a VHS tape; the stamp rolls 1998 -> 1995
+##   tv      {"on": t, "cam": point, "look": point, "fov": deg}  the wall TV flicks on and shows the
+##           live view of a SubViewport camera placed in the world (the PM's lawn), from `on`
+##   knock   t   the analyst's elbow knocks the snow globe; the snow swirls
+##   stamp   "11 MAY 1998"  the date on the feed (default)
+## anchors: screen, tv, globe, mug, desk, chair, window
+
+const Kit = preload("res://scripts/world/gag_kit.gd")
+const Motion = preload("res://scripts/timeline/motion.gd")
+
+const ROOM := Vector3(5.2, 2.65, 4.4)
+const DESK_TOP := 0.62
+const SCREEN := Vector3(0.0, 1.02, -1.86)      # hero CRT screen centre (faces +z)
+const SCREEN_SIZE := Vector2(0.44, 0.33)
+const TV_AT := Vector3(-0.55, 1.95, 2.0)       # wall TV screen centre (faces -z)
+const TV_SIZE := Vector2(0.78, 0.585)
+const GLOBE_AT := Vector3(0.52, DESK_TOP, -1.42)
+const MUG_AT := Vector3(-0.42, DESK_TOP, -1.38)
+const PH := "incoming/polyhaven_pokhran/models/"
+
+## The satellite feed: a greyscale top-down view of the Pokhran range drifting under the crosshair, on a
+## curved CRT with scanlines, RGB fringing and phosphor glow. blast: the ground lifts, a dust ring rolls out.
+const FEED := """
+shader_type spatial;
+render_mode unshaded, cull_disabled;
+uniform float t = 0.0;
+uniform float blast = 1000000.0;
+uniform float rewind = 0.0;      // 0..1 strength of the tape-rewind look
+uniform float energy = 0.62;
+uniform float power = 1.0;       // 0 = off
+uniform sampler2D aerial : source_color, filter_linear_mipmap, repeat_enable;
+varying vec2 uv2;
+//NOISE
+void vertex() { uv2 = UV; }
+
+float terrain(vec2 p) {
+	// A real aerial photograph of stony ground (Poly Haven, CC0), greyed, as the desert floor seen from orbit,
+	// with broad tone variation and scrub bushes (dark dots with shadows) on top.
+	vec3 ph = texture(aerial, p * 4.5 + vec2(0.31, 0.17)).rgb;
+	float g = dot(ph, vec3(0.3, 0.55, 0.15));
+	g = 0.2 + 0.95 * g;
+	g += 0.16 * (fbm(vec3(p * 2.0, 1.0)) - 0.5);
+	float bush = smoothstep(0.88, 0.96, n3(vec3(p * 130.0, 7.0)));
+	float bsh = smoothstep(0.88, 0.96, n3(vec3((p + vec2(0.0015, -0.0015)) * 130.0, 7.0)));
+	g -= 0.2 * bush + 0.1 * bsh * (1.0 - bush);
+	// A dirt track sweeping through, two wheel ruts.
+	float d = abs(p.y - 0.12 * sin(p.x * 2.2) - 0.18 + 0.05 * p.x);
+	g += 0.07 * (1.0 - smoothstep(0.004, 0.012, d));
+	g -= 0.08 * (1.0 - smoothstep(0.0, 0.002, abs(d - 0.006)));
+	// The site at the origin: a scraped pad, a square steel plate, a spoil heap, tents and trucks.
+	vec2 q = p;
+	float pad = 1.0 - smoothstep(0.035, 0.05, length(q * vec2(1.0, 1.3)));
+	g = mix(g, 0.6, pad * 0.35);
+	float plate = step(abs(q.x), 0.004) * step(abs(q.y), 0.004);
+	g = mix(g, 0.18, plate);
+	float heap = 1.0 - smoothstep(0.0, 0.018, length((q - vec2(0.03, -0.012)) * vec2(1.0, 1.8)));
+	g += 0.12 * heap;
+	g -= 0.25 * (1.0 - smoothstep(0.0, 0.012, length((q - vec2(0.038, -0.022)) * vec2(1.4, 3.0)))) * (1.0 - heap);
+	for (int i = 0; i < 5; i++) {
+		vec2 c = vec2(-0.09 + 0.022 * float(i), 0.055 + 0.004 * float(i % 2));
+		float tent = step(abs(q.x - c.x), 0.007) * step(abs(q.y - c.y), 0.005);
+		g = mix(g, 0.86, tent);
+		g -= 0.3 * step(abs(q.x - c.x - 0.004), 0.007) * step(abs(q.y - c.y + 0.006), 0.002) * (1.0 - tent);
+	}
+	for (int i = 0; i < 3; i++) {
+		vec2 c = vec2(0.07 + 0.016 * float(i), 0.03);
+		float truck = step(abs(q.x - c.x), 0.0035) * step(abs(q.y - c.y), 0.009);
+		g = mix(g, 0.35, truck);
+	}
+	return g;
+}
+
+void fragment() {
+	vec2 uv = uv2;
+	// CRT barrel distortion.
+	vec2 cc = uv - 0.5;
+	uv = 0.5 + cc * (1.0 + 0.09 * dot(cc, cc));
+	float inside = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);
+	float db = t - blast;
+	// Shake after the blast; tape jitter while rewinding.
+	vec2 jit = vec2(0.0);
+	if (db > 0.0) jit += vec2(sin(db * 61.0), cos(db * 47.0)) * 0.012 * exp(-db * 2.2);
+	jit.x += rewind * (0.02 * sin(uv.y * 40.0 + t * 30.0) + 0.05 * step(0.92, fract(uv.y * 3.0 - t * 2.0)));
+	vec2 w = (uv + jit - 0.5) * vec2(0.42, 0.32) * 1.0 + vec2(0.004 * t, 0.0015 * t) - vec2(0.0, 0.0);
+	w.x -= rewind * t * 0.4;
+	float g = terrain(w);
+	// The blast: the ground domes up (a bright crown with a shadowed edge), then a ring of dust rolls out.
+	if (db > 0.0) {
+		float r = length(w);
+		float dome = exp(-db * 0.6) * (1.0 - smoothstep(0.0, 0.05 + 0.02 * min(db, 1.0), r));
+		g += 0.35 * dome * (1.0 - exp(-db * 6.0));
+		float ring = 0.03 + 0.09 * (1.0 - exp(-db * 1.4));
+		float band = exp(-pow((r - ring) / (0.012 + 0.02 * min(db, 1.5)), 2.0));
+		float dust = (1.0 - smoothstep(0.0, ring, r)) * (0.5 + 0.5 * fbm(vec3(w * 40.0, db)));
+		g = mix(g, 0.78, clamp(band * 0.7 + dust * 0.4 * min(db * 2.0, 1.0), 0.0, 0.7));
+		g -= 0.18 * exp(-pow((r - ring - 0.02) / 0.012, 2.0)) * min(db, 1.0);
+	}
+	// Sensor look: contrast, grain, a slight vignette.
+	g = clamp((g - 0.5) * 1.45 + 0.5, 0.02, 0.97);
+	g += (h3(vec3(uv * 900.0, floor(t * 24.0))) - 0.5) * 0.1;
+	// Overlay: crosshair, corner brackets, ticks along the edges.
+	vec2 o = uv - 0.5;
+	float ch = (1.0 - smoothstep(0.0012, 0.0024, abs(o.x))) * step(0.03, abs(o.y)) * step(abs(o.y), 0.12);
+	ch += (1.0 - smoothstep(0.0012, 0.0024, abs(o.y))) * step(0.04, abs(o.x)) * step(abs(o.x), 0.16);
+	vec2 a = abs(o);
+	float br = step(abs(a.x - 0.42), 0.002) * step(0.34, a.y) * step(a.y, 0.43) + step(abs(a.y - 0.43), 0.002) * step(0.34, a.x) * step(a.x, 0.42);
+	float tick = step(abs(uv.y - 0.025), 0.008) * step(fract(uv.x * 20.0), 0.06) + step(abs(uv.x - 0.02), 0.008) * step(fract(uv.y * 16.0), 0.06);
+	g = mix(g, 1.0, clamp(ch + br + tick, 0.0, 1.0) * 0.85);
+	// Rewind: bright horizontal tracking bars and colour bleed.
+	g += rewind * 0.5 * step(0.96, fract(uv.y * 2.0 + t * 3.0));
+	// Scanlines and a slow rolling bar, phosphor tint (cold), RGB fringe.
+	float scan = 0.82 + 0.18 * sin(uv.y * 900.0);
+	float roll = 0.94 + 0.06 * sin(uv.y * 6.0 - t * 1.7);
+	vec3 col = vec3(g) * vec3(0.86, 0.97, 1.0) * scan * roll;
+	col.r *= 1.0 - 0.06 * sin(uv.x * 1400.0);
+	float vig = 1.0 - 0.55 * pow(length(o) * 1.35, 2.6);
+	col *= vig * inside * power;
+	ALBEDO = col * energy;
+}
+"""
+
+## A wall TV: a SubViewport's picture on a curved CRT, with scanlines; turns on with a white line.
+const TV := """
+shader_type spatial;
+render_mode unshaded, cull_disabled;
+uniform sampler2D feed : source_color, filter_linear;
+uniform float on = 0.0;          // seconds since it was switched on (<0: off)
+uniform float energy = 1.2;
+uniform float t = 0.0;
+varying vec2 uv2;
+//NOISE
+void vertex() { uv2 = UV; }
+void fragment() {
+	vec2 uv = uv2;
+	vec2 cc = uv - 0.5;
+	uv = 0.5 + cc * (1.0 + 0.07 * dot(cc, cc));
+	float inside = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);
+	vec3 pic = texture(feed, vec2(uv.x, uv.y)).rgb;
+	// Power-on: a bright horizontal line opens vertically, a flash, then the picture settles.
+	float k = clamp(on / 0.22, 0.0, 1.0);
+	float open = step(abs(uv.y - 0.5), 0.5 * k * k + 0.004);
+	float flash = exp(-max(on, 0.0) * 7.0) * step(0.0, on);
+	vec3 col = pic * open + vec3(0.9, 0.95, 1.0) * flash * open;
+	col *= 0.86 + 0.14 * sin(uv.y * 700.0);
+	col += (h3(vec3(uv * 600.0, floor(t * 30.0))) - 0.5) * 0.05;
+	col *= (1.0 - 0.5 * pow(length(cc) * 1.3, 2.5)) * inside * step(0.0, on);
+	ALBEDO = vec3(0.012, 0.013, 0.015) + col * energy;
+}
+"""
+
+## Office carpet: low-pile blue-grey with a tight speckle and traffic wear.
+const CARPET := """
+shader_type spatial;
+//NOISE
+varying vec3 wp;
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
+void fragment() {
+	float s = h3(floor(wp * 260.0));
+	float m = fbm(wp * 1.3);
+	vec3 base = mix(vec3(0.16, 0.18, 0.22), vec3(0.24, 0.26, 0.3), s);
+	base *= 0.85 + 0.3 * m;
+	base = mix(base, vec3(0.2, 0.19, 0.18), smoothstep(0.6, 0.9, fbm(wp * 0.6 + 3.0)) * 0.4);
+	ALBEDO = base;
+	ROUGHNESS = 0.95;
+}
+"""
+
+## Painted drywall: off-white, faint roller texture, scuffs and grime near the floor.
+const WALL := """
+shader_type spatial;
+//NOISE
+uniform vec3 paint = vec3(0.78, 0.76, 0.7);
+varying vec3 wp;
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
+void fragment() {
+	float r = fbm(wp * 9.0) * 0.06 + fbm(wp * 0.8) * 0.08;
+	vec3 c = paint * (0.92 + r);
+	c *= 1.0 - 0.18 * (1.0 - smoothstep(0.0, 0.35, wp.y - floor(wp.y / 1000.0)));
+	c = mix(c, c * 0.8, smoothstep(0.55, 0.8, fbm(wp * 2.5 + 9.0)) * 0.3);
+	ALBEDO = c;
+	ROUGHNESS = 0.88;
+	SPECULAR = 0.2;
+}
+"""
+
+## Steam over the coffee: soft additive wisps that rise and curl.
+const STEAM := """
+shader_type spatial;
+render_mode unshaded, blend_add, cull_disabled, depth_draw_never;
+uniform float t = 0.0;
+uniform float seed = 0.0;
+varying vec2 uv2;
+//NOISE
+void vertex() { uv2 = UV; }
+void fragment() {
+	vec2 p = uv2;
+	float x = p.x - 0.5 + 0.12 * sin(p.y * 6.0 + t * 1.3 + seed) * p.y;
+	float body = exp(-pow(x / (0.08 + 0.12 * p.y), 2.0));
+	float n = fbm(vec3(p.x * 3.0, p.y * 4.0 - t * 0.7, seed));
+	float a = body * smoothstep(0.0, 0.15, p.y) * (1.0 - smoothstep(0.55, 1.0, p.y)) * smoothstep(0.35, 0.75, n);
+	ALBEDO = vec3(0.55, 0.6, 0.7) * a * 0.35;
+}
+"""
+
+var _p := {}
+var _feed_mat: ShaderMaterial
+var _tv_mat: ShaderMaterial
+var _tv_view: SubViewport
+var _tv_cam: Camera3D
+var _steam: Array = []
+var _globe_snow: MultiMeshInstance3D
+var _globe: Node3D
+var _fluoro: MeshInstance3D
+var _fluoro_light: Light3D
+var _stamp: Label3D
+var _clock: Label3D
+
+
+func build(g: Dictionary) -> Node3D:
+	_p = g.get("params", {})
+	var root := Node3D.new()
+	_shell(root)
+	_window(root)
+	_desk(root)
+	_shelves(root)
+	_tv(root)
+	return root
+
+
+# --- the room ---------------------------------------------------------------------------
+
+func _shell(root: Node3D) -> void:
+	var hx := ROOM.x * 0.5
+	var hz := ROOM.z * 0.5
+	Kit.box(root, Vector3(ROOM.x, 0.04, ROOM.z), Vector3(0, -0.02, 0), Kit.shader(CARPET))
+	var wall := Kit.shader(WALL)
+	Kit.box(root, Vector3(ROOM.x, ROOM.y, 0.12), Vector3(0, ROOM.y * 0.5, -hz - 0.06), wall)
+	Kit.box(root, Vector3(ROOM.x, ROOM.y, 0.12), Vector3(0, ROOM.y * 0.5, hz + 0.06), wall)
+	Kit.box(root, Vector3(0.12, ROOM.y, ROOM.z), Vector3(hx + 0.06, ROOM.y * 0.5, 0), wall)
+	# The window wall (-x) is built around the window opening (z -0.4 .. 1.1, y 0.85 .. 2.05).
+	var wx := -hx - 0.06
+	Kit.box(root, Vector3(0.12, 0.85, ROOM.z), Vector3(wx, 0.425, 0), wall)
+	Kit.box(root, Vector3(0.12, ROOM.y - 2.05, ROOM.z), Vector3(wx, (ROOM.y + 2.05) * 0.5, 0), wall)
+	Kit.box(root, Vector3(0.12, 1.2, hz - 0.4), Vector3(wx, 1.45, (-hz - 0.4) * 0.5), wall)
+	Kit.box(root, Vector3(0.12, 1.2, hz - 1.1), Vector3(wx, 1.45, (hz + 1.1) * 0.5), wall)
+	# Skirting (vinyl cove base), dark grey.
+	var cove := Kit.mat("#2a2a2c", 0.6)
+	Kit.box(root, Vector3(ROOM.x, 0.1, 0.02), Vector3(0, 0.05, -hz + 0.01), cove)
+	Kit.box(root, Vector3(ROOM.x, 0.1, 0.02), Vector3(0, 0.05, hz - 0.01), cove)
+	Kit.box(root, Vector3(0.02, 0.1, ROOM.z), Vector3(hx - 0.01, 0.05, 0), cove)
+	# Drop ceiling: off-white tiles in a T-bar grid; one fluorescent troffer lit (flickering), one dead.
+	var tile := Kit.mat("#bdbab2", 0.95)
+	var grid := Kit.mat("#d8d6d0", 0.5, 0.0, 0.6)
+	Kit.box(root, Vector3(ROOM.x, 0.03, ROOM.z), Vector3(0, ROOM.y + 0.015, 0), tile)
+	var x := -hx
+	while x <= hx + 0.01:
+		Kit.box(root, Vector3(0.025, 0.02, ROOM.z), Vector3(x, ROOM.y - 0.005, 0), grid)
+		x += 0.6
+	var z := -hz
+	while z <= hz + 0.01:
+		Kit.box(root, Vector3(ROOM.x, 0.02, 0.025), Vector3(0, ROOM.y - 0.005, z), grid)
+		z += 0.6
+	for i in 2:
+		var at := Vector3(-0.3 + 1.2 * i, ROOM.y - 0.02, -0.6 + 1.8 * i)
+		Kit.box(root, Vector3(0.6, 0.03, 1.2), at, Kit.mat("#cfcdc6", 0.4))
+		var lens := Kit.box(root, Vector3(0.54, 0.01, 1.14), at - Vector3(0, 0.02, 0), Kit.lit("#dfe9ee", 0.12) if i == 0 else Kit.mat("#8f9396", 0.3))
+		if i == 0:
+			_fluoro = lens
+	_fluoro_light = Kit.spot(root, Vector3(-0.3, ROOM.y - 0.08, -0.6), Vector3(-0.3, 0, -0.4), "#cfe3e8", 0.9, 4.5, 70.0, true, 0.4)
+
+
+func _window(root: Node3D) -> void:
+	var hx := ROOM.x * 0.5
+	var wx := -hx - 0.06
+	# Aluminium frame, the glass, and a night outside: a sodium street lamp below and beyond.
+	var alu := Kit.mat("#9a9b98", 0.35, 0.0, 0.7)
+	Kit.box(root, Vector3(0.14, 0.05, 1.6), Vector3(wx, 0.85, 0.35), alu)
+	Kit.box(root, Vector3(0.14, 0.05, 1.6), Vector3(wx, 2.05, 0.35), alu)
+	for zz in [-0.42, 1.12]:
+		Kit.box(root, Vector3(0.14, 1.25, 0.05), Vector3(wx, 1.45, zz), alu)
+	Kit.box(root, Vector3(0.3, 0.03, 1.6), Vector3(wx + 0.12, 0.84, 0.35), Kit.mat("#cfcbc0", 0.6))
+	# Outside: a dark parking lot facade far off and the lamp's glow.
+	Kit.box(root, Vector3(0.1, 6, 12), Vector3(wx - 9.0, 2, 0.4), Kit.mat("#0b0c10", 0.9))
+	Kit.ball(root, 0.16, Vector3(wx - 3.0, 3.1, 1.6), Kit.lit("#ff9a3a", 10.0), 16)
+	# Venetian blinds: 1-inch aluminium slats, tilted half open, real geometry that throws stripes.
+	var slat := Kit.mat("#c9c6bb", 0.45, 0.0, 0.6)
+	var y := 2.02
+	while y > 0.9:
+		Kit.box(root, Vector3(0.028, 0.002, 1.5), Vector3(wx + 0.1, y, 0.35), slat, Vector3(0, 0, -0.75))
+		y -= 0.024
+	Kit.box(root, Vector3(0.05, 0.04, 1.56), Vector3(wx + 0.1, 2.04, 0.35), Kit.mat("#bdb9ad", 0.5))
+	for zz in [-0.1, 0.8]:
+		Kit.rod(root, Vector3(wx + 0.1, 2.02, zz), Vector3(wx + 0.1, 0.9, zz), 0.0015, Kit.mat("#e8e4d8", 0.6), 4)
+	# The sodium light through the slats: a hard spot from outside, low and from behind the analyst.
+	Kit.spot(root, Vector3(wx - 3.0, 3.1, 1.6), Vector3(0.2, 0.9, -1.2), "#ff9440", 30.0, 9.0, 22.0, true, 1.6)
+
+
+func _desk(root: Node3D) -> void:
+	# The steel desk (Poly Haven, scaled to the toon world), against the front wall.
+	var desk := Kit.model(PH + "metal_office_desk/metal_office_desk_2k.gltf")
+	desk.scale = Vector3.ONE * (DESK_TOP / 0.787)
+	desk.position = Vector3(0, 0, -1.78)
+	root.add_child(desk)
+	# The hero CRT: a 21-inch beige monitor, deep tapered back, the feed on a curved screen.
+	var beige := Kit.mat("#cfc6b0", 0.55, 0.0, 0.45)
+	var beige_d := Kit.mat("#b6ad96", 0.6, 0.0, 0.4)
+	var mon := Node3D.new()
+	mon.position = Vector3(SCREEN.x, DESK_TOP, SCREEN.z - 0.04)
+	root.add_child(mon)
+	Kit.slab(mon, Vector3(0.3, 0.03, 0.26), 0.012, Vector3(0, 0.015, -0.12), beige_d)
+	Kit.cyl(mon, 0.07, 0.09, 0.08, Vector3(0, 0.07, -0.14), beige_d, 20)
+	Kit.slab(mon, Vector3(0.56, 0.46, 0.16), 0.03, Vector3(0, SCREEN.y - DESK_TOP, 0.0), beige)
+	Kit.slab(mon, Vector3(0.44, 0.36, 0.3), 0.06, Vector3(0, SCREEN.y - DESK_TOP + 0.01, -0.2), beige_d)
+	Kit.box(mon, Vector3(0.5, 0.38, 0.01), Vector3(0, SCREEN.y - DESK_TOP, 0.078), Kit.mat("#0a0b0c", 0.2, 0.0, 0.8))
+	Kit.box(mon, Vector3(0.04, 0.012, 0.004), Vector3(0.21, SCREEN.y - DESK_TOP - 0.205, 0.081), Kit.mat("#7c776a", 0.5))
+	Kit.ball(mon, 0.004, Vector3(0.245, SCREEN.y - DESK_TOP - 0.205, 0.082), Kit.lit("#7dff6a", 3.0), 6)
+	_feed_mat = Kit.shader(FEED)
+	_feed_mat.set_shader_parameter("aerial", Kit.texture("incoming/polyhaven_textures/aerial_rocks_02_diff_2k.jpg"))
+	var feed := Kit.quad(mon, SCREEN_SIZE, Vector3(0, SCREEN.y - DESK_TOP, 0.084), _feed_mat)
+	feed.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	# The screen's cold light on the analyst (the key).
+	Kit.spot(root, SCREEN + Vector3(0, 0, 0.15), Vector3(0.25, 1.1, -0.6), "#bfe0ff", 0.3, 3.0, 50.0, true, 0.5)
+	# Stamp and coordinates burned into the feed.
+	var stamp: String = String(_p.get("stamp", "11 MAY 1998"))
+	var mono := SystemFont.new()
+	mono.font_names = PackedStringArray(["Consolas", "Lucida Console", "Courier New", "monospace"])
+	_stamp = Kit.text(mon, stamp + "  10:15:00Z", 0.014, Color("eaf6ff"), Vector3(-0.07, SCREEN.y - DESK_TOP + 0.138, 0.086), Vector3.ZERO, false, 0.55)
+	_stamp.font = mono
+	var coord := Kit.text(mon, "27 05N  071 45E", 0.011, Color("d6ebff"), Vector3(0.12, SCREEN.y - DESK_TOP - 0.143, 0.086), Vector3.ZERO, false, 0.5)
+	coord.font = mono
+	# A second CRT angled in, green terminal text; a beige tower; keyboard, mouse, papers.
+	var mon2 := Node3D.new()
+	mon2.position = Vector3(-0.66, DESK_TOP, -1.86)
+	mon2.rotation = Vector3(0, 0.35, 0)
+	root.add_child(mon2)
+	Kit.slab(mon2, Vector3(0.42, 0.36, 0.14), 0.025, Vector3(0, 0.26, 0), beige)
+	Kit.slab(mon2, Vector3(0.34, 0.28, 0.24), 0.05, Vector3(0, 0.27, -0.17), beige_d)
+	Kit.cyl(mon2, 0.06, 0.08, 0.06, Vector3(0, 0.04, -0.1), beige_d, 18)
+	var term := Kit.quad(mon2, Vector2(0.32, 0.24), Vector3(0, 0.27, 0.071), Kit.lit("#0f2a12", 1.0))
+	term.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	for i in 9:
+		var wv := 0.08 + 0.18 * Kit.rng("term", i).randf()
+		Kit.box(mon2, Vector3(wv, 0.008, 0.001), Vector3(-0.13 + wv * 0.5, 0.37 - 0.022 * i, 0.073), Kit.lit("#4dff6a", 1.4))
+	Kit.omni(root, Vector3(-0.6, 0.95, -1.55), "#3aff6a", 0.06, 1.0, false, 0.1)
+	Kit.slab(root, Vector3(0.2, 0.44, 0.46), 0.015, Vector3(0.82, 0.22, -1.7), beige)
+	Kit.box(root, Vector3(0.012, 0.005, 0.03), Vector3(0.82, 0.38, -1.468), Kit.lit("#ffb020", 2.0))
+	Kit.slab(root, Vector3(0.46, 0.03, 0.17), 0.01, Vector3(0.0, DESK_TOP + 0.015, -1.46), beige)
+	for row in 5:
+		for k in 15:
+			Kit.box(root, Vector3(0.022, 0.008, 0.022), Vector3(-0.2 + 0.028 * k, DESK_TOP + 0.034, -1.52 + 0.028 * row), Kit.mat("#ded6c2", 0.6))
+	Kit.slab(root, Vector3(0.06, 0.03, 0.1), 0.012, Vector3(0.3, DESK_TOP + 0.015, -1.45), beige)
+	# Two beige desk phones with rows of line buttons.
+	for s in [0, 1]:
+		var ph := Node3D.new()
+		ph.position = Vector3(-0.95 + 0.2 * s, DESK_TOP, -1.6 + 0.25 * s)
+		ph.rotation = Vector3(0, 0.25 + 0.2 * s, 0)
+		root.add_child(ph)
+		Kit.slab(ph, Vector3(0.2, 0.07, 0.22), 0.02, Vector3(0, 0.035, 0), beige, Vector3(-0.15, 0, 0))
+		Kit.slab(ph, Vector3(0.22, 0.045, 0.06), 0.022, Vector3(0, 0.09, -0.04), beige_d)
+		for b in 6:
+			Kit.box(ph, Vector3(0.022, 0.006, 0.014), Vector3(-0.07 + 0.028 * b, 0.07, 0.07), Kit.mat("#efe9da", 0.5))
+	# Papers, a clipboard (Poly Haven), notepads, the arm lamp (warm practical, low).
+	var cb := Kit.model(PH + "clipboard/clipboard_2k.gltf")
+	cb.position = Vector3(0.45, DESK_TOP, -1.62)
+	cb.rotation = Vector3(0, -0.5, 0)
+	root.add_child(cb)
+	for i in 4:
+		Kit.box(root, Vector3(0.21, 0.002, 0.29), Vector3(-0.35 + 0.05 * i, DESK_TOP + 0.002 + 0.002 * i, -1.25 - 0.03 * i), Kit.mat("#ece8de", 0.85), Vector3(0, -0.3 + 0.2 * i, 0))
+	var lamp := Kit.model(PH + "desk_lamp_arm_01/desk_lamp_arm_01_2k.gltf")
+	lamp.position = Vector3(-1.2, DESK_TOP, -1.98)
+	lamp.rotation = Vector3(0, 2.3, 0)
+	root.add_child(lamp)
+	Kit.spot(root, Vector3(-1.05, DESK_TOP + 0.62, -1.78), Vector3(-0.6, DESK_TOP, -1.45), "#ffc27a", 1.6, 1.8, 40.0, true, 0.3)
+	# The coffee mug, half drunk, with steam; the White House snow globe (souvenir).
+	var mug := Node3D.new()
+	mug.position = MUG_AT
+	root.add_child(mug)
+	Kit.cyl(mug, 0.042, 0.04, 0.1, Vector3(0, 0.05, 0), Kit.mat("#f0ece4", 0.25, 0.0, 0.7), 24)
+	Kit.cyl(mug, 0.038, 0.038, 0.005, Vector3(0, 0.085, 0), Kit.mat("#2a160a", 0.15, 0.0, 0.8), 24)
+	var handle := MeshInstance3D.new()
+	var tor := TorusMesh.new()
+	tor.inner_radius = 0.022
+	tor.outer_radius = 0.032
+	handle.mesh = tor
+	handle.material_override = Kit.mat("#f0ece4", 0.25, 0.0, 0.7)
+	handle.position = Vector3(0.045, 0.05, 0)
+	handle.rotation = Vector3(PI / 2, 0, 0)
+	mug.add_child(handle)
+	for i in 3:
+		var sm := Kit.shader(STEAM).duplicate() as ShaderMaterial
+		sm.set_shader_parameter("seed", float(i) * 3.1)
+		var q := Kit.quad(mug, Vector2(0.09, 0.26), Vector3(0.0, 0.22, 0.0), sm, Vector3(0, float(i) * 1.05, 0))
+		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		_steam.append(sm)
+	_globe = Node3D.new()
+	_globe.position = GLOBE_AT
+	root.add_child(_globe)
+	Kit.cyl(_globe, 0.05, 0.058, 0.035, Vector3(0, 0.0175, 0), Kit.mat("#2b1a12", 0.35, 0.0, 0.6), 28)
+	Kit.cyl(_globe, 0.052, 0.052, 0.006, Vector3(0, 0.032, 0), Kit.mat("#c9a14a", 0.3, 0.0, 0.8), 28)
+	# The tiny White House, south front: the main block with two rows of windows and a balustrade, the
+	# round two-storey south portico with six columns, low wings either side, a lawn and a fountain.
+	var wh := Kit.mat("#f4f2ec", 0.55)
+	var win := Kit.mat("#3a4048", 0.3)
+	Kit.cyl(_globe, 0.044, 0.044, 0.004, Vector3(0, 0.037, 0), Kit.mat("#3f6a2e", 0.8), 28)
+	Kit.box(_globe, Vector3(0.062, 0.022, 0.022), Vector3(0, 0.05, -0.012), wh)
+	Kit.box(_globe, Vector3(0.064, 0.0025, 0.024), Vector3(0, 0.0622, -0.012), wh)
+	for k in 13:
+		Kit.box(_globe, Vector3(0.0012, 0.0025, 0.001), Vector3(-0.03 + 0.005 * k, 0.0648, -0.0005), wh)
+	Kit.box(_globe, Vector3(0.064, 0.0008, 0.024), Vector3(0, 0.066, -0.012), wh)
+	for row in 2:
+		for k in 8:
+			var xx := -0.027 + 0.0077 * k
+			if absf(xx) < 0.009:
+				continue
+			Kit.box(_globe, Vector3(0.0028, 0.005, 0.0006), Vector3(xx, 0.0445 + 0.0095 * row, -0.0007), win)
+	for s2 in [-1.0, 1.0]:
+		Kit.box(_globe, Vector3(0.016, 0.009, 0.016), Vector3(s2 * 0.039, 0.0435, -0.012), wh)
+	Kit.cyl(_globe, 0.0105, 0.0105, 0.021, Vector3(0, 0.0495, 0.0), Kit.mat("#ebe8e0", 0.55), 20, Vector3.ZERO)
+	Kit.cyl(_globe, 0.0118, 0.0118, 0.002, Vector3(0, 0.0605, 0.0), wh, 20)
+	for c in 6:
+		var a := -1.15 + 0.46 * c
+		Kit.cyl(_globe, 0.0009, 0.0009, 0.02, Vector3(sin(a) * 0.0112, 0.0495, cos(a) * 0.0112), Kit.mat("#ffffff", 0.5), 6)
+	Kit.cyl(_globe, 0.004, 0.004, 0.0015, Vector3(0, 0.0395, 0.026), Kit.mat("#9fb8c8", 0.2, 0.0, 0.8), 16)
+	var glass := StandardMaterial3D.new()
+	glass.albedo_color = Color(0.9, 0.95, 1.0, 0.05)
+	glass.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	glass.roughness = 0.02
+	glass.metallic_specular = 1.0
+	glass.rim_enabled = true
+	glass.rim = 0.15
+	var shell := Kit.ball(_globe, 0.05, Vector3(0, 0.08, 0), glass, 32)
+	shell.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_globe_snow = MultiMeshInstance3D.new()
+	var mm := MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D
+	var flake := SphereMesh.new()
+	flake.radius = 0.0007
+	flake.height = 0.0014
+	flake.radial_segments = 4
+	flake.rings = 2
+	mm.mesh = flake
+	mm.instance_count = 160
+	_globe_snow.multimesh = mm
+	_globe_snow.material_override = Kit.lit("#ffffff", 0.6)
+	_globe.add_child(_globe_snow)
+	# The office chair behind the analyst.
+	var dark := Kit.mat("#1e2026", 0.75)
+	var steel := Kit.mat("#7f838a", 0.35, 0.0, 0.7)
+	for k in 5:
+		var a := TAU * k / 5.0
+		Kit.rod(root, Vector3(0.25, 0.06, -0.45), Vector3(0.25 + sin(a) * 0.28, 0.04, -0.45 + cos(a) * 0.28), 0.015, steel, 6)
+		Kit.ball(root, 0.03, Vector3(0.25 + sin(a) * 0.28, 0.03, -0.45 + cos(a) * 0.28), dark, 8)
+	Kit.cyl(root, 0.025, 0.025, 0.34, Vector3(0.25, 0.23, -0.45), steel, 10)
+	Kit.slab(root, Vector3(0.48, 0.07, 0.46), 0.06, Vector3(0.25, 0.43, -0.42), dark)
+	Kit.slab(root, Vector3(0.46, 0.62, 0.07), 0.06, Vector3(0.25, 0.82, -0.12), dark, Vector3(-0.12, 0, 0))
+	# A grey 4-drawer filing cabinet with a plant and a mug of pens, in the corner (+x, front).
+	var grey := Kit.mat("#8c8e8c", 0.5, 0.0, 0.5)
+	Kit.slab(root, Vector3(0.46, 1.32, 0.62), 0.01, Vector3(2.2, 0.66, -1.85), grey)
+	for d in 4:
+		Kit.box(root, Vector3(0.42, 0.29, 0.01), Vector3(2.2, 0.17 + 0.32 * d, -1.535), Kit.mat("#959794", 0.45, 0.0, 0.5))
+		Kit.box(root, Vector3(0.12, 0.018, 0.02), Vector3(2.2, 0.26 + 0.32 * d, -1.525), steel)
+		Kit.box(root, Vector3(0.07, 0.04, 0.003), Vector3(2.2, 0.21 + 0.32 * d, -1.527), Kit.mat("#ece6d2", 0.7))
+
+
+func _shelves(root: Node3D) -> void:
+	# A steel bookcase along the +x wall with ring binders (spines in faded office colours).
+	var steel := Kit.mat("#6e7276", 0.45, 0.0, 0.5)
+	var at := Vector3(ROOM.x * 0.5 - 0.2, 0, 0.6)
+	for side in [-0.5, 0.5]:
+		Kit.box(root, Vector3(0.32, 1.9, 0.025), at + Vector3(0, 0.95, side * 1.2), steel)
+	var cols := ["#2a3f6a", "#6a1f22", "#2c4a32", "#1b1c20", "#8a7a52", "#3a3a40", "#5a2d4a"]
+	for s in 5:
+		var y := 0.08 + 0.4 * s
+		Kit.box(root, Vector3(0.32, 0.02, 1.2), at + Vector3(0, y, 0), steel)
+		if s == 4:
+			continue
+		var r := Kit.rng("binders", s)
+		var z := -0.56
+		while z < 0.55:
+			var wv := r.randf_range(0.04, 0.075)
+			var hv := r.randf_range(0.29, 0.33)
+			var tilt := 0.0 if r.randf() < 0.85 else r.randf_range(-0.25, 0.25)
+			Kit.box(root, Vector3(0.27, hv, wv), at + Vector3(0.0, y + 0.01 + hv * 0.5, z + wv * 0.5), Kit.mat(cols[r.randi() % cols.size()], 0.7), Vector3(tilt, 0, 0))
+			Kit.box(root, Vector3(0.002, 0.07, wv * 0.6), at + Vector3(-0.136, y + 0.08 + hv * 0.45, z + wv * 0.5), Kit.mat("#e9e4d6", 0.8))
+			z += wv + 0.004
+			if r.randf() < 0.08:
+				z += 0.12
+	# The wall clock (Poly Haven) above the desk; and a framed agency seal-free photo of a satellite dish.
+	var clock := Kit.model(PH + "wall_clock/wall_clock_2k.gltf")
+	clock.position = Vector3(-1.4, 2.0, -ROOM.z * 0.5)
+	root.add_child(clock)
+
+
+func _tv(root: Node3D) -> void:
+	# A CRT TV on a ceiling-corner bracket on the back wall, tilted down at the desk.
+	var black := Kit.mat("#141416", 0.45, 0.0, 0.5)
+	var tvn := Node3D.new()
+	tvn.position = TV_AT
+	tvn.rotation = Vector3(-0.26, PI, 0)
+	root.add_child(tvn)
+	Kit.slab(tvn, Vector3(0.94, 0.76, 0.52), 0.04, Vector3(0, 0, -0.2), black)
+	Kit.slab(tvn, Vector3(0.98, 0.8, 0.08), 0.03, Vector3(0, 0, 0.04), Kit.mat("#202124", 0.4, 0.0, 0.5))
+	Kit.box(tvn, Vector3(0.5, 0.06, 0.05), Vector3(0, -0.47, -0.16), black)
+	Kit.rod(root, TV_AT + Vector3(0, 0.3, 0.25), TV_AT + Vector3(0, 0.65, 0.18), 0.02, black, 8)
+	_tv_mat = Kit.shader(TV).duplicate() as ShaderMaterial
+	var scr := Kit.quad(tvn, TV_SIZE, Vector3(0, 0, 0.082), _tv_mat)
+	scr.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_tv_view = SubViewport.new()
+	_tv_view.size = Vector2i(640, 480)
+	_tv_view.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	_tv_view.own_world_3d = false
+	_tv_view.msaa_3d = Viewport.MSAA_2X
+	tvn.add_child(_tv_view)
+	_tv_cam = Camera3D.new()
+	_tv_cam.fov = 30.0
+	_tv_cam.near = 0.05
+	var env := Environment.new()
+	env.background_mode = Environment.BG_COLOR
+	env.background_color = Color(0.12, 0.1, 0.12)
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	env.ambient_light_color = Color(0.55, 0.5, 0.48)
+	env.ambient_light_energy = 0.5
+	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	env.adjustment_enabled = true
+	env.adjustment_saturation = 0.85
+	_tv_cam.environment = env
+	_tv_view.add_child(_tv_cam)
+	_tv_mat.set_shader_parameter("feed", _tv_view.get_texture())
+	_tv_mat.set_shader_parameter("on", -1.0)
+	# The TV's own glow into the room when it is on (driven in pose).
+	var gl := Kit.omni(root, TV_AT + Vector3(0, -0.1, -0.35), "#b8c8ff", 0.0, 3.0, false, 0.5)
+	gl.name = "tv_glow"
+	tvn.name = "tv"
+
+
+func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
+	_p = g.get("params", {})
+	var gt := node.global_transform
+	# The feed: time, blasts (the latest one that has started), rewind.
+	_feed_mat.set_shader_parameter("t", t)
+	var blast := 1e6
+	for b in _p.get("blast", []):
+		if float(b) <= t:
+			blast = float(b) if blast > 1e5 else maxf(blast, float(b))
+	_feed_mat.set_shader_parameter("blast", blast)
+	var rw = _p.get("rewind", {})
+	var rew := 0.0
+	var year := 1998
+	if rw is Dictionary and rw.has("from"):
+		var a := float(rw["from"])
+		var b := float(rw.get("until", a + 1.5))
+		rew = clampf((t - a) / 0.25, 0.0, 1.0) * (1.0 - clampf((t - b) / 0.25, 0.0, 1.0))
+		if t >= a:
+			year = int(round(lerpf(1998.0, 1995.0, Motion.in_out(clampf((t - a) / maxf(b - a, 0.1), 0.0, 1.0)))))
+	_feed_mat.set_shader_parameter("rewind", rew)
+	var secs := int(floor(t)) % 60
+	var stamp := String(_p.get("stamp", "11 MAY 1998")).replace("1998", str(year))
+	_stamp.text = "%s  10:15:%02dZ" % [stamp, secs]
+	# The fluorescent tube's faint flicker (a dying starter).
+	var fl := 0.92 + 0.08 * sin(t * 47.0) * sin(t * 3.1)
+	if fmod(t * 0.7, 5.0) < 0.06:
+		fl = 0.55
+	_fluoro_light.light_energy = 0.9 * fl
+	# Steam.
+	for sm in _steam:
+		(sm as ShaderMaterial).set_shader_parameter("t", t)
+	# The snow globe: an elbow knock tips it; the snow swirls up and settles.
+	var knock := float(_p.get("knock", 1e9))
+	var dk := t - knock
+	var tip := 0.0
+	if dk > 0.0:
+		tip = 0.22 * Motion.wobble(dk, 3.5, 4.5)
+	_globe.rotation = Vector3(tip, 0, tip * 0.4)
+	var mm := _globe_snow.multimesh
+	var r := Kit.rng("snow")
+	for i in mm.instance_count:
+		var a := r.randf() * TAU
+		var rad := sqrt(r.randf()) * 0.04
+		var rest := Vector3(cos(a) * rad, 0.044 + r.randf() * 0.004, sin(a) * rad)
+		var swirl := 0.0
+		if dk > 0.0:
+			swirl = exp(-dk * 0.45) * clampf(dk * 4.0, 0.0, 1.0)
+		var ph := r.randf() * TAU + t * (1.2 + r.randf())
+		var lift := r.randf() * 0.07
+		var up := Vector3(cos(ph) * rad * 1.1, 0.05 + lift * (0.5 + 0.5 * sin(ph * 0.7)), sin(ph) * rad * 1.1)
+		mm.set_instance_transform(i, Transform3D(Basis(), rest.lerp(up, swirl)))
+	# The wall TV: off until `on`, then the live SubViewport picture of the camera given in params.
+	var tv = _p.get("tv", {})
+	var glow := node.find_child("tv_glow", true, false) as OmniLight3D
+	if tv is Dictionary and tv.has("on"):
+		var on := t - float(tv["on"])
+		_tv_mat.set_shader_parameter("on", on)
+		_tv_mat.set_shader_parameter("t", t)
+		_tv_view.render_target_update_mode = SubViewport.UPDATE_ALWAYS if on > -0.5 else SubViewport.UPDATE_DISABLED
+		if tv.has("cam") and tv.has("look"):
+			var cp: Dictionary = ctx["point"].call(tv["cam"])
+			var lp: Dictionary = ctx["point"].call(tv["look"])
+			if cp.has("pos") and lp.has("pos"):
+				_tv_cam.global_position = cp["pos"]
+				_tv_cam.look_at(lp["pos"], Vector3.UP)
+			_tv_cam.fov = float(tv.get("fov", 30.0))
+		if glow:
+			glow.light_energy = 0.6 * clampf(on / 0.2, 0.0, 1.0) * (0.9 + 0.1 * sin(t * 9.0))
+	elif glow:
+		glow.light_energy = 0.0
+	return {"screen": gt * SCREEN, "tv": gt * TV_AT, "globe": gt * (GLOBE_AT + Vector3(0, 0.08, 0)),
+			"mug": gt * MUG_AT, "desk": gt * Vector3(0, DESK_TOP, -1.6), "chair": gt * Vector3(0.25, 0.45, -0.45),
+			"window": gt * Vector3(-ROOM.x * 0.5, 1.45, 0.35)}

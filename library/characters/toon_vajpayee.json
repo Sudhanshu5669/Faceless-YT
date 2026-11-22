@@ -1,0 +1,29 @@
+{
+  "id": "toon_vajpayee",
+  "description": "Atal Bihari Vajpayee, Prime Minister 1998 (caricature): white hair combed back, square glasses, white kurta under a tan sleeveless jacket.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran"
+  ],
+  "height": 1.4,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#ecebe6"
+    },
+    "outfit": {
+      "style": "kurta",
+      "color": "#f1efe8",
+      "vest": "#a8855a"
+    },
+    "shoes": "#3a2a20",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "determined",
+    "girth": 1.18
+  }
+}
