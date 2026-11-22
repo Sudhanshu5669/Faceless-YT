@@ -40,7 +40,7 @@ SCORE = ("Highly expressive, cinematic storyteller for a viral YouTube Short abo
 NARRATION = ({"model": "gemini-3.8-flash-tts", "voice": "Charon", "single_take": True, "style": SCORE, "max_pause": 0.45,
               "speed": 1.0}
              if TAKE == "score" else
-             {"model": "gemini-3.8-flash-lite-tts", "voice": "Charon", "single_take": True, "inline_tags": True,
+             {"model": "gemini-3.8-flash-lite-tts", "voice": "Charon", "single_take": True, "inline_tags": True, "max_pause": 0.4,
               "style": "highly expressive, gripping storyteller for a viral YouTube Short about a true heist",
               "speed": 1.0})
 

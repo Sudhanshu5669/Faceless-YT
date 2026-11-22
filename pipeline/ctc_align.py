@@ -326,16 +326,33 @@ def align(wav_path: Path, words: list[str]) -> list[dict]:
     return out
 
 
-def transcribe(wav_path: Path) -> str:
-    """Greedy CTC transcript of a take (upper case, no punctuation): used to check that bracketed delivery tags
-    were performed, not read aloud."""
+def transcribe_words(wav_path: Path) -> list[dict]:
+    """Greedy CTC transcript with times: [{"w": "WORD", "s": sec, "e": sec}] (upper case). Used to check that a
+    take says its script, and to find delivery tags that were read aloud so they can be cut out."""
     _, vocab = _load()
     inv = {v: k for k, v in vocab.items()}
-    blank = vocab.get("<pad>", 0)
+    blank, sep = vocab.get("<pad>", 0), vocab.get("|", 4)
     ids = _logits(_decode(Path(wav_path))).argmax(-1)
-    out, prev = [], -1
-    for i in ids:
-        if i != prev and i != blank:
-            out.append(inv.get(int(i), ""))
+    fs = SAMPLES_PER_FRAME / SAMPLE_RATE
+    words, cur, s0, last, prev = [], "", None, 0, -1
+    for f, i in enumerate(ids):
+        i = int(i)
+        if i != prev and i not in (blank, sep):
+            if s0 is None:
+                s0 = f
+            cur += inv.get(i, "")
+            last = f
+        elif i == sep and cur:
+            words.append({"w": cur, "s": round(s0 * fs, 3), "e": round((last + 1) * fs, 3)})
+            cur, s0 = "", None
+        if i not in (blank,) and i != sep and i == prev:
+            last = f
         prev = i
-    return "".join(out).replace("|", " ").strip()
+    if cur:
+        words.append({"w": cur, "s": round(s0 * fs, 3), "e": round((last + 1) * fs, 3)})
+    return words
+
+
+def transcribe(wav_path: Path) -> str:
+    """Greedy CTC transcript of a take (upper case, no punctuation)."""
+    return " ".join(w["w"] for w in transcribe_words(wav_path))

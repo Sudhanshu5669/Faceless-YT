@@ -176,6 +176,71 @@ def _check_verbatim(wav, script_text: str) -> None:
                            f"aloud or improvised. Shorten the style (no content in it), then delete {wav} to retake")
 
 
+def _is_tag_word(heard: str, tag_words: set[str], script_words: set[str]) -> bool:
+    """A heard word that sounds like a delivery tag (e.g. PROUT for proud, TENTS for tense) and like no script word."""
+    from difflib import SequenceMatcher
+    h = heard.upper()
+    if h in script_words:
+        return False
+    best_tag = max((SequenceMatcher(None, h, t).ratio() for t in tag_words), default=0.0)
+    best_script = max((SequenceMatcher(None, h, w).ratio() for w in script_words if abs(len(w) - len(h)) <= 3),
+                      default=0.0)
+    return best_tag >= 0.7 and best_tag > best_script + 0.1
+
+
+def _scrub_tags(wav, script_text: str, tags: list[str]):
+    """Cut delivery tags the TTS read aloud out of a take (found in its greedy transcript, cut with a short fade).
+    Returns the cleaned take's path (cached next to the take), or the take itself when nothing leaked."""
+    import numpy as np
+    from ctc_align import transcribe_words
+    src = Path(wav)
+    dst = src.with_name(f"{src.stem}_scrub.wav")
+    if dst.exists():
+        return dst
+    tag_words = {w.upper() for t in tags for w in re.findall(r"[a-z]+", t.lower())}
+    script_words = {w.upper() for w in re.findall(r"[a-z']+", script_text.lower())}
+    heard = transcribe_words(src)
+    # Words the take has that the script doesn't (insertions, in script order), which sound like a tag.
+    from difflib import SequenceMatcher
+    from ctc_align import spellings
+    script_seq = [w for tok in align.script_words(script_text) for w in (spellings(tok) or [tok.upper()])[0].split()]
+    script_words = set(script_seq)
+    heard_seq = [h["w"] for h in heard]
+    extra = set()
+    for op, i1, i2, j1, j2 in SequenceMatcher(None, heard_seq, script_seq, autojunk=False).get_opcodes():
+        if op == "delete" or (op == "replace" and i2 - i1 > j2 - j1):
+            extra.update(range(i1, i2))
+    spans = [(h["s"] - 0.04, h["e"] + 0.06, h["w"]) for k, h in enumerate(heard)
+             if (k in extra and max(SequenceMatcher(None, h["w"], t).ratio() for t in tag_words) >= 0.72
+                 and h["w"] not in script_words)
+             or _is_tag_word(h["w"], tag_words, script_words)]
+    if not spans:
+        return src
+    with wave.open(str(src), "rb") as w:
+        rate, ch, sw = w.getframerate(), w.getnchannels(), w.getsampwidth()
+        pcm = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32)
+    keep, last = [], 0
+    fade = int(rate * 0.01)
+    for a, b, _ in spans:
+        a, b = max(int(a * rate), last), int(b * rate)
+        seg = pcm[last:a].copy()
+        if seg.size > fade:
+            seg[-fade:] *= np.linspace(1, 0, fade)
+        keep.append(seg)
+        last = b
+    tail = pcm[last:].copy()
+    if tail.size > fade:
+        tail[:fade] *= np.linspace(0, 1, fade)
+    keep.append(tail)
+    with wave.open(str(dst), "wb") as w:
+        w.setnchannels(ch)
+        w.setsampwidth(sw)
+        w.setframerate(rate)
+        w.writeframes(np.concatenate(keep).astype(np.int16).tobytes())
+    print(f"[TownForge] cut {len(spans)} delivery tag(s) read aloud: {', '.join(s[2] for s in spans)}")
+    return dst
+
+
 def _check_tags_silent(wav, script_text: str, tags: list[str]) -> None:
     """Warn when delivery tags were spoken: a tag word heard more often than the script contains it."""
     from ctc_align import transcribe
@@ -215,9 +280,10 @@ def _single_take(ep: dict, narr: dict, model: str) -> tuple[list, dict]:
     tags = [eplines[k].get("style", "").strip() if inline and k < len(eplines) else "" for k in range(len(script))]
     spoken = " ".join((f"[{tags[k]}] " if tags[k] else "") + t for k, t in enumerate(script))
     wav = tts.synthesize(spoken, voice, style, model)
-    _check_verbatim(wav, joined)
     if inline and any(tags):
+        wav = _scrub_tags(wav, joined, [t for t in tags if t])
         _check_tags_silent(wav, joined, [t for t in tags if t])
+    _check_verbatim(wav, joined)
     words = [w for w in align.words(wav, joined) if not w.get("extra")]
     counts = [len(align.script_words(t)) for t in script]
     dur = tts.duration(wav)

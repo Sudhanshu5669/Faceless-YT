@@ -17,6 +17,7 @@
   "voice": "Charon",
   "single_take": true,
   "inline_tags": true,
+  "max_pause": 0.4,
   "style": "highly expressive, gripping storyteller for a viral YouTube Short about a true heist",
   "speed": 1.0
  },
@@ -305,14 +306,14 @@
    "shot": "wait_row",
    "at": 0.2,
    "text": "So the most secret team in India just waits.",
-   "style": "deadpan"
+   "style": "sighs"
   },
   {
    "id": "l13b",
    "shot": "wait_clock",
    "at": 0.1,
    "text": "Six hours. Staring at the wind.",
-   "style": "deadpan"
+   "style": "serious"
   },
   {
    "id": "l14a",
