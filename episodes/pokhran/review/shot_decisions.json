@@ -7,17 +7,31 @@
     "history": []
   },
   "hook_analyst": {
-    "status": "approved",
-    "note": "hook approved 2026-11-22",
-    "updated": "2026-11-22 21:40:29",
-    "fingerprint": "ec2de7c98efc",
-    "history": []
+    "status": "changes",
+    "note": "The guy is clipping through the chair.",
+    "updated": "2026-11-23 12:13:15",
+    "fingerprint": "2f8320c1e110",
+    "history": [
+      {
+        "status": "approved",
+        "note": "hook approved 2026-11-22",
+        "updated": "2026-11-22 21:40:29",
+        "fingerprint": "ec2de7c98efc"
+      }
+    ]
   },
   "feed_rewind": {
     "status": "approved",
     "note": "hook approved 2026-11-22",
     "updated": "2026-11-22 21:40:29",
     "fingerprint": "00e964174e61",
+    "history": []
+  },
+  "range_noon": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-23 12:12:55",
+    "fingerprint": "f6e9b1485737",
     "history": []
   }
 }

@@ -26,7 +26,12 @@ extends RefCounted
 ##   tufts      [[x, z, scale], ...]   hero grass tufts placed for a camera (foreground framing)
 ##   bushes     [[x, z, scale, yaw], ...]   hero ker bushes
 ##   clear      [[x, z, radius], ...]   keep the scattered plants and stones out of these circles (camera spots)
-## anchors: plate, apex, winch, spoil, tree, camp, windsock, track
+##   dive       {"from": t, "to": t, "y1": -188}   the camera's fall down the shaft: anchors dive_cam / dive_look /
+##              dive_count follow it (a short push onto the plate's cable gland, then down the bore, circling the
+##              cable bundle, easing out near the bottom); a lamp travels with it
+## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
+## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
+## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, bottom
 
 const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
@@ -42,6 +47,8 @@ const SPOIL_AT := Vector3(-4.6, 0.0, 1.4)
 const TREE_AT := Vector3(-10.2, 0.0, -8.4)
 const SOCK_AT := Vector3(-7.6, 0.0, -23.6)
 const SOCK_H := 6.2
+const SHAFT_R := 0.9
+const SHAFT_D := 205.0
 const CAMP := [Vector3(-10.0, 0, -29.2), Vector3(-9.7, 0, -36.4), Vector3(-3.3, 0, -34.6), Vector3(-17.8, 0, -36.1)]
 
 ## Terrain height (metres) at local (x, z). Mirrors height() in GROUND.
@@ -254,6 +261,29 @@ void fragment() {
 }
 """
 
+## Shaft casing from inside: dark steel with vertical rust runs and wet streaks, a welded joint every 12 m,
+## no sky light (the only light down here is a lamp).
+const BORE := """
+shader_type spatial;
+render_mode ambient_light_disabled, cull_disabled;
+varying vec3 wp;
+varying vec3 lp;
+//NOISE
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; lp = VERTEX; }
+void fragment() {
+	float a = atan(lp.z, lp.x);
+	vec3 q = vec3(a * 1.6, lp.y * 0.12, 0.0);
+	vec3 c = vec3(0.16, 0.15, 0.14) * (0.8 + 0.4 * fbm(vec3(a * 5.0, lp.y * 0.8, 1.0)));
+	float runs = smoothstep(0.55, 0.8, fbm(vec3(a * 9.0, lp.y * 0.08, 3.0)));
+	c = mix(c, vec3(0.34, 0.16, 0.07), runs * 0.8);
+	float joint = 1.0 - smoothstep(0.0, 0.05, abs(fract(lp.y / 12.0) - 0.5) - 0.0);
+	c = mix(c, vec3(0.32, 0.3, 0.28), joint);
+	ALBEDO = c;
+	ROUGHNESS = mix(0.5, 0.85, runs);
+	SPECULAR = 0.55;
+}
+"""
+
 ## Heavy steel plate: dark mill scale, rust bleeding from the bolt line and edges, scuffs to bright steel,
 ## sand in the low spots. Slightly metallic so it picks up the sky.
 const STEEL := """
@@ -422,6 +452,7 @@ var _shimmer_mat: ShaderMaterial
 var _bags := {}
 var _hook: Node3D
 var _kites_n: Array = []
+var _dive_light: OmniLight3D
 
 
 func build(g: Dictionary) -> Node3D:
@@ -429,6 +460,7 @@ func build(g: Dictionary) -> Node3D:
 	var root := Node3D.new()
 	_ground(root)
 	_shaft(root)
+	_bore(root)
 	_tripod(root)
 	_winch(root)
 	_spoil(root)
@@ -715,6 +747,67 @@ func _camp(root: Node3D) -> void:
 				var z := -1.6 + 1.6 * k
 				Kit.rod(t, Vector3(1.8 * s, 1.1, z), Vector3(2.9 * s, 0.02, z), 0.006, rope, 4)
 				Kit.rod(t, Vector3(2.9 * s, -0.1, z), Vector3(2.9 * s, 0.12, z), 0.02, pole, 6)
+
+
+## The shaft below the plate: steel casing seen from inside, cables down the axis, a lamp at the bottom.
+func _bore(root: Node3D) -> void:
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var seg := 28
+	var step := 1.5
+	var n := int(SHAFT_D / step)
+	for i in n:
+		for k in seg:
+			var q := []
+			for c in [[i, k], [i, k + 1], [i + 1, k + 1], [i + 1, k]]:
+				var a := TAU * float(c[1]) / seg
+				q.append(Vector3(cos(a) * SHAFT_R, -0.12 - float(c[0]) * step, sin(a) * SHAFT_R))
+			_quad(st, q, false)
+	st.generate_normals()
+	var mi := MeshInstance3D.new()
+	mi.name = "bore"
+	mi.mesh = st.commit()
+	mi.material_override = Kit.shader(BORE)
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	root.add_child(mi)
+	# The floor of the shaft.
+	Kit.cyl(root, SHAFT_R, SHAFT_R, 0.1, Vector3(0, -SHAFT_D - 0.15, 0), Kit.shader(BORE), 28)
+	# The firing cables: three black cables hanging from the gland down the axis, a steel clamp every 6 m.
+	var cab := Kit.mat("#121212", 0.45)
+	for k in 3:
+		var a := TAU * k / 3.0
+		var o := Vector3(cos(a) * 0.035, 0, sin(a) * 0.035)
+		Kit.rod(root, o + Vector3(0, 0.2, 0), o + Vector3(0, -SHAFT_D + 1.6, 0), 0.016, cab, 6)
+	var clamp := Kit.mat("#8a8a86", 0.4, 0.5)
+	for j in int(SHAFT_D / 6.0):
+		Kit.cyl(root, 0.07, 0.07, 0.05, Vector3(0, -3.0 - 6.0 * j, 0), clamp, 12)
+	# The work lamp at the bottom: a caged bulb on the cable end, warm.
+	var bulb := Kit.ball(root, 0.07, Vector3(0, -SHAFT_D + 1.4, 0), Kit.lit("#ffcf8a", 9.0), 12)
+	bulb.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	Kit.omni(root, Vector3(0, -SHAFT_D + 1.3, 0), "#ffb870", 3.0, 18.0)
+	# The light that falls with the camera (only during the dive).
+	_dive_light = Kit.omni(root, Vector3(0, -SHAFT_D, 0), "#fff0dc", 0.0, 9.0)
+
+
+## Dive path at scene time t (gag-local): {"cam", "look", "count", "on"}.
+func _dive(t: float) -> Dictionary:
+	var d: Dictionary = _p.get("dive", {})
+	if d.is_empty():
+		return {"on": false}
+	var u := Motion.seg(t, float(d["from"]), float(d["to"]))
+	var y1 := float(d.get("y1", -188.0))
+	var y: float
+	if u < 0.22:
+		y = lerpf(3.4, 0.7, Motion.out_cubic(u / 0.22))
+	else:
+		y = lerpf(0.7, y1, Motion.in_out((u - 0.22) / 0.78))
+	# Off the cable axis, circling it slowly as it falls.
+	var ang := 0.4 + 1.1 * Motion.smooth(u)
+	var off := Vector3(cos(ang), 0, sin(ang)) * lerpf(0.12, 0.44, Motion.smooth(clampf(u * 3.0, 0.0, 1.0)))
+	var cam := off + Vector3(0, y, 0)
+	var look := off * 0.55 + Vector3(0, y - 10.0, 0)
+	return {"on": t >= float(d["from"]) - 0.05 and t <= float(d["to"]) + 0.3, "cam": cam, "look": look,
+		"count": cam + (look - cam).normalized() * 1.9}
 
 
 ## A ridge tent: two sagging roof slopes from the ridge to the eaves, short side walls, gable ends.
@@ -1100,8 +1193,18 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			var hr: Vector3 = actor.bone_world("hand_r")
 			var local := inv * ((hl + hr) * 0.5)
 			(nodes[0] as Node3D).transform = Transform3D((Basis(Vector3.UP, yaw_a) * Basis(Vector3.RIGHT, -0.25)).scaled(Vector3(1.25, 1.5, 1.25)), local + Vector3(0, -0.1, 0))
+	var dv := _dive(t)
+	_dive_light.light_energy = 1.6 if dv["on"] and (dv["cam"] as Vector3).y < 0.0 else 0.0
+	if dv["on"]:
+		_dive_light.position = (dv["cam"] as Vector3) + Vector3(0, -0.6, 0)
 	var apex := gt * Vector3(0, TRIPOD_H, 0)
-	return {"plate": gt * Vector3(0, 0.26, 0), "apex": apex, "winch": gt * (WINCH_AT + Vector3(0, 0.8, 0)),
+	var extra := {}
+	if dv.has("cam"):
+		extra = {"dive_cam": gt * (dv["cam"] as Vector3), "dive_look": gt * (dv["look"] as Vector3), "dive_count": gt * (dv["count"] as Vector3)}
+	else:
+		extra = {"dive_cam": gt * Vector3(0.2, 2.4, 0), "dive_look": gt * Vector3(0.1, -8, 0), "dive_count": gt * Vector3(0.1, 0.5, 0)}
+	extra["bottom"] = gt * Vector3(0, -SHAFT_D + 0.8, 0)
+	return extra.merged({"plate": gt * Vector3(0, 0.26, 0), "apex": apex, "winch": gt * (WINCH_AT + Vector3(0, 0.8, 0)),
 		"spoil": gt * (SPOIL_AT + Vector3(0, 0.8, 0)), "tree": gt * (TREE_AT + Vector3(0, 3.0, 0)),
 		"camp": gt * (CAMP[0] as Vector3), "windsock": gt * (SOCK_AT + Vector3(0, SOCK_H, 0)),
-		"track": gt * Vector3(0, 0, _track_z(0.0))}
+		"track": gt * Vector3(0, 0, _track_z(0.0))})

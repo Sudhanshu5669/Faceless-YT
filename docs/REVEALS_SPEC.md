@@ -31,6 +31,7 @@ or scene seconds.
 | `size` | Metres (largest dimension; cap height for text). Default 0.5. |
 | `color` | Shape tint or text colour. |
 | `yaw` / `face` | Turn (degrees) or face a point. Text and counters always face the camera. |
+| `billboard` | `y` (default: text turns about the vertical toward the camera) or `full`: the whole reveal turns toward its `face` point, so text and counters read from straight above (a camera diving down a shaft: `face` its anchor). |
 | `enter` | `pop` (overshoot scale, default), `drop` (falls and bounces), `rise`, `slide_left`, `slide_right`, `beam` (light column, then pop), `grow`, `none`. |
 | `enter_time` | Seconds (default 0.35; beam 0.5). |
 | `exit` / `exit_time` | `shrink` (default), `pop`, `drop`, `rise`, `none`; default 0.25 s. |

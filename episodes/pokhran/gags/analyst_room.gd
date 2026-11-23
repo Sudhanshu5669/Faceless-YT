@@ -31,6 +31,7 @@ const TV_SIZE := Vector2(0.78, 0.585)
 const GLOBE_AT := Vector3(0.52, DESK_TOP, -1.42)
 const MUG_AT := Vector3(-0.42, DESK_TOP, -1.38)
 const PH := "incoming/polyhaven_pokhran/models/"
+const CHAIR_AT := Vector3(0.25, 0.0, -0.45)
 
 ## The satellite feed: a greyscale top-down view of the Pokhran range drifting under the crosshair, on a
 ## curved CRT with scanlines, RGB fringing and phosphor glow. blast: the ground lifts, a dust ring rolls out.
@@ -284,6 +285,9 @@ void fragment() {
 """
 
 var _p := {}
+var _chair_top: Node3D
+var _chair_base: Node3D
+var _chair_post: MeshInstance3D
 var _feed_mat: ShaderMaterial
 var _tv_mat: ShaderMaterial
 var _tv_view: SubViewport
@@ -525,16 +529,33 @@ func _desk(root: Node3D) -> void:
 	_globe_snow.multimesh = mm
 	_globe_snow.material_override = Kit.lit("#ffffff", 0.6)
 	_globe.add_child(_globe_snow)
-	# The office chair behind the analyst.
+	# The office chair under the analyst. It follows his hips every frame (pose), so the seat sits just under
+	# his thighs and the backrest just behind his back, whatever the seated pose does: no clipping.
 	var dark := Kit.mat("#1e2026", 0.75)
 	var steel := Kit.mat("#7f838a", 0.35, 0.0, 0.7)
+	_chair_base = Node3D.new()
+	_chair_base.name = "chair_base"
+	root.add_child(_chair_base)
 	for k in 5:
 		var a := TAU * k / 5.0
-		Kit.rod(root, Vector3(0.25, 0.06, -0.45), Vector3(0.25 + sin(a) * 0.28, 0.04, -0.45 + cos(a) * 0.28), 0.015, steel, 6)
-		Kit.ball(root, 0.03, Vector3(0.25 + sin(a) * 0.28, 0.03, -0.45 + cos(a) * 0.28), dark, 8)
-	Kit.cyl(root, 0.025, 0.025, 0.34, Vector3(0.25, 0.23, -0.45), steel, 10)
-	Kit.slab(root, Vector3(0.48, 0.07, 0.46), 0.06, Vector3(0.25, 0.43, -0.42), dark)
-	Kit.slab(root, Vector3(0.46, 0.62, 0.07), 0.06, Vector3(0.25, 0.82, -0.12), dark, Vector3(-0.12, 0, 0))
+		Kit.rod(_chair_base, Vector3(0, 0.06, 0), Vector3(sin(a) * 0.28, 0.04, cos(a) * 0.28), 0.015, steel, 6)
+		Kit.ball(_chair_base, 0.03, Vector3(sin(a) * 0.28, 0.03, cos(a) * 0.28), dark, 8)
+	_chair_post = Kit.cyl(_chair_base, 0.025, 0.025, 1.0, Vector3(0, 0.5, 0), steel, 10)
+	# Seat-top frame: origin at the top of the cushion, +z the way he faces.
+	_chair_top = Node3D.new()
+	_chair_top.name = "chair_top"
+	root.add_child(_chair_top)
+	Kit.slab(_chair_top, Vector3(0.48, 0.07, 0.46), 0.06, Vector3(0, -0.035, 0), dark)
+	var back := Node3D.new()
+	back.position = Vector3(0, 0.0, -0.25)
+	back.rotation.x = -0.12
+	_chair_top.add_child(back)
+	Kit.slab(back, Vector3(0.46, 0.62, 0.07), 0.06, Vector3(0, 0.38, 0), dark)
+	Kit.box(back, Vector3(0.05, 0.12, 0.03), Vector3(0, 0.03, 0.0), steel)
+	_chair_top.position = CHAIR_AT + Vector3(0, 0.43, 0)
+	_chair_top.rotation.y = PI
+	_chair_base.position = CHAIR_AT
+	_fit_post()
 	# A grey 4-drawer filing cabinet with a plant and a mug of pens, in the corner (+x, front).
 	var grey := Kit.mat("#8c8e8c", 0.5, 0.0, 0.5)
 	Kit.slab(root, Vector3(0.46, 1.32, 0.62), 0.01, Vector3(2.2, 0.66, -1.85), grey)
@@ -615,9 +636,35 @@ func _tv(root: Node3D) -> void:
 	tvn.name = "tv"
 
 
+## The gas post runs from the star base up to the seat's underside.
+func _fit_post() -> void:
+	var top := _chair_top.position.y - 0.07
+	_chair_post.transform = Transform3D(Basis.IDENTITY.scaled(Vector3(1, maxf(top - 0.06, 0.05), 1)), Vector3(0, 0.06 + (top - 0.06) * 0.5, 0))
+	_chair_base.position.x = _chair_top.position.x
+	_chair_base.position.z = _chair_top.position.z
+
+
+func _pose_chair(gt: Transform3D, ctx: Dictionary) -> void:
+	var actor = ctx["actor"].call("analyst") if ctx.has("actor") else null
+	if actor == null:
+		return
+	var inv := gt.affine_inverse()
+	var yaw := float(actor.rotation.y) - gt.basis.get_euler().y
+	var fwd := Vector3(sin(yaw), 0, cos(yaw))
+	# The bean torso hangs about 9 cm below the hip joints when seated (measured from the side): the seat top
+	# goes there, centred a little behind the hips. Bones are exact right after posing (attachments lag a frame).
+	var hip: Vector3 = inv * ((actor.bone_world("thigh_l") + actor.bone_world("thigh_r")) * 0.5)
+	var seat := hip - fwd * 0.08
+	seat.y = hip.y - 0.095
+	_chair_top.position = seat
+	_chair_top.rotation = Vector3(0, yaw, 0)
+	_fit_post()
+
+
 func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_p = g.get("params", {})
 	var gt := node.global_transform
+	_pose_chair(gt, ctx)
 	# The feed. The hook (params "wh"): the White House blows up at `blast`; from `rewind` the tape runs
 	# backwards (feed time falls back past the blast, faster and faster); at `switch` the feed glitches over to
 	# the Pokhran range. Later shots use "blast" (Pokhran test times) and "rewind" (1998 -> 1995).
@@ -712,5 +759,5 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	elif glow:
 		glow.light_energy = 0.0
 	return {"screen": gt * SCREEN, "tv": gt * TV_AT, "globe": gt * (GLOBE_AT + Vector3(0, 0.08, 0)),
-			"mug": gt * MUG_AT, "desk": gt * Vector3(0, DESK_TOP, -1.6), "chair": gt * Vector3(0.25, 0.45, -0.45),
+			"mug": gt * MUG_AT, "desk": gt * Vector3(0, DESK_TOP, -1.6), "chair": gt * (_chair_top.position + Vector3(0, 0.02, 0)),
 			"window": gt * Vector3(-ROOM.x * 0.5, 1.45, 0.35)}

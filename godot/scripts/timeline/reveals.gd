@@ -23,7 +23,7 @@ const Motion = preload("res://scripts/timeline/motion.gd")
 
 const KEYS := ["id", "t", "until", "prop", "shape", "text", "counter", "at", "size", "color", "yaw", "face",
 	"enter", "enter_time", "exit", "exit_time", "spin", "bob", "glow", "sound", "note", "label", "label_color", "roll", "from", "moves",
-	"tilt", "to"]
+	"tilt", "to", "billboard"]
 const KINDS := ["prop", "shape", "text", "counter"]
 const COUNTER_KEYS := ["from", "to", "land", "keys", "decimals", "prefix", "suffix", "commas", "group", "label", "land_color"]
 const ENTERS := ["pop", "drop", "settle", "rise", "slide_left", "slide_right", "beam", "grow", "move", "none"]
@@ -112,6 +112,10 @@ static func validate(reveals) -> Array:
 			e.append("%s: shape '%s' (known: %s)" % [w, r["shape"], ", ".join(PackedStringArray(SHAPES))])
 		if r.has("text") and String(r["text"]).strip_edges() == "":
 			e.append(w + ": text is empty")
+		if r.has("billboard") and not (String(r["billboard"]) in ["y", "full"]):
+			e.append(w + ": billboard must be 'y' (turn about the vertical, default) or 'full'")
+		if String(r.get("billboard", "y")) == "full" and not r.has("face"):
+			e.append(w + ": billboard 'full' needs 'face' (the point to turn toward, usually the camera's anchor)")
 		if r.has("counter"):
 			e.append_array(_validate_counter(r["counter"], w))
 		if not r.has("at"):
@@ -226,6 +230,13 @@ static func build(reveals) -> Node3D:
 			content = _counter_node(r["counter"], size, Color(String(r.get("color", "#ffffff"))), float(r.get("glow", 0.8)))
 		content.name = "content"
 		h.add_child(content)
+		if String(r.get("billboard", "y")) == "full":
+			# Turned as a whole toward the "face" point every frame (pose), so the text meshes stop
+			# billboarding on their own: the label stays under the number even seen from straight above.
+			for mi in content.find_children("*", "MeshInstance3D", true, false):
+				var mat := (mi as MeshInstance3D).material_override as BaseMaterial3D
+				if mat:
+					mat.billboard_mode = BaseMaterial3D.BILLBOARD_DISABLED
 		if String(r.get("enter", "pop")) == "beam":
 			var beam := MeshInstance3D.new()
 			beam.name = "beam"
@@ -938,6 +949,15 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 			s *= _pose_counter(h.get_node("content"), r["counter"], t, t0, Color(String(r.get("color", "#ffffff"))))
 		h.position = p["pos"] + off
 		h.rotation = Vector3(0, yaw, tip)
+		if String(r.get("billboard", "y")) == "full" and r.has("face"):
+			var fp := Shot.point(L, r["face"])
+			if not fp.has("error"):
+				var z: Vector3 = (fp["pos"] - h.position).normalized()
+				var up := Vector3.UP - z * z.dot(Vector3.UP)
+				if up.length() < 0.001:
+					up = Vector3.FORWARD
+				up = up.normalized()
+				h.basis = Basis(up.cross(z).normalized(), up, z)
 		if r.has("roll"):
 			(h.get_node("content") as Node3D).rotation.z = -deg_to_rad(float(r["roll"])) * age
 		h.scale = (Vector3.ONE * maxf(s, 0.001)) * sv

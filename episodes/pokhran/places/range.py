@@ -39,6 +39,7 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
          "params": {"carry": [{"actor": "jawan_noon", "what": "jerrycans"}], "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
                     "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6]],
+                    "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
                     "bushes": [[1.1, 2.5, 0.75, 0.6]]}}]
 
 # The usual range camera looks into the afternoon sun (az 212): forward F, right R in the ground plane.
@@ -51,6 +52,16 @@ def V(right, fwd, y):
     return P(R[0] * right + F[0] * fwd, y, R[1] * right + F[1] * fwd)
 
 
+# Down the shaft: the same afternoon on top, but no haze in the bore (fog starts far below the bottom).
+LOOK_DIVE = dict(LOOK_AFTERNOON, fog={"begin": 400, "end": 2600, "curve": 1.8, "volumetric": 0.0})
+
+REVEALS = [
+    {"id": "depth_count", "t": W("l2c", offset=0.05), "until": W("l2d"), "at": "range_site.dive_count", "size": 0.2,
+     "billboard": "full", "face": "range_site.dive_cam",
+     "counter": {"from": 0, "to": 200, "decimals": 0, "suffix": " M", "land": W("l2c", "hundred", 0.1),
+                 "label": "DEEP"}, "enter": "pop", "sound": "ding"},
+]
+
 SHOTS = {
     # Whip in from the feed: low on the sand, into the sun. The plate and its collar fill the lower third, the
     # tripod climbs to the sheave with the sun burning beside it, the khejri stands behind the legs; a jawan
@@ -58,6 +69,9 @@ SHOTS = {
     "range_noon": {"look": LOOK_AFTERNOON, "camera": move(
         cam(V(0.6, -7.2, 0.3), V(0.0, 0.0, 2.2), 30, {"strength": 0.1}),
         cam(V(0.45, -6.5, 1.4), V(0.0, 0.0, 2.6), 32, {"strength": 0.1}), "in_out")},
+    # Top-down onto the plate, through the cable gland and down the bore, circling the cable bundle; the depth
+    # counter falls with the camera and lands on "two hundred"; the lamp at the bottom glows ahead.
+    "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 30)},
 }
 
-PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}
+PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS, "reveals": REVEALS}
