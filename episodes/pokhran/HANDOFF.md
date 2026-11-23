@@ -68,7 +68,9 @@ Download first (AGENTS.md rule 8). Before modelling anything, search for and lis
 - sticker images: the White House (US government photo, public domain), the Taj Mahal and Kumbhkaran (a
   public-domain painting or illustration). Wikimedia Commons, checking each licence.
 
-**Asset search done (2026-11-23), awaiting the user's choice:**
+**The user decided (2026-11-23): download the three sticker images (done: `library/logos/pokhran/`, sources in `library/logos/SOURCES.md`; the Taj photo needs a CC BY-SA credit in the description), BUILD the AN-32 and the device in Blender, and `two_more` uses accurate DUST DOMES in Kalam's goggles (no mushroom clouds).**
+
+**Asset search done (2026-11-23):**
 - **AN-32:** no free CC-licensed model found. CGTrader sells An-32-inspired designs ($6, or a $31 pack with GLB); OpenGameArt
   has a CC0 An-28 (not an An-32). Recommendation: build it in Blender (high wing, two turboprops, upswept rear with a
   cargo ramp, grey with IAF roundels), unless the user buys one.
@@ -121,9 +123,7 @@ warm sodium and cold moonlight), slow motion on the big moments, silence before 
    - The blast itself stays the accurate underground one (see the decision above).
    - The presser quote is the PM's verbatim statement. Keep it accurate if it is shown as text.
 6. **`two_more`:** Kalam wearing goggles, the two new tests reflected in them. "Epic."
-   - **Open question for the user:** they asked for two mushroom clouds in the goggles. The 13 May tests were also
-     underground (no mushroom clouds), so the accurate version reflects two dust domes / dust plumes heaving up.
-     Ask before building.
+   - Decided: two DUST DOMES heaving up, reflected in his goggles (the 13 May tests were underground too).
 
 
 ## Places, gags and what they can do
