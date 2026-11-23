@@ -1452,6 +1452,100 @@
    ]
   },
   {
+   "id": "net_a",
+   "character": "toon_jawan_d",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     -12.45,
+     0,
+     14991.2
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     -12.7,
+     0,
+     14995.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l7b",
+      "offset": -0.8
+     },
+     {
+      "line": "l8a",
+      "offset": 0.05
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    },
+    {
+     "t": {
+      "line": "l7b",
+      "word": "nets",
+      "offset": 0.4
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "net_b",
+   "character": "toon_jawan_a",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     -13.55,
+     0,
+     14991.2
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     -13.3,
+     0,
+     14995.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l7b",
+      "offset": -0.8
+     },
+     {
+      "line": "l8a",
+      "offset": 0.05
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    },
+    {
+     "t": {
+      "line": "l7b",
+      "word": "nets",
+      "offset": 0.5
+     },
+     "expression": "grin"
+    }
+   ]
+  },
+  {
    "id": "vajpayee_pmo",
    "character": "toon_vajpayee",
    "at": {
@@ -1917,6 +2011,27 @@
      ],
      "blower": "dune_blow"
     },
+    "net": {
+     "at": [
+      13.0,
+      -5.0,
+      0.0
+     ],
+     "size": [
+      7.0,
+      6.0
+     ],
+     "land": {
+      "line": "l7b",
+      "word": "nets",
+      "offset": 0.05
+     },
+     "fly": 1.6,
+     "hands": [
+      "net_a",
+      "net_b"
+     ]
+    },
     "park": {
      "at": [
       8.5,
@@ -1984,6 +2099,16 @@
       -1.6,
       6.5,
       1.4
+     ],
+     [
+      13.0,
+      -5.0,
+      5.0
+     ],
+     [
+      15.5,
+      2.5,
+      1.5
      ]
     ],
     "dive": {
@@ -4851,28 +4976,106 @@
   {
    "name": "net_drape",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -14.9,
+       1.5,
+       15001.0
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -13.0,
+       1.05,
+       14993.8
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -14.7,
+       2.6,
+       15000.6
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -13.0,
+       0.75,
+       14994.1
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "06:05",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 5,
+     "azimuth": 168,
+     "color": "#ffb47a",
+     "energy": 2.4,
+     "softness": 0.8,
+     "visible": true,
+     "size": 1.2,
+     "glow": 2.2,
+     "glow_color": "#ffa060",
+     "shadows": true
+    },
+    "sky": {
+     "top": "#5d7cae",
+     "horizon": "#f2c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#8a8aa0",
+     "energy": 0.26,
+     "sky": 0.7
+    },
+    "fog": {
+     "begin": 30,
+     "end": 1500,
+     "curve": 1.6,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 1.0,
+     "vignette": 0.44,
+     "grain": 0.035
+    }
    }
   },
   {

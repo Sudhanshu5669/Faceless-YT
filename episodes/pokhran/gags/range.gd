@@ -51,6 +51,10 @@ extends RefCounted
 ##              crouched, two-handed); at `blow` the blower leans in and blows, and fine wind ripples spread across the
 ##              windward slope from his lips. The dune's local +z is the wind's way (windward slope toward -z);
 ##              "scale" sizes it (1 = 4.6 m across, 0.82 m high)
+##   net        {"at": [x, z, yaw_deg], "size": [w, d], "land": t, "fly": 1.6, "hands": [id, id]}   1998: a second
+##              shaft head (collar and plate, no tripod) ringed by net poles; the two actors fling a garnished
+##              camouflage net from its near edge (net-local -z): it unfurls in an arc, the middle billowing, leading edge
+##              first, and settles over the poles (a low, broken canopy) at `land`, bouncing a little
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
@@ -548,6 +552,7 @@ func build(g: Dictionary) -> Node3D:
 	_night_build(root)
 	_park_build(_g98)
 	_dune_build(_g98)
+	_net_build(_g98)
 	for c in _p.get("carry", []):
 		var what := String(c.get("what", "sandbag"))
 		var held: Array = []
@@ -569,6 +574,161 @@ func build(g: Dictionary) -> Node3D:
 var _night: Node3D
 var _park_truck: Node3D
 var _dune: MeshInstance3D
+var _net: MeshInstance3D
+var _net_mat: ShaderMaterial
+
+## The flung camouflage net. Net-local (u, v) in metres across the sheet (v from the near edge, -d/2, to the far edge).
+## Start: bunched in the throwers' hands at the near edge; each point flies on an arc to its draped place, the far
+## edge first; the middle billows; after landing it bounces and settles. Mirrored in net_point() for the hands.
+const NET_SHADER := """
+shader_type spatial;
+render_mode cull_disabled;
+uniform float t_rel = -10.0;   // seconds since the throw began
+uniform float fly = 1.6;
+uniform vec2 size = vec2(7.0, 6.0);
+varying vec2 uvp;
+varying vec3 wp;
+//NOISE
+float bump(vec2 p, vec2 c, float h, float r) { vec2 d = p - c; return h * exp(-dot(d, d) / (r * r)); }
+float smax(float a, float b) { return log(exp(a * 7.0) + exp(b * 7.0)) / 7.0; }
+float drape(vec2 p) {
+	vec2 q = p / size;
+	// Soft humps over the poles, sagging between them, down to the ground at the edges (pegged).
+	float h = bump(p, vec2(0.0), 1.5, 2.0);
+	h = smax(h, bump(p, vec2(-0.33, -0.3) * size, 1.1, 1.35));
+	h = smax(h, bump(p, vec2(0.33, -0.3) * size, 1.15, 1.35));
+	h = smax(h, bump(p, vec2(-0.32, 0.32) * size, 1.05, 1.35));
+	h = smax(h, bump(p, vec2(0.34, 0.3) * size, 1.2, 1.35));
+	float edge = 1.0 - smoothstep(0.22, 0.5, max(abs(q.x), abs(q.y)));
+	return max(h - 0.1, 0.0) * edge + 0.07 * (fbm(vec3(p * 0.9, 1.0)) - 0.5) + 0.03;
+}
+vec3 net_pos(vec2 p) {
+	float vn = p.y / size.y + 0.5;                       // 0 near edge .. 1 far edge
+	vec3 fin = vec3(p.x, drape(p), p.y);
+	vec3 st = vec3(p.x * 0.18, 1.25 + 0.25 * vn, -size.y * 0.5 - 0.35);
+	float delay = (1.0 - vn) * 0.28;
+	float s = clamp((t_rel - delay) / (fly - delay), 0.0, 1.0);
+	float e = 1.0 - pow(1.0 - s, 2.2);
+	vec3 pos = mix(st, fin, e);
+	pos.y += 4.0 * s * (1.0 - s) * (0.45 + 0.8 * vn);
+	// The billow: air under the middle while it flies (a soft dome, flutter along it); then a bounce on landing.
+	float mid = 1.0 - abs(p.x) / (size.x * 0.5);
+	pos.y += sin(3.14159 * s) * (0.3 * mid * vn + 0.06 * sin(p.x * 2.3 + t_rel * 9.0) * vn);
+	float dt = t_rel - fly;
+	if (dt > 0.0) {
+		pos.y += 0.09 * exp(-dt * 4.0) * sin(dt * 14.0 - vn * 5.0) * (1.0 - abs(p.x) / (size.x * 0.5) * 0.6);
+	}
+	return pos;
+}
+void vertex() {
+	vec2 p = VERTEX.xz;
+	float e = 0.04;
+	vec3 c = net_pos(p);
+	vec3 tu = net_pos(p + vec2(e, 0.0)) - net_pos(p - vec2(e, 0.0));
+	vec3 tv = net_pos(p + vec2(0.0, e)) - net_pos(p - vec2(0.0, e));
+	VERTEX = c;
+	NORMAL = normalize(cross(tv, tu));
+	uvp = p;
+	wp = (MODEL_MATRIX * vec4(c, 1.0)).xyz;
+}
+void fragment() {
+	// A knotted diamond mesh with garnish strips: olive, brown, dark green and khaki tatters; holes between.
+	vec2 g = vec2(uvp.x + uvp.y, uvp.x - uvp.y) / 0.09;
+	vec2 f = abs(fract(g) - 0.5);
+	float cord = step(0.43, max(f.x, f.y));
+	float n = fbm(vec3(uvp * 2.6, 3.0));
+	float leaf = step(0.5, fbm(vec3(uvp * 9.0, 7.0)) + 0.18 * (n - 0.5));
+	vec3 c = vec3(0.30, 0.33, 0.20);
+	c = mix(c, vec3(0.38, 0.29, 0.18), step(0.55, n));
+	c = mix(c, vec3(0.17, 0.21, 0.12), step(0.62, fbm(vec3(uvp * 1.7, 9.0))));
+	c = mix(c, vec3(0.55, 0.50, 0.34), step(0.68, fbm(vec3(uvp * 2.2, 13.0))));
+	c = mix(c, vec3(0.16, 0.15, 0.10), cord * (1.0 - leaf));
+	ALBEDO = c;
+	ROUGHNESS = 0.95;
+	SPECULAR = 0.15;
+	ALPHA = max(leaf, cord);
+	ALPHA_SCISSOR_THRESHOLD = 0.5;
+	BACKLIGHT = vec3(0.35, 0.38, 0.2);
+}
+"""
+
+
+## A net point (net-local metres) at time t_rel since the throw (no noise; the thrower's hands follow the near edge).
+static func net_point(p: Vector2, t_rel: float, fly: float, size: Vector2) -> Vector3:
+	var vn := p.y / size.y + 0.5
+	var st := Vector3(p.x * 0.18, 1.25 + 0.25 * vn, -size.y * 0.5 - 0.35)
+	var fin := Vector3(p.x, 0.03, p.y)
+	var delay := (1.0 - vn) * 0.28
+	var sv := clampf((t_rel - delay) / (fly - delay), 0.0, 1.0)
+	var e := 1.0 - pow(1.0 - sv, 2.2)
+	var pos := st.lerp(fin, e)
+	pos.y += 4.0 * sv * (1.0 - sv) * (0.45 + 0.8 * vn)
+	return pos
+
+
+func _net_build(parent: Node3D) -> void:
+	var nd: Dictionary = _p.get("net", {})
+	if nd.is_empty():
+		return
+	var at: Array = nd.get("at", [13.0, -5.0, 0.0])
+	var sz: Array = nd.get("size", [7.0, 6.0])
+	var holder := Node3D.new()
+	holder.name = "net_site"
+	holder.position = ground(float(at[0]), float(at[1]))
+	holder.rotation.y = deg_to_rad(float(at[2]))
+	parent.add_child(holder)
+	# The second shaft head: collar and bolted plate (no tripod).
+	Kit.slab(holder, Vector3(2.5, 0.3, 2.5), 0.05, Vector3(0, 0.07, 0), Kit.shader(CONCRETE))
+	Kit.slab(holder, Vector3(1.7, 0.04, 1.7), 0.015, Vector3(0, 0.24, 0), Kit.shader(STEEL))
+	# Net poles (rough wooden props) where the canopy peaks.
+	var wood := Kit.mat("#6a5238", 0.9)
+	var w := float(sz[0])
+	var d := float(sz[1])
+	for pp in [[0.0, 0.0, 1.3], [-0.33, -0.3, 0.88], [0.33, -0.3, 0.93], [-0.32, 0.32, 0.83], [0.34, 0.3, 0.98]]:
+		var b := Vector3(float(pp[0]) * w, 0, float(pp[1]) * d)
+		Kit.rod(holder, b, b + Vector3(0.02, float(pp[2]), -0.015), 0.03, wood, 6)
+	_net = MeshInstance3D.new()
+	_net.name = "net"
+	var pm := PlaneMesh.new()
+	pm.size = Vector2(w, d)
+	pm.subdivide_width = 90
+	pm.subdivide_depth = 80
+	_net.mesh = pm
+	_net.extra_cull_margin = 6.0
+	_net_mat = Kit.shader(NET_SHADER)
+	_net_mat.set_shader_parameter("size", Vector2(w, d))
+	_net_mat.set_shader_parameter("fly", float(nd.get("fly", 1.6)))
+	_net.material_override = _net_mat
+	holder.add_child(_net)
+
+
+func _pose_net(gt: Transform3D, t: float, ctx: Dictionary) -> void:
+	if _net == null:
+		return
+	var nd: Dictionary = _p.get("net", {})
+	var fly := float(nd.get("fly", 1.6))
+	var t_rel := t - (float(nd.get("land", 1e9)) - fly)
+	_net_mat.set_shader_parameter("t_rel", t_rel)
+	# Before the throw the net is a bundle in their hands (the sheet collapsed to the start line).
+	if not ctx.has("actor"):
+		return
+	var sz: Array = nd.get("size", [7.0, 6.0])
+	var size := Vector2(float(sz[0]), float(sz[1]))
+	var hx := (_net.get_parent() as Node3D).transform
+	var hands: Array = nd.get("hands", [])
+	for i in hands.size():
+		var actor = ctx["actor"].call(String(hands[i]))
+		if actor == null or not actor.visible:
+			continue
+		# Each thrower holds a near corner region until it leaves his hands (just after the throw starts).
+		var u := (-0.18 if i == 0 else 0.18) * size.x
+		var hold := 1.0 - Motion.smooth(Motion.seg(t_rel, 0.25, 0.6))
+		if hold <= 0.0:
+			continue
+		var np := net_point(Vector2(u, -size.y * 0.5), maxf(t_rel, 0.0), fly, size)
+		for side in ["l", "r"]:
+			var off := Vector3(0.12 if side == "l" else -0.12, 0, 0)
+			actor.aim_hand(side, gt * (hx * (np + off)), hold, 0.05 * hold)
 var _dune_mat: ShaderMaterial
 
 ## A hand-made dune: the heap (k 0) shaped into a barchan (k 1); wind ripples spread from the blow point. The same
@@ -2043,6 +2203,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_night(gt, t, ctx)
 	_pose_park(gt, t, ctx)
 	_pose_dune(gt, t, ctx)
+	_pose_net(gt, t, ctx)
 	# The hook block swings a little on its falls.
 	_hook.rotation = Vector3(0.012 * sin(t * 1.1), 0, 0.016 * sin(t * 0.83 + 0.6))
 	# Carried loads: a sandbag rides between the hands; jerrycans hang upright under each grip, lagging a touch.

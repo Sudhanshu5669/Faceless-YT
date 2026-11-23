@@ -148,6 +148,23 @@ ACTORS += [
                                {"t": W("l7a", "wind", 0.55), "expression": "smug", "head": [0, 0, 0], "head_turn": 0.4}]},
 ]
 
+# net_drape (1998, dawn): another shaft head; two jawans on its far side fling a camouflage net over it toward us.
+NET_AT = (13.0, -5.0)
+NETW = [W("l7b", offset=-0.8), W("l8a", offset=0.05)]
+
+
+def NP(x, y, z):
+    """A point relative to the second shaft head (net-local: -z is the throwers' side)."""
+    return P(NET_AT[0] + x, y, NET_AT[1] + z)
+
+
+ACTORS += [
+    {"id": "net_a", "character": "toon_jawan_d", "at": NP(-0.55, 0, -3.8), "facing": NP(-0.3, 0, 0), "action": "idle",
+     "shown": [NETW], "cues": [{"t": 0.0, "expression": "effort"}, {"t": W("l7b", "nets", 0.4), "expression": "happy"}]},
+    {"id": "net_b", "character": "toon_jawan_a", "at": NP(0.55, 0, -3.8), "facing": NP(0.3, 0, 0), "action": "idle",
+     "shown": [NETW], "cues": [{"t": 0.0, "expression": "effort"}, {"t": W("l7b", "nets", 0.5), "expression": "grin"}]},
+]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -162,10 +179,12 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "night": {"on": [NIGHT], "lamp": [1.8, 1.6], "torch": ["night_torch"]},
                     "dune": {"at": [DUNE_AT[0], DUNE_AT[1], 0.0], "scale": 0.7, "shape": [W("l7a", "Shaped", -0.3), W("l7a", "dunes", 0.35)],
                              "blow": W("l7a", "wind", -0.15), "hands": ["dune_a", "dune_b"], "blower": "dune_blow"},
+                    "net": {"at": [NET_AT[0], NET_AT[1], 0.0], "size": [7.0, 6.0], "land": W("l7b", "nets", 0.05),
+                            "fly": 1.6, "hands": ["net_a", "net_b"]},
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
-                    "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6], [-4.5, 9.0, 2.6], [-1.6, 6.5, 1.4]],
+                    "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6], [-4.5, 9.0, 2.6], [-1.6, 6.5, 1.4], [13.0, -5.0, 5.0], [15.5, 2.5, 1.5]],
                     "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
                     "drip": W("l2e", "bomb", 0.04),
                     "y1995": [Y1995, Y1995_LATE],
@@ -324,6 +343,11 @@ SHOTS = {
     "dune_shape": {"look": LOOK_DAWN, "camera": move(
         cam(DP(2.0, 1.45, -3.0), DP(-0.1, 0.25, 0.1), 30, {"strength": 0.1}),
         cam(DP(1.4, 0.9, -2.35), DP(-0.2, 0.2, -0.3), 30, {"strength": 0.12}), "in_out")},
+    # Wide on another shaft head at dawn: two jawans behind it fling a garnished camouflage net; it unfurls toward us,
+    # billows and settles over the poles on "nets", the low sun through its holes. A slight crane up.
+    "net_drape": {"look": LOOK_DAWN, "camera": move(
+        cam(NP(1.9, 1.5, 6.0), NP(0.0, 1.05, -1.2), 26, {"strength": 0.1}),
+        cam(NP(1.7, 2.6, 5.6), NP(0.0, 0.75, -0.9), 26, {"strength": 0.1}), "in_out")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 
