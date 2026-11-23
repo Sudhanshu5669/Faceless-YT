@@ -1,0 +1,27 @@
+{
+  "id": "toon_jawan_c",
+  "description": "58 Engineer Regiment jawan, 1998: olive patrol cap, fatigues, wiry, small moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "soldier"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "patrol",
+      "color": "#4a4d31"
+    },
+    "outfit": {
+      "style": "fatigues",
+      "color": "#5b5d3b"
+    },
+    "shoes": "#1c1916",
+    "face": "deadpan",
+    "girth": 0.88,
+    "mustache": "#2a211a"
+  }
+}

@@ -43,9 +43,13 @@ static func apply(parent: Node, look: Dictionary, camera: Node3D = null) -> void
 	env.sky = s
 
 	var amb: Dictionary = look["ambient"]
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = _c(amb["color"])
 	env.ambient_light_energy = float(amb["energy"])
+	# "sky" > 0: the fill comes from the sky itself (blue from above, horizon-tinted from the sides) mixed
+	# with the flat colour; outdoor daylight needs it so shadows read as sky-lit, not grey.
+	var sky_amb := float(amb.get("sky", 0.0))
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY if sky_amb > 0.0 else Environment.AMBIENT_SOURCE_COLOR
+	env.ambient_light_sky_contribution = sky_amb
 
 	env.tonemap_mode = Environment.TONE_MAPPER_AGX
 	env.tonemap_exposure = float(look["exposure"])

@@ -47,7 +47,7 @@ defaults → time model → weather model → explicit overrides
 | `sky` | `top`, `horizon` (colours), `stars` (0–2), `star_color`, `clouds` (0–1), `cloud_color`, `cloud_shadow`, `cloud_speed`, `bodies` (extra sky objects, below) |
 | `sun`, `moon` | `elevation`, `azimuth` (degrees), `color` (light colour), `energy`, `shadows`, `softness` (shadow blur), `visible`, `size` (angular radius in degrees; real ≈ 0.25, default sun 1.6, moon 2.2), `disc_color` (what the disc looks like; `#000000` = eclipse), `glow`, `glow_color` (halo) |
 | `lights` | Extra directional lights: `[{elevation, azimuth, color, energy, shadows}]`. Use for a second sun, a green glow from the east, and so on. |
-| `ambient` | `color`, `energy`: fill light everywhere. |
+| `ambient` | `color`, `energy`: fill light everywhere. `sky` (0–1): how much of the fill comes from the sky itself (directional: blue from above, horizon colour from the sides) instead of the flat colour; use 0.6–1 for daylight exteriors. |
 | `exposure` | Overall brightness (1 = neutral). |
 | `fog` | `begin`, `end` (distance fog, metres), `curve`, `volumetric` (global density), `color`, `emission` (glowing fog), `anisotropy`, `length` |
 | `ground_fog` | `density`, `height`, `falloff`, `color`, `emission`: the low fog layer streetlights cut through. |

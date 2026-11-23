@@ -1,0 +1,1107 @@
+extends RefCounted
+## The Pokhran field firing range, Thar desert (Jaisalmer district), May 1998.
+##
+## Not dunes everywhere: a flat, pale, gravelly plain of buff sand with sewan-grass tufts, ker bushes and
+## khejri trees, low dunes rising far off in heat haze. At the origin, the shaft code-named "White House": a
+## concrete collar with a bolted steel plate, a steel tripod over it with a sheave and a hook block, a diesel
+## winch on a skid behind a low sandbag wall, a spoil heap, crates, jerrycans and a cable reel. An army camp
+## (olive ridge tents) stands off to the north-west, a windsock to the north-east. A truck track with two
+## tyre ruts curves past in front of the shaft. Heat shimmer bends everything beyond ~35 m.
+##
+## Local frame: the White House plate centre is the origin, ground y 0 there; +z is "south" (where cameras
+## usually stand, looking -z). The terrain height anywhere is height(x, z) (the same function in the shader).
+## Plants, rocks and props sit on it.
+##
+## Assets: khejri, ker, sewan grass and sandbags from episodes/pokhran/blender/range_assets.py
+## (incoming/pokhran_blender/); ground textures and crates/jerrycans from Poly Haven (CC0,
+## incoming/polyhaven_pokhran/).
+##
+## params:
+##   carry      [{"actor": id, "what": "sandbag" | "jerrycans"}, ...]   sandbag: hugged in both hands (gait
+##              walk_carry), riding between the hands; jerrycans: one hanging from each hand (gait walk), upright
+##              under the grip with a little lag
+##   wind       [[t, yaw_deg, strength], ...]   the windsock's heading (degrees, 0 = blowing toward -z) and
+##              strength 0..1 over time (default [[0, 120, 0.55]])
+##   shimmer    0..1   heat-haze strength (default 1; 0 at night)
+##   tufts      [[x, z, scale], ...]   hero grass tufts placed for a camera (foreground framing)
+##   bushes     [[x, z, scale, yaw], ...]   hero ker bushes
+##   clear      [[x, z, radius], ...]   keep the scattered plants and stones out of these circles (camera spots)
+## anchors: plate, apex, winch, spoil, tree, camp, windsock, track
+
+const Kit = preload("res://scripts/world/gag_kit.gd")
+const Motion = preload("res://scripts/timeline/motion.gd")
+
+const PB := "incoming/pokhran_blender/"
+const PH := "incoming/polyhaven_pokhran/"
+const TX := "incoming/polyhaven_pokhran/textures/"
+
+const PAD_R := 6.0                       # the scraped pad round the shaft
+const TRIPOD_H := 5.2
+const WINCH_AT := Vector3(3.1, 0.0, -2.6)
+const SPOIL_AT := Vector3(-4.6, 0.0, 1.4)
+const TREE_AT := Vector3(-10.2, 0.0, -8.4)
+const SOCK_AT := Vector3(-7.6, 0.0, -23.6)
+const SOCK_H := 6.2
+const CAMP := [Vector3(-10.0, 0, -29.2), Vector3(-9.7, 0, -36.4), Vector3(-3.3, 0, -34.6), Vector3(-17.8, 0, -36.1)]
+
+## Terrain height (metres) at local (x, z). Mirrors height() in GROUND.
+static func height(x: float, z: float) -> float:
+	var h := 0.22 * sin(0.11 * x + 0.7) * cos(0.083 * z + 1.3) + 0.12 * sin(0.23 * x - 0.17 * z + 2.1)
+	h += 0.05 * sin(0.47 * x + 0.31 * z) + 0.025 * sin(1.3 * x - 0.9 * z + 0.4)
+	var d := sqrt(x * x + z * z)
+	var far := smoothstep(90.0, 420.0, d)
+	var dn := 0.5 + 0.5 * sin(0.021 * x + 1.7 * sin(0.006 * z) + 0.3)
+	h += far * (5.0 * dn * dn * dn + 2.0 * sin(0.013 * z + 0.9) * sin(0.017 * x))
+	h += smoothstep(700.0, 2200.0, d) * (16.0 + 10.0 * sin(0.004 * x + 2.0) * sin(0.0031 * z))
+	var k := smoothstep(PAD_R, PAD_R * 2.2, d)
+	h = lerpf(-0.02, h - 0.0, k)
+	h += _ruts(x, z)
+	return h
+
+
+static func _track_z(x: float) -> float:
+	return 5.6 + 4.0 * sin(x * 0.04 + 0.5)
+
+
+static func _ruts(x: float, z: float) -> float:
+	var dz := absf(z - _track_z(x))
+	var on := 1.0 - smoothstep(60.0, 90.0, absf(x))
+	var g := -0.05 * exp(-pow((dz - 0.85) / 0.15, 2.0)) + 0.012 * exp(-pow(dz / 0.35, 2.0))
+	return g * on
+
+
+static func ground(x: float, z: float) -> Vector3:
+	return Vector3(x, height(x, z), z)
+
+
+const HEIGHT_GLSL := """
+float track_z(float x) { return 5.6 + 4.0 * sin(x * 0.04 + 0.5); }
+float ruts(vec2 p) {
+	float dz = abs(p.y - track_z(p.x));
+	float on = 1.0 - smoothstep(60.0, 90.0, abs(p.x));
+	return (-0.05 * exp(-pow((dz - 0.85) / 0.15, 2.0)) + 0.012 * exp(-pow(dz / 0.35, 2.0))) * on;
+}
+float height(vec2 p) {
+	float x = p.x, z = p.y;
+	float h = 0.22 * sin(0.11 * x + 0.7) * cos(0.083 * z + 1.3) + 0.12 * sin(0.23 * x - 0.17 * z + 2.1);
+	h += 0.05 * sin(0.47 * x + 0.31 * z) + 0.025 * sin(1.3 * x - 0.9 * z + 0.4);
+	float d = length(p);
+	float far = smoothstep(90.0, 420.0, d);
+	float dn = 0.5 + 0.5 * sin(0.021 * x + 1.7 * sin(0.006 * z) + 0.3);
+	h += far * (5.0 * dn * dn * dn + 2.0 * sin(0.013 * z + 0.9) * sin(0.017 * x));
+	h += smoothstep(700.0, 2200.0, d) * (16.0 + 10.0 * sin(0.004 * x + 2.0) * sin(0.0031 * z));
+	float k = smoothstep(PAD_R, PAD_R * 2.2, d);
+	h = mix(-0.02, h, k);
+	return h + ruts(p);
+}
+"""
+
+## The desert floor: gravelly buff sand (two Poly Haven sand textures, anti-tiled and graded toward the
+## Thar's pale ochre), trampled sand with footprints on the pad and along the track, darker compacted ruts,
+## pale wind-blown sand in the hollows, broad tone patches that read from far off.
+const GROUND := """
+shader_type spatial;
+render_mode skip_vertex_transform;
+uniform sampler2D a_alb : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform sampler2D a_nor : hint_normal, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform sampler2D b_alb : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform sampler2D b_nor : hint_normal, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform sampler2D s_alb : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform sampler2D s_nor : hint_normal, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform vec3 tint = vec3(1.0);
+varying vec3 lp;
+//NOISE
+//HEIGHT
+void vertex() {
+	vec2 p = VERTEX.xz;
+	float h = height(p);
+	float e = 0.12 * max(1.0, length(p) * 0.02);
+	float hx = height(p + vec2(e, 0.0)) - height(p - vec2(e, 0.0));
+	float hz = height(p + vec2(0.0, e)) - height(p - vec2(0.0, e));
+	VERTEX.y = h;
+	lp = VERTEX;
+	vec3 n = normalize(vec3(-hx, 2.0 * e, -hz));
+	vec3 tg = normalize(vec3(1.0, 0.0, 0.0) - n * n.x);
+	VERTEX = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	NORMAL = normalize((MODELVIEW_MATRIX * vec4(n, 0.0)).xyz);
+	TANGENT = normalize((MODELVIEW_MATRIX * vec4(tg, 0.0)).xyz);
+	BINORMAL = normalize((MODELVIEW_MATRIX * vec4(cross(tg, n), 0.0)).xyz);
+}
+vec3 tex2(sampler2D s, vec2 uv) {
+	// Two samples at unrelated scales and rotations, blended by noise: no visible tiling.
+	vec2 r = mat2(vec2(0.8, 0.6), vec2(-0.6, 0.8)) * uv * 0.43 + 0.31;
+	float m = smoothstep(0.35, 0.65, n3(vec3(uv * 0.21, 3.0)));
+	return mix(texture(s, uv).rgb, texture(s, r).rgb, m);
+}
+void fragment() {
+	vec2 p = lp.xz;
+	float d = length(p);
+	vec2 uv = p * 0.42;
+	vec3 a = tex2(a_alb, uv);
+	vec3 b = tex2(b_alb, uv * 0.8 + 0.5);
+	vec3 s = tex2(s_alb, p * 0.3);
+	float mab = smoothstep(0.4, 0.6, fbm(vec3(p * 0.05, 1.0)));
+	vec3 col = mix(a, b, mab);
+	// Grade the orange-brown gravel toward the Thar's pale buff.
+	float l = dot(col, vec3(0.3, 0.55, 0.15));
+	col = mix(vec3(l), col, 0.55) * vec3(1.18, 1.04, 0.84) * 1.25;
+	// Pale blown sand in hollows and far off; trampled sand (footprints) on the pad and the track.
+	float hollow = smoothstep(0.55, 0.75, fbm(vec3(p * 0.09, 4.0)));
+	float pad = 1.0 - smoothstep(PAD_R * 0.9, PAD_R * 2.0, d + 2.0 * (fbm(vec3(p * 0.3, 7.0)) - 0.5));
+	float tz = abs(p.y - track_z(p.x));
+	float trk = (1.0 - smoothstep(1.1, 1.8, tz)) * (1.0 - smoothstep(60.0, 90.0, abs(p.x)));
+	float rut = exp(-pow((tz - 0.85) / 0.17, 2.0)) * (1.0 - smoothstep(60.0, 90.0, abs(p.x)));
+	vec3 sand = s * vec3(1.12, 1.0, 0.82) * 1.12;
+	col = mix(col, sand * 1.08, hollow * 0.55);
+	col = mix(col, sand, max(pad, trk * 0.8));
+	col *= 1.0 - 0.18 * rut;
+	// Broad tone patches (gravel fans, darker crusts) that read at a distance.
+	col *= 0.88 + 0.24 * fbm(vec3(p * 0.012, 9.0));
+	col *= tint;
+	ALBEDO = col;
+	vec3 na = mix(texture(a_nor, uv).rgb, texture(b_nor, uv * 0.8 + 0.5).rgb, mab);
+	vec3 ns = texture(s_nor, p * 0.3).rgb;
+	NORMAL_MAP = mix(na, ns, max(max(pad, trk * 0.8), hollow * 0.55));
+	NORMAL_MAP_DEPTH = 1.0 - smoothstep(30.0, 120.0, d) * 0.7;
+	ROUGHNESS = 0.96 - 0.12 * rut;
+	SPECULAR = 0.3;
+}
+"""
+
+## Khejri leaflets and grass: vertex colour, wind sway that grows with height, light through the leaves.
+const FOLIAGE := """
+shader_type spatial;
+render_mode cull_disabled;
+uniform float t = 0.0;
+uniform float wind = 1.0;
+uniform float base_h = 1.2;
+uniform float span_h = 3.0;
+uniform float amp = 0.035;
+uniform vec3 tint = vec3(1.0);
+uniform float back = 0.55;
+void vertex() {
+	vec3 w = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	float k = smoothstep(base_h, base_h + span_h, VERTEX.y) * wind;
+	VERTEX.x += k * (amp * sin(t * 1.7 + w.x * 0.6 + w.z * 0.35) + amp * 0.35 * sin(t * 5.1 + w.y * 3.1 + w.x * 2.0));
+	VERTEX.z += k * amp * 0.8 * sin(t * 1.4 + w.z * 0.7 + 1.0);
+	VERTEX.y += k * amp * 0.3 * sin(t * 6.3 + w.x * 3.0);
+}
+void fragment() {
+	vec3 c = COLOR.rgb * tint;
+	ALBEDO = c;
+	ROUGHNESS = 0.72;
+	SPECULAR = 0.3;
+	BACKLIGHT = c * vec3(0.95, 1.0, 0.6) * back;
+	AO = 0.75 + 0.25 * smoothstep(0.0, 4.0, VERTEX.y);
+}
+"""
+
+## Bark (khejri, ker): the Blender vertex colour (fissures) over fine noise; dust settles on top surfaces.
+const BARK := """
+shader_type spatial;
+uniform vec3 tint = vec3(1.0);
+varying vec3 wp;
+//NOISE
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
+void fragment() {
+	vec3 c = COLOR.rgb * tint;
+	c *= 0.8 + 0.4 * fbm(wp * vec3(40.0, 8.0, 40.0));
+	float up = clamp((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).y, 0.0, 1.0);
+	c = mix(c, vec3(0.62, 0.52, 0.4), smoothstep(0.6, 0.95, up) * 0.45);
+	ALBEDO = c;
+	ROUGHNESS = 0.95;
+	SPECULAR = 0.25;
+}
+"""
+
+## Hessian sandbags: a coarse weave in object space, dusty, darker where they touch the ground.
+const HESSIAN := """
+shader_type spatial;
+varying vec3 lp;
+varying vec3 wp;
+//NOISE
+void vertex() { lp = VERTEX; wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
+void fragment() {
+	vec3 base = vec3(0.34, 0.27, 0.17);
+	float wv = sin(lp.x * 700.0) * sin(lp.z * 700.0 + lp.y * 300.0);
+	float fade = 1.0 - smoothstep(0.0, 0.004, fwidth(lp.x * 700.0) * 0.001);
+	vec3 c = base * (0.9 + 0.08 * wv * fade);
+	c *= 0.82 + 0.3 * fbm(wp * 3.0);
+	c = mix(c, vec3(0.7, 0.6, 0.45), smoothstep(0.08, 0.14, lp.y) * 0.35);
+	c *= 0.75 + 0.25 * smoothstep(0.0, 0.05, lp.y);
+	ALBEDO = c;
+	ROUGHNESS = 0.98;
+	SPECULAR = 0.2;
+}
+"""
+
+## Cast concrete: beige-grey with form lines, stains and chipped corners; sand lies on the top faces.
+const CONCRETE := """
+shader_type spatial;
+varying vec3 wp;
+//NOISE
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
+void fragment() {
+	vec3 c = vec3(0.33, 0.31, 0.28);
+	c *= 0.85 + 0.25 * fbm(wp * 2.5);
+	c *= 0.93 + 0.14 * h3(floor(wp * 220.0));
+	c = mix(c, c * 0.62, smoothstep(0.62, 0.8, fbm(wp * vec3(1.0, 6.0, 1.0) + 3.0)) * 0.5);
+	float up = clamp((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).y, 0.0, 1.0);
+	c = mix(c, vec3(0.6, 0.5, 0.37), smoothstep(0.7, 1.0, up) * smoothstep(0.35, 0.7, fbm(wp * 4.0 + 1.0)) * 0.7);
+	ALBEDO = c;
+	ROUGHNESS = 0.92;
+	SPECULAR = 0.3;
+}
+"""
+
+## Heavy steel plate: dark mill scale, rust bleeding from the bolt line and edges, scuffs to bright steel,
+## sand in the low spots. Slightly metallic so it picks up the sky.
+const STEEL := """
+shader_type spatial;
+uniform float rust = 1.0;
+varying vec3 wp;
+varying vec3 lp;
+//NOISE
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; lp = VERTEX; }
+void fragment() {
+	vec3 c = vec3(0.2, 0.2, 0.21) * (0.85 + 0.3 * fbm(wp * 6.0));
+	float r = smoothstep(0.5, 0.75, fbm(wp * 1.6 + vec3(0.0, 0.0, 2.0))) * rust;
+	vec3 rc = mix(vec3(0.36, 0.16, 0.07), vec3(0.55, 0.28, 0.12), fbm(wp * 9.0));
+	c = mix(c, rc, r);
+	float scuff = smoothstep(0.72, 0.85, fbm(wp * vec3(14.0, 2.0, 30.0)));
+	c = mix(c, vec3(0.5, 0.5, 0.5), scuff * 0.5);
+	float up = clamp((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).y, 0.0, 1.0);
+	float dust = smoothstep(0.55, 0.8, fbm(wp * 3.0 + 5.0)) * smoothstep(0.7, 1.0, up);
+	c = mix(c, vec3(0.56, 0.47, 0.35), dust * 0.5);
+	ALBEDO = c;
+	METALLIC = 0.35 * (1.0 - r) * (1.0 - dust);
+	ROUGHNESS = mix(0.62, 0.92, max(r, dust));
+	SPECULAR = 0.5;
+}
+"""
+
+## Army olive paint on steel: faded on top, chipped to bare and rusty steel, dust on the upper faces.
+const OLIVE := """
+shader_type spatial;
+uniform vec3 paint = vec3(0.25, 0.26, 0.15);
+varying vec3 wp;
+//NOISE
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
+void fragment() {
+	float up = clamp((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).y, 0.0, 1.0);
+	vec3 c = paint * (0.85 + 0.25 * fbm(wp * 3.0));
+	c = mix(c, c * 1.35 + vec3(0.04, 0.03, 0.0), up * 0.5);
+	float chip = smoothstep(0.7, 0.78, fbm(wp * 18.0));
+	c = mix(c, mix(vec3(0.3, 0.3, 0.3), vec3(0.4, 0.2, 0.09), fbm(wp * 30.0)), chip);
+	c = mix(c, vec3(0.7, 0.6, 0.45), smoothstep(0.75, 1.0, up) * smoothstep(0.4, 0.7, fbm(wp * 5.0)) * 0.6);
+	ALBEDO = c;
+	ROUGHNESS = mix(0.7, 0.5, chip);
+	SPECULAR = 0.45;
+	METALLIC = chip * 0.4;
+}
+"""
+
+## Tent canvas: olive-khaki duck with a weave, sun-bleached on top, dusty and darker at the hem.
+const CANVAS := """
+shader_type spatial;
+render_mode cull_disabled;
+uniform vec3 cloth = vec3(0.36, 0.35, 0.22);
+varying vec3 wp;
+varying vec3 lp;
+//NOISE
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; lp = VERTEX; }
+void fragment() {
+	vec3 c = cloth * (0.85 + 0.25 * fbm(wp * 1.5));
+	float up = clamp((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).y, 0.0, 1.0);
+	c = mix(c, c * 1.3 + vec3(0.05, 0.04, 0.0), up * 0.6);
+	c = mix(c, vec3(0.55, 0.47, 0.34), (1.0 - smoothstep(0.0, 0.5, lp.y)) * 0.6);
+	c *= 0.95 + 0.05 * sin(wp.x * 400.0) * sin(wp.y * 400.0);
+	ALBEDO = c;
+	ROUGHNESS = 0.95;
+	SPECULAR = 0.2;
+	BACKLIGHT = c * 0.25;
+}
+"""
+
+## Steel cable: dark, greasy, a twisted-strand highlight.
+const CABLE := """
+shader_type spatial;
+varying vec3 lp;
+void vertex() { lp = VERTEX; }
+void fragment() {
+	float s = sin((lp.y + atan(lp.x, lp.z) * 0.004) * 1600.0);
+	ALBEDO = vec3(0.12, 0.12, 0.12) * (0.8 + 0.2 * s);
+	METALLIC = 0.7;
+	ROUGHNESS = 0.4;
+}
+"""
+
+## The windsock: a cone of bands bent by the wind and fluttering. Local +x runs from the ring to the tail.
+const SOCK := """
+shader_type spatial;
+render_mode cull_disabled;
+uniform float t = 0.0;
+uniform float strength = 0.6;
+uniform float length_m = 1.9;
+varying float u;
+void vertex() {
+	u = clamp(VERTEX.x / length_m, 0.0, 1.0);
+	float sag = (1.0 - strength) * 1.1 * u * u;
+	VERTEX.y -= sag * length_m * 0.7;
+	VERTEX.x -= sag * length_m * 0.35 * u;
+	float fl = u * u * (0.25 + 0.75 * strength);
+	VERTEX.y += fl * 0.07 * sin(t * 11.0 - u * 7.0);
+	VERTEX.z += fl * 0.09 * sin(t * 8.3 - u * 5.0 + 1.3);
+	VERTEX *= vec3(1.0, 1.0 + 0.05 * fl * sin(t * 15.0 - u * 9.0), 1.0);
+}
+void fragment() {
+	float band = step(0.5, fract(u * 2.5));
+	vec3 c = mix(vec3(0.85, 0.2, 0.08), vec3(0.92, 0.9, 0.86), band);
+	c *= 0.85 + 0.15 * u;
+	ALBEDO = c;
+	ROUGHNESS = 0.8;
+	BACKLIGHT = c * 0.5;
+}
+"""
+
+## Heat shimmer: a ring of screen-space refraction round the site; whatever lies beyond it wobbles, most
+## near the ground. Distortion is in pixels (resolution-independent), driven by t.
+const SHIMMER := """
+shader_type spatial;
+render_mode unshaded, cull_disabled, depth_draw_never, shadows_disabled, fog_disabled;
+uniform sampler2D scr : hint_screen_texture, filter_linear_mipmap;
+uniform float t = 0.0;
+uniform float strength = 1.0;
+uniform float top = 7.0;
+varying vec3 lp;
+void vertex() { lp = VERTEX; }
+void fragment() {
+	float k = (1.0 - smoothstep(0.0, top, lp.y)) * strength;
+	vec2 px = 1.0 / VIEWPORT_SIZE;
+	vec2 off = vec2(
+		sin(SCREEN_UV.y * 420.0 - t * 7.0 + sin(SCREEN_UV.x * 60.0 + t * 2.3) * 2.0),
+		sin(SCREEN_UV.y * 310.0 + SCREEN_UV.x * 90.0 - t * 9.0)) * vec2(1.6, 1.1) * px * (VIEWPORT_SIZE.y / 1080.0) * k;
+	ALBEDO = textureLod(scr, SCREEN_UV + off, 0.0).rgb;
+}
+"""
+
+## Dug sand: paler and lumpier than the plain.
+const SPOIL_SHADER := """
+shader_type spatial;
+uniform sampler2D s_alb : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform sampler2D s_nor : hint_normal, filter_linear_mipmap_anisotropic, repeat_enable;
+varying vec3 wp;
+varying vec3 wn;
+//NOISE
+void vertex() {
+	vec3 w = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	VERTEX += NORMAL * ((fbm(w * 1.3) - 0.5) * 0.35 + (n3(w * 7.0) - 0.5) * 0.05);
+	wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	wn = normalize((MODEL_MATRIX * vec4(NORMAL, 0.0)).xyz);
+}
+void fragment() {
+	// The same sand as the ground's trampled sand (triplanar), a touch darker and damper where freshly dug.
+	vec3 b = pow(abs(wn), vec3(4.0));
+	b /= b.x + b.y + b.z;
+	vec3 s = texture(s_alb, wp.zy * 0.3).rgb * b.x + texture(s_alb, wp.xz * 0.3).rgb * b.y + texture(s_alb, wp.xy * 0.3).rgb * b.z;
+	vec3 c = s * vec3(1.12, 1.0, 0.82) * 1.0;
+	c *= 0.78 + 0.22 * smoothstep(0.3, 0.7, fbm(wp * 3.0));
+	ALBEDO = c;
+	NORMAL_MAP = texture(s_nor, wp.xz * 0.3).rgb;
+	ROUGHNESS = 0.97;
+	SPECULAR = 0.2;
+}
+"""
+
+var _p := {}
+var _foliage_mats: Array = []
+var _sock: MeshInstance3D
+var _sock_pivot: Node3D
+var _sock_mat: ShaderMaterial
+var _shimmer_mat: ShaderMaterial
+var _bags := {}
+var _hook: Node3D
+var _kites_n: Array = []
+
+
+func build(g: Dictionary) -> Node3D:
+	_p = g.get("params", {})
+	var root := Node3D.new()
+	_ground(root)
+	_shaft(root)
+	_tripod(root)
+	_winch(root)
+	_spoil(root)
+	_props(root)
+	_camp(root)
+	_windsock(root)
+	_vegetation(root)
+	_shimmer(root)
+	_kites(root)
+	for c in _p.get("carry", []):
+		var what := String(c.get("what", "sandbag"))
+		var held: Array = []
+		if what == "jerrycans":
+			for side in ["l", "r"]:
+				var jc := Kit.model(PH + "models/metal_jerrycan_green/metal_jerrycan_green_2k.gltf")
+				jc.name = "carried_%s_%s" % [c["actor"], side]
+				root.add_child(jc)
+				held.append(jc)
+		else:
+			var bag := _model(PB + "sandbag.glb", Kit.shader(HESSIAN))
+			bag.name = "carried_" + String(c["actor"])
+			root.add_child(bag)
+			held.append(bag)
+		_bags[String(c["actor"])] = {"what": what, "nodes": held}
+	return root
+
+
+# --- the ground ------------------------------------------------------------------------------------
+
+## A radial grid: dense round the site, coarser with distance, out to the haze (2.4 km).
+func _ground(root: Node3D) -> void:
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var rings: Array = [0.0]
+	var r := 0.0
+	while r < 2400.0:
+		r += 0.22 if r < 25.0 else (r * 0.009 if r < 120.0 else r * 0.035)
+		rings.append(r)
+	var seg := 384
+	var verts := PackedVector3Array()
+	for ri in rings.size():
+		var rr: float = rings[ri]
+		for k in seg:
+			var a := TAU * float(k) / float(seg)
+			verts.append(Vector3(cos(a) * rr, 0.0, sin(a) * rr))
+	var arr := []
+	arr.resize(Mesh.ARRAY_MAX)
+	var idx := PackedInt32Array()
+	for ri in rings.size() - 1:
+		for k in seg:
+			var a := ri * seg + k
+			var b := ri * seg + (k + 1) % seg
+			var c := a + seg
+			var d := b + seg
+			idx.append_array([a, c, b, b, c, d])
+	var nrm := PackedVector3Array()
+	nrm.resize(verts.size())
+	nrm.fill(Vector3.UP)
+	arr[Mesh.ARRAY_VERTEX] = verts
+	arr[Mesh.ARRAY_NORMAL] = nrm
+	arr[Mesh.ARRAY_INDEX] = idx
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
+	mesh.custom_aabb = AABB(Vector3(-2500, -5, -2500), Vector3(5000, 60, 5000))
+	var mi := MeshInstance3D.new()
+	mi.name = "ground"
+	mi.mesh = mesh
+	var code := GROUND.replace("//HEIGHT", HEIGHT_GLSL).replace("PAD_R", "%.1f" % PAD_R)
+	var m := Kit.shader(code)
+	m.set_shader_parameter("a_alb", Kit.texture(TX + "gravelly_sand_diff_2k.jpg"))
+	m.set_shader_parameter("a_nor", Kit.texture(TX + "gravelly_sand_nor_gl_2k.jpg", true))
+	m.set_shader_parameter("b_alb", Kit.texture(TX + "sandy_gravel_02_diff_2k.jpg"))
+	m.set_shader_parameter("b_nor", Kit.texture(TX + "sandy_gravel_02_nor_gl_2k.jpg", true))
+	m.set_shader_parameter("s_alb", Kit.texture(TX + "sand_01_diff_2k.jpg"))
+	m.set_shader_parameter("s_nor", Kit.texture(TX + "sand_01_nor_gl_2k.jpg", true))
+	mi.material_override = m
+	root.add_child(mi)
+
+
+# --- the shaft head --------------------------------------------------------------------------------
+
+func _shaft(root: Node3D) -> void:
+	var conc := Kit.shader(CONCRETE)
+	var steel := Kit.shader(STEEL)
+	# The collar: a cast square ring, its top 0.22 m above the scraped pad.
+	Kit.slab(root, Vector3(2.7, 0.3, 2.7), 0.05, Vector3(0, 0.07, 0), conc)
+	# The plate: 1.8 m square, 40 mm thick, bolted down all round; lifting lugs at the corners;
+	# a cable gland in the middle where the firing cables come up.
+	Kit.slab(root, Vector3(1.8, 0.04, 1.8), 0.015, Vector3(0, 0.24, 0), steel)
+	var bolt := Kit.mat("#3a3632", 0.55, 0.6)
+	for i in 16:
+		var side := i / 4
+		var f := (float(i % 4) + 0.5) / 4.0 * 1.6 - 0.8
+		var bp: Vector3 = [Vector3(f, 0, -0.82), Vector3(0.82, 0, f), Vector3(-f, 0, 0.82), Vector3(-0.82, 0, -f)][side]
+		Kit.cyl(root, 0.022, 0.022, 0.025, bp + Vector3(0, 0.27, 0), bolt, 6)
+	for s in [Vector2(1, 1), Vector2(-1, 1), Vector2(1, -1), Vector2(-1, -1)]:
+		var lug := MeshInstance3D.new()
+		var tm := TorusMesh.new()
+		tm.inner_radius = 0.035
+		tm.outer_radius = 0.06
+		lug.mesh = tm
+		lug.material_override = steel
+		lug.position = Vector3(s.x * 0.68, 0.3, s.y * 0.68)
+		lug.rotation = Vector3(PI / 2, PI / 4 * s.x * s.y, 0)
+		root.add_child(lug)
+	Kit.cyl(root, 0.09, 0.11, 0.12, Vector3(0.0, 0.32, 0.0), steel, 16)
+	# Firing cables: two black cables from the gland, over the collar and away across the sand toward the
+	# bunker (north-east), sagging into the ground.
+	var cab := Kit.mat("#141414", 0.5)
+	for k in 2:
+		var off := Vector3(0.04 * (k * 2 - 1), 0, 0)
+		var pts := [Vector3(0, 0.36, 0) + off, Vector3(0.5, 0.33, -0.55) + off, Vector3(1.2, 0.27, -1.3) + off,
+			Vector3(1.6, 0.05, -1.75) + off]
+		for j in range(1, 7):
+			pts.append(ground(1.6 + 2.2 * j, -1.75 - 3.1 * j) + off + Vector3(0, 0.02, 0))
+		for j in pts.size() - 1:
+			Kit.rod(root, pts[j], pts[j + 1], 0.012, cab, 6)
+
+
+func _tripod(root: Node3D) -> void:
+	var olive := Kit.shader(OLIVE)
+	var apex := Vector3(0, TRIPOD_H, 0)
+	var feet := []
+	for k in 3:
+		var a := deg_to_rad(90.0 + 120.0 * k + 15.0)
+		var foot := Vector3(cos(a) * 2.2, 0, sin(a) * 2.2)
+		foot.y = height(foot.x, foot.z)
+		feet.append(foot)
+		Kit.rod(root, foot + Vector3(0, 0.05, 0), apex, 0.055, olive, 12)
+		Kit.box(root, Vector3(0.36, 0.04, 0.36), foot + Vector3(0, 0.02, 0), Kit.shader(STEEL))
+	# Bracing rings of angle iron between the legs.
+	for hf in [0.32, 0.62]:
+		for k in 3:
+			var a: Vector3 = (feet[k] as Vector3).lerp(apex, hf)
+			var b: Vector3 = (feet[(k + 1) % 3] as Vector3).lerp(apex, hf)
+			Kit.rod(root, a, b, 0.022, olive, 6)
+	# The head: a plate, the sheave (grooved wheel) on its axle, the hook block hanging on two falls.
+	Kit.cyl(root, 0.2, 0.2, 0.06, apex + Vector3(0, 0.05, 0), olive, 12)
+	var sheave := MeshInstance3D.new()
+	var tm := TorusMesh.new()
+	tm.inner_radius = 0.2
+	tm.outer_radius = 0.28
+	tm.rings = 32
+	sheave.mesh = tm
+	sheave.material_override = Kit.shader(STEEL)
+	sheave.position = apex + Vector3(0.0, -0.18, 0.0)
+	sheave.rotation = Vector3(0, 0, PI / 2)
+	root.add_child(sheave)
+	Kit.cyl(root, 0.06, 0.06, 0.2, apex + Vector3(0, -0.18, 0), olive, 12, Vector3(0, 0, PI / 2))
+	var cable := Kit.shader(CABLE)
+	_hook = Node3D.new()
+	_hook.name = "hook"
+	_hook.position = apex + Vector3(0, -0.18, 0)
+	root.add_child(_hook)
+	var drop := 3.4
+	for s in [-1.0, 1.0]:
+		Kit.rod(_hook, Vector3(0, -0.02, 0.25 * s), Vector3(0, -drop, 0.08 * s), 0.009, cable, 6)
+	var block := Kit.slab(_hook, Vector3(0.12, 0.34, 0.26), 0.05, Vector3(0, -drop - 0.12, 0), olive)
+	block.name = "block"
+	var hook := MeshInstance3D.new()
+	var hm := TorusMesh.new()
+	hm.inner_radius = 0.05
+	hm.outer_radius = 0.075
+	hook.mesh = hm
+	hook.material_override = Kit.shader(STEEL)
+	hook.position = Vector3(0, -drop - 0.4, 0)
+	hook.rotation = Vector3(PI / 2, 0, 0)
+	_hook.add_child(hook)
+
+
+func _winch(root: Node3D) -> void:
+	var olive := Kit.shader(OLIVE)
+	var w := Node3D.new()
+	w.name = "winch"
+	w.position = Vector3(WINCH_AT.x, height(WINCH_AT.x, WINCH_AT.z), WINCH_AT.z)
+	w.rotation.y = atan2(-WINCH_AT.z, WINCH_AT.x)
+	root.add_child(w)
+	# Skid frame, the drum wound with cable between two side cheeks, a diesel engine block with an exhaust
+	# stack and a radiator grille, a hand brake lever.
+	for s in [-0.45, 0.45]:
+		Kit.slab(w, Vector3(2.4, 0.14, 0.12), 0.02, Vector3(0, 0.07, s), olive)
+	Kit.slab(w, Vector3(2.3, 0.05, 1.0), 0.02, Vector3(0, 0.16, 0), olive)
+	Kit.cyl(w, 0.32, 0.32, 0.72, Vector3(-0.55, 0.62, 0), Kit.shader(CABLE), 28, Vector3(PI / 2, 0, 0))
+	for s in [-0.4, 0.4]:
+		Kit.cyl(w, 0.45, 0.45, 0.05, Vector3(-0.55, 0.62, s), olive, 28, Vector3(PI / 2, 0, 0))
+		Kit.box(w, Vector3(0.12, 0.5, 0.06), Vector3(-0.55, 0.38, s), olive)
+	Kit.slab(w, Vector3(0.9, 0.7, 0.72), 0.08, Vector3(0.55, 0.53, 0), olive)
+	Kit.slab(w, Vector3(0.06, 0.55, 0.6), 0.02, Vector3(1.02, 0.52, 0), Kit.mat("#1c1c18", 0.6, 0.3))
+	Kit.rod(w, Vector3(0.4, 0.88, 0.2), Vector3(0.4, 1.55, 0.2), 0.04, Kit.mat("#2a241e", 0.5, 0.4), 10)
+	Kit.cyl(w, 0.05, 0.04, 0.05, Vector3(0.4, 1.57, 0.2), Kit.mat("#141210", 0.6), 10)
+	Kit.rod(w, Vector3(-1.0, 0.2, -0.3), Vector3(-1.15, 1.05, -0.3), 0.018, olive, 8)
+	Kit.ball(w, 0.035, Vector3(-1.15, 1.06, -0.3), Kit.mat("#1a1a1a", 0.6), 10)
+	# The cable from the top of the drum up to the sheave.
+	var drum_top := w.transform * Vector3(-0.55, 0.94, 0)
+	Kit.rod(root, drum_top, Vector3(0, TRIPOD_H - 0.05, 0), 0.01, Kit.shader(CABLE), 6)
+	# A sandbag wall: a low horseshoe on the winch's far side, three courses, bags staggered like bricks.
+	var bag := _first_mesh(PB + "sandbag.glb")
+	var xfs := []
+	var r := Kit.rng("bags")
+	var centre := w.position
+	var face := atan2(centre.x, centre.z)
+	for course in 3:
+		var n := 13 - course
+		for i in n:
+			var a := face + deg_to_rad(-95.0 + 190.0 * (float(i) + 0.5 * (course % 2)) / float(13))
+			var rr := 1.85
+			var p := centre + Vector3(sin(a) * rr, 0, cos(a) * rr)
+			p.y = height(p.x, p.z) + 0.115 * course - 0.01
+			var b := Basis(Vector3.UP, a + r.randf_range(-0.12, 0.12))
+			b = b * Basis(Vector3.RIGHT, r.randf_range(-0.05, 0.05))
+			xfs.append(Transform3D(b.scaled(Vector3(1.0, r.randf_range(0.9, 1.1), 1.0)), p))
+	_multi(root, bag, xfs, Kit.shader(HESSIAN), true)
+
+
+func _spoil(root: Node3D) -> void:
+	# The spoil heap: dug sand, paler and looser than the plain, with a shovel stuck in it.
+	var sp := Kit.shader(SPOIL_SHADER)
+	sp.set_shader_parameter("s_alb", Kit.texture(TX + "sand_01_diff_2k.jpg"))
+	sp.set_shader_parameter("s_nor", Kit.texture(TX + "sand_01_nor_gl_2k.jpg", true))
+
+	var g := height(SPOIL_AT.x, SPOIL_AT.z)
+	var heap := Kit.ball(root, 1.0, Vector3(SPOIL_AT.x, g - 0.35, SPOIL_AT.z), sp, 48, Vector3(2.6, 1.55, 1.9))
+	heap.rotation.y = 0.5
+	Kit.ball(root, 1.0, Vector3(SPOIL_AT.x + 1.9, g - 0.2, SPOIL_AT.z + 0.9), sp, 32, Vector3(1.2, 0.6, 1.0))
+	# A shovel stuck in the heap: a wooden shaft with a D-grip and a steel blade.
+	var wood := Kit.mat("#6b4a2e", 0.75)
+	var top := Vector3(SPOIL_AT.x + 1.2, g + 1.75, SPOIL_AT.z + 0.6)
+	var bottom := Vector3(SPOIL_AT.x + 0.95, g + 0.8, SPOIL_AT.z + 0.45)
+	Kit.rod(root, bottom, top, 0.02, wood, 8)
+	Kit.box(root, Vector3(0.16, 0.025, 0.025), top + Vector3(0, 0.04, 0), wood)
+	Kit.box(root, Vector3(0.24, 0.3, 0.01), bottom + Vector3(-0.03, -0.1, -0.02), Kit.shader(STEEL), Vector3(0.2, 0.6, 0.25))
+
+
+func _props(root: Node3D) -> void:
+	# Ammunition crates stacked by the winch, three jerrycans, a wooden cable reel on its rim.
+	var crate := Kit.model(PH + "models/wooden_military_crate/wooden_military_crate_2k.gltf")
+	crate.position = ground(3.06, 0.0)
+	crate.rotation.y = 0.35
+	root.add_child(crate)
+	var crate2 := Kit.model(PH + "models/wooden_military_crate/wooden_military_crate_2k.gltf")
+	crate2.position = ground(3.06, 0.0) + Vector3(0.05, 0.465, 0.02)
+	crate2.rotation.y = 0.2
+	root.add_child(crate2)
+	var crate3 := Kit.model(PH + "models/old_military_crate/old_military_crate_2k.gltf")
+	crate3.position = ground(2.2, -1.2)
+	crate3.rotation.y = -0.4
+	root.add_child(crate3)
+	for i in 3:
+		var jc := Kit.model(PH + "models/metal_jerrycan_green/metal_jerrycan_green_2k.gltf")
+		jc.position = ground(5.1 + 0.42 * i, -2.0 - 0.3 * i)
+		jc.rotation.y = 1.2 + 0.25 * i
+		root.add_child(jc)
+	# The cable reel: two plywood flanges on a drum, black cable wound on it, standing on its rim.
+	var reel := Node3D.new()
+	reel.position = ground(-2.9, 3.0)
+	reel.rotation.y = 0.9
+	root.add_child(reel)
+	var ply := Kit.mat("#8a6a44", 0.85)
+	for s in [-0.32, 0.32]:
+		Kit.cyl(reel, 0.62, 0.62, 0.04, Vector3(0, 0.62, s), ply, 32, Vector3(PI / 2, 0, 0))
+	Kit.cyl(reel, 0.42, 0.42, 0.6, Vector3(0, 0.62, 0), Kit.mat("#151515", 0.55), 32, Vector3(PI / 2, 0, 0))
+	Kit.cyl(reel, 0.09, 0.09, 0.72, Vector3(0, 0.62, 0), ply, 16, Vector3(PI / 2, 0, 0))
+
+
+func _camp(root: Node3D) -> void:
+	var canvas := Kit.shader(CANVAS)
+	var rope := Kit.mat("#8a7a5a", 0.9)
+	var pole := Kit.mat("#4a3a28", 0.8)
+	for i in CAMP.size():
+		var at: Vector3 = CAMP[i]
+		var t := Node3D.new()
+		t.name = "tent_%d" % i
+		t.position = ground(at.x, at.z)
+		t.rotation.y = 0.35 + 0.12 * i
+		root.add_child(t)
+		var mi := MeshInstance3D.new()
+		mi.mesh = _tent_mesh(4.6, 3.6, 1.1, 2.5)
+		mi.material_override = canvas
+		t.add_child(mi)
+		for s in [-1.0, 1.0]:
+			Kit.rod(t, Vector3(0, 0, 2.15 * s), Vector3(0, 2.6, 2.15 * s), 0.035, pole, 8)
+			Kit.rod(t, Vector3(0, 2.5, 2.3 * s), Vector3(0, 0.02, 3.6 * s), 0.006, rope, 4)
+			for k in 3:
+				var z := -1.6 + 1.6 * k
+				Kit.rod(t, Vector3(1.8 * s, 1.1, z), Vector3(2.9 * s, 0.02, z), 0.006, rope, 4)
+				Kit.rod(t, Vector3(2.9 * s, -0.1, z), Vector3(2.9 * s, 0.12, z), 0.02, pole, 6)
+
+
+## A ridge tent: two sagging roof slopes from the ridge to the eaves, short side walls, gable ends.
+func _tent_mesh(length: float, width: float, wall: float, ridge: float) -> ArrayMesh:
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var hl := length * 0.5
+	var hw := width * 0.5
+	var nu := 10
+	var nv := 4
+	for s in [-1.0, 1.0]:
+		for i in nu:
+			for j in nv:
+				var q := []
+				for c in [[i, j], [i + 1, j], [i + 1, j + 1], [i, j + 1]]:
+					var u := float(c[0]) / nu
+					var v := float(c[1]) / nv
+					var z := -hl + length * u
+					var x: float = s * hw * v
+					var y := ridge + (wall - ridge) * v - 0.12 * sin(PI * u) * sin(PI * v)
+					q.append(Vector3(x, y, z))
+				_quad(st, q, s < 0.0)
+		# Side wall.
+		for i in nu:
+			var z0 := -hl + length * float(i) / nu
+			var z1 := -hl + length * float(i + 1) / nu
+			_quad(st, [Vector3(s * hw, 0, z0), Vector3(s * hw, 0, z1), Vector3(s * hw, wall, z1), Vector3(s * hw, wall, z0)], s > 0.0)
+	# Gables (front and back): a pentagon each.
+	for s in [-1.0, 1.0]:
+		var z: float = s * hl
+		var p := [Vector3(-hw, 0, z), Vector3(hw, 0, z), Vector3(hw, wall, z), Vector3(0, ridge, z), Vector3(-hw, wall, z)]
+		for k in [[0, 1, 2], [0, 2, 4], [4, 2, 3]]:
+			for idx in (k if s > 0.0 else [k[0], k[2], k[1]]):
+				st.add_vertex(p[idx])
+	st.generate_normals()
+	return st.commit()
+
+
+static func _quad(st: SurfaceTool, q: Array, flip: bool) -> void:
+	var order := [0, 1, 2, 0, 2, 3] if not flip else [0, 2, 1, 0, 3, 2]
+	for k in order:
+		st.add_vertex(q[k])
+
+
+func _windsock(root: Node3D) -> void:
+	var base := ground(SOCK_AT.x, SOCK_AT.z)
+	var galv := Kit.mat("#8f9296", 0.45, 0.6)
+	Kit.rod(root, base, base + Vector3(0, SOCK_H, 0), 0.045, galv, 12)
+	Kit.cyl(root, 0.25, 0.3, 0.12, base + Vector3(0, 0.06, 0), Kit.shader(CONCRETE), 16)
+	for k in 3:
+		var a := TAU * k / 3.0
+		Kit.rod(root, base + Vector3(0, SOCK_H * 0.6, 0), base + Vector3(cos(a) * 2.6, 0.02, sin(a) * 2.6), 0.005, galv, 4)
+	_sock_pivot = Node3D.new()
+	_sock_pivot.name = "sock_pivot"
+	_sock_pivot.position = base + Vector3(0, SOCK_H - 0.1, 0)
+	root.add_child(_sock_pivot)
+	var ring := MeshInstance3D.new()
+	var rt := TorusMesh.new()
+	rt.inner_radius = 0.27
+	rt.outer_radius = 0.3
+	ring.mesh = rt
+	ring.material_override = galv
+	ring.position = Vector3(0.05, 0, 0)
+	ring.rotation = Vector3(0, 0, PI / 2)
+	_sock_pivot.add_child(ring)
+	Kit.rod(_sock_pivot, Vector3(0, 0, 0), Vector3(0.05, 0.28, 0), 0.012, galv, 6)
+	# The sock: an open cone of 5 bands from r 0.28 at the ring to 0.13 at the tail.
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var L := 1.9
+	var nr := 16
+	var nl := 14
+	for i in nl:
+		for k in nr:
+			var q := []
+			for c in [[i, k], [i + 1, k], [i + 1, k + 1], [i, k + 1]]:
+				var u := float(c[0]) / nl
+				var a := TAU * float(c[1]) / nr
+				var rr := lerpf(0.28, 0.13, u)
+				q.append(Vector3(0.05 + L * u, cos(a) * rr, sin(a) * rr))
+			_quad(st, q, false)
+	st.generate_normals()
+	_sock = MeshInstance3D.new()
+	_sock.mesh = st.commit()
+	_sock_mat = Kit.shader(SOCK)
+	_sock.material_override = _sock_mat
+	_sock_pivot.add_child(_sock)
+
+
+func _vegetation(root: Node3D) -> void:
+	var leaf_mat := Kit.shader(FOLIAGE)
+	leaf_mat.set_shader_parameter("tint", Vector3(0.66, 0.66, 0.56))
+	var bark_mat := Kit.shader(BARK)
+	_foliage_mats.append(leaf_mat)
+	# The hero khejri behind the shaft, then trees scattered across the plain, thinning with distance.
+	_tree(root, "khejri_a", TREE_AT, 0.4, 1.0, leaf_mat, bark_mat)
+	_tree(root, "khejri_b", Vector3(19.0, 0, -46.0), 2.1, 1.05, leaf_mat, bark_mat)
+	_tree(root, "khejri_c", Vector3(-41.0, 0, -12.0), 4.0, 0.95, leaf_mat, bark_mat)
+	var r := Kit.rng("trees")
+	for i in 26:
+		var a := r.randf() * TAU
+		var d := r.randf_range(55.0, 520.0)
+		var p := Vector3(cos(a) * d, 0, sin(a) * d)
+		if p.z > 20.0 and absf(p.x) < 40.0:
+			continue
+		_tree(root, ["khejri_a", "khejri_b", "khejri_c"][i % 3], p, r.randf() * TAU, r.randf_range(0.8, 1.15), leaf_mat, bark_mat)
+	# Hero plants placed per camera (params "tufts": [[x, z, scale], ...], "bushes": [[x, z, scale, yaw], ...]).
+	var tm := _first_mesh(PB + "grass_a.glb")
+	var txf := []
+	for e in _p.get("tufts", []):
+		txf.append(Transform3D(Basis(Vector3.UP, float(e[0]) * 3.7).scaled(Vector3.ONE * float(e[2])), ground(float(e[0]), float(e[1])) - Vector3(0, 0.02, 0)))
+	if not txf.is_empty():
+		_multi(root, tm, txf, grass_mat_hero(), true)
+	for e in _p.get("bushes", []):
+		var b := _model(PB + "ker_a.glb", Kit.shader(BARK))
+		b.position = ground(float(e[0]), float(e[1])) - Vector3(0, 0.05, 0)
+		b.scale = Vector3.ONE * float(e[2])
+		b.rotation.y = float(e[3]) if e.size() > 3 else 0.0
+		root.add_child(b)
+	# Ker bushes: clumps across the plain, none on the pad or the track.
+	var ker_mat := Kit.shader(BARK)
+	ker_mat.set_shader_parameter("tint", Vector3(1.05, 1.0, 0.95))
+	for kname in ["ker_a", "ker_b"]:
+		var mesh := _first_mesh(PB + kname + ".glb")
+		var xfs := []
+		var rk := Kit.rng(kname)
+		var n := 0
+		while n < 45:
+			var a := rk.randf() * TAU
+			var d := pow(rk.randf(), 1.6) * 180.0 + 5.0
+			var x := cos(a) * d
+			var z := sin(a) * d
+			if not _free(x, z, 1.5):
+				continue
+			var s := rk.randf_range(0.55, 1.15)
+			xfs.append(Transform3D(Basis(Vector3.UP, rk.randf() * TAU).scaled(Vector3(s, s * rk.randf_range(0.8, 1.1), s)),
+				ground(x, z) - Vector3(0, 0.05, 0)))
+			n += 1
+		_multi(root, mesh, xfs, ker_mat, true)
+	# Sewan grass: tufts in drifts (noise-clumped), dense near the site, sparse far off.
+	var grass_mat := Kit.shader(FOLIAGE)
+	grass_mat.set_shader_parameter("base_h", 0.0)
+	grass_mat.set_shader_parameter("span_h", 0.55)
+	grass_mat.set_shader_parameter("amp", 0.04)
+	grass_mat.set_shader_parameter("tint", Vector3(1.15, 1.05, 0.9))
+	grass_mat.set_shader_parameter("back", 0.8)
+	_foliage_mats.append(grass_mat)
+	for gname in ["grass_a", "grass_b"]:
+		var mesh := _first_mesh(PB + gname + ".glb")
+		var xfs := []
+		var rg := Kit.rng(gname)
+		var n := 0
+		var tries := 0
+		while n < 1400 and tries < 20000:
+			tries += 1
+			var a := rg.randf() * TAU
+			var d := pow(rg.randf(), 1.8) * 120.0 + 2.5
+			var x := cos(a) * d
+			var z := sin(a) * d
+			var clump := 0.5 + 0.5 * sin(x * 0.31 + 1.3 * sin(z * 0.17)) * sin(z * 0.27 + 0.8)
+			if rg.randf() > clump * 1.3 or not _free(x, z, 0.4):
+				continue
+			var s := rg.randf_range(0.6, 1.25)
+			xfs.append(Transform3D(Basis(Vector3.UP, rg.randf() * TAU).scaled(Vector3(s, s, s)), ground(x, z) - Vector3(0, 0.02, 0)))
+			n += 1
+		_multi(root, mesh, xfs, grass_mat, false)
+	# Stones: scattered pebbles and a few fist-sized rocks, more on the gravel than on the pad.
+	var stones := Kit.model(PH + "models/namaqualand_stones_01/namaqualand_stones_01_2k.gltf")
+	var rocks := Kit.model(PH + "models/namaqualand_rocks_01/namaqualand_rocks_01_2k.gltf")
+	var meshes := []
+	for src in [stones, rocks]:
+		for mi in src.find_children("*", "MeshInstance3D", true, false):
+			var sm := (mi as MeshInstance3D).get_active_material(0)
+			if sm is StandardMaterial3D:
+				sm = (sm as StandardMaterial3D).duplicate()
+				(sm as StandardMaterial3D).albedo_color = Color(0.62, 0.66, 0.7)
+			meshes.append([(mi as MeshInstance3D).mesh, sm, src == rocks])
+	var rs := Kit.rng("stones")
+	for k in meshes.size():
+		var xfs := []
+		var big: bool = meshes[k][2]
+		for i in (60 if big else 140):
+			var a := rs.randf() * TAU
+			var d := pow(rs.randf(), 1.5) * 45.0 + 1.6
+			var x := cos(a) * d
+			var z := sin(a) * d
+			if d < PAD_R * 0.8 and rs.randf() < 0.7:
+				continue
+			var blocked := false
+			for c in _p.get("clear", []):
+				if Vector2(x - float(c[0]), z - float(c[1])).length() < float(c[2]):
+					blocked = true
+			if blocked:
+				continue
+			var s := rs.randf_range(0.5, 1.1) * (0.9 if big else 0.8)
+			xfs.append(Transform3D(Basis.from_euler(Vector3(0, rs.randf() * TAU, 0)).scaled(Vector3(s, s, s)), ground(x, z) - Vector3(0, 0.01, 0)))
+		_multi(root, meshes[k][0], xfs, meshes[k][1], false, true)
+	stones.free()
+	rocks.free()
+
+
+func grass_mat_hero() -> ShaderMaterial:
+	var m := Kit.shader(FOLIAGE)
+	m.set_shader_parameter("base_h", 0.0)
+	m.set_shader_parameter("span_h", 0.55)
+	m.set_shader_parameter("amp", 0.04)
+	m.set_shader_parameter("tint", Vector3(1.15, 1.05, 0.9))
+	m.set_shader_parameter("back", 0.8)
+	_foliage_mats.append(m)
+	return m
+
+
+func _tree(root: Node3D, name: String, at: Vector3, yaw: float, s: float, leaf_mat: Material, bark_mat: Material) -> void:
+	var m := Kit.model(PB + name + ("_far" if at.length() > 60.0 else "") + ".glb")
+	m.position = ground(at.x, at.z) - Vector3(0, 0.06, 0)
+	m.rotation.y = yaw
+	m.scale = Vector3.ONE * s
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var inst := mi as MeshInstance3D
+		inst.material_override = leaf_mat if inst.name.ends_with("leaves") else bark_mat
+		var far := at.length() > 90.0
+		inst.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF if far else GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	root.add_child(m)
+
+
+## Keep plants off the pad, the track, the tripod, the winch, the heap and the cameras' spots.
+func _free(x: float, z: float, margin: float) -> bool:
+	for c in _p.get("clear", []):
+		if Vector2(x - float(c[0]), z - float(c[1])).length() < float(c[2]) + margin:
+			return false
+	if sqrt(x * x + z * z) < PAD_R + margin:
+		return false
+	if absf(z - _track_z(x)) < 1.6 + margin and absf(x) < 80.0:
+		return false
+	for c in [WINCH_AT, SPOIL_AT, TREE_AT]:
+		if Vector2(x - c.x, z - c.z).length() < 2.6 + margin:
+			return false
+	for c in CAMP:
+		if Vector2(x - c.x, z - c.z).length() < 4.0 + margin:
+			return false
+	if Vector2(x - SOCK_AT.x, z - SOCK_AT.z).length() < 2.0 + margin:
+		return false
+	return true
+
+
+## Black kites (Milvus migrans) circling high on the thermals: a dark body, long bent wings and a forked tail.
+func _kites(root: Node3D) -> void:
+	var dark := Kit.mat("#2a221c", 0.8)
+	for i in int(_p.get("kites", 3)):
+		var k := Node3D.new()
+		k.name = "kite_%d" % i
+		root.add_child(k)
+		Kit.ball(k, 1.0, Vector3.ZERO, dark, 10, Vector3(0.09, 0.08, 0.32))
+		for s in [-1.0, 1.0]:
+			var w := Node3D.new()
+			w.name = "wing_l" if s < 0.0 else "wing_r"
+			k.add_child(w)
+			Kit.ball(w, 1.0, Vector3(s * 0.32, 0.0, 0.02), dark, 10, Vector3(0.34, 0.025, 0.13)).rotation.y = s * 0.12
+			Kit.ball(w, 1.0, Vector3(s * 0.78, 0.04, -0.06), dark, 10, Vector3(0.24, 0.02, 0.09)).rotation.y = -s * 0.35
+		Kit.box(k, Vector3(0.16, 0.015, 0.26), Vector3(0, 0, -0.38), dark)
+		_kites_n.append(k)
+
+
+func _shimmer(root: Node3D) -> void:
+	var cm := CylinderMesh.new()
+	cm.top_radius = 34.0
+	cm.bottom_radius = 34.0
+	cm.height = 8.0
+	cm.radial_segments = 96
+	cm.rings = 1
+	cm.cap_top = false
+	cm.cap_bottom = false
+	var mi := MeshInstance3D.new()
+	mi.name = "shimmer"
+	mi.mesh = cm
+	mi.position = Vector3(0, 3.6, 0)
+	_shimmer_mat = Kit.shader(SHIMMER)
+	_shimmer_mat.set_shader_parameter("top", 8.0)
+	mi.material_override = _shimmer_mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	root.add_child(mi)
+
+
+# --- helpers ----------------------------------------------------------------------------------------
+
+func _model(rel: String, mat: Material) -> Node3D:
+	var m := Kit.model(rel)
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		(mi as MeshInstance3D).material_override = mat
+	return m
+
+
+static var _mesh_cache := {}
+
+func _first_mesh(rel: String) -> Mesh:
+	if not _mesh_cache.has(rel):
+		var m := Kit.model(rel)
+		var mi := m.find_children("*", "MeshInstance3D", true, false)[0] as MeshInstance3D
+		_mesh_cache[rel] = mi.mesh
+		m.free()
+	return _mesh_cache[rel]
+
+
+func _multi(root: Node3D, mesh: Mesh, xfs: Array, mat: Material, shadows: bool, keep_mat: bool = false) -> void:
+	var mm := MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D
+	mm.mesh = mesh
+	mm.instance_count = xfs.size()
+	for i in xfs.size():
+		mm.set_instance_transform(i, xfs[i])
+	var mmi := MultiMeshInstance3D.new()
+	mmi.multimesh = mm
+	if mat != null:
+		mmi.material_override = mat
+	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if shadows else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	root.add_child(mmi)
+
+
+func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
+	_p = g.get("params", {})
+	var gt := node.global_transform
+	var content := node.get_node_or_null("content") as Node3D
+	if content == null:
+		content = node
+	for m in _foliage_mats:
+		(m as ShaderMaterial).set_shader_parameter("t", t)
+	_shimmer_mat.set_shader_parameter("t", t)
+	_shimmer_mat.set_shader_parameter("strength", float(_p.get("shimmer", 1.0)))
+	# The windsock: heading and strength from the wind keys, a slow hunting swing on top.
+	var keys: Array = _p.get("wind", [[0.0, 120.0, 0.55]])
+	var yaw := float(keys[0][1])
+	var strength := float(keys[0][2])
+	for i in keys.size():
+		var k0: Array = keys[i]
+		if float(k0[0]) > t:
+			break
+		if i == 0:
+			continue
+		var kp: Array = keys[i - 1]
+		var u := Motion.out_back(clampf((t - float(k0[0])) / 1.3, 0.0, 1.0), 1.4)
+		yaw = lerpf(float(kp[1]), float(k0[1]), u)
+		strength = lerpf(float(kp[2]), float(k0[2]), clampf(u, 0.0, 1.0))
+	yaw += 6.0 * sin(t * 0.9) + 2.5 * sin(t * 2.3 + 1.0)
+	_sock_pivot.rotation = Vector3(0, deg_to_rad(yaw) + PI / 2, 0)
+	_sock_mat.set_shader_parameter("t", t)
+	_sock_mat.set_shader_parameter("strength", clampf(strength + 0.08 * sin(t * 1.7), 0.0, 1.0))
+	# Kites circle on the thermals over the plain, banking into the turn, a few lazy wingbeats.
+	for i in _kites_n.size():
+		var k: Node3D = _kites_n[i]
+		var r := 18.0 + 9.0 * i
+		var w := 0.16 - 0.03 * i
+		var a := t * w + 2.1 * i
+		var c := Vector3(-14.0 + 12.0 * i, 42.0 + 11.0 * i, -46.0 - 14.0 * i)
+		k.position = c + Vector3(cos(a) * r, 2.0 * sin(a * 0.5), sin(a) * r)
+		var tangent := Vector3(-sin(a), 0, cos(a))
+		k.basis = Basis.looking_at(-tangent, Vector3.UP).rotated(tangent, 0.35) * Basis.IDENTITY.scaled(Vector3.ONE * 2.2)
+		var flap := sin(t * 9.0 + i) * maxf(0.0, sin(t * 0.7 + i * 1.3) - 0.6) * 1.6
+		(k.get_node("wing_l") as Node3D).rotation.z = 0.12 + flap * 0.5
+		(k.get_node("wing_r") as Node3D).rotation.z = -0.12 - flap * 0.5
+	# The hook block swings a little on its falls.
+	_hook.rotation = Vector3(0.012 * sin(t * 1.1), 0, 0.016 * sin(t * 0.83 + 0.6))
+	# Carried loads: a sandbag rides between the hands; jerrycans hang upright under each grip, lagging a touch.
+	for aid in _bags:
+		var info: Dictionary = _bags[aid]
+		var nodes: Array = info["nodes"]
+		var actor = ctx["actor"].call(aid) if ctx.has("actor") else null
+		for n in nodes:
+			(n as Node3D).visible = actor != null
+		if actor == null:
+			continue
+		var yaw_a := float(actor.rotation.y)
+		var inv := gt.affine_inverse()
+		if String(info["what"]) == "jerrycans":
+			for i in 2:
+				var side := "l" if i == 0 else "r"
+				var hand: Vector3 = inv * actor.bone_world("hand_" + side)
+				var jc: Node3D = nodes[i]
+				var sway := 0.12 * sin(t * 6.2 + i * PI)
+				# Handle in the fist: the can's top-centre sits just under the hand, its broad side along the walk.
+				jc.transform = Transform3D((Basis(Vector3.UP, yaw_a + PI / 2) * Basis(Vector3.RIGHT, sway)).scaled(Vector3.ONE * 0.72), hand + Vector3(0, -0.37, 0))
+		else:
+			var hl: Vector3 = actor.bone_world("hand_l")
+			var hr: Vector3 = actor.bone_world("hand_r")
+			var local := inv * ((hl + hr) * 0.5)
+			(nodes[0] as Node3D).transform = Transform3D((Basis(Vector3.UP, yaw_a) * Basis(Vector3.RIGHT, -0.25)).scaled(Vector3(1.25, 1.5, 1.25)), local + Vector3(0, -0.1, 0))
+	var apex := gt * Vector3(0, TRIPOD_H, 0)
+	return {"plate": gt * Vector3(0, 0.26, 0), "apex": apex, "winch": gt * (WINCH_AT + Vector3(0, 0.8, 0)),
+		"spoil": gt * (SPOIL_AT + Vector3(0, 0.8, 0)), "tree": gt * (TREE_AT + Vector3(0, 3.0, 0)),
+		"camp": gt * (CAMP[0] as Vector3), "windsock": gt * (SOCK_AT + Vector3(0, SOCK_H, 0)),
+		"track": gt * Vector3(0, 0, _track_z(0.0))}

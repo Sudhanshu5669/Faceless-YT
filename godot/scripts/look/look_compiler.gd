@@ -35,7 +35,7 @@ const SCHEMA := {
 	"sun": LIGHT_BODY,
 	"moon": LIGHT_BODY,
 	"lights": "lights",
-	"ambient": {"color": "color", "energy": "number"},
+	"ambient": {"color": "color", "energy": "number", "sky": "unit"},
 	"exposure": "number",
 	"fog": {
 		"begin": "number", "end": "number", "curve": "number", "volumetric": "number",
@@ -85,7 +85,7 @@ const RENDER_DEFAULTS := {
 		"softness": 0.5, "visible": true, "size": 2.2, "glow": 0.35, "disc_color": "#dfe6f2",
 	},
 	"lights": [],
-	"ambient": {"color": "#b8c4d6", "energy": 0.6},
+	"ambient": {"color": "#b8c4d6", "energy": 0.6, "sky": 0.0},
 	"exposure": 1.0,
 	"fog": {
 		"begin": 120.0, "end": 700.0, "curve": 1.4, "volumetric": 0.0, "color": "#8090a0",

@@ -1,0 +1,27 @@
+{
+  "id": "toon_jawan_d",
+  "description": "58 Engineer Regiment jawan, 1998: bare head, short black hair, fatigues, broad, moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "soldier"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bowl",
+      "color": "#1a1612"
+    },
+    "outfit": {
+      "style": "fatigues",
+      "color": "#5b5d3b"
+    },
+    "shoes": "#1c1916",
+    "face": "deadpan",
+    "girth": 1.14,
+    "mustache": "#1a1612"
+  }
+}

@@ -40,9 +40,9 @@ const SHORTEN := ["calf_l", "foot_l", "calf_r", "foot_r"]
 
 const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth", "mustache", "beard"]
 const HAIR_KEYS := ["style", "color", "lamp"]
-const OUTFIT_KEYS := ["style", "color", "chain", "tie", "accent", "vest", "bow", "badge"]
-const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat", "hood", "turban", "side"]
-const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt", "hivis", "kurta", "coverall"]
+const OUTFIT_KEYS := ["style", "color", "chain", "tie", "accent", "vest", "bow", "badge", "camo"]
+const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat", "hood", "turban", "side", "patrol"]
+const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt", "hivis", "kurta", "coverall", "fatigues"]
 const ACCESSORIES := ["glasses", "round_glasses", "sunglasses", "smart_glasses", "rimless", "mask"]
 const EYES := ["lazy", "dot", "wide", "happy", "closed", "x", "star", "heart", "sleepy", "none"]
 const MOUTHS := ["smirk", "smile", "flat", "frown", "open", "grin", "laugh", "wavy", "o", "none"]
@@ -54,7 +54,7 @@ const HAIRLINES := {
 	"bowl": [52, 84, 104, 1.07], "tuft": [52, 84, 104, 1.07], "slick": [46, 80, 100, 1.05],
 	"curly": [50, 82, 100, 1.02], "cap": [48, 74, 86, 1.06], "beanie": [44, 76, 88, 1.08],
 	"bob": [50, 104, 116, 1.1], "bun": [50, 86, 104, 1.06],
-	"hood": [44, 118, 150, 1.07], "side": [47, 82, 102, 1.05],
+	"hood": [44, 118, 150, 1.07], "side": [47, 82, 102, 1.05], "patrol": [50, 72, 84, 1.07],
 }
 
 static var _faces: Dictionary = {}
@@ -202,7 +202,7 @@ static func build(body: Node3D, src: Skeleton3D, t: Dictionary) -> Dictionary:
 	_attach(ctx, "spine_01", Transform3D(Basis.IDENTITY, Vector3(0, BEAN_BOTTOM * H, -0.025)), torso)
 	var bean := MeshInstance3D.new()
 	bean.mesh = _bean(rb, rt, bh)
-	bean.material_override = _mat(col, OUTLINE)
+	bean.material_override = _camo(o, col, OUTLINE) if style == "fatigues" else _mat(col, OUTLINE)
 	torso.add_child(bean)
 	_outfit(torso, o, style, col, rb, rt, bh)
 	# Limbs, hands, shoes.
@@ -351,7 +351,7 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 	mat.set_shader_parameter("color", col.darkened(0.25) if style == "curly" else col)
 	mat.set_shader_parameter("radius", hr)
 	mat.set_shader_parameter("mode", 1 if style == "slick" else 0)
-	mat.set_shader_parameter("strands", 0.0 if style in ["curly", "cap", "beanie", "hood"] else (0.07 if style == "slick" else (0.12 if style == "side" else 0.22)))
+	mat.set_shader_parameter("strands", 0.0 if style in ["curly", "cap", "beanie", "hood", "patrol"] else (0.07 if style == "slick" else (0.12 if style == "side" else 0.22)))
 	mat.next_pass = _outline(OUTLINE * 0.8)
 	shell.material_override = mat
 	if style == "beanie":
@@ -399,6 +399,27 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 			brim.transform = Transform3D(_cols(Basis.from_euler(Vector3(deg_to_rad(12), 0, 0)), Vector3(hr * 0.62, hr * 0.06, hr * 0.5)),
 				Vector3(0, cos(a) * hr * 1.04, sin(a) * hr * 1.04 + hr * 0.12))
 			head.add_child(brim)
+		"patrol":
+			# An army patrol cap: the crown rises straight to a flat top, a short stiff peak in front.
+			shell.scale = Vector3(1.0, 1.06, 1.0)
+			var top := MeshInstance3D.new()
+			var cm2 := CylinderMesh.new()
+			cm2.top_radius = hr * 0.74
+			cm2.bottom_radius = hr * 0.9
+			cm2.height = hr * 0.34
+			cm2.radial_segments = 24
+			top.mesh = cm2
+			top.material_override = mat
+			top.position = Vector3(0, hr * 0.98, -hr * 0.03)
+			top.rotation_degrees = Vector3(-6, 0, 0)
+			head.add_child(top)
+			var peak := MeshInstance3D.new()
+			peak.mesh = _sphere(1.0, 24, 8)
+			peak.material_override = _mat(col.darkened(0.2), OUTLINE * 0.6)
+			var a2 := deg_to_rad(float(hl[0]) + 6.0)
+			peak.transform = Transform3D(_cols(Basis.from_euler(Vector3(deg_to_rad(18), 0, 0)), Vector3(hr * 0.5, hr * 0.05, hr * 0.36)),
+				Vector3(0, cos(a2) * hr * 1.05, sin(a2) * hr * 1.05 + hr * 0.08))
+			head.add_child(peak)
 		"beanie":
 			var band := MeshInstance3D.new()
 			band.mesh = _cap(float(hl[0]), float(hl[1]), float(hl[2]), hr * 1.12, 16.0)
@@ -739,6 +760,26 @@ static func _outfit(torso: Node3D, o: Dictionary, style: String, col: Color, rb:
 					pk.position = _surface(0.045 * s, 0.62, rb, rt, bh) * Vector3(1, 1, 1.04) + Vector3(0, 0, 0.012)
 					torso.add_child(pk)
 			_surface_line(torso, [Vector2(-0.045, 0.975), Vector2(0.045, 0.975)], rb, rt, bh, 0.012, (Color(String(o["vest"])) if o.has("vest") else col).darkened(0.1))
+		"fatigues":
+			# Army fatigues (the bean in camouflage, see _camo): a web belt with a buckle, collar points, a button
+			# placket and two buttoned chest pocket flaps.
+			var dk := col.darkened(0.45)
+			_patch(torso, _bean_patch(rb, rt, bh, 0.3, 0.355, 0.0, 360.0, 0.03), _mat(Color("4a4630"), OUTLINE * 0.3))
+			var buckle := MeshInstance3D.new()
+			buckle.mesh = BoxMesh.new()
+			(buckle.mesh as BoxMesh).size = Vector3(0.036, 0.026, 0.01)
+			buckle.material_override = _mat(Color("8a8a7a"), 0.0)
+			buckle.position = _surface(0.0, 0.327, rb, rt, bh) * Vector3(1, 1, 1.03) + Vector3(0, 0, 0.01)
+			torso.add_child(buckle)
+			for s in [-1.0, 1.0]:
+				_surface_line(torso, [Vector2(0.085 * s, 0.975), Vector2(0.02 * s, 0.87)], rb, rt, bh, 0.016, dk)
+				_surface_line(torso, [Vector2(0.03 * s, 0.73), Vector2(0.095 * s, 0.73)], rb, rt, bh, 0.009, dk)
+				var bt := MeshInstance3D.new()
+				bt.mesh = _sphere(0.008, 8, 4)
+				bt.material_override = _mat(Color("2c2a1e"), 0.0)
+				bt.position = _surface(0.062 * s, 0.705, rb, rt, bh) + Vector3(0, 0, 0.008)
+				torso.add_child(bt)
+			_surface_line(torso, [Vector2(0.0, 0.86), Vector2(0.0, 0.37)], rb, rt, bh, 0.004, dk)
 		"coverall":
 			# A clean-room coverall: the zip runs from the collar to the crotch, with a chest pocket.
 			_surface_line(torso, [Vector2(0.0, 0.96), Vector2(0.0, 0.08)], rb, rt, bh, 0.004, col.darkened(0.28))
@@ -775,6 +816,54 @@ static func _outfit(torso: Node3D, o: Dictionary, style: String, col: Color, rb:
 		stripe.material_override = _mat(bc, 0.0)
 		stripe.position = card.position + Vector3(0, 0.024, 0.001)
 		torso.add_child(stripe)
+
+
+## Camouflage cloth for fatigues: blotches of the outfit `camo` colours (default: the Indian Army's 1990s
+## disruptive pattern, olive with brown, dark green and khaki) over `color`, in the bean's own space so the
+## pattern moves with the body. Same plastic sheen and outline as _mat.
+const CAMO_SHADER := """
+shader_type spatial;
+uniform vec4 base : source_color;
+uniform vec4 c1 : source_color;
+uniform vec4 c2 : source_color;
+uniform vec4 c3 : source_color;
+varying vec3 lp;
+float h3(vec3 p) { return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453); }
+float n3(vec3 p) {
+	vec3 i = floor(p); vec3 f = fract(p); f = f * f * (3.0 - 2.0 * f);
+	return mix(mix(mix(h3(i), h3(i + vec3(1,0,0)), f.x), mix(h3(i + vec3(0,1,0)), h3(i + vec3(1,1,0)), f.x), f.y),
+		mix(mix(h3(i + vec3(0,0,1)), h3(i + vec3(1,0,1)), f.x), mix(h3(i + vec3(0,1,1)), h3(i + vec3(1,1,1)), f.x), f.y), f.z);
+}
+float blot(vec3 p) { return n3(p) * 0.65 + n3(p * 2.3) * 0.35; }
+void vertex() { lp = VERTEX; }
+void fragment() {
+	vec3 p = lp * vec3(14.0, 9.0, 14.0);
+	vec3 col = base.rgb;
+	col = mix(col, c1.rgb, step(0.62, blot(p + vec3(3.1, 0.0, 1.7))));
+	col = mix(col, c2.rgb, step(0.64, blot(p * 1.1 + vec3(-5.2, 2.0, 0.4))));
+	col = mix(col, c3.rgb, step(0.7, blot(p * 1.25 + vec3(8.0, -1.0, 4.4))));
+	ALBEDO = col;
+	ROUGHNESS = 0.62;
+	SPECULAR = 0.4;
+	RIM = 0.3;
+	RIM_TINT = 0.75;
+}
+"""
+
+static func _camo(o: Dictionary, col: Color, outline: float) -> ShaderMaterial:
+	var cs: Array = o.get("camo", ["#5c4a32", "#2f3826", "#8c8459"])
+	var key := "camo|%s|%s" % [col.to_html(), ",".join(PackedStringArray(cs))]
+	if not _mats.has(key):
+		var m := ShaderMaterial.new()
+		var sh := Shader.new()
+		sh.code = CAMO_SHADER
+		m.shader = sh
+		m.set_shader_parameter("base", col)
+		for i in 3:
+			m.set_shader_parameter("c%d" % (i + 1), Color(String(cs[mini(i, cs.size() - 1)])))
+		m.next_pass = _outline(outline)
+		_mats[key] = m
+	return _mats[key]
 
 
 static func _patch(torso: Node3D, mesh: Mesh, mat: Material) -> void:
