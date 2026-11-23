@@ -1546,6 +1546,65 @@
    ]
   },
   {
+   "id": "lookout",
+   "character": "toon_jawan_b",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     -1.6,
+     0,
+     15006.2
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     -0.4,
+     0,
+     15000.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l8a",
+      "offset": -0.8
+     },
+     {
+      "line": "l8b",
+      "offset": 0.1
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous",
+     "head": [
+      24,
+      6,
+      0
+     ],
+     "head_turn": 0.01
+    },
+    {
+     "t": {
+      "line": "l8a",
+      "word": "overhead",
+      "offset": -0.15
+     },
+     "expression": "determined",
+     "head": [
+      -18,
+      0,
+      0
+     ],
+     "head_turn": 0.25
+    }
+   ]
+  },
+  {
    "id": "vajpayee_pmo",
    "character": "toon_vajpayee",
    "at": {
@@ -2030,6 +2089,28 @@
      "hands": [
       "net_a",
       "net_b"
+     ]
+    },
+    "watch": {
+     "actor": "lookout",
+     "fist": {
+      "line": "l8a",
+      "word": "overhead"
+     },
+     "time": "13:47",
+     "show": {
+      "anchor": "range",
+      "offset": [
+       -0.72,
+       1.22,
+       15004.8
+      ]
+     },
+     "list": [
+      "09:12",
+      "11:30",
+      "13:47",
+      "16:05"
      ]
     },
     "park": {
@@ -5081,28 +5162,115 @@
   {
    "name": "pass_watch",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -0.72,
+       1.22,
+       15004.8
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -1.55,
+       1.12,
+       15006.05
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -0.66,
+       1.08,
+       15004.75
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -1.5,
+       1.42,
+       15006.05
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out",
+    "start": {
+     "line": "l8a",
+     "word": "overhead",
+     "offset": -0.2
+    },
+    "end": {
+     "line": "l8a",
+     "word": "overhead",
+     "offset": 0.45
+    }
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 36,
+     "azimuth": 212,
+     "color": "#ffe2b6",
+     "energy": 3.1,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.3,
+     "glow": 1.4,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b89c78",
+     "energy": 0.32,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 25,
+     "end": 2300,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {

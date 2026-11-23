@@ -165,6 +165,15 @@ ACTORS += [
      "shown": [NETW], "cues": [{"t": 0.0, "expression": "effort"}, {"t": W("l7b", "nets", 0.5), "expression": "grin"}]},
 ]
 
+# pass_watch (1998, afternoon): a lookout checks his watch against his list of pass times; fist up on "overhead".
+LOOKOUT = [W("l8a", offset=-0.8), W("l8b", offset=0.1)]
+ACTORS += [
+    {"id": "lookout", "character": "toon_jawan_b", "at": P(1.6, 0, 6.2), "facing": P(0.4, 0, 0), "action": "idle",
+     "shown": [LOOKOUT],
+     "cues": [{"t": 0.0, "expression": "nervous", "head": [24, 6, 0], "head_turn": 0.01},
+              {"t": W("l8a", "overhead", -0.15), "expression": "determined", "head": [-18, 0, 0], "head_turn": 0.25}]},
+]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -181,6 +190,8 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                              "blow": W("l7a", "wind", -0.15), "hands": ["dune_a", "dune_b"], "blower": "dune_blow"},
                     "net": {"at": [NET_AT[0], NET_AT[1], 0.0], "size": [7.0, 6.0], "land": W("l7b", "nets", 0.05),
                             "fly": 1.6, "hands": ["net_a", "net_b"]},
+                    "watch": {"actor": "lookout", "fist": W("l8a", "overhead", 0.0), "time": "13:47", "show": P(0.72, 1.22, 4.8),
+                              "list": ["09:12", "11:30", "13:47", "16:05"]},
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
@@ -348,6 +359,12 @@ SHOTS = {
     "net_drape": {"look": LOOK_DAWN, "camera": move(
         cam(NP(1.9, 1.5, 6.0), NP(0.0, 1.05, -1.2), 26, {"strength": 0.1}),
         cam(NP(1.7, 2.6, 5.6), NP(0.0, 0.75, -0.9), 26, {"strength": 0.1}), "in_out")},
+    # Three-quarter front on the lookout: head bent to his raised wrist (the watch, his pencilled list of pass times);
+    # on "overhead" his fist shoots up, he looks to the sky, the camera tilts up with him.
+    "pass_watch": {"look": LOOK_AFTERNOON, "camera": {
+        "from": cam(P(0.72, 1.22, 4.8), P(1.55, 1.12, 6.05), 32, {"strength": 0.12}),
+        "to": cam(P(0.66, 1.08, 4.75), P(1.5, 1.42, 6.05), 28, {"strength": 0.1}),
+        "ease": "in_out", "start": W("l8a", "overhead", -0.2), "end": W("l8a", "overhead", 0.45)}},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

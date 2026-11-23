@@ -55,12 +55,16 @@ extends RefCounted
 ##              shaft head (collar and plate, no tripod) ringed by net poles; the two actors fling a garnished
 ##              camouflage net from its near edge (net-local -z): it unfurls in an arc, the middle billowing, leading edge
 ##              first, and settles over the poles (a low, broken canopy) at `land`, bouncing a little
+##   watch      {"actor": id, "fist": t, "time": "13:47", "list": ["09:12", ...]}   a lookout: a wristwatch on his
+##              left wrist and a handwritten list of satellite pass times in that hand, held up before his face; the
+##              watch reads `time` exactly at `fist` (its second hand sweeping), when his right fist shoots up
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
 ## (the counter's facing point: along the camera's view axis, so it stays parallel to the image), bottom
 
 const Kit = preload("res://scripts/world/gag_kit.gd")
+const Crawl = preload("res://scripts/actors/toon_crawl.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
 
 const PB := "incoming/pokhran_blender/"
@@ -553,6 +557,7 @@ func build(g: Dictionary) -> Node3D:
 	_park_build(_g98)
 	_dune_build(_g98)
 	_net_build(_g98)
+	_watch_build(root)
 	for c in _p.get("carry", []):
 		var what := String(c.get("what", "sandbag"))
 		var held: Array = []
@@ -575,6 +580,140 @@ var _night: Node3D
 var _park_truck: Node3D
 var _dune: MeshInstance3D
 var _net: MeshInstance3D
+var _watch: Node3D
+var _watch_mat: ShaderMaterial
+var _list: Node3D
+
+const DIAL := """
+shader_type spatial;
+uniform float secs = 0.0;
+varying vec2 uvp;
+void vertex() { uvp = UV; }
+float hand(vec2 p, float a, float len, float w) {
+	vec2 d = vec2(sin(a), cos(a));
+	float along = dot(p, d);
+	float across = abs(dot(p, vec2(-d.y, d.x)));
+	return step(-0.02, along) * step(along, len) * step(across, w);
+}
+void fragment() {
+	vec2 p = (uvp - 0.5) * vec2(2.0, -2.0);
+	float r = length(p);
+	vec3 c = vec3(0.93, 0.92, 0.86);
+	float ang = atan(p.x, p.y);
+	float tick = step(0.82, r) * step(r, 0.95) * step(0.96, cos(ang * 12.0));
+	c = mix(c, vec3(0.08), tick);
+	float s = mod(secs, 60.0);
+	float m = mod(secs / 60.0, 60.0);
+	float h = mod(secs / 3600.0, 12.0);
+	c = mix(c, vec3(0.06), hand(p, h / 12.0 * 6.2832, 0.48, 0.05));
+	c = mix(c, vec3(0.06), hand(p, m / 60.0 * 6.2832, 0.74, 0.035));
+	c = mix(c, vec3(0.8, 0.1, 0.06), hand(p, floor(s) / 60.0 * 6.2832, 0.82, 0.015));
+	c = mix(c, vec3(0.15), step(r, 0.06));
+	c = mix(c, vec3(0.55, 0.55, 0.52), step(0.95, r));
+	ALBEDO = c;
+	ROUGHNESS = 0.25;
+	SPECULAR = 0.7;
+	ALPHA = 1.0 - step(1.0, r);
+	ALPHA_SCISSOR_THRESHOLD = 0.5;
+}
+"""
+
+
+## The lookout's wristwatch and his handwritten list of pass times (param "watch").
+func _watch_build(root: Node3D) -> void:
+	var wd: Dictionary = _p.get("watch", {})
+	if wd.is_empty():
+		return
+	_watch = Node3D.new()
+	_watch.name = "watch"
+	root.add_child(_watch)
+	Kit.cyl(_watch, 0.034, 0.034, 0.012, Vector3(0, -0.004, 0), Kit.mat("#9a9a94", 0.3, 0.8), 24)
+	var dial := MeshInstance3D.new()
+	var qm := QuadMesh.new()
+	qm.size = Vector2(0.06, 0.06)
+	dial.mesh = qm
+	_watch_mat = Kit.shader(DIAL)
+	dial.material_override = _watch_mat
+	dial.position = Vector3(0, 0.0025, 0)
+	dial.rotation = Vector3(-PI / 2, 0, 0)
+	_watch.add_child(dial)
+	for sg in [-1.0, 1.0]:
+		Kit.box(_watch, Vector3(0.028, 0.006, 0.05), Vector3(0, -0.006, sg * 0.05), Kit.mat("#2a2418", 0.8))
+	# The list: a torn notebook page, pencilled times, the next pass ringed in red.
+	_list = Node3D.new()
+	_list.name = "pass_list"
+	root.add_child(_list)
+	Kit.box(_list, Vector3(0.13, 0.17, 0.002), Vector3.ZERO, Kit.mat("#efe8d4", 0.9))
+	var font := SystemFont.new()
+	font.font_names = PackedStringArray(["Segoe Print", "Ink Free", "Comic Sans MS", "sans-serif"])
+	var lines: Array = wd.get("list", ["09:12", "11:30", "13:47", "16:05"])
+	var hl := String(wd.get("time", "13:47"))
+	for i in lines.size():
+		var l := Label3D.new()
+		l.font = font
+		l.font_size = 64
+		l.pixel_size = 0.00042
+		l.text = String(lines[i])
+		l.modulate = Color(0.16, 0.16, 0.2)
+		l.outline_size = 0
+		l.shaded = true
+		l.double_sided = false
+		l.position = Vector3(-0.005, 0.055 - 0.034 * i, 0.0015)
+		_list.add_child(l)
+		if String(lines[i]) == hl:
+			var ring := MeshInstance3D.new()
+			var tm := TorusMesh.new()
+			tm.inner_radius = 0.026
+			tm.outer_radius = 0.029
+			ring.mesh = tm
+			ring.material_override = Kit.mat("#b0201a", 0.7)
+			ring.position = l.position + Vector3(0, 0, 0.001)
+			ring.rotation = Vector3(PI / 2, 0, 0)
+			ring.scale = Vector3(1.7, 1, 0.55)
+			_list.add_child(ring)
+
+
+func _pose_watch(gt: Transform3D, t: float, ctx: Dictionary) -> void:
+	if _watch == null:
+		return
+	var wd: Dictionary = _p.get("watch", {})
+	var actor = ctx["actor"].call(String(wd.get("actor", ""))) if ctx.has("actor") else null
+	var vis: bool = actor != null and actor.visible
+	_watch.visible = vis
+	_list.visible = vis
+	if not vis:
+		return
+	var tf := float(wd.get("fist", 1e9))
+	var hm := String(wd.get("time", "13:47")).split(":")
+	_watch_mat.set_shader_parameter("secs", float(hm[0]) * 3600.0 + float(hm[1]) * 60.0 + (t - tf))
+	var inv := gt.affine_inverse()
+	var ay := float(actor.rotation.y)
+	var fwd := Vector3(sin(ay), 0, cos(ay))
+	var left := Vector3(cos(ay), 0, -sin(ay))
+	var head: Vector3 = inv * actor.bone_world("Head")
+	var chest: Vector3 = inv * actor.bone_world("spine_03")
+	# The left forearm up before his face, the list in that hand; the right fist shoots up on `fist`. Toon arms are
+	# short: stretch them first so the fist clears his head.
+	var up := Motion.out_back(Motion.seg(t, tf - 0.12, tf + 0.1), 1.6)
+	Crawl.long_arms(actor, lerpf(1.25, 2.1, clampf(up, 0.0, 1.0)))
+	actor.aim_hand("l", gt * (chest + fwd * 0.34 + Vector3(0, 0.02, 0) + left * 0.24), 1.0, 0.03)
+	if up > 0.0:
+		actor.aim_hand("r", gt * (head + Vector3(0, 0.3, 0) + fwd * 0.12 - left * 0.46), clampf(up, 0.0, 1.0), 0.08 * clampf(up, 0.0, 1.0))
+	var hand: Vector3 = inv * actor.bone_world("hand_l")
+	var elbow: Vector3 = inv * actor.bone_world("lowerarm_l")
+	var along := (hand - elbow).normalized()
+	var wrist := hand - along * 0.07
+	# Faces him, cheated halfway toward the `show` point (the camera) so the audience can read it.
+	var face := (head - wrist).normalized()
+	if wd.has("show"):
+		var sp: Dictionary = ctx["point"].call(wd["show"])
+		if sp.has("pos"):
+			face = (face + (inv * (sp["pos"] as Vector3) - wrist).normalized() * 1.2).normalized()
+	var xax := along.cross(face).normalized()
+	_watch.transform = Transform3D(Basis(xax, face, xax.cross(face)).orthonormalized() if absf(xax.length()) > 0.0 else Basis.IDENTITY, wrist + face * 0.03)
+	# The list beside the watch, gripped at its bottom edge, facing him.
+	var lb := Basis.looking_at(-face, Vector3.UP)
+	_list.transform = Transform3D(lb, hand + along * 0.05 + Vector3(0, 0.07, 0) + face * 0.02)
 var _net_mat: ShaderMaterial
 
 ## The flung camouflage net. Net-local (u, v) in metres across the sheet (v from the near edge, -d/2, to the far edge).
@@ -2204,6 +2343,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_park(gt, t, ctx)
 	_pose_dune(gt, t, ctx)
 	_pose_net(gt, t, ctx)
+	_pose_watch(gt, t, ctx)
 	# The hook block swings a little on its falls.
 	_hook.rotation = Vector3(0.012 * sin(t * 1.1), 0, 0.016 * sin(t * 0.83 + 0.6))
 	# Carried loads: a sandbag rides between the hands; jerrycans hang upright under each grip, lagging a touch.
