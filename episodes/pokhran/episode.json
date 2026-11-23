@@ -1291,6 +1291,167 @@
    ]
   },
   {
+   "id": "dune_a",
+   "character": "toon_jawan_a",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     5.0,
+     0,
+     15010.12
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     4.5,
+     0,
+     15009.0
+    ]
+   },
+   "action": "crouch",
+   "shown": [
+    [
+     {
+      "line": "l7a",
+      "offset": -0.8
+     },
+     {
+      "line": "l7b",
+      "offset": 0.15
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    },
+    {
+     "t": {
+      "line": "l7a",
+      "word": "wind",
+      "offset": 0.5
+     },
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "dune_b",
+   "character": "toon_jawan_b",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     3.88,
+     0,
+     15010.0
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     4.5,
+     0,
+     15009.0
+    ]
+   },
+   "action": "crouch",
+   "shown": [
+    [
+     {
+      "line": "l7a",
+      "offset": -0.8
+     },
+     {
+      "line": "l7b",
+      "offset": 0.15
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    },
+    {
+     "t": {
+      "line": "l7a",
+      "word": "wind",
+      "offset": 0.6
+     },
+     "expression": "grin"
+    }
+   ]
+  },
+  {
+   "id": "dune_blow",
+   "character": "toon_jawan_c",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     5.62,
+     0,
+     15008.05
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     4.4,
+     0,
+     15008.85
+    ]
+   },
+   "action": "crouch",
+   "shown": [
+    [
+     {
+      "line": "l7a",
+      "offset": -0.8
+     },
+     {
+      "line": "l7b",
+      "offset": 0.15
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l7a",
+      "word": "wind",
+      "offset": -0.45
+     },
+     "expression": "surprised",
+     "head": [
+      24,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    },
+    {
+     "t": {
+      "line": "l7a",
+      "word": "wind",
+      "offset": 0.55
+     },
+     "expression": "smug",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.4
+    }
+   ]
+  },
+  {
    "id": "vajpayee_pmo",
    "character": "toon_vajpayee",
    "at": {
@@ -1726,6 +1887,36 @@
       "night_torch"
      ]
     },
+    "dune": {
+     "at": [
+      -4.5,
+      9.0,
+      0.0
+     ],
+     "scale": 0.7,
+     "shape": [
+      {
+       "line": "l7a",
+       "word": "Shaped",
+       "offset": -0.3
+      },
+      {
+       "line": "l7a",
+       "word": "dunes",
+       "offset": 0.35
+      }
+     ],
+     "blow": {
+      "line": "l7a",
+      "word": "wind",
+      "offset": -0.15
+     },
+     "hands": [
+      "dune_a",
+      "dune_b"
+     ],
+     "blower": "dune_blow"
+    },
     "park": {
      "at": [
       8.5,
@@ -1783,6 +1974,16 @@
       3.83,
       5.29,
       1.6
+     ],
+     [
+      -4.5,
+      9.0,
+      2.6
+     ],
+     [
+      -1.6,
+      6.5,
+      1.4
      ]
     ],
     "dive": {
@@ -4545,28 +4746,106 @@
   {
    "name": "dune_shape",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       2.5,
+       1.45,
+       15006.0
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       4.6,
+       0.25,
+       15009.1
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       3.1,
+       0.9,
+       15006.65
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       4.7,
+       0.2,
+       15008.7
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "06:05",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 5,
+     "azimuth": 168,
+     "color": "#ffb47a",
+     "energy": 2.4,
+     "softness": 0.8,
+     "visible": true,
+     "size": 1.2,
+     "glow": 2.2,
+     "glow_color": "#ffa060",
+     "shadows": true
+    },
+    "sky": {
+     "top": "#5d7cae",
+     "horizon": "#f2c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#8a8aa0",
+     "energy": 0.26,
+     "sky": 0.7
+    },
+    "fog": {
+     "begin": 30,
+     "end": 1500,
+     "curve": 1.6,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 1.0,
+     "vignette": 0.44,
+     "grain": 0.035
+    }
    }
   },
   {

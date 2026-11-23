@@ -46,6 +46,11 @@ extends RefCounted
 ##              `back` metres into its parking spot, slowing to a stop exactly at `to` (a brake dip and settle), its
 ##              wheels turning; its own old tyre ruts and rear-wheel imprints are pressed into the sand there; the
 ##              actor marshals it in, palm raised to stop it
+##   dune       {"at": [x, z, yaw_deg], "shape": [t0, t1], "blow": t, "hands": [actor ids], "blower": id}   1998: a heap
+##              of dug sand patted by hand into a crescent (barchan) dune between t0 and t1 (the hands' actors pat it,
+##              crouched, two-handed); at `blow` the blower leans in and blows, and fine wind ripples spread across the
+##              windward slope from his lips. The dune's local +z is the wind's way (windward slope toward -z);
+##              "scale" sizes it (1 = 4.6 m across, 0.82 m high)
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
@@ -542,6 +547,7 @@ func build(g: Dictionary) -> Node3D:
 	_kites(root)
 	_night_build(root)
 	_park_build(_g98)
+	_dune_build(_g98)
 	for c in _p.get("carry", []):
 		var what := String(c.get("what", "sandbag"))
 		var held: Array = []
@@ -562,6 +568,139 @@ func build(g: Dictionary) -> Node3D:
 
 var _night: Node3D
 var _park_truck: Node3D
+var _dune: MeshInstance3D
+var _dune_mat: ShaderMaterial
+
+## A hand-made dune: the heap (k 0) shaped into a barchan (k 1); wind ripples spread from the blow point. The same
+## height function is in dune_h() for hands.
+const DUNE_SHADER := """
+shader_type spatial;
+uniform sampler2D s_alb : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform sampler2D s_nor : hint_normal, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform float k = 0.0;
+uniform float rip_r = 0.0;
+uniform vec2 blow_at = vec2(0.0, -1.6);
+varying vec3 wp;
+//NOISE
+float g2(vec2 p, vec2 c, vec2 s) { vec2 d = (p - c) / s; return exp(-dot(d, d)); }
+float heap(vec2 p) {
+	return 0.78 * g2(p, vec2(0.0), vec2(0.8)) + 0.16 * g2(p, vec2(0.45, 0.3), vec2(0.3)) + 0.12 * g2(p, vec2(-0.4, -0.35), vec2(0.28))
+		+ 0.1 * g2(p, vec2(-0.2, 0.5), vec2(0.25)) + 0.08 * g2(p, vec2(0.5, -0.4), vec2(0.22));
+}
+float barchan(vec2 p) {
+	float sz = p.y < 0.0 ? 1.2 : 0.58;
+	float body = 0.82 * exp(-(p.x * p.x) / (1.05 * 1.05) - (p.y * p.y) / (sz * sz));
+	float scoop = 0.7 * g2(p, vec2(0.0, 0.8), vec2(0.5, 0.42));
+	float horns = 0.2 * (g2(p, vec2(0.95, 0.55), vec2(0.3, 0.5)) + g2(p, vec2(-0.95, 0.55), vec2(0.3, 0.5)));
+	return max(body - scoop + horns, 0.0);
+}
+float ripples(vec2 p, float b) {
+	float front = 1.0 - smoothstep(rip_r - 0.35, rip_r, distance(p, blow_at));
+	float wind = 1.0 - smoothstep(-0.1, 0.35, p.y);
+	float ph = p.y * 6.2831 / 0.11 + 0.8 * sin(p.x * 2.7) + 0.3 * sin(p.x * 7.1);
+	return 0.011 * sin(ph) * smoothstep(0.03, 0.2, b) * wind * front;
+}
+float h(vec2 p) {
+	float b = mix(heap(p), barchan(p), k);
+	return b + ripples(p, b) - 0.06 * smoothstep(1.9, 2.3, length(p));
+}
+void vertex() {
+	vec2 p = VERTEX.xz;
+	float e = 0.02;
+	VERTEX.y = h(p);
+	NORMAL = normalize(vec3(h(p - vec2(e, 0.0)) - h(p + vec2(e, 0.0)), 2.0 * e, h(p - vec2(0.0, e)) - h(p + vec2(0.0, e))));
+	wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+}
+void fragment() {
+	vec3 c = texture(s_alb, wp.xz * 0.3).rgb * vec3(1.1, 1.0, 0.84);
+	// Freshly patted sand is a touch darker and smoother; the finished dune dries pale.
+	c *= mix(0.86, 1.0, k) * (0.9 + 0.1 * fbm(wp * 2.0));
+	ALBEDO = c;
+	NORMAL_MAP = texture(s_nor, wp.xz * 0.3).rgb;
+	NORMAL_MAP_DEPTH = 0.6;
+	ROUGHNESS = 0.97;
+	SPECULAR = 0.2;
+}
+"""
+
+
+## The dune's height (no ripples) at dune-local p for shape k, mirroring DUNE_SHADER.
+static func dune_h(p: Vector2, k: float) -> float:
+	var hp := 0.78 * _g2(p, Vector2.ZERO, Vector2(0.8, 0.8)) + 0.16 * _g2(p, Vector2(0.45, 0.3), Vector2(0.3, 0.3)) 		+ 0.12 * _g2(p, Vector2(-0.4, -0.35), Vector2(0.28, 0.28)) + 0.1 * _g2(p, Vector2(-0.2, 0.5), Vector2(0.25, 0.25)) 		+ 0.08 * _g2(p, Vector2(0.5, -0.4), Vector2(0.22, 0.22))
+	var sz := 1.2 if p.y < 0.0 else 0.58
+	var body := 0.82 * exp(-(p.x * p.x) / (1.05 * 1.05) - (p.y * p.y) / (sz * sz))
+	var scoop := 0.7 * _g2(p, Vector2(0.0, 0.8), Vector2(0.5, 0.42))
+	var horns := 0.2 * (_g2(p, Vector2(0.95, 0.55), Vector2(0.3, 0.5)) + _g2(p, Vector2(-0.95, 0.55), Vector2(0.3, 0.5)))
+	return lerpf(hp, maxf(body - scoop + horns, 0.0), k)
+
+
+static func _g2(p: Vector2, c: Vector2, sz: Vector2) -> float:
+	var d := (p - c) / sz
+	return exp(-d.dot(d))
+
+
+func _dune_build(parent: Node3D) -> void:
+	var dd: Dictionary = _p.get("dune", {})
+	if dd.is_empty():
+		return
+	var at: Array = dd.get("at", [-7.0, 2.5, 0.0])
+	_dune = MeshInstance3D.new()
+	_dune.name = "dune"
+	var pm := PlaneMesh.new()
+	pm.size = Vector2(4.6, 4.6)
+	pm.subdivide_width = 150
+	pm.subdivide_depth = 150
+	_dune.mesh = pm
+	_dune.extra_cull_margin = 1.5
+	_dune_mat = Kit.shader(DUNE_SHADER)
+	_dune_mat.set_shader_parameter("s_alb", Kit.texture(TX + "sand_01_diff_2k.jpg"))
+	_dune_mat.set_shader_parameter("s_nor", Kit.texture(TX + "sand_01_nor_gl_2k.jpg", true))
+	_dune.material_override = _dune_mat
+	_dune.position = ground(float(at[0]), float(at[1])) + Vector3(0, -0.02, 0)
+	_dune.rotation.y = deg_to_rad(float(at[2]))
+	_dune.scale = Vector3.ONE * float(dd.get("scale", 1.0))
+	parent.add_child(_dune)
+
+
+func _pose_dune(gt: Transform3D, t: float, ctx: Dictionary) -> void:
+	if _dune == null:
+		return
+	var dd: Dictionary = _p.get("dune", {})
+	var sh: Array = dd.get("shape", [0.0, 1.0])
+	var t0 := float(sh[0])
+	var t1 := float(sh[1])
+	var k := Motion.in_out(Motion.seg(t, t0, t1))
+	_dune_mat.set_shader_parameter("k", k)
+	var tb := float(dd.get("blow", 1e9))
+	_dune_mat.set_shader_parameter("rip_r", 3.2 * Motion.out_cubic(Motion.seg(t, tb, tb + 0.9)))
+	if not ctx.has("actor"):
+		return
+	var inv := gt.affine_inverse()
+	var dx := _dune.transform
+	# The ripples start from the blower's lips (just in front of him, toward the dune).
+	var bl = ctx["actor"].call(String(dd.get("blower", "")))
+	if bl != null and bl.visible:
+		var bp: Vector3 = dx.affine_inverse() * (inv * (bl.global_position as Vector3))
+		_dune_mat.set_shader_parameter("blow_at", Vector2(bp.x, bp.z) * 0.8)
+	# The patting: each worker's two palms come down on the dune in turn (pat-pat), working round as it takes shape.
+	var hands: Array = dd.get("hands", [])
+	for i in hands.size():
+		var actor = ctx["actor"].call(String(hands[i]))
+		if actor == null or not actor.visible:
+			continue
+		var on := Motion.smooth(Motion.seg(t, t0 - 0.4, t0)) * (1.0 - Motion.smooth(Motion.seg(t, t1 + 0.2, t1 + 0.6)))
+		if on <= 0.0:
+			continue
+		var me: Vector3 = dx.affine_inverse() * (inv * (actor.global_position as Vector3))
+		var to_c := Vector2(-me.x, -me.z).normalized()
+		var sidev := Vector2(-to_c.y, to_c.x)
+		for j in 2:
+			var sg := -1.0 if j == 0 else 1.0
+			var drift := 0.12 * sin(t * 1.3 + i * 2.0 + j)
+			var pl := Vector2(me.x, me.z) + to_c * (0.62 + 0.08 * sin(t * 0.9 + i)) + sidev * (0.18 * sg + drift)
+			var lift := 0.13 * maxf(0.0, sin(t * 7.5 + j * PI + i * 1.1))
+			var pt := dx * Vector3(pl.x, dune_h(pl, k) + 0.035 + lift, pl.y)
+			actor.aim_hand("l" if j == 0 else "r", gt * pt, on)
 var _park_wheels: Array = []
 
 ## Tyre marks in sand: a pressed band with tread bars, darker and smoother than the loose sand round it.
@@ -1903,6 +2042,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		(k.get_node("wing_r") as Node3D).rotation.z = -0.12 - flap * 0.5
 	_pose_night(gt, t, ctx)
 	_pose_park(gt, t, ctx)
+	_pose_dune(gt, t, ctx)
 	# The hook block swings a little on its falls.
 	_hook.rotation = Vector3(0.012 * sin(t * 1.1), 0, 0.016 * sin(t * 0.83 + 0.6))
 	# Carried loads: a sandbag rides between the hands; jerrycans hang upright under each grip, lagging a touch.

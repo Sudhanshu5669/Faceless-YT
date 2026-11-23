@@ -203,5 +203,40 @@
         "fingerprint": "36f130485068"
       }
     ]
+  },
+  "team_lookup": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-23 20:20:16",
+    "fingerprint": "f4a336d7d372",
+    "history": []
+  },
+  "same_desert": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-23 20:20:23",
+    "fingerprint": "4c7fe5a9055d",
+    "history": []
+  },
+  "night_work": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-23 20:20:27",
+    "fingerprint": "63d5d1c07ba7",
+    "history": []
+  },
+  "truck_park": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-23 20:20:32",
+    "fingerprint": "1eb461efde12",
+    "history": []
+  },
+  "photos_same": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-23 20:20:36",
+    "fingerprint": "ac93be00077f",
+    "history": []
   }
 }

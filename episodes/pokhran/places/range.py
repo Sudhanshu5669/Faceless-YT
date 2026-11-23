@@ -127,6 +127,27 @@ ACTORS += [
      "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("l6b", "exact", 0.35), "expression": "smug"}]},
 ]
 
+# dune_shape (1998, dawn): the dug sand patted by hand into a crescent dune; one jawan blows the wind ripples onto it.
+DUNE_AT = (-4.5, 9.0)        # open ground south-west of the shaft, clear of the spoil heap
+DUNE = [W("l7a", offset=-0.8), W("l7b", offset=0.15)]
+
+
+def DP(x, y, z):
+    """A point relative to the dune's centre (its +z is the wind's way)."""
+    return P(DUNE_AT[0] + x, y, DUNE_AT[1] + z)
+
+
+ACTORS += [
+    {"id": "dune_a", "character": "toon_jawan_a", "at": DP(-0.5, 0, 1.12), "facing": DP(0, 0, 0), "action": "crouch",
+     "shown": [DUNE], "cues": [{"t": 0.0, "expression": "effort"}, {"t": W("l7a", "wind", 0.5), "expression": "happy"}]},
+    {"id": "dune_b", "character": "toon_jawan_b", "at": DP(0.62, 0, 1.0), "facing": DP(0, 0, 0), "action": "crouch",
+     "shown": [DUNE], "cues": [{"t": 0.0, "expression": "effort"}, {"t": W("l7a", "wind", 0.6), "expression": "grin"}]},
+    {"id": "dune_blow", "character": "toon_jawan_c", "at": DP(-1.12, 0, -0.95), "facing": DP(0.1, 0, -0.15), "action": "crouch",
+     "shown": [DUNE], "cues": [{"t": 0.0, "expression": "determined"},
+                               {"t": W("l7a", "wind", -0.45), "expression": "surprised", "head": [24, 0, 0], "head_turn": 0.3},
+                               {"t": W("l7a", "wind", 0.55), "expression": "smug", "head": [0, 0, 0], "head_turn": 0.4}]},
+]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -139,10 +160,12 @@ LOOK_1995 = dict(LOOK_AFTERNOON,
 GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"carry": [{"actor": "jawan_noon", "what": "jerrycans"}, {"actor": "night_bag", "what": "sandbag"}],
                     "night": {"on": [NIGHT], "lamp": [1.8, 1.6], "torch": ["night_torch"]},
+                    "dune": {"at": [DUNE_AT[0], DUNE_AT[1], 0.0], "scale": 0.7, "shape": [W("l7a", "Shaped", -0.3), W("l7a", "dunes", 0.35)],
+                             "blow": W("l7a", "wind", -0.15), "hands": ["dune_a", "dune_b"], "blower": "dune_blow"},
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
-                    "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6]],
+                    "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6], [-4.5, 9.0, 2.6], [-1.6, 6.5, 1.4]],
                     "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
                     "drip": W("l2e", "bomb", 0.04),
                     "y1995": [Y1995, Y1995_LATE],
@@ -296,6 +319,11 @@ SHOTS = {
         cam(P(PARK_AT[0] + 3.35, 1.3, PARK_AT[1] + 4.6), P(PARK_AT[0] + 0.8, 0.45, PARK_AT[1] + 1.4), 30, {"strength": 0.1}),
         cam(P(PARK_AT[0] + 3.2, 1.22, PARK_AT[1] + 4.4), P(PARK_AT[0] + 0.85, 0.5, PARK_AT[1] + 1.5), 30, {"strength": 0.1}),
         "linear")},
+    # Low and close at the dune's side: the jawans pat the dug heap into a crescent; on "the wind" one leans in and blows,
+    # and ripples run across the windward slope in the raking dawn light. A slow push.
+    "dune_shape": {"look": LOOK_DAWN, "camera": move(
+        cam(DP(2.0, 1.45, -3.0), DP(-0.1, 0.25, 0.1), 30, {"strength": 0.1}),
+        cam(DP(1.4, 0.9, -2.35), DP(-0.2, 0.2, -0.3), 30, {"strength": 0.12}), "in_out")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 
