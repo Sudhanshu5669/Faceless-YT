@@ -59,6 +59,8 @@ ACTORS.append(
 # jawan on the collar guides it with both hands; the foreman calls the crane down; a scientist with a clipboard
 # watches. The casing's foot goes into the shaft on "right here".
 Y1995 = [W("l3b", offset=-0.8), W("l3c", offset=-0.02)]
+# The site stays as it was in 1995 while the prints are looked at in Delhi and until the test is called off.
+Y1995_LATE = [W("l4a", offset=-0.8), W("l5a", offset=-0.02)]
 ACTORS += [
     {"id": "guide_95", "character": "toon_jawan_b", "at": P(0.84, 0.222, -0.32), "facing": P(0.3, 0.222, 1.1),
      "action": "idle", "keep_y": True, "shown": [Y1995],
@@ -87,7 +89,7 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6]],
                     "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
                     "drip": W("l2e", "bomb", 0.04),
-                    "y1995": [Y1995],
+                    "y1995": [Y1995, Y1995_LATE],
                     "lower": {"from": W("l3b", "India's", 0.0), "to": W("l3b", "here", 0.0)},
                     "guide": {"actor": "guide_95"}, "clipboard": {"actor": "sci_95"},
                     "bushes": [[1.1, 2.5, 0.75, 0.6]]}},

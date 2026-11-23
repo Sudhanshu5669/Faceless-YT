@@ -1,0 +1,28 @@
+{
+  "id": "toon_wisner",
+  "description": "Frank G. Wisner, US Ambassador to India 1994-1997 (caricature): tall, grey hair parted at the side, dark navy suit, white shirt, maroon tie.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "diplomat",
+    "real-person"
+  ],
+  "height": 1.62,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#a9a8a4"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#1d2538",
+      "tie": "#6a1a24"
+    },
+    "shoes": "#141210",
+    "face": "deadpan",
+    "girth": 0.98
+  }
+}

@@ -755,6 +755,53 @@
    ]
   },
   {
+   "id": "wisner",
+   "character": "toon_wisner",
+   "at": {
+    "anchor": "office",
+    "offset": [
+     -0.42,
+     0,
+     9000.82
+    ]
+   },
+   "facing": {
+    "anchor": "office",
+    "offset": [
+     -0.05,
+     0,
+     8999.4
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l4b",
+      "offset": -0.8
+     },
+     {
+      "line": "l4c",
+      "offset": 0.04
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "l4b",
+      "word": "photos",
+      "offset": 0.3
+     },
+     "expression": "side_eye"
+    }
+   ]
+  },
+  {
    "id": "rao",
    "character": "toon_rao",
    "at": {
@@ -804,6 +851,22 @@
       "line": "l4a",
       "word": "Times",
       "offset": 0.45
+     },
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "l4b",
+      "word": "photos",
+      "offset": 0.05
+     },
+     "expression": "side_eye"
+    },
+    {
+     "t": {
+      "line": "l4b",
+      "word": "photos",
+      "offset": 0.7
      },
      "expression": "nervous"
     }
@@ -994,6 +1057,16 @@
        "line": "l3c",
        "offset": -0.02
       }
+     ],
+     [
+      {
+       "line": "l4a",
+       "offset": -0.8
+      },
+      {
+       "line": "l5a",
+       "offset": -0.02
+      }
      ]
     ],
     "lower": {
@@ -1166,6 +1239,22 @@
      ],
      "byline": "By TIM WEINER",
      "dateline": "WASHINGTON, Dec. 14 \u2014"
+    },
+    "photos": {
+     "slide": {
+      "line": "l4b",
+      "word": "photos"
+     },
+     "hand": "wisner",
+     "cam": {
+      "anchor": "range",
+      "offset": [
+       -0.0,
+       260.0,
+       14999.5
+      ]
+     },
+     "ortho": 34.0
     }
    }
   },
@@ -2386,28 +2475,114 @@
   {
    "name": "wisner_photos",
    "camera": {
-    "at": {
-     "anchor": "office",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "office",
+      "offset": [
+       -1.5,
+       1.52,
+       9001.3
+      ]
+     },
+     "look_at": {
+      "anchor": "office",
+      "offset": [
+       0.05,
+       0.93,
+       8999.7
+      ]
+     },
+     "lens_mm": 34,
+     "dof": {
+      "strength": 0.14
+     }
     },
-    "look_at": {
-     "anchor": "office",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "office",
+      "offset": [
+       -1.36,
+       1.45,
+       9001.16
+      ]
+     },
+     "look_at": {
+      "anchor": "office",
+      "offset": [
+       0.03,
+       0.92,
+       8999.72
+      ]
+     },
+     "lens_mm": 36,
+     "dof": {
+      "strength": 0.14
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "15:00",
+    "ssao": true,
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0
+    },
+    "sun": {
+     "elevation": 20,
+     "azimuth": 258,
+     "color": "#ffd9a8",
+     "energy": 3.4,
+     "shadows": true,
+     "softness": 0.6,
+     "visible": false
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "ambient": {
+     "color": "#6a5a4a",
+     "energy": 0.16
+    },
+    "sky": {
+     "top": "#9ab4d0",
+     "horizon": "#e8dcc4",
+     "stars": 0,
+     "clouds": 0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 400,
+     "volumetric": 0.018,
+     "color": "#d8c4a4",
+     "anisotropy": 0.7,
+     "length": 14
+    },
+    "ground_fog": {
+     "density": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 0.98,
+     "vignette": 0.42,
+     "grain": 0.04
+    },
+    "practical_lights": {
+     "level": 0
+    }
    }
   },
   {

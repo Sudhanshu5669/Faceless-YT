@@ -5,6 +5,7 @@ the arched window in the -x wall (the PM's right), the room 7.4 m wide, 4.3 m hi
 December 1995 (Rao) and 1998 (Vajpayee) use the same room.
 """
 from .common import W, frame, cam, move
+from . import range as range_place
 
 OFFICE_Z = 9000.0
 P = frame("office", OFFICE_Z)
@@ -29,11 +30,17 @@ LOOK_1995 = {
 R1995 = [W("l4a", offset=-0.8), W("l4d", offset=-0.05)]
 
 ACTORS = [
+    # Ambassador Wisner stands at the desk and slides the satellite prints across to Rao.
+    {"id": "wisner", "character": "toon_wisner", "at": P(0.42, 0, 0.82), "facing": P(0.05, 0, -0.6), "action": "idle",
+     "shown": [[W("l4b", offset=-0.8), W("l4c", offset=0.04)]],
+     "cues": [{"t": 0.0, "expression": "deadpan"}, {"t": W("l4b", "photos", 0.3), "expression": "side_eye"}]},
     {"id": "rao", "character": "toon_rao", "at": P(0, 0, -0.78), "facing": P(0, 0, 3.0), "action": "sit",
      "shown": [R1995],
      "cues": [{"t": 0.0, "expression": "nervous"},
               {"t": W("l4a", "Times", 0.02), "expression": "surprised"},
-              {"t": W("l4a", "Times", 0.45), "expression": "nervous"}]},
+              {"t": W("l4a", "Times", 0.45), "expression": "nervous"},
+              {"t": W("l4b", "photos", 0.05), "expression": "side_eye"},
+              {"t": W("l4b", "photos", 0.7), "expression": "nervous"}]},
 ]
 
 GAGS = [{"id": "pmo", "script": "gags/pm_office.gd", "t": 0, "at": P(0, 0, 0),
@@ -42,7 +49,9 @@ GAGS = [{"id": "pmo", "script": "gags/pm_office.gd", "t": 0, "at": P(0, 0, 0),
                               "folio": "THE NEW YORK TIMES, FRIDAY, DECEMBER 15, 1995",
                               "headline": ["U.S. Suspects India", "Prepares To Conduct", "Nuclear Test"],
                               "byline": "By TIM WEINER",
-                              "dateline": "WASHINGTON, Dec. 14 —"}}}]
+                              "dateline": "WASHINGTON, Dec. 14 —"},
+                    "photos": {"slide": W("l4b", "photos", 0.0), "hand": "wisner",
+                               "cam": range_place.P(0.0, 260.0, -0.5), "ortho": 34.0}}}]
 
 SHOTS = {
     # Insert from above the desk, the visitors' side: an aide's arm slaps the folded New York Times down on
@@ -52,6 +61,11 @@ SHOTS = {
         cam(P(0.1, 1.5, 0.66), P(0.05, 0.78, 0.0), 30, {"strength": 0.12}),
         cam(P(0.1, 1.98, 1.08), P(0.04, 0.98, -0.38), 30, {"strength": 0.12}), "in"),
         "shake": [{"t": W("l4a", "Times", 0.0), "amount": 0.15}]},
+    # Over the ambassador's shoulder: he slides the top satellite print across the desk to Rao on "photos" (a live
+    # overhead view of the 1995 site, the shaft ringed in grease pencil); Rao looks down at it, side-eyed.
+    "wisner_photos": {"look": LOOK_1995, "camera": move(
+        cam(P(1.5, 1.52, 1.3), P(-0.05, 0.93, -0.3), 34, {"strength": 0.14}),
+        cam(P(1.36, 1.45, 1.16), P(-0.03, 0.92, -0.28), 36, {"strength": 0.14}), "in_out")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

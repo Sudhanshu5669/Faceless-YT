@@ -13,7 +13,10 @@ extends RefCounted
 ##   sitter   actor id in the PM's chair (the chair follows their hips)
 ##   paper    {"slap": t, "headline": [line, line], "folio": "...", "byline": "...", "dateline": "..."}
 ##            an aide's arm swings in from the visitors' side and slaps a folded newspaper onto the desk at `slap`
-## anchors: desk, paper, phone_black, phone_beige, chair, window, flag
+##   photos   {"slide": t, "hand": actor id, "cam": point, "ortho": metres}   satellite prints: a stack on the visitors'
+##            side; at `slide` the top print slides across to the PM under the actor's right hand. The picture is a
+##            live overhead orthographic view from `cam` (straight down), printed greyscale with a grease-pencil ring
+## anchors: desk, paper, phone_black, phone_beige, chair, window, flag, print
 const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
@@ -120,6 +123,35 @@ void fragment() {
 }
 """
 
+
+## A reconnaissance print: the overhead view in greyscale, hard contrast, grain, a white border, a grease-pencil
+## ring round the middle (the analyst's mark).
+const PRINT := """
+shader_type spatial;
+uniform sampler2D view : source_color, filter_linear;
+uniform float ring = 1.0;
+uniform float seed = 0.0;
+varying vec2 uvp;
+float h(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7)) + seed) * 43758.5453); }
+void vertex() { uvp = UV; }
+void fragment() {
+	vec2 b = abs(uvp - 0.5);
+	float border = step(0.455, max(b.x, b.y));
+	vec2 iuv = (uvp - 0.5) / 0.91 + 0.5;
+	vec3 v = texture(view, iuv).rgb;
+	float g = dot(v, vec3(0.3, 0.59, 0.11));
+	g = clamp((g - 0.5) * 1.15 + 0.46, 0.0, 1.0);
+	g += (h(floor(uvp * 700.0)) - 0.5) * 0.12;
+	vec3 c = vec3(g) * vec3(0.98, 0.97, 0.94);
+	float r = abs(length((uvp - vec2(0.5, 0.5)) * vec2(1.0, 1.0)) - 0.12 - 0.01 * sin(atan(uvp.y - 0.5, uvp.x - 0.5) * 3.0));
+	c = mix(c, vec3(0.75, 0.1, 0.08), (1.0 - smoothstep(0.004, 0.009, r)) * ring * (1.0 - border));
+	c = mix(c, vec3(0.95, 0.94, 0.9), border);
+	ALBEDO = c;
+	ROUGHNESS = 0.18;
+	SPECULAR = 0.7;
+}
+"""
+
 var _p := {}
 var _chair_top: Node3D
 var _chair_base: Node3D
@@ -128,6 +160,9 @@ var _paper: Node3D
 var _arm_upper: MeshInstance3D
 var _hand: MeshInstance3D
 var _jiggle: Array = []
+var _prints: Array = []
+var _photo_view: SubViewport
+var _photo_cam: Camera3D
 
 
 func build(g: Dictionary) -> Node3D:
@@ -137,6 +172,7 @@ func build(g: Dictionary) -> Node3D:
 	_desk(root)
 	_chair(root)
 	_paper_build(root)
+	_photos_build(root)
 	return root
 
 
@@ -306,7 +342,7 @@ func _desk(root: Node3D) -> void:
 	# The desk flag: the tricolour on a brass pole (saffron, white with the navy Ashoka Chakra, green).
 	var fl := Node3D.new()
 	fl.name = "flag"
-	fl.position = Vector3(0.82, TOP, 0.36)
+	fl.position = Vector3(0.82, TOP, -0.3)
 	root.add_child(fl)
 	var brass := Kit.mat("#b08a40", 0.3, 0.8)
 	Kit.cyl(fl, 0.04, 0.05, 0.02, Vector3(0, 0.01, 0), brass, 16)
@@ -413,6 +449,77 @@ func _paper_build(root: Node3D) -> void:
 	root.add_child(_hand)
 
 
+func _photos_build(root: Node3D) -> void:
+	var pd: Dictionary = _p.get("photos", {})
+	if pd.is_empty():
+		return
+	_photo_view = SubViewport.new()
+	_photo_view.size = Vector2i(768, 768)
+	_photo_view.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	_photo_view.own_world_3d = false
+	_photo_view.msaa_3d = Viewport.MSAA_2X
+	root.add_child(_photo_view)
+	_photo_cam = Camera3D.new()
+	_photo_cam.projection = Camera3D.PROJECTION_ORTHOGONAL
+	_photo_cam.size = float(pd.get("ortho", 40.0))
+	_photo_cam.near = 1.0
+	_photo_cam.far = 2000.0
+	var env := Environment.new()
+	env.background_mode = Environment.BG_COLOR
+	env.background_color = Color(0.5, 0.48, 0.44)
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	env.ambient_light_color = Color(0.6, 0.58, 0.55)
+	env.ambient_light_energy = 0.55
+	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	_photo_cam.environment = env
+	_photo_view.add_child(_photo_cam)
+	# Three prints: two lying squared on the visitors' side, the top one slides across.
+	for k in 3:
+		var q := MeshInstance3D.new()
+		var qm := PlaneMesh.new()
+		qm.size = Vector2(0.254, 0.203)
+		q.mesh = qm
+		var m := Kit.shader(PRINT)
+		m.set_shader_parameter("view", _photo_view.get_texture())
+		m.set_shader_parameter("ring", 1.0 if k == 2 else 0.0)
+		m.set_shader_parameter("seed", float(k) * 3.1)
+		q.material_override = m
+		q.position = Vector3(0.28 + 0.01 * k, TOP + 0.009 + 0.0015 * k, 0.33 - 0.008 * k)
+		q.rotation.y = 0.08 - 0.05 * k
+		root.add_child(q)
+		_prints.append(q)
+
+
+func _pose_photos(gt: Transform3D, t: float, ctx: Dictionary) -> Vector3:
+	var pd: Dictionary = _p.get("photos", {})
+	if pd.is_empty() or _prints.is_empty():
+		return Vector3.ZERO
+	# The live overhead view (straight down from the given point).
+	var cp: Dictionary = ctx["point"].call(pd["cam"]) if pd.has("cam") else {}
+	if cp.has("pos"):
+		var at: Vector3 = cp["pos"]
+		_photo_cam.global_transform = Transform3D(Basis.looking_at(Vector3.DOWN, Vector3.FORWARD), at)
+	# The slide: the top print glides across toward the PM, eased, a small turn as it goes; it lands on `slide`.
+	var ts := float(pd.get("slide", 1e9))
+	var u := Motion.out_cubic(Motion.seg(t, ts - 0.55, ts))
+	var top_print: MeshInstance3D = _prints[2]
+	var from := Vector3(0.3, TOP + 0.012, 0.316)
+	var to := Vector3(0.02, TOP + 0.012, -0.08)
+	top_print.position = from.lerp(to, u)
+	top_print.rotation.y = lerpf(-0.02, 0.18, u)
+	# His fingers on its near corner until it lands, then the hand lifts away.
+	var hid := String(pd.get("hand", ""))
+	var actor = ctx["actor"].call(hid) if hid != "" and ctx.has("actor") else null
+	if actor != null:
+		var corner := top_print.position + Basis(Vector3.UP, top_print.rotation.y) * Vector3(0.09, 0.0, 0.085)
+		var away := Motion.smooth(Motion.seg(t, ts + 0.1, ts + 0.5))
+		var w := 1.0 - away
+		if t > ts - 1.2:
+			var lead := Motion.smooth(Motion.seg(t, ts - 1.2, ts - 0.55))
+			actor.aim_hand("r", gt * (corner + Vector3(0, 0.05, 0)), w * lead, 0.02)
+	return top_print.position
+
+
 ## Type laid flat on the page; shrunk to `max_w` metres wide if it would run off the page.
 func _flat_text(parent: Node3D, s: String, font: Font, height: float, col: Color, pos: Vector3, max_w: float = PAPER.x - 0.03) -> void:
 	if s == "":
@@ -458,6 +565,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var gt := node.global_transform
 	_pose_chair(gt, ctx)
 	_fan.rotation.y = t * 2.4
+	var print_at := _pose_photos(gt, t, ctx)
 	var paper_anchor := PAPER_AT
 	if _paper:
 		var pp: Dictionary = _p.get("paper", {})
@@ -500,4 +608,5 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		paper_anchor = pos
 	return {"desk": gt * Vector3(0, TOP, 0), "paper": gt * paper_anchor, "chair": gt * (_chair_top.position + Vector3(0, 0.4, 0)),
 		"phone_black": gt * Vector3(-0.62, TOP + 0.1, -0.12), "phone_beige": gt * Vector3(-0.42, TOP + 0.08, -0.3),
-		"window": gt * Vector3(-ROOM.x * 0.5, 2.2, -0.3), "flag": gt * Vector3(0.82, TOP + 0.3, 0.36)}
+		"window": gt * Vector3(-ROOM.x * 0.5, 2.2, -0.3), "flag": gt * Vector3(0.82, TOP + 0.3, -0.3),
+		"print": gt * print_at}
