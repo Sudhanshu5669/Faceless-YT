@@ -1,0 +1,30 @@
+{
+  "id": "toon_rao",
+  "description": "PM P. V. Narasimha Rao (caricature, 1995): bald crown with a band of white hair at the sides and back, thick dark-framed glasses, white kurta.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "politician",
+    "real-person"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "horseshoe",
+      "color": "#e4e2dc"
+    },
+    "outfit": {
+      "style": "kurta",
+      "color": "#f2f1ec"
+    },
+    "shoes": "#3a2a1e",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "nervous",
+    "girth": 1.18
+  }
+}

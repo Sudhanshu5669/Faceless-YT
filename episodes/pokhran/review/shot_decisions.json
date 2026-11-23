@@ -126,5 +126,19 @@
         "fingerprint": "62c8e6a272de"
       }
     ]
+  },
+  "sat_turn": {
+    "status": "approved",
+    "note": "approved 2026-11-23",
+    "updated": "2026-11-23 16:01:50",
+    "fingerprint": "d7aea1f91861",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-23 16:00:38",
+        "fingerprint": "d7aea1f91861"
+      }
+    ]
   }
 }

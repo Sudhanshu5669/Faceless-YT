@@ -41,7 +41,7 @@ const SHORTEN := ["calf_l", "foot_l", "calf_r", "foot_r"]
 const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth", "mustache", "beard"]
 const HAIR_KEYS := ["style", "color", "lamp"]
 const OUTFIT_KEYS := ["style", "color", "chain", "tie", "accent", "vest", "bow", "badge", "camo"]
-const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat", "hood", "turban", "side", "patrol"]
+const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat", "hood", "turban", "side", "patrol", "horseshoe"]
 const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt", "hivis", "kurta", "coverall", "fatigues"]
 const ACCESSORIES := ["glasses", "round_glasses", "sunglasses", "smart_glasses", "rimless", "mask"]
 const EYES := ["lazy", "dot", "wide", "happy", "closed", "x", "star", "heart", "sleepy", "none"]
@@ -340,6 +340,21 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 		return
 	if style == "turban":
 		_turban(head, h, hr)
+		return
+	if style == "horseshoe":
+		# Bald on top: a band of hair round the sides and the back, thinning to nothing above the temples.
+		var hs := MeshInstance3D.new()
+		hs.name = "hair"
+		hs.mesh = _horseshoe(hr * 1.03)
+		var hm := ShaderMaterial.new()
+		hm.shader = HAIR_SHADER
+		hm.set_shader_parameter("color", Color(String(h.get("color", "#d8d8d4"))))
+		hm.set_shader_parameter("radius", hr)
+		hm.set_shader_parameter("mode", 0)
+		hm.set_shader_parameter("strands", 0.16)
+		hm.next_pass = _outline(OUTLINE * 0.6)
+		hs.material_override = hm
+		head.add_child(hs)
 		return
 	var col := Color(String(h.get("color", "#5a3a22")))
 	var hl: Array = HAIRLINES[style]
@@ -1068,6 +1083,40 @@ static func _cap(front: float, side: float, back: float, r: float, band: float) 
 			var c := a + nphi + 1
 			var d := c + 1
 			# Godot front faces wind clockwise seen from outside.
+			st.add_index(a); st.add_index(b); st.add_index(c)
+			st.add_index(b); st.add_index(d); st.add_index(c)
+	var m := st.commit()
+	_meshes[key] = m
+	return m
+
+
+## A horseshoe of hair (a bald crown): from just under the crown's edge down to the nape at the back, narrowing
+## round the sides and gone in front of the ears.
+static func _horseshoe(r: float) -> ArrayMesh:
+	var key := "horseshoe|%.4f" % r
+	if _meshes.has(key):
+		return _meshes[key]
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var nphi := 48
+	var nth := 10
+	for i in nth + 1:
+		for j in nphi + 1:
+			var phi := float(j) / nphi * TAU
+			var from_front := absf(wrapf(phi, -PI, PI))
+			var w := smoothstep(deg_to_rad(62.0), deg_to_rad(100.0), from_front)
+			var top := lerpf(98.0, 58.0, w)
+			var bot := lerpf(99.0, 108.0, w)
+			var th := deg_to_rad(lerpf(top, bot, float(i) / nth))
+			var n := Vector3(sin(th) * sin(phi), cos(th), sin(th) * cos(phi))
+			st.set_normal(n)
+			st.add_vertex(n * r * (1.0 + 0.04 * w * sin(float(i) / nth * PI)))
+	for i in nth:
+		for j in nphi:
+			var a := i * (nphi + 1) + j
+			var b := a + 1
+			var c := a + nphi + 1
+			var d := c + 1
 			st.add_index(a); st.add_index(b); st.add_index(c)
 			st.add_index(b); st.add_index(d); st.add_index(c)
 	var m := st.commit()
