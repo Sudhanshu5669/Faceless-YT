@@ -9,6 +9,7 @@ Writes into OUT_DIR (default incoming/pokhran_blender/):
                       bows. 6.3 m long, 2.3 m wide, 3.0 m to the canopy top. Forward is +X (Blender) -> -Z in glTF? No:
                       the exporter's +Y-up conversion keeps Blender +X as glTF +X; forward = +X.
   truck_flat.glb      the same truck with an open bed (no canopy, no bows): the crane truck's chassis.
+  jeep.glb            a light army 4x4 soft-top (generic, no make), 3.95 m long, right-hand drive.
 Materials (override by name in Godot): paint, canvas, tyre, rim, glass, lamp, dark, wood.
 Deterministic (no randomness).
 """
@@ -297,6 +298,76 @@ def truck(name, canopy=True):
     export(name)
 
 
+def jeep(name):
+    """A light army 4x4 of the 1990s (a generic soft-top, no make): boxy olive body, slotted grille, round headlamps,
+    a flat folding windscreen, open doorways, a canvas top over the rear, the spare on the tailgate. 3.95 m long,
+    1.55 m wide, 1.85 m to the top; right-hand drive. Forward +X."""
+    clear()
+    paint = mat("paint", (0.22, 0.24, 0.13), 0.62)
+    canvas = mat("canvas", (0.3, 0.3, 0.19), 0.95)
+    glass = mat("glass", (0.03, 0.04, 0.045), 0.08, 0.4)
+    lamp = mat("lamp", (0.85, 0.83, 0.75), 0.15, 0.6)
+    dark = mat("dark", (0.04, 0.04, 0.04), 0.6)
+    W = 1.55
+    k = 0.66      # wheel scale (the truck's 1.1 m wheel -> 0.73 m)
+    for x, tag in ((1.2, "f"), (-1.2, "r")):
+        for sd in (-1, 1):
+            nm = f"w{tag}{'l' if sd > 0 else 'r'}"
+            at = Vector((x, sd * 0.68, 0.36))
+            wheel(nm, tuple(at), sd)
+            for ob in [o for o in bpy.data.objects if o.name.startswith(nm + "_")]:
+                ob.location = at + (ob.location - at) * k
+                ob.scale = (k, k, k)
+    for sd in (-1, 1):
+        box(f"rail{sd}", (3.6, 0.09, 0.14), (0.0, sd * 0.38, 0.5), dark, 0.01)
+    for x in (1.2, -1.2):
+        cyl(f"axle{x}", 0.05, 1.3, (x, 0, 0.36), dark, "Y", 12)
+    # The tub: floor and sides from the dash back to the tailgate.
+    box("tub", (2.55, W, 0.5), (-0.55, 0, 0.84), paint, 0.04)
+    # Bonnet, slotted grille, round headlamps, flat front wings.
+    box("bonnet", (1.25, 1.42, 0.42), (1.32, 0, 0.92), paint, 0.05)
+    box("bonnet_top", (1.2, 1.36, 0.05), (1.3, 0, 1.14), paint, 0.02, (0, 0.04, 0))
+    box("grille", (0.05, 0.9, 0.34), (1.95, 0, 0.9), dark, 0.01)
+    for i in range(7):
+        box(f"slot{i}", (0.04, 0.06, 0.3), (1.97, -0.36 + 0.12 * i, 0.9), paint, 0.005)
+    for sd in (-1, 1):
+        cyl(f"lampbody{sd}", 0.09, 0.08, (1.95, sd * 0.56, 0.92), paint, "X", 24, 0.01)
+        cyl(f"lamp{sd}", 0.075, 0.03, (2.0, sd * 0.56, 0.92), lamp, "X", 24, 0.01)
+        box(f"wing{sd}", (0.95, 0.24, 0.05), (1.22, sd * 0.68, 0.76), paint, 0.02, (0, 0.0, 0))
+        box(f"wing_lip{sd}", (0.95, 0.04, 0.1), (1.22, sd * 0.79, 0.72), paint, 0.01)
+        box(f"rwing{sd}", (0.9, 0.12, 0.05), (-1.2, sd * 0.79, 0.78), paint, 0.02)
+    box("bumper_f", (0.1, 1.5, 0.12), (2.02, 0, 0.55), dark, 0.02)
+    box("bumper_r", (0.1, 1.5, 0.12), (-1.88, 0, 0.55), dark, 0.02)
+    # The flat windscreen in its frame, a little raked; wipers; a mirror each side.
+    box("screen_frame", (0.05, 1.45, 0.52), (0.68, 0, 1.36), paint, 0.01, (0, -0.12, 0))
+    box("screen", (0.03, 1.32, 0.42), (0.7, 0, 1.36), glass, 0.0, (0, -0.12, 0))
+    for sd in (-1, 1):
+        box(f"mirror{sd}", (0.03, 0.12, 0.16), (0.66, sd * 0.86, 1.4), dark, 0.01)
+    # The dash, two front seats, the steering wheel on the right.
+    box("dash", (0.2, 1.4, 0.18), (0.58, 0, 1.12), dark, 0.02)
+    for sd in (-1, 1):
+        box(f"seat{sd}", (0.45, 0.48, 0.12), (0.05, sd * 0.36, 1.0), dark, 0.03)
+        box(f"seatback{sd}", (0.1, 0.48, 0.5), (-0.18, sd * 0.36, 1.25), dark, 0.03, (0, 0.12, 0))
+    torus("steer", 0.16, 0.018, (0.42, -0.36, 1.32), dark)
+    bpy.data.objects["steer"].rotation_euler = (0, math.pi / 2 - 0.5, 0)
+    # The soft top: a canvas roof over the bows from the windscreen back, closed sides and back behind the doorways.
+    box("top_roof", (2.5, W + 0.02, 0.06), (-0.55, 0, 1.84), canvas, 0.04)
+    box("top_back", (1.55, W + 0.02, 0.72), (-1.05, 0, 1.48), canvas, 0.06)
+    for i, x in enumerate((0.66, -0.2, -1.78)):
+        for sd in (-1, 1):
+            cyl(f"bow{i}{sd}", 0.016, 0.72, (x, sd * 0.76, 1.48), dark, "Z", 8)
+    # The tailgate with the spare wheel on it.
+    nm = "spare"
+    at = Vector((-1.97, 0, 0.98))
+    wheel(nm, tuple(at), 1)
+    for ob in [o for o in bpy.data.objects if o.name.startswith(nm + "_")]:
+        rel = (ob.location - at) * k
+        ob.location = at + Matrix.Rotation(math.pi / 2, 3, "Z") @ rel
+        ob.scale = (k, k, k)
+        ob.rotation_euler.rotate(Matrix.Rotation(math.pi / 2, 3, "Z").to_euler())
+    export(name)
+
+
 def export(name):
     path = str(OUT / f"{name}.glb")
     bpy.ops.export_scene.gltf(filepath=path, export_format="GLB", export_apply=True)
@@ -306,3 +377,4 @@ def export(name):
 if __name__ == "__main__":
     truck("truck_canopy", canopy=True)
     truck("truck_flat", canopy=False)
+    jeep("jeep")

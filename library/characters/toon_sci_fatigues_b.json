@@ -1,0 +1,30 @@
+{
+  "id": "toon_sci_fatigues_b",
+  "description": "A senior scientist disguised in army fatigues (1998): grey moustache, round glasses, baggy camouflage, patrol cap.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "scientist"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "patrol",
+      "color": "#4c5434"
+    },
+    "outfit": {
+      "style": "fatigues",
+      "color": "#6b6a48"
+    },
+    "shoes": "#2a2018",
+    "accessories": [
+      "round_glasses"
+    ],
+    "mustache": "#8a8680",
+    "face": "deadpan",
+    "girth": 1.18
+  }
+}

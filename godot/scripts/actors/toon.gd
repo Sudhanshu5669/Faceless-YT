@@ -415,7 +415,13 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 				Vector3(0, cos(a) * hr * 1.04, sin(a) * hr * 1.04 + hr * 0.12))
 			head.add_child(brim)
 		"patrol":
-			# An army patrol cap: the crown rises straight to a flat top, a short stiff peak in front.
+			# An army patrol cap: the crown rises straight to a flat top, a short stiff peak in front. Its parts share a
+			# "cap" node so a gag can knock it askew or slide it over the eyes.
+			var cap := Node3D.new()
+			cap.name = "cap"
+			head.add_child(cap)
+			head.remove_child(shell)
+			cap.add_child(shell)
 			shell.scale = Vector3(1.0, 1.06, 1.0)
 			var top := MeshInstance3D.new()
 			var cm2 := CylinderMesh.new()
@@ -427,14 +433,14 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 			top.material_override = mat
 			top.position = Vector3(0, hr * 0.98, -hr * 0.03)
 			top.rotation_degrees = Vector3(-6, 0, 0)
-			head.add_child(top)
+			cap.add_child(top)
 			var peak := MeshInstance3D.new()
 			peak.mesh = _sphere(1.0, 24, 8)
 			peak.material_override = _mat(col.darkened(0.2), OUTLINE * 0.6)
 			var a2 := deg_to_rad(float(hl[0]) + 4.0)
 			peak.transform = Transform3D(_cols(Basis.from_euler(Vector3(deg_to_rad(8), 0, 0)), Vector3(hr * 0.42, hr * 0.04, hr * 0.22)),
 				Vector3(0, cos(a2) * hr * 1.06, sin(a2) * hr * 1.06 + hr * 0.04))
-			head.add_child(peak)
+			cap.add_child(peak)
 		"beanie":
 			var band := MeshInstance3D.new()
 			band.mesh = _cap(float(hl[0]), float(hl[1]), float(hl[2]), hr * 1.12, 16.0)

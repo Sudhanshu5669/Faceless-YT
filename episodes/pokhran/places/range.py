@@ -209,6 +209,22 @@ ACTORS += [
                                   {"t": W("l8c", "cricket", 0.25), "expression": "laugh", "head": [-28, 0, 0], "head_turn": 0.3}]},
 ]
 
+# jeep_arrive (1998): a jeep brakes to a stop at the camp; scientists in borrowed fatigues climb out; on "soldiers" one
+# scientist's oversized cap slides over his eyes. (kalam_tape continues at the same jeep.)
+JEEP_AT = (-6.0, -19.0)          # facing -z (north, toward the camp)
+JEEPW = [W("l9a", offset=-1.6), W("l10a", offset=0.0)]
+ACTORS += [
+    {"id": "jeep_driver", "character": "toon_jawan_a", "at": P(-5.64, 0, -19.1), "facing": P(-5.64, 0, -30.0),
+     "action": "drive", "shown": [JEEPW], "cues": [{"t": 0.0, "expression": "deadpan"}]},
+    {"id": "sci_f1", "character": "toon_sci_fatigues_a", "at": P(-6.85, 0, -19.05), "facing": P(-8.2, 0, -19.6),
+     "action": "idle", "route": {"via": [P(-7.95, 0, -19.5)], "gait": "walk", "start": W("l9a", offset=0.1)},
+     "shown": [JEEPW], "cues": [{"t": 0.0, "expression": "nervous"},
+                                {"t": W("l9a", "soldiers", 0.05), "expression": "surprised"}]},
+    {"id": "sci_f2", "character": "toon_sci_fatigues_b", "at": P(-7.55, 0, -17.3), "facing": P(-9.6, 0, -24.6),
+     "action": "idle", "shown": [JEEPW], "cues": [{"t": 0.0, "expression": "deadpan"},
+                                                  {"t": W("l9a", "soldiers", 0.3), "expression": "side_eye", "head": [0, -35, 0], "head_turn": 0.4}]},
+]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -230,6 +246,8 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "chai": ["st_chai"],
                     "cricket": {"bat": "cr_bat", "bowl": "cr_bowl", "release": W("l8c", "cricket", -0.5), "hit": HIT,
                                 "stumps": [-3.0, 16.45]},
+                    "jeep": {"at": [JEEP_AT[0], JEEP_AT[1], 90.0], "stop": W("l9a", offset=0.15), "run": 6.0,
+                             "driver": "jeep_driver", "slip": {"actor": "sci_f1", "t": W("l9a", "soldiers", 0.0)}},
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
@@ -414,6 +432,11 @@ SHOTS = {
         "from": cam(P(-1.55, 0.75, 19.6), P(-3.35, 1.0, 8.0), 30, {"strength": 0.1}),
         "to": cam(P(-1.55, 0.8, 19.5), P(-3.3, 4.2, 8.5), 28, {"strength": 0.08}),
         "ease": "in_out", "start": W("l8c", "cricket", 0.0), "end": W("l8c", "cricket", 0.6)}},
+    # At the camp, front three-quarter: the jeep brakes to a stop toward us; the scientists in baggy fatigues step out;
+    # on "soldiers" one's oversized cap slides down over his glasses; the other side-eyes him.
+    "jeep_arrive": {"look": LOOK_AFTERNOON, "camera": move(
+        cam(P(-10.6, 1.3, -24.2), P(-6.6, 1.0, -19.0), 28, {"strength": 0.1}),
+        cam(P(-10.3, 1.25, -23.6), P(-6.9, 1.05, -19.1), 30, {"strength": 0.1}), "in_out")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

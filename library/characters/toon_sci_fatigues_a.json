@@ -1,0 +1,29 @@
+{
+  "id": "toon_sci_fatigues_a",
+  "description": "A DRDO/BARC scientist disguised in army fatigues (1998): baggy camouflage on a soft frame, an army patrol cap a size too big, glasses.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "scientist"
+  ],
+  "height": 1.45,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "patrol",
+      "color": "#4c5434"
+    },
+    "outfit": {
+      "style": "fatigues",
+      "color": "#6b6a48"
+    },
+    "shoes": "#2a2018",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "nervous",
+    "girth": 1.28
+  }
+}

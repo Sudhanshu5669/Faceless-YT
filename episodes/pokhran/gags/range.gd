@@ -62,6 +62,10 @@ extends RefCounted
 ##   cricket    {"bat": id, "bowl": id, "release": t, "hit": t, "stumps": [x, z]}   gully cricket: tent-peg stumps behind
 ##              the batsman; the ball sits in the bowler's right hand until `release`, bounces once on the way, meets
 ##              the bat (swung from the backlift through the hit on `hit`) and is lofted back over the bowler's head
+##   jeep       {"at": [x, z, yaw_deg], "stop": t, "run": 6.0, "driver": id, "slip": {"actor": id, "t": t}}   a light
+##              army jeep brakes to a stop at `at` exactly at `stop` (rolling `run` metres in the last 1.4 s, a nose dip),
+##              the driver seated at the wheel (right-hand drive); at slip.t the actor's oversized patrol cap slides down
+##              over his eyes
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
@@ -563,6 +567,10 @@ func build(g: Dictionary) -> Node3D:
 	_net_build(_g98)
 	_watch_build(root)
 	_cricket_build(root)
+	if not (_p.get("jeep", {}) as Dictionary).is_empty():
+		_jeep = _vehicle(PB + "jeep.glb")
+		_jeep.name = "jeep"
+		root.add_child(_jeep)
 	for aid in _p.get("chai", []):
 		var gl := Node3D.new()
 		gl.name = "chai_" + String(aid)
@@ -597,6 +605,7 @@ var _dune: MeshInstance3D
 var _net: MeshInstance3D
 var _watch: Node3D
 var _bat: Node3D
+var _jeep: Node3D
 var _ball: MeshInstance3D
 var _chai := {}
 var _watch_mat: ShaderMaterial
@@ -715,6 +724,43 @@ func _pose_cricket(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 	else:
 		var dt := t - hit
 		_ball.position = contact + (fwd * 13.0 + Vector3(0, 9.5, 0)) * dt + Vector3(0, -4.9 * dt * dt, 0)
+
+
+func _pose_jeep(gt: Transform3D, t: float, ctx: Dictionary) -> void:
+	if _jeep == null:
+		return
+	var jd: Dictionary = _p.get("jeep", {})
+	var at: Array = jd.get("at", [0.0, 0.0, 0.0])
+	var yaw := deg_to_rad(float(at[2]))
+	var fwd := Vector3(cos(yaw), 0, -sin(yaw))
+	var side := Vector3(-fwd.z, 0, fwd.x)
+	var ts := float(jd.get("stop", 1e9))
+	var run := float(jd.get("run", 6.0))
+	# Braking over the last 1.4 s (distance left falls as (1-u)^2); before that it rolls in at the braking start speed.
+	var u := (t - (ts - 1.4)) / 1.4
+	var left := run * (1.0 - clampf(u, 0.0, 1.0)) * (1.0 - clampf(u, 0.0, 1.0)) if u >= 0.0 else run * (1.0 - 2.0 * u)
+	var c := Vector3(float(at[0]), 0, float(at[1])) - fwd * left
+	c.y = height(c.x, c.z)
+	_jeep.position = c
+	_jeep.visible = left < 60.0
+	var dip := 0.035 * Motion.wobble(t - ts, 2.2, 4.5) if t >= ts else 0.0
+	_jeep.rotation = Vector3(0, yaw, -dip)
+	if not ctx.has("actor"):
+		return
+	# The driver rides in the right-hand seat.
+	var dr = ctx["actor"].call(String(jd.get("driver", "")))
+	if dr != null:
+		dr.position = gt * (c + fwd * 0.08 + side * 0.36 + Vector3(0, 0.36, 0))
+		dr.rotation = Vector3(0, atan2(fwd.x, fwd.z), 0)
+	# The oversized cap slides down over his eyes, tips, and stops on his glasses.
+	var sl: Dictionary = jd.get("slip", {})
+	var sa = ctx["actor"].call(String(sl.get("actor", ""))) if not sl.is_empty() else null
+	if sa != null:
+		var cap := sa.find_child("cap", true, false) as Node3D
+		if cap != null:
+			var k := Motion.out_back(Motion.seg(t, float(sl.get("t", 1e9)), float(sl.get("t", 1e9)) + 0.3), 2.0)
+			cap.position = Vector3(0, -0.075, 0.03) * k
+			cap.rotation = Vector3(0.32 * k, 0, 0.06 * k)
 
 
 ## The lookout's wristwatch and his handwritten list of pass times (param "watch").
@@ -2443,6 +2489,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_net(gt, t, ctx)
 	_pose_watch(gt, t, ctx)
 	_pose_cricket(gt, t, ctx)
+	_pose_jeep(gt, t, ctx)
 	for aid in _chai:
 		var ca = ctx["actor"].call(aid) if ctx.has("actor") else null
 		var gl: Node3D = _chai[aid]

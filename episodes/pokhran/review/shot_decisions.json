@@ -266,5 +266,12 @@
     "updated": "2026-11-23 21:40:29",
     "fingerprint": "8ef725f0f4a9",
     "history": []
+  },
+  "cricket": {
+    "status": "changes",
+    "note": "The animation of the batsman is so bad. fix it.",
+    "updated": "2026-11-23 21:58:17",
+    "fingerprint": "7448c88e4396",
+    "history": []
   }
 }
