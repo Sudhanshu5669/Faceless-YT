@@ -2183,17 +2183,17 @@
    "at": {
     "anchor": "range",
     "offset": [
-     7.55,
+     8.4,
      0,
-     14982.7
+     14981.6
     ]
    },
    "facing": {
     "anchor": "range",
     "offset": [
-     9.6,
+     10.6,
      0,
-     14975.4
+     14975.8
     ]
    },
    "action": "idle",
@@ -2226,6 +2226,90 @@
       0
      ],
      "head_turn": 0.4
+    }
+   ]
+  },
+  {
+   "id": "kalam_field",
+   "character": "toon_kalam_fatigues",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     6.45,
+     0,
+     14984.25
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     9.6,
+     0,
+     14987.1
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "range",
+      "offset": [
+       7.3,
+       0,
+       14983.45
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "line": "l9b",
+     "word": "Abdul",
+     "offset": -0.9
+    },
+    "arrive": {
+     "line": "l9b",
+     "word": "Kalam,",
+     "offset": 0.2
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "kalam_tape",
+      "offset": 0.05
+     },
+     {
+      "line": "l10a"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "l9b",
+      "word": "gets"
+     },
+     "facing": {
+      "anchor": "range",
+      "offset": [
+       9.6,
+       0,
+       14987.1
+      ]
+     },
+     "turn": 0.45
+    },
+    {
+     "t": {
+      "line": "l9b",
+      "word": "Prithviraj.",
+      "offset": 0.25
+     },
+     "expression": "wink"
     }
    ]
   },
@@ -2797,6 +2881,13 @@
       }
      }
     },
+    "disguise": [
+     {
+      "actor": "kalam_field",
+      "cap": true,
+      "tape": "PRITHVIRAJ"
+     }
+    ],
     "park": {
      "at": [
       8.5,
@@ -6389,28 +6480,114 @@
   {
    "name": "kalam_tape",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       9.6,
+       1.3,
+       14987.1
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       7.0,
+       1.0,
+       14983.4
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       8.05,
+       1.02,
+       14984.6
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       7.32,
+       0.92,
+       14983.45
+      ]
+     },
+     "lens_mm": 36,
+     "dof": {
+      "strength": 0.14
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out",
+    "start": {
+     "line": "l9b",
+     "word": "fake"
+    },
+    "end": {
+     "line": "l9b",
+     "word": "Prithviraj.",
+     "offset": 0.1
+    }
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 36,
+     "azimuth": 212,
+     "color": "#ffe2b6",
+     "energy": 3.1,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.3,
+     "glow": 1.4,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b89c78",
+     "energy": 0.32,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 25,
+     "end": 2300,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {

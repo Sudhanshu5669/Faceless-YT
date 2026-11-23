@@ -220,9 +220,21 @@ ACTORS += [
      "action": "idle", "route": {"via": [P(-7.95, 0, -19.5)], "gait": "walk", "start": W("l9a", offset=0.1)},
      "shown": [JEEPW], "cues": [{"t": 0.0, "expression": "nervous"},
                                 {"t": W("l9a", "soldiers", 0.05), "expression": "surprised"}]},
-    {"id": "sci_f2", "character": "toon_sci_fatigues_b", "at": P(-7.55, 0, -17.3), "facing": P(-9.6, 0, -24.6),
+    {"id": "sci_f2", "character": "toon_sci_fatigues_b", "at": P(-8.4, 0, -18.4), "facing": P(-10.6, 0, -24.2),
      "action": "idle", "shown": [JEEPW], "cues": [{"t": 0.0, "expression": "deadpan"},
                                                   {"t": W("l9a", "soldiers", 0.3), "expression": "side_eye", "head": [0, -35, 0], "head_turn": 0.4}]},
+]
+
+# kalam_tape (1998): Kalam steps out from behind the jeep last, his white hair escaping under a perched patrol cap; the
+# camera pushes in to his name tape, PRITHVIRAJ, on "Prithviraj"; he winks.
+ACTORS += [
+    {"id": "kalam_field", "character": "toon_kalam_fatigues", "at": P(-6.45, 0, -15.75), "facing": P(-9.6, 0, -12.9),
+     "action": "idle", "route": {"via": [P(-7.3, 0, -16.55)], "gait": "walk", "start": W("l9b", "Abdul", -0.9),
+                                 "arrive": W("l9b", "Kalam,", 0.2)},
+     "shown": [[{"shot": "kalam_tape", "offset": 0.05}, W("l10a", offset=0.0)]],      # appears at the cut (l9b starts before it)
+     "cues": [{"t": 0.0, "expression": "happy"},
+              {"t": W("l9b", "gets", 0.0), "facing": P(-9.6, 0, -12.9), "turn": 0.45},
+              {"t": W("l9b", "Prithviraj.", 0.25), "expression": "wink"}]},
 ]
 
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
@@ -248,6 +260,7 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                                 "stumps": [-3.0, 16.45]},
                     "jeep": {"at": [JEEP_AT[0], JEEP_AT[1], 90.0], "stop": W("l9a", offset=0.15), "run": 6.0,
                              "driver": "jeep_driver", "slip": {"actor": "sci_f1", "t": W("l9a", "soldiers", 0.0)}},
+                    "disguise": [{"actor": "kalam_field", "cap": True, "tape": "PRITHVIRAJ"}],
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
@@ -437,6 +450,12 @@ SHOTS = {
     "jeep_arrive": {"look": LOOK_AFTERNOON, "camera": move(
         cam(P(-10.6, 1.3, -24.2), P(-6.6, 1.0, -19.0), 28, {"strength": 0.1}),
         cam(P(-10.3, 1.25, -23.6), P(-6.9, 1.05, -19.1), 30, {"strength": 0.1}), "in_out")},
+    # Kalam steps out from behind the parked jeep, the last to arrive, white hair spilling from under the perched cap (on
+    # "Abdul Kalam"); the camera pushes in to his chest and face: the name tape PRITHVIRAJ on "Prithviraj"; a wink.
+    "kalam_tape": {"look": LOOK_AFTERNOON, "camera": {
+        "from": cam(P(-9.6, 1.3, -12.9), P(-7.0, 1.0, -16.6), 30, {"strength": 0.1}),
+        "to": cam(P(-8.05, 1.02, -15.4), P(-7.32, 0.92, -16.55), 36, {"strength": 0.14}),
+        "ease": "in_out", "start": W("l9b", "fake", 0.0), "end": W("l9b", "Prithviraj.", 0.1)}},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

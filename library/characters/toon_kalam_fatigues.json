@@ -1,0 +1,27 @@
+{
+  "id": "toon_kalam_fatigues",
+  "description": "A. P. J. Abdul Kalam at Pokhran, 1998 (caricature): his long white side-swept hair, baggy army fatigues.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "scientist",
+    "real-person"
+  ],
+  "height": 1.46,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "mop",
+      "color": "#c4c7cc"
+    },
+    "outfit": {
+      "style": "fatigues",
+      "color": "#6b6a48"
+    },
+    "shoes": "#2a2018",
+    "face": "happy",
+    "girth": 1.12
+  }
+}

@@ -66,6 +66,8 @@ extends RefCounted
 ##              army jeep brakes to a stop at `at` exactly at `stop` (rolling `run` metres in the last 1.4 s, a nose dip),
 ##              the driver seated at the wheel (right-hand drive); at slip.t the actor's oversized patrol cap slides down
 ##              over his eyes
+##   disguise   [{"actor": id, "cap": true, "tape": "NAME"}]   dress an actor for the field: an army patrol cap perched
+##              on top of their own hair (it escapes all round), a name tape over the right chest pocket
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
@@ -606,6 +608,7 @@ var _net: MeshInstance3D
 var _watch: Node3D
 var _bat: Node3D
 var _jeep: Node3D
+var _dressed := {}
 var _ball: MeshInstance3D
 var _chai := {}
 var _watch_mat: ShaderMaterial
@@ -761,6 +764,62 @@ func _pose_jeep(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 			var k := Motion.out_back(Motion.seg(t, float(sl.get("t", 1e9)), float(sl.get("t", 1e9)) + 0.3), 2.0)
 			cap.position = Vector3(0, -0.075, 0.03) * k
 			cap.rotation = Vector3(0.32 * k, 0, 0.06 * k)
+
+
+## Field disguise: a patrol cap perched on the actor's own hair, a name tape on the chest (made once, on the actor).
+func _pose_disguise(ctx: Dictionary) -> void:
+	if not ctx.has("actor"):
+		return
+	for dd in _p.get("disguise", []):
+		var aid := String(dd.get("actor", ""))
+		if _dressed.has(aid):
+			continue
+		var a = ctx["actor"].call(aid)
+		if a == null:
+			continue
+		var head := a.find_child("toon_head", true, false) as Node3D
+		var torso := a.find_child("toon_torso", true, false) as Node3D
+		if head == null or torso == null:
+			continue
+		_dressed[aid] = true
+		var hm := head.get_node_or_null("head") as MeshInstance3D
+		var hr := hm.get_aabb().size.x * 0.5 if hm != null else 0.28
+		if bool(dd.get("cap", false)):
+			var olive := Kit.mat("#4c5434", 0.75)
+			var cap := Node3D.new()
+			cap.name = "field_cap"
+			head.add_child(cap)
+			# Perched high on the mop, tipped back a little: crown, flat top, short stiff peak.
+			cap.position = Vector3(0, hr * 0.86, -hr * 0.06)
+			cap.rotation = Vector3(-0.14, 0, 0.05)
+			Kit.cyl(cap, hr * 0.72, hr * 0.8, hr * 0.42, Vector3(0, hr * 0.12, 0), olive, 28)
+			Kit.cyl(cap, hr * 0.7, hr * 0.7, hr * 0.04, Vector3(0, hr * 0.34, 0), Kit.mat("#454d2f", 0.75), 28)
+			Kit.ball(cap, 1.0, Vector3(0, -hr * 0.04, hr * 0.78), Kit.mat("#3c4428", 0.7), 20, Vector3(hr * 0.5, hr * 0.05, hr * 0.32))
+		var tape := String(dd.get("tape", ""))
+		if tape != "":
+			var bm := torso.get_child(0) as MeshInstance3D
+			var ab := bm.get_aabb() if bm != null else AABB(Vector3(-0.2, 0, -0.15), Vector3(0.4, 0.55, 0.3))
+			var tp := Node3D.new()
+			tp.name = "name_tape"
+			torso.add_child(tp)
+			var y := ab.position.y + ab.size.y * 0.66
+			tp.position = Vector3(-ab.size.x * 0.17, y, ab.end.z * 0.93)
+			tp.rotation = Vector3(-0.12, -0.28, 0)
+			Kit.box(tp, Vector3(ab.size.x * 0.42, 0.034, 0.004), Vector3.ZERO, Kit.mat("#3e4428", 0.85))
+			var l := Label3D.new()
+			l.text = tape
+			var sf := SystemFont.new()
+			sf.font_names = PackedStringArray(["Arial Narrow", "Arial", "sans-serif"])
+			sf.font_weight = 800
+			l.font = sf
+			l.font_size = 64
+			l.pixel_size = 0.00034
+			l.modulate = Color(0.04, 0.04, 0.04)
+			l.outline_size = 0
+			l.shaded = true
+			l.double_sided = false
+			l.position = Vector3(0, 0, 0.0035)
+			tp.add_child(l)
 
 
 ## The lookout's wristwatch and his handwritten list of pass times (param "watch").
@@ -2490,6 +2549,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_watch(gt, t, ctx)
 	_pose_cricket(gt, t, ctx)
 	_pose_jeep(gt, t, ctx)
+	_pose_disguise(ctx)
 	for aid in _chai:
 		var ca = ctx["actor"].call(aid) if ctx.has("actor") else null
 		var gl: Node3D = _chai[aid]
