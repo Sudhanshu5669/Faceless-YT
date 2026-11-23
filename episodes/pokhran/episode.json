@@ -2996,6 +2996,55 @@
       "tape": "PRITHVIRAJ"
      }
     ],
+    "convoy": {
+     "on": [
+      [
+       {
+        "shot": "convoy",
+        "offset": -0.1
+       },
+       {
+        "line": "l11a"
+       }
+      ]
+     ],
+     "t0": {
+      "shot": "convoy"
+     },
+     "start": [
+      40.0,
+      70.0
+     ],
+     "heading": 20.0,
+     "speed": 9.0,
+     "n": 4,
+     "gap": 17.0,
+     "carry": 1,
+     "cam0": [
+      -2.85,
+      2.33,
+      -1.0
+     ],
+     "look0": [
+      -0.75,
+      1.83,
+      -0.0
+     ],
+     "cam1": [
+      34.0,
+      8.5,
+      -8.0
+     ],
+     "look1": [
+      -16.0,
+      -1.5,
+      0.0
+     ],
+     "lining_until": {
+      "shot": "convoy",
+      "offset": 0.45
+     }
+    },
     "park": {
      "at": [
       8.5,
@@ -3544,7 +3593,17 @@
    },
    "params": {
     "speed": 75.0,
-    "altitude": 380.0
+    "altitude": 380.0,
+    "end_cam": [
+     1.95,
+     1.05,
+     1.0
+    ],
+    "end_look": [
+     -0.15,
+     0.55,
+     0.0
+    ]
    }
   },
   {
@@ -6762,22 +6821,8 @@
      }
     },
     "to": {
-     "at": {
-      "anchor": "airstrip",
-      "offset": [
-       -2.75,
-       2.2,
-       24001.0
-      ]
-     },
-     "look_at": {
-      "anchor": "airstrip",
-      "offset": [
-       -0.65,
-       1.7,
-       24000.0
-      ]
-     },
+     "at": "flight.end_cam",
+     "look_at": "flight.end_look",
      "lens_mm": 24,
      "dof": {
       "strength": 0.12
@@ -6791,7 +6836,7 @@
     "end": {
      "line": "l10a",
      "word": "plane,",
-     "offset": 0.15
+     "offset": -0.1
     }
    },
    "duration": {
@@ -6853,28 +6898,87 @@
   {
    "name": "convoy",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": "range_site.convoy_cam0",
+     "look_at": "range_site.convoy_look0",
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": "range_site.convoy_cam1",
+     "look_at": "range_site.convoy_look1",
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out",
+    "start": {
+     "shot": "convoy",
+     "offset": 0.25
+    },
+    "end": {
+     "line": "l10b",
+     "word": "convoy.",
+     "offset": 0.2
+    }
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "06:05",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 5,
+     "azimuth": 168,
+     "color": "#ffb47a",
+     "energy": 2.4,
+     "softness": 0.8,
+     "visible": true,
+     "size": 1.2,
+     "glow": 2.2,
+     "glow_color": "#ffa060",
+     "shadows": true
+    },
+    "sky": {
+     "top": "#5d7cae",
+     "horizon": "#f2c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#8a8aa0",
+     "energy": 0.26,
+     "sky": 0.7
+    },
+    "fog": {
+     "begin": 30,
+     "end": 1500,
+     "curve": 1.6,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 1.0,
+     "vignette": 0.44,
+     "grain": 0.035
+    }
    }
   },
   {

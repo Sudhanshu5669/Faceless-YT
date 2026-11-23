@@ -6,17 +6,13 @@ floor is at y 1.15; the device's cradle base at DEVICE (0.8, 1.15, 0). The deser
 an32_land ends tight on the strapped device; convoy (places/range.py) must open on exactly the same device-relative
 framing (DEVICE_END_CAM / DEVICE_END_LOOK below) inside the truck, then pull back out to the convoy.
 """
-from .common import W, frame, cam
+from .common import W, frame, cam, DEVICE_END_CAM, DEVICE_END_LOOK, DEVICE_END_LENS
 from . import range as range_place
 
 AIR_Z = 24000.0
 P = frame("airstrip", AIR_Z)
 
 DEVICE = (0.8, 1.15, 0.0)
-# The closing frame on the device, relative to its cradle base (x along the device, +z the side we came in from).
-DEVICE_END_CAM = (1.95, 1.05, 1.0)
-DEVICE_END_LOOK = (-0.15, 0.55, 0.0)
-DEVICE_END_LENS = 24
 
 
 def DV(rel):
@@ -36,7 +32,7 @@ LOOK_FLIGHT = dict(range_place.LOOK_DAWN,
                    grade={"contrast": 1.16, "saturation": 1.02, "vignette": 0.45, "grain": 0.035})
 
 GAGS = [{"id": "flight", "script": "gags/flight.gd", "t": 0, "at": P(0, 0, 0),
-         "params": {"speed": 75.0, "altitude": 380.0}}]
+         "params": {"speed": 75.0, "altitude": 380.0, "end_cam": list(DEVICE_END_CAM), "end_look": list(DEVICE_END_LOOK)}}]
 
 # The camera's way in: from a wide front-quarter view it pushes straight through a porthole on the right-hand side
 # (at x 3.7, y 2.45) and comes to rest close on the device. The start, the porthole and the end are in line.
@@ -50,8 +46,8 @@ SHOTS = {
     # through a porthole into the hold and settles tight on the device strapped to its cradle, under its work light.
     "an32_land": {"look": LOOK_FLIGHT, "camera": {
         "from": cam(P(*_START), P(1.0, 2.4, 0.0), 30, {"strength": 0.05}),
-        "to": cam(P(*_END), DV(DEVICE_END_LOOK), DEVICE_END_LENS, {"strength": 0.12}),
-        "ease": "in", "start": W("l10a", offset=-0.2), "end": W("l10a", "plane,", 0.15)}},
+        "to": cam("flight.end_cam", "flight.end_look", DEVICE_END_LENS, {"strength": 0.12}),
+        "ease": "in", "start": W("l10a", offset=-0.2), "end": W("l10a", "plane,", -0.1)}},      # settled before the cut (convoy opens on this exact frame)
 }
 
 PLACE = {"gags": GAGS, "actors": [], "shots": SHOTS}

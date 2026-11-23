@@ -69,6 +69,12 @@ extends RefCounted
 ##              at slip.t the actor's oversized patrol cap slides over his eyes
 ##   disguise   [{"actor": id, "cap": true, "tape": "NAME"}]   dress an actor for the field: an army patrol cap perched
 ##              on top of their own hair (it escapes all round), a name tape over the right chest pocket
+##   convoy     {"on": [[t0, t1]], "t0": t, "start": [x, z], "heading": deg, "speed": 9, "n": 4, "gap": 16, "carry": 1,
+##              "cam0": [x, y, z], "look0": [...], "cam1": [...], "look1": [...], "lining_until": t}   an army convoy of canopy trucks rolling
+##              across the desert in their dust (truck i is i*gap behind the lead); truck `carry` holds the device on
+##              its cradle inside a ribbed lining (the canvas's inside, the rear flap closed, a warm work light): the same
+##              picture as the An-32's hold (gags/flight.gd), for a match cut. Anchors convoy_cam0/look0/cam1/look1 are
+##              those points in the carrying truck's own frame (+x forward, +y up, +z its right), moving with it
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, jeep (its cab), dive_cam, dive_look, dive_count, dive_face
@@ -569,6 +575,7 @@ func build(g: Dictionary) -> Node3D:
 	_dune_build(_g98)
 	_net_build(_g98)
 	_watch_build(root)
+	_convoy_build(root)
 	_cricket_build(root)
 	if not (_p.get("jeep", {}) as Dictionary).is_empty():
 		_jeep = _vehicle(PB + "jeep.glb")
@@ -624,6 +631,13 @@ var _park_truck: Node3D
 var _dune: MeshInstance3D
 var _net: MeshInstance3D
 var _watch: Node3D
+var _convoy: Node3D
+var _cv_anchors := {}
+var _cv_trucks: Array = []
+var _cv_dust: Array = []
+var _cv_lining: Node3D
+var _cv_canvas: Array = []
+const CV_DEVICE := Vector3(-0.9, 1.28, 0.0)      # the device's cradle base in the carrying truck's frame (turned to face aft)
 var _bat: Node3D
 var _jeep: Node3D
 var _jeep_dust: Array = []
@@ -920,6 +934,122 @@ func _pose_disguise(ctx: Dictionary) -> void:
 			l.double_sided = false
 			l.position = Vector3(0, 0, 0.0035)
 			tp.add_child(l)
+
+
+func _convoy_build(root: Node3D) -> void:
+	var cd: Dictionary = _p.get("convoy", {})
+	if cd.is_empty():
+		return
+	_convoy = Node3D.new()
+	_convoy.name = "convoy"
+	root.add_child(_convoy)
+	var n := int(cd.get("n", 4))
+	for i in n:
+		var tr := _vehicle(PB + "truck_canopy.glb")
+		_convoy.add_child(tr)
+		var wheels := []
+		for w in tr.find_children("w*", "Node3D", true, false):
+			if String(w.name).length() <= 4:
+				wheels.append([w, (w as Node3D).transform])
+		_cv_trucks.append([tr, wheels])
+	# The carrying truck: the An-32's hold, rebuilt around the device (the same picture for the match cut); its lining is
+	# hidden once the camera is out through the canvas ("lining_until").
+	var tr0: Node3D = (_cv_trucks[int(cd.get("carry", 1))] as Array)[0]
+	# (episode gags live outside the Godot project: load the sibling script from the repo path)
+	var fs := GDScript.new()
+	fs.source_code = FileAccess.get_file_as_string(Kit.Paths.repo_path("episodes/pokhran/gags/flight.gd"))
+	fs.reload()
+	var pivot := Node3D.new()
+	pivot.name = "cargo"
+	pivot.position = CV_DEVICE
+	pivot.rotation.y = PI
+	tr0.add_child(pivot)
+	_cv_lining = fs.cargo_hold(pivot, Vector3.ZERO)
+	# The truck itself (canvas, bows, bed, cab) is hidden while the lining is shown: the hold surrounds it.
+	for nd in tr0.find_children("*", "MeshInstance3D", true, false):
+		if not pivot.is_ancestor_of(nd):
+			_cv_canvas.append(nd)
+	# Dust: puffs thrown up behind each truck.
+	var dm := StandardMaterial3D.new()
+	dm.albedo_color = Color(0.82, 0.7, 0.55, 0.5)
+	dm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	dm.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	dm.billboard_keep_scale = true
+	dm.albedo_texture = _puff_tex()
+	dm.roughness = 1.0
+	for k in n * 16:
+		var q := MeshInstance3D.new()
+		var qm := QuadMesh.new()
+		qm.size = Vector2(1.0, 1.0)
+		q.mesh = qm
+		q.material_override = dm.duplicate()
+		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		_convoy.add_child(q)
+		_cv_dust.append(q)
+
+
+## Where convoy truck i is at time t: [position, yaw, distance travelled].
+func _cv_truck_at(cd: Dictionary, i: int, t: float) -> Array:
+	var st: Array = cd.get("start", [0.0, 60.0])
+	var yaw := deg_to_rad(float(cd.get("heading", 0.0)))
+	var fwd := Vector3(cos(yaw), 0, -sin(yaw))
+	var d := float(cd.get("speed", 9.0)) * (t - float(cd.get("t0", 0.0))) - float(cd.get("gap", 16.0)) * i
+	var p := Vector3(float(st[0]), 0, float(st[1])) + fwd * d
+	p.y = height(p.x, p.z)
+	return [p, yaw, d]
+
+
+func _pose_convoy(gt: Transform3D, t: float) -> Dictionary:
+	if _convoy == null:
+		return {}
+	var cd: Dictionary = _p.get("convoy", {})
+	var on := false
+	for w in cd.get("on", []):
+		if t >= float(w[0]) and t < float(w[1]):
+			on = true
+	_convoy.visible = on
+	_cv_lining.visible = t < float(cd.get("lining_until", 1e9))
+	for nd in _cv_canvas:
+		(nd as Node3D).visible = not _cv_lining.visible
+	var out := {}
+	for i in _cv_trucks.size():
+		var e: Array = _cv_trucks[i]
+		var st := _cv_truck_at(cd, i, t)
+		var tr: Node3D = e[0]
+		var p: Vector3 = st[0]
+		var yaw: float = st[1]
+		var d: float = st[2]
+		# Riding the ruts: a little bounce and roll; the wheels turn with the distance.
+		tr.position = p + Vector3(0, 0.03 * absf(sin(d * 1.3 + i)), 0)
+		tr.rotation = Vector3(0.012 * sin(d * 0.9 + i * 2.0), yaw, 0.008 * sin(d * 1.1 + i))
+		for w in e[1]:
+			var xf: Transform3D = w[1]
+			(w[0] as Node3D).transform = Transform3D(xf.basis * Basis(Vector3(0, 0, 1), -d / 0.55), xf.origin)
+	for k in _cv_dust.size():
+		var q: MeshInstance3D = _cv_dust[k]
+		var i := k / 16
+		var j := k % 16
+		var age := fposmod(t * 1.6 + float(j) / 16.0 * 2.2, 2.2)
+		var st2 := _cv_truck_at(cd, i, t - age)
+		var bp: Vector3 = st2[0]
+		var byaw: float = st2[1]
+		var bf := Vector3(cos(byaw), 0, -sin(byaw))
+		var bs := Vector3(-bf.z, 0, bf.x)
+		var at := bp - bf * 3.4 + bs * (0.9 * sin(float(k) * 2.3))
+		at.y = height(at.x, at.z) + 0.3 + 0.5 * age
+		q.position = at
+		var sz := 1.0 + 2.4 * age
+		q.scale = Vector3(sz, sz, sz)
+		(q.material_override as StandardMaterial3D).albedo_color.a = 0.5 * (1.0 - smoothstep(1.0, 2.2, age))
+		# (no dust until the camera is out of the hold: transparent billboards draw through the lining's depth)
+		q.visible = t >= float(cd.get("lining_until", -1e9)) + 0.15
+	if on:
+		var tr0: Node3D = (_cv_trucks[int(cd.get("carry", 1))] as Array)[0]
+		var x := tr0.transform
+		for key in ["cam0", "look0", "cam1", "look1"]:
+			var v: Array = cd.get(key, [0, 0, 0])
+			out["convoy_" + key] = gt * (x * Vector3(float(v[0]), float(v[1]), float(v[2])))
+	return out
 
 
 ## The lookout's wristwatch and his handwritten list of pass times (param "watch").
@@ -2648,6 +2778,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_net(gt, t, ctx)
 	_pose_watch(gt, t, ctx)
 	_pose_cricket(gt, t, ctx)
+	_cv_anchors = _pose_convoy(gt, t)
 	_pose_jeep(gt, t, ctx)
 	_pose_disguise(ctx)
 	for aid in _chai:
@@ -2794,6 +2925,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		extra = {"dive_cam": gt * Vector3(0.2, 2.4, 0), "dive_look": gt * Vector3(0.1, -8, 0), "dive_count": gt * Vector3(0.1, 0.5, 0),
 			"dive_face": gt * Vector3(0.1, 1.5, 0)}
 	extra["bottom"] = gt * Vector3(0, -SHAFT_D + 0.8, 0)
+	extra.merge(_cv_anchors)
 	# The jeep (its cab, at the driver's head height), for cameras that track it.
 	if _jeep != null:
 		extra["jeep"] = gt * (_jeep.position + Vector3(0, 1.25, 0))

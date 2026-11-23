@@ -14,8 +14,8 @@ list with the gag for every line: `beats.md` (the source of truth for what each 
 | Approved by the user (27) | hook_feed … kalam_tape (00–28), except the two below. Verdicts: `review/shot_decisions.json` |
 | Fixed after "changes", re-rendered, awaiting the user's verdict | `cricket` (batsman redone: side-on stroke, seen in profile), `jeep_arrive` (redone for FUN: the jeep tears in, hops over the lens, handbrake-slides to a stop in dust; cap no longer clips) |
 | Awaiting the user's verdict | `jeep_arrive` round 3: the scientists ride IN the jeep (one drives, one passenger), the camera at window height tracks the jeep (anchor `range_site.jeep`), slow motion x0.2 for 1.25 s as it passes while the driver twists round and looks at us, then the handbrake slide; the stop jolts his cap down. |
-| Awaiting the user's verdict (2) | `jeep_arrive` was approved. `an32_land` (NEW place `places/airstrip.py` + `gags/flight.gd`: the An-32 at dawn high over the Thar; the camera creeps then rushes along the fuselage, through a porthole, and lands on the device strapped in the hold). |
-| Next to build | `convoy` (must OPEN on exactly an32_land's end framing: `airstrip.DEVICE_END_CAM/LOOK/LENS` relative to the device's cradle base; build a truck bed around the device in range.py, then pull back out to the convoy), then `wait_row`, `wait_clock`, `wind_turns`, `key_turn`, `desert_jumps`, `khetolai_crack`, `presser_walk`… to `end_feed` (beats.md rows 10–21) |
+| Awaiting the user's verdict | `convoy`: the match cut. It opens on an32_land's exact last frame (the hold is rebuilt around the device in the second truck by the shared `flight.gd cargo_hold()`; the carrying truck's own meshes and all convoy dust are hidden while the hold shows), then pulls back up and ahead: four canopy trucks rolling toward us in their dust. Range param `convoy`; both shots' cameras come from gag anchors (`flight.end_cam/end_look`, `range_site.convoy_cam0/look0/cam1/look1`). |
+| Next to build | `cage_lower` (night, three devices lowered into shafts, a BUSY camp, Oppenheimer tone), then `lid_wh/taj/kumbh` (underground, stickers in `library/logos/pokhran/generated/`), `clock_nine`, `windsock`, `village_far`, `wait_row` (tent + tumbleweed)… (see the creative direction below) |
 
 Check live status with `python pipeline/tf.py shot pokhran --status`.
 
@@ -165,6 +165,7 @@ warm sodium and cold moonlight), slow motion on the big moments, silence before 
 - `library/gags/sky_pass.gd`: a satellite crossing the twilight sky.
 - Camera moves take `start`/`end` time references: the move runs between them and holds before and after.
 - `actor.tilt_head()`.
+- Time refs to a shot take `{"shot": name, "offset": s}` (or `at`); `offset` was silently ignored before 2026-11-24.
 - Shot `slowmo` {from, to (the on-screen window), rate}: slow motion while the narration keeps real time (TIMELINE_SPEC).
 - Range `jeep.turn` [t0, t1, deg] twists the driver toward the camera; head-turn cues are capped at ±90°.
 

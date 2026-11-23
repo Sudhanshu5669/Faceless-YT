@@ -416,7 +416,7 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
                 raise EpisodeError(f"ERROR: {where}: no shot '{r['shot']}'")
             sh = shot_by[r["shot"]]
             base = sh["edit"] if domain == "edit" else sh["scene_t"]
-            return base + float(r.get("at", 0.0))
+            return base + float(r.get("at", 0.0)) + float(r.get("offset", 0.0))      # "offset" as for lines
         if "line" in r:
             ln = line_by.get(r["line"])
             if ln is None:

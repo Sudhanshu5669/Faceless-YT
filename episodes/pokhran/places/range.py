@@ -252,6 +252,11 @@ ACTORS += [
               {"t": W("l9b", "Prithviraj.", 0.25), "expression": "wink"}]},
 ]
 
+# convoy (1998, dawn): opens on EXACTLY an32_land's last frame (the same device-relative camera, in the truck's frame),
+# then pulls back through the canvas, up and out: four canopy trucks rolling across the desert in their dust.
+from .common import DEVICE_END_CAM as _DE, DEVICE_END_LOOK as _DL, DEVICE_END_LENS as _DLENS
+CONVOY = [{"shot": "convoy", "offset": -0.1}, W("l11a", offset=0.0)]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -278,6 +283,13 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                              "turn": [W("l9a", offset=0.06), W("l9a", offset=0.33), -30.0],
                              "slip": {"actor": "sci_ride1", "t": W("l9a", offset=0.84)}},
                     "disguise": [{"actor": "kalam_field", "cap": True, "tape": "PRITHVIRAJ"}],
+                    "convoy": {"on": [CONVOY], "t0": {"shot": "convoy"}, "start": [40.0, 70.0], "heading": 20.0,
+                               "speed": 9.0, "n": 4, "gap": 17.0, "carry": 1,
+                               # The device faces aft in the truck: the match-cut offsets turned 180 degrees about y.
+                               "cam0": [-0.9 - _DE[0], 1.28 + _DE[1], -_DE[2]], "look0": [-0.9 - _DL[0], 1.28 + _DL[1], -_DL[2]],
+                               # The pull-back ends high and ahead of the convoy, looking back down the line of trucks.
+                               "cam1": [34.0, 8.5, -8.0], "look1": [-16.0, -1.5, 0.0],
+                               "lining_until": {"shot": "convoy", "offset": 0.45}},
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
@@ -472,6 +484,13 @@ SHOTS = {
         "from": cam(P(-9.6, 1.3, -12.9), P(-7.0, 1.0, -16.6), 30, {"strength": 0.1}),
         "to": cam(P(-8.05, 1.02, -15.4), P(-7.32, 0.92, -16.55), 36, {"strength": 0.14}),
         "ease": "in_out", "start": W("l9b", "fake", 0.0), "end": W("l9b", "Prithviraj.", 0.1)}},
+    # The match cut from an32_land: the same picture of the strapped device under its work light; then the camera pulls
+    # back through the canvas, up and out: the device is in a truck, the second of an army convoy rolling across the
+    # dawn desert in a long line of dust on "army convoy".
+    "convoy": {"look": LOOK_DAWN, "camera": {
+        "from": cam("range_site.convoy_cam0", "range_site.convoy_look0", _DLENS, {"strength": 0.12}),
+        "to": cam("range_site.convoy_cam1", "range_site.convoy_look1", 30, {"strength": 0.05}),
+        "ease": "in_out", "start": {"shot": "convoy", "offset": 0.25}, "end": W("l10b", "convoy.", 0.2)}},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 
