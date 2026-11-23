@@ -40,10 +40,11 @@ ACTORS = [
 GAGS = [{"id": "office_us", "script": "gags/analyst_room.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"wh": {"blast": W("l1a", "blew", -0.05), "rewind": W("l2a", "Not", -0.05),
                            "switch": W("l2a", "White", 0.05)},
-                    "rewind": {"from": W("l3a", "Rewind"), "until": W("l3a", "1995.", 0.4)},
+                    "rewind": {"from": W("l3a", "Rewind", -0.1), "until": W("l3a", "1995.", 0.05), "to": "DEC 1995"},
                     "tv": {"on": ANNOUNCED, "cam": lawn.TV_CAM, "look": lawn.TV_LOOK, "fov": 26.0}}}]
 
 SX, SY, SZ = SCREEN
+STAMP = (-0.07, 1.158, -1.814)     # the date stamp on the hero CRT (gag-local)
 SHOTS = {
     # Cold open: on the monitor, push in to the feed (America's White House) as it blows up.
     "hook_feed": {"look": LOOK, "camera": move(
@@ -58,6 +59,11 @@ SHOTS = {
     "feed_rewind": {"look": LOOK, "hold": 0.45, "camera": move(
         cam(P(SX, SY, SZ + 0.52), P(SX, SY, SZ), 40),
         cam(P(SX, SY, SZ + 0.47), P(SX, SY, SZ), 40), "in_out")},
+    # Back on the analyst's monitor, a little wider than the hook so the date stamp reads: the tape rewinds through
+    # the years and lands on December 1995; a slow push.
+    "rewind": {"look": LOOK, "camera": move(
+        cam(P(SX + 0.02, SY + 0.03, SZ + 0.6), P(SX - 0.02, SY + 0.02, SZ), 40, {"strength": 0.15}),
+        cam(P(STAMP[0], STAMP[1] - 0.03, STAMP[2] + 0.3), P(STAMP[0], STAMP[1] - 0.06, STAMP[2]), 40, {"strength": 0.12}), "in_out")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

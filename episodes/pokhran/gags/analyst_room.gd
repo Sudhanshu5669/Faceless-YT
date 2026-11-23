@@ -12,7 +12,9 @@ extends RefCounted
 ##   wh      {"blast", "rewind", "switch"}  the hook: the feed shows America's White House, which blows up at
 ##           `blast`; from `rewind` the tape runs backwards; at `switch` the feed glitches over to Pokhran
 ##   blast   [t, ...]  the ground on the Pokhran feed lifts and throws a dust ring (11 May tests)
-##   rewind  {"from", "until"}  the feed rewinds like a VHS tape; the stamp rolls 1998 -> 1995
+##   rewind  {"from", "until", "to": "DEC 1995"}  the feed rewinds like a VHS tape: the picture runs backwards faster
+##           and faster with day-night flicker and tracking bars; the stamp's date rolls back day by day from
+##           11 May 1998 and lands on "to" (month and year only: the exact day of the 1995 imagery isn't public)
 ##   tv      {"on": t, "cam": point, "look": point, "fov": deg}  the wall TV flicks on and shows the
 ##           live view of a SubViewport camera placed in the world (the PM's lawn), from `on`
 ##   knock   t   the analyst's elbow knocks the snow globe; the snow swirls
@@ -298,6 +300,8 @@ var _globe: Node3D
 var _fluoro: MeshInstance3D
 var _fluoro_light: Light3D
 var _stamp: Label3D
+var _stamp_px := 0.0
+var _stamp_mod := Color.WHITE
 var _coord: Label3D
 var _clock: Label3D
 
@@ -412,6 +416,8 @@ func _desk(root: Node3D) -> void:
 	mono.font_names = PackedStringArray(["Consolas", "Lucida Console", "Courier New", "monospace"])
 	_stamp = Kit.text(mon, stamp + "  10:15:00Z", 0.014, Color("eaf6ff"), Vector3(-0.07, SCREEN.y - DESK_TOP + 0.138, 0.086), Vector3.ZERO, false, 0.55)
 	_stamp.font = mono
+	_stamp_px = _stamp.pixel_size
+	_stamp_mod = _stamp.modulate
 	_coord = Kit.text(mon, "27 05N  071 45E", 0.011, Color("d6ebff"), Vector3(0.12, SCREEN.y - DESK_TOP - 0.143, 0.086), Vector3.ZERO, false, 0.5)
 	_coord.font = mono
 	# A second CRT angled in, green terminal text; a beige tower; keyboard, mouse, papers.
@@ -692,7 +698,8 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		for bt in _p.get("blast", []):
 			if float(bt) <= t:
 				blast = float(bt) if blast > 1e5 else maxf(blast, float(bt))
-	var year := 1998
+	var stamp_text := ""
+	var flicker := 1.0
 	var rw = _p.get("rewind", {})
 	if rw is Dictionary and rw.has("from"):
 		var a := float(rw["from"])
@@ -700,16 +707,41 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var r2 := clampf((t - a) / 0.25, 0.0, 1.0) * (1.0 - clampf((t - b) / 0.25, 0.0, 1.0))
 		rew = maxf(rew, r2)
 		if t >= a:
-			year = int(round(lerpf(1998.0, 1995.0, Motion.in_out(clampf((t - a) / maxf(b - a, 0.1), 0.0, 1.0)))))
+			# The tape runs back: slow at first, then a blur of days; it brakes into the landing month.
+			var k := clampf((t - a) / maxf(b - a, 0.1), 0.0, 1.0)
+			var e := Motion.in_out(k)
+			var days := e * 880.0       # 11 May 1998 back to mid-December 1995
+			# The picture runs backwards (the pass drifts back across the crosshair), then plays on from the landing.
+			ft = lerpf(a, a - 7.0, e) + maxf(t - b, 0.0)
+			var unix := 894844800 - int(days * 86400.0)     # 1998-05-11 00:00 UTC
+			var dt := Time.get_datetime_dict_from_unix_time(unix)
+			var months := ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+			if k < 1.0:
+				stamp_text = "%02d %s %d" % [dt["day"], months[int(dt["month"]) - 1], dt["year"]]
+			else:
+				stamp_text = String(rw.get("to", "DEC 1995"))
+			# Day-night flicker while the days strobe past; steady once it lands.
+			flicker = 1.0 - 0.45 * r2 * (0.5 + 0.5 * sin(t * 57.0)) * smoothstep(0.05, 0.3, k) * (1.0 - smoothstep(0.85, 1.0, k))
 	_feed_mat.set_shader_parameter("t", ft)
 	_feed_mat.set_shader_parameter("tr", t)
 	_feed_mat.set_shader_parameter("blast", blast)
 	_feed_mat.set_shader_parameter("rewind", rew)
 	_feed_mat.set_shader_parameter("scene", scene)
 	_feed_mat.set_shader_parameter("glitch", glitch)
-	var secs := int(floor(ft)) % 60
-	var stamp := String(_p.get("stamp", "11 MAY 1998")).replace("1998", str(year))
-	_stamp.text = "%s  10:15:%02dZ" % [stamp, secs]
+	_feed_mat.set_shader_parameter("energy", 0.62 * flicker)
+	var secs := int(fposmod(floor(ft), 60.0))
+	_stamp.pixel_size = _stamp_px
+	_stamp.modulate = _stamp_mod
+	if stamp_text != "":
+		_stamp.text = stamp_text
+		var rb := float((rw as Dictionary).get("until", 0.0))
+		if t >= rb:
+			# The landing: the date pops a little bigger and brighter, then settles (a counter landing).
+			var age := t - rb
+			_stamp.pixel_size = _stamp_px * (1.18 + 0.35 * exp(-age * 9.0) * cos(age * 18.0))
+			_stamp.modulate = _stamp_mod * Color(1.6, 1.6, 1.6, 1.0)
+	else:
+		_stamp.text = "%s  10:15:%02dZ" % [String(_p.get("stamp", "11 MAY 1998")), secs]
 	_coord.text = "38 53N  077 02W" if scene < 0.5 else "27 05N  071 45E"
 	# The fluorescent tube's faint flicker (a dying starter).
 	var fl := 0.92 + 0.08 * sin(t * 47.0) * sin(t * 3.1)

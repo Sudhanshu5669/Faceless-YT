@@ -640,13 +640,15 @@
     "rewind": {
      "from": {
       "line": "l3a",
-      "word": "Rewind"
+      "word": "Rewind",
+      "offset": -0.1
      },
      "until": {
       "line": "l3a",
       "word": "1995.",
-      "offset": 0.4
-     }
+      "offset": 0.05
+     },
+     "to": "DEC 1995"
     },
     "tv": {
      "on": {
@@ -1583,28 +1585,108 @@
   {
    "name": "rewind",
    "camera": {
-    "at": {
-     "anchor": "desk",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "desk",
+      "offset": [
+       -0.02,
+       1.05,
+       2998.74
+      ]
+     },
+     "look_at": {
+      "anchor": "desk",
+      "offset": [
+       0.02,
+       1.04,
+       2998.14
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "look_at": {
-     "anchor": "desk",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "desk",
+      "offset": [
+       0.07,
+       1.128,
+       2998.486
+      ]
+     },
+     "look_at": {
+      "anchor": "desk",
+      "offset": [
+       0.07,
+       1.098,
+       2998.186
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "05:50",
+    "ssao": true,
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0
+    },
+    "sun": {
+     "energy": 0,
+     "visible": false
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "ambient": {
+     "color": "#46506a",
+     "energy": 0.12
+    },
+    "sky": {
+     "top": "#04050a",
+     "horizon": "#0a0c12",
+     "stars": 0
+    },
+    "fog": {
+     "begin": 1,
+     "end": 30,
+     "color": "#10141c",
+     "volumetric": 0.02,
+     "anisotropy": 0.5,
+     "length": 12
+    },
+    "ground_fog": {
+     "density": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.08,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 0.92,
+     "vignette": 0.38,
+     "grain": 0.06
+    },
+    "practical_lights": {
+     "level": 0
+    }
    }
   },
   {
