@@ -140,5 +140,12 @@
         "fingerprint": "d7aea1f91861"
       }
     ]
+  },
+  "nyt_slap": {
+    "status": "changes",
+    "note": "the text is flowing out",
+    "updated": "2026-11-23 16:18:44",
+    "fingerprint": "3929dc4c9003",
+    "history": []
   }
 }

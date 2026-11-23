@@ -40,7 +40,7 @@ GAGS = [{"id": "pmo", "script": "gags/pm_office.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"sitter": "rao",
                     "paper": {"slap": W("l4a", "Times", 0.0),
                               "folio": "THE NEW YORK TIMES, FRIDAY, DECEMBER 15, 1995",
-                              "headline": ["U.S. Suspects India Prepares", "To Conduct Nuclear Test"],
+                              "headline": ["U.S. Suspects India", "Prepares To Conduct", "Nuclear Test"],
                               "byline": "By TIM WEINER",
                               "dateline": "WASHINGTON, Dec. 14 —"}}}]
 

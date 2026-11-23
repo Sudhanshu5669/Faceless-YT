@@ -392,10 +392,10 @@ func _paper_build(root: Node3D) -> void:
 	Kit.box(_paper, Vector3(PAPER.x - 0.03, 0.0004, 0.0009), Vector3(0, 0.0011, top + 0.026), Kit.mat("#202020", 0.9))
 	var lines: Array = pp.get("headline", [])
 	for i in lines.size():
-		_flat_text(_paper, String(lines[i]), serif, 0.021, ink, Vector3(0, 0.0012, top + 0.056 + 0.03 * i))
-	var after := top + 0.056 + 0.03 * lines.size()
-	_flat_text(_paper, String(pp.get("byline", "")), roman, 0.0065, ink, Vector3(-PAPER.x * 0.5 + 0.06, 0.0012, after + 0.005))
-	_flat_text(_paper, String(pp.get("dateline", "")), roman, 0.0055, ink, Vector3(-PAPER.x * 0.5 + 0.075, 0.0012, after + 0.02))
+		_flat_text(_paper, String(lines[i]), serif, 0.02, ink, Vector3(0, 0.0012, top + 0.054 + 0.027 * i), PAPER.x - 0.05)
+	var after := top + 0.054 + 0.027 * lines.size()
+	_flat_text(_paper, String(pp.get("byline", "")), roman, 0.0065, ink, Vector3(0, 0.0012, after + 0.004))
+	_flat_text(_paper, String(pp.get("dateline", "")), roman, 0.0055, ink, Vector3(-PAPER.x * 0.5 + 0.075, 0.0012, after + 0.02), 0.12)
 	(page.material_override as ShaderMaterial).set_shader_parameter("body_top", clampf((after + 0.03 - top) / PAPER.y, 0.0, 1.0))
 	# The aide's arm (a toon's stick arm and ball hand) that carries it in.
 	var limb := Toon.material(Color("1a1a1a"), Toon.OUTLINE * 0.4)
@@ -413,7 +413,8 @@ func _paper_build(root: Node3D) -> void:
 	root.add_child(_hand)
 
 
-func _flat_text(parent: Node3D, s: String, font: Font, height: float, col: Color, pos: Vector3) -> void:
+## Type laid flat on the page; shrunk to `max_w` metres wide if it would run off the page.
+func _flat_text(parent: Node3D, s: String, font: Font, height: float, col: Color, pos: Vector3, max_w: float = PAPER.x - 0.03) -> void:
 	if s == "":
 		return
 	var l := Label3D.new()
@@ -421,6 +422,9 @@ func _flat_text(parent: Node3D, s: String, font: Font, height: float, col: Color
 	l.font = font
 	l.font_size = 96
 	l.pixel_size = height / 70.0
+	var w := font.get_string_size(s, HORIZONTAL_ALIGNMENT_LEFT, -1, 96).x * l.pixel_size
+	if w > max_w:
+		l.pixel_size *= max_w / w
 	l.modulate = col
 	l.outline_size = 0
 	l.shaded = true
@@ -460,8 +464,8 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var ts := float(pp.get("slap", 1e9))
 		# The slap: the arm swings in high (anticipation lift), whips down, the paper smacks flat on the word,
 		# bounces a hair, the hand lets go and pulls back out of frame.
-		var from := Vector3(0.35, TOP + 0.55, 0.95)
-		var lift := Vector3(0.12, TOP + 0.42, 0.42)
+		var from := Vector3(0.45, TOP + 0.3, 0.75)
+		var lift := Vector3(0.1, TOP + 0.2, 0.2)
 		var land := PAPER_AT
 		var p0 := Motion.seg(t, ts - 0.5, ts - 0.12)
 		var p1 := Motion.seg(t, ts - 0.12, ts)
