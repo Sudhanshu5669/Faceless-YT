@@ -108,6 +108,16 @@ for i, (ch, k, yaw) in enumerate([("toon_jawan_a", -1.5, -62), ("toon_barc_sci",
                             {"t": W("l5d", "nothing", -0.1 + 0.06 * i), "expression": "scheming",
                              "head": [-4, yaw, 0], "head_turn": 0.45}]})
 
+# night_work (1998): only the work lamp over the shaft head and a hand torch; a jawan hugs a sandbag past the lamp.
+NIGHT = [W("l6a", offset=-0.8), W("l6a", edge="end", offset=0.6)]
+ACTORS += [
+    {"id": "night_bag", "character": "toon_jawan_c", "at": P(3.6, 0, 3.5), "facing": P(-1.8, 0, 2.4), "action": "idle",
+     "route": {"via": [P(-1.8, 0, 2.4)], "gait": "walk_carry", "start": W("l6a", offset=-1.4)},
+     "shown": [NIGHT], "cues": [{"t": 0.0, "expression": "effort"}]},
+    {"id": "night_torch", "character": "toon_jawan_a", "at": P(-1.7, 0, -1.3), "facing": P(0.8, 0, 0.6),
+     "action": "torch", "shown": [NIGHT], "cues": [{"t": 0.0, "expression": "determined"}]},
+]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -118,7 +128,8 @@ LOOK_1995 = dict(LOOK_AFTERNOON,
                  grade={"contrast": 1.14, "saturation": 0.98, "vignette": 0.38, "grain": 0.035})
 
 GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0),
-         "params": {"carry": [{"actor": "jawan_noon", "what": "jerrycans"}], "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
+         "params": {"carry": [{"actor": "jawan_noon", "what": "jerrycans"}, {"actor": "night_bag", "what": "sandbag"}],
+                    "night": {"on": [NIGHT], "lamp": [1.8, 1.6], "torch": ["night_torch"]}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
                     "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6]],
                     "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
@@ -180,6 +191,20 @@ LOOK_DUSK = dict(LOOK_AFTERNOON,
                  glow={"enabled": True, "intensity": 0.85, "bloom": 0.06, "threshold": 1.0},
                  grade={"contrast": 1.12, "saturation": 1.04, "vignette": 0.48, "grain": 0.04})
 
+# Night, 1998: no moon, a deep starfield over the plain; the ground barely there in cold starlight; the only real light
+# is the warm work lamp over the shaft and a cool hand torch.
+LOOK_NIGHT = dict(LOOK_AFTERNOON,
+                  time="23:30",
+                  sun={"elevation": -30, "azimuth": 214, "energy": 0.0, "visible": False, "shadows": False},
+                  moon={"elevation": 24, "azimuth": 196, "color": "#8fa8e0", "energy": 0.22, "visible": False,
+                        "shadows": True, "softness": 1.0},
+                  sky={"top": "#03050c", "horizon": "#111a2c", "stars": 1.3, "clouds": 0.0},
+                  ambient={"color": "#2c3858", "energy": 0.1, "sky": 0.5},
+                  fog={"begin": 30, "end": 900, "curve": 1.4, "volumetric": 0.012, "color": "#202634",
+                       "anisotropy": 0.5, "length": 14},
+                  glow={"enabled": True, "intensity": 0.9, "bloom": 0.07, "threshold": 0.9},
+                  grade={"contrast": 1.16, "saturation": 0.92, "vignette": 0.55, "grain": 0.05})
+
 # Chamber points: x/z from the canister's axis, y above the chamber floor (205 m down).
 FLOOR = -205.0
 
@@ -237,6 +262,11 @@ SHOTS = {
             P(_C[0] + _RW[0] * 0.1, 1.5, _C[1] + _RW[1] * 0.1), 26, {"strength": 0.07}),
         cam(P(_C[0] + _F[0] * 2.6 + _RW[0] * 1.75, 0.6, _C[1] + _F[1] * 2.6 + _RW[1] * 1.75),
             P(_C[0] + _RW[0] * 0.1, 1.45, _C[1] + _RW[1] * 0.1), 27, {"strength": 0.08}), "linear")},
+    # Night: a low tracking shot moving with a jawan who hugs a sandbag past the shaded work lamp over the shaft head;
+    # beyond him another jawan's torch beam sweeps the sand; everything else is dark under the stars.
+    "night_work": {"look": LOOK_NIGHT, "camera": move(
+        cam(P(3.1, 1.05, 6.3), P(1.0, 1.0, 1.6), 30, {"strength": 0.1}),
+        cam(P(1.3, 1.0, 6.1), P(-0.2, 1.0, 1.5), 30, {"strength": 0.1}), "linear")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

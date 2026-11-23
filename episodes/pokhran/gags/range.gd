@@ -38,6 +38,10 @@ extends RefCounted
 ##   dive       {"from": t, "to": t, "y1": -188}   the camera's fall down the shaft: anchors dive_cam / dive_look /
 ##              dive_count follow it (from just under the plate down the bore, circling the cable bundle,
 ##              accelerating, easing out near the bottom); a lamp travels with it
+##   night      {"on": [[t0, t1], ...], "lamp": [x, z], "torch": [actor ids]}   work at night (only inside the
+##              windows): a work lamp on a pole, its bulb under a tin shade throwing a warm cone straight down; each
+##              torch actor holds a hand torch whose cool beam runs from the right hand along their facing, tipped down,
+##              sweeping slowly over the ground
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
@@ -532,6 +536,7 @@ func build(g: Dictionary) -> Node3D:
 	_vegetation(root)
 	_shimmer(root)
 	_kites(root)
+	_night_build(root)
 	for c in _p.get("carry", []):
 		var what := String(c.get("what", "sandbag"))
 		var held: Array = []
@@ -548,6 +553,74 @@ func build(g: Dictionary) -> Node3D:
 			held.append(bag)
 		_bags[String(c["actor"])] = {"what": what, "nodes": held}
 	return root
+
+
+var _night: Node3D
+var _torches: Dictionary = {}
+
+
+## The night work lights (param "night"): a shaded lamp on a pole and hand torches, hidden outside the windows.
+func _night_build(root: Node3D) -> void:
+	var nd: Dictionary = _p.get("night", {})
+	if nd.is_empty():
+		return
+	_night = Node3D.new()
+	_night.name = "night"
+	root.add_child(_night)
+	var lz: Array = nd.get("lamp", [1.8, 1.6])
+	var base := ground(float(lz[0]), float(lz[1]))
+	var paint := Kit.mat("#3c4232", 0.55, 0.3)
+	var top := base + Vector3(0, 2.35, 0)
+	# A steel pole on a cross foot, an arm out over the work, a conical tin shade, the bulb under it.
+	Kit.rod(_night, base, top, 0.025, paint, 8)
+	for a in [0.0, PI / 2]:
+		Kit.rod(_night, base + Vector3(cos(a) * 0.32, 0.02, sin(a) * 0.32), base - Vector3(cos(a) * 0.32, -0.02, sin(a) * 0.32), 0.02, paint, 6)
+	var tip := top + Vector3(-0.55, -0.05, -0.2)
+	Kit.rod(_night, top, tip, 0.018, paint, 6)
+	var shade := Kit.cyl(_night, 0.035, 0.2, 0.15, tip + Vector3(0, -0.1, 0), Kit.mat("#4a5238", 0.5, 0.4))
+	shade.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	var inner := Kit.cyl(_night, 0.034, 0.195, 0.148, tip + Vector3(0, -0.102, 0), Kit.lit("#ffd9a0", 1.2))
+	(inner.mesh as CylinderMesh).flip_faces = true
+	Kit.ball(_night, 0.045, tip + Vector3(0, -0.15, 0), Kit.lit("#fff0d0", 9.0), 12)
+	var cone := Kit.spot(_night, tip + Vector3(0, -0.17, 0), tip + Vector3(0, -3.0, 0), Color(1.0, 0.76, 0.46), 9.0, 9.0, 58.0, true, 1.5)
+	cone.spot_attenuation = 1.2
+	Kit.omni(_night, tip + Vector3(0, -0.12, 0), Color(1.0, 0.8, 0.55), 0.35, 1.6)
+	for aid in nd.get("torch", []):
+		var l := Kit.spot(_night, Vector3.ZERO, Vector3(0, 0, -1), Color(0.86, 0.92, 1.0), 7.0, 16.0, 17.0, true, 2.0)
+		var lens := Kit.cyl(_night, 0.028, 0.028, 0.012, Vector3.ZERO, Kit.lit("#eef4ff", 6.0), 12)
+		var body := Kit.cyl(_night, 0.024, 0.02, 0.16, Vector3.ZERO, Kit.mat("#1c1c1e", 0.5, 0.4), 10)
+		_torches[String(aid)] = [l, lens, body]
+
+
+func _pose_night(gt: Transform3D, t: float, ctx: Dictionary) -> void:
+	if _night == null:
+		return
+	var on := false
+	for w in (_p.get("night", {}) as Dictionary).get("on", []):
+		if t >= float(w[0]) and t < float(w[1]):
+			on = true
+	_night.visible = on
+	if not on:
+		return
+	var inv := gt.affine_inverse()
+	for aid in _torches:
+		var parts: Array = _torches[aid]
+		var actor = ctx["actor"].call(aid) if ctx.has("actor") else null
+		var vis: bool = actor != null and actor.visible
+		for n in parts:
+			(n as Node3D).visible = vis
+		if not vis:
+			continue
+		var hand: Vector3 = inv * actor.bone_world("hand_r")
+		var yaw := float(actor.rotation.y) + 0.35 * sin(t * 0.8 + 0.6) + 0.12 * sin(t * 2.1)
+		var fwd := Vector3(sin(yaw), 0, cos(yaw))
+		var dir := (fwd + Vector3(0, -0.42 + 0.08 * sin(t * 1.3), 0)).normalized()
+		var b := Basis.looking_at(dir, Vector3.UP)
+		(parts[0] as SpotLight3D).transform = Transform3D(b, hand + dir * 0.12)
+		# The torch body along the beam, the lens at its front.
+		var yb := Basis(b.x, -b.z, b.y)
+		(parts[2] as Node3D).transform = Transform3D(yb, hand + dir * 0.03)
+		(parts[1] as Node3D).transform = Transform3D(yb, hand + dir * 0.115)
 
 
 # --- the ground ------------------------------------------------------------------------------------
@@ -1711,6 +1784,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var flap := sin(t * 9.0 + i) * maxf(0.0, sin(t * 0.7 + i * 1.3) - 0.6) * 1.6
 		(k.get_node("wing_l") as Node3D).rotation.z = 0.12 + flap * 0.5
 		(k.get_node("wing_r") as Node3D).rotation.z = -0.12 - flap * 0.5
+	_pose_night(gt, t, ctx)
 	# The hook block swings a little on its falls.
 	_hook.rotation = Vector3(0.012 * sin(t * 1.1), 0, 0.016 * sin(t * 0.83 + 0.6))
 	# Carried loads: a sandbag rides between the hands; jerrycans hang upright under each grip, lagging a touch.
@@ -1718,9 +1792,10 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var info: Dictionary = _bags[aid]
 		var nodes: Array = info["nodes"]
 		var actor = ctx["actor"].call(aid) if ctx.has("actor") else null
+		var shown: bool = actor != null and actor.visible
 		for n in nodes:
-			(n as Node3D).visible = actor != null
-		if actor == null:
+			(n as Node3D).visible = shown
+		if not shown:
 			continue
 		var yaw_a := float(actor.rotation.y)
 		var inv := gt.affine_inverse()
