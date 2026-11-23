@@ -249,7 +249,7 @@ def an32():
     # Markings: roundels on the outer wings (top) and the rear fuselage sides; the tricolour fin flash.
     for side in (-1, 1):
         roundel(f"rw{side}", (0.6, side * 10.5, wz + 0.47), 0.75, "Z")
-        roundel(f"rf{side}", (-5.0, side * 1.42, 2.6), 0.62, "Y" if side < 0 else "-Y")
+        roundel(f"rf{side}", (-3.2, side * 1.47, 2.35), 0.62, "Y" if side < 0 else "-Y")
     for i, (cname, rgb) in enumerate((("roundel_saffron", (0.93, 0.45, 0.12)), ("roundel_white", (0.92, 0.92, 0.9)), ("roundel_green", (0.07, 0.42, 0.18)))):
         for side in (-1, 1):
             b = bmesh.new()
