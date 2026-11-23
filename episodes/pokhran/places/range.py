@@ -91,7 +91,7 @@ import math as _m
 _F = (_m.sin(_m.radians(200)), _m.cos(_m.radians(200)))      # toward the satellite / the glow
 _RW = (-_F[1], _F[0])                                           # along the row (each man's right)
 _C = (2.5, 6.5)
-LOOKUP = [W("l5d", offset=-0.8), W("l5d", edge="end", offset=0.6)]
+LOOKUP = [W("l5d", offset=-0.8), W("l6a", offset=-0.3)]   # gone before night_work (its camera stands here)
 
 
 def _row(k):
@@ -111,8 +111,8 @@ for i, (ch, k, yaw) in enumerate([("toon_jawan_a", -1.5, -62), ("toon_barc_sci",
 # night_work (1998): only the work lamp over the shaft head and a hand torch; a jawan hugs a sandbag past the lamp.
 NIGHT = [W("l6a", offset=-0.8), W("l6a", edge="end", offset=0.6)]
 ACTORS += [
-    {"id": "night_bag", "character": "toon_jawan_c", "at": P(3.6, 0, 3.5), "facing": P(-1.8, 0, 2.4), "action": "idle",
-     "route": {"via": [P(-1.8, 0, 2.4)], "gait": "walk_carry", "start": W("l6a", offset=-1.4)},
+    {"id": "night_bag", "character": "toon_jawan_c", "at": P(1.85, 0, 3.25), "facing": P(-2.2, 0, 4.8), "action": "idle",
+     "route": {"via": [P(-2.2, 0, 4.8)], "gait": "walk_carry", "start": W("l6a", offset=-0.7)},
      "shown": [NIGHT], "cues": [{"t": 0.0, "expression": "effort"}]},
     {"id": "night_torch", "character": "toon_jawan_a", "at": P(-1.7, 0, -1.3), "facing": P(0.8, 0, 0.6),
      "action": "torch", "shown": [NIGHT], "cues": [{"t": 0.0, "expression": "determined"}]},
@@ -143,13 +143,13 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "guide": {"actor": "guide_95"}, "clipboard": {"actor": "sci_95"},
                     "bushes": [[1.1, 2.5, 0.75, 0.6]]}},
         # 1998: a reconnaissance satellite slides across the dusk sky over the site, catching the sun on "satellites".
-        {"id": "sat_dusk", "script": "library:sky_pass", "t": 0, "at": P(0, 0, 0), "until": W("l5d", edge="end", offset=1.0),
+        {"id": "sat_dusk", "script": "library:sky_pass", "t": 0, "at": P(0, 0, 0), "until": W("l6a", offset=-0.3),
          "params": {"from": W("l5c", offset=-0.3), "to": W("l5c", edge="end", offset=0.9), "a": [184.0, 29.0],
                     "b": [221.0, 39.0], "distance": 3000.0, "size": 3.2, "brightness": 3.5,
                     "flare": W("l5c", "satellites", 0.05)}},
         {"id": "sat_dusk2", "script": "library:sky_pass", "t": W("l5d", offset=-0.5), "at": P(0, 0, 0),
-         "until": W("l5d", edge="end", offset=1.0),
-         "params": {"from": W("l5d", offset=-0.4), "to": W("l5d", edge="end", offset=0.4), "a": [199.0, 41.0],
+         "until": W("l6a", offset=-0.3),
+         "params": {"from": W("l5d", offset=-0.4), "to": W("l5d", edge="end", offset=0.1), "a": [199.0, 41.0],
                     "b": [214.0, 47.0], "distance": 3000.0, "size": 3.2, "brightness": 3.5}},
         {"id": "wh_chalk", "script": "library:chalk", "t": W("l2d", offset=-0.4), "until": W("l3a"),
          "at": TP(0, 0), "face": TP(0, 5.0),
@@ -265,8 +265,8 @@ SHOTS = {
     # Night: a low tracking shot moving with a jawan who hugs a sandbag past the shaded work lamp over the shaft head;
     # beyond him another jawan's torch beam sweeps the sand; everything else is dark under the stars.
     "night_work": {"look": LOOK_NIGHT, "camera": move(
-        cam(P(3.1, 1.05, 6.3), P(1.0, 1.0, 1.6), 30, {"strength": 0.1}),
-        cam(P(1.3, 1.0, 6.1), P(-0.2, 1.0, 1.5), 30, {"strength": 0.1}), "linear")},
+        cam(P(2.45, 1.05, 6.4), P(0.75, 1.0, 1.8), 30, {"strength": 0.1}),
+        cam(P(2.15, 1.0, 6.45), P(0.4, 1.0, 1.85), 30, {"strength": 0.1}), "linear")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

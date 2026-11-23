@@ -142,6 +142,8 @@
 <script>
 const $ = s => document.querySelector(s);
 let S = null, sel = null, filter = "all", loadedClip = "", typing = false, finalQ = false, lastSig = "";
+// Loop the clip? Off by default (it plays once and stops on the last frame); remembered across visits.
+let loopOn = localStorage.getItem("tf_loop") === "1";
 const FILTERS = [["all", "All"], ["review", "To review"], ["changes", "Changes"], ["approved", "Approved"], ["unrendered", "Not rendered"]];
 
 function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 2200); }
@@ -204,8 +206,8 @@ function renderMain(force) {
                 (s.stale_decision ? `<div class="note stale">The shot has changed since your verdict.</div>` : "");
   const versions = s.versions.length ? `<select id="ver"><option value="">v${s.version} (latest)</option>${s.versions.slice().reverse().map(v => `<option value="${v}">${v.split("_v").pop().replace(".mp4", "") ? "v" + v.split("_v").pop().replace(".mp4", "") : v}</option>`).join("")}</select>` : `<span>v${s.version}</span>`;
   const left = keepVideo ? null : (s.clip
-    ? `<div class="player"><video id="vid" src="${clipUrl}" controls loop playsinline preload="auto"></video></div>
-       <div class="vbar">${versions}<span>· ${s.final ? "final quality" : "review quality (30 fps)"} · rendered ${esc(s.rendered)}</span></div>
+    ? `<div class="player"><video id="vid" src="${clipUrl}" controls ${loopOn ? "loop" : ""} playsinline preload="auto"></video></div>
+       <div class="vbar">${versions}<label title="Play the clip again and again"><input type="checkbox" id="loop" ${loopOn ? "checked" : ""}> loop</label><span>· ${s.final ? "final quality" : "review quality (30 fps)"} · rendered ${esc(s.rendered)}</span></div>
        <img class="strip" src="/media/${s.strip}?v=${s.version}" alt="frames of the shot">`
     : `<div class="player"><div class="empty"><div><b>Not rendered yet</b>Render this shot to review it.</div></div></div>`);
   const right = `
@@ -236,6 +238,7 @@ function renderMain(force) {
     $("#main").innerHTML = `<div class="stage"><div>${left}</div><div id="rightcol">${right}</div></div>`;
     loadedClip = clipUrl;
     const v = $("#vid"); if (v) v.play().catch(() => {});
+    const lp = $("#loop"); if (lp) lp.onchange = () => { loopOn = lp.checked; localStorage.setItem("tf_loop", loopOn ? "1" : "0"); const v = $("#vid"); if (v) v.loop = loopOn; };
     const ver = $("#ver"); if (ver) ver.onchange = () => { const v = $("#vid"); v.src = ver.value ? `/media/${ver.value}` : clipUrl; v.play().catch(() => {}); };
   }
   document.querySelectorAll("[data-st]").forEach(b => b.onclick = () => decide(b.dataset.st));
