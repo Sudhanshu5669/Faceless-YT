@@ -74,6 +74,17 @@ ACTORS += [
               {"t": W("l3b", "here", 0.1), "expression": "happy"}]},
 ]
 
+# shovel_back: the call-off. Two jawans shovel the spoil back into the open shaft; a truck pulls away in its dust.
+SHOVEL = [W("l4d", offset=-0.8), W("l5a", offset=-0.02)]
+ACTORS += [
+    {"id": "shovel_a", "character": "toon_jawan_a", "at": P(-2.15, 0, 0.42), "facing": P(0.0, 0, -0.1),
+     "action": "idle", "shown": [SHOVEL],
+     "cues": [{"t": 0.0, "expression": "sad"}]},
+    {"id": "shovel_b", "character": "toon_jawan_c", "at": P(-1.45, 0, 1.92), "facing": P(0.0, 0, 0.3),
+     "action": "idle", "shown": [SHOVEL],
+     "cues": [{"t": 0.0, "expression": "sad"}, {"t": W("l4d", "cancelled", 0.1), "expression": "crying"}]},
+]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -91,6 +102,10 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "drip": W("l2e", "bomb", 0.04),
                     "y1995": [Y1995, Y1995_LATE],
                     "lower": {"from": W("l3b", "India's", 0.0), "to": W("l3b", "here", 0.0)},
+                    "leave": {"from": W("l4d", "cancelled", -0.45), "truck": 3},
+                    "piles": [[-1.55, 0.3, 0.42], [-1.0, 1.35, 0.38]],
+                    "shovel": [{"actor": "shovel_a", "phase": 0.0, "period": 1.0},
+                               {"actor": "shovel_b", "phase": 0.45, "period": 1.1}],
                     "guide": {"actor": "guide_95"}, "clipboard": {"actor": "sci_95"},
                     "bushes": [[1.1, 2.5, 0.75, 0.6]]}},
         {"id": "wh_chalk", "script": "library:chalk", "t": W("l2d", offset=-0.4), "until": W("l3a"),
@@ -160,6 +175,11 @@ SHOTS = {
     "range_1995": {"look": LOOK_1995, "camera": move(
         cam(P(3.4, 4.3, 8.8), P(-0.5, 2.7, -0.6), 26, {"strength": 0.1}),
         cam(P(1.9, 2.5, 5.0), P(-0.4, 1.45, -0.7), 30, {"strength": 0.12}), "in_out")},
+    # The call-off, wide and still: the jawans shovel the sand back into the open shaft in the foreground; behind them a
+    # truck pulls away in a long plume of dust on "cancelled".
+    "shovel_back": {"look": LOOK_1995, "camera": move(
+        cam(P(2.9, 2.5, 4.3), P(-2.0, 0.95, 0.35), 26, {"strength": 0.12}),
+        cam(P(2.7, 2.45, 4.1), P(-2.0, 1.0, 0.3), 26, {"strength": 0.12}), "linear")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

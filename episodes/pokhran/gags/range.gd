@@ -29,6 +29,10 @@ extends RefCounted
 ##   y1995      [[t0, t1], ...]   December 1995 instead of May 1998: the shaft is open (no plate, no tripod), a crane
 ##              truck on outriggers lowers a section of steel casing into it, trucks stand in the open, a pipe stack
 ##   lower      {"from": t, "to": t}   the crane lowers the casing into the shaft (1995)
+##   leave      {"from": t, "truck": i}   a parked 1995 truck pulls away (eases off, gathers speed) in its own dust
+##   piles      [[x, z, r], ...]   loose spoil spread beside the collar (1995)
+##   shovel     [{"actor": id, "phase": s, "period": s}, ...]   the actor shovels the spoil back into the open shaft:
+##              dig into the heap, lift, swing and throw (the sand flies in an arc into the shaft), back
 ##   drip       t   the shaft leaks: drops fall from the bore's lip and the roof on their own rhythms (onto the lid or into
 ##              the floor puddles); the hero drop lands on the canister's lid at t
 ##   dive       {"from": t, "to": t, "y1": -188}   the camera's fall down the shaft: anchors dive_cam / dive_look /
@@ -497,6 +501,10 @@ var _crane_hook: Node3D
 var _crane_cable: MeshInstance3D
 var _crane_tip := Vector3.ZERO
 var _clip: Node3D
+var _crane_rig: Node3D
+var _trucks95: Array = []
+var _dust: Array = []
+var _shovels: Array = []
 var _lamp: Node3D
 var _drips: Array = []        # [{"from", "to", "period", "phase", "drop", "ring", "spray": [[node, angle], ...]}]
 
@@ -1059,43 +1067,47 @@ func _y1995(root: Node3D) -> void:
 	rim.material_override = Kit.shader(STEEL)
 	rim.position = Vector3(0, 0.235, 0)
 	root.add_child(rim)
+	var crane := Node3D.new()
+	crane.name = "crane_rig"
+	root.add_child(crane)
+	_crane_rig = crane
 	# The crane truck: rear to the shaft, outriggers down, a slewing turret and a box boom up over the shaft.
 	var truck := _vehicle(PB + "truck_flat.glb")
 	truck.position = ground(-6.6, -0.6)
 	truck.rotation.y = PI
-	root.add_child(truck)
+	crane.add_child(truck)
 	var olive := Kit.shader(OLIVE)
 	var yellow := Kit.shader(OLIVE)
 	yellow.set_shader_parameter("paint", Vector3(0.62, 0.48, 0.12))
 	var piv := Vector3(-4.2, truck.position.y + 2.05, -0.6)
-	Kit.cyl(root, 0.75, 0.75, 0.25, piv + Vector3(0, -0.35, 0), olive, 28)
-	Kit.slab(root, Vector3(1.4, 0.95, 1.5), 0.08, piv + Vector3(-0.55, 0.2, 0), olive)
-	Kit.slab(root, Vector3(0.7, 0.7, 0.75), 0.06, piv + Vector3(-0.35, 0.3, 0.75), olive)
-	Kit.box(root, Vector3(0.04, 0.4, 0.5), piv + Vector3(-0.0, 0.42, 1.13), Kit.mat("#0b0d0f", 0.1, 0.3))
+	Kit.cyl(crane, 0.75, 0.75, 0.25, piv + Vector3(0, -0.35, 0), olive, 28)
+	Kit.slab(crane, Vector3(1.4, 0.95, 1.5), 0.08, piv + Vector3(-0.55, 0.2, 0), olive)
+	Kit.slab(crane, Vector3(0.7, 0.7, 0.75), 0.06, piv + Vector3(-0.35, 0.3, 0.75), olive)
+	Kit.box(crane, Vector3(0.04, 0.4, 0.5), piv + Vector3(-0.0, 0.42, 1.13), Kit.mat("#0b0d0f", 0.1, 0.3))
 	for sx in [-1.0, 1.0]:
 		for sz in [-1.0, 1.0]:
 			var base := Vector3(-6.6 + sx * 2.0, 0, -0.6 + sz * 1.0)
 			var foot := Vector3(base.x, 0, -0.6 + sz * 2.1)
 			foot.y = height(foot.x, foot.z)
-			Kit.box(root, Vector3(0.16, 0.16, 1.2), Vector3(base.x, truck.position.y + 0.75, -0.6 + sz * 1.55), olive)
-			Kit.rod(root, Vector3(foot.x, truck.position.y + 0.75, foot.z), foot + Vector3(0, 0.08, 0), 0.06, olive, 10)
-			Kit.box(root, Vector3(0.5, 0.06, 0.5), foot + Vector3(0, 0.03, 0), Kit.mat("#5a4a32", 0.9))
+			Kit.box(crane, Vector3(0.16, 0.16, 1.2), Vector3(base.x, truck.position.y + 0.75, -0.6 + sz * 1.55), olive)
+			Kit.rod(crane, Vector3(foot.x, truck.position.y + 0.75, foot.z), foot + Vector3(0, 0.08, 0), 0.06, olive, 10)
+			Kit.box(crane, Vector3(0.5, 0.06, 0.5), foot + Vector3(0, 0.03, 0), Kit.mat("#5a4a32", 0.9))
 	_crane_tip = Vector3(0.0, 9.2, 0.0)
 	var boom := Node3D.new()
 	boom.position = piv + Vector3(0, 0.35, 0)
-	root.add_child(boom)
+	crane.add_child(boom)
 	boom.look_at_from_position(boom.position, _crane_tip, Vector3.UP)
 	var blen := boom.position.distance_to(_crane_tip)
 	for k in 3:
 		var w := 0.42 - 0.08 * k
 		Kit.slab(boom, Vector3(w, w, blen / 3.0 + 0.2), 0.03, Vector3(0, 0, -blen * (k + 0.5) / 3.0), yellow)
 	Kit.cyl(boom, 0.16, 0.16, 0.12, Vector3(0, 0, -blen), olive, 16, Vector3(0, 0, PI / 2))
-	Kit.rod(root, piv + Vector3(0.5, 0.2, 0), boom.position + (_crane_tip - boom.position) * 0.4, 0.07, olive, 10)
+	Kit.rod(crane, piv + Vector3(0.5, 0.2, 0), boom.position + (_crane_tip - boom.position) * 0.4, 0.07, olive, 10)
 	# The hoist cable and the hook block, the casing hanging from a lifting clamp on two short slings.
-	_crane_cable = Kit.rod(root, _crane_tip, _crane_tip - Vector3(0, 1, 0), 0.012, Kit.shader(CABLE), 6)
+	_crane_cable = Kit.rod(crane, _crane_tip, _crane_tip - Vector3(0, 1, 0), 0.012, Kit.shader(CABLE), 6)
 	_crane_hook = Node3D.new()
 	_crane_hook.name = "crane_hook"
-	root.add_child(_crane_hook)
+	crane.add_child(_crane_hook)
 	Kit.slab(_crane_hook, Vector3(0.28, 0.4, 0.14), 0.05, Vector3(0, 0.2, 0), yellow)
 	var steel := Kit.shader(STEEL)
 	steel.set_shader_parameter("rust", 0.7)
@@ -1110,12 +1122,54 @@ func _y1995(root: Node3D) -> void:
 	_clip.name = "clipboard"
 	root.add_child(_clip)
 	# Two canopy trucks parked in the open; casing pipes stacked on sleepers.
-	for e in [[Vector3(7.8, 0, -8.6), 2.35], [Vector3(11.6, 0, -3.2), 2.05], [Vector3(-12.5, 0, 7.5), -0.6]]:
+	for e in [[Vector3(7.8, 0, -8.6), 2.35], [Vector3(11.6, 0, -3.2), 2.05], [Vector3(-12.5, 0, 7.5), -0.6], [Vector3(-10.5, 0, -8.0), 2.3]]:
 		var tr := _vehicle(PB + "truck_canopy.glb")
 		var p: Vector3 = e[0]
 		tr.position = ground(p.x, p.z)
 		tr.rotation.y = float(e[1])
 		root.add_child(tr)
+		_trucks95.append([tr, tr.position, tr.rotation.y])
+	# Dust kicked up behind a moving truck: soft alpha puffs (shaded, so they take the sun).
+	var dm := StandardMaterial3D.new()
+	dm.albedo_color = Color(0.78, 0.68, 0.52, 0.5)
+	dm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	dm.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	dm.billboard_keep_scale = true
+	dm.albedo_texture = _puff_tex()
+	dm.roughness = 1.0
+	for k in 26:
+		var q := MeshInstance3D.new()
+		var qm := QuadMesh.new()
+		qm.size = Vector2(1, 1)
+		q.mesh = qm
+		q.material_override = dm
+		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		q.visible = false
+		root.add_child(q)
+		_dust.append(q)
+	# Loose spoil spread beside the collar (what the shovellers scoop).
+	for pl in _p.get("piles", []):
+		var pp := ground(float(pl[0]), float(pl[1]))
+		var r := float(pl[2])
+		Kit.ball(root, 1.0, pp + Vector3(0, -r * 0.35, 0), sand_pile_mat(), 24, Vector3(r, r * 0.55, r * 0.8))
+	# Shovels for the shovellers, and the sand they throw.
+	var wood := Kit.mat("#6b4a2e", 0.75)
+	var blade_m := Kit.shader(STEEL)
+	var sand := Kit.shader(SPOIL_SHADER)
+	sand.set_shader_parameter("s_alb", Kit.texture(TX + "sand_01_diff_2k.jpg"))
+	sand.set_shader_parameter("s_nor", Kit.texture(TX + "sand_01_nor_gl_2k.jpg", true))
+	for sh in _p.get("shovel", []):
+		var n := Node3D.new()
+		root.add_child(n)
+		Kit.rod(n, Vector3(0, 0, 0), Vector3(0, 1.0, 0), 0.02, wood, 8)
+		Kit.box(n, Vector3(0.15, 0.025, 0.025), Vector3(0, 1.02, 0), wood)
+		var blade := Kit.slab(n, Vector3(0.24, 0.3, 0.012), 0.04, Vector3(0, -0.14, 0.02), blade_m, Vector3(0.25, 0, 0))
+		var load := Kit.ball(n, 1.0, Vector3(0, -0.17, 0.07), sand, 10, Vector3(0.1, 0.07, 0.11))
+		var clumps := []
+		for k in 7:
+			clumps.append(Kit.ball(root, 1.0, Vector3.ZERO, sand, 8, Vector3.ONE * (0.045 + 0.018 * (k % 3))))
+		_shovels.append({"actor": String(sh["actor"]), "node": n, "load": load, "clumps": clumps,
+			"phase": float(sh.get("phase", 0.0)), "period": float(sh.get("period", 1.05))})
 	var stack := Vector3(-4.6, 0, 3.4)
 	for i in 2:
 		Kit.box(root, Vector3(2.2, 0.15, 0.18), ground(stack.x, stack.z + 2.0 * i - 1.0) + Vector3(0, 0.075, 0), Kit.mat("#5a4632", 0.9))
@@ -1160,6 +1214,126 @@ func _vehicle(rel: String) -> Node3D:
 			if o:
 				inst.set_surface_override_material(si, o)
 	return m
+
+
+var _pile_mat: ShaderMaterial
+func sand_pile_mat() -> ShaderMaterial:
+	if _pile_mat == null:
+		_pile_mat = Kit.shader(SPOIL_SHADER)
+		_pile_mat.set_shader_parameter("s_alb", Kit.texture(TX + "sand_01_diff_2k.jpg"))
+		_pile_mat.set_shader_parameter("s_nor", Kit.texture(TX + "sand_01_nor_gl_2k.jpg", true))
+	return _pile_mat
+
+
+## A soft round puff (for dust sprites), generated once.
+static var _puff: ImageTexture
+static func _puff_tex() -> ImageTexture:
+	if _puff == null:
+		var img := Image.create(64, 64, false, Image.FORMAT_RGBA8)
+		for y in 64:
+			for x in 64:
+				var d := Vector2(x - 31.5, y - 31.5).length() / 31.5
+				var n := 0.75 + 0.25 * sin(x * 0.7) * sin(y * 0.9)
+				img.set_pixel(x, y, Color(1, 1, 1, clampf((1.0 - d) * 1.4, 0.0, 1.0) * n))
+		_puff = ImageTexture.create_from_image(img)
+	return _puff
+
+
+## The 1995 trucks: one pulls away from `leave.from`, eased off the line, its dust trailing.
+func _pose_leave(t: float) -> void:
+	var lv: Dictionary = _p.get("leave", {})
+	for i in _trucks95.size():
+		var e: Array = _trucks95[i]
+		(e[0] as Node3D).position = e[1]
+	if lv.is_empty():
+		for q in _dust:
+			(q as Node3D).visible = false
+		return
+	var idx := int(lv.get("truck", 1))
+	var e2: Array = _trucks95[idx]
+	var tr: Node3D = e2[0]
+	var yaw := float(e2[2])
+	var fwd := Vector3(cos(yaw), 0, -sin(yaw))     # the truck model's forward is its local +X
+	var t0 := float(lv["from"])
+	var dt := maxf(t - t0, 0.0)
+	var dist := 0.9 * dt * dt + 0.6 * maxf(dt - 1.0, 0.0) * maxf(dt - 1.0, 0.0)
+	var p: Vector3 = (e2[1] as Vector3) + fwd * dist
+	p.y = height(p.x, p.z)
+	tr.position = p
+	tr.rotation.z = 0.01 * sin(t * 13.0) * minf(dt, 1.0)
+	# Dust: puffs released behind the rear wheels along the path, each growing and fading over ~1.6 s.
+	for k in _dust.size():
+		var q: MeshInstance3D = _dust[k]
+		var born := t0 + 0.15 + k * 0.09
+		var age := t - born
+		q.visible = age > 0.0 and age < 1.8
+		if not q.visible:
+			continue
+		var bd := 0.9 * pow(born - t0, 2.0)
+		var at: Vector3 = (e2[1] as Vector3) + fwd * (bd - 2.4) + Vector3(-fwd.z, 0, fwd.x) * (0.6 * sin(k * 2.1))
+		at.y = height(at.x, at.z) + 0.3 + 0.5 * age
+		q.position = at + Vector3(0.25 * sin(k * 1.7) * age, 0, 0.25 * cos(k * 1.3) * age)
+		var sz := 0.8 + 2.2 * age
+		q.scale = Vector3(sz, sz, sz)
+		(q.material_override as StandardMaterial3D).albedo_color.a = 0.5
+
+
+## The shovellers: a dig-lift-throw cycle driven by time; the shovel sits in both hands (left at the D-grip,
+## right down the shaft); the throw sends a clump of sand in an arc into the open shaft.
+func _pose_shovels(gt: Transform3D, t: float, ctx: Dictionary) -> void:
+	var inv := gt.affine_inverse()
+	for sv in _shovels:
+		var n: Node3D = sv["node"]
+		var actor = ctx["actor"].call(String(sv["actor"])) if ctx.has("actor") else null
+		n.visible = actor != null and actor.visible
+		for c in sv["clumps"]:
+			(c as Node3D).visible = false
+		if not n.visible:
+			continue
+		var me: Vector3 = inv * (actor as Node3D).global_position
+		var yaw := float(actor.rotation.y)
+		var fwd := Vector3(sin(yaw), 0, cos(yaw))
+		var right := -Vector3(cos(yaw), 0, -sin(yaw))
+		var per := float(sv["period"])
+		var ph := fposmod((t + float(sv["phase"])) / per, 1.0)
+		# Key poses of the blade tip (relative to the body) and the shaft's tilt: dig low in front, lift, swing to
+		# the side toward the shaft and throw, come back.
+		var dig := me + fwd * 0.62 + right * 0.05 + Vector3(0, 0.02, 0)
+		var lift := me + fwd * 0.48 + right * 0.08 + Vector3(0, 0.42, 0)
+		var throw_p := me + fwd * 0.6 - right * 0.32 + Vector3(0, 0.62, 0)
+		var tip: Vector3
+		var k: float
+		if ph < 0.3:
+			k = Motion.in_out(ph / 0.3)
+			tip = throw_p.lerp(dig, k)
+		elif ph < 0.55:
+			k = Motion.in_out((ph - 0.3) / 0.25)
+			tip = dig.lerp(lift, k)
+		elif ph < 0.72:
+			k = Motion.out_cubic((ph - 0.55) / 0.17)
+			tip = lift.lerp(throw_p, k)
+		else:
+			tip = throw_p
+		var handle_top := me + fwd * 0.05 + right * 0.18 + Vector3(0, 0.62, 0)
+		var axis := (handle_top - tip).normalized()
+		var basis := Basis(Quaternion(Vector3.UP, axis))
+		# Face the blade toward the body's forward.
+		basis = basis * Basis(Vector3.UP, yaw - basis.get_euler().y)
+		n.transform = Transform3D(basis, tip + axis * 0.26)
+		var loaded := ph >= 0.3 and ph < 0.62
+		(sv["load"] as Node3D).visible = loaded
+		actor.aim_hand("l", gt * (tip + axis * 1.2), 1.0, 0.02)
+		actor.aim_hand("r", gt * (tip + axis * 0.6), 1.0, 0.0)
+		# The throw: a clump flies from the blade at ph 0.62 in an arc to the shaft mouth.
+		var tt := (ph - 0.62) * per
+		if tt > 0.0 and tt < 0.6:
+			var mouth := Vector3(0.0, 0.22, 0.0)
+			for ci in (sv["clumps"] as Array).size():
+				var c: Node3D = sv["clumps"][ci]
+				var spread := Vector3(0.12 * sin(ci * 2.3), 0.05 * cos(ci * 1.7), 0.12 * cos(ci * 2.9))
+				var u := clampf(tt / 0.5, 0.0, 1.0)
+				c.visible = u < 1.0
+				c.position = Motion.arc(throw_p + spread * 0.3, mouth + spread, 0.45, u) - Vector3(0, 0.0, 0)
 
 
 ## Dive path at scene time t (gag-local): {"cam", "look", "count", "on"}.
@@ -1571,12 +1745,23 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_g95.visible = is95
 	_g98.visible = not is95
 	if is95:
+		_pose_leave(t)
+		_pose_shovels(gt, t, ctx)
+	if is95:
 		# The crane lowers the casing: its foot from 0.9 m above the collar to 1.4 m down the shaft, eased; it sways
 		# a touch on the slings.
 		var lw: Dictionary = _p.get("lower", {})
 		var k := Motion.in_out(Motion.seg(t, float(lw.get("from", 0.0)), float(lw.get("to", 1.0))))
 		var foot_y := lerpf(1.12, -1.2, k)
 		var hook := Vector3(0.0, foot_y + 6.0 + 0.66, 0.0)
+		# Later (the call-off), the casing is long since down the shaft and the hook hangs clear, empty.
+		var done := t > float(lw.get("to", 1.0)) + 1.0
+		for ci in _crane_hook.get_child_count():
+			(_crane_hook.get_child(ci) as Node3D).visible = ci == 0 or not done
+		if done:
+			hook = _crane_tip - Vector3(0, 2.2, 0)
+		# Days later (the call-off) the crane has gone from the site.
+		_crane_rig.visible = t < float(lw.get("to", 1.0)) + 3.0
 		_crane_hook.position = hook + Vector3(0.015 * sin(t * 1.3), 0, 0.012 * sin(t * 1.7 + 1.0))
 		_crane_hook.rotation = Vector3(0.006 * sin(t * 1.7), 0, -0.006 * sin(t * 1.3))
 		var top := hook + Vector3(0, 0.4, 0)
