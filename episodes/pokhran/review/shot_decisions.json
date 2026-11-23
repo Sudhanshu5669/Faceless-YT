@@ -335,5 +335,12 @@
         "fingerprint": "2c7c3d25080c"
       }
     ]
+  },
+  "cage_lower": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 01:04:58",
+    "fingerprint": "860f7a321798",
+    "history": []
   }
 }

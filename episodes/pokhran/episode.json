@@ -3125,6 +3125,740 @@
    ]
   },
   {
+   "id": "vt_wh0",
+   "character": "toon_sci_fatigues_a",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     1.35,
+     0.0,
+     33002.5
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     0.0,
+     33001.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_wh",
+      "offset": -0.1
+     },
+     {
+      "shot": "lid_taj"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    }
+   ]
+  },
+  {
+   "id": "vt_wh1",
+   "character": "toon_barc_sci",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -1.35,
+     0.0,
+     33000.85
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     0.0,
+     33001.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_wh",
+      "offset": -0.1
+     },
+     {
+      "shot": "lid_taj"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "vt_wh2",
+   "character": "toon_jawan_c",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     1.7,
+     0.0,
+     33000.3
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     1.7,
+     0.0,
+     32998.5
+    ]
+   },
+   "action": "fix",
+   "shown": [
+    [
+     {
+      "shot": "lid_wh",
+      "offset": -0.1
+     },
+     {
+      "shot": "lid_taj"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "vt_wh3",
+   "character": "toon_jawan_a",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     3.6,
+     0.0,
+     32998.8
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -2.8,
+     0.0,
+     32998.1
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_wh",
+      "offset": -0.1
+     },
+     {
+      "shot": "lid_taj"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "bunker",
+      "offset": [
+       -2.8,
+       0,
+       32998.1
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "shot": "lid_wh",
+     "offset": -0.5
+    }
+   }
+  },
+  {
+   "id": "vt_wh4",
+   "character": "toon_jawan_d",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     2.9,
+     10.06,
+     32995.0
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     3.0,
+     10.06,
+     32993.5
+    ]
+   },
+   "action": "crouch",
+   "shown": [
+    [
+     {
+      "shot": "lid_wh",
+      "offset": -0.1
+     },
+     {
+      "shot": "lid_taj"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ],
+   "keep_y": true
+  },
+  {
+   "id": "vt_wh5",
+   "character": "toon_jawan_b",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -4.0,
+     10.06,
+     32995.9
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -4.6,
+     10.06,
+     32994.4
+    ]
+   },
+   "action": "crouch",
+   "shown": [
+    [
+     {
+      "shot": "lid_wh",
+      "offset": -0.1
+     },
+     {
+      "shot": "lid_taj"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ],
+   "keep_y": true
+  },
+  {
+   "id": "vt_tj0",
+   "character": "toon_sci_fatigues_a",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -1.5,
+     0.0,
+     33002.6
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     0.0,
+     33001.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_taj"
+     },
+     {
+      "shot": "lid_kumbh"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "vt_tj1",
+   "character": "toon_barc_sci",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     1.25,
+     0.0,
+     33000.7
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     0.0,
+     33001.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_taj"
+     },
+     {
+      "shot": "lid_kumbh"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    }
+   ]
+  },
+  {
+   "id": "vt_tj2",
+   "character": "toon_jawan_c",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -3.2,
+     0.0,
+     32999.4
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     3.0,
+     0.0,
+     32998.8
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_taj"
+     },
+     {
+      "shot": "lid_kumbh"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "bunker",
+      "offset": [
+       3.0,
+       0,
+       32998.8
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "shot": "lid_taj",
+     "offset": -0.3
+    }
+   }
+  },
+  {
+   "id": "vt_tj3",
+   "character": "toon_sci_fatigues_b",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     6.0,
+     3.1,
+     32999.4
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     5.6,
+     3.1,
+     33001.5
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_taj"
+     },
+     {
+      "shot": "lid_kumbh"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    }
+   ],
+   "keep_y": true
+  },
+  {
+   "id": "vt_tj4",
+   "character": "toon_jawan_d",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     3.1,
+     10.06,
+     32994.9
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     3.0,
+     10.06,
+     32993.5
+    ]
+   },
+   "action": "crouch",
+   "shown": [
+    [
+     {
+      "shot": "lid_taj"
+     },
+     {
+      "shot": "lid_kumbh"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ],
+   "keep_y": true
+  },
+  {
+   "id": "vt_tj5",
+   "character": "toon_jawan_b",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -2.2,
+     0.0,
+     33000.2
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -1.0,
+     0.0,
+     33001.4
+    ]
+   },
+   "action": "fix",
+   "shown": [
+    [
+     {
+      "shot": "lid_taj"
+     },
+     {
+      "shot": "lid_kumbh"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "vt_km0",
+   "character": "toon_sci_fatigues_a",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     0.2,
+     0.0,
+     33003.1
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     0.0,
+     33001.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_kumbh"
+     },
+     {
+      "line": "l12a"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "side_eye"
+    }
+   ]
+  },
+  {
+   "id": "vt_km1",
+   "character": "toon_barc_sci",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -2.0,
+     0.0,
+     33001.9
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     0.0,
+     33001.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_kumbh"
+     },
+     {
+      "line": "l12a"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "vt_km2",
+   "character": "toon_jawan_c",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -1.15,
+     0.0,
+     33000.95
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -2.4,
+     0.0,
+     33002.6
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "lid_kumbh"
+     },
+     {
+      "line": "l12a"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy",
+     "head": [
+      24,
+      0,
+      12
+     ],
+     "head_turn": 0.01
+    }
+   ]
+  },
+  {
+   "id": "vt_km3",
+   "character": "toon_jawan_a",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -2.6,
+     0.0,
+     32998.6
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     2.6,
+     0.0,
+     32997.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "lid_kumbh"
+     },
+     {
+      "line": "l12a"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "bunker",
+      "offset": [
+       2.6,
+       0,
+       32997.6
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "shot": "lid_kumbh",
+     "offset": -0.4
+    }
+   }
+  },
+  {
+   "id": "vt_km4",
+   "character": "toon_jawan_d",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -4.2,
+     10.06,
+     32995.7
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -4.6,
+     10.06,
+     32994.4
+    ]
+   },
+   "action": "crouch",
+   "shown": [
+    [
+     {
+      "shot": "lid_kumbh"
+     },
+     {
+      "line": "l12a"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ],
+   "keep_y": true
+  },
+  {
+   "id": "vt_km5",
+   "character": "toon_sci_fatigues_b",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     1.8,
+     0.0,
+     33000.4
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     1.7,
+     0.0,
+     32998.5
+    ]
+   },
+   "action": "fix",
+   "shown": [
+    [
+     {
+      "shot": "lid_kumbh"
+     },
+     {
+      "line": "l12a"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    }
+   ]
+  },
+  {
    "id": "vajpayee",
    "character": "toon_vajpayee",
    "at": {
@@ -4179,6 +4913,84 @@
      -0.15,
      0.55,
      0.0
+    ]
+   }
+  },
+  {
+   "id": "vault",
+   "script": "gags/vault.gd",
+   "t": 0,
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     0,
+     0,
+     33000.0
+    ]
+   },
+   "params": {
+    "stickers": [
+     [
+      0.0,
+      "library/logos/pokhran/generated/sticker_white_house.png"
+     ],
+     [
+      {
+       "shot": "lid_taj"
+      },
+      "library/logos/pokhran/generated/sticker_taj_mahal.png"
+     ],
+     [
+      {
+       "shot": "lid_kumbh"
+      },
+      "library/logos/pokhran/generated/sticker_kumbhkaran.png"
+     ]
+    ],
+    "welders": [
+     [
+      -3.0,
+      10.35,
+      -5.3
+     ],
+     [
+      4.3,
+      10.35,
+      -4.5
+     ],
+     [
+      -5.6,
+      5.35,
+      -2.4
+     ]
+    ],
+    "clipboards": [
+     "vt_wh0",
+     "vt_wh1",
+     "vt_tj0",
+     "vt_tj1",
+     "vt_tj3",
+     "vt_km0",
+     "vt_km1"
+    ],
+    "crates": [
+     "vt_wh3",
+     "vt_tj2",
+     "vt_km3"
+    ],
+    "lift": [
+     [
+      {
+       "shot": "lid_wh"
+      },
+      0.2
+     ],
+     [
+      {
+       "line": "l12a"
+      },
+      7.0
+     ]
     ]
    }
   },
@@ -7674,82 +8486,301 @@
   {
    "name": "lid_wh",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -1.25,
+       1.15,
+       33006.6
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       2.15,
+       33001.6
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.65,
+       1.12,
+       33006.0
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       2.15,
+       33001.6
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "linear"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#1c2028",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 2600,
+     "curve": 1.8,
+     "volumetric": 0.045,
+     "color": "#2a2c30",
+     "anisotropy": 0.6,
+     "length": 24
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 1.0,
+     "bloom": 0.08,
+     "threshold": 0.9
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 0.95,
+     "vignette": 0.55,
+     "grain": 0.05
+    }
    }
   },
   {
    "name": "lid_taj",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.65,
+       1.12,
+       33006.0
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       2.15,
+       33001.6
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.05,
+       1.1,
+       33005.6
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       2.15,
+       33001.6
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "linear"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#1c2028",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 2600,
+     "curve": 1.8,
+     "volumetric": 0.045,
+     "color": "#2a2c30",
+     "anisotropy": 0.6,
+     "length": 24
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 1.0,
+     "bloom": 0.08,
+     "threshold": 0.9
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 0.95,
+     "vignette": 0.55,
+     "grain": 0.05
+    }
    }
   },
   {
    "name": "lid_kumbh",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.05,
+       1.1,
+       33005.6
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       2.15,
+       33001.6
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       0.6,
+       1.08,
+       33005.2
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       2.15,
+       33001.6
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#1c2028",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 2600,
+     "curve": 1.8,
+     "volumetric": 0.045,
+     "color": "#2a2c30",
+     "anisotropy": 0.6,
+     "length": 24
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 1.0,
+     "bloom": 0.08,
+     "threshold": 0.9
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 0.95,
+     "vignette": 0.55,
+     "grain": 0.05
+    }
    }
   },
   {

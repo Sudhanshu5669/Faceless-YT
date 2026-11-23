@@ -1,6 +1,6 @@
 # Handoff: where TownForge is, and what to do next
 
-*Last updated 2026-11-23. Read this first in a new session (Claude, Codex or anyone), then
+*Last updated 2026-11-24. Read this first in a new session (Claude, Codex or anyone), then
 `AGENTS.md` and the `toon-short` skill. Keep this file short: current state and next steps only.
 Older session notes (detailed per-shot history, plans, gotchas) are in
 [`docs/history/handoff-log-2026-11.md`](docs/history/handoff-log-2026-11.md).*
@@ -21,7 +21,7 @@ Older session notes (detailed per-shot history, plans, gotchas) are in
 | `jio_story` | Final rendered (`renders/jio_story.mp4`, 129.6 s, 60 fps). Some early shots still have labelled-cube debt (see the history log, "No generic labelled cubes"). | Only if the user asks for a v2. |
 | `mumbai_lunch` | First shot (`00_kitchen`) built with local Qwen narration and recorded effects; plan in `beats.md`. | Wait for the user's verdict on the kitchen shot, then the Dadar lane shot. |
 | `dream_town` | Script drafts (`script.md`, `script_long_draft.md`), set `specs/sets/dream_town_opening.json`, an opening gag. | Pitch/script approval with the user before building shots. |
-| `pokhran` | **In progress (2026-11-23), shots 0-28 of 58.** **Full handoff: [`episodes/pokhran/HANDOFF.md`](episodes/pokhran/HANDOFF.md)** (state, the user's binding decisions for this video, the fast storyboard loop, every gag param, lessons, notes for the next shots). | Read the pokhran handoff and continue with `an32_land`. **Do not render when the user says so or on battery/power cuts.** |
+| `pokhran` | **In progress (2026-11-24), shots 0-34 of 58 (approved through cage_lower).** **Full handoff: [`episodes/pokhran/HANDOFF.md`](episodes/pokhran/HANDOFF.md)** (state, the user's binding decisions for this video, the fast storyboard loop, every gag param, lessons, notes for the next shots). | Read the pokhran handoff and continue with the lid shots (the user's notes are in it). **Do not render when the user says so or on battery/power cuts.** |
 | `mangalyaan` | **Final rendered (2026-11-19).** All 49 shots approved (21 in the shot loop, the rest by the user in chat). `renders/mangalyaan.mp4`: 1080x1920, 60 fps, motion blur 2, 154.1 s, -14.0 LUFS, Gemini single take (Charon). Effects are the built-in synthesised ones (no recorded audio to license). | Description credits: "Planet textures: Solar System Scope (solarsystemscope.com), CC BY 4.0" and "Curiosity and MAVEN 3D models: NASA/JPL-Caltech". Thumbnail, title and description if the user asks. |
 | `supermarket_silence`, `blackwood_333` | Early pipeline tests, parked. | — |
 

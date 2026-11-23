@@ -19,7 +19,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 # Place modules (places/<name>.py), each with PLACE = {"gags", "actors", "shots"}; added as they are built.
-PLACE_MODULES = [m for m in ["desk", "range", "orbit", "office", "bunker", "airstrip", "village", "lawn",
+PLACE_MODULES = [m for m in ["desk", "range", "orbit", "office", "bunker", "airstrip", "vault", "village", "lawn",
                              "capitol", "lok_sabha", "rashtrapati", "school"]
                  if (HERE / "places" / f"{m}.py").exists()]
 
@@ -179,7 +179,7 @@ SHOTS = [
     ("pass_watch", "range"), ("statue", "range"), ("cricket", "range"), ("cricket_feed", "desk"),
     ("jeep_arrive", "range"), ("kalam_tape", "range"),
     ("an32_land", "airstrip"), ("convoy", "range"),
-    ("cage_lower", "range"), ("lid_wh", "range"), ("lid_taj", "range"), ("lid_kumbh", "range"),
+    ("cage_lower", "range"), ("lid_wh", "vault"), ("lid_taj", "vault"), ("lid_kumbh", "vault"),
     ("clock_nine", "bunker"), ("windsock", "range"), ("village_far", "village"),
     ("wait_row", "bunker"), ("wait_clock", "bunker"),
     ("wind_turns", "range"), ("key_turn", "bunker"), ("desert_jumps", "range"), ("khetolai_crack", "village"),
