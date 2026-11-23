@@ -108,6 +108,11 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                                {"actor": "shovel_b", "phase": 0.45, "period": 1.1}],
                     "guide": {"actor": "guide_95"}, "clipboard": {"actor": "sci_95"},
                     "bushes": [[1.1, 2.5, 0.75, 0.6]]}},
+        # 1998: a reconnaissance satellite slides across the dusk sky over the site, catching the sun on "satellites".
+        {"id": "sat_dusk", "script": "library:sky_pass", "t": 0, "at": P(0, 0, 0), "until": W("l5d", edge="end", offset=1.0),
+         "params": {"from": W("l5c", offset=-0.3), "to": W("l5c", edge="end", offset=0.9), "a": [184.0, 29.0],
+                    "b": [221.0, 39.0], "distance": 3000.0, "size": 3.2, "brightness": 3.5,
+                    "flare": W("l5c", "satellites", 0.05)}},
         {"id": "wh_chalk", "script": "library:chalk", "t": W("l2d", offset=-0.4), "until": W("l3a"),
          "at": TP(0, 0), "face": TP(0, 5.0),
          "params": {"lines": ["WHITE", "HOUSE"], "size": 0.18, "gap": 1.35, "done": 8, "width": 0.13,
@@ -135,6 +140,18 @@ LOOK_DEEP = dict(LOOK_AFTERNOON,
                       "anisotropy": 0.6, "length": 10},
                  glow={"enabled": True, "intensity": 0.9, "bloom": 0.06, "threshold": 0.95},
                  grade={"contrast": 1.18, "saturation": 0.95, "vignette": 0.5, "grain": 0.05})
+
+# Dusk, 1998: the sun just down behind the site, an orange band on the horizon fading up into deep blue, the first
+# stars; the ground lit only by the sky (cool), the tree and the tripod in silhouette against the glow.
+LOOK_DUSK = dict(LOOK_AFTERNOON,
+                 time="19:30",
+                 sun={"elevation": -1.5, "azimuth": 214, "color": "#ff8a4a", "energy": 0.25, "softness": 1.0,
+                      "visible": True, "size": 1.0, "glow": 3.0, "glow_color": "#ff7a3a", "shadows": False},
+                 sky={"top": "#1c2a52", "horizon": "#e98a52", "stars": 0.35, "clouds": 0.0},
+                 ambient={"color": "#6a6a8a", "energy": 0.2, "sky": 0.85},
+                 fog={"begin": 40, "end": 1900, "curve": 1.6, "volumetric": 0.0},
+                 glow={"enabled": True, "intensity": 0.85, "bloom": 0.06, "threshold": 1.0},
+                 grade={"contrast": 1.12, "saturation": 1.04, "vignette": 0.48, "grain": 0.04})
 
 # Chamber points: x/z from the canister's axis, y above the chamber floor (205 m down).
 FLOOR = -205.0
@@ -180,6 +197,11 @@ SHOTS = {
     "shovel_back": {"look": LOOK_1995, "camera": move(
         cam(P(2.9, 2.5, 4.3), P(-2.0, 0.95, 0.35), 26, {"strength": 0.12}),
         cam(P(2.7, 2.45, 4.1), P(-2.0, 1.0, 0.3), 26, {"strength": 0.12}), "linear")},
+    # Same desert: dusk, wide on the same site (the plate, the tripod, the hero khejri against the afterglow); a slow tilt
+    # up into the darkening sky, where a satellite's point of light slides across and glints on "satellites".
+    "same_desert": {"look": LOOK_DUSK, "camera": move(
+        cam(P(4.0, 1.1, 8.5), P(-3.2, 2.4, -9.0), 26, {"strength": 0.1}),
+        cam(P(3.8, 1.0, 8.2), P(-3.2, 9.0, -9.0), 26, {"strength": 0.1}), "in_out")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

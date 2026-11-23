@@ -1368,6 +1368,51 @@
    }
   },
   {
+   "id": "sat_dusk",
+   "script": "library:sky_pass",
+   "t": 0,
+   "at": {
+    "anchor": "range",
+    "offset": [
+     0,
+     0,
+     15000.0
+    ]
+   },
+   "until": {
+    "line": "l5d",
+    "edge": "end",
+    "offset": 1.0
+   },
+   "params": {
+    "from": {
+     "line": "l5c",
+     "offset": -0.3
+    },
+    "to": {
+     "line": "l5c",
+     "edge": "end",
+     "offset": 0.9
+    },
+    "a": [
+     184.0,
+     29.0
+    ],
+    "b": [
+     221.0,
+     39.0
+    ],
+    "distance": 3000.0,
+    "size": 3.2,
+    "brightness": 3.5,
+    "flare": {
+     "line": "l5c",
+     "word": "satellites",
+     "offset": 0.05
+    }
+   }
+  },
+  {
    "id": "wh_chalk",
    "script": "library:chalk",
    "t": {
@@ -3408,28 +3453,107 @@
   {
    "name": "same_desert",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -4.0,
+       1.1,
+       15008.5
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       3.2,
+       2.4,
+       14991.0
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -3.8,
+       1.0,
+       15008.2
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       3.2,
+       9.0,
+       14991.0
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "19:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": -1.5,
+     "azimuth": 214,
+     "color": "#ff8a4a",
+     "energy": 0.25,
+     "softness": 1.0,
+     "visible": true,
+     "size": 1.0,
+     "glow": 3.0,
+     "glow_color": "#ff7a3a",
+     "shadows": false
+    },
+    "sky": {
+     "top": "#1c2a52",
+     "horizon": "#e98a52",
+     "stars": 0.35,
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#6a6a8a",
+     "energy": 0.2,
+     "sky": 0.85
+    },
+    "fog": {
+     "begin": 40,
+     "end": 1900,
+     "curve": 1.6,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.85,
+     "bloom": 0.06,
+     "threshold": 1.0
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.48,
+     "grain": 0.04
+    }
    }
   },
   {
