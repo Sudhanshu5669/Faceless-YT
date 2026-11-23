@@ -11,7 +11,8 @@
 ## so give the gag "face" = where the reader (the camera) stands. "done" letters are already there at the gag's
 ## t; the rest are written between write.from and write.to (the last stroke ends on write.to), then the hand
 ## lifts away and a puff of chalk dust hangs over the last stroke. "hand": an actor whose arm ("side") follows
-## the tip (two-bone IK; "reach" lengthens a toon's short arms); a stick of chalk sits between hand and tip.
+## the tip (two-bone IK; "reach" lengthens a toon's short arms; "hand_r" = the fist's radius, default 0.05); a rigid
+## 8 cm stick of chalk is held in the fist, its end on the stroke while writing.
 ## Letters: A B E H I J K L M N O R S T U W, and spaces. Anchors: "<id>.tip", "<id>.text" (centre).
 extends RefCounted
 
@@ -77,6 +78,8 @@ var _path: Array = []        # [{"a": Vector3, "b": Vector3, "s0": float, "s1": 
 var _total := 0.0
 var _start_s := 0.0
 var _stick: MeshInstance3D
+const STICK_L := 0.08     # metres (a classroom chalk stick is ~8 cm)
+const STICK_R := 0.011
 var _dust: Array = []
 var _centre := Vector3.ZERO
 
@@ -85,7 +88,7 @@ func validate(g: Dictionary) -> Array:
 	var e := []
 	var p: Dictionary = g.get("params", {})
 	for k in p:
-		if not (k in ["lines", "size", "gap", "done", "write", "hand", "side", "reach", "color", "seed", "width"]):
+		if not (k in ["lines", "size", "gap", "done", "write", "hand", "side", "reach", "hand_r", "color", "seed", "width"]):
 			e.append("chalk: unknown param '%s'" % k)
 	for line in p.get("lines", []):
 		for ch in String(line):
@@ -186,12 +189,13 @@ func build(g: Dictionary) -> Node3D:
 	var root := Node3D.new()
 	root.add_child(mi)
 	# The chalk stick (only while a hand holds it) and the dust puff.
+	# A real stick of chalk (rigid, never scaled), held in the fist.
 	_stick = MeshInstance3D.new()
 	var cm := CylinderMesh.new()
-	cm.top_radius = size * 0.05
-	cm.bottom_radius = size * 0.05
-	cm.height = 1.0
-	cm.radial_segments = 8
+	cm.top_radius = STICK_R
+	cm.bottom_radius = STICK_R * 0.9
+	cm.height = STICK_L
+	cm.radial_segments = 10
 	_stick.mesh = cm
 	var sm := StandardMaterial3D.new()
 	sm.albedo_color = Color("f4f2ea")
@@ -250,22 +254,29 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_stick.visible = false
 	if actor != null:
 		var side := String(p.get("side", "r"))
-		if float(p.get("reach", 1.0)) != 1.0:
-			Crawl.long_arms(actor, float(p["reach"]))
-		# The hand rides just above the tip (pressing on the down-strokes), then lifts away after the last stroke.
-		var press := 0.0 if tip_info[1] else -0.006 * sin(t * 40.0)
-		var target := gt * (tip + Vector3(0, size * 0.42 + press, 0))
+		var reach := float(p.get("reach", 1.0))
+		if reach != 1.0:
+			Crawl.long_arms(actor, reach)
+		# The toon fist is a ball past the wrist joint; the chalk sticks out of it, pointing down like a pencil.
+		var ball_r := float(p.get("hand_r", 0.05)) * reach
+		var down := Vector3(0, -1, 0)
+		var lean := Vector3(-0.15, 0, 0.6)      # the end points away from the writer, toward the reader (local +z)
+		var a := (down + lean).normalized()
+		var grip := ball_r * 0.55 + ball_r * 0.6 + STICK_L   # wrist -> fist centre -> chalk end
+		var press := 0.0 if tip_info[1] else -0.004 * sin(t * 40.0)
+		var wrist_target := gt * (tip - a * grip + Vector3(0, press, 0))
 		var weight := 1.0 - Motion.smooth(after)
 		if t < t1 + 0.35:
-			actor.aim_hand(side, target, weight)
-		var hand: Vector3 = gt.affine_inverse() * actor.bone_world("hand_" + side)
-		var nib := tip if weight > 0.5 else hand + Vector3(0, -size * 0.3, 0)
-		var axis := hand - nib
-		if axis.length() > 0.01:
-			_stick.visible = true
-			var len := minf(axis.length(), size * 0.5)
-			var dir := axis.normalized()
-			_stick.transform = Transform3D(_basis_y(dir).scaled(Vector3(1, len, 1)), nib + dir * len * 0.5)
+			actor.aim_hand(side, wrist_target, weight)
+		var inv := gt.affine_inverse()
+		var wrist: Vector3 = inv * actor.bone_world("hand_" + side)
+		var elbow: Vector3 = inv * actor.bone_world("lowerarm_" + side)
+		var f := (wrist - elbow).normalized()
+		var fist := wrist + f * ball_r * 0.55
+		# While writing the chalk points at the stroke; afterwards it follows the forearm, still in the fist.
+		var axis := a.lerp(f, Motion.smooth(after)).normalized()
+		_stick.visible = true
+		_stick.transform = Transform3D(_basis_y(axis), fist + axis * (ball_r * 0.6 + STICK_L * 0.5))
 	# A puff of chalk dust off the last stroke.
 	var age := t - t1
 	for dd in _dust:
