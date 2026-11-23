@@ -85,6 +85,29 @@ ACTORS += [
      "cues": [{"t": 0.0, "expression": "sad"}, {"t": W("l4d", "cancelled", 0.1), "expression": "crying"}]},
 ]
 
+# team_lookup (1998, dusk): four of the team stand shoulder to shoulder in front of the tripod, watching the satellite
+# cross; on "nothing" they turn to each other in pairs. They face the afterglow (azimuth 200), the camera low behind.
+import math as _m
+_F = (_m.sin(_m.radians(200)), _m.cos(_m.radians(200)))      # toward the satellite / the glow
+_RW = (-_F[1], _F[0])                                           # along the row (each man's right)
+_C = (2.5, 6.5)
+LOOKUP = [W("l5d", offset=-0.8), W("l5d", edge="end", offset=0.6)]
+
+
+def _row(k):
+    x, z = _C[0] + _RW[0] * 0.8 * k, _C[1] + _RW[1] * 0.8 * k
+    return P(x, 0, z), P(x + _F[0] * 10, 0, z + _F[1] * 10)
+
+
+for i, (ch, k, yaw) in enumerate([("toon_jawan_a", -1.5, -62), ("toon_barc_sci", -0.5, 58),
+                                  ("toon_jawan_b", 0.5, -60), ("toon_jawan_d", 1.5, 62)]):
+    at, facing = _row(k)
+    ACTORS.append({"id": f"lookup_{i}", "character": ch, "at": at, "facing": facing, "action": "idle",
+                   "shown": [LOOKUP], "phase": 0.3 * i,
+                   "cues": [{"t": 0.0, "expression": "determined", "head": [-42, 0, 0], "head_turn": 0.01},
+                            {"t": W("l5d", "nothing", -0.1 + 0.06 * i), "expression": "scheming",
+                             "head": [-4, yaw, 0], "head_turn": 0.45}]})
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -113,6 +136,10 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
          "params": {"from": W("l5c", offset=-0.3), "to": W("l5c", edge="end", offset=0.9), "a": [184.0, 29.0],
                     "b": [221.0, 39.0], "distance": 3000.0, "size": 3.2, "brightness": 3.5,
                     "flare": W("l5c", "satellites", 0.05)}},
+        {"id": "sat_dusk2", "script": "library:sky_pass", "t": W("l5d", offset=-0.5), "at": P(0, 0, 0),
+         "until": W("l5d", edge="end", offset=1.0),
+         "params": {"from": W("l5d", offset=-0.4), "to": W("l5d", edge="end", offset=0.4), "a": [199.0, 41.0],
+                    "b": [214.0, 47.0], "distance": 3000.0, "size": 3.2, "brightness": 3.5}},
         {"id": "wh_chalk", "script": "library:chalk", "t": W("l2d", offset=-0.4), "until": W("l3a"),
          "at": TP(0, 0), "face": TP(0, 5.0),
          "params": {"lines": ["WHITE", "HOUSE"], "size": 0.18, "gap": 1.35, "done": 8, "width": 0.13,
@@ -145,7 +172,7 @@ LOOK_DEEP = dict(LOOK_AFTERNOON,
 # stars; the ground lit only by the sky (cool), the tree and the tripod in silhouette against the glow.
 LOOK_DUSK = dict(LOOK_AFTERNOON,
                  time="19:30",
-                 sun={"elevation": -1.5, "azimuth": 214, "color": "#ff8a4a", "energy": 0.25, "softness": 1.0,
+                 sun={"elevation": -3.5, "azimuth": 214, "color": "#ff8a4a", "energy": 0.25, "softness": 1.0,
                       "visible": True, "size": 1.0, "glow": 3.0, "glow_color": "#ff7a3a", "shadows": False},
                  sky={"top": "#1c2a52", "horizon": "#e98a52", "stars": 0.35, "clouds": 0.0},
                  ambient={"color": "#6a6a8a", "energy": 0.2, "sky": 0.85},
@@ -202,6 +229,14 @@ SHOTS = {
     "same_desert": {"look": LOOK_DUSK, "camera": move(
         cam(P(4.0, 1.1, 8.5), P(-3.2, 2.4, -9.0), 26, {"strength": 0.1}),
         cam(P(3.8, 1.0, 8.2), P(-3.2, 9.0, -9.0), 26, {"strength": 0.1}), "in_out")},
+    # Low in front of the team, on a diagonal so the row recedes: four faces lit warm by the afterglow they face, heads
+    # tipped back, watching the satellite cross above (behind the lens); on "nothing" they turn to each other in pairs,
+    # scheming. A slow creep in.
+    "team_lookup": {"look": LOOK_DUSK, "camera": move(
+        cam(P(_C[0] + _F[0] * 3.0 + _RW[0] * 2.0, 0.55, _C[1] + _F[1] * 3.0 + _RW[1] * 2.0),
+            P(_C[0] + _RW[0] * 0.1, 1.5, _C[1] + _RW[1] * 0.1), 26, {"strength": 0.07}),
+        cam(P(_C[0] + _F[0] * 2.6 + _RW[0] * 1.75, 0.6, _C[1] + _F[1] * 2.6 + _RW[1] * 1.75),
+            P(_C[0] + _RW[0] * 0.1, 1.45, _C[1] + _RW[1] * 0.1), 27, {"strength": 0.08}), "linear")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

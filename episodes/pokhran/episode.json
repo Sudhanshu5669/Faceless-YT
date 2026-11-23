@@ -841,6 +841,250 @@
    ]
   },
   {
+   "id": "lookup_0",
+   "character": "toon_jawan_a",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     -1.372,
+     0,
+     15006.91
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     2.048,
+     0,
+     14997.513
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l5d",
+      "offset": -0.8
+     },
+     {
+      "line": "l5d",
+      "edge": "end",
+      "offset": 0.6
+     }
+    ]
+   ],
+   "phase": 0.0,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      -42,
+      0,
+      0
+     ],
+     "head_turn": 0.01
+    },
+    {
+     "t": {
+      "line": "l5d",
+      "word": "nothing",
+      "offset": -0.1
+     },
+     "expression": "scheming",
+     "head": [
+      -4,
+      -62,
+      0
+     ],
+     "head_turn": 0.45
+    }
+   ]
+  },
+  {
+   "id": "lookup_1",
+   "character": "toon_barc_sci",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     -2.124,
+     0,
+     15006.637
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     1.296,
+     0,
+     14997.24
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l5d",
+      "offset": -0.8
+     },
+     {
+      "line": "l5d",
+      "edge": "end",
+      "offset": 0.6
+     }
+    ]
+   ],
+   "phase": 0.3,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      -42,
+      0,
+      0
+     ],
+     "head_turn": 0.01
+    },
+    {
+     "t": {
+      "line": "l5d",
+      "word": "nothing",
+      "offset": -0.04
+     },
+     "expression": "scheming",
+     "head": [
+      -4,
+      58,
+      0
+     ],
+     "head_turn": 0.45
+    }
+   ]
+  },
+  {
+   "id": "lookup_2",
+   "character": "toon_jawan_b",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     -2.876,
+     0,
+     15006.363
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     0.544,
+     0,
+     14996.966
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l5d",
+      "offset": -0.8
+     },
+     {
+      "line": "l5d",
+      "edge": "end",
+      "offset": 0.6
+     }
+    ]
+   ],
+   "phase": 0.6,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      -42,
+      0,
+      0
+     ],
+     "head_turn": 0.01
+    },
+    {
+     "t": {
+      "line": "l5d",
+      "word": "nothing",
+      "offset": 0.02
+     },
+     "expression": "scheming",
+     "head": [
+      -4,
+      -60,
+      0
+     ],
+     "head_turn": 0.45
+    }
+   ]
+  },
+  {
+   "id": "lookup_3",
+   "character": "toon_jawan_d",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     -3.628,
+     0,
+     15006.09
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     -0.207,
+     0,
+     14996.693
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l5d",
+      "offset": -0.8
+     },
+     {
+      "line": "l5d",
+      "edge": "end",
+      "offset": 0.6
+     }
+    ]
+   ],
+   "phase": 0.8999999999999999,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      -42,
+      0,
+      0
+     ],
+     "head_turn": 0.01
+    },
+    {
+     "t": {
+      "line": "l5d",
+      "word": "nothing",
+      "offset": 0.08
+     },
+     "expression": "scheming",
+     "head": [
+      -4,
+      62,
+      0
+     ],
+     "head_turn": 0.45
+    }
+   ]
+  },
+  {
    "id": "vajpayee_pmo",
    "character": "toon_vajpayee",
    "at": {
@@ -1410,6 +1654,49 @@
      "word": "satellites",
      "offset": 0.05
     }
+   }
+  },
+  {
+   "id": "sat_dusk2",
+   "script": "library:sky_pass",
+   "t": {
+    "line": "l5d",
+    "offset": -0.5
+   },
+   "at": {
+    "anchor": "range",
+    "offset": [
+     0,
+     0,
+     15000.0
+    ]
+   },
+   "until": {
+    "line": "l5d",
+    "edge": "end",
+    "offset": 1.0
+   },
+   "params": {
+    "from": {
+     "line": "l5d",
+     "offset": -0.4
+    },
+    "to": {
+     "line": "l5d",
+     "edge": "end",
+     "offset": 0.4
+    },
+    "a": [
+     199.0,
+     41.0
+    ],
+    "b": [
+     214.0,
+     47.0
+    ],
+    "distance": 3000.0,
+    "size": 3.2,
+    "brightness": 3.5
    }
   },
   {
@@ -3513,7 +3800,7 @@
      "wind": 0.4
     },
     "sun": {
-     "elevation": -1.5,
+     "elevation": -3.5,
      "azimuth": 214,
      "color": "#ff8a4a",
      "energy": 0.25,
@@ -3559,28 +3846,107 @@
   {
    "name": "team_lookup",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -3.353,
+       0.55,
+       15002.997
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -2.594,
+       1.5,
+       15006.466
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.07
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -3.255,
+       0.6,
+       15003.458
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -2.594,
+       1.45,
+       15006.466
+      ]
+     },
+     "lens_mm": 27,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "lens_mm": 35
+    "ease": "linear"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "19:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": -3.5,
+     "azimuth": 214,
+     "color": "#ff8a4a",
+     "energy": 0.25,
+     "softness": 1.0,
+     "visible": true,
+     "size": 1.0,
+     "glow": 3.0,
+     "glow_color": "#ff7a3a",
+     "shadows": false
+    },
+    "sky": {
+     "top": "#1c2a52",
+     "horizon": "#e98a52",
+     "stars": 0.35,
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#6a6a8a",
+     "energy": 0.2,
+     "sky": 0.85
+    },
+    "fog": {
+     "begin": 40,
+     "end": 1900,
+     "curve": 1.6,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.85,
+     "bloom": 0.06,
+     "threshold": 1.0
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 1.04,
+     "vignette": 0.48,
+     "grain": 0.04
+    }
    }
   },
   {
