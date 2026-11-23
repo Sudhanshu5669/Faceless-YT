@@ -43,6 +43,9 @@ explosion is shown as the desert lifting and a dust ring, never a mushroom cloud
 
 ## Lines and shots
 
+> **2026-11-23: the user re-directed `an32_land`, `convoy`, `cage_lower`, `lid_wh/taj/kumbh`, `wait_row`, the blast sequence `presser_quote`…`senator` (ending on a furious CIA agent's screen) and `two_more`. Follow `episodes/pokhran/HANDOFF.md` ("The user's creative direction for the upcoming shots"), not the rows below, for those shots.**
+
+
 Faces swap every 0.5–1.5 s in character beats. Counters land on the spoken number, then `ding`.
 
 | # | Line (key words) | Shot | Place | Gag / action, what lands on which word | Faces | Camera | Sound |

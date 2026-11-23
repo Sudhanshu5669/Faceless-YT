@@ -57,6 +57,57 @@ Check live status with `python pipeline/tf.py shot pokhran --status`.
    into `review/shot_loop/`. Check the strip (or `ffmpeg -vf "select='not(mod(n\,5))',tile=..."` frames).
 5. Run `python pipeline/tf.py test` (set TEMP/TMP to `output/test_temp`), commit on `main`, update this file.
 
+## The user's creative direction for the upcoming shots (2026-11-23, binding: build these, not the old beats rows)
+
+Download first (AGENTS.md rule 8). Before modelling anything, search for and list (for the user's OK) downloadable:
+- an AN-32 aircraft;
+- a "cool" hydrogen bomb / nuclear device model;
+- an Indian army truck interior;
+- circular stairs or a lift;
+- a tumbleweed;
+- sticker images: the White House (US government photo, public domain), the Taj Mahal and Kumbhkaran (a
+  public-domain painting or illustration). Wikimedia Commons, checking each licence.
+
+Make every shot FUN and cinematic.
+
+1. **`an32_land` → `convoy`, one continuous idea.**
+   - **`an32_land`:** first, a plane flying (the AN-32, dawn). Then zoom in INSIDE the cargo hold and see the hydrogen
+     bomb strapped down there.
+   - **`convoy`:** starts EXACTLY where `an32_land` left off. The framing on the strapped bomb, the background and
+     everything else is identical: build the plane's hold and the truck's bed to match so the cut is invisible. Then
+     zoom OUT and it's no longer the plane: it's a truck in an army convoy driving through the desert. "Epic."
+   - Fact check: the devices were flown from Mumbai to Jaisalmer on an IAF AN-32 and driven to the range in an army
+     convoy (script.md sources).
+2. **`cage_lower`: night, serious and cinematic.**
+   - The three bombs are being lowered into their shafts. Use a really cool hydrogen bomb model.
+   - Great, cinematic lighting.
+   - The army camp is BUSY: many kinds of people doing different jobs in the same shot (winch crews, guides on the
+     cables, officers with clipboards, carriers, radio men, sentries).
+3. **`lid_wh`, `lid_taj`, `lid_kumbh`: one continuous shot (or one shot per line, the same setup), UNDERGROUND.**
+   - Sparks fall from the top of the frame to the bottom.
+   - Circular stairs or lifts inside.
+   - The scary hydrogen bomb in front of us.
+   - Engineers and scientists in army uniform: some with clipboards writing, some carrying things from here to there.
+   - The bomb carries a sticker that changes with each line:
+     - `lid_wh`: a picture of the White House.
+     - `lid_taj`: the same shot, the engineers in new positions doing new work, the Taj Mahal sticker.
+     - `lid_kumbh`: the engineers moved again, a Kumbhkaran sticker.
+   - Code names: White House, Taj Mahal, Kumbhkaran (script.md sources).
+4. **`wait_row`:**
+   - A small army camp tent packed with bored scientists, looking out through its opening (not the bunker of the old
+     beats row).
+   - A tumbleweed rolls across the shot.
+5. **The blast sequence, `presser_quote` through `senator`.**
+   - The EPIC blast plays across `presser_quote`, `phones_ring`, `analyst_feed` and `senator`, under the narration.
+   - Then the shot suddenly zooms out and turns out to be playing on a CIA agent's screen; he is furious.
+   - The blast itself stays the accurate underground one (see the decision above).
+   - The presser quote is the PM's verbatim statement. Keep it accurate if it is shown as text.
+6. **`two_more`:** Kalam wearing goggles, the two new tests reflected in them. "Epic."
+   - **Open question for the user:** they asked for two mushroom clouds in the goggles. The 13 May tests were also
+     underground (no mushroom clouds), so the accurate version reflects two dust domes / dust plumes heaving up.
+     Ask before building.
+
+
 ## Places, gags and what they can do
 
 | Place (`places/`) | Gag | Frame / notes |
