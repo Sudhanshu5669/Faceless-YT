@@ -26,7 +26,8 @@ extends RefCounted
 ##   tufts      [[x, z, scale], ...]   hero grass tufts placed for a camera (foreground framing)
 ##   bushes     [[x, z, scale, yaw], ...]   hero ker bushes
 ##   clear      [[x, z, radius], ...]   keep the scattered plants and stones out of these circles (camera spots)
-##   drip       t   a drop of water falls from the bore's lip and splashes on the canister's lid at t
+##   drip       t   the shaft leaks: drops fall from the bore's lip and the roof on their own rhythms (onto the lid or into
+##              the floor puddles); the hero drop lands on the canister's lid at t
 ##   dive       {"from": t, "to": t, "y1": -188}   the camera's fall down the shaft: anchors dive_cam / dive_look /
 ##              dive_count follow it (from just under the plate down the bore, circling the cable bundle,
 ##              accelerating, easing out near the bottom); a lamp travels with it
@@ -488,8 +489,7 @@ var _hook: Node3D
 var _kites_n: Array = []
 var _dive_light: OmniLight3D
 var _lamp: Node3D
-var _drip: MeshInstance3D
-var _splash: Array = []
+var _drips: Array = []        # [{"from", "to", "period", "phase", "drop", "ring", "spray": [[node, angle], ...]}]
 
 
 func build(g: Dictionary) -> Node3D:
@@ -962,33 +962,60 @@ func _chamber(root: Node3D) -> void:
 	Kit.omni(_lamp, Vector3(0, -drop - 0.05, 0), "#ffb46a", 0.35, 3.5)
 	# A faint cool fill from the far side so the blacks keep detail.
 	Kit.omni(root, Vector3(0.9, fl + 2.1, -1.4), "#6a7a9a", 0.4, 4.5)
-	# The drip (from the bore's lip onto the lid) and its splash.
+	# The leak: water seeps down the shaft and drips from several points on the bore's lip and the roof, each on
+	# its own rhythm, onto the lid or into the puddles on the floor. Source 0 lands on the lid at params.drip.
 	var wm := StandardMaterial3D.new()
-	wm.albedo_color = Color(0.7, 0.8, 0.85, 0.6)
+	wm.albedo_color = Color(0.75, 0.8, 0.82, 0.45)
 	wm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	wm.roughness = 0.02
 	wm.metallic_specular = 1.0
 	wm.emission_enabled = true
 	wm.emission = Color("ffd9a0")
-	wm.emission_energy_multiplier = 2.2
-	_drip = Kit.ball(root, 0.017, Vector3.ZERO, wm, 12, Vector3(1, 1.6, 1))
-	_drip.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	for k in 7:
-		var d := Kit.ball(root, 0.009, Vector3.ZERO, wm, 8)
-		d.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		_splash.append([d, TAU * k / 7.0 + 0.3 * k])
-	var ring := MeshInstance3D.new()
-	var rm := TorusMesh.new()
-	rm.inner_radius = 0.9
-	rm.outer_radius = 1.0
-	rm.rings = 32
-	rm.ring_segments = 4
-	ring.mesh = rm
-	ring.material_override = wm
-	ring.name = "splash_ring"
-	root.add_child(ring)
-	_splash.append([ring, -1.0])
-
+	wm.emission_energy_multiplier = 3.0
+	var lid_y := fl + 0.08 + CAN_H + 0.01
+	var rl := Kit.rng("leak")
+	var sources := [[Vector3(0.18, fl + CHAMBER_H, 0.1), 1.35]]
+	for k in 3:
+		var a := rl.randf() * TAU
+		sources.append([Vector3(cos(a) * rl.randf_range(0.05, CAN_R - 0.08), fl + CHAMBER_H, sin(a) * rl.randf_range(0.05, CAN_R - 0.08)), rl.randf_range(1.1, 1.9)])
+	for k in 5:
+		var a := rl.randf() * TAU
+		var rr := rl.randf_range(0.95, 1.55)
+		var roof := _chamber_profile(lerpf(0.62, 0.9, (rr - 0.9) / 0.7)).y
+		sources.append([Vector3(cos(a) * rr, fl + roof - 0.05, sin(a) * rr), rl.randf_range(1.3, 2.4)])
+	for i in sources.size():
+		var src: Vector3 = sources[i][0]
+		var on_lid := Vector2(src.x, src.z).length() < CAN_R - 0.04
+		var dst := Vector3(src.x, lid_y if on_lid else fl + 0.005, src.z)
+		var d := {"from": src, "to": dst, "period": float(sources[i][1]), "phase": rl.randf() * 3.0,
+			"fall": sqrt(2.0 * (src.y - dst.y) / 9.81)}
+		d["drop"] = Kit.ball(root, 0.009, Vector3.ZERO, wm, 10)
+		(d["drop"] as MeshInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		var ring := MeshInstance3D.new()
+		var rm := TorusMesh.new()
+		rm.inner_radius = 0.92
+		rm.outer_radius = 1.0
+		rm.rings = 28
+		rm.ring_segments = 4
+		ring.mesh = rm
+		# A ripple is only a moving highlight on the wet surface: nearly clear, glossy, fading as it spreads.
+		var rmat := StandardMaterial3D.new()
+		rmat.albedo_color = Color(0.85, 0.88, 0.9, 0.0)
+		rmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		rmat.roughness = 0.04
+		rmat.metallic_specular = 1.0
+		ring.material_override = rmat
+		ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		root.add_child(ring)
+		d["ring"] = ring
+		d["ring_mat"] = rmat
+		var spray := []
+		for k in 5:
+			var b := Kit.ball(root, 0.005, Vector3.ZERO, wm, 6)
+			b.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			spray.append([b, TAU * k / 5.0 + rl.randf() * 0.8, rl.randf_range(0.6, 1.0)])
+		d["spray"] = spray
+		_drips.append(d)
 
 ## The chamber's cross-section: v 0..1 runs up the wall (0..0.6) and over the domed roof to the bore (radius, height).
 static func _chamber_profile(v: float) -> Vector2:
@@ -1401,34 +1428,50 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			(nodes[0] as Node3D).transform = Transform3D((Basis(Vector3.UP, yaw_a) * Basis(Vector3.RIGHT, -0.25)).scaled(Vector3(1.25, 1.5, 1.25)), local + Vector3(0, -0.1, 0))
 	# The work lamp swings a little on its cable (the cage's shadow sweeps the rock).
 	_lamp.rotation = Vector3(0.05 * sin(t * 2.6 + 0.4), 0, 0.07 * sin(t * 2.1))
-	# The drip: swells on the bore's lip, lets go, falls and hits the lid at params.drip, splashes.
+	# The leak: each source swells a drop, lets it go, it falls (free fall, stretching as it speeds up) and
+	# splashes (a ripple ring and a little spray). Source 0's drop lands on the lid at params.drip.
 	var drip_t := float(_p.get("drip", -100.0))
-	var fall := 0.55
-	var lid_y := -SHAFT_D + 0.08 + CAN_H + 0.01
-	var from := Vector3(0.18, -SHAFT_D + CHAMBER_H, 0.1)
-	var to := Vector3(0.18, lid_y, 0.1)
-	var ft := t - (drip_t - fall)
-	_drip.visible = ft > -0.4 and ft < fall
-	if _drip.visible:
-		var y := from.y if ft < 0.0 else lerpf(from.y, to.y, pow(clampf(ft / fall, 0.0, 1.0), 2.0))
-		var swell := 1.0 if ft >= 0.0 else clampf(1.0 + ft / 0.4, 0.3, 1.0)
-		_drip.position = Vector3(from.x, y - 0.012 * (1.0 - swell), from.z)
-		_drip.scale = Vector3(swell, swell * (1.0 + 0.6 * clampf(ft / fall, 0.0, 1.0)), swell)
-	var sage := t - drip_t
-	for sp in _splash:
-		var nd: MeshInstance3D = sp[0]
-		nd.visible = sage > 0.0 and sage < 0.6
-		if not nd.visible:
-			continue
-		if float(sp[1]) < 0.0:
-			var rr := 0.02 + 0.16 * Motion.out_cubic(clampf(sage / 0.5, 0.0, 1.0))
-			nd.position = to + Vector3(0, 0.002, 0)
-			nd.scale = Vector3(rr, 0.02, rr)
-		else:
-			var a := float(sp[1])
-			var k := clampf(sage / 0.35, 0.0, 1.0)
-			nd.position = to + Vector3(cos(a) * 0.09 * k, 0.11 * sin(k * PI), sin(a) * 0.09 * k)
-			nd.scale = Vector3.ONE * maxf(1.0 - k, 0.001)
+	for i in _drips.size():
+		var d: Dictionary = _drips[i]
+		var per := float(d["period"])
+		var fall := float(d["fall"])
+		var land := float(d["phase"]) if i > 0 else drip_t
+		# The latest landing at or before t + fall (so a drop in flight is the next one to land).
+		var n := floorf((t + fall - land) / per)
+		var next_land := land + per * n
+		var last_land := next_land if next_land <= t else next_land - per
+		var drop: MeshInstance3D = d["drop"]
+		var from: Vector3 = d["from"]
+		var to: Vector3 = d["to"]
+		var ft := t - (next_land - fall)     # 0..fall while falling; negative while it swells
+		drop.visible = ft > -0.45 and ft < fall
+		if drop.visible:
+			if ft < 0.0:
+				var sw := clampf(1.0 + ft / 0.45, 0.25, 1.0)
+				drop.position = from - Vector3(0, 0.012 * sw, 0)
+				drop.scale = Vector3(sw, sw * 1.2, sw)
+			else:
+				var k := ft / fall
+				drop.position = from.lerp(to, k * k)
+				var v := 9.81 * ft
+				drop.scale = Vector3(0.7, 1.0 + v * 0.9, 0.7)
+		var sage := t - last_land
+		var ring: MeshInstance3D = d["ring"]
+		ring.visible = sage >= 0.0 and sage < 0.7
+		if ring.visible:
+			var rr := 0.015 + (0.12 if to.y > -SHAFT_D + 0.5 else 0.2) * Motion.out_cubic(clampf(sage / 0.6, 0.0, 1.0))
+			ring.position = to + Vector3(0, 0.002, 0)
+			ring.scale = Vector3(rr, 0.004, rr)
+			(d["ring_mat"] as StandardMaterial3D).albedo_color.a = 0.22 * (1.0 - sage / 0.7)
+		for sp in d["spray"]:
+			var b: MeshInstance3D = sp[0]
+			var k2 := clampf(sage / 0.3, 0.0, 1.0)
+			b.visible = sage >= 0.0 and sage < 0.3
+			if b.visible:
+				var a := float(sp[1])
+				var h := float(sp[2])
+				b.position = to + Vector3(cos(a) * 0.07 * k2 * h, 0.08 * h * sin(k2 * PI), sin(a) * 0.07 * k2 * h)
+				b.scale = Vector3.ONE * maxf(1.0 - k2, 0.05)
 	var dv := _dive(t)
 	_dive_light.light_energy = 0.9 if dv["on"] else 0.0
 	if dv["on"]:
