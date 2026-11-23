@@ -191,7 +191,7 @@ ACTORS += [
 ]
 
 # cricket (1998, afternoon): gully cricket on the sand south of the shaft; the batsman lofts it on "cricket".
-CRICKET = [W("l8c", offset=-1.0), W("l8d", offset=0.0)]
+CRICKET = [W("l8c", offset=-1.0), W("l9a", offset=0.0)]   # through cricket_feed: the live satellite view sees them
 HIT = W("l8c", "cricket", 0.0)
 ACTORS += [
     {"id": "cr_bat", "character": "toon_jawan_a", "at": P(-3.0, 0, 16.0), "facing": P(-3.0, 0, 0.0), "action": "idle",

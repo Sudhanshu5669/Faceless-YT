@@ -41,6 +41,9 @@ ACTORS = [
          {"t": W("l6c", "look", 0.0), "head": [28, 10, 0], "head_turn": 0.3},
          {"t": W("l6c", "same.", -0.15), "expression": "deadpan", "head": [-4, 0, 0], "head_turn": 0.3},
          {"t": W("l6c", "same.", 0.55), "expression": "sleepy", "head": [12, 0, 6], "head_turn": 0.6},
+         # The feed shows soldiers playing cricket: he watches, bored, and slumps on "bored".
+         {"t": W("l8d", offset=-0.6), "expression": "deadpan", "head": [4, 0, 0], "head_turn": 0.3},
+         {"t": W("l8d", "bored", 0.0), "expression": "sleepy", "head": [38, 0, 10], "head_turn": 0.5},
      ]},
 ]
 
@@ -48,6 +51,8 @@ GAGS = [{"id": "office_us", "script": "gags/analyst_room.gd", "t": 0, "at": P(0,
          "params": {"wh": {"blast": W("l1a", "blew", -0.05), "rewind": W("l2a", "Not", -0.05),
                            "switch": W("l2a", "White", 0.05)},
                     "rewind": {"from": W("l3a", "Rewind", -0.1), "until": W("l3a", "1995.", 0.05), "to": "DEC 1995"},
+                    "live": {"from": W("l8d", offset=-0.6), "until": W("l9a", offset=0.0),
+                             "cam": range_place.P(-3.0, 260.0, 11.5), "ortho": 24.0, "stamp": "MAY 1998"},
                     "prints": {"cam": range_place.P(4.5, 260.0, 5.5), "ortho": 22.0, "slide": W("l6c", "morning", 0.0),
                                "hand": "analyst", "shrug": W("l6c", "same.", -0.1)},
                     "tv": {"on": ANNOUNCED, "cam": lawn.TV_CAM, "look": lawn.TV_LOOK, "fov": 26.0}}}]
@@ -79,6 +84,11 @@ SHOTS = {
     "photos_same": {"look": LOOK, "camera": move(
         cam(P(0.16, 1.3, -1.74), P(0.22, 0.78, -0.95), 24, {"strength": 0.12}),
         cam(P(0.18, 1.24, -1.62), P(0.23, 0.82, -0.9), 26, {"strength": 0.12}), "in_out")},
+    # Over the analyst's head onto his monitor: the live feed from orbit, soldiers as specks playing cricket on the
+    # sand; on "bored" his head sinks into the bottom of the frame. A slow push.
+    "cricket_feed": {"look": LOOK, "camera": move(
+        cam(P(0.12, 1.5, 0.05), P(SX + 0.02, SY - 0.08, SZ), 42, {"strength": 0.1}),
+        cam(P(0.1, 1.45, -0.2), P(SX + 0.02, SY - 0.08, SZ), 46, {"strength": 0.1}), "linear")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

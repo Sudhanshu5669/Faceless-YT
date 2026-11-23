@@ -19,6 +19,8 @@ extends RefCounted
 ##           live view of a SubViewport camera placed in the world (the PM's lawn), from `on`
 ##   knock   t   the analyst's elbow knocks the snow globe; the snow swirls
 ##   stamp   "11 MAY 1998"  the date on the feed (default)
+##   live    {"from": t, "until": t, "cam": point, "ortho": 26, "stamp": "MAY 1998"}   the hero CRT shows a live overhead view straight down
+##           from `cam` (the place's own actors as specks), with the same sensor look
 ##   prints  {"cam": point, "ortho": 34, "slide": t, "hand": actor id, "shrug": t}   two satellite prints of the same
 ##           place (a live overhead view of `cam`, looking straight down) on the desk: the hand slides the second one in
 ##           beside the first, landing at `slide`; at `shrug` the actor shrugs, both hands out, shoulders up
@@ -52,6 +54,8 @@ uniform float glitch = 0.0;      // 0..1 the feed switching source
 uniform float energy = 0.62;
 uniform float power = 1.0;       // 0 = off
 uniform sampler2D aerial : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D live : source_color, filter_linear;
+uniform float live_mix = 0.0;    // 1 = the live overhead view (a SubViewport) instead of the drawn terrain
 varying vec2 uv2;
 //NOISE
 void vertex() { uv2 = UV; }
@@ -170,6 +174,10 @@ void fragment() {
 	jit.x += glitch * 0.15 * (h3(vec3(band, floor(tr * 24.0), 3.0)) - 0.5) * step(0.5, h3(vec3(band, floor(tr * 24.0), 8.0)));
 	vec2 w = (uv + jit - 0.5) * vec2(0.42, 0.32) + vec2(0.0025 * t, 0.001 * t);
 	float g = scene < 0.5 ? whitehouse(w) : terrain(w);
+	if (live_mix > 0.0) {
+		vec3 lv = texture(live, clamp(uv + jit, 0.0, 1.0)).rgb;
+		g = mix(g, dot(lv, vec3(0.3, 0.59, 0.11)) * 1.05, live_mix);
+	}
 	// The blast: the ground domes up (a bright crown with a shadowed edge), then a ring of dust rolls out.
 	if (db > 0.0) {
 		float r = length(w);
@@ -321,6 +329,9 @@ var _prints: Array = []
 var _print_view: SubViewport
 var _print_cam: Camera3D
 var _print_sun: SpotLight3D
+var _live_view: SubViewport
+var _live_cam: Camera3D
+var _live_sun: SpotLight3D
 var _chair_top: Node3D
 var _chair_base: Node3D
 var _chair_post: MeshInstance3D
@@ -391,6 +402,64 @@ func _prints_build(root: Node3D) -> void:
 		_prints.append(q)
 
 
+func _live_build(root: Node3D) -> void:
+	var ld: Dictionary = _p.get("live", {})
+	if ld.is_empty():
+		return
+	_live_view = SubViewport.new()
+	_live_view.size = Vector2i(800, 640)
+	_live_view.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	_live_view.own_world_3d = false
+	root.add_child(_live_view)
+	_live_cam = Camera3D.new()
+	_live_cam.projection = Camera3D.PROJECTION_ORTHOGONAL
+	_live_cam.size = float(ld.get("ortho", 26.0))
+	_live_cam.near = 1.0
+	_live_cam.far = 2000.0
+	var env := Environment.new()
+	env.background_mode = Environment.BG_COLOR
+	env.background_color = Color(0.5, 0.48, 0.44)
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	env.ambient_light_color = Color(0.62, 0.6, 0.56)
+	env.ambient_light_energy = 1.5
+	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	_live_cam.environment = env
+	_live_view.add_child(_live_cam)
+	_live_sun = SpotLight3D.new()
+	_live_sun.light_color = Color(1.0, 0.95, 0.85)
+	_live_sun.light_energy = 14.0
+	_live_sun.spot_range = 900.0
+	_live_sun.spot_angle = 6.0
+	_live_sun.spot_attenuation = 0.0
+	_live_sun.shadow_enabled = true
+	_live_sun.visible = false
+	root.add_child(_live_sun)
+	_feed_mat.set_shader_parameter("live", _live_view.get_texture())
+
+
+func _pose_live(t: float, ctx: Dictionary) -> void:
+	var ld: Dictionary = _p.get("live", {})
+	if ld.is_empty() or _live_view == null:
+		return
+	var on := t >= float(ld.get("from", 1e9)) and t < float(ld.get("until", 1e9))
+	_feed_mat.set_shader_parameter("live_mix", 1.0 if on else 0.0)
+	_live_sun.visible = on
+	if not on:
+		return
+	# Its own date on the stamp (the rewind's landing date stays only until a live feed takes over).
+	_stamp.pixel_size = _stamp_px
+	_stamp.modulate = _stamp_mod
+	_stamp.text = "%s  09:42:%02dZ" % [String(ld.get("stamp", "MAY 1998")), int(fposmod(floor(t * 1.0), 60.0))]
+	var cp: Dictionary = ctx["point"].call(ld["cam"]) if ld.has("cam") else {}
+	if cp.has("pos"):
+		var cpos: Vector3 = cp["pos"]
+		# The feed scrolls slowly as the satellite moves; north up.
+		_live_cam.global_transform = Transform3D(Basis.looking_at(Vector3.DOWN, Vector3.FORWARD), cpos + Vector3(0.12 * t, 0, 0.05 * t) - Vector3(0.12, 0, 0.05) * float(ld.get("from", 0.0)))
+		var ground := cpos - Vector3(0, 260.0, 0)
+		var from := ground + Vector3(-220.0, 230.0, 260.0)
+		_live_sun.global_transform = Transform3D(Basis.looking_at(ground - from, Vector3.UP), from)
+
+
 func _pose_prints(gt: Transform3D, t: float, ctx: Dictionary) -> Vector3:
 	var pd: Dictionary = _p.get("prints", {})
 	if pd.is_empty() or _prints.is_empty():
@@ -438,6 +507,7 @@ func build(g: Dictionary) -> Node3D:
 	_window(root)
 	_desk(root)
 	_prints_build(root)
+	_live_build(root)
 	_shelves(root)
 	_tv(root)
 	return root
@@ -916,6 +986,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			glow.light_energy = 0.6 * clampf(on / 0.2, 0.0, 1.0) * (0.9 + 0.1 * sin(t * 9.0))
 	elif glow:
 		glow.light_energy = 0.0
+	_pose_live(t, ctx)
 	var prints_at := _pose_prints(gt, t, ctx)
 	return {"screen": gt * SCREEN, "tv": gt * TV_AT, "globe": gt * (GLOBE_AT + Vector3(0, 0.08, 0)),
 			"prints": gt * prints_at, "mug": gt * MUG_AT, "desk": gt * Vector3(0, DESK_TOP, -1.6), "chair": gt * (_chair_top.position + Vector3(0, 0.02, 0)),
