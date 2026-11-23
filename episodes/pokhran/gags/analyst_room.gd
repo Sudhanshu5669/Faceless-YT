@@ -19,7 +19,10 @@ extends RefCounted
 ##           live view of a SubViewport camera placed in the world (the PM's lawn), from `on`
 ##   knock   t   the analyst's elbow knocks the snow globe; the snow swirls
 ##   stamp   "11 MAY 1998"  the date on the feed (default)
-## anchors: screen, tv, globe, mug, desk, chair, window
+##   prints  {"cam": point, "ortho": 34, "slide": t, "hand": actor id, "shrug": t}   two satellite prints of the same
+##           place (a live overhead view of `cam`, looking straight down) on the desk: the hand slides the second one in
+##           beside the first, landing at `slide`; at `shrug` the actor shrugs, both hands out, shoulders up
+## anchors: screen, tv, globe, mug, desk, chair, window, prints
 
 const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
@@ -286,7 +289,38 @@ void fragment() {
 }
 """
 
+const PRINT := """
+shader_type spatial;
+uniform sampler2D view : source_color, filter_linear;
+uniform float ring = 1.0;
+uniform float seed = 0.0;
+varying vec2 uvp;
+float h(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7)) + seed) * 43758.5453); }
+void vertex() { uvp = UV; }
+void fragment() {
+	vec2 b = abs(uvp - 0.5);
+	float border = step(0.455, max(b.x, b.y));
+	vec2 iuv = (uvp - 0.5) / 0.91 + 0.5;
+	vec3 v = texture(view, iuv).rgb;
+	float g = dot(v, vec3(0.3, 0.59, 0.11));
+	g = clamp((g - 0.5) * 1.15 + 0.46, 0.0, 1.0);
+	g += (h(floor(uvp * 700.0)) - 0.5) * 0.12;
+	vec3 c = vec3(g) * vec3(0.98, 0.97, 0.94);
+	float r = abs(length((uvp - vec2(0.5, 0.5)) * vec2(1.0, 1.0)) - 0.12 - 0.01 * sin(atan(uvp.y - 0.5, uvp.x - 0.5) * 3.0));
+	c = mix(c, vec3(0.75, 0.1, 0.08), (1.0 - smoothstep(0.004, 0.009, r)) * ring * (1.0 - border));
+	c = mix(c, vec3(0.95, 0.94, 0.9), border);
+	ALBEDO = c;
+	ROUGHNESS = 0.18;
+	SPECULAR = 0.7;
+}
+"""
+
+
 var _p := {}
+var _prints: Array = []
+var _print_view: SubViewport
+var _print_cam: Camera3D
+var _print_sun: SpotLight3D
 var _chair_top: Node3D
 var _chair_base: Node3D
 var _chair_post: MeshInstance3D
@@ -306,12 +340,104 @@ var _coord: Label3D
 var _clock: Label3D
 
 
+func _prints_build(root: Node3D) -> void:
+	var pd: Dictionary = _p.get("prints", {})
+	if pd.is_empty():
+		return
+	_print_view = SubViewport.new()
+	_print_view.size = Vector2i(768, 768)
+	_print_view.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	_print_view.own_world_3d = false
+	_print_view.msaa_3d = Viewport.MSAA_2X
+	root.add_child(_print_view)
+	_print_cam = Camera3D.new()
+	_print_cam.projection = Camera3D.PROJECTION_ORTHOGONAL
+	_print_cam.size = float(pd.get("ortho", 34.0))
+	_print_cam.near = 1.0
+	_print_cam.far = 2000.0
+	var env := Environment.new()
+	env.background_mode = Environment.BG_COLOR
+	env.background_color = Color(0.5, 0.48, 0.44)
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	env.ambient_light_color = Color(0.62, 0.6, 0.56)
+	env.ambient_light_energy = 1.5
+	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	_print_cam.environment = env
+	_print_view.add_child(_print_cam)
+	# The morning sun over the photographed place (far from this room): a narrow, distant spot at a low angle, so the
+	# trucks and the tripod throw the long shadows analysts read. On only around the prints.
+	_print_sun = SpotLight3D.new()
+	_print_sun.light_color = Color(1.0, 0.92, 0.8)
+	_print_sun.light_energy = 14.0
+	_print_sun.spot_range = 900.0
+	_print_sun.spot_angle = 6.0
+	_print_sun.spot_attenuation = 0.0
+	_print_sun.shadow_enabled = true
+	_print_sun.visible = false
+	root.add_child(_print_sun)
+	for k in 2:
+		var q := MeshInstance3D.new()
+		var qm := PlaneMesh.new()
+		qm.size = Vector2(0.254, 0.203)
+		q.mesh = qm
+		var m := Kit.shader(PRINT)
+		m.set_shader_parameter("view", _print_view.get_texture())
+		m.set_shader_parameter("ring", 0.0)
+		m.set_shader_parameter("seed", float(k) * 3.1)
+		q.material_override = m
+		q.position = Vector3(0.06, DESK_TOP + 0.004, -1.2)
+		q.rotation.y = 0.07
+		root.add_child(q)
+		_prints.append(q)
+
+
+func _pose_prints(gt: Transform3D, t: float, ctx: Dictionary) -> Vector3:
+	var pd: Dictionary = _p.get("prints", {})
+	if pd.is_empty() or _prints.is_empty():
+		return Vector3.ZERO
+	var cp: Dictionary = ctx["point"].call(pd["cam"]) if pd.has("cam") else {}
+	var ts := float(pd.get("slide", 1e9))
+	if cp.has("pos"):
+		var cpos: Vector3 = cp["pos"]
+		_print_cam.global_transform = Transform3D(Basis.looking_at(Vector3.DOWN, Vector3.FORWARD), cpos)
+		var ground := cpos - Vector3(0, 260.0, 0)
+		var from := ground + Vector3(260.0, 140.0, -330.0)
+		_print_sun.global_transform = Transform3D(Basis.looking_at(ground - from, Vector3.UP), from)
+		_print_sun.visible = t > ts - 2.0 and t < float(pd.get("shrug", ts)) + 3.0
+	# The second print slides in from the right beside the first, under his fingers, easing to a stop.
+	var u := Motion.out_cubic(Motion.seg(t, ts - 0.6, ts))
+	var p2: MeshInstance3D = _prints[1]
+	var from := Vector3(0.72, DESK_TOP + 0.006, -1.06)
+	var to := Vector3(0.36, DESK_TOP + 0.006, -1.19)
+	p2.position = from.lerp(to, u)
+	p2.rotation.y = lerpf(-0.25, -0.05, u)
+	var aid := String(pd.get("hand", ""))
+	var actor = ctx["actor"].call(aid) if aid != "" and ctx.has("actor") else null
+	if actor != null and actor.visible:
+		var on := Motion.smooth(Motion.seg(t, ts - 0.95, ts - 0.6)) * (1.0 - Motion.smooth(Motion.seg(t, ts + 0.1, ts + 0.45)))
+		actor.aim_hand("r", gt * (p2.position + Vector3(0.09, 0.03, 0.06)), on)
+		# The shrug: both hands out to the sides, palms up, shoulders raised; held a beat, then dropped.
+		var tsh := float(pd.get("shrug", 1e9))
+		var w := Motion.smooth(Motion.seg(t, tsh - 0.25, tsh + 0.05)) * (1.0 - Motion.smooth(Motion.seg(t, tsh + 0.75, tsh + 1.1)))
+		if w > 0.0:
+			var inv := gt.affine_inverse()
+			var chest: Vector3 = inv * actor.bone_world("spine_03")
+			var ay := float(actor.rotation.y)
+			var fwd := Vector3(sin(ay), 0, cos(ay))
+			var left := Vector3(cos(ay), 0, -sin(ay))
+			for side in ["l", "r"]:
+				var sg := 1.0 if side == "l" else -1.0
+				actor.aim_hand(side, gt * (chest + left * sg * 0.34 + fwd * 0.2 + Vector3(0, 0.02, 0)), w, 0.06 * w)
+	return (_prints[0] as Node3D).position.lerp(p2.position, 0.5)
+
+
 func build(g: Dictionary) -> Node3D:
 	_p = g.get("params", {})
 	var root := Node3D.new()
 	_shell(root)
 	_window(root)
 	_desk(root)
+	_prints_build(root)
 	_shelves(root)
 	_tv(root)
 	return root
@@ -790,6 +916,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			glow.light_energy = 0.6 * clampf(on / 0.2, 0.0, 1.0) * (0.9 + 0.1 * sin(t * 9.0))
 	elif glow:
 		glow.light_energy = 0.0
+	var prints_at := _pose_prints(gt, t, ctx)
 	return {"screen": gt * SCREEN, "tv": gt * TV_AT, "globe": gt * (GLOBE_AT + Vector3(0, 0.08, 0)),
-			"mug": gt * MUG_AT, "desk": gt * Vector3(0, DESK_TOP, -1.6), "chair": gt * (_chair_top.position + Vector3(0, 0.02, 0)),
+			"prints": gt * prints_at, "mug": gt * MUG_AT, "desk": gt * Vector3(0, DESK_TOP, -1.6), "chair": gt * (_chair_top.position + Vector3(0, 0.02, 0)),
 			"window": gt * Vector3(-ROOM.x * 0.5, 1.45, 0.35)}

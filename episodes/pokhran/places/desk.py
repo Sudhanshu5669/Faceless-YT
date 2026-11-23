@@ -6,6 +6,7 @@ on the back wall; the window with blinds in the -x wall (frame right when lookin
 """
 from .common import W, frame, cam, move
 from . import lawn
+from . import range as range_place
 
 DESK_Z = 3000.0
 P = frame("desk", DESK_Z)
@@ -34,6 +35,12 @@ ACTORS = [
          {"t": ANNOUNCED, "expression": "shocked", "action": "sit_talk"},
          {"t": W("l1b", "it", 0.1), "expression": "panic"},
          {"t": W("l2a"), "expression": "nervous"},
+         # 1998, the morning prints: he compares two identical views of the range, shrugs on "the same", nods off.
+         {"t": W("l6c", offset=-0.6), "action": "sit", "expression": "side_eye", "head": [26, 8, 0], "head_turn": 0.3},
+         {"t": W("l6c", "photos", 0.0), "head": [28, -10, 0], "head_turn": 0.35},
+         {"t": W("l6c", "look", 0.0), "head": [28, 10, 0], "head_turn": 0.3},
+         {"t": W("l6c", "same.", -0.15), "expression": "deadpan", "head": [-4, 0, 0], "head_turn": 0.3},
+         {"t": W("l6c", "same.", 0.55), "expression": "sleepy", "head": [12, 0, 6], "head_turn": 0.6},
      ]},
 ]
 
@@ -41,6 +48,8 @@ GAGS = [{"id": "office_us", "script": "gags/analyst_room.gd", "t": 0, "at": P(0,
          "params": {"wh": {"blast": W("l1a", "blew", -0.05), "rewind": W("l2a", "Not", -0.05),
                            "switch": W("l2a", "White", 0.05)},
                     "rewind": {"from": W("l3a", "Rewind", -0.1), "until": W("l3a", "1995.", 0.05), "to": "DEC 1995"},
+                    "prints": {"cam": range_place.P(4.5, 260.0, 5.5), "ortho": 22.0, "slide": W("l6c", "morning", 0.0),
+                               "hand": "analyst", "shrug": W("l6c", "same.", -0.1)},
                     "tv": {"on": ANNOUNCED, "cam": lawn.TV_CAM, "look": lawn.TV_LOOK, "fov": 26.0}}}]
 
 SX, SY, SZ = SCREEN
@@ -64,6 +73,12 @@ SHOTS = {
     "rewind": {"look": LOOK, "camera": move(
         cam(P(SX + 0.02, SY + 0.03, SZ + 0.6), P(SX - 0.02, SY + 0.02, SZ), 40, {"strength": 0.15}),
         cam(P(STAMP[0], STAMP[1] - 0.03, STAMP[2] + 0.3), P(STAMP[0], STAMP[1] - 0.06, STAMP[2]), 40, {"strength": 0.12}), "in_out")},
+    # High from the monitor's side: the morning prints in the foreground, the analyst above them. The second print slides
+    # in beside the first (the same site, the same parked trucks); he looks from one to the other, shrugs on "the same",
+    # nods off. A slow push.
+    "photos_same": {"look": LOOK, "camera": move(
+        cam(P(0.16, 1.3, -1.74), P(0.22, 0.78, -0.95), 24, {"strength": 0.12}),
+        cam(P(0.18, 1.24, -1.62), P(0.23, 0.82, -0.9), 26, {"strength": 0.12}), "in_out")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}
