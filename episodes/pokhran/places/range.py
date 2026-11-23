@@ -217,7 +217,7 @@ JEEPW = [W("l9a", offset=-1.6), W("l10a", offset=0.0)]
 # Scene-time plan (the shot starts 0.2 s before l9a): it charges in; slow motion (x0.2) from l9a+0.05 to +0.3 while it
 # hops past the lens and the driver winks at us (1.25 s on screen); back to speed for the slide, stopping at l9a+0.8;
 # the jolt drops the driver's cap. After the slow motion the scene clock runs 1.0 s behind the narration.
-SLOW = {"from": W("l9a", offset=0.05), "to": W("l9a", offset=0.3), "rate": 0.2}
+SLOW = {"from": W("l9a", offset=0.05), "to": W("l9a", offset=1.3), "rate": 0.2}   # 1.25 s on screen = 0.25 s of action
 JEEP_STOP = W("l9a", offset=0.8)
 RIDE = [W("l9a", offset=-1.6), {"shot": "kalam_tape", "offset": 0.0}]    # in the jeep for this shot
 OUT = [{"shot": "kalam_tape", "offset": 0.05}, W("l10a", offset=0.0)]    # out of it (off-screen) by kalam_tape
@@ -226,7 +226,7 @@ ACTORS += [
     {"id": "sci_ride1", "character": "toon_sci_fatigues_a", "at": P(-5.64, 0, -19.1), "facing": P(-5.64, 0, -30.0),
      "action": "drive", "shown": [RIDE],
      "cues": [{"t": 0.0, "expression": "grin"},
-              {"t": W("l9a", offset=0.08), "expression": "wink", "head": [0, -68, 0], "head_turn": 0.08},
+              {"t": W("l9a", offset=0.08), "expression": "wink", "head": [-6, -90, 0], "head_turn": 0.08},
               {"t": W("l9a", offset=0.33), "expression": "grin", "head": [0, 0, 0], "head_turn": 0.2},
               {"t": W("l9a", offset=0.82), "expression": "surprised"}]},
     {"id": "sci_ride2", "character": "toon_sci_fatigues_b", "at": P(-6.36, 0, -19.1), "facing": P(-6.36, 0, -30.0),
@@ -274,7 +274,8 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "cricket": {"bat": "cr_bat", "bowl": "cr_bowl", "release": W("l8c", "cricket", -0.5), "hit": HIT,
                                 "stumps": [-3.0, 16.45]},
                     "jeep": {"at": [JEEP_AT[0], JEEP_AT[1], 90.0], "stop": JEEP_STOP, "speed": 15.0, "slide": 70.0,
-                             "driver": "sci_ride1", "riders": [["sci_ride2", 0.08, -0.36]],
+                             "driver": "sci_ride1", "riders": [["sci_ride2", 0.3, -0.36]],
+                             "turn": [W("l9a", offset=0.06), W("l9a", offset=0.33), -30.0],
                              "slip": {"actor": "sci_ride1", "t": W("l9a", offset=0.84)}},
                     "disguise": [{"actor": "kalam_field", "cap": True, "tape": "PRITHVIRAJ"}],
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
@@ -464,10 +465,9 @@ SHOTS = {
     # At window height by the track: the jeep tears in across the desert, a scientist at the wheel; as it hops past the
     # lens the shot drops into slow motion and he turns to us and winks; back to speed, it handbrake-slides broadside to
     # a stop in a burst of dust (shake) and the jolt drops his oversized cap over his eyes.
-    "jeep_arrive": {"look": LOOK_AFTERNOON, "slowmo": SLOW, "shake": [{"t": JEEP_STOP, "amount": 0.35}], "camera": {
-        "from": cam(P(-11.0, 1.4, -15.0), P(-21.0, 1.2, -14.0), 26, {"strength": 0.08}),
-        "to": cam(P(-10.9, 1.45, -15.2), P(-6.6, 1.05, -19.2), 28, {"strength": 0.1}),
-        "ease": "in_out", "start": W("l9a", offset=-0.2), "end": W("l9a", offset=0.9)}},
+    "jeep_arrive": {"look": LOOK_AFTERNOON, "slowmo": SLOW, "shake": [{"t": JEEP_STOP, "amount": 0.35}], "camera": move(
+        cam(P(-11.0, 1.5, -12.8), "range_site.jeep", 36, {"strength": 0.08}),
+        cam(P(-10.7, 1.45, -13.4), "range_site.jeep", 32, {"strength": 0.1}), "linear")},
     "kalam_tape": {"look": LOOK_AFTERNOON, "camera": {
         "from": cam(P(-9.6, 1.3, -12.9), P(-7.0, 1.0, -16.6), 30, {"strength": 0.1}),
         "to": cam(P(-8.05, 1.02, -15.4), P(-7.32, 0.92, -16.55), 36, {"strength": 0.14}),

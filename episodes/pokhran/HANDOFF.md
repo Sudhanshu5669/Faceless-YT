@@ -13,7 +13,7 @@ list with the gag for every line: `beats.md` (the source of truth for what each 
 |---|---|
 | Approved by the user (27) | hook_feed … kalam_tape (00–28), except the two below. Verdicts: `review/shot_decisions.json` |
 | Fixed after "changes", re-rendered, awaiting the user's verdict | `cricket` (batsman redone: side-on stroke, seen in profile), `jeep_arrive` (redone for FUN: the jeep tears in, hops over the lens, handbrake-slides to a stop in dust; cap no longer clips) |
-| WIP (not yet checked) | `jeep_arrive` round 3 per the user's note: scientists ride IN the jeep (sci_ride1 drives, sci_ride2 passenger; no pop-in), camera at window height, NEW shot key `slowmo` (x0.2) while the jeep hops past the lens and the driver winks at camera, then the handbrake slide; the stop jolt drops his cap. Built + storyboarded, NOT yet reviewed or rendered: look at the stills/clip, tune, commit. |
+| Awaiting the user's verdict | `jeep_arrive` round 3: the scientists ride IN the jeep (one drives, one passenger), the camera at window height tracks the jeep (anchor `range_site.jeep`), slow motion x0.2 for 1.25 s as it passes while the driver twists round and looks at us, then the handbrake slide; the stop jolts his cap down. |
 | Next to build | `an32_land` (NEW place: airstrip), `convoy`, then `wait_row`, `wait_clock`, `wind_turns`, `key_turn`, `desert_jumps`, `khetolai_crack`, `presser_walk`… to `end_feed` (beats.md rows 10–21) |
 
 Check live status with `python pipeline/tf.py shot pokhran --status`.
@@ -68,7 +68,10 @@ Download first (AGENTS.md rule 8). Before modelling anything, search for and lis
 - sticker images: the White House (US government photo, public domain), the Taj Mahal and Kumbhkaran (a
   public-domain painting or illustration). Wikimedia Commons, checking each licence.
 
-Make every shot FUN and cinematic.
+Make every shot FUN and cinematic. **Tone for the bomb sequence (cage_lower, the lid shots, the test day, the blast,
+two_more): "a very Oppenheimer kinda feel, make it epic af"**: IMAX-scale wides against huge skies, tight intense
+close-ups on faces and eyes, sparks, fire and dust that feel practical, low dramatic light (hard key, deep shadow,
+warm sodium and cold moonlight), slow motion on the big moments, silence before the blast and a delayed shockwave.
 
 1. **`an32_land` → `convoy`, one continuous idea.**
    - **`an32_land`:** first, a plane flying (the AN-32, dawn). Then zoom in INSIDE the cargo hold and see the hydrogen
@@ -146,6 +149,8 @@ Make every shot FUN and cinematic.
 - `library/gags/sky_pass.gd`: a satellite crossing the twilight sky.
 - Camera moves take `start`/`end` time references: the move runs between them and holds before and after.
 - `actor.tilt_head()`.
+- Shot `slowmo` {from, to (the on-screen window), rate}: slow motion while the narration keeps real time (TIMELINE_SPEC).
+- Range `jeep.turn` [t0, t1, deg] twists the driver toward the camera; head-turn cues are capped at ±90°.
 
 **Characters added for this video** (`library/characters/`):
 - the jawans: `toon_jawan_a..d`

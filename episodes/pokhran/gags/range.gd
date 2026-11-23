@@ -71,7 +71,7 @@ extends RefCounted
 ##              on top of their own hair (it escapes all round), a name tape over the right chest pocket
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
-## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
+## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, jeep (its cab), dive_cam, dive_look, dive_count, dive_face
 ## (the counter's facing point: along the camera's view axis, so it stays parallel to the image), bottom
 
 const Kit = preload("res://scripts/world/gag_kit.gd")
@@ -843,8 +843,11 @@ func _pose_jeep(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 	# The driver rides in the right-hand seat.
 	var dr = ctx["actor"].call(String(jd.get("driver", "")))
 	if dr != null:
-		dr.position = gt * (c + fwd * 0.08 + side * 0.36 + Vector3(0, 0.36, 0))
-		dr.rotation = Vector3(0, atan2(fwd.x, fwd.z), 0)
+		dr.position = gt * (c + fwd * 0.3 + side * 0.36 + Vector3(0, 0.36, 0))
+		# "turn": [t0, t1, degrees] twists him in his seat toward the camera (a look, a wink), and back.
+		var tw: Array = jd.get("turn", [1e9, 1e9, 0.0])
+		var tk := Motion.smooth(Motion.seg(t, float(tw[0]), float(tw[0]) + 0.1)) * (1.0 - Motion.smooth(Motion.seg(t, float(tw[1]) - 0.1, float(tw[1]))))
+		dr.rotation = Vector3(0, atan2(fwd.x, fwd.z) + deg_to_rad(float(tw[2])) * tk, 0)
 		dr.visible = _jeep.visible
 	for rd in jd.get("riders", []):
 		var ra = ctx["actor"].call(String(rd[0]))
@@ -2791,6 +2794,9 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		extra = {"dive_cam": gt * Vector3(0.2, 2.4, 0), "dive_look": gt * Vector3(0.1, -8, 0), "dive_count": gt * Vector3(0.1, 0.5, 0),
 			"dive_face": gt * Vector3(0.1, 1.5, 0)}
 	extra["bottom"] = gt * Vector3(0, -SHAFT_D + 0.8, 0)
+	# The jeep (its cab, at the driver's head height), for cameras that track it.
+	if _jeep != null:
+		extra["jeep"] = gt * (_jeep.position + Vector3(0, 1.25, 0))
 	extra["canister"] = gt * Vector3(0, -SHAFT_D + 0.08 + CAN_H * 0.6, 0)
 	extra["lid"] = gt * Vector3(0, -SHAFT_D + 0.08 + CAN_H, 0)
 	return extra.merged({"plate": gt * Vector3(0, 0.26, 0), "apex": apex, "winch": gt * (WINCH_AT + Vector3(0, 0.8, 0)),

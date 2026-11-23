@@ -54,7 +54,7 @@ An **episode** films one set with a cast as an ordered list of timed shots. It l
 | `iris_in`, `iris_out` | `binoculars` or `circle`: the frame seen through a mask; `iris_in` holds 0.7 s, then opens over 0.6 s. Push the previous shot's camera into a pair of binoculars for a point-of-view cut. Drawn by the grade overlay (`iris_shape` / `iris_radius` shader globals, set per frame). |
 | `shake` | `[{"t": word ref, "amount": 0..1}]`: camera shake on impacts (trauma model: light 0.15, medium 0.4, heavy 0.8; decays by itself). See docs/MOTION_SPEC.md. |
 | `hold` | Seconds (0-3) of silence after the shot's lines, so a payoff can land; later shots shift (also with the single take). |
-| `slowmo` | `{"from": ref, "to": ref, "rate": 0.2}`: slow motion. Between the two moments the scene clock runs at `rate` (actors, gags, camera-move timing, shake); the narration and the cut keep real time. Everything later in the shot happens later by (1 - rate) × (to - from), so set those cue times knowing it. |
+| `slowmo` | `{"from": ref, "to": ref, "rate": 0.2}`: slow motion. `from`/`to` are the on-screen (real-time) window; inside it the scene clock runs at `rate` (a 1.25 s window at 0.2 shows 0.25 s of action) (actors, gags, camera-move timing, shake); the narration and the cut keep real time. Everything later in the shot happens later by (1 - rate) × (to - from), so set those cue times knowing it. |
 
 **Scene time** runs continuously across cuts: shot 2 starts where shot 1 ended unless it sets
 `scene_t`. Actor cues are in scene time, so the edit never changes what the actors do, only

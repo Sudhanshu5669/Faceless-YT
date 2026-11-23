@@ -2132,8 +2132,8 @@
      },
      "expression": "wink",
      "head": [
-      0,
-      -68,
+      -6,
+      -90,
       0
      ],
      "head_turn": 0.08
@@ -2966,9 +2966,20 @@
      "riders": [
       [
        "sci_ride2",
-       0.08,
+       0.3,
        -0.36
       ]
+     ],
+     "turn": [
+      {
+       "line": "l9a",
+       "offset": 0.06
+      },
+      {
+       "line": "l9a",
+       "offset": 0.33
+      },
+      -30.0
      ],
      "slip": {
       "actor": "sci_ride1",
@@ -6493,19 +6504,12 @@
       "anchor": "range",
       "offset": [
        11.0,
-       1.4,
-       14985.0
+       1.5,
+       14987.2
       ]
      },
-     "look_at": {
-      "anchor": "range",
-      "offset": [
-       21.0,
-       1.2,
-       14986.0
-      ]
-     },
-     "lens_mm": 26,
+     "look_at": "range_site.jeep",
+     "lens_mm": 36,
      "dof": {
       "strength": 0.08
      }
@@ -6514,33 +6518,18 @@
      "at": {
       "anchor": "range",
       "offset": [
-       10.9,
+       10.7,
        1.45,
-       14984.8
+       14986.6
       ]
      },
-     "look_at": {
-      "anchor": "range",
-      "offset": [
-       6.6,
-       1.05,
-       14980.8
-      ]
-     },
-     "lens_mm": 28,
+     "look_at": "range_site.jeep",
+     "lens_mm": 32,
      "dof": {
       "strength": 0.1
      }
     },
-    "ease": "in_out",
-    "start": {
-     "line": "l9a",
-     "offset": -0.2
-    },
-    "end": {
-     "line": "l9a",
-     "offset": 0.9
-    }
+    "ease": "linear"
    },
    "duration": {
     "fit": true,
@@ -6603,7 +6592,7 @@
     },
     "to": {
      "line": "l9a",
-     "offset": 0.3
+     "offset": 1.3
     },
     "rate": 0.2
    },
