@@ -38,6 +38,8 @@ These come from the user's own feedback; they override defaults. The `toon-short
    `tf shot EPISODE --status`. Never batch-render a whole video for the user's first look. Once an
    episode's look is approved and the user says to keep going, build the rest autonomously,
    self-review every shot and present them together.
+   **Always send the user a push notification** (Claude: the PushNotification tool) whenever a shot or a
+   batch is finished and waiting for their approval (user, 2026-11-23).
 2. **9:16 framing.** Nothing may be cut off by the narrow frame: stack reveals vertically on/above a
    character, never left/right; `tf framing EPISODE` must report nothing before a shot is shown.
 3. **Action, not apparition.** Each narration line is a mini scene: a character DOES something to an

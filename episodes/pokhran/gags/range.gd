@@ -62,10 +62,10 @@ extends RefCounted
 ##   cricket    {"bat": id, "bowl": id, "release": t, "hit": t, "stumps": [x, z]}   gully cricket: tent-peg stumps behind
 ##              the batsman; the ball sits in the bowler's right hand until `release`, bounces once on the way, meets
 ##              the bat (swung from the backlift through the hit on `hit`) and is lofted back over the bowler's head
-##   jeep       {"at": [x, z, yaw_deg], "stop": t, "run": 6.0, "driver": id, "slip": {"actor": id, "t": t}}   a light
-##              army jeep brakes to a stop at `at` exactly at `stop` (rolling `run` metres in the last 1.4 s, a nose dip),
-##              the driver seated at the wheel (right-hand drive); at slip.t the actor's oversized patrol cap slides down
-##              over his eyes
+##   jeep       {"at": [x, z, yaw_deg], "stop": t, "speed": 15, "slide": 70, "driver": id, "slip": {"actor": id, "t": t}}
+##              a light army jeep tears in across the desert (bouncing on the ruts, a hop off a hump 7.5 m out, a plume of dust) and
+##              handbrake-slides `slide` degrees into its parked pose at `at`, stopping dead at `stop` in a burst of dust;
+##              the driver rides in the right-hand seat; at slip.t the actor's oversized patrol cap slides over his eyes
 ##   disguise   [{"actor": id, "cap": true, "tape": "NAME"}]   dress an actor for the field: an army patrol cap perched
 ##              on top of their own hair (it escapes all round), a name tape over the right chest pocket
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
@@ -573,6 +573,23 @@ func build(g: Dictionary) -> Node3D:
 		_jeep = _vehicle(PB + "jeep.glb")
 		_jeep.name = "jeep"
 		root.add_child(_jeep)
+		var dm := StandardMaterial3D.new()
+		dm.albedo_color = Color(0.8, 0.7, 0.54, 0.55)
+		dm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		dm.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+		dm.billboard_keep_scale = true
+		dm.albedo_texture = _puff_tex()
+		dm.roughness = 1.0
+		for k in 56:
+			var q := MeshInstance3D.new()
+			var qm := QuadMesh.new()
+			qm.size = Vector2(1.0, 1.0)
+			q.mesh = qm
+			q.material_override = dm.duplicate()
+			q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			q.visible = false
+			root.add_child(q)
+			_jeep_dust.append(q)
 	for aid in _p.get("chai", []):
 		var gl := Node3D.new()
 		gl.name = "chai_" + String(aid)
@@ -608,6 +625,7 @@ var _net: MeshInstance3D
 var _watch: Node3D
 var _bat: Node3D
 var _jeep: Node3D
+var _jeep_dust: Array = []
 var _dressed := {}
 var _ball: MeshInstance3D
 var _chai := {}
@@ -745,25 +763,80 @@ func _pose_cricket(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 		_ball.position = contact + (fwd * 13.0 + Vector3(0, 9.5, 0)) * dt + Vector3(0, -4.9 * dt * dt, 0)
 
 
+## The jeep's state at time t: [centre, yaw, body pitch, body roll, distance still to go].
+func _jeep_state(jd: Dictionary, t: float) -> Array:
+	var at: Array = jd.get("at", [0.0, 0.0, 0.0])
+	var yaw1 := deg_to_rad(float(at[2]))
+	var slide := deg_to_rad(float(jd.get("slide", 70.0)))
+	var yaw0 := yaw1 - slide
+	var travel := Vector3(cos(yaw0), 0, -sin(yaw0))       # it keeps moving the way it was heading as it slides
+	var ts := float(jd.get("stop", 1e9))
+	var v := float(jd.get("speed", 15.0))
+	var tsl := 0.5                                        # the slide: full speed to nothing in half a second
+	var left: float
+	if t >= ts:
+		left = 0.0
+	elif t >= ts - tsl:
+		var u := (ts - t) / tsl
+		left = v * tsl * 0.5 * u * u
+	else:
+		left = v * tsl * 0.5 + v * (ts - tsl - t)
+	var c := Vector3(float(at[0]), 0, float(at[1])) - travel * left
+	var k := Motion.in_out(clampf(1.0 - (ts - t) / tsl, 0.0, 1.0)) if t < ts else 1.0
+	var yaw := lerpf(yaw0, yaw1, k)
+	# Bouncing on the ruts at speed, a hop off a hump about 14 m out; leaning out and squatting through the slide.
+	var fast := clampf(left / 6.0, 0.0, 1.0)
+	var hop := maxf(0.0, 1.0 - pow((left - 7.5) / 1.8, 2.0)) * 0.42
+	c.y = height(c.x, c.z) + 0.06 * absf(sin(left * 1.9)) * fast + hop
+	var pitch := 0.05 * sin(left * 1.4) * fast - hop * 0.25
+	var roll := -0.13 * sin(PI * k) if t < ts else 0.0
+	if t >= ts:
+		pitch += 0.04 * Motion.wobble(t - ts, 2.4, 4.0)
+		roll += 0.05 * Motion.wobble(t - ts, 2.0, 4.5)
+	return [c, yaw, pitch, roll, left, travel]
+
+
 func _pose_jeep(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 	if _jeep == null:
 		return
 	var jd: Dictionary = _p.get("jeep", {})
-	var at: Array = jd.get("at", [0.0, 0.0, 0.0])
-	var yaw := deg_to_rad(float(at[2]))
+	var st := _jeep_state(jd, t)
+	var c: Vector3 = st[0]
+	var yaw: float = st[1]
+	var left: float = st[4]
+	var travel: Vector3 = st[5]
+	var ts := float(jd.get("stop", 1e9))
+	_jeep.position = c
+	_jeep.rotation = Vector3(float(st[3]), yaw, -float(st[2]))
+	_jeep.visible = left < 45.0 and t > ts - 3.5
 	var fwd := Vector3(cos(yaw), 0, -sin(yaw))
 	var side := Vector3(-fwd.z, 0, fwd.x)
-	var ts := float(jd.get("stop", 1e9))
-	var run := float(jd.get("run", 6.0))
-	# Braking over the last 1.4 s (distance left falls as (1-u)^2); before that it rolls in at the braking start speed.
-	var u := (t - (ts - 1.4)) / 1.4
-	var left := run * (1.0 - clampf(u, 0.0, 1.0)) * (1.0 - clampf(u, 0.0, 1.0)) if u >= 0.0 else run * (1.0 - 2.0 * u)
-	var c := Vector3(float(at[0]), 0, float(at[1])) - fwd * left
-	c.y = height(c.x, c.z)
-	_jeep.position = c
-	_jeep.visible = left < 14.0      # it appears just before its own shot (it drives in past the cricket pitch)
-	var dip := 0.035 * Motion.wobble(t - ts, 2.2, 4.5) if t >= ts else 0.0
-	_jeep.rotation = Vector3(0, yaw, -dip)
+	# Dust: puffs thrown up behind the wheels as it goes (each where the jeep was when it was born), a big burst in
+	# the slide; they swell, drift and thin out.
+	for k in _jeep_dust.size():
+		var q: MeshInstance3D = _jeep_dust[k]
+		var burst := k >= 40
+		var born := ts - 2.2 + float(k) * 0.05 if not burst else ts - 0.35 + float(k - 40) * 0.03
+		var age := t - born
+		var life := 2.4 if not burst else 3.0
+		q.visible = age > 0.0 and age < life and _jeep.visible
+		if not q.visible:
+			continue
+		var sb := _jeep_state(jd, born)
+		var bc: Vector3 = sb[0]
+		var byaw: float = sb[1]
+		var bf := Vector3(cos(byaw), 0, -sin(byaw))
+		var bs := Vector3(-bf.z, 0, bf.x)
+		var spread := 0.7 * sin(float(k) * 2.3)
+		var at: Vector3 = bc - bf * 1.6 + bs * spread
+		if burst:
+			at = c + travel * (0.6 + 0.5 * sin(float(k) * 1.7)) + side * (1.2 * sin(float(k) * 2.9)) - fwd * (0.8 * cos(float(k) * 1.3))
+		at.y = height(at.x, at.z) + 0.25 + 0.45 * age
+		q.position = at + Vector3(0.3 * sin(float(k) * 1.7) * age, 0, 0.3 * cos(float(k) * 1.3) * age) + travel * (0.8 * age if burst else 0.0)
+		var sz := (0.9 + 2.2 * age) * (1.5 if burst else 1.0)
+		q.scale = Vector3(sz, sz, sz)
+		var fade := 1.0 - smoothstep(life * 0.5, life, age)
+		(q.material_override as StandardMaterial3D).albedo_color.a = 0.55 * fade
 	if not ctx.has("actor"):
 		return
 	# The driver rides in the right-hand seat.
@@ -771,6 +844,7 @@ func _pose_jeep(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 	if dr != null:
 		dr.position = gt * (c + fwd * 0.08 + side * 0.36 + Vector3(0, 0.36, 0))
 		dr.rotation = Vector3(0, atan2(fwd.x, fwd.z), 0)
+		dr.visible = _jeep.visible
 	# The oversized cap slides down over his eyes, tips, and stops on his glasses.
 	var sl: Dictionary = jd.get("slip", {})
 	var sa = ctx["actor"].call(String(sl.get("actor", ""))) if not sl.is_empty() else null

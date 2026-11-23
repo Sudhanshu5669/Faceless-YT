@@ -12,7 +12,7 @@ list with the gag for every line: `beats.md` (the source of truth for what each 
 | | Shots |
 |---|---|
 | Approved by the user (27) | hook_feed … kalam_tape (00–28), except the two below. Verdicts: `review/shot_decisions.json` |
-| Fixed after "changes", re-rendered, awaiting the user's verdict | `cricket` (batsman animation redone), `jeep_arrive` (cap clipped into the head) |
+| Fixed after "changes", re-rendered, awaiting the user's verdict | `cricket` (batsman redone: side-on stroke, seen in profile), `jeep_arrive` (redone for FUN: the jeep tears in, hops over the lens, handbrake-slides to a stop in dust; cap no longer clips) |
 | Next to build | `an32_land` (NEW place: airstrip), `convoy`, then `wait_row`, `wait_clock`, `wind_turns`, `key_turn`, `desert_jumps`, `khetolai_crack`, `presser_walk`… to `end_feed` (beats.md rows 10–21) |
 
 Check live status with `python pipeline/tf.py shot pokhran --status`.
@@ -27,7 +27,8 @@ Check live status with `python pipeline/tf.py shot pokhran --status`.
   loops for a single shot (the user found per-shot loops too slow).
 - **Approval UI:** `python pipeline/tf.py shot pokhran --serve` (http://127.0.0.1:8770/). The user watches and
   decides there. Clip looping is an opt-in checkbox, off by default.
-- **Notify:** send a push notification at the end of each shot or batch when the user is away.
+- **Notify (standing rule, AGENTS.md rule 1):** ALWAYS send a push notification whenever a shot or batch is done
+  and waiting for the user's approval.
 - **Power:** the laptop battery is damaged. **Never render when the user says not to, or during a power cut.**
   Check mains power with `Get-CimInstance Win32_Battery` (BatteryStatus 2 = on AC). Commit work before stopping.
 - **Blender** (`config.local.json` → `blender`) is for asset work only (vehicles, trees: glTF out). Everything
@@ -35,6 +36,9 @@ Check live status with `python pipeline/tf.py shot pokhran --status`.
 - **Accuracy:** real people are caricatures. Facts, dates, headlines and quotes must be accurate; never invent a
   quote. Month and year only where the exact day isn't public (the 1995 imagery = "DEC 1995"; the 1998 run-up
   feed = "MAY 1998").
+
+- **Make it FUN (user, 2026-11-23):** "the shots so far are fine but it needs to be more fun". Pick the most energetic
+  true version of each gag: speed, exaggeration, slapstick payoffs, whooshes, camera shakes, comic reactions.
 
 ## How to work a shot (the fast loop)
 

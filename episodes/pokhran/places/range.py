@@ -214,15 +214,17 @@ ACTORS += [
 # scientist's oversized cap slides over his eyes. (kalam_tape continues at the same jeep.)
 JEEP_AT = (-6.0, -19.0)          # facing -z (north, toward the camp)
 JEEPW = [W("l9a", offset=-1.6), W("l10a", offset=0.0)]
+JEEP_STOP = W("l9a", "arrive", 0.15)                       # the handbrake slide ends here, in a burst of dust
+OUT = [W("l9a", "arrive", 0.4), W("l10a", offset=0.0)]    # the scientists pile out once it has stopped
 ACTORS += [
     {"id": "jeep_driver", "character": "toon_jawan_a", "at": P(-5.64, 0, -19.1), "facing": P(-5.64, 0, -30.0),
      "action": "drive", "shown": [JEEPW], "cues": [{"t": 0.0, "expression": "deadpan"}]},
     {"id": "sci_f1", "character": "toon_sci_fatigues_a", "at": P(-6.85, 0, -19.05), "facing": P(-8.2, 0, -19.6),
-     "action": "idle", "route": {"via": [P(-7.95, 0, -19.5)], "gait": "walk", "start": W("l9a", offset=0.1)},
-     "shown": [JEEPW], "cues": [{"t": 0.0, "expression": "nervous"},
+     "action": "idle", "route": {"via": [P(-7.95, 0, -19.5)], "gait": "walk", "start": W("l9a", "arrive", 0.4)},
+     "shown": [OUT], "cues": [{"t": 0.0, "expression": "shocked"}, {"t": W("l9a", "dressed", 0.0), "expression": "nervous"},
                                 {"t": W("l9a", "soldiers", 0.05), "expression": "surprised"}]},
     {"id": "sci_f2", "character": "toon_sci_fatigues_b", "at": P(-8.4, 0, -18.4), "facing": P(-10.6, 0, -24.2),
-     "action": "idle", "shown": [JEEPW], "cues": [{"t": 0.0, "expression": "deadpan"},
+     "action": "idle", "shown": [OUT], "cues": [{"t": 0.0, "expression": "shocked"}, {"t": W("l9a", "dressed", 0.2), "expression": "deadpan"},
                                                   {"t": W("l9a", "soldiers", 0.3), "expression": "side_eye", "head": [0, -35, 0], "head_turn": 0.4}]},
 ]
 
@@ -259,7 +261,7 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "chai": ["st_chai"],
                     "cricket": {"bat": "cr_bat", "bowl": "cr_bowl", "release": W("l8c", "cricket", -0.5), "hit": HIT,
                                 "stumps": [-3.0, 16.45]},
-                    "jeep": {"at": [JEEP_AT[0], JEEP_AT[1], 90.0], "stop": W("l9a", offset=0.15), "run": 6.0,
+                    "jeep": {"at": [JEEP_AT[0], JEEP_AT[1], 90.0], "stop": JEEP_STOP, "speed": 15.0, "slide": 70.0,
                              "driver": "jeep_driver", "slip": {"actor": "sci_f1", "t": W("l9a", "soldiers", 0.0)}},
                     "disguise": [{"actor": "kalam_field", "cap": True, "tape": "PRITHVIRAJ"}],
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
@@ -446,13 +448,13 @@ SHOTS = {
         "from": cam(P(0.3, 1.1, 21.0), P(-3.6, 1.0, 11.8), 32, {"strength": 0.1}),
         "to": cam(P(0.3, 1.1, 20.9), P(-3.4, 3.8, 10.8), 30, {"strength": 0.08}),
         "ease": "in_out", "start": W("l8c", "cricket", 0.0), "end": W("l8c", "cricket", 0.6)}},
-    # At the camp, front three-quarter: the jeep brakes to a stop toward us; the scientists in baggy fatigues step out;
-    # on "soldiers" one's oversized cap slides down over his glasses; the other side-eyes him.
-    "jeep_arrive": {"look": LOOK_AFTERNOON, "camera": move(
-        cam(P(-10.6, 1.3, -24.2), P(-6.6, 1.0, -19.0), 28, {"strength": 0.1}),
-        cam(P(-10.3, 1.25, -23.6), P(-6.9, 1.05, -19.1), 30, {"strength": 0.1}), "in_out")},
-    # Kalam steps out from behind the parked jeep, the last to arrive, white hair spilling from under the perched cap (on
-    # "Abdul Kalam"); the camera pushes in to his chest and face: the name tape PRITHVIRAJ on "Prithviraj"; a wink.
+    # Low by the track at the camp: the jeep tears in across the desert, bouncing, kicking up a plume of dust, whips
+    # past the lens and handbrake-slides broadside to a stop on "arrive" in a burst of dust (shake); the dizzy
+    # scientists pile out; on "soldiers" one's oversized cap drops over his glasses; the other side-eyes him.
+    "jeep_arrive": {"look": LOOK_AFTERNOON, "shake": [{"t": JEEP_STOP, "amount": 0.35}], "camera": {
+        "from": cam(P(-11.0, 0.42, -15.0), P(-21.0, 0.9, -14.2), 26, {"strength": 0.08}),
+        "to": cam(P(-11.0, 0.5, -15.2), P(-6.6, 0.95, -19.2), 28, {"strength": 0.1}),
+        "ease": "in_out", "start": W("l9a", offset=0.0), "end": W("l9a", "arrive", 0.25)}},
     "kalam_tape": {"look": LOOK_AFTERNOON, "camera": {
         "from": cam(P(-9.6, 1.3, -12.9), P(-7.0, 1.0, -16.6), 30, {"strength": 0.1}),
         "to": cam(P(-8.05, 1.02, -15.4), P(-7.32, 0.92, -16.55), 36, {"strength": 0.14}),
