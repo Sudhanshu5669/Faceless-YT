@@ -60,6 +60,7 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
                     "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6]],
                     "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
+                    "drip": W("l2e", "bomb", 0.04),
                     "bushes": [[1.1, 2.5, 0.75, 0.6]]}},
         {"id": "wh_chalk", "script": "library:chalk", "t": W("l2d", offset=-0.4),
          "at": TP(0, 0), "face": TP(0, 5.0),
@@ -79,6 +80,23 @@ def V(right, fwd, y):
 
 # Down the shaft: the same afternoon on top, but no haze in the bore (fog starts far below the bottom).
 LOOK_DIVE = dict(LOOK_AFTERNOON, fog={"begin": 400, "end": 2600, "curve": 1.8, "volumetric": 0.0})
+
+# The chamber 205 m down: no sun, no sky; the work lamp is the only light. A little dust in the air shows its rays.
+LOOK_DEEP = dict(LOOK_AFTERNOON,
+                 sun={"energy": 0, "visible": False},
+                 ambient={"color": "#1a1c22", "energy": 0.02, "sky": 0.0},
+                 fog={"begin": 300, "end": 2600, "curve": 1.8, "volumetric": 0.03, "color": "#3a3028",
+                      "anisotropy": 0.6, "length": 10},
+                 glow={"enabled": True, "intensity": 0.9, "bloom": 0.06, "threshold": 0.95},
+                 grade={"contrast": 1.18, "saturation": 0.95, "vignette": 0.5, "grain": 0.05})
+
+# Chamber points: x/z from the canister's axis, y above the chamber floor (205 m down).
+FLOOR = -205.0
+
+
+def D(x, y, z):
+    return P(x, FLOOR + y, z)
+
 
 REVEALS = [
     {"id": "depth_count", "t": W("l2c", offset=0.05), "until": W("l2d"), "at": "range_site.dive_count", "size": 0.2,
@@ -101,6 +119,11 @@ SHOTS = {
     "lid_chalk": {"look": LOOK_AFTERNOON, "camera": move(
         cam(TP(0.06, 1.72, 1.2), TP(0.04, -0.12, 0.55), 29, {"strength": 0.12}),
         cam(TP(0.1, 1.6, 1.14), TP(0.05, -0.14, 0.58), 31, {"strength": 0.12}), "in_out")},
+    # At the bottom: the sealed canister in its cage, the lamp swinging, deep shadow; a slow push from low as a drop
+    # of water falls from the bore and splashes on the lid on "bomb".
+    "device_inside": {"look": LOOK_DEEP, "camera": move(
+        cam(D(0.72, 1.1, 1.45), D(0.0, 1.2, 0.0), 22, {"strength": 0.15}),
+        cam(D(0.55, 2.05, 1.12), D(0.1, 1.5, 0.08), 28, {"strength": 0.15}), "in_out")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

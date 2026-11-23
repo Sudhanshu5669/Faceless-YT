@@ -71,5 +71,19 @@
         "fingerprint": "79bcced3770e"
       }
     ]
+  },
+  "lid_chalk": {
+    "status": "approved",
+    "note": "approved 2026-11-23",
+    "updated": "2026-11-23 13:51:26",
+    "fingerprint": "2848ad22ff7f",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-23 13:06:32",
+        "fingerprint": "2848ad22ff7f"
+      }
+    ]
   }
 }

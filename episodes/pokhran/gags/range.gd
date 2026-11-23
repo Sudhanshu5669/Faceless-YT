@@ -26,6 +26,7 @@ extends RefCounted
 ##   tufts      [[x, z, scale], ...]   hero grass tufts placed for a camera (foreground framing)
 ##   bushes     [[x, z, scale, yaw], ...]   hero ker bushes
 ##   clear      [[x, z, radius], ...]   keep the scattered plants and stones out of these circles (camera spots)
+##   drip       t   a drop of water falls from the bore's lip and splashes on the canister's lid at t
 ##   dive       {"from": t, "to": t, "y1": -188}   the camera's fall down the shaft: anchors dive_cam / dive_look /
 ##              dive_count follow it (from just under the plate down the bore, circling the cable bundle,
 ##              accelerating, easing out near the bottom); a lamp travels with it
@@ -50,6 +51,11 @@ const SOCK_AT := Vector3(-7.6, 0.0, -23.6)
 const SOCK_H := 6.2
 const SHAFT_R := 0.9
 const SHAFT_D := 205.0
+const CHAMBER_R := 2.0          # the chamber mined out at the bottom of the shaft
+const CHAMBER_H := 3.2
+const CAN_R := 0.42             # the sealed canister (in its lowering cage) under the bore
+const CAN_H := 1.5
+const LAMP_AT := Vector3(-0.42, -SHAFT_D + 2.3, 0.8)
 const CAMP := [Vector3(-10.0, 0, -29.2), Vector3(-9.7, 0, -36.4), Vector3(-3.3, 0, -34.6), Vector3(-17.8, 0, -36.1)]
 
 ## Terrain height (metres) at local (x, z). Mirrors height() in GROUND.
@@ -285,6 +291,33 @@ void fragment() {
 }
 """
 
+## Damp rock in the chamber: dark sandstone and shale bands, wet sheen in the hollows, no sky light.
+const ROCK := """
+shader_type spatial;
+render_mode ambient_light_disabled, cull_disabled;
+uniform float wet = 0.0;
+varying vec3 wp;
+//NOISE
+void vertex() {
+	vec3 w = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	VERTEX += NORMAL * (fbm(w * 2.2) - 0.5) * 0.05;
+	wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+}
+void fragment() {
+	float band = sin(wp.y * 7.0 + fbm(wp * 1.5) * 5.0) * 0.5 + 0.5;
+	vec3 c = mix(vec3(0.2, 0.15, 0.11), vec3(0.32, 0.25, 0.18), band);
+	c *= 0.7 + 0.5 * fbm(wp * 6.0);
+	float damp = smoothstep(0.45, 0.7, fbm(wp * 1.2 + 4.0));
+	float pud = wet * smoothstep(0.55, 0.62, fbm(vec3(wp.xz * 0.9, 2.0)));
+	c *= 1.0 - 0.35 * max(damp, pud);
+	ALBEDO = c;
+	ROUGHNESS = mix(0.9, 0.18, max(damp * 0.7, pud));
+	SPECULAR = mix(0.3, 0.7, max(damp, pud));
+	NORMAL_MAP = vec3(0.5 + 0.35 * (fbm(wp * 14.0) - 0.5), 0.5 + 0.35 * (fbm(wp * 14.0 + 3.0) - 0.5), 1.0);
+	NORMAL_MAP_DEPTH = 1.0 - pud;
+}
+"""
+
 ## Heavy steel plate: dark mill scale, rust bleeding from the bolt line and edges, scuffs to bright steel,
 ## sand in the low spots. Slightly metallic so it picks up the sky.
 const STEEL := """
@@ -454,6 +487,9 @@ var _bags := {}
 var _hook: Node3D
 var _kites_n: Array = []
 var _dive_light: OmniLight3D
+var _lamp: Node3D
+var _drip: MeshInstance3D
+var _splash: Array = []
 
 
 func build(g: Dictionary) -> Node3D:
@@ -756,7 +792,7 @@ func _bore(root: Node3D) -> void:
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var seg := 28
 	var step := 1.5
-	var n := int(SHAFT_D / step)
+	var n := int(ceil((SHAFT_D - CHAMBER_H + 0.3) / step))
 	for i in n:
 		for k in seg:
 			var q := []
@@ -771,23 +807,195 @@ func _bore(root: Node3D) -> void:
 	mi.material_override = Kit.shader(BORE)
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	root.add_child(mi)
-	# The floor of the shaft.
-	Kit.cyl(root, SHAFT_R, SHAFT_R, 0.1, Vector3(0, -SHAFT_D - 0.15, 0), Kit.shader(BORE), 28)
 	# The firing cables: three black cables hanging from the gland down the axis, a steel clamp every 6 m.
 	var cab := Kit.mat("#121212", 0.45)
 	for k in 3:
 		var a := TAU * k / 3.0
 		var o := Vector3(cos(a) * 0.035, 0, sin(a) * 0.035)
-		Kit.rod(root, o + Vector3(0, 0.2, 0), o + Vector3(0, -SHAFT_D + 1.6, 0), 0.016, cab, 6)
+		Kit.rod(root, o + Vector3(0, 0.2, 0), o + Vector3(0, -SHAFT_D + CAN_H + 0.2, 0), 0.016, cab, 6)
 	var clamp := Kit.mat("#8a8a86", 0.4, 0.5)
-	for j in int(SHAFT_D / 6.0):
+	for j in int((SHAFT_D - CHAMBER_H) / 6.0):
 		Kit.cyl(root, 0.07, 0.07, 0.05, Vector3(0, -3.0 - 6.0 * j, 0), clamp, 12)
-	# The work lamp at the bottom: a caged bulb on the cable end, warm.
-	var bulb := Kit.ball(root, 0.07, Vector3(0, -SHAFT_D + 1.4, 0), Kit.lit("#ffcf8a", 9.0), 12)
-	bulb.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	Kit.omni(root, Vector3(0, -SHAFT_D + 1.3, 0), "#ffb870", 3.0, 18.0)
+	# The underside of the plate closes the bore at the top (no sky down here).
+	Kit.cyl(root, SHAFT_R + 0.05, SHAFT_R + 0.05, 0.04, Vector3(0, -0.1, 0), Kit.shader(BORE), 28)
+	_chamber(root)
 	# The light that falls with the camera (only during the dive).
 	_dive_light = Kit.omni(root, Vector3(0, -SHAFT_D, 0), "#fff0dc", 0.0, 9.0)
+
+
+## The chamber at the bottom: damp rock (a rough cylinder with a domed roof, the bore opening in its crown),
+## a wet floor with puddles; the canister in its cage under the bore; a caged work lamp on its own cable.
+func _chamber(root: Node3D) -> void:
+	var fl := -SHAFT_D
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var seg := 40
+	var rows := 20
+	var r := Kit.rng("chamber")
+	var bumps := []
+	for k in 6:
+		bumps.append([r.randf() * TAU, r.randf_range(0.03, 0.07), float(r.randi_range(2, 6))])
+	for i in rows:
+		for k in seg:
+			var q := []
+			for c in [[i, k], [i, k + 1], [i + 1, k + 1], [i + 1, k]]:
+				var v := float(c[0]) / rows
+				var ang := TAU * float(c[1]) / seg
+				var pr := _chamber_profile(v)
+				var rr := pr.x
+				var fade := 1.0 - smoothstep(0.45, 0.6, v)
+				for b in bumps:
+					rr += float(b[1]) * sin(ang * float(b[2]) + float(b[0]) + pr.y * 1.7) * fade
+				q.append(Vector3(cos(ang) * rr, fl + pr.y, sin(ang) * rr))
+			_quad(st, q, true)
+	st.generate_normals()
+	var wall := MeshInstance3D.new()
+	wall.name = "chamber"
+	wall.mesh = st.commit()
+	wall.material_override = Kit.shader(ROCK)
+	root.add_child(wall)
+	# The floor: rock and grit, dark puddles.
+	var floor_m := Kit.shader(ROCK)
+	floor_m.set_shader_parameter("wet", 1.0)
+	Kit.cyl(root, CHAMBER_R + 0.3, CHAMBER_R + 0.3, 0.1, Vector3(0, fl - 0.05, 0), floor_m, 40)
+	# The canister: a sealed steel cylinder on a low skid, a bolted lid flange, two weld seams, lifting eyes and a
+	# junction box where the firing cables go in. No markings.
+	var steel := Kit.shader(STEEL)
+	steel.set_shader_parameter("rust", 0.35)
+	Kit.box(root, Vector3(0.95, 0.08, 0.95), Vector3(0, fl + 0.04, 0), Kit.shader(OLIVE))
+	Kit.cyl(root, CAN_R, CAN_R, CAN_H, Vector3(0, fl + 0.08 + CAN_H * 0.5, 0), steel, 40)
+	var top := fl + 0.08 + CAN_H
+	Kit.cyl(root, CAN_R + 0.035, CAN_R + 0.035, 0.05, Vector3(0, top - 0.02, 0), steel, 40)
+	var bolt := Kit.mat("#3a3632", 0.5, 0.6)
+	for k in 16:
+		var a := TAU * k / 16.0
+		Kit.cyl(root, 0.014, 0.014, 0.03, Vector3(cos(a) * (CAN_R + 0.015), top + 0.015, sin(a) * (CAN_R + 0.015)), bolt, 6)
+	for hh in [0.35, 1.0]:
+		var seam := MeshInstance3D.new()
+		var tm := TorusMesh.new()
+		tm.inner_radius = CAN_R - 0.004
+		tm.outer_radius = CAN_R + 0.008
+		tm.rings = 48
+		tm.ring_segments = 6
+		seam.mesh = tm
+		seam.material_override = steel
+		seam.position = Vector3(0, fl + 0.08 + float(hh), 0)
+		root.add_child(seam)
+	Kit.slab(root, Vector3(0.22, 0.12, 0.16), 0.02, Vector3(0, top + 0.08, 0), Kit.shader(OLIVE))
+	for k in 3:
+		Kit.cyl(root, 0.022, 0.026, 0.05, Vector3(-0.05 + 0.05 * k, top + 0.16, 0), bolt, 8)
+	for s2 in [-1.0, 1.0]:
+		var eye := MeshInstance3D.new()
+		var em := TorusMesh.new()
+		em.inner_radius = 0.03
+		em.outer_radius = 0.05
+		eye.mesh = em
+		eye.material_override = steel
+		eye.position = Vector3(s2 * 0.3, top + 0.05, 0)
+		eye.rotation = Vector3(0, 0, PI / 2)
+		root.add_child(eye)
+	# The lowering cage: four angle-iron posts, square frames at the foot, middle and head, X braces on each side,
+	# a four-leg chain bridle up to the shackle on the winch cable.
+	var cage := Kit.shader(OLIVE)
+	var hw := 0.56
+	var ch := 1.95
+	var corners := [Vector3(hw, 0, hw), Vector3(-hw, 0, hw), Vector3(-hw, 0, -hw), Vector3(hw, 0, -hw)]
+	for c in corners:
+		Kit.box(root, Vector3(0.05, ch, 0.05), Vector3((c as Vector3).x, fl + ch * 0.5, (c as Vector3).z), cage)
+	for hy in [0.06, 0.95, ch - 0.03]:
+		for k in 4:
+			Kit.rod(root, (corners[k] as Vector3) + Vector3(0, fl + float(hy), 0), (corners[(k + 1) % 4] as Vector3) + Vector3(0, fl + float(hy), 0), 0.02, cage, 6)
+	for k in 4:
+		var a: Vector3 = corners[k]
+		var b: Vector3 = corners[(k + 1) % 4]
+		Kit.rod(root, a + Vector3(0, fl + 0.06, 0), b + Vector3(0, fl + 0.95, 0), 0.012, cage, 6)
+		Kit.rod(root, b + Vector3(0, fl + 0.06, 0), a + Vector3(0, fl + 0.95, 0), 0.012, cage, 6)
+	var shackle := Vector3(0.0, fl + ch + 0.75, 0.0)
+	var chain := Kit.mat("#4a4844", 0.45, 0.6)
+	for c in corners:
+		Kit.rod(root, (c as Vector3) + Vector3(0, fl + ch, 0), shackle, 0.01, chain, 5)
+	Kit.rod(root, shackle, Vector3(0.12, fl + CHAMBER_H + 0.6, 0.0), 0.011, Kit.shader(CABLE), 6)
+	# The work lamp: a bulb in a wire guard on its own cable from the roof; it swings a little (pose).
+	_lamp = Node3D.new()
+	_lamp.name = "lamp"
+	_lamp.position = Vector3(LAMP_AT.x, fl + CHAMBER_H + 0.2, LAMP_AT.z)
+	root.add_child(_lamp)
+	var drop := _lamp.position.y - LAMP_AT.y
+	Kit.rod(_lamp, Vector3.ZERO, Vector3(0, -drop + 0.12, 0), 0.008, Kit.mat("#111111", 0.5), 5)
+	Kit.cyl(_lamp, 0.03, 0.04, 0.07, Vector3(0, -drop + 0.1, 0), Kit.mat("#202020", 0.5), 10)
+	var bulb := Kit.ball(_lamp, 0.045, Vector3(0, -drop + 0.03, 0), Kit.lit("#ffd9a0", 14.0), 12)
+	bulb.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var guard := Kit.mat("#2a2a2a", 0.5, 0.5)
+	for k in 6:
+		var a := TAU * k / 6.0
+		Kit.rod(_lamp, Vector3(0, -drop + 0.1, 0), Vector3(cos(a) * 0.07, -drop + 0.02, sin(a) * 0.07), 0.003, guard, 4)
+		Kit.rod(_lamp, Vector3(cos(a) * 0.07, -drop + 0.02, sin(a) * 0.07), Vector3(0, -drop - 0.06, 0), 0.003, guard, 4)
+	# A conical tin shade over the bulb: the light falls in a cone onto the canister, the bore above stays dark.
+	var shade := MeshInstance3D.new()
+	var sm := CylinderMesh.new()
+	sm.top_radius = 0.035
+	sm.bottom_radius = 0.16
+	sm.height = 0.13
+	sm.radial_segments = 20
+	sm.cap_bottom = false
+	shade.mesh = sm
+	var shade_m := Kit.shader(OLIVE)
+	shade.material_override = shade_m
+	shade.position = Vector3(0, -drop + 0.075, 0)
+	_lamp.add_child(shade)
+	var shade_in := Kit.mat("#d8d2c4", 0.5)
+	var inner := MeshInstance3D.new()
+	var im := CylinderMesh.new()
+	im.top_radius = 0.032
+	im.bottom_radius = 0.155
+	im.height = 0.125
+	im.radial_segments = 20
+	im.cap_bottom = false
+	im.flip_faces = true
+	inner.mesh = im
+	inner.material_override = shade_in
+	inner.position = shade.position
+	_lamp.add_child(inner)
+	var aim := Vector3(-LAMP_AT.x * 0.85, -drop - 1.2, -LAMP_AT.z * 0.85)
+	var key := Kit.spot(_lamp, Vector3(0, -drop + 0.0, 0), Vector3(0, -drop + 0.0, 0) + aim, "#ffb46a", 7.0, 7.0, 62.0, true, 1.6)
+	key.name = "key"
+	Kit.omni(_lamp, Vector3(0, -drop - 0.05, 0), "#ffb46a", 0.35, 3.5)
+	# A faint cool fill from the far side so the blacks keep detail.
+	Kit.omni(root, Vector3(0.9, fl + 2.1, -1.4), "#6a7a9a", 0.4, 4.5)
+	# The drip (from the bore's lip onto the lid) and its splash.
+	var wm := StandardMaterial3D.new()
+	wm.albedo_color = Color(0.7, 0.8, 0.85, 0.6)
+	wm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	wm.roughness = 0.02
+	wm.metallic_specular = 1.0
+	wm.emission_enabled = true
+	wm.emission = Color("ffd9a0")
+	wm.emission_energy_multiplier = 2.2
+	_drip = Kit.ball(root, 0.017, Vector3.ZERO, wm, 12, Vector3(1, 1.6, 1))
+	_drip.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	for k in 7:
+		var d := Kit.ball(root, 0.009, Vector3.ZERO, wm, 8)
+		d.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		_splash.append([d, TAU * k / 7.0 + 0.3 * k])
+	var ring := MeshInstance3D.new()
+	var rm := TorusMesh.new()
+	rm.inner_radius = 0.9
+	rm.outer_radius = 1.0
+	rm.rings = 32
+	rm.ring_segments = 4
+	ring.mesh = rm
+	ring.material_override = wm
+	ring.name = "splash_ring"
+	root.add_child(ring)
+	_splash.append([ring, -1.0])
+
+
+## The chamber's cross-section: v 0..1 runs up the wall (0..0.6) and over the domed roof to the bore (radius, height).
+static func _chamber_profile(v: float) -> Vector2:
+	if v < 0.6:
+		return Vector2(CHAMBER_R, CHAMBER_H * 0.8 * v / 0.6)
+	var a := (v - 0.6) / 0.4
+	return Vector2(lerpf(CHAMBER_R, SHAFT_R, sin(a * PI * 0.5)), CHAMBER_H * 0.8 + CHAMBER_H * 0.2 * sin(a * PI * 0.5))
 
 
 ## Dive path at scene time t (gag-local): {"cam", "look", "count", "on"}.
@@ -1191,6 +1399,36 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			var hr: Vector3 = actor.bone_world("hand_r")
 			var local := inv * ((hl + hr) * 0.5)
 			(nodes[0] as Node3D).transform = Transform3D((Basis(Vector3.UP, yaw_a) * Basis(Vector3.RIGHT, -0.25)).scaled(Vector3(1.25, 1.5, 1.25)), local + Vector3(0, -0.1, 0))
+	# The work lamp swings a little on its cable (the cage's shadow sweeps the rock).
+	_lamp.rotation = Vector3(0.05 * sin(t * 2.6 + 0.4), 0, 0.07 * sin(t * 2.1))
+	# The drip: swells on the bore's lip, lets go, falls and hits the lid at params.drip, splashes.
+	var drip_t := float(_p.get("drip", -100.0))
+	var fall := 0.55
+	var lid_y := -SHAFT_D + 0.08 + CAN_H + 0.01
+	var from := Vector3(0.18, -SHAFT_D + CHAMBER_H, 0.1)
+	var to := Vector3(0.18, lid_y, 0.1)
+	var ft := t - (drip_t - fall)
+	_drip.visible = ft > -0.4 and ft < fall
+	if _drip.visible:
+		var y := from.y if ft < 0.0 else lerpf(from.y, to.y, pow(clampf(ft / fall, 0.0, 1.0), 2.0))
+		var swell := 1.0 if ft >= 0.0 else clampf(1.0 + ft / 0.4, 0.3, 1.0)
+		_drip.position = Vector3(from.x, y - 0.012 * (1.0 - swell), from.z)
+		_drip.scale = Vector3(swell, swell * (1.0 + 0.6 * clampf(ft / fall, 0.0, 1.0)), swell)
+	var sage := t - drip_t
+	for sp in _splash:
+		var nd: MeshInstance3D = sp[0]
+		nd.visible = sage > 0.0 and sage < 0.6
+		if not nd.visible:
+			continue
+		if float(sp[1]) < 0.0:
+			var rr := 0.02 + 0.16 * Motion.out_cubic(clampf(sage / 0.5, 0.0, 1.0))
+			nd.position = to + Vector3(0, 0.002, 0)
+			nd.scale = Vector3(rr, 0.02, rr)
+		else:
+			var a := float(sp[1])
+			var k := clampf(sage / 0.35, 0.0, 1.0)
+			nd.position = to + Vector3(cos(a) * 0.09 * k, 0.11 * sin(k * PI), sin(a) * 0.09 * k)
+			nd.scale = Vector3.ONE * maxf(1.0 - k, 0.001)
 	var dv := _dive(t)
 	_dive_light.light_energy = 0.9 if dv["on"] else 0.0
 	if dv["on"]:
@@ -1205,6 +1443,8 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		extra = {"dive_cam": gt * Vector3(0.2, 2.4, 0), "dive_look": gt * Vector3(0.1, -8, 0), "dive_count": gt * Vector3(0.1, 0.5, 0),
 			"dive_face": gt * Vector3(0.1, 1.5, 0)}
 	extra["bottom"] = gt * Vector3(0, -SHAFT_D + 0.8, 0)
+	extra["canister"] = gt * Vector3(0, -SHAFT_D + 0.08 + CAN_H * 0.6, 0)
+	extra["lid"] = gt * Vector3(0, -SHAFT_D + 0.08 + CAN_H, 0)
 	return extra.merged({"plate": gt * Vector3(0, 0.26, 0), "apex": apex, "winch": gt * (WINCH_AT + Vector3(0, 0.8, 0)),
 		"spoil": gt * (SPOIL_AT + Vector3(0, 0.8, 0)), "tree": gt * (TREE_AT + Vector3(0, 3.0, 0)),
 		"camp": gt * (CAMP[0] as Vector3), "windsock": gt * (SOCK_AT + Vector3(0, SOCK_H, 0)),

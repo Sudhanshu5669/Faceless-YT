@@ -746,6 +746,11 @@
      },
      "y1": -186.0
     },
+    "drip": {
+     "line": "l2e",
+     "word": "bomb",
+     "offset": 0.04
+    },
     "bushes": [
      [
       1.1,
@@ -1478,28 +1483,101 @@
   {
    "name": "device_inside",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -0.72,
+       -203.9,
+       15001.45
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -0.0,
+       -203.8,
+       15000.0
+      ]
+     },
+     "lens_mm": 22,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -0.55,
+       -202.95,
+       15001.12
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -0.1,
+       -203.5,
+       15000.08
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#1a1c22",
+     "energy": 0.02,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 2600,
+     "curve": 1.8,
+     "volumetric": 0.03,
+     "color": "#3a3028",
+     "anisotropy": 0.6,
+     "length": 10
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.06,
+     "threshold": 0.95
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.95,
+     "vignette": 0.5,
+     "grain": 0.05
+    }
    }
   },
   {
