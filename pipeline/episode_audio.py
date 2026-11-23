@@ -457,6 +457,9 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
         aid = a.get("id", "?")
         for c in a.get("cues", []):
             c["t"] = round(ref(c["t"], "scene", f"actor {aid} cue"), 3)
+        for j, w in enumerate(a.get("shown", [])):
+            a["shown"][j] = [round(ref(w[0], "scene", f"actor {aid} shown[{j}]"), 3),
+                             round(ref(w[1], "scene", f"actor {aid} shown[{j}]"), 3)]
         r = a.get("route")
         if r:
             for k in ("start", "arrive"):

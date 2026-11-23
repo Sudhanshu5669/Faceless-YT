@@ -26,6 +26,9 @@ extends RefCounted
 ##   tufts      [[x, z, scale], ...]   hero grass tufts placed for a camera (foreground framing)
 ##   bushes     [[x, z, scale, yaw], ...]   hero ker bushes
 ##   clear      [[x, z, radius], ...]   keep the scattered plants and stones out of these circles (camera spots)
+##   y1995      [[t0, t1], ...]   December 1995 instead of May 1998: the shaft is open (no plate, no tripod), a crane
+##              truck on outriggers lowers a section of steel casing into it, trucks stand in the open, a pipe stack
+##   lower      {"from": t, "to": t}   the crane lowers the casing into the shaft (1995)
 ##   drip       t   the shaft leaks: drops fall from the bore's lip and the roof on their own rhythms (onto the lid or into
 ##              the floor puddles); the hero drop lands on the canister's lid at t
 ##   dive       {"from": t, "to": t, "y1": -188}   the camera's fall down the shaft: anchors dive_cam / dive_look /
@@ -378,7 +381,7 @@ void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; lp = VERTEX; }
 void fragment() {
 	vec3 c = cloth * (0.85 + 0.25 * fbm(wp * 1.5));
 	float up = clamp((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).y, 0.0, 1.0);
-	c = mix(c, c * 1.3 + vec3(0.05, 0.04, 0.0), up * 0.6);
+	c = mix(c, c * 1.15 + vec3(0.02, 0.02, 0.0), up * 0.4);
 	c = mix(c, vec3(0.55, 0.47, 0.34), (1.0 - smoothstep(0.0, 0.5, lp.y)) * 0.6);
 	c *= 0.95 + 0.05 * sin(wp.x * 400.0) * sin(wp.y * 400.0);
 	ALBEDO = c;
@@ -488,6 +491,12 @@ var _bags := {}
 var _hook: Node3D
 var _kites_n: Array = []
 var _dive_light: OmniLight3D
+var _g98: Node3D
+var _g95: Node3D
+var _crane_hook: Node3D
+var _crane_cable: MeshInstance3D
+var _crane_tip := Vector3.ZERO
+var _clip: Node3D
 var _lamp: Node3D
 var _drips: Array = []        # [{"from", "to", "period", "phase", "drop", "ring", "spray": [[node, angle], ...]}]
 
@@ -496,9 +505,17 @@ func build(g: Dictionary) -> Node3D:
 	_p = g.get("params", {})
 	var root := Node3D.new()
 	_ground(root)
+	_g98 = Node3D.new()
+	_g98.name = "era_1998"
+	root.add_child(_g98)
+	_g95 = Node3D.new()
+	_g95.name = "era_1995"
+	_g95.visible = false
+	root.add_child(_g95)
 	_shaft(root)
 	_bore(root)
-	_tripod(root)
+	_tripod(_g98)
+	_y1995(_g95)
 	_winch(root)
 	_spoil(root)
 	_props(root)
@@ -579,11 +596,12 @@ func _ground(root: Node3D) -> void:
 
 # --- the shaft head --------------------------------------------------------------------------------
 
-func _shaft(root: Node3D) -> void:
+func _shaft(root_all: Node3D) -> void:
 	var conc := Kit.shader(CONCRETE)
 	var steel := Kit.shader(STEEL)
 	# The collar: a cast square ring, its top 0.22 m above the scraped pad.
-	Kit.slab(root, Vector3(2.7, 0.3, 2.7), 0.05, Vector3(0, 0.07, 0), conc)
+	Kit.slab(root_all, Vector3(2.7, 0.3, 2.7), 0.05, Vector3(0, 0.07, 0), conc)
+	var root := _g98
 	# The plate: 1.8 m square, 40 mm thick, bolted down all round; lifting lugs at the corners;
 	# a cable gland in the middle where the firing cables come up.
 	Kit.slab(root, Vector3(1.8, 0.04, 1.8), 0.015, Vector3(0, 0.24, 0), steel)
@@ -692,7 +710,7 @@ func _winch(root: Node3D) -> void:
 	Kit.ball(w, 0.035, Vector3(-1.15, 1.06, -0.3), Kit.mat("#1a1a1a", 0.6), 10)
 	# The cable from the top of the drum up to the sheave.
 	var drum_top := w.transform * Vector3(-0.55, 0.94, 0)
-	Kit.rod(root, drum_top, Vector3(0, TRIPOD_H - 0.05, 0), 0.01, Kit.shader(CABLE), 6)
+	Kit.rod(_g98, drum_top, Vector3(0, TRIPOD_H - 0.05, 0), 0.01, Kit.shader(CABLE), 6)
 	# A sandbag wall: a low horseshoe on the winch's far side, three courses, bags staggered like bricks.
 	var bag := _first_mesh(PB + "sandbag.glb")
 	var xfs := []
@@ -733,11 +751,11 @@ func _spoil(root: Node3D) -> void:
 
 func _props(root: Node3D) -> void:
 	# Ammunition crates stacked by the winch, three jerrycans, a wooden cable reel on its rim.
-	var crate := Kit.model(PH + "models/wooden_military_crate/wooden_military_crate_2k.gltf")
+	var crate := _tinted(Kit.model(PH + "models/wooden_military_crate/wooden_military_crate_2k.gltf"), Color(0.72, 0.78, 0.6))
 	crate.position = ground(3.06, 0.0)
 	crate.rotation.y = 0.35
 	root.add_child(crate)
-	var crate2 := Kit.model(PH + "models/wooden_military_crate/wooden_military_crate_2k.gltf")
+	var crate2 := _tinted(Kit.model(PH + "models/wooden_military_crate/wooden_military_crate_2k.gltf"), Color(0.72, 0.78, 0.6))
 	crate2.position = ground(3.06, 0.0) + Vector3(0.05, 0.465, 0.02)
 	crate2.rotation.y = 0.2
 	root.add_child(crate2)
@@ -774,16 +792,16 @@ func _camp(root: Node3D) -> void:
 		t.rotation.y = 0.35 + 0.12 * i
 		root.add_child(t)
 		var mi := MeshInstance3D.new()
-		mi.mesh = _tent_mesh(4.6, 3.6, 1.1, 2.5)
+		mi.mesh = _tent_mesh(4.8, 3.8, 1.5, 2.8)
 		mi.material_override = canvas
 		t.add_child(mi)
 		for s in [-1.0, 1.0]:
-			Kit.rod(t, Vector3(0, 0, 2.15 * s), Vector3(0, 2.6, 2.15 * s), 0.035, pole, 8)
-			Kit.rod(t, Vector3(0, 2.5, 2.3 * s), Vector3(0, 0.02, 3.6 * s), 0.006, rope, 4)
+			Kit.rod(t, Vector3(0, 0, 2.25 * s), Vector3(0, 2.9, 2.25 * s), 0.035, pole, 8)
+			Kit.rod(t, Vector3(0, 2.8, 2.4 * s), Vector3(0, 0.02, 3.8 * s), 0.006, rope, 4)
 			for k in 3:
 				var z := -1.6 + 1.6 * k
-				Kit.rod(t, Vector3(1.8 * s, 1.1, z), Vector3(2.9 * s, 0.02, z), 0.006, rope, 4)
-				Kit.rod(t, Vector3(2.9 * s, -0.1, z), Vector3(2.9 * s, 0.12, z), 0.02, pole, 6)
+				Kit.rod(t, Vector3(1.9 * s, 1.5, z), Vector3(3.1 * s, 0.02, z), 0.006, rope, 4)
+				Kit.rod(t, Vector3(3.1 * s, -0.1, z), Vector3(3.1 * s, 0.12, z), 0.02, pole, 6)
 
 
 ## The shaft below the plate: steel casing seen from inside, cables down the axis, a lamp at the bottom.
@@ -1023,6 +1041,125 @@ static func _chamber_profile(v: float) -> Vector2:
 		return Vector2(CHAMBER_R, CHAMBER_H * 0.8 * v / 0.6)
 	var a := (v - 0.6) / 0.4
 	return Vector2(lerpf(CHAMBER_R, SHAFT_R, sin(a * PI * 0.5)), CHAMBER_H * 0.8 + CHAMBER_H * 0.2 * sin(a * PI * 0.5))
+
+
+## December 1995: the same site, nothing hidden. The shaft stands open in its collar; a crane truck (the army truck
+## chassis with a slewing crane on outriggers) lowers a 6 m section of steel casing into it; two canopy trucks are
+## parked in the open; casing pipes lie stacked on sleepers.
+func _y1995(root: Node3D) -> void:
+	# The open shaft: a dark mouth inside the collar with the casing's rim.
+	Kit.cyl(root, 0.86, 0.86, 0.02, Vector3(0, 0.222, 0), Kit.flat("#040404"), 40)
+	var rim := MeshInstance3D.new()
+	var tm := TorusMesh.new()
+	tm.inner_radius = 0.82
+	tm.outer_radius = 0.9
+	tm.rings = 48
+	tm.ring_segments = 8
+	rim.mesh = tm
+	rim.material_override = Kit.shader(STEEL)
+	rim.position = Vector3(0, 0.235, 0)
+	root.add_child(rim)
+	# The crane truck: rear to the shaft, outriggers down, a slewing turret and a box boom up over the shaft.
+	var truck := _vehicle(PB + "truck_flat.glb")
+	truck.position = ground(-6.6, -0.6)
+	truck.rotation.y = PI
+	root.add_child(truck)
+	var olive := Kit.shader(OLIVE)
+	var yellow := Kit.shader(OLIVE)
+	yellow.set_shader_parameter("paint", Vector3(0.62, 0.48, 0.12))
+	var piv := Vector3(-4.2, truck.position.y + 2.05, -0.6)
+	Kit.cyl(root, 0.75, 0.75, 0.25, piv + Vector3(0, -0.35, 0), olive, 28)
+	Kit.slab(root, Vector3(1.4, 0.95, 1.5), 0.08, piv + Vector3(-0.55, 0.2, 0), olive)
+	Kit.slab(root, Vector3(0.7, 0.7, 0.75), 0.06, piv + Vector3(-0.35, 0.3, 0.75), olive)
+	Kit.box(root, Vector3(0.04, 0.4, 0.5), piv + Vector3(-0.0, 0.42, 1.13), Kit.mat("#0b0d0f", 0.1, 0.3))
+	for sx in [-1.0, 1.0]:
+		for sz in [-1.0, 1.0]:
+			var base := Vector3(-6.6 + sx * 2.0, 0, -0.6 + sz * 1.0)
+			var foot := Vector3(base.x, 0, -0.6 + sz * 2.1)
+			foot.y = height(foot.x, foot.z)
+			Kit.box(root, Vector3(0.16, 0.16, 1.2), Vector3(base.x, truck.position.y + 0.75, -0.6 + sz * 1.55), olive)
+			Kit.rod(root, Vector3(foot.x, truck.position.y + 0.75, foot.z), foot + Vector3(0, 0.08, 0), 0.06, olive, 10)
+			Kit.box(root, Vector3(0.5, 0.06, 0.5), foot + Vector3(0, 0.03, 0), Kit.mat("#5a4a32", 0.9))
+	_crane_tip = Vector3(0.0, 9.2, 0.0)
+	var boom := Node3D.new()
+	boom.position = piv + Vector3(0, 0.35, 0)
+	root.add_child(boom)
+	boom.look_at_from_position(boom.position, _crane_tip, Vector3.UP)
+	var blen := boom.position.distance_to(_crane_tip)
+	for k in 3:
+		var w := 0.42 - 0.08 * k
+		Kit.slab(boom, Vector3(w, w, blen / 3.0 + 0.2), 0.03, Vector3(0, 0, -blen * (k + 0.5) / 3.0), yellow)
+	Kit.cyl(boom, 0.16, 0.16, 0.12, Vector3(0, 0, -blen), olive, 16, Vector3(0, 0, PI / 2))
+	Kit.rod(root, piv + Vector3(0.5, 0.2, 0), boom.position + (_crane_tip - boom.position) * 0.4, 0.07, olive, 10)
+	# The hoist cable and the hook block, the casing hanging from a lifting clamp on two short slings.
+	_crane_cable = Kit.rod(root, _crane_tip, _crane_tip - Vector3(0, 1, 0), 0.012, Kit.shader(CABLE), 6)
+	_crane_hook = Node3D.new()
+	_crane_hook.name = "crane_hook"
+	root.add_child(_crane_hook)
+	Kit.slab(_crane_hook, Vector3(0.28, 0.4, 0.14), 0.05, Vector3(0, 0.2, 0), yellow)
+	var steel := Kit.shader(STEEL)
+	steel.set_shader_parameter("rust", 0.7)
+	for s2 in [-1.0, 1.0]:
+		Kit.rod(_crane_hook, Vector3(0, 0.0, 0), Vector3(s2 * 0.3, -0.55, 0), 0.012, Kit.mat("#3a3a38", 0.4, 0.6), 5)
+	Kit.cyl(_crane_hook, 0.34, 0.34, 0.1, Vector3(0, -0.6, 0), Kit.mat("#2e2c28", 0.45, 0.6), 24)
+	var pipe := Kit.cyl(_crane_hook, 0.3, 0.3, 6.0, Vector3(0, -3.6, 0), steel, 32)
+	pipe.name = "casing"
+	Kit.cyl(_crane_hook, 0.27, 0.27, 0.02, Vector3(0, -0.66, 0), Kit.flat("#060606"), 24)
+	# The scientist's clipboard (held in pose).
+	_clip = Kit.model(PH + "models/clipboard/clipboard_2k.gltf")
+	_clip.name = "clipboard"
+	root.add_child(_clip)
+	# Two canopy trucks parked in the open; casing pipes stacked on sleepers.
+	for e in [[Vector3(7.8, 0, -8.6), 2.35], [Vector3(11.6, 0, -3.2), 2.05], [Vector3(-12.5, 0, 7.5), -0.6]]:
+		var tr := _vehicle(PB + "truck_canopy.glb")
+		var p: Vector3 = e[0]
+		tr.position = ground(p.x, p.z)
+		tr.rotation.y = float(e[1])
+		root.add_child(tr)
+	var stack := Vector3(-4.6, 0, 3.4)
+	for i in 2:
+		Kit.box(root, Vector3(2.2, 0.15, 0.18), ground(stack.x, stack.z + 2.0 * i - 1.0) + Vector3(0, 0.075, 0), Kit.mat("#5a4632", 0.9))
+	for row in 2:
+		for i in (3 - row):
+			var x := stack.x - 0.62 + 0.62 * i + 0.31 * row
+			Kit.cyl(root, 0.3, 0.3, 5.0, Vector3(x, height(stack.x, stack.z) + 0.45 + 0.54 * row, stack.z), steel, 24, Vector3(PI / 2, 0, 0))
+
+
+## A Poly Haven model with its materials' albedo multiplied by `tint` (copies; the cached originals stay).
+func _tinted(m: Node3D, tint: Color) -> Node3D:
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var inst := mi as MeshInstance3D
+		for si in inst.mesh.get_surface_count():
+			var sm := inst.mesh.surface_get_material(si)
+			if sm is StandardMaterial3D:
+				var c := (sm as StandardMaterial3D).duplicate() as StandardMaterial3D
+				c.albedo_color = c.albedo_color * tint
+				inst.set_surface_override_material(si, c)
+	return m
+
+
+## An army truck model with its materials replaced by the set's shaders (dusty olive paint, sun-bleached canvas,
+## dusty tyres), cached per material name.
+func _vehicle(rel: String) -> Node3D:
+	var m := Kit.model(rel)
+	var olive := Kit.shader(OLIVE)
+	var canvas := Kit.shader(CANVAS)
+	var tyre := Kit.mat("#1b1a18", 0.95)
+	var glass := Kit.mat("#0a0d0f", 0.08, 0.3, 0.9)
+	var lamp := Kit.mat("#cfcabc", 0.2, 0.5)
+	var dark := Kit.mat("#141412", 0.6)
+	var wood := Kit.mat("#5a4632", 0.85)
+	var red := Kit.mat("#7a1a10", 0.4)
+	var rope := Kit.mat("#7a6a4c", 0.9)
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var inst := mi as MeshInstance3D
+		for si in inst.mesh.get_surface_count():
+			var name := String(inst.mesh.surface_get_material(si).resource_name) if inst.mesh.surface_get_material(si) else ""
+			var o: Material = {"paint": olive, "rim": olive, "canvas": canvas, "tyre": tyre, "glass": glass, "lamp": lamp,
+				"dark": dark, "wood": wood, "red": red, "rope": rope}.get(name, null)
+			if o:
+				inst.set_surface_override_material(si, o)
+	return m
 
 
 ## Dive path at scene time t (gag-local): {"cam", "look", "count", "on"}.
@@ -1426,6 +1563,46 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			var hr: Vector3 = actor.bone_world("hand_r")
 			var local := inv * ((hl + hr) * 0.5)
 			(nodes[0] as Node3D).transform = Transform3D((Basis(Vector3.UP, yaw_a) * Basis(Vector3.RIGHT, -0.25)).scaled(Vector3(1.25, 1.5, 1.25)), local + Vector3(0, -0.1, 0))
+	# Era: December 1995 inside the y1995 windows, May 1998 otherwise.
+	var is95 := false
+	for w in _p.get("y1995", []):
+		if t >= float(w[0]) and t < float(w[1]):
+			is95 = true
+	_g95.visible = is95
+	_g98.visible = not is95
+	if is95:
+		# The crane lowers the casing: its foot from 0.9 m above the collar to 1.4 m down the shaft, eased; it sways
+		# a touch on the slings.
+		var lw: Dictionary = _p.get("lower", {})
+		var k := Motion.in_out(Motion.seg(t, float(lw.get("from", 0.0)), float(lw.get("to", 1.0))))
+		var foot_y := lerpf(1.12, -1.2, k)
+		var hook := Vector3(0.0, foot_y + 6.0 + 0.66, 0.0)
+		_crane_hook.position = hook + Vector3(0.015 * sin(t * 1.3), 0, 0.012 * sin(t * 1.7 + 1.0))
+		_crane_hook.rotation = Vector3(0.006 * sin(t * 1.7), 0, -0.006 * sin(t * 1.3))
+		var top := hook + Vector3(0, 0.4, 0)
+		var d := _crane_tip - top
+		_crane_cable.transform = Transform3D(Basis(Quaternion(Vector3.UP, d.normalized())) * Basis.from_scale(Vector3(1, d.length(), 1)), (top + _crane_tip) * 0.5)
+		# The guide's hands ride on the casing, either side of it toward him; the scientist holds his clipboard.
+		var inv := gt.affine_inverse()
+		var gd: Dictionary = _p.get("guide", {})
+		var ga = ctx["actor"].call(String(gd.get("actor", ""))) if gd.has("actor") and ctx.has("actor") else null
+		if ga != null:
+			var me: Vector3 = inv * (ga as Node3D).global_position
+			var to_me := Vector3(me.x, 0, me.z).normalized()
+			var side := Vector3(-to_me.z, 0, to_me.x)
+			var sh: Vector3 = inv * ga.bone_world("spine_03")
+			for k2 in 2:
+				var sgn := -1.0 if k2 == 0 else 1.0
+				var on_pipe := (to_me * 0.27 + side * sgn * 0.14) + Vector3(0, sh.y - 0.12 + 0.04 * sgn, 0)
+				ga.aim_hand("l" if k2 == 0 else "r", gt * on_pipe, 1.0)
+		var cd: Dictionary = _p.get("clipboard", {})
+		var ca = ctx["actor"].call(String(cd.get("actor", ""))) if cd.has("actor") and ctx.has("actor") else null
+		if ca != null and _clip != null:
+			var cf := Vector3(sin(float(ca.rotation.y)), 0, cos(float(ca.rotation.y)))
+			var chest: Vector3 = inv * ca.bone_world("spine_03")
+			var hold := chest + cf * 0.22 + Vector3(0, -0.06, 0)
+			ca.aim_hand("l", gt * (hold + Vector3(-cf.z, 0, cf.x) * 0.08), 1.0)
+			_clip.transform = Transform3D(Basis(Vector3.UP, float(ca.rotation.y)) * Basis(Vector3.RIGHT, -0.9), hold)
 	# The work lamp swings a little on its cable (the cage's shadow sweeps the rock).
 	_lamp.rotation = Vector3(0.05 * sin(t * 2.6 + 0.4), 0, 0.07 * sin(t * 2.1))
 	# The leak: each source swells a drop, lets it go, it falls (free fall, stretching as it speeds up) and

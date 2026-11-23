@@ -26,7 +26,7 @@ const Anchors = preload("res://scripts/camera/anchors.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
 const Reveals = preload("res://scripts/timeline/reveals.gd")
 
-const ACTOR_KEYS := ["id", "character", "at", "facing", "action", "freeze", "phase", "route", "crowd", "cues", "keep_y"]
+const ACTOR_KEYS := ["id", "character", "at", "facing", "action", "freeze", "phase", "route", "crowd", "cues", "keep_y", "shown"]
 const CUE_KEYS := ["t", "action", "freeze", "facing", "turn", "hold", "expression", "hands", "head", "head_turn"]
 const HANDS := ["face", "chest", "chin", "none"]
 const ROUTE_KEYS := ["via", "gait", "speed", "arrive", "start", "then", "then_facing", "then_freeze"]
@@ -338,6 +338,9 @@ static func _plan_one(a: Dictionary, L: Dictionary, offset: Vector3, yaw_jitter:
 		"freeze": Cast.freeze_fraction(String(a.get("action", chr.get("idle", "idle"))), a.get("freeze")),
 		"phase": float(a.get("phase", (absi(hash(id)) % 1000) / 1000.0 * 2.0)),
 		"keep_y": bool(a.get("keep_y", false)),
+		# "shown": [[t0, t1], ...] scene windows when the actor exists (always, if absent): a scene that happens
+		# years apart in the same place (the 1995 team at the shaft, gone by 1998).
+		"shown": a.get("shown", []),
 	}
 	if a.has("route"):
 		var rs: Dictionary = a["route"]

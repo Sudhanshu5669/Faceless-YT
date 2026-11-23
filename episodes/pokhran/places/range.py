@@ -32,7 +32,7 @@ ACTORS = [
     {"id": "jawan_noon", "character": "toon_jawan_a", "at": P(0.51, 0, -4.1), "facing": P(-0.83, 0, -3.03),
      "route": {"via": [P(-0.83, 0, -3.03)], "gait": "walk", "start": W("l2b", offset=-0.6),
                "arrive": W("l2b", edge="end", offset=0.3)},
-     "cues": [{"t": 0.0, "expression": "deadpan"}]},
+     "cues": [{"t": 0.0, "expression": "deadpan"}], "shown": [[W("l2b", offset=-1.0), W("l2b", edge="end", offset=0.6)]]},
 ]
 
 # lid_chalk: the chalked text on the plate faces a camera in front of it (C points from the text to the camera,
@@ -53,7 +53,33 @@ ACTORS.append(
      "action": "crouch", "keep_y": True, "cues": [
          {"t": 0.0, "expression": "determined"},
          {"t": W("l2d", "House", 0.12), "expression": "smug"},
-     ]})
+     ], "shown": [[W("l2d", offset=-1.0), W("l2d", edge="end", offset=0.6)]]})
+
+# range_1995: December 1995, the same shaft out in the open. A crane truck lowers casing into the shaft; a Sikh
+# jawan on the collar guides it with both hands; the foreman calls the crane down; a scientist with a clipboard
+# watches. The casing's foot goes into the shaft on "right here".
+Y1995 = [W("l3b", offset=-0.8), W("l3c", offset=-0.02)]
+ACTORS += [
+    {"id": "guide_95", "character": "toon_jawan_b", "at": P(0.84, 0.222, -0.32), "facing": P(0.3, 0.222, 1.1),
+     "action": "idle", "keep_y": True, "shown": [Y1995],
+     "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("l3b", "here", 0.1), "expression": "happy"}]},
+    {"id": "foreman_95", "character": "toon_jawan_d", "at": P(-1.35, 0, -1.7), "facing": P(0.2, 0, 0.3),
+     "action": "call_out", "shown": [Y1995],
+     "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("l3b", "here", 0.05), "action": "idle", "expression": "grin"}]},
+    {"id": "sci_95", "character": "toon_barc_sci", "at": P(-2.05, 0, 0.15), "facing": P(0.3, 0, 0.6),
+     "action": "idle", "shown": [Y1995],
+     "cues": [{"t": 0.0, "expression": "thinking"}, {"t": W("l3b", "nuclear", 0.0), "expression": "determined"},
+              {"t": W("l3b", "here", 0.1), "expression": "happy"}]},
+]
+
+# A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
+LOOK_1995 = dict(LOOK_AFTERNOON,
+                 time="10:00",
+                 sun={"elevation": 32, "azimuth": 333, "color": "#fff0d8", "energy": 3.0, "softness": 0.6,
+                      "visible": True, "size": 1.3, "glow": 1.2, "shadows": True},
+                 sky={"top": "#6f93c4", "horizon": "#dcdcd2", "clouds": 0.0},
+                 ambient={"color": "#a8a8a0", "energy": 0.3, "sky": 0.6},
+                 grade={"contrast": 1.14, "saturation": 0.98, "vignette": 0.38, "grain": 0.035})
 
 GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"carry": [{"actor": "jawan_noon", "what": "jerrycans"}], "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
@@ -61,8 +87,11 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6]],
                     "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
                     "drip": W("l2e", "bomb", 0.04),
+                    "y1995": [Y1995],
+                    "lower": {"from": W("l3b", "India's", 0.0), "to": W("l3b", "here", 0.0)},
+                    "guide": {"actor": "guide_95"}, "clipboard": {"actor": "sci_95"},
                     "bushes": [[1.1, 2.5, 0.75, 0.6]]}},
-        {"id": "wh_chalk", "script": "library:chalk", "t": W("l2d", offset=-0.4),
+        {"id": "wh_chalk", "script": "library:chalk", "t": W("l2d", offset=-0.4), "until": W("l3a"),
          "at": TP(0, 0), "face": TP(0, 5.0),
          "params": {"lines": ["WHITE", "HOUSE"], "size": 0.18, "gap": 1.35, "done": 8, "width": 0.13,
                     "write": {"from": W("l2d", offset=-0.25), "to": W("l2d", "House")},
@@ -124,6 +153,11 @@ SHOTS = {
     "device_inside": {"look": LOOK_DEEP, "camera": move(
         cam(D(0.72, 1.1, 1.45), D(0.0, 1.2, 0.0), 22, {"strength": 0.15}),
         cam(D(0.55, 2.05, 1.12), D(0.1, 1.5, 0.08), 28, {"strength": 0.15}), "in_out")},
+    # High and wide on the open site, December 1995: the crane's boom over the shaft, the casing going down, the
+    # team round it, trucks parked in plain view; a slow push in as the casing enters the shaft on "right here".
+    "range_1995": {"look": LOOK_1995, "camera": move(
+        cam(P(3.4, 4.3, 8.8), P(-0.5, 2.7, -0.6), 26, {"strength": 0.1}),
+        cam(P(1.9, 2.5, 5.0), P(-0.4, 1.45, -0.7), 30, {"strength": 0.12}), "in_out")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

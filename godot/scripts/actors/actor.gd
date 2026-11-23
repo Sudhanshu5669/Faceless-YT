@@ -139,6 +139,13 @@ var _pose_t := 0.0
 
 func pose_at(t: float) -> void:
 	_pose_t = t
+	var shown: Array = plan.get("shown", [])
+	if not shown.is_empty():
+		var on := false
+		for w in shown:
+			if t >= float(w[0]) and t < float(w[1]):
+				on = true
+		visible = on
 	var st := state_at(t)
 	position = st["pos"]
 	rotation = Vector3(0, float(st["yaw"]), 0)

@@ -1,0 +1,30 @@
+{
+  "id": "toon_barc_sci",
+  "description": "Indian nuclear scientist at the range, 1995 (fictional stand-in): grey side-parted hair, glasses, moustache, white half-sleeve shirt, grey trousers.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "scientist"
+  ],
+  "height": 1.55,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#8a8a86"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#f1f0ea"
+    },
+    "shoes": "#3a2e24",
+    "accessories": [
+      "glasses"
+    ],
+    "face": "determined",
+    "girth": 1.08,
+    "mustache": "#4a4844"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "id": "toon_jawan_b",
-  "description": "58 Engineer Regiment jawan, 1998: Sikh, olive turban, full beard, disruptive-pattern fatigues.",
+  "description": "58 Engineer Regiment jawan, 1998: Sikh, olive turban, full dark-brown beard, disruptive-pattern fatigues.",
   "tags": [
     "toon",
     "human",
@@ -22,7 +22,7 @@
     "shoes": "#1c1916",
     "face": "deadpan",
     "girth": 1.06,
-    "mustache": "#1d1813",
-    "beard": "#1d1813"
+    "mustache": "#3a2c22",
+    "beard": "#5b4636"
   }
 }
