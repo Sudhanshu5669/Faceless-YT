@@ -266,6 +266,71 @@ PULL = 34.0
 _CV_CAM1 = [round(_CV0[i] - _D[i] / _N * PULL, 3) for i in range(3)]
 _CV_LOOK1 = [round(_CVL[i] - _D[i] / _N * PULL, 3) for i in range(3)]
 
+# cage_lower (1998, night): a lowering yard. Three shaft heads in depth, each cage going down on "down"; a busy camp
+# round the hero rig. Layout in (right, forward) metres from the hero shaft LOW_A, in the camera's frame.
+LOW_A = (30.0, 30.0)
+LOW_CAM = (22.0, 44.0)
+_ld = (LOW_A[0] - LOW_CAM[0], LOW_A[1] - LOW_CAM[1])
+_ln = (_ld[0] ** 2 + _ld[1] ** 2) ** 0.5
+_LF = (_ld[0] / _ln, _ld[1] / _ln)          # forward (away from the camera)
+_LR = (-_LF[1], _LF[0])                       # right
+
+
+def LW(right, fwd):
+    """A world (x, z) at (right, forward) metres from the hero shaft."""
+    return (round(LOW_A[0] + _LR[0] * right + _LF[0] * fwd, 3), round(LOW_A[1] + _LR[1] * right + _LF[1] * fwd, 3))
+
+
+def LP(right, fwd, y=0.0):
+    x, z = LW(right, fwd)
+    return P(x, y, z)
+
+
+def _off(right, fwd):
+    """An offset (x, z) in world axes for (right, forward)."""
+    return [round(_LR[0] * right + _LF[0] * fwd, 3), round(_LR[1] * right + _LF[1] * fwd, 3)]
+
+
+CAGE = [{"shot": "cage_lower", "offset": -0.1}, W("l11b", offset=0.0)]
+DOWN = W("l11a", "down", 0.0)
+
+
+def _yaw_to(fr, to):
+    import math
+    dx, dz = to[0] - fr[0], to[1] - fr[1]
+    return round(math.degrees(math.atan2(-dz, dx)), 1)    # vehicle +x forward
+
+
+ACTORS += [
+    # The guides, hands to the cage as it goes in; the officer calling it down; the scientist watching it go.
+    {"id": "cg_guide1", "character": "toon_jawan_b", "at": LP(-1.0, -1.25), "facing": LP(0, 0), "action": "interact",
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "effort"}]},
+    {"id": "cg_guide2", "character": "toon_jawan_c", "at": LP(1.05, -1.1), "facing": LP(0, 0), "action": "interact",
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "determined"}]},
+    {"id": "cg_officer", "character": "toon_jawan_d", "at": LP(-2.4, -2.4), "facing": LP(0, 0.4), "action": "call_out",
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "determined"}]},
+    {"id": "cg_sci", "character": "toon_sci_fatigues_b", "at": LP(1.7, -2.7), "facing": LP(0, 0), "action": "idle",
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "nervous", "head": [-22, 0, 0], "head_turn": 0.01},
+                               {"t": DOWN, "expression": "determined", "head": [10, 0, 0], "head_turn": 0.6}]},
+    # The winch man at the tripod's foot, the radio man calling the next shaft, a torch signalling across the yard.
+    {"id": "cg_winch", "character": "toon_jawan_a", "at": LP(2.3, 1.7), "facing": LP(0.8, 0.5), "action": "fix",
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "effort"}]},
+    {"id": "cg_radio", "character": "toon_jawan_a", "at": LP(3.2, 0.6), "facing": LP(1.0, -6.0), "action": "phone",
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "deadpan"}]},
+    {"id": "cg_torch", "character": "toon_jawan_c", "at": LP(-4.2, 3.6), "facing": LP(6.0, 13.0), "action": "torch",
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "determined"}]},
+    # Sandbag carriers crossing between the rigs; a sentry walking his beat in the foreground.
+    {"id": "cg_carry1", "character": "toon_jawan_d", "at": LP(-6.5, 6.5), "facing": LP(6.0, 8.0), "action": "idle",
+     "route": {"via": [LP(6.0, 8.0)], "gait": "walk_carry", "start": {"shot": "cage_lower", "offset": -1.5}},
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "effort"}]},
+    {"id": "cg_carry2", "character": "toon_jawan_b", "at": LP(-8.0, 7.2), "facing": LP(5.0, 8.8), "action": "idle",
+     "route": {"via": [LP(5.0, 8.8)], "gait": "walk_carry", "start": {"shot": "cage_lower", "offset": -0.4}},
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "effort"}]},
+    {"id": "cg_sentry", "character": "toon_jawan_a", "at": LP(-3.6, -5.6), "facing": LP(3.8, -4.7), "action": "idle",
+     "route": {"via": [LP(3.8, -4.7)], "gait": "walk", "start": {"shot": "cage_lower", "offset": -0.8}},
+     "shown": [CAGE], "cues": [{"t": 0.0, "expression": "deadpan"}]},
+]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -276,8 +341,9 @@ LOOK_1995 = dict(LOOK_AFTERNOON,
                  grade={"contrast": 1.14, "saturation": 0.98, "vignette": 0.38, "grain": 0.035})
 
 GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0),
-         "params": {"carry": [{"actor": "jawan_noon", "what": "jerrycans"}, {"actor": "night_bag", "what": "sandbag"}],
-                    "night": {"on": [NIGHT], "lamp": [1.8, 1.6], "torch": ["night_torch"]},
+         "params": {"carry": [{"actor": "jawan_noon", "what": "jerrycans"}, {"actor": "night_bag", "what": "sandbag"},
+                              {"actor": "cg_carry1", "what": "sandbag"}, {"actor": "cg_carry2", "what": "sandbag"}],
+                    "night": {"on": [NIGHT, CAGE], "lamp": [1.8, 1.6], "torch": ["night_torch", "cg_torch"]},
                     "dune": {"at": [DUNE_AT[0], DUNE_AT[1], 0.0], "scale": 0.7, "shape": [W("l7a", "Shaped", -0.3), W("l7a", "dunes", 0.35)],
                              "blow": W("l7a", "wind", -0.15), "hands": ["dune_a", "dune_b"], "blower": "dune_blow"},
                     "net": {"at": [NET_AT[0], NET_AT[1], 0.0], "size": [7.0, 6.0], "land": W("l7b", "nets", 0.05),
@@ -299,6 +365,16 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                                # The pull-back (user, 2026-11-24): straight back along the line of sight, no turning.
                                "cam1": _CV_CAM1, "look1": _CV_LOOK1,
                                "lining_until": {"shot": "convoy", "offset": 0.45}},
+                    "lowering": {"on": [CAGE], "down": DOWN,
+                                 "shafts": [[LW(0, 0)[0], LW(0, 0)[1], 0.0, _off(2.6, 2.4), DOWN],
+                                            [LW(4.5, 12.0)[0], LW(4.5, 12.0)[1], 0.0, _off(-2.6, 1.8), W("l11a", "down", -0.45)],
+                                            [LW(-5.0, 22.0)[0], LW(-5.0, 22.0)[1], 0.0, _off(2.8, 1.5), W("l11a", "down", 0.35)]],
+                                 # A low sandbag wall and a cable drum in the near foreground (depth, texture, the frame's
+                                 # bottom third).
+                                 "sandbags": [[*LW(-3.6 + 0.62 * k, 2.6 + 0.05 * (k % 2)), 8.0 * (k % 3) - 8.0, 0.0] for k in range(5)],
+                                 "drum": list(LW(3.4, -3.4)),
+                                 "trucks": [[LW(-9.5, 9.0)[0], LW(-9.5, 9.0)[1], _yaw_to(LW(-9.5, 9.0), LW(0, 3))],
+                                            [LW(12.0, 20.0)[0], LW(12.0, 20.0)[1], _yaw_to(LW(12.0, 20.0), LW(4, 10))]]},
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
@@ -387,6 +463,14 @@ LOOK_DAWN = dict(LOOK_AFTERNOON,
                  fog={"begin": 30, "end": 1500, "curve": 1.6, "volumetric": 0.0},
                  glow={"enabled": True, "intensity": 0.7, "bloom": 0.05, "threshold": 1.05},
                  grade={"contrast": 1.14, "saturation": 1.0, "vignette": 0.44, "grain": 0.035})
+
+# The lowering, at night: the same moonless-ish night, a thicker haze so the floodlights throw beams; deeper contrast.
+LOOK_LOWER = dict(LOOK_NIGHT,
+                  moon={"elevation": 28, "azimuth": 30, "color": "#8fa8e0", "energy": 0.45, "visible": False,
+                        "shadows": True, "softness": 1.0},
+                  fog={"begin": 20, "end": 700, "curve": 1.3, "volumetric": 0.03, "color": "#1c2230",
+                       "anisotropy": 0.55, "length": 40},
+                  grade={"contrast": 1.2, "saturation": 0.9, "vignette": 0.58, "grain": 0.05})
 
 # Chamber points: x/z from the canister's axis, y above the chamber floor (205 m down).
 FLOOR = -205.0
@@ -500,6 +584,13 @@ SHOTS = {
         "from": cam("range_site.convoy_cam0", "range_site.convoy_look0", _DLENS, {"strength": 0.12}),
         "to": cam("range_site.convoy_cam1", "range_site.convoy_look1", _DLENS, {"strength": 0.05}),
         "ease": "in_out", "start": {"shot": "convoy", "offset": 0.25}, "end": W("l10b", "convoy.", 0.2)}},
+    # Night, serious: just above head height in the lowering yard, looking a little down onto the floodlit collar. The hero cage, a device stood on end inside it,
+    # sinks into the shaft on "down" under the sodium floodlight, guides' hands on it; behind, two more rigs lit in the
+    # haze lowering theirs; carriers, a radio man, a torch, a sentry, trucks with their headlights on. A slow push; a
+    # held beat as it goes.
+    "cage_lower": {"look": LOOK_LOWER, "hold": 1.0, "camera": move(
+        cam(LP(-1.6, -7.2, 2.3), LP(0.2, 0.6, 1.2), 22, {"strength": 0.08}),
+        cam(LP(-1.3, -6.1, 2.15), LP(0.2, 0.6, 1.0), 22, {"strength": 0.1}), "linear")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

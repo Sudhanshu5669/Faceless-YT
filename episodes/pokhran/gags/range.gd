@@ -75,6 +75,10 @@ extends RefCounted
 ##              its cradle inside a ribbed lining (the canvas's inside, the rear flap closed, a warm work light): the same
 ##              picture as the An-32's hold (gags/flight.gd), for a match cut. Anchors convoy_cam0/look0/cam1/look1 are
 ##              those points in the carrying truck's own frame (+x forward, +y up, +z its right), moving with it
+##   lowering   {"on": [[t0, t1]], "down": t, "shafts": [[x, z, yaw, [flood_x, flood_z], down_t], ...], "trucks": [[x, z, yaw]]}
+##              night: three shaft heads, each with an open collar, a 6 m tripod, a steel cage carrying a device stood on
+##              end, lowered steadily (it passes the collar at its down_t, or `down`), and a sodium floodlight on a pole
+##              (position in the rig's frame); trucks parked with their headlights on
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, jeep (its cab), dive_cam, dive_look, dive_count, dive_face
@@ -576,6 +580,7 @@ func build(g: Dictionary) -> Node3D:
 	_net_build(_g98)
 	_watch_build(root)
 	_convoy_build(root)
+	_lowering_build(root)
 	_cricket_build(root)
 	if not (_p.get("jeep", {}) as Dictionary).is_empty():
 		_jeep = _vehicle(PB + "jeep.glb")
@@ -632,6 +637,8 @@ var _dune: MeshInstance3D
 var _net: MeshInstance3D
 var _watch: Node3D
 var _convoy: Node3D
+var _low: Node3D
+var _low_rigs: Array = []
 var _cv_anchors := {}
 var _cv_trucks: Array = []
 var _cv_dust: Array = []
@@ -1050,6 +1057,164 @@ func _pose_convoy(gt: Transform3D, t: float) -> Dictionary:
 			var v: Array = cd.get(key, [0, 0, 0])
 			out["convoy_" + key] = gt * (x * Vector3(float(v[0]), float(v[1]), float(v[2])))
 	return out
+
+
+## The night lowering (param "lowering"): three shaft heads, each with an open collar, a tall tripod, a steel cage
+## carrying a device (stood on end, strapped to its strongback) and a sodium floodlight on a pole; a truck with its
+## headlights on. Each cage goes down its shaft on its own `down` time.
+func _lowering_build(root: Node3D) -> void:
+	var ld: Dictionary = _p.get("lowering", {})
+	if ld.is_empty():
+		return
+	_low = Node3D.new()
+	_low.name = "lowering"
+	root.add_child(_low)
+	var conc := Kit.shader(CONCRETE)
+	var olive := Kit.shader(OLIVE)
+	var steel := Kit.shader(STEEL)
+	var cable := Kit.shader(CABLE)
+	var black := Kit.flat("#020202")
+	for sh in ld.get("shafts", []):
+		var base := ground(float(sh[0]), float(sh[1]))
+		var rig := Node3D.new()
+		rig.position = base
+		rig.rotation.y = deg_to_rad(float(sh[2]) if (sh as Array).size() > 2 else 0.0)
+		_low.add_child(rig)
+		# The open collar and the black mouth of the shaft.
+		Kit.slab(rig, Vector3(2.7, 0.3, 2.7), 0.05, Vector3(0, 0.07, 0), conc)
+		Kit.cyl(rig, SHAFT_R, SHAFT_R, 0.02, Vector3(0, 0.235, 0), black, 32)
+		var bore := MeshInstance3D.new()
+		var bm := CylinderMesh.new()
+		bm.top_radius = SHAFT_R
+		bm.bottom_radius = SHAFT_R
+		bm.height = 6.0
+		bm.radial_segments = 32
+		bm.cap_top = false
+		bm.flip_faces = true
+		bore.mesh = bm
+		bore.material_override = Kit.mat("#1a1814", 0.9)
+		bore.position = Vector3(0, -2.8, 0)
+		rig.add_child(bore)
+		# The tripod: three legs to a 6 m apex, bracing, the sheave.
+		var apex := Vector3(0, 6.2, 0)
+		var feet := []
+		for k in 3:
+			var a := deg_to_rad(90.0 + 120.0 * k + 15.0)
+			var foot := Vector3(cos(a) * 2.4, 0, sin(a) * 2.4)
+			feet.append(foot)
+			Kit.rod(rig, foot + Vector3(0, 0.05, 0), apex, 0.06, olive, 12)
+			Kit.box(rig, Vector3(0.4, 0.05, 0.4), foot + Vector3(0, 0.02, 0), steel)
+		for hf in [0.3, 0.6]:
+			for k in 3:
+				Kit.rod(rig, (feet[k] as Vector3).lerp(apex, hf), (feet[(k + 1) % 3] as Vector3).lerp(apex, hf), 0.024, olive, 6)
+		var sheave := MeshInstance3D.new()
+		var tm := TorusMesh.new()
+		tm.inner_radius = 0.22
+		tm.outer_radius = 0.3
+		tm.rings = 32
+		sheave.mesh = tm
+		sheave.material_override = steel
+		sheave.position = apex + Vector3(0, -0.2, 0)
+		sheave.rotation = Vector3(0, 0, PI / 2)
+		rig.add_child(sheave)
+		# The cage: four posts, three rings, a top bridle to the hook; the device stood on end inside it.
+		var cage := Node3D.new()
+		cage.name = "cage"
+		rig.add_child(cage)
+		var hs := 0.62
+		var ch := 2.9
+		for cx in [-hs, hs]:
+			for cz in [-hs, hs]:
+				Kit.rod(cage, Vector3(cx, 0, cz), Vector3(cx, ch, cz), 0.035, steel, 8)
+				Kit.rod(cage, Vector3(cx, ch, cz), Vector3(0, ch + 0.7, 0), 0.012, cable, 6)
+		for hy in [0.05, ch * 0.5, ch]:
+			for e in [[Vector3(-hs, hy, -hs), Vector3(hs, hy, -hs)], [Vector3(hs, hy, -hs), Vector3(hs, hy, hs)],
+					[Vector3(hs, hy, hs), Vector3(-hs, hy, hs)], [Vector3(-hs, hy, hs), Vector3(-hs, hy, -hs)]]:
+				Kit.rod(cage, e[0], e[1], 0.03, steel, 6)
+		Kit.box(cage, Vector3(hs * 2, 0.05, hs * 2), Vector3(0, 0.02, 0), steel)
+		var dev := Kit.model(PB + "device.glb")
+		dev.transform = Transform3D(Basis(Vector3(0, 0, 1), PI / 2), Vector3(0.62 - 0.0, 1.26, 0.0))
+		cage.add_child(dev)
+		for mi in dev.find_children("*", "MeshInstance3D", true, false):
+			var m := mi as MeshInstance3D
+			for si in m.mesh.get_surface_count():
+				var mt := m.mesh.surface_get_material(si)
+				if mt != null and String(mt.resource_name) == "indicator":
+					m.set_surface_override_material(si, Kit.lit("#3dff7a", 5.0))
+		var hookc := Kit.rod(rig, Vector3.ZERO, Vector3(0, 1, 0), 0.016, cable, 6)
+		# The floodlight: a pole beside the collar, two shaded sodium heads aimed at the cage; a halo in the haze.
+		var fl: Array = sh[3] if (sh as Array).size() > 3 else [3.2, 2.4]
+		var pb := Vector3(float(fl[0]), 0, float(fl[1]))
+		var top := pb + Vector3(0, 5.0, 0)
+		Kit.rod(rig, pb, top, 0.045, Kit.mat("#3c4232", 0.55, 0.3), 8)
+		for k in 2:
+			var head: Vector3 = top + Vector3(-0.25 + 0.5 * k, 0.05, 0)
+			Kit.box(rig, Vector3(0.36, 0.26, 0.2), head, Kit.mat("#2c2f28", 0.5, 0.3))
+			Kit.box(rig, Vector3(0.3, 0.2, 0.02), head + (Vector3(0, 0.2, 0) - head).normalized() * 0.12, Kit.lit("#ffcf86", 14.0))
+		# Two ground work lights at the collar throw hard light up onto the cage (the device glints out of the dark).
+		for gw in [Vector3(1.3, 0.3, 1.1), Vector3(-1.2, 0.3, 1.3)]:
+			Kit.box(rig, Vector3(0.28, 0.22, 0.18), gw, Kit.mat("#2c2f28", 0.5, 0.3))
+			var up := Kit.spot(rig, gw + Vector3(0, 0.12, 0), Vector3(0, 2.4, 0), Color(1.0, 0.86, 0.66), 12.0, 7.0, 30.0, true, 1.2)
+			up.spot_attenuation = 1.0
+		var sp := Kit.spot(rig, top + Vector3(0, -0.1, 0), Vector3(0, 1.6, 0), Color(1.0, 0.72, 0.38), 34.0, 22.0, 34.0, true, 4.0)
+		sp.spot_attenuation = 0.9
+		_low_rigs.append({"rig": rig, "cage": cage, "cable": hookc, "apex": apex})
+	# Sandbags (props: [[x, z, yaw_deg], ...]) and a cable drum ([x, z]).
+	var hess := Kit.shader(HESSIAN)
+	for sb in ld.get("sandbags", []):
+		var bag := _model(PB + "sandbag.glb", hess)
+		bag.position = ground(float(sb[0]), float(sb[1])) + Vector3(0, float(sb[3]) if (sb as Array).size() > 3 else 0.0, 0)
+		bag.rotation.y = deg_to_rad(float(sb[2]))
+		bag.scale = Vector3.ONE * 1.25
+		_low.add_child(bag)
+	if ld.has("drum"):
+		var dr: Array = ld["drum"]
+		var dp := ground(float(dr[0]), float(dr[1]))
+		var wood := Kit.mat("#5a4632", 0.85)
+		for sx in [-0.42, 0.42]:
+			Kit.cyl(_low, 0.75, 0.75, 0.06, dp + Vector3(sx, 0.75, 0), wood, 28, Vector3(0, 0, PI / 2))
+		Kit.cyl(_low, 0.5, 0.5, 0.8, dp + Vector3(0, 0.75, 0), Kit.mat("#141414", 0.5), 28, Vector3(0, 0, PI / 2))
+	for tk in ld.get("trucks", []):
+		var tr := _vehicle(PB + "truck_canopy.glb")
+		tr.position = ground(float(tk[0]), float(tk[1]))
+		tr.rotation.y = deg_to_rad(float(tk[2]))
+		_low.add_child(tr)
+		var fwd := Vector3(cos(tr.rotation.y), 0, -sin(tr.rotation.y))
+		var side := Vector3(-fwd.z, 0, fwd.x)
+		for s in [-0.95, 0.95]:
+			var lp: Vector3 = tr.position + fwd * 3.0 + side * s + Vector3(0, 1.33, 0)
+			Kit.ball(_low, 0.11, lp, Kit.lit("#fff2d6", 10.0), 12)
+			var hl := Kit.spot(_low, lp + fwd * 0.12, lp + fwd * 12.0 + Vector3(0, -1.2, 0), Color(1.0, 0.95, 0.82), 9.0, 30.0, 22.0, false, 3.0)
+			hl.spot_attenuation = 0.8
+
+
+func _pose_lowering(t: float) -> void:
+	if _low == null:
+		return
+	var ld: Dictionary = _p.get("lowering", {})
+	var on := false
+	for w in ld.get("on", []):
+		if t >= float(w[0]) and t < float(w[1]):
+			on = true
+	_low.visible = on
+	if not on:
+		return
+	var shafts: Array = ld.get("shafts", [])
+	for i in _low_rigs.size():
+		var r: Dictionary = _low_rigs[i]
+		var sh: Array = shafts[i]
+		var td := float(sh[4]) if sh.size() > 4 else float(ld.get("down", 1e9))
+		# Lowered steadily from 1.4 m above the collar to well down the shaft, passing the collar at `down`;
+		# the cage turns a touch and sways on its cable.
+		var y := minf(0.25 + 1.2 - 1.8 * (t - td), 2.2)
+		var cage: Node3D = r["cage"]
+		cage.position = Vector3(0.02 * sin(t * 1.3 + i), y, 0.02 * sin(t * 1.7 + i * 2.0))
+		cage.rotation.y = 0.12 * sin(t * 0.4 + i)
+		var apex: Vector3 = r["apex"]
+		var bridle := cage.position + Vector3(0, 2.9 + 0.7, 0)
+		var cb: MeshInstance3D = r["cable"]
+		var d := apex + Vector3(0, -0.2, 0) - bridle
+		cb.transform = Transform3D(Basis(Quaternion(Vector3.UP, d.normalized())) * Basis.from_scale(Vector3(1, d.length(), 1)), bridle + d * 0.5)
 
 
 ## The lookout's wristwatch and his handwritten list of pass times (param "watch").
@@ -2779,6 +2944,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_watch(gt, t, ctx)
 	_pose_cricket(gt, t, ctx)
 	_cv_anchors = _pose_convoy(gt, t)
+	_pose_lowering(t)
 	_pose_jeep(gt, t, ctx)
 	_pose_disguise(ctx)
 	for aid in _chai:

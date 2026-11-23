@@ -323,10 +323,17 @@
     "history": []
   },
   "convoy": {
-    "status": "changes",
+    "status": "approved",
     "note": "The zoom out in this shot is weird. just do a straight zoom out and show all those trucks going. why zoom around, makes the shot look weird.",
-    "updated": "2026-11-24 00:38:50",
-    "fingerprint": "2c7c3d25080c",
-    "history": []
+    "updated": "2026-11-24 00:42:04",
+    "fingerprint": "d242b0a01990",
+    "history": [
+      {
+        "status": "changes",
+        "note": "The zoom out in this shot is weird. just do a straight zoom out and show all those trucks going. why zoom around, makes the shot look weird.",
+        "updated": "2026-11-24 00:38:50",
+        "fingerprint": "2c7c3d25080c"
+      }
+    ]
   }
 }
