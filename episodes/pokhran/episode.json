@@ -1412,7 +1412,7 @@
      "flip": [
       {
        "line": "l5a",
-       "offset": -0.15
+       "offset": 0.25
       },
       {
        "line": "l5a",
@@ -3045,25 +3045,25 @@
      "at": {
       "anchor": "office",
       "offset": [
-       0.55,
-       1.62,
-       9001.05
+       -0.75,
+       1.45,
+       9001.2
       ]
      },
      "look_at": {
       "anchor": "office",
       "offset": [
-       0.45,
-       1.55,
+       0.3,
+       1.4,
        8998.8
       ]
      },
-     "lens_mm": 32,
+     "lens_mm": 34,
      "dof": {
-      "strength": 0.12
+      "strength": 0.14
      }
     },
-    "ease": "in"
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
@@ -3128,7 +3128,7 @@
      "level": 0
     }
    },
-   "hold": 0.2
+   "hold": 0.6
   },
   {
    "name": "vajpayee_order",

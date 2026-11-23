@@ -185,6 +185,8 @@ void fragment() {
 	}
 	// A thin red rule under the picture.
 	c = mix(c, vec3(0.75, 0.1, 0.1), step(abs(p.y - 0.49), 0.004));
+	// The back of the sheet is plain paper.
+	if (!FRONT_FACING) { c = vec3(0.93, 0.92, 0.88); }
 	ALBEDO = c;
 	ROUGHNESS = 0.6;
 	SPECULAR = 0.3;
@@ -602,7 +604,8 @@ func _pose_phone(gt: Transform3D, t: float, ctx: Dictionary) -> Vector3:
 			_handset.rotation = Vector3(0.04 * sin(t * 83.0), 0, 0.07 * sin(t * 71.0))
 		var hid := String(rd.get("hand", ""))
 		var actor = ctx["actor"].call(hid) if hid != "" and ctx.has("actor") else null
-		if actor != null and t > tl - 0.5:
+		# Only while the caller is on screen: once they are gone (a later year) the handset is back on its cradle.
+		if actor != null and actor.visible and t > tl - 0.5:
 			var inv := gt.affine_inverse()
 			var reach := Motion.smooth(Motion.seg(t, tl - 0.5, tl))
 			var lift := Motion.in_out(Motion.seg(t, tl, tl + 0.85))
@@ -656,7 +659,7 @@ func _calendar_build(root: Node3D) -> void:
 	plain.font_weight = 600
 	for k in 2:
 		var pivot := Node3D.new()
-		pivot.position = CAL_AT + Vector3(0, CAL_SIZE.y * 0.5, 0.004 * (2 - k))
+		pivot.position = CAL_AT + Vector3(0, CAL_SIZE.y * 0.5, 0.004 * (k + 1))   # page 1 (the top one) in front
 		root.add_child(pivot)
 		var sheet := MeshInstance3D.new()
 		var qm := QuadMesh.new()
@@ -666,8 +669,11 @@ func _calendar_build(root: Node3D) -> void:
 		sheet.material_override = m
 		sheet.position = Vector3(0, -CAL_SIZE.y * 0.5, 0)
 		pivot.add_child(sheet)
-		var month := _label(pivot, font, 0.034, Color(0.1, 0.1, 0.12), Vector3(-0.07, -CAL_SIZE.y * 0.555, 0.001))
-		var year := _label(pivot, font, 0.05, Color(0.72, 0.08, 0.08), Vector3(0.13, -CAL_SIZE.y * 0.55, 0.001))
+		# The month flush left, the year flush right (long names like SEPTEMBER never run into it).
+		var month := _label(pivot, font, 0.024, Color(0.1, 0.1, 0.12), Vector3(-CAL_SIZE.x * 0.5 + 0.03, -CAL_SIZE.y * 0.545, 0.001))
+		month.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		var year := _label(pivot, font, 0.04, Color(0.72, 0.08, 0.08), Vector3(CAL_SIZE.x * 0.5 - 0.03, -CAL_SIZE.y * 0.545, 0.001))
+		year.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		var heads := []
 		var names := ["S", "M", "T", "W", "T", "F", "S"]
 		for d in 7:
@@ -734,18 +740,17 @@ func _pose_calendar(t: float) -> void:
 	var fl: Array = cd.get("flip", [1e9, 1e9])
 	# Pages flip faster and faster, then the last one settles.
 	var u := Motion.seg(t, float(fl[0]), float(fl[1]))
-	var pos := float(m1 - m0) * (u * u * (3.0 - 2.0 * u) * 0.35 + u * 0.65)
+	var pos := float(m1 - m0) * pow(u, 1.6)
 	var i := mini(int(floorf(pos)), m1 - m0)
 	var f: float = pos - floorf(pos) if i < m1 - m0 else 0.0
 	_cal_show(0, m0 + mini(i + 1, m1 - m0))     # underneath: the next month
 	_cal_show(1, m0 + i)                          # on top: this month, flipping up over the top edge
 	var top: Node3D = (_cal_pages[1] as Array)[0]
 	var under: Node3D = (_cal_pages[0] as Array)[0]
+	# Landed: the top page simply rests on the last month (no visibility switch on the landing frame).
 	top.rotation.x = -PI * 0.92 * Motion.in_cubic(f)
-	top.visible = i < m1 - m0
+	top.visible = true
 	under.visible = true
-	if i >= m1 - m0:
-		_cal_show(0, m1)
 
 
 ## Type laid flat on the page; shrunk to `max_w` metres wide if it would run off the page.

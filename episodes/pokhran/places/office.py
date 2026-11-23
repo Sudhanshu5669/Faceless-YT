@@ -54,7 +54,7 @@ ACTORS = [
 
 GAGS = [{"id": "pmo", "script": "gags/pm_office.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"sitter": ["rao", "vajpayee_pmo"],
-                    "calendar": {"flip": [W("l5a", offset=-0.15), W("l5a", "1998.", 0.0)], "from": [1995, 12],
+                    "calendar": {"flip": [W("l5a", offset=0.25), W("l5a", "1998.", 0.0)], "from": [1995, 12],
                                  "to": [1998, 3]},
                     "paper": {"slap": W("l4a", "Times", 0.0),
                               "folio": "THE NEW YORK TIMES, FRIDAY, DECEMBER 15, 1995",
@@ -84,11 +84,11 @@ SHOTS = {
         cam(P(-0.85, 1.22, 1.25), P(-0.3, 1.0, -0.5), 34, {"strength": 0.16}),
         cam(P(-0.72, 1.24, 1.0), P(-0.27, 1.05, -0.52), 36, {"strength": 0.16}), "in_out")},
     # Close on the wall calendar behind the desk: the pages flip from December 1995 to March 1998, landing on "1998";
-    # the camera pulls back and down to the new Prime Minister in the chair, thinking.
+    # the camera pulls back and round to the new Prime Minister in the chair, thinking, the calendar above his head.
     "office_1998": {"look": LOOK_1995, "camera": move(
         cam(P(-1.15, 2.0, -1.25), P(-1.2, 2.0, -2.7), 40, {"strength": 0.1}),
-        cam(P(-0.55, 1.62, 1.05), P(-0.45, 1.55, -1.2), 32, {"strength": 0.12}), "in"),
-        "hold": 0.2},
+        cam(P(0.75, 1.45, 1.2), P(-0.3, 1.4, -1.2), 34, {"strength": 0.14}), "in_out"),
+        "hold": 0.6},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}
