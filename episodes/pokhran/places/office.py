@@ -27,7 +27,7 @@ LOOK_1995 = {
     "practical_lights": {"level": 0},
 }
 
-R1995 = [W("l4a", offset=-0.8), W("l4d", offset=-0.05)]
+R1995 = [W("l4a", offset=-0.8), W("l4d", offset=0.05)]
 
 ACTORS = [
     # Ambassador Wisner stands at the desk and slides the satellite prints across to Rao.
@@ -40,7 +40,10 @@ ACTORS = [
               {"t": W("l4a", "Times", 0.02), "expression": "surprised"},
               {"t": W("l4a", "Times", 0.45), "expression": "nervous"},
               {"t": W("l4b", "photos", 0.05), "expression": "side_eye"},
-              {"t": W("l4b", "photos", 0.7), "expression": "nervous"}]},
+              {"t": W("l4b", "photos", 0.7), "expression": "nervous"},
+              {"t": W("l4c", "calls", 0.0), "expression": "shocked"},
+              {"t": W("l4c", "calls", 0.5), "expression": "nervous"},
+              {"t": W("l4c", "Minister", 0.0), "expression": "sad"}]},
 ]
 
 GAGS = [{"id": "pmo", "script": "gags/pm_office.gd", "t": 0, "at": P(0, 0, 0),
@@ -51,7 +54,8 @@ GAGS = [{"id": "pmo", "script": "gags/pm_office.gd", "t": 0, "at": P(0, 0, 0),
                               "byline": "By TIM WEINER",
                               "dateline": "WASHINGTON, Dec. 14 —"},
                     "photos": {"slide": W("l4b", "photos", 0.0), "hand": "wisner",
-                               "cam": range_place.P(0.0, 260.0, -0.5), "ortho": 34.0}}}]
+                               "cam": range_place.P(0.0, 260.0, -0.5), "ortho": 34.0},
+                    "ring": {"from": W("l4c", offset=-0.3), "lift": W("l4c", "calls", 0.15), "hand": "rao"}}}]
 
 SHOTS = {
     # Insert from above the desk, the visitors' side: an aide's arm slaps the folded New York Times down on
@@ -66,6 +70,11 @@ SHOTS = {
     "wisner_photos": {"look": LOOK_1995, "camera": move(
         cam(P(1.5, 1.52, 1.3), P(-0.05, 0.93, -0.3), 34, {"strength": 0.14}),
         cam(P(1.36, 1.45, 1.16), P(-0.03, 0.92, -0.28), 36, {"strength": 0.14}), "in_out")},
+    # Medium on Rao: the black phone rattles on its cradle on "calls"; he reaches for it and lifts the handset slowly to
+    # his ear, the cord stretching; nervous, then sad. A slow push.
+    "rao_phone": {"look": LOOK_1995, "camera": move(
+        cam(P(-0.85, 1.22, 1.25), P(-0.3, 1.0, -0.5), 34, {"strength": 0.16}),
+        cam(P(-0.72, 1.24, 1.0), P(-0.27, 1.05, -0.52), 36, {"strength": 0.16}), "in_out")},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

@@ -16,10 +16,13 @@ extends RefCounted
 ##   photos   {"slide": t, "hand": actor id, "cam": point, "ortho": metres}   satellite prints: a stack on the visitors'
 ##            side; at `slide` the top print slides across to the PM under the actor's right hand. The picture is a
 ##            live overhead orthographic view from `cam` (straight down), printed greyscale with a grease-pencil ring
-## anchors: desk, paper, phone_black, phone_beige, chair, window, flag, print
+##   ring     {"from": t, "until": t, "lift": t, "hand": actor id}   the black phone rings (the handset rattles in
+##            double-ring bursts) from `from`; from `lift` the actor's right hand takes the handset slowly to the ear
+## anchors: desk, paper, phone_black, phone_beige, chair, window, flag, print, handset
 const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
+const Crawl = preload("res://scripts/actors/toon_crawl.gd")
 
 const TOP := 0.77
 const ROOM := Vector3(7.4, 4.3, 6.4)       # x width, height, z depth
@@ -160,6 +163,10 @@ var _paper: Node3D
 var _arm_upper: MeshInstance3D
 var _hand: MeshInstance3D
 var _jiggle: Array = []
+var _phone: Node3D
+var _handset: Node3D
+var _cord: Array = []
+const HANDSET_REST := Vector3(0, 0.125, -0.04)
 var _prints: Array = []
 var _photo_view: SubViewport
 var _photo_cam: Camera3D
@@ -289,6 +296,9 @@ void fragment() {
 	var tube := Kit.cyl(root, 0.016, 0.016, 1.18, Vector3(hx - 0.1, 3.07, 1.2), Kit.lit("#f4f8ff", 2.2), 10, Vector3(PI / 2, 0, 0))
 	tube.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	Kit.omni(root, Vector3(hx - 0.4, 3.0, 1.2), "#dfe8ff", 0.35, 6.0)
+	# Warm bounce off the sunlit floor by the window, behind the PM's right shoulder: a rim on his head and on
+	# whatever he holds up on that side (the telephone receiver).
+	Kit.omni(root, Vector3(-1.1, 1.35, -1.25), "#ffcf9a", 0.32, 2.4)
 
 
 func _desk(root: Node3D) -> void:
@@ -316,17 +326,34 @@ func _desk(root: Node3D) -> void:
 		Kit.box(f, Vector3(0.362, 0.026, 0.012), Vector3(0, 0, 0), red)
 		_jiggle.append([f, f.position, k])
 	# The black dial phone (PM's right) and the beige push-button phone.
-	var blk := Kit.mat("#0c0c0c", 0.25, 0.0, 0.7)
+	var blk := Kit.mat("#16161a", 0.18, 0.0, 0.9)
 	var ph := Node3D.new()
 	ph.name = "phone_black"
 	ph.position = Vector3(-0.62, TOP, -0.12)
 	ph.rotation.y = 0.35
 	root.add_child(ph)
 	Kit.slab(ph, Vector3(0.22, 0.09, 0.24), 0.04, Vector3(0, 0.045, 0), blk)
+	# The rotary dial: a cream disc with the finger holes ringed in black, a chrome stop.
 	Kit.cyl(ph, 0.07, 0.075, 0.015, Vector3(0, 0.08, 0.04), Kit.mat("#d8d4c8", 0.5), 24, Vector3(-0.5, 0, 0))
-	Kit.slab(ph, Vector3(0.22, 0.045, 0.06), 0.02, Vector3(0, 0.125, -0.04), blk)
+	for k in 10:
+		var a := -0.6 + 5.0 * float(k) / 10.0
+		Kit.cyl(ph, 0.008, 0.008, 0.018, Vector3(cos(a) * 0.05, 0.083 + sin(-0.5) * cos(a) * 0.0, 0.04 + sin(a) * 0.05 * cos(0.5)), blk, 8, Vector3(-0.5, 0, 0))
+	# Cradle prongs; the handset is its own node so it can rattle and be lifted (pose).
 	for s in [-1.0, 1.0]:
-		Kit.ball(ph, 0.035, Vector3(s * 0.1, 0.13, -0.04), blk, 12, Vector3(1, 0.8, 1.2))
+		Kit.box(ph, Vector3(0.03, 0.035, 0.05), Vector3(s * 0.08, 0.1, -0.04), blk)
+	_handset = Node3D.new()
+	_handset.name = "handset"
+	ph.add_child(_handset)
+	_handset.position = HANDSET_REST
+	_handset.scale = Vector3.ONE * 1.25
+	Kit.slab(_handset, Vector3(0.22, 0.04, 0.055), 0.02, Vector3(0, 0, 0), blk)
+	for s in [-1.0, 1.0]:
+		Kit.ball(_handset, 0.035, Vector3(s * 0.1, 0.006, 0), blk, 12, Vector3(1, 0.8, 1.2))
+	_phone = ph
+	# The coiled cord from the base's side to the handset's end (rebuilt each frame in pose).
+	for k in 16:
+		var seg := Kit.rod(root, Vector3.ZERO, Vector3(0, 0.01, 0), 0.007, blk, 6)
+		_cord.append(seg)
 	_jiggle.append([ph, ph.position, 7])
 	var beige := Kit.mat("#d8cdb0", 0.45)
 	var ph2 := Node3D.new()
@@ -366,7 +393,7 @@ void fragment() {
 }
 """)
 	Kit.quad(fl, Vector2(0.15, 0.1), Vector3(0.077, 0.29, 0), flag_m)
-	# A glass of water under a saucer lid; a brass pen stand; a paperweight.
+	# A glass of water under a saucer lid; a brass pen stand.
 	var glass := Kit.mat(Color(0.85, 0.9, 0.95, 0.35), 0.05, 0.0, 0.9)
 	Kit.cyl(root, 0.034, 0.03, 0.11, Vector3(0.38, TOP + 0.055, -0.28), glass, 20)
 	Kit.cyl(root, 0.029, 0.027, 0.07, Vector3(0.38, TOP + 0.04, -0.28), Kit.mat(Color(0.7, 0.8, 0.85, 0.5), 0.02, 0.0, 0.9), 20)
@@ -374,7 +401,6 @@ void fragment() {
 	Kit.cyl(root, 0.06, 0.06, 0.012, Vector3(-0.15, TOP + 0.006, -0.3), brass, 24)
 	for k in 3:
 		Kit.rod(root, Vector3(-0.15 + 0.015 * (k - 1), TOP + 0.01, -0.3), Vector3(-0.17 + 0.03 * (k - 1), TOP + 0.16, -0.34), 0.005, Kit.mat(["#1a2a6a", "#101010", "#8a1010"][k], 0.3), 8)
-	Kit.ball(root, 0.035, Vector3(-0.35, TOP + 0.02, 0.18), Kit.mat(Color(0.75, 0.85, 0.95, 0.6), 0.02, 0.0, 0.9), 16, Vector3(1, 0.6, 1))
 
 
 func _chair(root: Node3D) -> void:
@@ -520,6 +546,65 @@ func _pose_photos(gt: Transform3D, t: float, ctx: Dictionary) -> Vector3:
 	return top_print.position
 
 
+## The black phone: rattling while it rings; lifted to the ear by the actor's right hand.
+func _pose_phone(gt: Transform3D, t: float, ctx: Dictionary) -> Vector3:
+	var rd: Dictionary = _p.get("ring", {})
+	_handset.position = HANDSET_REST
+	_handset.rotation = Vector3.ZERO
+	var inv_ph := _phone.transform.affine_inverse()
+	var hand_world := Vector3.ZERO
+	if not rd.is_empty():
+		var t0 := float(rd.get("from", 1e9))
+		var tl := float(rd.get("lift", 1e9))
+		# A double ring (0.4 s on, 0.2 off, 0.4 on, 2 s quiet) while it rings and before it is lifted.
+		var c := fposmod(t - t0, 3.0)
+		var on := (c < 0.4 or (c > 0.6 and c < 1.0)) and t >= t0 and t < tl + 0.1
+		if on:
+			_handset.position = HANDSET_REST + Vector3(0, 0.011 * absf(sin(t * 95.0)), 0)
+			_handset.rotation = Vector3(0.04 * sin(t * 83.0), 0, 0.07 * sin(t * 71.0))
+		var hid := String(rd.get("hand", ""))
+		var actor = ctx["actor"].call(hid) if hid != "" and ctx.has("actor") else null
+		if actor != null and t > tl - 0.5:
+			var inv := gt.affine_inverse()
+			var reach := Motion.smooth(Motion.seg(t, tl - 0.5, tl))
+			var lift := Motion.in_out(Motion.seg(t, tl, tl + 0.85))
+			var rest_local: Vector3 = _phone.transform * HANDSET_REST
+			var head: Vector3 = inv * actor.bone_world("Head")
+			var yaw := float(actor.rotation.y)
+			var right := -Vector3(cos(yaw), 0, -sin(yaw))
+			var fwd := Vector3(sin(yaw), 0, cos(yaw))
+			# A toon's head is huge and its arms short: the receiver goes against the side of the head at eye level,
+			# held out a little, and the arm is lengthened to reach it.
+			# The Head bone sits at the neck; the drawn face is far above it. Use the actor's face anchor (eye level
+			# on the front of the head) and go back round the side to where an ear would be.
+			var face_p: Dictionary = ctx["point"].call(hid + ".face")
+			var face: Vector3 = inv * (face_p["pos"] as Vector3) if face_p.has("pos") else head + Vector3(0, 0.3, 0)
+			var ear := face + right * 0.3 - fwd * 0.1 + Vector3(0, -0.06, 0)
+			Crawl.long_arms(actor, lerpf(1.0, 1.55, maxf(reach, lift)))
+			var hold := rest_local.lerp(ear, lift) + Vector3(0, 0.08 * sin(lift * PI), 0)
+			actor.aim_hand("r", gt * (hold + Vector3(0, -0.02, 0)), reach, 0.03 * lift)
+			if lift > 0.0:
+				_handset.position = inv_ph * hold
+				_handset.rotation = Vector3(0, 0, -1.2 * lift) + Vector3(0, -0.35, 0) * lift
+	# The coiled cord: from the base's side, sagging to the handset's end, a tight helix along the way.
+	var a: Vector3 = _phone.transform * Vector3(0.11, 0.04, -0.06)
+	var b: Vector3 = _phone.transform * (_handset.position + Basis.from_euler(_handset.rotation) * Vector3(0.11, -0.01, 0))
+	var n := _cord.size()
+	var prev := a
+	var span := a.distance_to(b)
+	for i in n:
+		var f := float(i + 1) / n
+		var p := a.lerp(b, f) + Vector3(0, -maxf(0.25 - span * 0.6, 0.02) * sin(f * PI), 0)
+		var side := Vector3(cos(f * 40.0), 0, sin(f * 40.0)) * 0.008
+		p += side
+		var seg: MeshInstance3D = _cord[i]
+		var d := p - prev
+		if d.length() > 0.0001:
+			seg.transform = Transform3D(Basis(Quaternion(Vector3.UP, d.normalized())) * Basis.from_scale(Vector3(1, d.length(), 1)), (p + prev) * 0.5)
+		prev = p
+	return _phone.transform * _handset.position
+
+
 ## Type laid flat on the page; shrunk to `max_w` metres wide if it would run off the page.
 func _flat_text(parent: Node3D, s: String, font: Font, height: float, col: Color, pos: Vector3, max_w: float = PAPER.x - 0.03) -> void:
 	if s == "":
@@ -566,6 +651,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_chair(gt, ctx)
 	_fan.rotation.y = t * 2.4
 	var print_at := _pose_photos(gt, t, ctx)
+	var handset_at := _pose_phone(gt, t, ctx)
 	var paper_anchor := PAPER_AT
 	if _paper:
 		var pp: Dictionary = _p.get("paper", {})
@@ -609,4 +695,4 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	return {"desk": gt * Vector3(0, TOP, 0), "paper": gt * paper_anchor, "chair": gt * (_chair_top.position + Vector3(0, 0.4, 0)),
 		"phone_black": gt * Vector3(-0.62, TOP + 0.1, -0.12), "phone_beige": gt * Vector3(-0.42, TOP + 0.08, -0.3),
 		"window": gt * Vector3(-ROOM.x * 0.5, 2.2, -0.3), "flag": gt * Vector3(0.82, TOP + 0.3, -0.3),
-		"print": gt * print_at}
+		"print": gt * print_at, "handset": gt * handset_at}

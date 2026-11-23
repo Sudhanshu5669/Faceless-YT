@@ -829,7 +829,7 @@
      },
      {
       "line": "l4d",
-      "offset": -0.05
+      "offset": 0.05
      }
     ]
    ],
@@ -869,6 +869,28 @@
       "offset": 0.7
      },
      "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "l4c",
+      "word": "calls"
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "l4c",
+      "word": "calls",
+      "offset": 0.5
+     },
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "l4c",
+      "word": "Minister"
+     },
+     "expression": "sad"
     }
    ]
   },
@@ -1255,6 +1277,18 @@
       ]
      },
      "ortho": 34.0
+    },
+    "ring": {
+     "from": {
+      "line": "l4c",
+      "offset": -0.3
+     },
+     "lift": {
+      "line": "l4c",
+      "word": "calls",
+      "offset": 0.15
+     },
+     "hand": "rao"
     }
    }
   },
@@ -2588,28 +2622,114 @@
   {
    "name": "rao_phone",
    "camera": {
-    "at": {
-     "anchor": "office",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "office",
+      "offset": [
+       0.85,
+       1.22,
+       9001.25
+      ]
+     },
+     "look_at": {
+      "anchor": "office",
+      "offset": [
+       0.3,
+       1.0,
+       8999.5
+      ]
+     },
+     "lens_mm": 34,
+     "dof": {
+      "strength": 0.16
+     }
     },
-    "look_at": {
-     "anchor": "office",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "office",
+      "offset": [
+       0.72,
+       1.24,
+       9001.0
+      ]
+     },
+     "look_at": {
+      "anchor": "office",
+      "offset": [
+       0.27,
+       1.05,
+       8999.48
+      ]
+     },
+     "lens_mm": 36,
+     "dof": {
+      "strength": 0.16
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "15:00",
+    "ssao": true,
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0
+    },
+    "sun": {
+     "elevation": 20,
+     "azimuth": 258,
+     "color": "#ffd9a8",
+     "energy": 3.4,
+     "shadows": true,
+     "softness": 0.6,
+     "visible": false
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "ambient": {
+     "color": "#6a5a4a",
+     "energy": 0.16
+    },
+    "sky": {
+     "top": "#9ab4d0",
+     "horizon": "#e8dcc4",
+     "stars": 0,
+     "clouds": 0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 400,
+     "volumetric": 0.018,
+     "color": "#d8c4a4",
+     "anisotropy": 0.7,
+     "length": 14
+    },
+    "ground_fog": {
+     "density": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 0.98,
+     "vignette": 0.42,
+     "grain": 0.04
+    },
+    "practical_lights": {
+     "level": 0
+    }
    }
   },
   {
