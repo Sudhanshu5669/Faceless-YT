@@ -841,7 +841,7 @@
    ]
   },
   {
-   "id": "vajpayee",
+   "id": "vajpayee_pmo",
    "character": "toon_vajpayee",
    "at": {
     "anchor": "office",
@@ -1406,7 +1406,7 @@
    "params": {
     "sitter": [
      "rao",
-     "vajpayee"
+     "vajpayee_pmo"
     ],
     "calendar": {
      "flip": [

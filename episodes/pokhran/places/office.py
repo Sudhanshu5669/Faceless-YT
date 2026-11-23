@@ -33,7 +33,7 @@ V1998 = [W("l5a", offset=-0.8), W("l5c", offset=-0.02)]
 
 ACTORS = [
     # 1998: Vajpayee in the same chair (sworn in March 1998).
-    {"id": "vajpayee", "character": "toon_vajpayee", "at": P(0, 0, -0.78), "facing": P(0, 0, 3.0), "action": "sit",
+    {"id": "vajpayee_pmo", "character": "toon_vajpayee", "at": P(0, 0, -0.78), "facing": P(0, 0, 3.0), "action": "sit",
      "shown": [V1998],
      "cues": [{"t": 0.0, "expression": "thinking"}]},
     # Ambassador Wisner stands at the desk and slides the satellite prints across to Rao.
@@ -53,7 +53,7 @@ ACTORS = [
 ]
 
 GAGS = [{"id": "pmo", "script": "gags/pm_office.gd", "t": 0, "at": P(0, 0, 0),
-         "params": {"sitter": ["rao", "vajpayee"],
+         "params": {"sitter": ["rao", "vajpayee_pmo"],
                     "calendar": {"flip": [W("l5a", offset=-0.15), W("l5a", "1998.", 0.0)], "from": [1995, 12],
                                  "to": [1998, 3]},
                     "paper": {"slap": W("l4a", "Times", 0.0),
