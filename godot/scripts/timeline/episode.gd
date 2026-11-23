@@ -315,6 +315,7 @@ static func mix(a: Dictionary, b: Dictionary, w: float) -> Dictionary:
 	out["transform"] = Transform3D(Basis(q), ta.origin.lerp(tb.origin, w))
 	for k in ["fov", "dof_strength", "focus_distance", "exposure"]:
 		out[k] = lerpf(float(a[k]), float(b[k]), w)
+	out["far"] = maxf(float(a.get("far", 4000.0)), float(b.get("far", 4000.0)))
 	if w >= 0.5:
 		out["orthographic"] = b["orthographic"]
 		out["blocked_by"] = b["blocked_by"]

@@ -47,6 +47,7 @@ Listed in `manifest.json` next to every preview render.
 | `roll` | Dutch angle in degrees. |
 | `pan`, `tilt` | Extra rotation after aiming, in degrees (tilt −15 = look a bit lower). |
 | `dof` | `{"strength": 0–1, "focus": metres}`. Focus defaults to the `look_at` distance. |
+| `far` | Far clip in metres (default 4000). Raise it for planets seen from orbit. |
 | `exposure` | EV offset: +1 = twice as bright, −1 = half. |
 | `orthographic` | View height in metres. Switches to a flat map-like projection. |
 | `name` | Used for the output file name. |

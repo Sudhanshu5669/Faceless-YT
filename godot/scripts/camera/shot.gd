@@ -23,7 +23,7 @@ const Anchors = preload("res://scripts/camera/anchors.gd")
 const Views = preload("res://scripts/camera/views.gd")
 
 const KEYS := ["name", "t", "view", "template", "subject", "at", "look_at", "direction", "height",
-	"lens_mm", "fov", "roll", "pan", "tilt", "dof", "exposure", "orthographic"]
+	"lens_mm", "fov", "roll", "pan", "tilt", "dof", "exposure", "orthographic", "far"]
 
 
 static func lens_to_fov(mm: float) -> float:
@@ -201,6 +201,8 @@ static func resolve(entry, L: Dictionary, look: Dictionary = {}) -> Dictionary:
 		"dof_strength": clampf(float(dof.get("strength", 0.0)), 0.0, 1.0),
 		"focus_distance": focus,
 		"exposure": float(spec.get("exposure", 0.0)),
+		# Far clip (metres): raise it for planets and orbit shots (default 4000).
+		"far": float(spec.get("far", 4000.0)),
 	}
 
 
@@ -256,6 +258,7 @@ static func apply(camera: Camera3D, s: Dictionary) -> void:
 	else:
 		camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 		camera.fov = float(s["fov"])
+	camera.far = float(s.get("far", 4000.0))
 	var attrs := CameraAttributesPractical.new()
 	var strength := float(s["dof_strength"])
 	if strength > 0.0:

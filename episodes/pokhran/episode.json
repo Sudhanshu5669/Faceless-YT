@@ -1019,6 +1019,72 @@
    }
   },
   {
+   "id": "earth",
+   "script": "library:earth",
+   "t": 0,
+   "at": {
+    "anchor": "orbit",
+    "offset": [
+     0,
+     0,
+     -30000.0
+    ]
+   },
+   "params": {
+    "radius": 6371.0,
+    "altitude": 600.0,
+    "up": [
+     23.9474,
+     71.75
+    ],
+    "heading": 0,
+    "sun": [
+     35.0,
+     45.0
+    ],
+    "clouds": 0.3,
+    "spin": 0.004,
+    "day_gain": 1.0
+   }
+  },
+  {
+   "id": "spysat",
+   "script": "gags/orbit.gd",
+   "t": 0,
+   "at": {
+    "anchor": "orbit",
+    "offset": [
+     0,
+     0,
+     -30000.0
+    ]
+   },
+   "params": {
+    "aim": [
+     0.0,
+     -609.61,
+     -349.82
+    ],
+    "turn": {
+     "from": {
+      "line": "l3c",
+      "word": "spy",
+      "offset": -0.2
+     },
+     "to": {
+      "line": "l3c",
+      "word": "satellites",
+      "offset": 0.35
+     }
+    },
+    "click": {
+     "line": "l3c",
+     "word": "watching",
+     "offset": 0.12
+    }
+   }
+  },
+  {
    "id": "lawn_pm",
    "script": "gags/pm_lawn.gd",
    "t": 0,
@@ -2003,28 +2069,111 @@
   {
    "name": "sat_turn",
    "camera": {
-    "at": {
-     "anchor": "orbit",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "orbit",
+      "offset": [
+       -26.5,
+       1.5,
+       -29993.7
+      ]
+     },
+     "look_at": {
+      "anchor": "orbit",
+      "offset": [
+       -0.0,
+       -4.6,
+       -30000.6
+      ]
+     },
+     "lens_mm": 30,
+     "far": 12000.0
     },
-    "look_at": {
-     "anchor": "orbit",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "orbit",
+      "offset": [
+       -24.5,
+       3.4,
+       -30001.5
+      ]
+     },
+     "look_at": {
+      "anchor": "orbit",
+      "offset": [
+       -0.0,
+       -4.4,
+       -30001.8
+      ]
+     },
+     "lens_mm": 30,
+     "far": 12000.0
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "22:00",
+    "ssao": false,
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0
+    },
+    "sun": {
+     "elevation": 35.0,
+     "azimuth": 45.0,
+     "energy": 1.5,
+     "color": "#fff6ea",
+     "shadows": true,
+     "softness": 0.05,
+     "visible": false
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "ambient": {
+     "color": "#4a5a7a",
+     "energy": 0.04
+    },
+    "sky": {
+     "top": "#000000",
+     "horizon": "#000000",
+     "stars": 0,
+     "clouds": 0,
+     "panorama": "incoming/sss_textures/8k_stars_milky_way.jpg",
+     "panorama_energy": 0.18,
+     "panorama_yaw": 120,
+     "panorama_tilt": 10
+    },
+    "fog": {
+     "begin": 50000,
+     "end": 60000,
+     "volumetric": 0.0
+    },
+    "ground_fog": {
+     "density": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.2
+    },
+    "grade": {
+     "contrast": 1.1,
+     "saturation": 1.04,
+     "vignette": 0.3,
+     "grain": 0.035
+    },
+    "practical_lights": {
+     "level": 0
+    }
    }
   },
   {
