@@ -118,6 +118,15 @@ ACTORS += [
      "action": "torch", "shown": [NIGHT], "cues": [{"t": 0.0, "expression": "determined"}]},
 ]
 
+# truck_park (1998, dawn): a canopy truck reverses into its own old tyre marks; a jawan palms it to a stop on "exact".
+PARK_AT = (8.5, 10.0)          # the truck's centre when parked; it faces -z (yaw 90), its rear toward the camera
+PARK = [W("l6b", offset=-0.8), W("l6c", offset=0.2)]
+ACTORS += [
+    {"id": "park_jawan", "character": "toon_jawan_d", "at": P(10.2, 0, 10.9), "facing": P(9.7, 0, 13.0),
+     "action": "idle", "shown": [PARK],
+     "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("l6b", "exact", 0.35), "expression": "smug"}]},
+]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -129,7 +138,9 @@ LOOK_1995 = dict(LOOK_AFTERNOON,
 
 GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"carry": [{"actor": "jawan_noon", "what": "jerrycans"}, {"actor": "night_bag", "what": "sandbag"}],
-                    "night": {"on": [NIGHT], "lamp": [1.8, 1.6], "torch": ["night_torch"]}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
+                    "night": {"on": [NIGHT], "lamp": [1.8, 1.6], "torch": ["night_torch"]},
+                    "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
+                             "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
                     "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6]],
                     "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
@@ -205,6 +216,18 @@ LOOK_NIGHT = dict(LOOK_AFTERNOON,
                   glow={"enabled": True, "intensity": 0.9, "bloom": 0.07, "threshold": 0.9},
                   grade={"contrast": 1.16, "saturation": 0.92, "vignette": 0.55, "grain": 0.05})
 
+# Dawn, 1998: the sun just up (5 degrees) straight ahead of the usual -z camera, backlighting the truck; long shadows
+# toward the lens, a cool sky overhead, haze on the plain.
+LOOK_DAWN = dict(LOOK_AFTERNOON,
+                 time="06:05",
+                 sun={"elevation": 5, "azimuth": 168, "color": "#ffb47a", "energy": 2.4, "softness": 0.8,
+                      "visible": True, "size": 1.2, "glow": 2.2, "glow_color": "#ffa060", "shadows": True},
+                 sky={"top": "#5d7cae", "horizon": "#f2c49a", "clouds": 0.0},
+                 ambient={"color": "#8a8aa0", "energy": 0.26, "sky": 0.7},
+                 fog={"begin": 30, "end": 1500, "curve": 1.6, "volumetric": 0.0},
+                 glow={"enabled": True, "intensity": 0.7, "bloom": 0.05, "threshold": 1.05},
+                 grade={"contrast": 1.14, "saturation": 1.0, "vignette": 0.44, "grain": 0.035})
+
 # Chamber points: x/z from the canister's axis, y above the chamber floor (205 m down).
 FLOOR = -205.0
 
@@ -267,6 +290,12 @@ SHOTS = {
     "night_work": {"look": LOOK_NIGHT, "camera": move(
         cam(P(2.45, 1.05, 6.4), P(0.75, 1.0, 1.8), 30, {"strength": 0.1}),
         cam(P(2.15, 1.0, 6.45), P(0.4, 1.0, 1.85), 30, {"strength": 0.1}), "linear")},
+    # Dawn, low on the sand at the spot's rear quarter: the rear wheel's old imprint in the foreground; the truck backs
+    # along its ruts, backlit by the rising sun, and its wheel stops dead on the imprint on "exact"; the jawan's palm is up.
+    "truck_park": {"look": LOOK_DAWN, "camera": move(
+        cam(P(PARK_AT[0] + 3.35, 1.3, PARK_AT[1] + 4.6), P(PARK_AT[0] + 0.8, 0.45, PARK_AT[1] + 1.4), 30, {"strength": 0.1}),
+        cam(P(PARK_AT[0] + 3.2, 1.22, PARK_AT[1] + 4.4), P(PARK_AT[0] + 0.85, 0.5, PARK_AT[1] + 1.5), 30, {"strength": 0.1}),
+        "linear")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

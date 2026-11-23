@@ -42,6 +42,10 @@ extends RefCounted
 ##              windows): a work lamp on a pole, its bulb under a tin shade throwing a warm cone straight down; each
 ##              torch actor holds a hand torch whose cool beam runs from the right hand along their facing, tipped down,
 ##              sweeping slowly over the ground
+##   park       {"at": [x, z, yaw_deg], "from": t, "to": t, "back": 6.0, "actor": id}   1998: a canopy truck reverses
+##              `back` metres into its parking spot, slowing to a stop exactly at `to` (a brake dip and settle), its
+##              wheels turning; its own old tyre ruts and rear-wheel imprints are pressed into the sand there; the
+##              actor marshals it in, palm raised to stop it
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
@@ -537,6 +541,7 @@ func build(g: Dictionary) -> Node3D:
 	_shimmer(root)
 	_kites(root)
 	_night_build(root)
+	_park_build(_g98)
 	for c in _p.get("carry", []):
 		var what := String(c.get("what", "sandbag"))
 		var held: Array = []
@@ -556,6 +561,118 @@ func build(g: Dictionary) -> Node3D:
 
 
 var _night: Node3D
+var _park_truck: Node3D
+var _park_wheels: Array = []
+
+## Tyre marks in sand: a pressed band with tread bars, darker and smoother than the loose sand round it.
+const TREAD := """
+shader_type spatial;
+render_mode unshaded, blend_mul, cull_disabled, depth_draw_never, shadows_disabled, fog_disabled;
+uniform float len = 1.0;
+uniform float depth = 1.0;
+varying vec2 uvp;
+void vertex() { uvp = UV; }
+float h(float x) { return fract(sin(x * 91.7) * 43758.5); }
+void fragment() {
+	// Darkens the sand under it (multiply): a pressed band with tread bars, a lighter berm along each edge.
+	float across = abs(uvp.x - 0.5) * 2.0;
+	float along = uvp.y * len;
+	float bar = step(0.55, fract(along / 0.09 + across * 0.35 + h(floor(along / 0.09)) * 0.1));
+	float inner = 1.0 - smoothstep(0.55, 0.9, across);
+	float k = mix(0.8, 0.66, bar * inner);
+	k = mix(k, 1.07, smoothstep(0.8, 0.95, across));
+	float fade = 1.0 - smoothstep(0.9, 1.0, across);
+	ALBEDO = vec3(mix(1.0, k * depth, fade));
+}
+"""
+
+
+## The parked-truck gag (param "park"): the truck, its wheels found by name, and its old tyre marks.
+func _park_build(parent: Node3D) -> void:
+	var pk: Dictionary = _p.get("park", {})
+	if pk.is_empty():
+		return
+	var at: Array = pk.get("at", [8.0, 10.0, 90.0])
+	var yaw := deg_to_rad(float(at[2]))
+	var fwd := Vector3(cos(yaw), 0, -sin(yaw))
+	var side := Vector3(-fwd.z, 0, fwd.x)
+	var c := Vector3(float(at[0]), 0, float(at[1]))
+	_park_truck = _vehicle(PB + "truck_canopy.glb")
+	_park_truck.name = "park_truck"
+	parent.add_child(_park_truck)
+	for n in _park_truck.find_children("w*", "Node3D", true, false):
+		if String(n.name).length() <= 4 and String(n.name) != "wings":
+			_park_wheels.append([n, (n as Node3D).transform])
+	# The old ruts: two pressed bands from the rear wheels' spot forward along the way it drove out, laid in 1 m
+	# pieces on the ground's height; heavier imprints where the rear wheels stood.
+	var mat := Kit.shader(TREAD)
+	mat.set_shader_parameter("len", 1.0)
+	for s in [-1.0, 1.0]:
+		for k in 10:
+			var mid: Vector3 = c + fwd * (-1.85 - 0.3 + 0.5 + float(k)) + side * (0.95 * s)
+			var q := MeshInstance3D.new()
+			var pm := PlaneMesh.new()
+			pm.size = Vector2(0.34, 1.02)
+			q.mesh = pm
+			q.material_override = mat
+			var y0 := height(mid.x - fwd.x * 0.5, mid.z - fwd.z * 0.5)
+			var y1 := height(mid.x + fwd.x * 0.5, mid.z + fwd.z * 0.5)
+			var b := Basis(side, Vector3.UP, -fwd)
+			b = Basis(b.x, Vector3(0, 1, 0).rotated(side, atan2(y1 - y0, 1.0)), b.z.rotated(side, atan2(y1 - y0, 1.0)))
+			q.transform = Transform3D(b, Vector3(mid.x, (y0 + y1) * 0.5 + 0.012, mid.z))
+			q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			parent.add_child(q)
+		# The rear wheel's own imprint, deeper, where it stood (the wheel lands back on it).
+		var im := Kit.shader(TREAD)
+		im.set_shader_parameter("len", 0.75)
+		im.set_shader_parameter("depth", 0.6)
+		var wp: Vector3 = c - fwd * 1.85 + side * (0.95 * s)
+		var iq := MeshInstance3D.new()
+		var ipm := PlaneMesh.new()
+		ipm.size = Vector2(0.4, 0.75)
+		iq.mesh = ipm
+		iq.material_override = im
+		iq.transform = Transform3D(Basis(side, Vector3.UP, -fwd), Vector3(wp.x, height(wp.x, wp.z) + 0.016, wp.z))
+		iq.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		parent.add_child(iq)
+
+
+func _pose_park(gt: Transform3D, t: float, ctx: Dictionary) -> void:
+	if _park_truck == null:
+		return
+	var pk: Dictionary = _p.get("park", {})
+	var at: Array = pk.get("at", [8.0, 10.0, 90.0])
+	var yaw := deg_to_rad(float(at[2]))
+	var fwd := Vector3(cos(yaw), 0, -sin(yaw))
+	var c := Vector3(float(at[0]), 0, float(at[1]))
+	var t0 := float(pk.get("from", 0.0))
+	var t1 := float(pk.get("to", 1.0))
+	var back := float(pk.get("back", 6.0))
+	# Reversing: already rolling at t0, decelerating to a stop exactly at t1 (out-quad on distance).
+	var u := Motion.seg(t, t0, t1)
+	var d := back * (1.0 - (1.0 - u) * (1.0 - u)) if t >= t0 else back * 2.0 * (t - t0) / maxf(t1 - t0, 0.01)
+	var off := back - d
+	var p := c + fwd * off
+	p.y = height(p.x, p.z)
+	_park_truck.position = p
+	# The brake: the body dips toward the motion (the rear, reversing) and rocks back.
+	var dip := 0.025 * Motion.wobble(t - t1, 2.6, 5.0) if t >= t1 else 0.0
+	_park_truck.rotation = Vector3(0, yaw, dip)
+	# The wheels roll backwards with the distance covered (radius 0.55).
+	for w in _park_wheels:
+		var xf: Transform3D = w[1]
+		(w[0] as Node3D).transform = Transform3D(xf.basis * Basis(Vector3(0, 0, 1), off / 0.55), xf.origin)
+	# The marshal: palm up to stop it, raised as it nears the spot, lowered after the stop.
+	var aid := String(pk.get("actor", ""))
+	var actor = ctx["actor"].call(aid) if aid != "" and ctx.has("actor") else null
+	if actor != null and actor.visible:
+		var inv := gt.affine_inverse()
+		var w := Motion.smooth(Motion.seg(t, t1 - 0.7, t1 - 0.3)) * (1.0 - Motion.smooth(Motion.seg(t, t1 + 0.9, t1 + 1.3)))
+		var ay := float(actor.rotation.y)
+		var afwd := Vector3(sin(ay), 0, cos(ay))
+		var head: Vector3 = inv * actor.bone_world("Head")
+		var palm := head + afwd * 0.42 + Vector3(0, 0.12, 0) + Vector3(-afwd.z, 0, afwd.x) * -0.12
+		actor.aim_hand("r", gt * palm, w, 0.04 * w)
 var _torches: Dictionary = {}
 
 
@@ -1785,6 +1902,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		(k.get_node("wing_l") as Node3D).rotation.z = 0.12 + flap * 0.5
 		(k.get_node("wing_r") as Node3D).rotation.z = -0.12 - flap * 0.5
 	_pose_night(gt, t, ctx)
+	_pose_park(gt, t, ctx)
 	# The hook block swings a little on its falls.
 	_hook.rotation = Vector3(0.012 * sin(t * 1.1), 0, 0.016 * sin(t * 0.83 + 0.6))
 	# Carried loads: a sandbag rides between the hands; jerrycans hang upright under each grip, lagging a touch.
