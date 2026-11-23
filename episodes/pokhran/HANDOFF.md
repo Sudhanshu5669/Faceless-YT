@@ -13,6 +13,7 @@ list with the gag for every line: `beats.md` (the source of truth for what each 
 |---|---|
 | Approved by the user (27) | hook_feed … kalam_tape (00–28), except the two below. Verdicts: `review/shot_decisions.json` |
 | Fixed after "changes", re-rendered, awaiting the user's verdict | `cricket` (batsman redone: side-on stroke, seen in profile), `jeep_arrive` (redone for FUN: the jeep tears in, hops over the lens, handbrake-slides to a stop in dust; cap no longer clips) |
+| WIP (not yet checked) | `jeep_arrive` round 3 per the user's note: scientists ride IN the jeep (sci_ride1 drives, sci_ride2 passenger; no pop-in), camera at window height, NEW shot key `slowmo` (x0.2) while the jeep hops past the lens and the driver winks at camera, then the handbrake slide; the stop jolt drops his cap. Built + storyboarded, NOT yet reviewed or rendered: look at the stills/clip, tune, commit. |
 | Next to build | `an32_land` (NEW place: airstrip), `convoy`, then `wait_row`, `wait_clock`, `wind_turns`, `key_turn`, `desert_jumps`, `khetolai_crack`, `presser_walk`… to `end_feed` (beats.md rows 10–21) |
 
 Check live status with `python pipeline/tf.py shot pokhran --status`.

@@ -214,14 +214,26 @@ ACTORS += [
 # scientist's oversized cap slides over his eyes. (kalam_tape continues at the same jeep.)
 JEEP_AT = (-6.0, -19.0)          # facing -z (north, toward the camp)
 JEEPW = [W("l9a", offset=-1.6), W("l10a", offset=0.0)]
-JEEP_STOP = W("l9a", "arrive", 0.15)                       # the handbrake slide ends here, in a burst of dust
-OUT = [W("l9a", "arrive", 0.4), W("l10a", offset=0.0)]    # the scientists pile out once it has stopped
+# Scene-time plan (the shot starts 0.2 s before l9a): it charges in; slow motion (x0.2) from l9a+0.05 to +0.3 while it
+# hops past the lens and the driver winks at us (1.25 s on screen); back to speed for the slide, stopping at l9a+0.8;
+# the jolt drops the driver's cap. After the slow motion the scene clock runs 1.0 s behind the narration.
+SLOW = {"from": W("l9a", offset=0.05), "to": W("l9a", offset=0.3), "rate": 0.2}
+JEEP_STOP = W("l9a", offset=0.8)
+RIDE = [W("l9a", offset=-1.6), {"shot": "kalam_tape", "offset": 0.0}]    # in the jeep for this shot
+OUT = [{"shot": "kalam_tape", "offset": 0.05}, W("l10a", offset=0.0)]    # out of it (off-screen) by kalam_tape
 ACTORS += [
-    {"id": "jeep_driver", "character": "toon_jawan_a", "at": P(-5.64, 0, -19.1), "facing": P(-5.64, 0, -30.0),
-     "action": "drive", "shown": [JEEPW], "cues": [{"t": 0.0, "expression": "deadpan"}]},
+    # The scientists ride in: one drives like a maniac (he winks at us in slow motion), the other hangs on.
+    {"id": "sci_ride1", "character": "toon_sci_fatigues_a", "at": P(-5.64, 0, -19.1), "facing": P(-5.64, 0, -30.0),
+     "action": "drive", "shown": [RIDE],
+     "cues": [{"t": 0.0, "expression": "grin"},
+              {"t": W("l9a", offset=0.08), "expression": "wink", "head": [0, -68, 0], "head_turn": 0.08},
+              {"t": W("l9a", offset=0.33), "expression": "grin", "head": [0, 0, 0], "head_turn": 0.2},
+              {"t": W("l9a", offset=0.82), "expression": "surprised"}]},
+    {"id": "sci_ride2", "character": "toon_sci_fatigues_b", "at": P(-6.36, 0, -19.1), "facing": P(-6.36, 0, -30.0),
+     "action": "sit", "shown": [RIDE],
+     "cues": [{"t": 0.0, "expression": "panic"}, {"t": W("l9a", offset=0.85), "expression": "side_eye", "head": [0, 40, 0], "head_turn": 0.3}]},
     {"id": "sci_f1", "character": "toon_sci_fatigues_a", "at": P(-6.85, 0, -19.05), "facing": P(-8.2, 0, -19.6),
-     "action": "idle", "route": {"via": [P(-7.95, 0, -19.5)], "gait": "walk", "start": W("l9a", "arrive", 0.4)},
-     "shown": [OUT], "cues": [{"t": 0.0, "expression": "shocked"}, {"t": W("l9a", "dressed", 0.0), "expression": "nervous"},
+     "action": "idle", "shown": [OUT], "cues": [{"t": 0.0, "expression": "nervous"},
                                 {"t": W("l9a", "soldiers", 0.05), "expression": "surprised"}]},
     {"id": "sci_f2", "character": "toon_sci_fatigues_b", "at": P(-8.4, 0, -18.4), "facing": P(-10.6, 0, -24.2),
      "action": "idle", "shown": [OUT], "cues": [{"t": 0.0, "expression": "shocked"}, {"t": W("l9a", "dressed", 0.2), "expression": "deadpan"},
@@ -262,7 +274,8 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "cricket": {"bat": "cr_bat", "bowl": "cr_bowl", "release": W("l8c", "cricket", -0.5), "hit": HIT,
                                 "stumps": [-3.0, 16.45]},
                     "jeep": {"at": [JEEP_AT[0], JEEP_AT[1], 90.0], "stop": JEEP_STOP, "speed": 15.0, "slide": 70.0,
-                             "driver": "jeep_driver", "slip": {"actor": "sci_f1", "t": W("l9a", "soldiers", 0.0)}},
+                             "driver": "sci_ride1", "riders": [["sci_ride2", 0.08, -0.36]],
+                             "slip": {"actor": "sci_ride1", "t": W("l9a", offset=0.84)}},
                     "disguise": [{"actor": "kalam_field", "cap": True, "tape": "PRITHVIRAJ"}],
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
@@ -448,13 +461,13 @@ SHOTS = {
         "from": cam(P(0.3, 1.1, 21.0), P(-3.6, 1.0, 11.8), 32, {"strength": 0.1}),
         "to": cam(P(0.3, 1.1, 20.9), P(-3.4, 3.8, 10.8), 30, {"strength": 0.08}),
         "ease": "in_out", "start": W("l8c", "cricket", 0.0), "end": W("l8c", "cricket", 0.6)}},
-    # Low by the track at the camp: the jeep tears in across the desert, bouncing, kicking up a plume of dust, whips
-    # past the lens and handbrake-slides broadside to a stop on "arrive" in a burst of dust (shake); the dizzy
-    # scientists pile out; on "soldiers" one's oversized cap drops over his glasses; the other side-eyes him.
-    "jeep_arrive": {"look": LOOK_AFTERNOON, "shake": [{"t": JEEP_STOP, "amount": 0.35}], "camera": {
-        "from": cam(P(-11.0, 0.42, -15.0), P(-21.0, 0.9, -14.2), 26, {"strength": 0.08}),
-        "to": cam(P(-11.0, 0.5, -15.2), P(-6.6, 0.95, -19.2), 28, {"strength": 0.1}),
-        "ease": "in_out", "start": W("l9a", offset=0.0), "end": W("l9a", "arrive", 0.25)}},
+    # At window height by the track: the jeep tears in across the desert, a scientist at the wheel; as it hops past the
+    # lens the shot drops into slow motion and he turns to us and winks; back to speed, it handbrake-slides broadside to
+    # a stop in a burst of dust (shake) and the jolt drops his oversized cap over his eyes.
+    "jeep_arrive": {"look": LOOK_AFTERNOON, "slowmo": SLOW, "shake": [{"t": JEEP_STOP, "amount": 0.35}], "camera": {
+        "from": cam(P(-11.0, 1.4, -15.0), P(-21.0, 1.2, -14.0), 26, {"strength": 0.08}),
+        "to": cam(P(-10.9, 1.45, -15.2), P(-6.6, 1.05, -19.2), 28, {"strength": 0.1}),
+        "ease": "in_out", "start": W("l9a", offset=-0.2), "end": W("l9a", offset=0.9)}},
     "kalam_tape": {"look": LOOK_AFTERNOON, "camera": {
         "from": cam(P(-9.6, 1.3, -12.9), P(-7.0, 1.0, -16.6), 30, {"strength": 0.1}),
         "to": cam(P(-8.05, 1.02, -15.4), P(-7.32, 0.92, -16.55), 36, {"strength": 0.14}),

@@ -268,11 +268,18 @@
     "history": []
   },
   "cricket": {
-    "status": "changes",
+    "status": "approved",
     "note": "The animation of the batsman is so bad. fix it.",
-    "updated": "2026-11-23 21:58:17",
-    "fingerprint": "7448c88e4396",
-    "history": []
+    "updated": "2026-11-23 22:45:25",
+    "fingerprint": "11b06e73c79e",
+    "history": [
+      {
+        "status": "changes",
+        "note": "The animation of the batsman is so bad. fix it.",
+        "updated": "2026-11-23 21:58:17",
+        "fingerprint": "7448c88e4396"
+      }
+    ]
   },
   "cricket_feed": {
     "status": "approved",
@@ -283,10 +290,17 @@
   },
   "jeep_arrive": {
     "status": "changes",
-    "note": "The cap suddenly clips in his head at the end",
-    "updated": "2026-11-23 22:19:05",
-    "fingerprint": "65300ab789c9",
-    "history": []
+    "note": "The scientist and the man coming out of the jeep are suddenly spawned into the scene. instead of that, what you could do is that increase the height of the camera, and as soon as the jeep's window comes in front, turn the shot into slow motion and make the character sitting in the seats look at the camera and wink.",
+    "updated": "2026-11-23 22:46:57",
+    "fingerprint": "533ace609fb5",
+    "history": [
+      {
+        "status": "changes",
+        "note": "The cap suddenly clips in his head at the end",
+        "updated": "2026-11-23 22:19:05",
+        "fingerprint": "65300ab789c9"
+      }
+    ]
   },
   "kalam_tape": {
     "status": "approved",

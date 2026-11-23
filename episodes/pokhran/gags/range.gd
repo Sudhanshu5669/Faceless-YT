@@ -65,7 +65,8 @@ extends RefCounted
 ##   jeep       {"at": [x, z, yaw_deg], "stop": t, "speed": 15, "slide": 70, "driver": id, "slip": {"actor": id, "t": t}}
 ##              a light army jeep tears in across the desert (bouncing on the ruts, a hop off a hump 7.5 m out, a plume of dust) and
 ##              handbrake-slides `slide` degrees into its parked pose at `at`, stopping dead at `stop` in a burst of dust;
-##              the driver rides in the right-hand seat; at slip.t the actor's oversized patrol cap slides over his eyes
+##              the driver rides in the right-hand seat, "riders" [[id, fwd, side], ...] sit elsewhere (side + = right);
+##              at slip.t the actor's oversized patrol cap slides over his eyes
 ##   disguise   [{"actor": id, "cap": true, "tape": "NAME"}]   dress an actor for the field: an army patrol cap perched
 ##              on top of their own hair (it escapes all round), a name tape over the right chest pocket
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
@@ -845,6 +846,11 @@ func _pose_jeep(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 		dr.position = gt * (c + fwd * 0.08 + side * 0.36 + Vector3(0, 0.36, 0))
 		dr.rotation = Vector3(0, atan2(fwd.x, fwd.z), 0)
 		dr.visible = _jeep.visible
+	for rd in jd.get("riders", []):
+		var ra = ctx["actor"].call(String(rd[0]))
+		if ra != null and ra.visible:
+			ra.position = gt * (c + fwd * float(rd[1]) + side * float(rd[2]) + Vector3(0, 0.36, 0))
+			ra.rotation = Vector3(0, atan2(fwd.x, fwd.z), 0)
 	# The oversized cap slides down over his eyes, tips, and stops on his glasses.
 	var sl: Dictionary = jd.get("slip", {})
 	var sa = ctx["actor"].call(String(sl.get("actor", ""))) if not sl.is_empty() else null

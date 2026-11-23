@@ -27,7 +27,7 @@ const KEYS := ["schema_version", "id", "title", "description", "set", "look", "a
 ## also turns "fit" durations and time references into numbers before Godot runs.
 const AUDIO_KEYS := ["narration", "lines", "sfx", "music", "ambience", "captions", "end_black", "review"]
 const FORMAT_KEYS := ["resolution", "fps", "motion_blur"]
-const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "look", "note", "whip_in", "whip_out", "iris_in", "iris_out", "shake"]
+const SHOT_KEYS := ["name", "duration", "scene_t", "camera", "look", "note", "whip_in", "whip_out", "iris_in", "iris_out", "shake", "slowmo"]
 const LookCompiler = preload("res://scripts/look/look_compiler.gd")
 ## Camera shake on impacts: "shake": [{"t": word ref, "amount": 0..1}] (docs/MOTION_SPEC.md).
 ## Trauma model: light 0.15, medium 0.4, heavy 0.8. These are the offsets at full trauma.
@@ -142,6 +142,10 @@ static func validate(ep: Dictionary) -> Array:
 			e.append(where + ": duration '%s' is resolved from the narration; render through `tf` (it resolves voice timing first)" % [d])
 		elif not (typeof(d) in [TYPE_INT, TYPE_FLOAT]) or float(d) <= 0.0 or float(d) > 120.0:
 			e.append(where + ": duration must be seconds in (0, 120]")
+		if s.has("slowmo"):
+			var sm = s["slowmo"]
+			if typeof(sm) != TYPE_DICTIONARY or not (typeof(sm.get("from")) in [TYPE_INT, TYPE_FLOAT]) or not (typeof(sm.get("to")) in [TYPE_INT, TYPE_FLOAT]) 					or float(sm.get("rate", 0.25)) < 0.02 or float(sm.get("rate", 0.25)) > 1.0:
+				e.append(where + ": slowmo is {from, to (scene seconds), rate 0.02..1}")
 		if s.has("scene_t") and (not (typeof(s["scene_t"]) in [TYPE_INT, TYPE_FLOAT]) or float(s["scene_t"]) < 0.0):
 			e.append(where + ": scene_t must be seconds >= 0")
 		if not s.has("camera"):
@@ -204,16 +208,33 @@ static func timeline(ep: Dictionary, fps: int) -> Array:
 			"first_frame": frame, "scene_t": scene_t, "camera": s["camera"], "look": s.get("look"),
 			"whip_in": String(s.get("whip_in", "")), "whip_out": String(s.get("whip_out", "")),
 			"iris_in": String(s.get("iris_in", "")), "iris_out": String(s.get("iris_out", "")),
-			"shake": s.get("shake", [])})
+			"shake": s.get("shake", []), "slowmo": s.get("slowmo", {})})
 		scene_t += dur
 		frame += frames
 	return out
 
 
+## Slow motion: between slowmo.from and slowmo.to the scene clock runs at `rate` of real time (the narration and
+## the cut keep real time); afterwards it carries on from where it got to, so the shot ends behind and the next shot
+## (which has its own scene_t) jumps ahead unseen. `e` is the unwarped scene time.
+static func warp(shot: Dictionary, e: float) -> float:
+	var sm: Dictionary = shot.get("slowmo", {})
+	if sm.is_empty():
+		return e
+	var a := float(sm["from"])
+	var b := float(sm["to"])
+	var r := float(sm.get("rate", 0.25))
+	if e <= a:
+		return e
+	if e <= b:
+		return a + (e - a) * r
+	return a + (b - a) * r + (e - b)
+
+
 ## Scene time and move progress (0..1) of frame k of a timeline shot.
 static func frame_time(shot: Dictionary, k: int, fps: int) -> Dictionary:
 	var frames := int(shot["frames"])
-	return {"t": float(shot["scene_t"]) + float(k) / fps,
+	return {"t": warp(shot, float(shot["scene_t"]) + float(k) / fps),
 		"p": 0.0 if frames <= 1 else float(k) / (frames - 1)}
 
 
@@ -247,7 +268,7 @@ static func camera_at(shot: Dictionary, p: float, L: Dictionary, look: Dictionar
 		var q := p
 		if cam.has("start") or cam.has("end"):
 			var t0 := float(shot.get("scene_t", 0.0))
-			var t := t0 + p * float(shot.get("duration", 1.0))
+			var t := warp(shot, t0 + p * float(shot.get("duration", 1.0)))
 			q = Motion.seg(t, float(cam.get("start", t0)), float(cam.get("end", t0 + float(shot.get("duration", 1.0)))))
 		s = mix(a, b, ease_progress(q, String(cam.get("ease", "in_out"))))
 	if s.has("error"):
@@ -260,7 +281,7 @@ static func _shake(s: Dictionary, shot: Dictionary, p: float) -> Dictionary:
 	var ev: Array = shot.get("shake", [])
 	if ev.is_empty():
 		return s
-	var t := float(shot.get("scene_t", 0.0)) + p * float(shot.get("duration", 1.0))
+	var t := warp(shot, float(shot.get("scene_t", 0.0)) + p * float(shot.get("duration", 1.0)))
 	var k := Motion.shake(t, ev, 1.6, float(String(shot.get("name", "")).hash() % 97))
 	if k == Vector3.ZERO:
 		return s

@@ -2089,8 +2089,8 @@
    ]
   },
   {
-   "id": "jeep_driver",
-   "character": "toon_jawan_a",
+   "id": "sci_ride1",
+   "character": "toon_sci_fatigues_a",
    "at": {
     "anchor": "range",
     "offset": [
@@ -2115,14 +2115,100 @@
       "offset": -1.6
      },
      {
-      "line": "l10a"
+      "shot": "kalam_tape",
+      "offset": 0.0
      }
     ]
    ],
    "cues": [
     {
      "t": 0.0,
-     "expression": "deadpan"
+     "expression": "grin"
+    },
+    {
+     "t": {
+      "line": "l9a",
+      "offset": 0.08
+     },
+     "expression": "wink",
+     "head": [
+      0,
+      -68,
+      0
+     ],
+     "head_turn": 0.08
+    },
+    {
+     "t": {
+      "line": "l9a",
+      "offset": 0.33
+     },
+     "expression": "grin",
+     "head": [
+      0,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "l9a",
+      "offset": 0.82
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "sci_ride2",
+   "character": "toon_sci_fatigues_b",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     6.36,
+     0,
+     14980.9
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     6.36,
+     0,
+     14970.0
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "line": "l9a",
+      "offset": -1.6
+     },
+     {
+      "shot": "kalam_tape",
+      "offset": 0.0
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "l9a",
+      "offset": 0.85
+     },
+     "expression": "side_eye",
+     "head": [
+      0,
+      40,
+      0
+     ],
+     "head_turn": 0.3
     }
    ]
   },
@@ -2146,30 +2232,11 @@
     ]
    },
    "action": "idle",
-   "route": {
-    "via": [
-     {
-      "anchor": "range",
-      "offset": [
-       7.95,
-       0,
-       14980.5
-      ]
-     }
-    ],
-    "gait": "walk",
-    "start": {
-     "line": "l9a",
-     "word": "arrive",
-     "offset": 0.4
-    }
-   },
    "shown": [
     [
      {
-      "line": "l9a",
-      "word": "arrive",
-      "offset": 0.4
+      "shot": "kalam_tape",
+      "offset": 0.05
      },
      {
       "line": "l10a"
@@ -2179,13 +2246,6 @@
    "cues": [
     {
      "t": 0.0,
-     "expression": "shocked"
-    },
-    {
-     "t": {
-      "line": "l9a",
-      "word": "dressed"
-     },
      "expression": "nervous"
     },
     {
@@ -2221,9 +2281,8 @@
    "shown": [
     [
      {
-      "line": "l9a",
-      "word": "arrive",
-      "offset": 0.4
+      "shot": "kalam_tape",
+      "offset": 0.05
      },
      {
       "line": "l10a"
@@ -2899,17 +2958,23 @@
      ],
      "stop": {
       "line": "l9a",
-      "word": "arrive",
-      "offset": 0.15
+      "offset": 0.8
      },
      "speed": 15.0,
      "slide": 70.0,
-     "driver": "jeep_driver",
+     "driver": "sci_ride1",
+     "riders": [
+      [
+       "sci_ride2",
+       0.08,
+       -0.36
+      ]
+     ],
      "slip": {
-      "actor": "sci_f1",
+      "actor": "sci_ride1",
       "t": {
        "line": "l9a",
-       "word": "soldiers"
+       "offset": 0.84
       }
      }
     },
@@ -6428,7 +6493,7 @@
       "anchor": "range",
       "offset": [
        11.0,
-       0.42,
+       1.4,
        14985.0
       ]
      },
@@ -6436,8 +6501,8 @@
       "anchor": "range",
       "offset": [
        21.0,
-       0.9,
-       14985.8
+       1.2,
+       14986.0
       ]
      },
      "lens_mm": 26,
@@ -6449,8 +6514,8 @@
      "at": {
       "anchor": "range",
       "offset": [
-       11.0,
-       0.5,
+       10.9,
+       1.45,
        14984.8
       ]
      },
@@ -6458,7 +6523,7 @@
       "anchor": "range",
       "offset": [
        6.6,
-       0.95,
+       1.05,
        14980.8
       ]
      },
@@ -6469,12 +6534,12 @@
     },
     "ease": "in_out",
     "start": {
-     "line": "l9a"
+     "line": "l9a",
+     "offset": -0.2
     },
     "end": {
      "line": "l9a",
-     "word": "arrive",
-     "offset": 0.25
+     "offset": 0.9
     }
    },
    "duration": {
@@ -6531,12 +6596,22 @@
      "grain": 0.035
     }
    },
+   "slowmo": {
+    "from": {
+     "line": "l9a",
+     "offset": 0.05
+    },
+    "to": {
+     "line": "l9a",
+     "offset": 0.3
+    },
+    "rate": 0.2
+   },
    "shake": [
     {
      "t": {
       "line": "l9a",
-      "word": "arrive",
-      "offset": 0.15
+      "offset": 0.8
      },
      "amount": 0.35
     }
