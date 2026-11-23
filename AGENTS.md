@@ -133,7 +133,7 @@ The Gemini key is `GEMINI_API_KEY` in `.env` (git-ignored). The sound pipeline u
    of times. Shadow-casting only where it reads on screen.
 8. **Never overwrite user assets** in `library/` without asking.
    Only import packs whose license allows commercial video use (CC0 so far); keep each pack's LICENSE.txt.
-9. **No generative image/video services.** Everything is rendered by Godot.
+9. **No generative image/video services.** Everything is rendered by Godot. (Exception the user made, 2026-11-24: the three pokhran device stickers were generated with Codex image generation at their request; ask before any other use.)
 
 ## Code conventions
 

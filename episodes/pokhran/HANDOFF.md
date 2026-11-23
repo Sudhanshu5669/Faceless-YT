@@ -69,7 +69,7 @@ Download first (AGENTS.md rule 8). Before modelling anything, search for and lis
 - sticker images: the White House (US government photo, public domain), the Taj Mahal and Kumbhkaran (a
   public-domain painting or illustration). Wikimedia Commons, checking each licence.
 
-**The user decided (2026-11-23): download the three sticker images (done: `library/logos/pokhran/`, sources in `library/logos/SOURCES.md`; the Taj photo needs a CC BY-SA credit in the description), BUILD the AN-32 and the device in Blender, and `two_more` uses accurate DUST DOMES in Kalam's goggles (no mushroom clouds).**
+**Stickers (2026-11-24): the user had Codex generate them instead: `library/logos/pokhran/generated/sticker_white_house.png`, `sticker_taj_mahal.png`, `sticker_kumbhkaran.png` (transparent PNGs, die-cut style). Use these on the devices.** Earlier: the user decided to download the three sticker images (done: `library/logos/pokhran/`, sources in `library/logos/SOURCES.md`; the Taj photo needs a CC BY-SA credit in the description), BUILD the AN-32 and the device in Blender, and `two_more` uses accurate DUST DOMES in Kalam's goggles (no mushroom clouds).**
 
 **Asset search done (2026-11-23):**
 - **AN-32:** no free CC-licensed model found. CGTrader sells An-32-inspired designs ($6, or a $31 pack with GLB); OpenGameArt
