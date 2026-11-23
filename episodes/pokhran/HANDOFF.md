@@ -68,6 +68,21 @@ Download first (AGENTS.md rule 8). Before modelling anything, search for and lis
 - sticker images: the White House (US government photo, public domain), the Taj Mahal and Kumbhkaran (a
   public-domain painting or illustration). Wikimedia Commons, checking each licence.
 
+**Asset search done (2026-11-23), awaiting the user's choice:**
+- **AN-32:** no free CC-licensed model found. CGTrader sells An-32-inspired designs ($6, or a $31 pack with GLB); OpenGameArt
+  has a CC0 An-28 (not an An-32). Recommendation: build it in Blender (high wing, two turboprops, upswept rear with a
+  cargo ramp, grey with IAF roundels), unless the user buys one.
+- **Nuclear device:** free and paid models exist (CGTrader, TurboSquid, free3d), but all are US weapons (B61, B83, Mk-17,
+  Fat Man) or unclear licences. The Indian device's look isn't public, so a US bomb would be wrong. Recommendation: a
+  stylized original "cool" device built in Blender (a polished steel canister, cable harnesses, stencils), kept in step
+  with `device_inside`.
+- **Sticker images:**
+  - Kumbhkaran: The Met's "The Awakening of Kumbhakarna" (ca. 1605, Open Access public domain, metmuseum.org/art/collection/search/454357).
+  - The White House: a US government photo (public domain).
+  - The Taj Mahal: a Wikimedia Commons photo (PD or CC-BY-SA with credit).
+  - Keep them under `library/logos/` with a SOURCES.md; ask before downloading.
+- **Tumbleweed:** only paid models found ($5-29). Recommendation: a procedural twig ball in Godot or Blender.
+
 Make every shot FUN and cinematic. **Tone for the bomb sequence (cage_lower, the lid shots, the test day, the blast,
 two_more): "a very Oppenheimer kinda feel, make it epic af"**: IMAX-scale wides against huge skies, tight intense
 close-ups on faces and eyes, sparks, fire and dust that feel practical, low dramatic light (hard key, deep shadow,
