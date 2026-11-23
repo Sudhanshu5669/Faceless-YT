@@ -40,6 +40,10 @@ Check live status with `python pipeline/tf.py shot pokhran --status`.
 - **Make it FUN (user, 2026-11-23):** "the shots so far are fine but it needs to be more fun". Pick the most energetic
   true version of each gag: speed, exaggeration, slapstick payoffs, whooshes, camera shakes, comic reactions.
 
+- **Download first, build last (user, 2026-11-23; AGENTS.md rule 8):** before modelling or animating anything (the AN-32,
+  the bunker, the village, crowds...), search for a downloadable model or animation (CC0 / CC-BY that allows commercial
+  video), list the candidates for the user, and build it yourself only if none fits.
+
 ## How to work a shot (the fast loop)
 
 1. Read the shot's row in `beats.md` and its line in `make_episode.py` (the `LINES` table: id, shot, lead, text, style).

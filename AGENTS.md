@@ -66,6 +66,11 @@ These come from the user's own feedback; they override defaults. The `toon-short
    a free Godot add-on (Godot Asset Library, MIT/CC0) or a CC0 asset pack (Kenney, Quaternius, Poly
    Pizza CC0) before writing one. Check the licence allows commercial video, keep its LICENSE, and
    ask the user before downloading (list name, source, size, licence). Build from primitives last.
+   **Download first, build last** (user, 2026-11-23): before spending effort modelling, sculpting (Blender) or
+   hand-animating anything (a vehicle, an aircraft, a building, a creature, a motion), the FIRST step is to search for
+   a ready-made model or animation to download (Poly Pizza, Sketchfab CC0/CC-BY with downloads, Kenney, Quaternius,
+   Poly Haven, the Smithsonian/NASA 3D, Mixamo-style motion libraries); list the candidates (name, source, size,
+   licence) for the user. Only if none meets the scene's expectations (look, accuracy, licence) build it yourself.
 9. **Never be lazy about places** (user, 2026-11-12). Every beat happens where the story says it
    happens (the TELECOM door is in Reliance Infocomm's lobby, not the family dining room that
    already existed). Build a new bay (set) and dress it (sign, brand colours, furniture from
