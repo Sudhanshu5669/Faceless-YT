@@ -321,5 +321,12 @@
     "updated": "2026-11-23 23:52:16",
     "fingerprint": "c77fe3ad5414",
     "history": []
+  },
+  "convoy": {
+    "status": "changes",
+    "note": "The zoom out in this shot is weird. just do a straight zoom out and show all those trucks going. why zoom around, makes the shot look weird.",
+    "updated": "2026-11-24 00:38:50",
+    "fingerprint": "2c7c3d25080c",
+    "history": []
   }
 }

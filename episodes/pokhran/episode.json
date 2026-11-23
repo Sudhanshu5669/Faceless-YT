@@ -3031,14 +3031,14 @@
       -0.0
      ],
      "cam1": [
-      34.0,
-      8.5,
-      -8.0
+      -32.862,
+      9.476,
+      -15.291
      ],
      "look1": [
-      -16.0,
-      -1.5,
-      0.0
+      -30.762,
+      8.976,
+      -14.291
      ],
      "lining_until": {
       "shot": "convoy",
@@ -6909,7 +6909,7 @@
     "to": {
      "at": "range_site.convoy_cam1",
      "look_at": "range_site.convoy_look1",
-     "lens_mm": 30,
+     "lens_mm": 24,
      "dof": {
       "strength": 0.05
      }
