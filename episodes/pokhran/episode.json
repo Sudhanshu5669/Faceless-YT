@@ -841,6 +841,45 @@
    ]
   },
   {
+   "id": "vajpayee",
+   "character": "toon_vajpayee",
+   "at": {
+    "anchor": "office",
+    "offset": [
+     0,
+     0,
+     8999.22
+    ]
+   },
+   "facing": {
+    "anchor": "office",
+    "offset": [
+     0,
+     0,
+     9003.0
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "line": "l5a",
+      "offset": -0.8
+     },
+     {
+      "line": "l5c",
+      "offset": -0.02
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "thinking"
+    }
+   ]
+  },
+  {
    "id": "wisner",
    "character": "toon_wisner",
    "at": {
@@ -1365,7 +1404,30 @@
     ]
    },
    "params": {
-    "sitter": "rao",
+    "sitter": [
+     "rao",
+     "vajpayee"
+    ],
+    "calendar": {
+     "flip": [
+      {
+       "line": "l5a",
+       "offset": -0.15
+      },
+      {
+       "line": "l5a",
+       "word": "1998."
+      }
+     ],
+     "from": [
+      1995,
+      12
+     ],
+     "to": [
+      1998,
+      3
+     ]
+    },
     "paper": {
      "slap": {
       "line": "l4a",
@@ -2957,29 +3019,116 @@
   {
    "name": "office_1998",
    "camera": {
-    "at": {
-     "anchor": "office",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "office",
+      "offset": [
+       1.15,
+       2.0,
+       8998.75
+      ]
+     },
+     "look_at": {
+      "anchor": "office",
+      "offset": [
+       1.2,
+       2.0,
+       8997.3
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "office",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "office",
+      "offset": [
+       0.55,
+       1.62,
+       9001.05
+      ]
+     },
+     "look_at": {
+      "anchor": "office",
+      "offset": [
+       0.45,
+       1.55,
+       8998.8
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "15:00",
+    "ssao": true,
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0
+    },
+    "sun": {
+     "elevation": 20,
+     "azimuth": 258,
+     "color": "#ffd9a8",
+     "energy": 3.4,
+     "shadows": true,
+     "softness": 0.6,
+     "visible": false
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "ambient": {
+     "color": "#6a5a4a",
+     "energy": 0.16
+    },
+    "sky": {
+     "top": "#9ab4d0",
+     "horizon": "#e8dcc4",
+     "stars": 0,
+     "clouds": 0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 400,
+     "volumetric": 0.018,
+     "color": "#d8c4a4",
+     "anisotropy": 0.7,
+     "length": 14
+    },
+    "ground_fog": {
+     "density": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 0.98,
+     "vignette": 0.42,
+     "grain": 0.04
+    },
+    "practical_lights": {
+     "level": 0
+    }
+   },
+   "hold": 0.2
   },
   {
    "name": "vajpayee_order",

@@ -10,7 +10,10 @@ extends RefCounted
 ## +z (the visitors' side). The window is in the -x wall (the PM's right), the door side is +z.
 ##
 ## params:
-##   sitter   actor id in the PM's chair (the chair follows their hips)
+##   sitter   actor id, or a list of ids, in the PM's chair (the chair follows whichever is visible)
+##   calendar {"flip": [t0, t1], "from": [1995, 12], "to": [1998, 3]}   a wall calendar on the back wall; its monthly
+##            pages flip over the top, faster and faster, from `from` to `to` (each page: a printed picture, the month
+##            and year, the date grid with the right weekdays)
 ##   paper    {"slap": t, "headline": [line, line], "folio": "...", "byline": "...", "dateline": "..."}
 ##            an aide's arm swings in from the visitors' side and slaps a folded newspaper onto the desk at `slap`
 ##   photos   {"slide": t, "hand": actor id, "cam": point, "ortho": metres}   satellite prints: a stack on the visitors'
@@ -18,7 +21,7 @@ extends RefCounted
 ##            live overhead orthographic view from `cam` (straight down), printed greyscale with a grease-pencil ring
 ##   ring     {"from": t, "until": t, "lift": t, "hand": actor id}   the black phone rings (the handset rattles in
 ##            double-ring bursts) from `from`; from `lift` the actor's right hand takes the handset slowly to the ear
-## anchors: desk, paper, phone_black, phone_beige, chair, window, flag, print, handset
+## anchors: desk, paper, phone_black, phone_beige, chair, window, flag, print, handset, calendar
 const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
@@ -29,6 +32,9 @@ const ROOM := Vector3(7.4, 4.3, 6.4)       # x width, height, z depth
 const ROOM_Z0 := -2.7                       # back wall
 const PAPER := Vector2(0.343, 0.29)         # a broadsheet folded in half
 const PAPER_AT := Vector3(0.05, TOP + 0.011, 0.08)
+const CAL_AT := Vector3(-1.2, 2.05, ROOM_Z0 + 0.035)
+const CAL_SIZE := Vector2(0.46, 0.66)
+const MONTHS := ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"]
 
 const WALL := """
 shader_type spatial;
@@ -155,7 +161,38 @@ void fragment() {
 }
 """
 
+const CAL_PRINT := """
+shader_type spatial;
+render_mode cull_disabled;
+uniform float variant = 0.0;
+varying vec2 uvp;
+//NOISE
+void vertex() { uvp = UV; }
+void fragment() {
+	vec2 p = uvp;
+	vec3 c = vec3(0.97, 0.96, 0.92);
+	// The picture: the top 45 % of the sheet, inset by a margin.
+	if (p.y < 0.46 && p.x > 0.05 && p.x < 0.95 && p.y > 0.04) {
+		vec2 q = vec2((p.x - 0.05) / 0.9, (p.y - 0.04) / 0.42);
+		float v = variant;
+		vec3 sky = mix(vec3(0.55, 0.72, 0.9), vec3(0.95, 0.75, 0.55), fract(v * 0.37) * (1.0 - q.y) * 0.8);
+		float hill = 0.45 + 0.12 * sin(q.x * 6.0 + v * 2.0) + 0.06 * sin(q.x * 17.0 + v);
+		float hill2 = 0.6 + 0.08 * sin(q.x * 9.0 + v * 3.0);
+		c = sky;
+		c = mix(c, vec3(0.35, 0.42, 0.5), step(hill, q.y));
+		c = mix(c, vec3(0.2, 0.36, 0.2) * (0.8 + 0.3 * fbm(vec3(q * 20.0, v))), step(hill2, q.y));
+		c = mix(c, vec3(0.4, 0.58, 0.72), step(0.85, q.y) * 0.8);
+	}
+	// A thin red rule under the picture.
+	c = mix(c, vec3(0.75, 0.1, 0.1), step(abs(p.y - 0.49), 0.004));
+	ALBEDO = c;
+	ROUGHNESS = 0.6;
+	SPECULAR = 0.3;
+}
+"""
+
 var _p := {}
+var _cal_pages: Array = []     # two pages: [node, labels {month, year, days[42]}, material]
 var _chair_top: Node3D
 var _chair_base: Node3D
 var _fan: Node3D
@@ -180,6 +217,7 @@ func build(g: Dictionary) -> Node3D:
 	_chair(root)
 	_paper_build(root)
 	_photos_build(root)
+	_calendar_build(root)
 	return root
 
 
@@ -605,6 +643,111 @@ func _pose_phone(gt: Transform3D, t: float, ctx: Dictionary) -> Vector3:
 	return _phone.transform * _handset.position
 
 
+func _calendar_build(root: Node3D) -> void:
+	if _p.get("calendar", {}).is_empty():
+		return
+	# A nail and a string loop; two pages (the one underneath, the one flipping), hung from the top edge.
+	Kit.ball(root, 0.008, CAL_AT + Vector3(0, CAL_SIZE.y * 0.5 + 0.05, 0.01), Kit.mat("#8a8a86", 0.4, 0.6), 8)
+	var font := SystemFont.new()
+	font.font_names = PackedStringArray(["Georgia", "Times New Roman", "serif"])
+	font.font_weight = 700
+	var plain := SystemFont.new()
+	plain.font_names = PackedStringArray(["Arial", "Helvetica", "sans-serif"])
+	plain.font_weight = 600
+	for k in 2:
+		var pivot := Node3D.new()
+		pivot.position = CAL_AT + Vector3(0, CAL_SIZE.y * 0.5, 0.004 * (2 - k))
+		root.add_child(pivot)
+		var sheet := MeshInstance3D.new()
+		var qm := QuadMesh.new()
+		qm.size = CAL_SIZE
+		sheet.mesh = qm
+		var m := Kit.shader(CAL_PRINT)
+		sheet.material_override = m
+		sheet.position = Vector3(0, -CAL_SIZE.y * 0.5, 0)
+		pivot.add_child(sheet)
+		var month := _label(pivot, font, 0.034, Color(0.1, 0.1, 0.12), Vector3(-0.07, -CAL_SIZE.y * 0.555, 0.001))
+		var year := _label(pivot, font, 0.05, Color(0.72, 0.08, 0.08), Vector3(0.13, -CAL_SIZE.y * 0.55, 0.001))
+		var heads := []
+		var names := ["S", "M", "T", "W", "T", "F", "S"]
+		for d in 7:
+			var hl := _label(pivot, plain, 0.016, Color(0.72, 0.08, 0.08) if d == 0 else Color(0.2, 0.2, 0.22), _cell(d, -1))
+			hl.text = names[d]
+			heads.append(hl)
+		var days := []
+		for i in 42:
+			days.append(_label(pivot, plain, 0.02, Color(0.15, 0.15, 0.17), _cell(i % 7, i / 7)))
+		_cal_pages.append([pivot, {"month": month, "year": year, "days": days}, m])
+
+
+func _cell(col: int, row: int) -> Vector3:
+	var x0 := -CAL_SIZE.x * 0.5 + 0.045
+	var w := (CAL_SIZE.x - 0.09) / 6.0
+	return Vector3(x0 + w * col, -CAL_SIZE.y * 0.66 - 0.042 * row, 0.001)
+
+
+func _label(parent: Node3D, font: Font, h: float, col: Color, pos: Vector3) -> Label3D:
+	var l := Label3D.new()
+	l.font = font
+	l.font_size = 64
+	l.pixel_size = h / 48.0
+	l.modulate = col
+	l.outline_size = 0
+	l.shaded = true
+	l.double_sided = false
+	l.alpha_cut = Label3D.ALPHA_CUT_OPAQUE_PREPASS
+	l.position = pos
+	parent.add_child(l)
+	return l
+
+
+## Show month index `mi` (months since Jan 1900) on page k: name, year, the date grid from the right weekday.
+func _cal_show(k: int, mi: int) -> void:
+	var page: Array = _cal_pages[k]
+	var lab: Dictionary = page[1]
+	var y := mi / 12
+	var m := mi % 12
+	(lab["month"] as Label3D).text = MONTHS[m]
+	(lab["year"] as Label3D).text = str(y)
+	var first := Time.get_unix_time_from_datetime_dict({"year": y, "month": m + 1, "day": 1, "hour": 12})
+	var wd := int(Time.get_datetime_dict_from_unix_time(first)["weekday"])
+	var ny := y + (1 if m == 11 else 0)
+	var nm := 1 if m == 11 else m + 2
+	var nfirst := Time.get_unix_time_from_datetime_dict({"year": ny, "month": nm, "day": 1, "hour": 12})
+	var ndays := int(round(float(nfirst - first) / 86400.0))
+	var days: Array = lab["days"]
+	for i in 42:
+		var dnum := i - wd + 1
+		(days[i] as Label3D).text = str(dnum) if dnum >= 1 and dnum <= ndays else ""
+		(days[i] as Label3D).modulate = Color(0.72, 0.08, 0.08) if i % 7 == 0 else Color(0.15, 0.15, 0.17)
+	(page[2] as ShaderMaterial).set_shader_parameter("variant", float(mi % 7))
+
+
+func _pose_calendar(t: float) -> void:
+	var cd: Dictionary = _p.get("calendar", {})
+	if cd.is_empty():
+		return
+	var fr: Array = cd.get("from", [1995, 12])
+	var to: Array = cd.get("to", [1998, 3])
+	var m0 := int(fr[0]) * 12 + int(fr[1]) - 1
+	var m1 := int(to[0]) * 12 + int(to[1]) - 1
+	var fl: Array = cd.get("flip", [1e9, 1e9])
+	# Pages flip faster and faster, then the last one settles.
+	var u := Motion.seg(t, float(fl[0]), float(fl[1]))
+	var pos := float(m1 - m0) * (u * u * (3.0 - 2.0 * u) * 0.35 + u * 0.65)
+	var i := mini(int(floorf(pos)), m1 - m0)
+	var f: float = pos - floorf(pos) if i < m1 - m0 else 0.0
+	_cal_show(0, m0 + mini(i + 1, m1 - m0))     # underneath: the next month
+	_cal_show(1, m0 + i)                          # on top: this month, flipping up over the top edge
+	var top: Node3D = (_cal_pages[1] as Array)[0]
+	var under: Node3D = (_cal_pages[0] as Array)[0]
+	top.rotation.x = -PI * 0.92 * Motion.in_cubic(f)
+	top.visible = i < m1 - m0
+	under.visible = true
+	if i >= m1 - m0:
+		_cal_show(0, m1)
+
+
 ## Type laid flat on the page; shrunk to `max_w` metres wide if it would run off the page.
 func _flat_text(parent: Node3D, s: String, font: Font, height: float, col: Color, pos: Vector3, max_w: float = PAPER.x - 0.03) -> void:
 	if s == "":
@@ -628,8 +771,12 @@ func _flat_text(parent: Node3D, s: String, font: Font, height: float, col: Color
 
 
 func _pose_chair(gt: Transform3D, ctx: Dictionary) -> void:
-	var id := String(_p.get("sitter", ""))
-	var actor = ctx["actor"].call(id) if id != "" and ctx.has("actor") else null
+	var ids = _p.get("sitter", "")
+	var actor = null
+	for id in (ids if ids is Array else [ids]):
+		var a = ctx["actor"].call(String(id)) if String(id) != "" and ctx.has("actor") else null
+		if a != null and a.visible:
+			actor = a
 	if actor == null:
 		return
 	var inv := gt.affine_inverse()
@@ -650,6 +797,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var gt := node.global_transform
 	_pose_chair(gt, ctx)
 	_fan.rotation.y = t * 2.4
+	_pose_calendar(t)
 	var print_at := _pose_photos(gt, t, ctx)
 	var handset_at := _pose_phone(gt, t, ctx)
 	var paper_anchor := PAPER_AT
@@ -695,4 +843,4 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	return {"desk": gt * Vector3(0, TOP, 0), "paper": gt * paper_anchor, "chair": gt * (_chair_top.position + Vector3(0, 0.4, 0)),
 		"phone_black": gt * Vector3(-0.62, TOP + 0.1, -0.12), "phone_beige": gt * Vector3(-0.42, TOP + 0.08, -0.3),
 		"window": gt * Vector3(-ROOM.x * 0.5, 2.2, -0.3), "flag": gt * Vector3(0.82, TOP + 0.3, -0.3),
-		"print": gt * print_at, "handset": gt * handset_at}
+		"print": gt * print_at, "handset": gt * handset_at, "calendar": gt * CAL_AT}

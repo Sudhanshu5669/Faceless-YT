@@ -29,7 +29,13 @@ LOOK_1995 = {
 
 R1995 = [W("l4a", offset=-0.8), W("l4d", offset=0.05)]
 
+V1998 = [W("l5a", offset=-0.8), W("l5c", offset=-0.02)]
+
 ACTORS = [
+    # 1998: Vajpayee in the same chair (sworn in March 1998).
+    {"id": "vajpayee", "character": "toon_vajpayee", "at": P(0, 0, -0.78), "facing": P(0, 0, 3.0), "action": "sit",
+     "shown": [V1998],
+     "cues": [{"t": 0.0, "expression": "thinking"}]},
     # Ambassador Wisner stands at the desk and slides the satellite prints across to Rao.
     {"id": "wisner", "character": "toon_wisner", "at": P(0.42, 0, 0.82), "facing": P(0.05, 0, -0.6), "action": "idle",
      "shown": [[W("l4b", offset=-0.8), W("l4c", offset=0.04)]],
@@ -47,7 +53,9 @@ ACTORS = [
 ]
 
 GAGS = [{"id": "pmo", "script": "gags/pm_office.gd", "t": 0, "at": P(0, 0, 0),
-         "params": {"sitter": "rao",
+         "params": {"sitter": ["rao", "vajpayee"],
+                    "calendar": {"flip": [W("l5a", offset=-0.15), W("l5a", "1998.", 0.0)], "from": [1995, 12],
+                                 "to": [1998, 3]},
                     "paper": {"slap": W("l4a", "Times", 0.0),
                               "folio": "THE NEW YORK TIMES, FRIDAY, DECEMBER 15, 1995",
                               "headline": ["U.S. Suspects India", "Prepares To Conduct", "Nuclear Test"],
@@ -75,6 +83,12 @@ SHOTS = {
     "rao_phone": {"look": LOOK_1995, "camera": move(
         cam(P(-0.85, 1.22, 1.25), P(-0.3, 1.0, -0.5), 34, {"strength": 0.16}),
         cam(P(-0.72, 1.24, 1.0), P(-0.27, 1.05, -0.52), 36, {"strength": 0.16}), "in_out")},
+    # Close on the wall calendar behind the desk: the pages flip from December 1995 to March 1998, landing on "1998";
+    # the camera pulls back and down to the new Prime Minister in the chair, thinking.
+    "office_1998": {"look": LOOK_1995, "camera": move(
+        cam(P(-1.15, 2.0, -1.25), P(-1.2, 2.0, -2.7), 40, {"strength": 0.1}),
+        cam(P(-0.55, 1.62, 1.05), P(-0.45, 1.55, -1.2), 32, {"strength": 0.12}), "in"),
+        "hold": 0.2},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}
