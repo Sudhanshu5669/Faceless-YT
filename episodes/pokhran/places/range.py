@@ -195,7 +195,8 @@ CRICKET = [W("l8c", offset=-1.0), W("l9a", offset=0.0)]   # through cricket_feed
 HIT = W("l8c", "cricket", 0.0)
 ACTORS += [
     {"id": "cr_bat", "character": "toon_jawan_a", "at": P(-3.0, 0, 16.0), "facing": P(-3.0, 0, 0.0), "action": "idle",
-     "shown": [CRICKET], "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("l8c", "cricket", 0.15), "expression": "grin"}]},
+     "shown": [CRICKET], "cues": [{"t": 0.0, "expression": "determined", "head": [8, 74, 0], "head_turn": 0.01},
+                                  {"t": W("l8c", "cricket", 0.05), "expression": "grin", "head": [-32, 28, 0], "head_turn": 0.35}]},
     {"id": "cr_bowl", "character": "toon_jawan_c", "at": P(-3.1, 0, 1.0), "facing": P(-3.0, 0, 16.0), "action": "idle",
      "route": {"via": [P(-3.05, 0, 6.6)], "gait": "jog", "start": W("l8c", "cricket", -1.4), "arrive": W("l8c", "cricket", -0.62)},
      "shown": [CRICKET],
@@ -264,7 +265,7 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
-                    "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6], [-4.5, 9.0, 2.6], [-1.6, 6.5, 1.4], [13.0, -5.0, 5.0], [15.5, 2.5, 1.5]],
+                    "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6], [-4.5, 9.0, 2.6], [-1.6, 6.5, 1.4], [13.0, -5.0, 5.0], [15.5, 2.5, 1.5], [0.3, 21.0, 2.5], [-1.4, 18.6, 2.2], [-2.6, 14.0, 2.5]],
                     "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
                     "drip": W("l2e", "bomb", 0.04),
                     "y1995": [Y1995, Y1995_LATE],
@@ -439,11 +440,11 @@ SHOTS = {
     "statue": {"look": LOOK_AFTERNOON, "hold": 0.6, "camera": move(
         cam(P(0.2, 1.75, 12.6), P(0.6, 0.95, 5.6), 28, {"strength": 0.08}),
         cam(P(0.2, 1.72, 12.3), P(0.6, 0.95, 5.6), 28, {"strength": 0.08}), "linear")},
-    # Low behind the tent-peg stumps: the bowler runs in, the ball bounces once and the batsman lofts it on "cricket";
-    # the camera tilts up after it over the bowler's head, the fielders looking up.
+    # From the off side, low: the batsman side-on in profile at his tent-peg stumps, the bowler running in beyond him;
+    # tap, backlift, stride and a lofted drive on "cricket"; the camera tilts up after the ball.
     "cricket": {"look": LOOK_AFTERNOON, "camera": {
-        "from": cam(P(-1.55, 0.75, 19.6), P(-3.35, 1.0, 8.0), 30, {"strength": 0.1}),
-        "to": cam(P(-1.55, 0.8, 19.5), P(-3.3, 4.2, 8.5), 28, {"strength": 0.08}),
+        "from": cam(P(0.3, 1.1, 21.0), P(-3.6, 1.0, 11.8), 32, {"strength": 0.1}),
+        "to": cam(P(0.3, 1.1, 20.9), P(-3.4, 3.8, 10.8), 30, {"strength": 0.08}),
         "ease": "in_out", "start": W("l8c", "cricket", 0.0), "end": W("l8c", "cricket", 0.6)}},
     # At the camp, front three-quarter: the jeep brakes to a stop toward us; the scientists in baggy fatigues step out;
     # on "soldiers" one's oversized cap slides down over his glasses; the other side-eyes him.

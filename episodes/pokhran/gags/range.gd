@@ -669,13 +669,14 @@ func _cricket_build(root: Node3D) -> void:
 		Kit.rod(root, sb + Vector3(-0.11 + 0.11 * k, -0.02, 0), sb + Vector3(-0.11 + 0.11 * k + 0.01 * (k - 1), 0.62, 0.01 * k), 0.016, peg, 6)
 
 
-## The bat's angle from hanging straight down, in the swing plane (negative: back over the shoulder; positive:
-## through to the follow-through).
+## The bat's angle from hanging straight down in the swing plane (negative: back, away from the bowler; positive:
+## through toward him). Tapping at the crease, the backlift as the bowler runs in, the downswing, a high finish.
 static func _bat_angle(t: float, hit: float) -> float:
-	var back := Motion.smooth(Motion.seg(t, hit - 1.2, hit - 0.45))
-	var down := Motion.in_cubic(Motion.seg(t, hit - 0.28, hit))
-	var through := Motion.out_cubic(Motion.seg(t, hit, hit + 0.3))
-	return lerpf(lerpf(lerpf(-0.35, -2.3, back), 0.15, down), 2.2, through)
+	var tap := -0.25 + 0.07 * maxf(0.0, sin(t * 7.0))
+	var back := Motion.in_out(Motion.seg(t, hit - 1.0, hit - 0.42))
+	var down := Motion.in_cubic(Motion.seg(t, hit - 0.24, hit))
+	var through := Motion.out_cubic(Motion.seg(t, hit, hit + 0.35))
+	return lerpf(lerpf(lerpf(tap, -2.4, back), 0.1, down), 2.5, through)
 
 
 func _pose_cricket(gt: Transform3D, t: float, ctx: Dictionary) -> void:
@@ -692,21 +693,36 @@ func _pose_cricket(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 	var inv := gt.affine_inverse()
 	var hit := float(cd.get("hit", 1e9))
 	var rel := float(cd.get("release", hit - 0.55))
-	var ay := float(bat.rotation.y)
-	var fwd := Vector3(sin(ay), 0, cos(ay))
-	var right := -Vector3(cos(ay), 0, -sin(ay))
+	# A right-hander, side-on: his left shoulder to the bowler (`pitch`, toward the bowler), chest to the off side.
+	var pitch := Vector3(0, 0, -1)
+	if bowl != null:
+		pitch = (inv * (bowl.global_position as Vector3)) - (inv * (bat.global_position as Vector3))
+		pitch.y = 0.0
+		pitch = pitch.normalized()
+	var down := Motion.in_cubic(Motion.seg(t, hit - 0.24, hit))
+	var through := Motion.out_cubic(Motion.seg(t, hit, hit + 0.35))
+	# The stroke opens his body toward the bowler and his front foot strides down the pitch.
+	var side := Vector3(-pitch.z, 0, pitch.x)          # his chest's way at address: left shoulder to the bowler
+	var open := 0.9 * (0.35 * down + 0.65 * through)
+	var facing := side.rotated(Vector3.UP, open * signf(side.cross(pitch).y))
+	bat.rotation = Vector3(0, atan2(facing.x, facing.z), 0)
+	bat.position += gt.basis * (pitch * 0.2 * Motion.smooth(Motion.seg(t, hit - 0.3, hit - 0.05)))
 	var chest: Vector3 = inv * bat.bone_world("spine_03")
-	# The swing: the hands (the handle's top) ride a small arc in front of the chest; the bat turns about his right axis.
 	var a := _bat_angle(t, hit)
-	var pivot := chest + fwd * 0.2 + right * 0.06 + Vector3(0, -0.05, 0) + Vector3(0, 0.12, 0) * absf(sin(a))
-	var dir := (Vector3.DOWN * cos(a) + fwd * sin(a)).normalized()
-	var b := Basis(right, -dir, right.cross(-dir)).orthonormalized()
+	# The hands: low in front of the body at address, up by the back shoulder at the top of the backlift, high past the
+	# front shoulder at the finish; the bat turns about the axis across the pitch.
+	var raise := 0.5 * (1.0 - cos(a))
+	var pivot := chest + side * 0.42 + Vector3(0, -0.14 + 0.2 * raise, 0) - pitch * 0.1 * sin(a)
+	var dir := (Vector3.DOWN * cos(a) + pitch * sin(a)).normalized()
+	var across := pitch.cross(Vector3.UP).normalized()
+	var b := Basis(across, -dir, across.cross(-dir)).orthonormalized()
 	_bat.transform = Transform3D(b, pivot)
-	Crawl.long_arms(bat, 1.3)
-	bat.aim_hand("l", gt * (pivot + dir * 0.02), 1.0)
-	bat.aim_hand("r", gt * (pivot + dir * 0.11), 1.0)
+	Crawl.long_arms(bat, 1.6)
+	bat.aim_hand("l", gt * (pivot + dir * 0.02), 1.0, 0.03 * raise)
+	bat.aim_hand("r", gt * (pivot + dir * 0.11), 1.0, 0.03 * raise)
+	var fwd := pitch
 	# The ball: in the bowler's hand, then down the pitch with one bounce two-thirds of the way, then lofted away.
-	var contact := pivot + (Vector3.DOWN * cos(0.15) + fwd * sin(0.15)).normalized() * 0.55
+	var contact := pivot + (Vector3.DOWN * cos(0.1) + fwd * sin(0.1)).normalized() * 0.55
 	if t < rel and bowl != null and bowl.visible:
 		_ball.position = inv * (bowl.bone_world("hand_r") as Vector3)
 	elif t < hit:
@@ -745,7 +761,7 @@ func _pose_jeep(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 	var c := Vector3(float(at[0]), 0, float(at[1])) - fwd * left
 	c.y = height(c.x, c.z)
 	_jeep.position = c
-	_jeep.visible = left < 60.0
+	_jeep.visible = left < 14.0      # it appears just before its own shot (it drives in past the cricket pitch)
 	var dip := 0.035 * Motion.wobble(t - ts, 2.2, 4.5) if t >= ts else 0.0
 	_jeep.rotation = Vector3(0, yaw, -dip)
 	if not ctx.has("actor"):
@@ -762,8 +778,9 @@ func _pose_jeep(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 		var cap := sa.find_child("cap", true, false) as Node3D
 		if cap != null:
 			var k := Motion.out_back(Motion.seg(t, float(sl.get("t", 1e9)), float(sl.get("t", 1e9)) + 0.3), 2.0)
-			cap.position = Vector3(0, -0.075, 0.03) * k
-			cap.rotation = Vector3(0.32 * k, 0, 0.06 * k)
+			cap.scale = Vector3.ONE * 1.16
+			cap.position = Vector3(0, -0.035 - 0.05 * k, 0.012 + 0.03 * k)
+			cap.rotation = Vector3(0.12 * k, 0, 0.05 * k)
 
 
 ## Field disguise: a patrol cap perched on the actor's own hair, a name tape on the chest (made once, on the actor).
