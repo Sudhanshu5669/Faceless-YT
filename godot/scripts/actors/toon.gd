@@ -54,7 +54,7 @@ const HAIRLINES := {
 	"bowl": [52, 84, 104, 1.07], "tuft": [52, 84, 104, 1.07], "slick": [46, 80, 100, 1.05],
 	"curly": [50, 82, 100, 1.02], "cap": [48, 74, 86, 1.06], "beanie": [44, 76, 88, 1.08],
 	"bob": [50, 104, 116, 1.1], "bun": [50, 86, 104, 1.06],
-	"hood": [44, 118, 150, 1.07], "side": [47, 82, 102, 1.05], "patrol": [50, 72, 84, 1.07],
+	"hood": [44, 118, 150, 1.07], "side": [47, 82, 102, 1.05], "patrol": [40, 70, 84, 1.07],
 }
 
 static var _faces: Dictionary = {}
@@ -416,9 +416,9 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 			var peak := MeshInstance3D.new()
 			peak.mesh = _sphere(1.0, 24, 8)
 			peak.material_override = _mat(col.darkened(0.2), OUTLINE * 0.6)
-			var a2 := deg_to_rad(float(hl[0]) + 6.0)
-			peak.transform = Transform3D(_cols(Basis.from_euler(Vector3(deg_to_rad(18), 0, 0)), Vector3(hr * 0.5, hr * 0.05, hr * 0.36)),
-				Vector3(0, cos(a2) * hr * 1.05, sin(a2) * hr * 1.05 + hr * 0.08))
+			var a2 := deg_to_rad(float(hl[0]) + 4.0)
+			peak.transform = Transform3D(_cols(Basis.from_euler(Vector3(deg_to_rad(8), 0, 0)), Vector3(hr * 0.42, hr * 0.04, hr * 0.22)),
+				Vector3(0, cos(a2) * hr * 1.06, sin(a2) * hr * 1.06 + hr * 0.04))
 			head.add_child(peak)
 		"beanie":
 			var band := MeshInstance3D.new()

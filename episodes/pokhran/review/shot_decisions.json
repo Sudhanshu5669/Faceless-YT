@@ -47,16 +47,28 @@
     "history": []
   },
   "shaft_dive": {
-    "status": "changes",
-    "note": "approved by accident (user, 2026-11-23); still being built",
-    "updated": "2026-11-23 12:35:26",
-    "fingerprint": "6aad74188a6b",
+    "status": "approved",
+    "note": "approved 2026-11-23",
+    "updated": "2026-11-23 12:40:30",
+    "fingerprint": "79bcced3770e",
     "history": [
       {
         "status": "approved",
         "note": "",
         "updated": "2026-11-23 12:33:32",
         "fingerprint": "6aad74188a6b"
+      },
+      {
+        "status": "changes",
+        "note": "approved by accident (user, 2026-11-23); still being built",
+        "updated": "2026-11-23 12:35:26",
+        "fingerprint": "6aad74188a6b"
+      },
+      {
+        "status": "approved",
+        "note": "approved by accident (user, 2026-11-23); still being built",
+        "updated": "2026-11-23 12:38:33",
+        "fingerprint": "79bcced3770e"
       }
     ]
   }

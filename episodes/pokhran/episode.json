@@ -543,6 +543,42 @@
    ]
   },
   {
+   "id": "jawan_chalk",
+   "character": "toon_jawan_c",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     -0.012,
+     0.262,
+     14999.78
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     3.404,
+     0.262,
+     14999.601
+    ]
+   },
+   "action": "crouch",
+   "keep_y": true,
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l2d",
+      "word": "House",
+      "offset": 0.12
+     },
+     "expression": "smug"
+    }
+   ]
+  },
+  {
    "id": "vajpayee",
    "character": "toon_vajpayee",
    "at": {
@@ -718,6 +754,54 @@
       0.6
      ]
     ]
+   }
+  },
+  {
+   "id": "wh_chalk",
+   "script": "library:chalk",
+   "t": {
+    "line": "l2d",
+    "offset": -0.4
+   },
+   "at": {
+    "anchor": "range",
+    "offset": [
+     0.403,
+     0.262,
+     14999.658
+    ]
+   },
+   "face": {
+    "anchor": "range",
+    "offset": [
+     5.396,
+     0.262,
+     14999.397
+    ]
+   },
+   "params": {
+    "lines": [
+     "WHITE",
+     "HOUSE"
+    ],
+    "size": 0.18,
+    "gap": 1.35,
+    "done": 8,
+    "width": 0.13,
+    "write": {
+     "from": {
+      "line": "l2d",
+      "offset": -0.25
+     },
+     "to": {
+      "line": "l2d",
+      "word": "House"
+     }
+    },
+    "hand": "jawan_chalk",
+    "side": "r",
+    "reach": 1.3,
+    "seed": 3
    }
   },
   {
@@ -1290,28 +1374,105 @@
   {
    "name": "lid_chalk",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       2.123,
+       1.2,
+       14999.628
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       0.285,
+       0.55,
+       14999.705
+      ]
+     },
+     "lens_mm": 29,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       2.006,
+       1.14,
+       14999.675
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       0.265,
+       0.58,
+       14999.716
+      ]
+     },
+     "lens_mm": 31,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 36,
+     "azimuth": 212,
+     "color": "#ffe2b6",
+     "energy": 3.1,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.3,
+     "glow": 1.4,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b89c78",
+     "energy": 0.32,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 25,
+     "end": 2300,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {

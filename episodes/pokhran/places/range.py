@@ -35,12 +35,37 @@ ACTORS = [
      "cues": [{"t": 0.0, "expression": "deadpan"}]},
 ]
 
+# lid_chalk: the chalked text on the plate faces a camera in front of it (C points from the text to the camera,
+# chosen so the afternoon sun falls three-quarters across the jawan's face); the jawan crouches just beyond the
+# text facing us, reaching forward to finish the E of HOUSE (bottom right). The text sits off the cable gland.
+CX, CZ = -0.9986, -0.0523      # toward the camera (west; the firing cables run off east, behind)
+RX, RZ = -0.0523, 0.9986       # the text's right (as the camera sees it)
+T = (0.42 * CX - 0.32 * RX, 0.262, 0.42 * CZ - 0.32 * RZ)   # text centre: 0.42 toward camera, 0.32 left
+
+
+def TP(right, fwd, y=0.262):
+    """A point in the text frame (right, toward-camera), on the plate unless y is given."""
+    return P(T[0] + RX * right + CX * fwd, y, T[2] + RZ * right + CZ * fwd)
+
+
+ACTORS.append(
+    {"id": "jawan_chalk", "character": "toon_jawan_c", "at": TP(0.1, -0.42), "facing": TP(0.1, 3.0),
+     "action": "crouch", "keep_y": True, "cues": [
+         {"t": 0.0, "expression": "determined"},
+         {"t": W("l2d", "House", 0.12), "expression": "smug"},
+     ]})
+
 GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"carry": [{"actor": "jawan_noon", "what": "jerrycans"}], "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
                     "clear": [[4.33, 5.8, 1.8], [3.83, 5.29, 1.6]],
                     "dive": {"from": W("l2c"), "to": W("l2c", edge="end", offset=0.12), "y1": -186.0},
-                    "bushes": [[1.1, 2.5, 0.75, 0.6]]}}]
+                    "bushes": [[1.1, 2.5, 0.75, 0.6]]}},
+        {"id": "wh_chalk", "script": "library:chalk", "t": W("l2d", offset=-0.4),
+         "at": TP(0, 0), "face": TP(0, 5.0),
+         "params": {"lines": ["WHITE", "HOUSE"], "size": 0.18, "gap": 1.35, "done": 8, "width": 0.13,
+                    "write": {"from": W("l2d", offset=-0.25), "to": W("l2d", "House")},
+                    "hand": "jawan_chalk", "side": "r", "reach": 1.3, "seed": 3}}]
 
 # The usual range camera looks into the afternoon sun (az 212): forward F, right R in the ground plane.
 F = (-0.53, -0.85)
@@ -71,6 +96,11 @@ SHOTS = {
         cam(V(0.45, -6.5, 1.4), V(0.0, 0.0, 2.6), 32, {"strength": 0.1}), "in_out")},
     # Top-down onto the plate, through the cable gland and down the bore, circling the cable bundle; the depth
     # counter falls with the camera and lands on "two hundred"; the lamp at the bottom glows ahead.
+    # Insert from above on the plate: the jawan's chalk finishes the E of HOUSE on "House"; he rocks back and
+    # turns to us, smug. A slow push and a slight turn.
+    "lid_chalk": {"look": LOOK_AFTERNOON, "camera": move(
+        cam(TP(0.06, 1.72, 1.2), TP(0.04, -0.12, 0.55), 29, {"strength": 0.12}),
+        cam(TP(0.1, 1.6, 1.14), TP(0.05, -0.14, 0.58), 31, {"strength": 0.12}), "in_out")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 
