@@ -27,11 +27,12 @@ extends RefCounted
 ##   bushes     [[x, z, scale, yaw], ...]   hero ker bushes
 ##   clear      [[x, z, radius], ...]   keep the scattered plants and stones out of these circles (camera spots)
 ##   dive       {"from": t, "to": t, "y1": -188}   the camera's fall down the shaft: anchors dive_cam / dive_look /
-##              dive_count follow it (a short push onto the plate's cable gland, then down the bore, circling the
-##              cable bundle, easing out near the bottom); a lamp travels with it
+##              dive_count follow it (from just under the plate down the bore, circling the cable bundle,
+##              accelerating, easing out near the bottom); a lamp travels with it
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
-## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, bottom
+## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
+## (the counter's facing point: along the camera's view axis, so it stays parallel to the image), bottom
 
 const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
@@ -273,11 +274,11 @@ void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; lp = VERTEX; }
 void fragment() {
 	float a = atan(lp.z, lp.x);
 	vec3 q = vec3(a * 1.6, lp.y * 0.12, 0.0);
-	vec3 c = vec3(0.16, 0.15, 0.14) * (0.8 + 0.4 * fbm(vec3(a * 5.0, lp.y * 0.8, 1.0)));
+	vec3 c = vec3(0.1, 0.095, 0.09) * (0.75 + 0.5 * fbm(vec3(a * 5.0, lp.y * 0.8, 1.0)));
 	float runs = smoothstep(0.55, 0.8, fbm(vec3(a * 9.0, lp.y * 0.08, 3.0)));
-	c = mix(c, vec3(0.34, 0.16, 0.07), runs * 0.8);
+	c = mix(c, vec3(0.26, 0.12, 0.05), runs * 0.75);
 	float joint = 1.0 - smoothstep(0.0, 0.05, abs(fract(lp.y / 12.0) - 0.5) - 0.0);
-	c = mix(c, vec3(0.32, 0.3, 0.28), joint);
+	c = mix(c, vec3(0.42, 0.4, 0.37), joint);
 	ALBEDO = c;
 	ROUGHNESS = mix(0.5, 0.85, runs);
 	SPECULAR = 0.55;
@@ -796,18 +797,15 @@ func _dive(t: float) -> Dictionary:
 		return {"on": false}
 	var u := Motion.seg(t, float(d["from"]), float(d["to"]))
 	var y1 := float(d.get("y1", -188.0))
-	var y: float
-	if u < 0.22:
-		y = lerpf(3.4, 0.7, Motion.out_cubic(u / 0.22))
-	else:
-		y = lerpf(0.7, y1, Motion.in_out((u - 0.22) / 0.78))
+	# Already falling inside the bore mouth at the cut, accelerating, easing out near the bottom.
+	var y := lerpf(-0.4, y1, Motion.in_out(u))
 	# Off the cable axis, circling it slowly as it falls.
 	var ang := 0.4 + 1.1 * Motion.smooth(u)
 	var off := Vector3(cos(ang), 0, sin(ang)) * lerpf(0.12, 0.44, Motion.smooth(clampf(u * 3.0, 0.0, 1.0)))
 	var cam := off + Vector3(0, y, 0)
 	var look := off * 0.55 + Vector3(0, y - 10.0, 0)
 	return {"on": t >= float(d["from"]) - 0.05 and t <= float(d["to"]) + 0.3, "cam": cam, "look": look,
-		"count": cam + (look - cam).normalized() * 1.9}
+		"count": cam + (look - cam).normalized() * 1.9 + Vector3(-off.z, 0, off.x).normalized() * 0.2}
 
 
 ## A ridge tent: two sagging roof slopes from the ridge to the eaves, short side walls, gable ends.
@@ -1194,15 +1192,18 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			var local := inv * ((hl + hr) * 0.5)
 			(nodes[0] as Node3D).transform = Transform3D((Basis(Vector3.UP, yaw_a) * Basis(Vector3.RIGHT, -0.25)).scaled(Vector3(1.25, 1.5, 1.25)), local + Vector3(0, -0.1, 0))
 	var dv := _dive(t)
-	_dive_light.light_energy = 1.6 if dv["on"] and (dv["cam"] as Vector3).y < 0.0 else 0.0
+	_dive_light.light_energy = 0.9 if dv["on"] else 0.0
 	if dv["on"]:
 		_dive_light.position = (dv["cam"] as Vector3) + Vector3(0, -0.6, 0)
 	var apex := gt * Vector3(0, TRIPOD_H, 0)
 	var extra := {}
 	if dv.has("cam"):
-		extra = {"dive_cam": gt * (dv["cam"] as Vector3), "dive_look": gt * (dv["look"] as Vector3), "dive_count": gt * (dv["count"] as Vector3)}
+		var axis := ((dv["cam"] as Vector3) - (dv["look"] as Vector3)).normalized()
+		extra = {"dive_cam": gt * (dv["cam"] as Vector3), "dive_look": gt * (dv["look"] as Vector3), "dive_count": gt * (dv["count"] as Vector3),
+			"dive_face": gt * ((dv["count"] as Vector3) + axis)}
 	else:
-		extra = {"dive_cam": gt * Vector3(0.2, 2.4, 0), "dive_look": gt * Vector3(0.1, -8, 0), "dive_count": gt * Vector3(0.1, 0.5, 0)}
+		extra = {"dive_cam": gt * Vector3(0.2, 2.4, 0), "dive_look": gt * Vector3(0.1, -8, 0), "dive_count": gt * Vector3(0.1, 0.5, 0),
+			"dive_face": gt * Vector3(0.1, 1.5, 0)}
 	extra["bottom"] = gt * Vector3(0, -SHAFT_D + 0.8, 0)
 	return extra.merged({"plate": gt * Vector3(0, 0.26, 0), "apex": apex, "winch": gt * (WINCH_AT + Vector3(0, 0.8, 0)),
 		"spoil": gt * (SPOIL_AT + Vector3(0, 0.8, 0)), "tree": gt * (TREE_AT + Vector3(0, 3.0, 0)),

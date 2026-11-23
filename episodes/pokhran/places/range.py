@@ -57,7 +57,7 @@ LOOK_DIVE = dict(LOOK_AFTERNOON, fog={"begin": 400, "end": 2600, "curve": 1.8, "
 
 REVEALS = [
     {"id": "depth_count", "t": W("l2c", offset=0.05), "until": W("l2d"), "at": "range_site.dive_count", "size": 0.2,
-     "billboard": "full", "face": "range_site.dive_cam",
+     "billboard": "full", "face": "range_site.dive_face",
      "counter": {"from": 0, "to": 200, "decimals": 0, "suffix": " M", "land": W("l2c", "hundred", 0.1),
                  "label": "DEEP"}, "enter": "pop", "sound": "ding"},
 ]
@@ -71,7 +71,7 @@ SHOTS = {
         cam(V(0.45, -6.5, 1.4), V(0.0, 0.0, 2.6), 32, {"strength": 0.1}), "in_out")},
     # Top-down onto the plate, through the cable gland and down the bore, circling the cable bundle; the depth
     # counter falls with the camera and lands on "two hundred"; the lamp at the bottom glows ahead.
-    "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 30)},
+    "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS, "reveals": REVEALS}

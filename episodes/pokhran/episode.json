@@ -781,7 +781,7 @@
    "at": "range_site.dive_count",
    "size": 0.2,
    "billboard": "full",
-   "face": "range_site.dive_cam",
+   "face": "range_site.dive_face",
    "counter": {
     "from": 0,
     "to": 200,
@@ -1230,7 +1230,7 @@
    "camera": {
     "at": "range_site.dive_cam",
     "look_at": "range_site.dive_look",
-    "lens_mm": 30
+    "lens_mm": 24
    },
    "duration": {
     "fit": true,

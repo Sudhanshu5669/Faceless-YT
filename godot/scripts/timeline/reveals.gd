@@ -953,10 +953,9 @@ static func pose(root: Node3D, reveals, t: float, L: Dictionary) -> Dictionary:
 			var fp := Shot.point(L, r["face"])
 			if not fp.has("error"):
 				var z: Vector3 = (fp["pos"] - h.position).normalized()
-				var up := Vector3.UP - z * z.dot(Vector3.UP)
-				if up.length() < 0.001:
-					up = Vector3.FORWARD
-				up = up.normalized()
+				# The same up as the camera (shot.gd): world up, or world forward when looking straight down.
+				var ref := Vector3.FORWARD if absf(z.dot(Vector3.UP)) > 0.999 else Vector3.UP
+				var up := (ref - z * z.dot(ref)).normalized()
 				h.basis = Basis(up.cross(z).normalized(), up, z)
 		if r.has("roll"):
 			(h.get_node("content") as Node3D).rotation.z = -deg_to_rad(float(r["roll"])) * age
