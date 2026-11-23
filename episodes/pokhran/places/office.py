@@ -30,12 +30,21 @@ LOOK_1995 = {
 R1995 = [W("l4a", offset=-0.8), W("l4d", offset=0.05)]
 
 V1998 = [W("l5a", offset=-0.8), W("l5c", offset=-0.02)]
+K1998 = [W("l5b", offset=-0.8), W("l5c", offset=-0.02)]
 
 ACTORS = [
     # 1998: Vajpayee in the same chair (sworn in March 1998).
     {"id": "vajpayee_pmo", "character": "toon_vajpayee", "at": P(0, 0, -0.78), "facing": P(0, 0, 3.0), "action": "sit",
      "shown": [V1998],
-     "cues": [{"t": 0.0, "expression": "thinking"}]},
+     "cues": [{"t": 0.0, "expression": "thinking"},
+              {"t": W("l5b", "gives", 0.0), "expression": "determined"}]},
+    # 1998: Kalam (Scientific Adviser) and Chidambaram (AEC chairman) stand across the desk for the go-ahead.
+    {"id": "kalam_pmo", "character": "toon_kalam", "at": P(-0.62, 0, 0.74), "facing": P(-0.05, 0, -0.78),
+     "action": "idle", "shown": [K1998],
+     "cues": [{"t": 0.0, "expression": "neutral"}, {"t": W("l5b", "again", 0.3), "expression": "grin"}]},
+    {"id": "chidambaram_pmo", "character": "toon_chidambaram", "at": P(0.64, 0, 0.8), "facing": P(0.05, 0, -0.78),
+     "action": "idle", "shown": [K1998],
+     "cues": [{"t": 0.0, "expression": "determined"}]},
     # Ambassador Wisner stands at the desk and slides the satellite prints across to Rao.
     {"id": "wisner", "character": "toon_wisner", "at": P(0.42, 0, 0.82), "facing": P(0.05, 0, -0.6), "action": "idle",
      "shown": [[W("l4b", offset=-0.8), W("l4c", offset=0.04)]],
@@ -54,6 +63,11 @@ ACTORS = [
 
 GAGS = [{"id": "pmo", "script": "gags/pm_office.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"sitter": ["rao", "vajpayee_pmo"],
+                    # Vajpayee: head bowed in thought, looks up on his name, one firm nod on "do it again".
+                    "heads": [{"actor": "vajpayee_pmo", "keys": [
+                        [W("l5b", offset=-0.05), 0], [W("l5b", offset=0.4), 9], [W("l5b", "Vajpayee", 0.0), 9],
+                        [W("l5b", "Vajpayee", 0.45), -2], [W("l5b", "do", -0.08), -4], [W("l5b", "again", 0.08), 15],
+                        [W("l5b", "again", 0.5), 0]]}],
                     "calendar": {"flip": [W("l5a", offset=0.25), W("l5a", "1998.", 0.0)], "from": [1995, 12],
                                  "to": [1998, 3]},
                     "paper": {"slap": W("l4a", "Times", 0.0),
@@ -89,6 +103,12 @@ SHOTS = {
         cam(P(-1.15, 2.0, -1.25), P(-1.2, 2.0, -2.7), 40, {"strength": 0.1}),
         cam(P(0.75, 1.45, 1.2), P(-0.3, 1.4, -1.2), 34, {"strength": 0.14}), "in_out"),
         "hold": 0.6},
+    # Between Kalam and Chidambaram at the desk's front corners, across the desk to Vajpayee: he looks up on his name; from "gives"
+    # the camera pushes in between them to his face, the old headline below it, for the nod on "do it again"; Kalam grins.
+    "vajpayee_order": {"look": LOOK_1995, "camera": {
+        "from": cam(P(0.0, 1.85, 2.5), P(0.0, 1.0, -0.78), 30, {"strength": 0.12}),
+        "to": cam(P(0.16, 1.34, 0.9), P(0.0, 0.73, -0.6), 44, {"strength": 0.14}),
+        "ease": "in_out", "start": W("l5b", "gives", 0.0), "end": W("l5b", "again", 0.3)}},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

@@ -453,6 +453,12 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
         for j, sh in enumerate(s.get("shake", [])):
             if isinstance(sh, dict) and "t" in sh:
                 sh["t"] = round(ref(sh["t"], "scene", f"shot {s['name']} shake[{j}]"), 3)
+        # A camera move that runs only part of the shot ("start"/"end" time references).
+        cam = s.get("camera")
+        if isinstance(cam, dict) and "from" in cam:
+            for k in ("start", "end"):
+                if k in cam:
+                    cam[k] = round(ref(cam[k], "scene", f"shot {s['name']} camera.{k}"), 3)
     for a in out.get("actors", []):
         aid = a.get("id", "?")
         for c in a.get("cues", []):

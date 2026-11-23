@@ -1,0 +1,31 @@
+{
+  "id": "toon_chidambaram",
+  "description": "R. Chidambaram, Atomic Energy Commission chairman 1998 (caricature): grey hair parted at the side, glasses, grey moustache, a fawn safari suit.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "scientist",
+    "real-person"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#9c9a94"
+    },
+    "outfit": {
+      "style": "safari",
+      "color": "#a8987a"
+    },
+    "shoes": "#2a1e16",
+    "accessories": [
+      "glasses"
+    ],
+    "mustache": "#6e6a64",
+    "face": "determined",
+    "girth": 1.04
+  }
+}

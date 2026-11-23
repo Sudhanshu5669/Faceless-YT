@@ -175,5 +175,19 @@
         "fingerprint": "27a64d7be00b"
       }
     ]
+  },
+  "shovel_back": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-23 18:32:32",
+    "fingerprint": "230181040e12",
+    "history": []
+  },
+  "office_1998": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-23 18:32:36",
+    "fingerprint": "71f2898b2590",
+    "history": []
   }
 }

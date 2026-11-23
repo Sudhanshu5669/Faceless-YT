@@ -21,6 +21,8 @@ extends RefCounted
 ##            live overhead orthographic view from `cam` (straight down), printed greyscale with a grease-pencil ring
 ##   ring     {"from": t, "until": t, "lift": t, "hand": actor id}   the black phone rings (the handset rattles in
 ##            double-ring bursts) from `from`; from `lift` the actor's right hand takes the handset slowly to the ear
+##   heads    [{"actor": id, "keys": [[t, pitch_deg], ...]}]   a seated actor's head pitch (down +), eased from key
+##            to key: reading the desk, looking up, a nod
 ## anchors: desk, paper, phone_black, phone_beige, chair, window, flag, print, handset, calendar
 const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
@@ -753,6 +755,23 @@ func _pose_calendar(t: float) -> void:
 	under.visible = true
 
 
+func _pose_heads(t: float, ctx: Dictionary) -> void:
+	if not ctx.has("actor"):
+		return
+	for hd in _p.get("heads", []):
+		var actor = ctx["actor"].call(String(hd.get("actor", "")))
+		var keys: Array = hd.get("keys", [])
+		if actor == null or not actor.visible or keys.is_empty():
+			continue
+		var deg := float((keys[0] as Array)[1])
+		for i in range(1, keys.size()):
+			var a: Array = keys[i - 1]
+			var b: Array = keys[i]
+			if t >= float(a[0]):
+				deg = lerpf(float(a[1]), float(b[1]), Motion.in_out(Motion.seg(t, float(a[0]), float(b[0]))))
+		actor.tilt_head(deg_to_rad(deg))
+
+
 ## Type laid flat on the page; shrunk to `max_w` metres wide if it would run off the page.
 func _flat_text(parent: Node3D, s: String, font: Font, height: float, col: Color, pos: Vector3, max_w: float = PAPER.x - 0.03) -> void:
 	if s == "":
@@ -803,6 +822,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_chair(gt, ctx)
 	_fan.rotation.y = t * 2.4
 	_pose_calendar(t)
+	_pose_heads(t, ctx)
 	var print_at := _pose_photos(gt, t, ctx)
 	var handset_at := _pose_phone(gt, t, ctx)
 	var paper_anchor := PAPER_AT

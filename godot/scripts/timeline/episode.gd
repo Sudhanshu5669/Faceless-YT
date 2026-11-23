@@ -10,6 +10,7 @@
 ##         "camera": { "at": {...}, "look_at": "you.head", "lens_mm": 35 } },     static (tracks moving anchors)
 ##       { "name": "push_in", "duration": 4,
 ##         "camera": { "from": {...shot}, "to": {...shot}, "ease": "in_out" } },  a move between two shots
+##         (+ "start"/"end": scene seconds the move runs between, holding before and after)
 ##       { "name": "replay", "duration": 2, "scene_t": 6.0, "camera": "street" }   jump back in scene time
 ##     ] }
 ##
@@ -41,7 +42,7 @@ const IRIS_OPEN := 0.6   # seconds to open / close
 const WHIPS := ["left", "right", "up", "down"]
 const WHIP_ANGLE := 55.0
 const WHIP_TIME := 0.3
-const MOVE_KEYS := ["from", "to", "ease"]
+const MOVE_KEYS := ["from", "to", "ease", "start", "end"]
 const EASES := ["linear", "in", "out", "in_out"]
 const DEFAULT_RESOLUTION := [1080, 1920]
 const DEFAULT_FPS := 30
@@ -155,6 +156,9 @@ static func validate(ep: Dictionary) -> Array:
 				e.append(where + ": a camera move needs 'from' and 'to'")
 			if not (String(cam.get("ease", "in_out")) in EASES):
 				e.append("%s: ease must be one of %s" % [where, EASES])
+			for k in ["start", "end"]:
+				if cam.has(k) and not (typeof(cam[k]) in [TYPE_INT, TYPE_FLOAT]):
+					e.append("%s: camera move %s must be scene seconds (a time reference before resolving)" % [where, k])
 			for end in ["from", "to"]:
 				if cam.has(end):
 					e.append_array(_camera_errors(cam[end], "%s camera.%s" % [where, end]))
@@ -239,7 +243,13 @@ static func camera_at(shot: Dictionary, p: float, L: Dictionary, look: Dictionar
 		var b := Shot.resolve(cam["to"], L, look)
 		if b.has("error"):
 			return {"error": "to: " + String(b["error"])}
-		s = mix(a, b, ease_progress(p, String(cam.get("ease", "in_out"))))
+		# "start"/"end" (scene seconds): the move runs only between them, holding its ends before and after.
+		var q := p
+		if cam.has("start") or cam.has("end"):
+			var t0 := float(shot.get("scene_t", 0.0))
+			var t := t0 + p * float(shot.get("duration", 1.0))
+			q = Motion.seg(t, float(cam.get("start", t0)), float(cam.get("end", t0 + float(shot.get("duration", 1.0)))))
+		s = mix(a, b, ease_progress(q, String(cam.get("ease", "in_out"))))
 	if s.has("error"):
 		return s
 	return _shake(_whip(s, shot, p), shot, p)

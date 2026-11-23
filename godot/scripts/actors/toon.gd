@@ -41,8 +41,8 @@ const SHORTEN := ["calf_l", "foot_l", "calf_r", "foot_r"]
 const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth", "mustache", "beard"]
 const HAIR_KEYS := ["style", "color", "lamp"]
 const OUTFIT_KEYS := ["style", "color", "chain", "tie", "accent", "vest", "bow", "badge", "camo"]
-const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat", "hood", "turban", "side", "patrol", "horseshoe"]
-const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt", "hivis", "kurta", "coverall", "fatigues"]
+const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat", "hood", "turban", "side", "patrol", "horseshoe", "mop"]
+const OUTFIT_STYLES := ["hoodie", "suit", "tee", "labcoat", "dress", "shirt", "hivis", "kurta", "coverall", "fatigues", "safari"]
 const ACCESSORIES := ["glasses", "round_glasses", "sunglasses", "smart_glasses", "rimless", "mask"]
 const EYES := ["lazy", "dot", "wide", "happy", "closed", "x", "star", "heart", "sleepy", "none"]
 const MOUTHS := ["smirk", "smile", "flat", "frown", "open", "grin", "laugh", "wavy", "o", "none"]
@@ -54,7 +54,7 @@ const HAIRLINES := {
 	"bowl": [52, 84, 104, 1.07], "tuft": [52, 84, 104, 1.07], "slick": [46, 80, 100, 1.05],
 	"curly": [50, 82, 100, 1.02], "cap": [48, 74, 86, 1.06], "beanie": [44, 76, 88, 1.08],
 	"bob": [50, 104, 116, 1.1], "bun": [50, 86, 104, 1.06],
-	"hood": [44, 118, 150, 1.07], "side": [47, 82, 102, 1.05], "patrol": [40, 70, 84, 1.07],
+	"hood": [44, 118, 150, 1.07], "side": [47, 82, 102, 1.05], "patrol": [40, 70, 84, 1.07], "mop": [44, 100, 118, 1.1],
 }
 
 static var _faces: Dictionary = {}
@@ -455,6 +455,29 @@ static func _hair(head: Node3D, h: Dictionary, hr: float) -> void:
 			part.transform = Transform3D(_cols(Basis.from_euler(Vector3(PI / 2 - 0.5, 0, 0)), Vector3(hr * 0.012, hr * 0.5, hr * 0.012)),
 				Vector3(hr * 0.3, hr * 0.92, hr * 0.12))
 			head.add_child(part)
+		"mop":
+			# Long hair from a side parting: a full fringe swept across the forehead from the parting over the right
+			# brow, thick over the ears down to the collar, a soft volume at the back.
+			shell.scale = Vector3(1.06, 1.0, 1.05)
+			var fringe := MeshInstance3D.new()
+			fringe.mesh = _sphere(1.0, 20, 10)
+			fringe.material_override = mat
+			fringe.transform = Transform3D(_cols(Basis.from_euler(Vector3(deg_to_rad(-36), deg_to_rad(-14), deg_to_rad(10))),
+				Vector3(hr * 0.6, hr * 0.16, hr * 0.34)), Vector3(-hr * 0.12, hr * 0.76, hr * 0.55))
+			head.add_child(fringe)
+			for s in [-1.0, 1.0]:
+				var puff := MeshInstance3D.new()
+				puff.mesh = _sphere(1.0, 16, 10)
+				puff.material_override = mat
+				puff.transform = Transform3D(_cols(Basis.from_euler(Vector3(deg_to_rad(12), 0, deg_to_rad(-8.0 * s))),
+					Vector3(hr * 0.24, hr * 0.5, hr * 0.46)), Vector3(s * hr * 0.86, -hr * 0.02, -hr * 0.16))
+				head.add_child(puff)
+			var mpart := MeshInstance3D.new()
+			mpart.mesh = _cylinder()
+			mpart.material_override = _mat(col.darkened(0.35), 0.0)
+			mpart.transform = Transform3D(_cols(Basis.from_euler(Vector3(PI / 2 - 0.5, 0, 0)), Vector3(hr * 0.012, hr * 0.45, hr * 0.012)),
+				Vector3(hr * 0.32, hr * 0.94, hr * 0.06))
+			head.add_child(mpart)
 		"hood":
 			# A clean-room hood: the shell reaches down round the cheeks and under the chin, with a
 			# soft elastic rim framing the face.
@@ -775,15 +798,18 @@ static func _outfit(torso: Node3D, o: Dictionary, style: String, col: Color, rb:
 					pk.position = _surface(0.045 * s, 0.62, rb, rt, bh) * Vector3(1, 1, 1.04) + Vector3(0, 0, 0.012)
 					torso.add_child(pk)
 			_surface_line(torso, [Vector2(-0.045, 0.975), Vector2(0.045, 0.975)], rb, rt, bh, 0.012, (Color(String(o["vest"])) if o.has("vest") else col).darkened(0.1))
-		"fatigues":
+		"fatigues", "safari":
 			# Army fatigues (the bean in camouflage, see _camo): a web belt with a buckle, collar points, a button
-			# placket and two buttoned chest pocket flaps.
-			var dk := col.darkened(0.45)
-			_patch(torso, _bean_patch(rb, rt, bh, 0.3, 0.355, 0.0, 360.0, 0.03), _mat(Color("4a4630"), OUTLINE * 0.3))
+			# placket and two buttoned chest pocket flaps. A safari suit is the same cut in plain cloth, with a belt of
+			# the same cloth and a small dark buckle.
+			var safari := style == "safari"
+			var dk := col.darkened(0.3 if safari else 0.45)
+			_patch(torso, _bean_patch(rb, rt, bh, 0.3, 0.355, 0.0, 360.0, 0.03),
+				_mat(col.darkened(0.12) if safari else Color("4a4630"), OUTLINE * 0.3))
 			var buckle := MeshInstance3D.new()
 			buckle.mesh = BoxMesh.new()
-			(buckle.mesh as BoxMesh).size = Vector3(0.036, 0.026, 0.01)
-			buckle.material_override = _mat(Color("8a8a7a"), 0.0)
+			(buckle.mesh as BoxMesh).size = Vector3(0.03, 0.022, 0.01) if safari else Vector3(0.036, 0.026, 0.01)
+			buckle.material_override = _mat(Color("3a3228") if safari else Color("8a8a7a"), 0.0)
 			buckle.position = _surface(0.0, 0.327, rb, rt, bh) * Vector3(1, 1, 1.03) + Vector3(0, 0, 0.01)
 			torso.add_child(buckle)
 			for s in [-1.0, 1.0]:

@@ -67,6 +67,7 @@ Rules (the same as the rest of the engine):
 - `ctx.actor` looks up an actor by ID when a cast exists. A gag can call
   `aim_hand("l" or "r", world_target, weight)` for a timed contact after the actor's normal pose.
   Query `bone_world("hand_l")` or `bone_world("hand_r")` for the resulting hand position.
+  `tilt_head(pitch, yaw)` (radians; pitch > 0 nods down) turns the head after the pose: a seated nod, a glance.
   For a toon playing the seated action, `sit_on_floor(drop, floor_y)` lowers the body and
   folds the legs at floor level before the hand targets are applied.
 

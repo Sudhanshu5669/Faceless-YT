@@ -70,6 +70,9 @@ whose ends are anchored to an actor follows them. Position and lens interpolate 
 rotation by slerp. `ease`: `linear`, `in`, `out`, `in_out` (default). A static camera aimed
 at a moving actor (`"look_at": "stranger.head"`) pans to follow.
 
+`"start"` / `"end"` (time references, e.g. `{"line": "l5b", "word": "do"}`) make the move run only between
+those moments: the camera holds on `from` until `start` and on `to` after `end`, so a push can land on a word.
+
 **Anchor the camera to the place, not to the actor, unless you want it to move with them.**
 An offset from an actor (`{"anchor": "you", "offset": [-1, 1.5, 2]}`) is in the actor's own
 frame, so when the actor turns, the camera swings around them. For a steady camera on a

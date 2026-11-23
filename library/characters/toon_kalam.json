@@ -1,0 +1,27 @@
+{
+  "id": "toon_kalam",
+  "description": "A. P. J. Abdul Kalam, Scientific Adviser 1998 (caricature): long white hair swept from a side parting over the forehead and ears, light blue shirt, dark trousers.",
+  "tags": [
+    "toon",
+    "human",
+    "pokhran",
+    "scientist",
+    "real-person"
+  ],
+  "height": 1.46,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "mop",
+      "color": "#eeece6"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#a9c0d8"
+    },
+    "shoes": "#2a2018",
+    "face": "happy",
+    "girth": 0.96
+  }
+}

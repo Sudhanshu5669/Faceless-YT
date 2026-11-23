@@ -211,6 +211,26 @@ func aim_hand(side: String, target: Vector3, weight: float = 1.0, shoulder_lift:
 		inv.basis * (Vector3.DOWN + left * side_sign * 0.72 - fwd * 0.26), weight)
 
 
+## Tilt the head after pose_at(): `pitch` radians nods it down (negative looks up), `yaw` turns it to the actor's
+## left. For a seated nod, a glance, reading something on a desk (gags call this from their pose).
+func tilt_head(pitch: float, yaw: float = 0.0) -> void:
+	if absf(pitch) < 0.0001 and absf(yaw) < 0.0001:
+		return
+	var sk: Skeleton3D = retarget.dst if retarget != null else skeleton
+	var name_on := "Head"
+	if retarget != null and retarget.target_bone("Head") != "":
+		name_on = retarget.target_bone("Head")
+	var b := sk.find_bone(name_on)
+	if b < 0:
+		return
+	var inv := _world_of(sk).affine_inverse()
+	var parent := sk.get_bone_parent(b)
+	var to_parent := (Cast.bone_global(sk, parent).basis if parent >= 0 else Basis.IDENTITY).inverse() * inv.basis
+	var left := Vector3(cos(rotation.y), 0, -sin(rotation.y))
+	var q := Quaternion((to_parent * Vector3.UP).normalized(), yaw) * Quaternion((to_parent * left).normalized(), pitch)
+	sk.set_bone_pose_rotation(b, q * sk.get_bone_pose_rotation(b))
+
+
 ## Brace one foot against a surface, with the knee bent toward the given direction.
 func aim_foot(side: String, target: Vector3, knee: Vector3) -> void:
 	var sk: Skeleton3D = retarget.dst if retarget != null else skeleton
