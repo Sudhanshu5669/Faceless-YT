@@ -58,6 +58,7 @@ extends RefCounted
 ##   watch      {"actor": id, "fist": t, "time": "13:47", "list": ["09:12", ...]}   a lookout: a wristwatch on his
 ##              left wrist and a handwritten list of satellite pass times in that hand, held up before his face; the
 ##              watch reads `time` exactly at `fist` (its second hand sweeping), when his right fist shoots up
+##   chai       [actor ids]   each holds a small glass of milky tea in the right hand
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
@@ -558,6 +559,16 @@ func build(g: Dictionary) -> Node3D:
 	_dune_build(_g98)
 	_net_build(_g98)
 	_watch_build(root)
+	for aid in _p.get("chai", []):
+		var gl := Node3D.new()
+		gl.name = "chai_" + String(aid)
+		root.add_child(gl)
+		var glass := Kit.mat("#d8e2e0", 0.05, 0.0, 0.9)
+		glass.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		glass.albedo_color.a = 0.35
+		Kit.cyl(gl, 0.028, 0.022, 0.08, Vector3(0, 0.04, 0), glass, 16)
+		Kit.cyl(gl, 0.025, 0.021, 0.06, Vector3(0, 0.031, 0), Kit.mat("#b07a48", 0.4), 16)
+		_chai[String(aid)] = gl
 	for c in _p.get("carry", []):
 		var what := String(c.get("what", "sandbag"))
 		var held: Array = []
@@ -581,6 +592,7 @@ var _park_truck: Node3D
 var _dune: MeshInstance3D
 var _net: MeshInstance3D
 var _watch: Node3D
+var _chai := {}
 var _watch_mat: ShaderMaterial
 var _list: Node3D
 
@@ -2344,6 +2356,12 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_dune(gt, t, ctx)
 	_pose_net(gt, t, ctx)
 	_pose_watch(gt, t, ctx)
+	for aid in _chai:
+		var ca = ctx["actor"].call(aid) if ctx.has("actor") else null
+		var gl: Node3D = _chai[aid]
+		gl.visible = ca != null and ca.visible
+		if gl.visible:
+			gl.transform = Transform3D(Basis.IDENTITY, gt.affine_inverse() * (ca.bone_world("hand_r") as Vector3) + Vector3(0, -0.03, 0))
 	# The hook block swings a little on its falls.
 	_hook.rotation = Vector3(0.012 * sin(t * 1.1), 0, 0.016 * sin(t * 0.83 + 0.6))
 	# Carried loads: a sandbag rides between the hands; jerrycans hang upright under each grip, lagging a touch.

@@ -166,12 +166,28 @@ ACTORS += [
 ]
 
 # pass_watch (1998, afternoon): a lookout checks his watch against his list of pass times; fist up on "overhead".
-LOOKOUT = [W("l8a", offset=-0.8), W("l8b", offset=0.1)]
+LOOKOUT = [W("l8a", offset=-0.8), W("l8c", offset=0.0)]
 ACTORS += [
     {"id": "lookout", "character": "toon_jawan_b", "at": P(1.6, 0, 6.2), "facing": P(0.4, 0, 0), "action": "idle",
      "shown": [LOOKOUT],
      "cues": [{"t": 0.0, "expression": "nervous", "head": [24, 6, 0], "head_turn": 0.01},
               {"t": W("l8a", "overhead", -0.15), "expression": "determined", "head": [-18, 0, 0], "head_turn": 0.25}]},
+]
+
+# statue (1998, afternoon): on "stops" everyone on the site freezes mid-motion while the satellite passes.
+STATUE = [W("l8b", offset=-1.2), W("l8c", offset=0.0)]
+FREEZE = W("l8b", "stops", 0.0)
+ACTORS += [
+    {"id": "st_bag", "character": "toon_jawan_a", "at": P(-1.0, 0, 4.9), "facing": P(2.4, 0, 4.4), "action": "idle",
+     "route": {"via": [P(2.4, 0, 4.4)], "gait": "walk_carry", "start": W("l8b", offset=-1.1)}, "shown": [STATUE],
+     "cues": [{"t": 0.0, "expression": "effort"}, {"t": FREEZE, "hold": True}]},
+    {"id": "st_walk", "character": "toon_jawan_c", "at": P(2.8, 0, 6.0), "facing": P(0.4, 0, 7.0), "action": "idle",
+     "route": {"via": [P(0.4, 0, 7.0)], "gait": "walk", "start": W("l8b", offset=-1.0)}, "shown": [STATUE],
+     "cues": [{"t": 0.0, "expression": "deadpan"}, {"t": FREEZE, "hold": True}]},
+    {"id": "st_chop", "character": "toon_jawan_d", "at": P(-0.6, 0, 7.6), "facing": P(0.2, 0, 10.5), "action": "chop",
+     "shown": [STATUE], "cues": [{"t": 0.0, "expression": "effort"}, {"t": FREEZE, "hold": True}]},
+    {"id": "st_chai", "character": "toon_barc_sci", "at": P(1.3, 0, 8.8), "facing": P(0.6, 0, 11.8), "action": "eat",
+     "shown": [STATUE], "cues": [{"t": 0.0, "expression": "happy"}, {"t": FREEZE, "hold": True}]},
 ]
 
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
@@ -192,6 +208,7 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                             "fly": 1.6, "hands": ["net_a", "net_b"]},
                     "watch": {"actor": "lookout", "fist": W("l8a", "overhead", 0.0), "time": "13:47", "show": P(0.72, 1.22, 4.8),
                               "list": ["09:12", "11:30", "13:47", "16:05"]},
+                    "chai": ["st_chai"],
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
@@ -365,6 +382,11 @@ SHOTS = {
         "from": cam(P(0.72, 1.22, 4.8), P(1.55, 1.12, 6.05), 32, {"strength": 0.12}),
         "to": cam(P(0.66, 1.08, 4.75), P(1.5, 1.42, 6.05), 28, {"strength": 0.1}),
         "ease": "in_out", "start": W("l8a", "overhead", -0.2), "end": W("l8a", "overhead", 0.45)}},
+    # Wide on the working site: on "stops" every man freezes mid-motion (mid-stride with a sandbag, mid-swing, mid-sip
+    # of chai, on one leg), the lookout's fist still up beyond them; a held beat of stillness.
+    "statue": {"look": LOOK_AFTERNOON, "hold": 0.6, "camera": move(
+        cam(P(0.2, 1.75, 12.6), P(0.6, 0.95, 5.6), 28, {"strength": 0.08}),
+        cam(P(0.2, 1.72, 12.3), P(0.6, 0.95, 5.6), 28, {"strength": 0.08}), "linear")},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 
