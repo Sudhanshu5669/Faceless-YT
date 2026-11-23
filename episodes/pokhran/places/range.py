@@ -190,6 +190,25 @@ ACTORS += [
      "shown": [STATUE], "cues": [{"t": 0.0, "expression": "happy"}, {"t": FREEZE, "hold": True}]},
 ]
 
+# cricket (1998, afternoon): gully cricket on the sand south of the shaft; the batsman lofts it on "cricket".
+CRICKET = [W("l8c", offset=-1.0), W("l8d", offset=0.0)]
+HIT = W("l8c", "cricket", 0.0)
+ACTORS += [
+    {"id": "cr_bat", "character": "toon_jawan_a", "at": P(-3.0, 0, 16.0), "facing": P(-3.0, 0, 0.0), "action": "idle",
+     "shown": [CRICKET], "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("l8c", "cricket", 0.15), "expression": "grin"}]},
+    {"id": "cr_bowl", "character": "toon_jawan_c", "at": P(-3.1, 0, 1.0), "facing": P(-3.0, 0, 16.0), "action": "idle",
+     "route": {"via": [P(-3.05, 0, 6.6)], "gait": "jog", "start": W("l8c", "cricket", -1.4), "arrive": W("l8c", "cricket", -0.62)},
+     "shown": [CRICKET],
+     "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("l8c", "cricket", -0.62), "action": "throw"},
+              {"t": W("l8c", "cricket", 0.2), "expression": "shocked", "head": [-30, 0, 0], "head_turn": 0.3}]},
+    {"id": "cr_field_a", "character": "toon_jawan_d", "at": P(-6.2, 0, 10.5), "facing": P(-3.0, 0, 13.0), "action": "idle",
+     "shown": [CRICKET], "cues": [{"t": 0.0, "expression": "happy"},
+                                  {"t": W("l8c", "cricket", 0.2), "expression": "cheer", "head": [-25, 0, 0], "head_turn": 0.3}]},
+    {"id": "cr_field_b", "character": "toon_jawan_b", "at": P(0.4, 0, 11.2), "facing": P(-3.0, 0, 13.0), "action": "idle",
+     "shown": [CRICKET], "cues": [{"t": 0.0, "expression": "happy"},
+                                  {"t": W("l8c", "cricket", 0.25), "expression": "laugh", "head": [-28, 0, 0], "head_turn": 0.3}]},
+]
+
 # A December morning: a low winter sun (about 32 degrees at ten), front-left of the 1995 camera; crisp, a little cooler.
 LOOK_1995 = dict(LOOK_AFTERNOON,
                  time="10:00",
@@ -209,6 +228,8 @@ GAGS = [{"id": "range_site", "script": "gags/range.gd", "t": 0, "at": P(0, 0, 0)
                     "watch": {"actor": "lookout", "fist": W("l8a", "overhead", 0.0), "time": "13:47", "show": P(0.72, 1.22, 4.8),
                               "list": ["09:12", "11:30", "13:47", "16:05"]},
                     "chai": ["st_chai"],
+                    "cricket": {"bat": "cr_bat", "bowl": "cr_bowl", "release": W("l8c", "cricket", -0.5), "hit": HIT,
+                                "stumps": [-3.0, 16.45]},
                     "park": {"at": [PARK_AT[0], PARK_AT[1], 90.0], "from": W("l6b", offset=-0.6),
                              "to": W("l6b", "exact", 0.0), "back": 6.5, "actor": "park_jawan"}, "wind": [[0.0, 115.0, 0.55]], "shimmer": 1.0,
                     "tufts": [[2.31, 3.99, 1.15], [3.74, 3.34, 1.0], [1.19, 3.04, 0.9], [3.7, 1.95, 0.85]],
@@ -387,6 +408,12 @@ SHOTS = {
     "statue": {"look": LOOK_AFTERNOON, "hold": 0.6, "camera": move(
         cam(P(0.2, 1.75, 12.6), P(0.6, 0.95, 5.6), 28, {"strength": 0.08}),
         cam(P(0.2, 1.72, 12.3), P(0.6, 0.95, 5.6), 28, {"strength": 0.08}), "linear")},
+    # Low behind the tent-peg stumps: the bowler runs in, the ball bounces once and the batsman lofts it on "cricket";
+    # the camera tilts up after it over the bowler's head, the fielders looking up.
+    "cricket": {"look": LOOK_AFTERNOON, "camera": {
+        "from": cam(P(-1.55, 0.75, 19.6), P(-3.35, 1.0, 8.0), 30, {"strength": 0.1}),
+        "to": cam(P(-1.55, 0.8, 19.5), P(-3.3, 4.2, 8.5), 28, {"strength": 0.08}),
+        "ease": "in_out", "start": W("l8c", "cricket", 0.0), "end": W("l8c", "cricket", 0.6)}},
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 

@@ -1818,6 +1818,239 @@
    ]
   },
   {
+   "id": "cr_bat",
+   "character": "toon_jawan_a",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     3.0,
+     0,
+     15016.0
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     3.0,
+     0,
+     15000.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l8c",
+      "offset": -1.0
+     },
+     {
+      "line": "l8d"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l8c",
+      "word": "cricket",
+      "offset": 0.15
+     },
+     "expression": "grin"
+    }
+   ]
+  },
+  {
+   "id": "cr_bowl",
+   "character": "toon_jawan_c",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     3.1,
+     0,
+     15001.0
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     3.0,
+     0,
+     15016.0
+    ]
+   },
+   "action": "idle",
+   "route": {
+    "via": [
+     {
+      "anchor": "range",
+      "offset": [
+       3.05,
+       0,
+       15006.6
+      ]
+     }
+    ],
+    "gait": "jog",
+    "start": {
+     "line": "l8c",
+     "word": "cricket",
+     "offset": -1.4
+    },
+    "arrive": {
+     "line": "l8c",
+     "word": "cricket",
+     "offset": -0.62
+    }
+   },
+   "shown": [
+    [
+     {
+      "line": "l8c",
+      "offset": -1.0
+     },
+     {
+      "line": "l8d"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l8c",
+      "word": "cricket",
+      "offset": -0.62
+     },
+     "action": "throw"
+    },
+    {
+     "t": {
+      "line": "l8c",
+      "word": "cricket",
+      "offset": 0.2
+     },
+     "expression": "shocked",
+     "head": [
+      -30,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "cr_field_a",
+   "character": "toon_jawan_d",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     6.2,
+     0,
+     15010.5
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     3.0,
+     0,
+     15013.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l8c",
+      "offset": -1.0
+     },
+     {
+      "line": "l8d"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "l8c",
+      "word": "cricket",
+      "offset": 0.2
+     },
+     "expression": "cheer",
+     "head": [
+      -25,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
+   "id": "cr_field_b",
+   "character": "toon_jawan_b",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     -0.4,
+     0,
+     15011.2
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     3.0,
+     0,
+     15013.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "line": "l8c",
+      "offset": -1.0
+     },
+     {
+      "line": "l8d"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "l8c",
+      "word": "cricket",
+      "offset": 0.25
+     },
+     "expression": "laugh",
+     "head": [
+      -28,
+      0,
+      0
+     ],
+     "head_turn": 0.3
+    }
+   ]
+  },
+  {
    "id": "vajpayee_pmo",
    "character": "toon_vajpayee",
    "at": {
@@ -2329,6 +2562,23 @@
     "chai": [
      "st_chai"
     ],
+    "cricket": {
+     "bat": "cr_bat",
+     "bowl": "cr_bowl",
+     "release": {
+      "line": "l8c",
+      "word": "cricket",
+      "offset": -0.5
+     },
+     "hit": {
+      "line": "l8c",
+      "word": "cricket"
+     },
+     "stumps": [
+      -3.0,
+      16.45
+     ]
+    },
     "park": {
      "at": [
       8.5,
@@ -5597,28 +5847,114 @@
   {
    "name": "cricket",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       1.55,
+       0.75,
+       15019.6
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       3.35,
+       1.0,
+       15008.0
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       1.55,
+       0.8,
+       15019.5
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       3.3,
+       4.2,
+       15008.5
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out",
+    "start": {
+     "line": "l8c",
+     "word": "cricket"
+    },
+    "end": {
+     "line": "l8c",
+     "word": "cricket",
+     "offset": 0.6
+    }
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 36,
+     "azimuth": 212,
+     "color": "#ffe2b6",
+     "energy": 3.1,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.3,
+     "glow": 1.4,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b89c78",
+     "energy": 0.32,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 25,
+     "end": 2300,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {

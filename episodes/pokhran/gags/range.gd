@@ -59,6 +59,9 @@ extends RefCounted
 ##              left wrist and a handwritten list of satellite pass times in that hand, held up before his face; the
 ##              watch reads `time` exactly at `fist` (its second hand sweeping), when his right fist shoots up
 ##   chai       [actor ids]   each holds a small glass of milky tea in the right hand
+##   cricket    {"bat": id, "bowl": id, "release": t, "hit": t, "stumps": [x, z]}   gully cricket: tent-peg stumps behind
+##              the batsman; the ball sits in the bowler's right hand until `release`, bounces once on the way, meets
+##              the bat (swung from the backlift through the hit on `hit`) and is lofted back over the bowler's head
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, dive_cam, dive_look, dive_count, dive_face
@@ -559,6 +562,7 @@ func build(g: Dictionary) -> Node3D:
 	_dune_build(_g98)
 	_net_build(_g98)
 	_watch_build(root)
+	_cricket_build(root)
 	for aid in _p.get("chai", []):
 		var gl := Node3D.new()
 		gl.name = "chai_" + String(aid)
@@ -592,6 +596,8 @@ var _park_truck: Node3D
 var _dune: MeshInstance3D
 var _net: MeshInstance3D
 var _watch: Node3D
+var _bat: Node3D
+var _ball: MeshInstance3D
 var _chai := {}
 var _watch_mat: ShaderMaterial
 var _list: Node3D
@@ -629,6 +635,86 @@ void fragment() {
 	ALPHA_SCISSOR_THRESHOLD = 0.5;
 }
 """
+
+
+## Gully cricket (param "cricket"): a bat, a tennis ball, tent-peg stumps.
+func _cricket_build(root: Node3D) -> void:
+	var cd: Dictionary = _p.get("cricket", {})
+	if cd.is_empty():
+		return
+	_bat = Node3D.new()
+	_bat.name = "bat"
+	root.add_child(_bat)
+	# The bat hangs from its handle top at the node's origin, along -Y: grip, handle, the willow blade.
+	Kit.cyl(_bat, 0.017, 0.017, 0.2, Vector3(0, -0.1, 0), Kit.mat("#1c1c22", 0.7), 10)
+	Kit.cyl(_bat, 0.015, 0.016, 0.07, Vector3(0, -0.235, 0), Kit.mat("#c9a76c", 0.5), 10)
+	Kit.slab(_bat, Vector3(0.11, 0.5, 0.045), 0.012, Vector3(0, -0.52, 0.005), Kit.mat("#d9c28e", 0.55))
+	_ball = Kit.ball(root, 0.05, Vector3.ZERO, Kit.mat("#d9e64a", 0.6), 14)
+	var st: Array = cd.get("stumps", [0.0, 0.0])
+	var sb := ground(float(st[0]), float(st[1]))
+	var peg := Kit.mat("#8a6a44", 0.8)
+	for k in 3:
+		Kit.rod(root, sb + Vector3(-0.11 + 0.11 * k, -0.02, 0), sb + Vector3(-0.11 + 0.11 * k + 0.01 * (k - 1), 0.62, 0.01 * k), 0.016, peg, 6)
+
+
+## The bat's angle from hanging straight down, in the swing plane (negative: back over the shoulder; positive:
+## through to the follow-through).
+static func _bat_angle(t: float, hit: float) -> float:
+	var back := Motion.smooth(Motion.seg(t, hit - 1.2, hit - 0.45))
+	var down := Motion.in_cubic(Motion.seg(t, hit - 0.28, hit))
+	var through := Motion.out_cubic(Motion.seg(t, hit, hit + 0.3))
+	return lerpf(lerpf(lerpf(-0.35, -2.3, back), 0.15, down), 2.2, through)
+
+
+func _pose_cricket(gt: Transform3D, t: float, ctx: Dictionary) -> void:
+	if _bat == null:
+		return
+	var cd: Dictionary = _p.get("cricket", {})
+	var bat = ctx["actor"].call(String(cd.get("bat", ""))) if ctx.has("actor") else null
+	var bowl = ctx["actor"].call(String(cd.get("bowl", ""))) if ctx.has("actor") else null
+	var on: bool = bat != null and bat.visible
+	_bat.visible = on
+	_ball.visible = on
+	if not on:
+		return
+	var inv := gt.affine_inverse()
+	var hit := float(cd.get("hit", 1e9))
+	var rel := float(cd.get("release", hit - 0.55))
+	var ay := float(bat.rotation.y)
+	var fwd := Vector3(sin(ay), 0, cos(ay))
+	var right := -Vector3(cos(ay), 0, -sin(ay))
+	var chest: Vector3 = inv * bat.bone_world("spine_03")
+	# The swing: the hands (the handle's top) ride a small arc in front of the chest; the bat turns about his right axis.
+	var a := _bat_angle(t, hit)
+	var pivot := chest + fwd * 0.2 + right * 0.06 + Vector3(0, -0.05, 0) + Vector3(0, 0.12, 0) * absf(sin(a))
+	var dir := (Vector3.DOWN * cos(a) + fwd * sin(a)).normalized()
+	var b := Basis(right, -dir, right.cross(-dir)).orthonormalized()
+	_bat.transform = Transform3D(b, pivot)
+	Crawl.long_arms(bat, 1.3)
+	bat.aim_hand("l", gt * (pivot + dir * 0.02), 1.0)
+	bat.aim_hand("r", gt * (pivot + dir * 0.11), 1.0)
+	# The ball: in the bowler's hand, then down the pitch with one bounce two-thirds of the way, then lofted away.
+	var contact := pivot + (Vector3.DOWN * cos(0.15) + fwd * sin(0.15)).normalized() * 0.55
+	if t < rel and bowl != null and bowl.visible:
+		_ball.position = inv * (bowl.bone_world("hand_r") as Vector3)
+	elif t < hit:
+		var from: Vector3 = (inv * (bowl.global_position as Vector3) + Vector3(0, 1.75, 0) - fwd * 0.3) if bowl != null else contact + fwd * 9.0
+		var u := (t - rel) / maxf(hit - rel, 0.01)
+		var bounce := from.lerp(contact, 0.68)
+		bounce.y = height(bounce.x, bounce.z) + 0.034
+		var p: Vector3
+		if u < 0.68:
+			var k := u / 0.68
+			p = from.lerp(bounce, k)
+			p.y = lerpf(from.y, bounce.y, k * k)
+		else:
+			var k2 := (u - 0.68) / 0.32
+			p = bounce.lerp(contact, k2)
+			p.y = lerpf(bounce.y, contact.y, k2) + 0.35 * sin(PI * k2) * 0.5
+		_ball.position = p
+	else:
+		var dt := t - hit
+		_ball.position = contact + (fwd * 13.0 + Vector3(0, 9.5, 0)) * dt + Vector3(0, -4.9 * dt * dt, 0)
 
 
 ## The lookout's wristwatch and his handwritten list of pass times (param "watch").
@@ -2356,6 +2442,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_pose_dune(gt, t, ctx)
 	_pose_net(gt, t, ctx)
 	_pose_watch(gt, t, ctx)
+	_pose_cricket(gt, t, ctx)
 	for aid in _chai:
 		var ca = ctx["actor"].call(aid) if ctx.has("actor") else null
 		var gl: Node3D = _chai[aid]
