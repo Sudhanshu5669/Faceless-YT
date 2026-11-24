@@ -1520,6 +1520,256 @@
      "expression": "grin"
     }
    ]
+  },
+  {
+   "id": "fan_0",
+   "character": "toon_you",
+   "at": {
+    "anchor": "board",
+    "offset": [
+     2.1,
+     0.35,
+     79992.55
+    ]
+   },
+   "facing": {
+    "anchor": "board",
+    "offset": [
+     2.1,
+     0.35,
+     79986.0
+    ]
+   },
+   "keep_y": true,
+   "action": "sit",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "c1d",
+      "word": "biggest",
+      "offset": -0.2
+     },
+     "expression": "cheer"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": 0
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": "Rogers,"
+     },
+     "expression": "shocked"
+    }
+   ]
+  },
+  {
+   "id": "fan_1",
+   "character": "toon_redhead",
+   "at": {
+    "anchor": "board",
+    "offset": [
+     1.45,
+     0.35,
+     79992.55
+    ]
+   },
+   "facing": {
+    "anchor": "board",
+    "offset": [
+     1.45,
+     0.35,
+     79986.0
+    ]
+   },
+   "keep_y": true,
+   "action": "sit",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "c1d",
+      "word": "biggest",
+      "offset": -0.2
+     },
+     "expression": "cheer"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": 0
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": "Rogers,"
+     },
+     "expression": "shocked"
+    }
+   ]
+  },
+  {
+   "id": "fan_2",
+   "character": "toon_nerd",
+   "at": {
+    "anchor": "board",
+    "offset": [
+     0.8,
+     0.35,
+     79992.55
+    ]
+   },
+   "facing": {
+    "anchor": "board",
+    "offset": [
+     0.8,
+     0.35,
+     79986.0
+    ]
+   },
+   "keep_y": true,
+   "action": "sit",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "c1d",
+      "word": "biggest",
+      "offset": -0.2
+     },
+     "expression": "cheer"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": 0
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": "Rogers,"
+     },
+     "expression": "shocked"
+    }
+   ]
+  },
+  {
+   "id": "fan_3",
+   "character": "toon_club_a",
+   "at": {
+    "anchor": "board",
+    "offset": [
+     -0.8,
+     0.35,
+     79992.55
+    ]
+   },
+   "facing": {
+    "anchor": "board",
+    "offset": [
+     -0.8,
+     0.35,
+     79986.0
+    ]
+   },
+   "keep_y": true,
+   "action": "sit",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "c1d",
+      "word": "biggest",
+      "offset": -0.2
+     },
+     "expression": "cheer"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": 0
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": "Rogers,"
+     },
+     "expression": "shocked"
+    }
+   ]
+  },
+  {
+   "id": "fan_4",
+   "character": "toon_club_b",
+   "at": {
+    "anchor": "board",
+    "offset": [
+     -1.45,
+     0.35,
+     79992.55
+    ]
+   },
+   "facing": {
+    "anchor": "board",
+    "offset": [
+     -1.45,
+     0.35,
+     79986.0
+    ]
+   },
+   "keep_y": true,
+   "action": "sit",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "c1d",
+      "word": "biggest",
+      "offset": -0.2
+     },
+     "expression": "cheer"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": 0
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "r16",
+      "word": "Rogers,"
+     },
+     "expression": "shocked"
+    }
+   ]
   }
  ],
  "gags": [
@@ -1796,9 +2046,113 @@
      "dx": 0.35
     }
    }
+  },
+  {
+   "id": "cinema_set",
+   "script": "gags/cinema.gd",
+   "t": 0,
+   "at": {
+    "anchor": "board",
+    "offset": [
+     0,
+     0,
+     80000.0
+    ]
+   },
+   "params": {
+    "screen": [
+     {
+      "t": 0.0,
+      "show": "white"
+     },
+     {
+      "t": {
+       "line": "c1a",
+       "word": 0,
+       "offset": -0.3
+      },
+      "show": "title",
+      "text": "AVENGERS: ENDGAME"
+     },
+     {
+      "t": {
+       "line": "c1c",
+       "word": 0,
+       "offset": -0.2
+      },
+      "show": "black"
+     },
+     {
+      "t": {
+       "line": "c1d",
+       "word": 0,
+       "offset": -0.2
+      },
+      "show": "white"
+     },
+     {
+      "t": {
+       "line": "r16",
+       "word": 0,
+       "offset": -0.3
+      },
+      "show": "trailer"
+     }
+    ],
+    "cheer": {
+     "line": "c1d",
+     "word": "biggest",
+     "offset": -0.2
+    },
+    "ticket": {
+     "line": "o9",
+     "word": 0,
+     "offset": -0.4
+    },
+    "marquee": [
+     "AVENGERS: DOOMSDAY",
+     "OPENS DEC 18"
+    ],
+    "poster": "AVENGERS:\nSECRET WARS\nDECEMBER 2027"
+   }
   }
  ],
- "reveals": [],
+ "reveals": [
+  {
+   "id": "endgame_bo",
+   "t": {
+    "line": "c1c",
+    "word": 0,
+    "offset": -0.1
+   },
+   "until": {
+    "line": "c1d",
+    "word": 0
+   },
+   "at": {
+    "anchor": "board",
+    "offset": [
+     -0.0,
+     4.4,
+     79986.4
+    ]
+   },
+   "size": 1.4,
+   "counter": {
+    "from": 0.0,
+    "to": 2.8,
+    "decimals": 1,
+    "prefix": "$",
+    "suffix": " BILLION",
+    "land": {
+     "line": "c1c",
+     "word": "billion"
+    },
+    "label": "WORLDWIDE BOX OFFICE"
+   },
+   "sound": "ding"
+  }
+ ],
  "shots": [
   {
    "name": "hall_wide",
@@ -3262,137 +3616,567 @@
   {
    "name": "cinema_ticket",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.45,
+       4.6,
+       79992.9
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.3,
+       4.6,
+       79994.0
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.25
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.4,
+       4.2,
+       79993.15
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.3,
+       4.1,
+       79994.0
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.3
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04050a",
+     "horizon": "#0b0e18",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#22161a",
+     "energy": 0.08,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.012,
+     "color": "#b8b0a8",
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "cinema_2019",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -3.0,
+       8.0,
+       80007.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       3.5,
+       79987.0
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.04
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -2.2,
+       7.4,
+       80006.2
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       3.6,
+       79987.0
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.04
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04050a",
+     "horizon": "#0b0e18",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#22161a",
+     "energy": 0.08,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.012,
+     "color": "#b8b0a8",
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "cinema_crowd",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       1.0,
+       1.1,
+       79989.0
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       0.6,
+       2.2,
+       80000.0
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.6,
+       1.15,
+       79989.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       0.2,
+       2.2,
+       80000.0
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04050a",
+     "horizon": "#0b0e18",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#22161a",
+     "energy": 0.08,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.012,
+     "color": "#b8b0a8",
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "cinema_counter",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       3.8,
+       79998.0
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       4.4,
+       79986.4
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       3.9,
+       79996.5
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       4.4,
+       79986.4
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04050a",
+     "horizon": "#0b0e18",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#22161a",
+     "energy": 0.08,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.012,
+     "color": "#b8b0a8",
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "cinema_biggest",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       2.5,
+       5.0,
+       80003.0
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       3.0,
+       79988.0
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       1.8,
+       5.6,
+       80002.2
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       3.2,
+       79988.0
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
-   }
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04050a",
+     "horizon": "#0b0e18",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#22161a",
+     "energy": 0.08,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.012,
+     "color": "#b8b0a8",
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "c1d",
+      "word": "biggest",
+      "offset": -0.2
+     },
+     "amount": 0.04
+    }
+   ]
   },
   {
    "name": "board_blank",
@@ -7489,28 +8273,112 @@
   {
    "name": "cinema_trailer",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       2.6,
+       1.25,
+       79990.6
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.6,
+       1.0,
+       79992.55
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.2,
+       1.25,
+       79990.6
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.4,
+       1.0,
+       79992.55
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04050a",
+     "horizon": "#0b0e18",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#22161a",
+     "energy": 0.08,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.012,
+     "color": "#b8b0a8",
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {
@@ -7627,28 +8495,110 @@
   {
    "name": "cinema_marquee",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -77.5,
+       2.2,
+       80009.5
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -80.0,
+       5.9,
+       80002.2
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.04
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -78.6,
+       2.6,
+       80008.0
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -80.0,
+       6.1,
+       80002.2
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.04
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04050a",
+     "horizon": "#0b0e18",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a2234",
+     "energy": 0.15,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 30,
+     "end": 400,
+     "curve": 1.4,
+     "volumetric": 0.01,
+     "color": "#606a80"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {

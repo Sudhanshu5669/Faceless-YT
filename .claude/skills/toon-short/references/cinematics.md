@@ -129,3 +129,30 @@ Atmosphere (fog, haze, dust) separates the layers: see references/realism.md.
 - When the layout is unclear, render one diagnostic view from far away with `"exposure": 3.5`,
   then restore the real camera.
 - Compare against an approved shot of the same episode side by side.
+
+## 10. Make it grand (the user's bar since 2026-11-24)
+
+The Doctor Doom demo (Hall H unmasking, the 1960s lab explosion, the Kang plan board) set it: "this is the level
+of grand I am looking for." What made it grand, and how to get it again:
+
+- **Scale you can feel.** Fill the place: a 6,000-seat hall is 6,000 MultiMesh people (body, head, arms, phones;
+  `episodes/doctor_doom/gags/hall_h.gd` `_build_crowd`), a cinema is every seat taken. Open a sequence on a high
+  wide that shows the size, then go in. Give the room its real height (trusses, ceiling lights far up).
+- **Light you can see.** Light in haze: volumetric fog 0.01-0.02 plus additive **beam cones** on the hero lights
+  (`BEAM_SHADER` in hall_h.gd / cinema.gd: soft depth-faded edges, fade near the lens). Moving heads that sweep and
+  converge on the subject on the beat; a follow spot from the back; a projector beam; moonlight shafts through
+  tall windows. Keep beams subtle in close-ups (they wash out contrast) and strong in wides.
+- **Cut the subject out.** Backlights behind the figures, aimed at the lens, turn them into silhouettes; the
+  subject stays the brightest thing in frame (watch toon faces: the white head blows out under stacked lights;
+  drop the stacked energy on the face and give it one warm key).
+- **Screens and practicals inside the set.** Giant LED screens with the real logo, a live IMAG close-up of the
+  hero (a SubViewport camera on the actor), the TV drawing the chart, glowing tubes, marquee bulbs. They light the
+  scene and tell the story.
+- **Payoffs that fill the frame.** A portal that swirls, arcs that strike, a fireball with sparks and debris, a
+  wall of cards that rains down, a crowd that erupts; camera shake and a held beat after the hit.
+- **Contrast is part of grand.** Dark surroundings, a vignette, colour: one dominant hue per place (Doom green,
+  warm tungsten, cold moonlight) against its opposite.
+- **Gotchas met on the way:** `smoothstep(a, b, x)` needs a < b; `pow(x, y)` with x < 0 is NaN (a white square);
+  a gag named like its bay shadows the bay's anchor (camera offsets double); places must sit kilometres apart when
+  one of them is huge (the hall bled into the lab).
+

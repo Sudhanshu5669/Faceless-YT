@@ -79,6 +79,10 @@ These come from the user's own feedback; they override defaults. The `toon-short
    Never show a thing as a box/cube with its name on it ("DATA", "VIDEO", "1 GB", "INFOTEL"). Show the
    real object people recognise: a film reel for video, a recharge scratch card for mobile data, the
    company's real sign or logo. Text only where text exists in reality (signs, price tags, headlines).
+11. **Make it grand** (user, 2026-11-24, approving the Doctor Doom demo: "this is the level of grand I am looking
+   for"). Every place at full film-set scale: crowds that fill it, light you can see (beams and shafts in haze),
+   backlit subjects, a high wide that sells the size, payoffs that fill the frame. How: the `toon-short` skill,
+   references/cinematics.md section 10.
 
 ## Commands
 

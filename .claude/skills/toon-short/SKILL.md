@@ -58,6 +58,11 @@ to make; the docs tell you how to write it.
    props really held.
 9. **No generative image or video services.** Everything is rendered by Godot.
 10. Commit directly on `main`.
+11. **Make it grand** (user, 2026-11-24, on the Doctor Doom demo: "this is the level of grand I am looking for"):
+    every place feels like a film set at full scale: a crowd that fills the hall, light you can see (beams and
+    shafts in haze), the subject cut out by backlight, a camera that sells the size (a high wide before the
+    close-up), and set pieces that pay off big (a portal that swirls, a wall that comes down). Never a small
+    empty room with one lamp. How: references/cinematics.md section 10.
 
 ## The workflow
 
@@ -95,6 +100,7 @@ to make; the docs tell you how to write it.
 - [ ] Facts, counts, dates, logos and quotes are accurate and sourced.
 - [ ] `tf framing` is clean and `tf test` passes.
 - [ ] Compared side by side with an approved shot of the same episode: no less depth, contrast or motion.
+- [ ] Grand (rule 11): scale you can feel, visible light, backlit subjects, a payoff that fills the frame.
 
 ## Episode checklist
 
