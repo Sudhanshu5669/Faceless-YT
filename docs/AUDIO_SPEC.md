@@ -116,6 +116,11 @@ The resolver writes `episodes/<id>/build/episode.resolved.json` (numbers only) f
 - To use a recorded effect, set `file` in place of `sound` on a one-shot. Use a mono 16-bit PCM WAV
   relative to the episode directory, for example `"file": "audio/tiffin_click.wav"`.
   Trim the recording at the intended sync point and keep its source and license with the episode.
+- **Music cues** (recorded tracks): `"music": [{"file": "audio/lib/music/x.wav", "at": <time ref>, "until": <time ref>,
+  "offset": 20.0, "gain": -15, "fade_in": 1.0, "fade_out": 1.5, "duck": 0.55}]`. 16-bit WAV (mono or stereo) inside the
+  episode; placed at `at` starting `offset` seconds into the track, cut at `until` (default: the end) with fades, ducked
+  under the narration. Keep licensed source audio out of git (`episodes/*/audio/lib/` is ignored; rebuild it with the
+  episode's `make_audio.py`) and its licence and credit line with the episode.
 - The mix is limited and normalised to **−14 LUFS**, −1.5 dBTP (YouTube).
 
 ## Captions

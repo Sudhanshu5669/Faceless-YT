@@ -26,14 +26,762 @@
   "max_words": 3,
   "position": 0.9
  },
- "ambience": [
+ "ambience": [],
+ "music": [
   {
-   "sound": "beat",
-   "gain": -22,
+   "file": "audio/lib/music/eyes_in_the_void.wav",
+   "at": {
+    "line": "h1",
+    "word": 0,
+    "offset": -0.3
+   },
+   "offset": 0.0,
+   "gain": -15.0,
+   "fade_in": 0.3,
+   "fade_out": 1.5,
+   "duck": 0.55,
+   "until": {
+    "line": "c1a",
+    "word": 0,
+    "offset": 0.3
+   }
+  },
+  {
+   "file": "audio/lib/music/anabasis.wav",
+   "at": {
+    "line": "c1a",
+    "word": 0,
+    "offset": -0.2
+   },
+   "offset": 20.0,
+   "gain": -15.0,
+   "fade_in": 1.0,
+   "fade_out": 1.5,
+   "duck": 0.55,
+   "until": {
+    "line": "v0a",
+    "word": 0,
+    "offset": 0.3
+   }
+  },
+  {
+   "file": "audio/lib/music/convergence.wav",
+   "at": {
+    "line": "v0a",
+    "word": 0,
+    "offset": -0.2
+   },
+   "offset": 0.0,
+   "gain": -15.0,
+   "fade_in": 1.0,
+   "fade_out": 1.5,
+   "duck": 0.55,
+   "until": {
+    "line": "v0k",
+    "word": 0,
+    "offset": 0.3
+   }
+  },
+  {
+   "file": "audio/lib/music/penumbra.wav",
+   "at": {
+    "line": "v0k",
+    "word": 0,
+    "offset": -0.2
+   },
+   "offset": 10.0,
+   "gain": -15.0,
+   "fade_in": 1.0,
+   "fade_out": 1.5,
+   "duck": 0.55,
+   "until": {
+    "line": "v1",
+    "word": 0,
+    "offset": 0.3
+   }
+  },
+  {
+   "file": "audio/lib/music/eyes_in_the_void.wav",
+   "at": {
+    "line": "v1",
+    "word": 0,
+    "offset": -0.2
+   },
+   "offset": 95.0,
+   "gain": -15.0,
+   "fade_in": 1.0,
+   "fade_out": 1.5,
+   "duck": 0.55,
+   "until": {
+    "line": "v8",
+    "word": 0,
+    "offset": 0.3
+   }
+  },
+  {
+   "file": "audio/lib/music/anabasis.wav",
+   "at": {
+    "line": "v8",
+    "word": 0,
+    "offset": -0.2
+   },
+   "offset": 240.0,
+   "gain": -15.0,
+   "fade_in": 1.0,
+   "fade_out": 1.5,
+   "duck": 0.55,
+   "until": {
+    "line": "d1",
+    "word": 0,
+    "offset": 0.3
+   }
+  },
+  {
+   "file": "audio/lib/music/aphelion.wav",
+   "at": {
+    "line": "d1",
+    "word": 0,
+    "offset": -0.2
+   },
+   "offset": 150.0,
+   "gain": -14.0,
+   "fade_in": 1.0,
+   "fade_out": 1.5,
+   "duck": 0.55,
+   "until": {
+    "line": "r1",
+    "word": 0,
+    "offset": 0.3
+   }
+  },
+  {
+   "file": "audio/lib/music/starfire.wav",
+   "at": {
+    "line": "r1",
+    "word": 0,
+    "offset": -0.2
+   },
+   "offset": 30.0,
+   "gain": -15.0,
+   "fade_in": 1.0,
+   "fade_out": 1.5,
+   "duck": 0.55,
+   "until": {
+    "line": "e1",
+    "word": 0,
+    "offset": 0.3
+   }
+  },
+  {
+   "file": "audio/lib/music/eyes_in_the_void.wav",
+   "at": {
+    "line": "e1",
+    "word": 0,
+    "offset": -0.2
+   },
+   "offset": 200.0,
+   "gain": -13.0,
+   "fade_in": 1.0,
+   "fade_out": 3.0,
    "duck": 0.55
   }
  ],
- "sfx": [],
+ "sfx": [
+  {
+   "file": "audio/lib/sfx/crowd_cheer_b.wav",
+   "at": {
+    "line": "h1",
+    "word": 0,
+    "offset": -0.2
+   },
+   "gain": -20.0
+  },
+  {
+   "file": "audio/lib/sfx/woosh_debris.wav",
+   "at": {
+    "line": "h2",
+    "word": "walk"
+   },
+   "gain": -12.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_a.wav",
+   "at": {
+    "line": "h3",
+    "word": "mask.",
+    "offset": -0.05
+   },
+   "gain": -4.0
+  },
+  {
+   "file": "audio/lib/sfx/crowd_cheer.wav",
+   "at": {
+    "line": "h3",
+    "word": "mask.",
+    "offset": 0.3
+   },
+   "gain": -7.0
+  },
+  {
+   "file": "audio/lib/sfx/crowd_cheer_b.wav",
+   "at": {
+    "line": "h4",
+    "word": 0,
+    "offset": 0.5
+   },
+   "gain": -9.0
+  },
+  {
+   "file": "audio/lib/sfx/braam_a.wav",
+   "at": {
+    "line": "h4",
+    "word": "Robert",
+    "offset": -0.3
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/braam_creepy.wav",
+   "at": {
+    "line": "o3",
+    "word": "villain",
+    "offset": -0.4
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/paper_turn.wav",
+   "at": {
+    "line": "o6",
+    "word": "Comics."
+   },
+   "gain": -3.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_b.wav",
+   "at": {
+    "line": "o7",
+    "word": "apart."
+   },
+   "gain": -9.0
+  },
+  {
+   "file": "audio/lib/sfx/woosh_ui.wav",
+   "at": {
+    "line": "c1a",
+    "word": 0,
+    "offset": -0.1
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/crowd_cheer_b.wav",
+   "at": {
+    "line": "c1b",
+    "word": 0
+   },
+   "gain": -14.0
+  },
+  {
+   "file": "audio/lib/sfx/impact_chord.wav",
+   "at": {
+    "line": "c1c",
+    "word": "billion"
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/crowd_cheer.wav",
+   "at": {
+    "line": "c1d",
+    "word": "biggest",
+    "offset": -0.2
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/braam_b.wav",
+   "at": {
+    "line": "c1f",
+    "word": "Kang",
+    "offset": -0.2
+   },
+   "gain": -9.0
+  },
+  {
+   "file": "audio/lib/sfx/wood_hit.wav",
+   "at": {
+    "line": "c1e",
+    "word": "villain."
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/wood_hit.wav",
+   "at": {
+    "line": "c1g",
+    "word": "Loki"
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/wood_hit.wav",
+   "at": {
+    "line": "c1h",
+    "word": "Quantumania"
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/crowd_cheer.wav",
+   "at": {
+    "line": "c1j",
+    "word": 0
+   },
+   "gain": -10.0
+  },
+  {
+   "file": "audio/lib/sfx/snap.wav",
+   "at": {
+    "line": "c1k",
+    "word": "crack."
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/snap.wav",
+   "at": {
+    "line": "k3",
+    "word": "drops"
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_c.wav",
+   "at": {
+    "line": "k4",
+    "word": "comes",
+    "offset": 0.9
+   },
+   "gain": -4.0
+  },
+  {
+   "file": "audio/lib/sfx/woosh_debris.wav",
+   "at": {
+    "line": "k4",
+    "word": "comes",
+    "offset": 0.3
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/woosh_ui.wav",
+   "at": {
+    "line": "v0a",
+    "word": 0,
+    "offset": -0.1
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/paper_rummage.wav",
+   "at": {
+    "line": "v0b",
+    "word": "answer"
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/braam_a.wav",
+   "at": {
+    "line": "v0d",
+    "word": "Doom.",
+    "offset": -0.2
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/arc_powerup.wav",
+   "at": {
+    "line": "v0f",
+    "word": 0,
+    "offset": -0.2
+   },
+   "gain": -10.0
+  },
+  {
+   "file": "audio/lib/sfx/impact_sweep.wav",
+   "at": {
+    "line": "v0f",
+    "word": "machine,",
+    "offset": 0.1
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/storm_night.wav",
+   "at": {
+    "line": "v0g",
+    "word": 0,
+    "offset": -0.3
+   },
+   "gain": -10.0
+  },
+  {
+   "file": "audio/lib/sfx/paper_turn.wav",
+   "at": {
+    "line": "v0j",
+    "word": "Avengers,"
+   },
+   "gain": -7.0
+  },
+  {
+   "file": "audio/lib/sfx/paper_turn.wav",
+   "at": {
+    "line": "v0j",
+    "word": "Spider-Man,"
+   },
+   "gain": -7.0
+  },
+  {
+   "file": "audio/lib/sfx/paper_turn.wav",
+   "at": {
+    "line": "v0j",
+    "word": "Iron"
+   },
+   "gain": -7.0
+  },
+  {
+   "file": "audio/lib/sfx/paper_turn.wav",
+   "at": {
+    "line": "v0j",
+    "word": "Daredevil."
+   },
+   "gain": -7.0
+  },
+  {
+   "file": "audio/lib/sfx/fire_crackle.wav",
+   "at": {
+    "line": "v0k",
+    "word": 0,
+    "offset": -0.2
+   },
+   "gain": -16.0
+  },
+  {
+   "file": "audio/lib/sfx/wind_storm.wav",
+   "at": {
+    "line": "v0o",
+    "word": 0,
+    "offset": -0.3
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/latch_thunk.wav",
+   "at": {
+    "line": "v0q",
+    "word": "secret:"
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/spell_drone.wav",
+   "at": {
+    "line": "v0q",
+    "word": "secret:"
+   },
+   "gain": -12.0
+  },
+  {
+   "file": "audio/lib/sfx/arc_buzz.wav",
+   "at": {
+    "line": "v1",
+    "word": "builds"
+   },
+   "gain": -14.0
+  },
+  {
+   "file": "audio/lib/sfx/arc_zap.wav",
+   "at": {
+    "line": "v2",
+    "word": "flaw"
+   },
+   "gain": -12.0
+  },
+  {
+   "file": "audio/lib/sfx/arc_powerup.wav",
+   "at": {
+    "line": "v4",
+    "word": 0,
+    "offset": -0.4
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_a.wav",
+   "at": {
+    "line": "v4",
+    "word": "explodes"
+   },
+   "gain": -2.0
+  },
+  {
+   "file": "audio/lib/sfx/metal_hit.wav",
+   "at": {
+    "line": "v9",
+    "word": "forges"
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/metal_hit.wav",
+   "at": {
+    "line": "v9",
+    "word": "his"
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/metal_hit.wav",
+   "at": {
+    "line": "v9",
+    "word": "armor."
+   },
+   "gain": -4.0
+  },
+  {
+   "file": "audio/lib/sfx/impact_chord.wav",
+   "at": {
+    "line": "v10",
+    "word": "red-hot.",
+    "offset": 0.1
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/metal_drag.wav",
+   "at": {
+    "line": "v11",
+    "word": 0,
+    "offset": -0.2
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_b.wav",
+   "at": {
+    "line": "v12",
+    "word": "Doom."
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/woosh_ui.wav",
+   "at": {
+    "line": "d1",
+    "word": 0,
+    "offset": -0.1
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/metal_drag.wav",
+   "at": {
+    "line": "d2",
+    "word": "immunity.",
+    "offset": 0.7
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_c.wav",
+   "at": {
+    "line": "d2",
+    "word": "immunity.",
+    "offset": 1.0
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/crowd_cheer_b.wav",
+   "at": {
+    "line": "d2b",
+    "word": "cares"
+   },
+   "gain": -11.0
+  },
+  {
+   "file": "audio/lib/sfx/arc_zap.wav",
+   "at": {
+    "line": "d3",
+    "word": "sorcerer."
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/snap.wav",
+   "at": {
+    "line": "d5",
+    "word": "real"
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/arc_zap.wav",
+   "at": {
+    "line": "d5",
+    "word": "real",
+    "offset": 0.05
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/spell_drone.wav",
+   "at": {
+    "line": "d6",
+    "word": 0,
+    "offset": -0.2
+   },
+   "gain": -10.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_c.wav",
+   "at": {
+    "line": "d6",
+    "word": "Devil"
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/wind_storm.wav",
+   "at": {
+    "line": "d7",
+    "word": 0,
+    "offset": -0.2
+   },
+   "gain": -14.0
+  },
+  {
+   "file": "audio/lib/sfx/arc_buzz.wav",
+   "at": {
+    "line": "d7",
+    "word": 0
+   },
+   "gain": -12.0
+  },
+  {
+   "file": "audio/lib/sfx/braam_a.wav",
+   "at": {
+    "line": "d8",
+    "word": "god.",
+    "offset": -0.3
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_a.wav",
+   "at": {
+    "line": "d11",
+    "word": "stitches"
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/braam_b.wav",
+   "at": {
+    "line": "d12",
+    "word": "Emperor",
+    "offset": -0.3
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/impact_chord.wav",
+   "at": {
+    "line": "d15",
+    "word": "Overnight,"
+   },
+   "gain": -7.0
+  },
+  {
+   "file": "audio/lib/sfx/metal_hit.wav",
+   "at": {
+    "line": "d18",
+    "word": "armor,"
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/woosh_ui.wav",
+   "at": {
+    "line": "r1",
+    "word": 0,
+    "offset": -0.1
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/paper_rummage.wav",
+   "at": {
+    "line": "r11",
+    "word": "deal"
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/shield_spin.wav",
+   "at": {
+    "line": "r13",
+    "word": "bought",
+    "offset": 0.1
+   },
+   "gain": -10.0
+  },
+  {
+   "file": "audio/lib/sfx/crowd_cheer.wav",
+   "at": {
+    "line": "r16",
+    "word": "Rogers,"
+   },
+   "gain": -10.0
+  },
+  {
+   "file": "audio/lib/sfx/storm_night.wav",
+   "at": {
+    "line": "r19",
+    "word": 0,
+    "offset": -0.2
+   },
+   "gain": -12.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_b.wav",
+   "at": {
+    "line": "r20",
+    "word": "world."
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/braam_a.wav",
+   "at": {
+    "line": "e2",
+    "word": "task.",
+    "offset": 0.1
+   },
+   "gain": -3.0
+  },
+  {
+   "file": "audio/lib/sfx/crowd_cheer.wav",
+   "at": {
+    "line": "e2",
+    "word": "task.",
+    "offset": 0.4
+   },
+   "gain": -6.0
+  }
+ ],
  "lines": [
   {
    "id": "h1",

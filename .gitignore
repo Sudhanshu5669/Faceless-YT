@@ -47,3 +47,6 @@ episodes/*/thumbnail/*.png
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Licensed audio cut from incoming/ packs (Sonniss: no redistribution; music: rebuilt by make_audio.py)
+episodes/*/audio/lib/

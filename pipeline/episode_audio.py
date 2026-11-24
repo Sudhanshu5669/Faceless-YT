@@ -29,6 +29,9 @@ NARRATION_KEYS = {"voice", "style", "model", "speed", "batch_words", "single_tak
 LINE_KEYS = {"id", "text", "voice", "style", "fx", "shot", "at", "gain", "caption", "speed"}
 SFX_KEYS = {"sound", "file", "at", "gain", "repeat", "every", "salt"}
 AMBIENCE_KEYS = {"sound", "gain", "curve", "duck"}
+# Recorded music cues: a WAV inside the episode placed at `at` (from `offset` s into the track), until `until`
+# (default: the end), with fades, ducked under the narration.
+MUSIC_KEYS = {"file", "at", "until", "offset", "gain", "fade_in", "fade_out", "duck"}
 CAPTION_KEYS = {"enabled", "max_words", "position", "style"}
 CAPTION_STYLES = {"karaoke", "toon"}
 WHIP_TIME = 0.3  # matches Episode.WHIP_TIME in godot/scripts/timeline/episode.gd
@@ -82,6 +85,12 @@ def validate(ep: dict) -> list[str]:
                 e.append(f"sfx[{i}]: unknown key '{k}' (known: {', '.join(sorted(SFX_KEYS))})")
         if ("sound" in s) == ("file" in s) or "at" not in s:
             e.append(f"sfx[{i}]: needs 'at' and exactly one of 'sound' or 'file'")
+    for i, m in enumerate(ep.get("music", [])):
+        for k in m:
+            if k not in MUSIC_KEYS:
+                e.append(f"music[{i}]: unknown key '{k}' (known: {', '.join(sorted(MUSIC_KEYS))})")
+        if "file" not in m or "at" not in m:
+            e.append(f"music[{i}]: needs 'file' and 'at'")
     for i, a in enumerate(ep.get("ambience", [])):
         for k in a:
             if k not in AMBIENCE_KEYS:
@@ -545,7 +554,15 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
         pts = [[ref(p[0], "edit", f"ambience[{i}].curve"), float(p[1])] for p in a.get("curve", [])]
         amb.append({"sound": a["sound"], "gain": float(a.get("gain", -20.0)), "curve": pts,
                     "duck": float(a.get("duck", 0.4))})
-    res = {"episode": out, "shots": shots, "lines": lines, "sfx": sfx, "ambience": amb,
+    music = []
+    for i, m in enumerate(ep.get("music", [])):
+        t0 = ref(m["at"], "edit", f"music[{i}].at")
+        t1 = ref(m["until"], "edit", f"music[{i}].until") if "until" in m else None
+        music.append({"file": _effect_file(ep_dir, m["file"], mono=False), "t": t0, "until": t1,
+                      "offset": float(m.get("offset", 0.0)), "gain": float(m.get("gain", -12.0)),
+                      "fade_in": float(m.get("fade_in", 0.5)), "fade_out": float(m.get("fade_out", 1.5)),
+                      "duck": float(m.get("duck", 0.4))})
+    res = {"episode": out, "shots": shots, "lines": lines, "sfx": sfx, "ambience": amb, "music": music,
            "duration": total, "end_black": end_black, "captions": ep.get("captions", {}),
            "resolution": ep.get("format", {}).get("resolution", [1080, 1920])}
     if verbose:
@@ -553,15 +570,15 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
     return res
 
 
-def _effect_file(ep_dir: Path, filename: str) -> str:
+def _effect_file(ep_dir: Path, filename: str, mono: bool = True) -> str:
     root = ep_dir.resolve()
     path = (root / filename).resolve()
     if Path(filename).is_absolute() or not path.is_relative_to(root) or path.suffix.lower() != ".wav":
         raise EpisodeError(f"ERROR: sound file must name a WAV inside the episode: {filename}")
     try:
         with wave.open(str(path), "rb") as wav:
-            if wav.getsampwidth() != 2 or wav.getnchannels() != 1 or not wav.getnframes():
-                raise EpisodeError(f"ERROR: sound file must be a nonempty mono 16-bit PCM WAV: {filename}")
+            if wav.getsampwidth() != 2 or (mono and wav.getnchannels() != 1) or not wav.getnframes():
+                raise EpisodeError(f"ERROR: sound file must be a nonempty {'mono ' if mono else ''}16-bit PCM WAV: {filename}")
     except (OSError, EOFError, wave.Error) as exc:
         raise EpisodeError(f"ERROR: cannot read sound file {filename}: {exc}") from exc
     return str(path)
@@ -771,6 +788,24 @@ def mix(res: dict, out_wav: Path, ffmpeg: str = "ffmpeg") -> Path:
         x = _fit(sfx.make(a["sound"], dur=n / sr), n)
         g = _fit(sfx.curve(a["curve"], n / sr), n) if a["curve"] else np.ones(n)
         beds += x * g * _db(a["gain"]) * (1.0 - a["duck"] * env)
+    # Music cues: placed, trimmed, faded in and out, ducked under the voice.
+    for m in res.get("music", []):
+        x = _load_wav(m["file"])
+        x = x[int(m["offset"] * sr):]
+        t1 = m["until"] if m["until"] is not None else total
+        length = max(0, min(x.size, int((t1 - m["t"]) * sr)))
+        x = x[:length].copy()
+        if x.size == 0:
+            continue
+        fi = max(1, int(m["fade_in"] * sr))
+        fo = max(1, int(m["fade_out"] * sr))
+        x[:fi] *= np.linspace(0.0, 1.0, min(fi, x.size))[: min(fi, x.size)]
+        x[-min(fo, x.size):] *= np.linspace(1.0, 0.0, min(fo, x.size))
+        i0 = int(m["t"] * sr)
+        if i0 >= n:
+            continue
+        i1 = min(i0 + x.size, n)
+        beds[i0:i1] += x[: i1 - i0] * _db(m["gain"]) * (1.0 - m["duck"] * env[i0:i1])
     master = voice + fx + beds
     master[int(res["duration"] * sr + 2.5 * sr):] *= 0.0  # silence after the black tail
     master = np.tanh(master * 1.1) / 1.1                    # gentle safety clip

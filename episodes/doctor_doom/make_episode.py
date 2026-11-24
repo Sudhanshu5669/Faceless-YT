@@ -20,6 +20,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from lines import L, PLACE_OF, CHAPTERS  # noqa: E402
+from sound import SFX, MUSIC  # noqa: E402
 
 PLACE_MODULES = [m for m in ["hall", "lab", "board", "gallery", "cinema", "shop", "doom62", "latveria", "tibet", "castle",
                              "hell", "cosmos", "hospital", "dressing", "misc"] if (HERE / "places" / f"{m}.py").exists()]
@@ -75,8 +76,9 @@ def build():
         "format": {"resolution": [1920, 1080], "fps": 60, "motion_blur": 2},
         "narration": NARRATION,
         "captions": {"enabled": True, "max_words": 3, "position": 0.9},
-        "ambience": [{"sound": "beat", "gain": -22, "duck": 0.55}],
-        "sfx": [],
+        "ambience": [],
+        "music": MUSIC,
+        "sfx": SFX,
         "lines": lines,
         "actors": actors,
         "gags": gags,
