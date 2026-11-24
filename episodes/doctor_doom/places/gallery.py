@@ -77,8 +77,8 @@ SHOTS = {
         cam(P(0.6, 1.4, 1.9), P(MX, C, 0.0), 40, {"strength": 0.12}), "in_out")},
     # Extreme close-up on the mask's slit: the eye moves on "different.".
     "gal_eye": {"look": LOOK_GALLERY, "camera": move(
-        cam(P(MX + 0.12, C + 0.02, 0.75), P(MX + 0.05, C + 0.01, 0.0), 70, {"strength": 0.3}),
-        cam(P(MX + 0.1, C + 0.02, 0.62), P(MX + 0.05, C + 0.01, 0.0), 70, {"strength": 0.3}), "in_out")},
+        cam(P(MX + 0.2, 1.66, 0.85), P(MX, 1.62, 0.0), 50, {"strength": 0.2}),
+        cam(P(MX + 0.15, 1.65, 0.68), P(MX, 1.62, 0.0), 50, {"strength": 0.22}), "in")},
 }
 
 PLACE = {"gags": GAGS, "actors": [], "shots": SHOTS}

@@ -43,8 +43,8 @@ static func suit() -> GDScript:
 
 ## The downloaded helmet (Sketchfab "Iron-Man Helmet (MK3)" by designpill, CC BY 4.0), if present: the first
 ## .gltf/.glb under incoming/ironman_helmet/, scaled so its height is `height` and centred on the node's origin.
-static func helmet_model(height: float) -> Node3D:
-	var dir := Paths.repo_path("incoming/ironman_helmet")
+static func helmet_model(height: float, folder: String = "incoming/ironman_helmet") -> Node3D:
+	var dir := Paths.repo_path(folder)
 	var found := ""
 	var stack := [dir]
 	while not stack.is_empty() and found == "":
@@ -85,6 +85,8 @@ var _eye: Node3D
 var _eye_rest := Vector3.ZERO
 var _candles: Array[OmniLight3D] = []
 var _shield_spot: SpotLight3D
+var _bust: Node3D
+var _eye_glow: OmniLight3D
 var _has_model := false
 
 
@@ -207,6 +209,15 @@ func build(g: Dictionary) -> Node3D:
 	Kit.box(_mask, Vector3(R * 1.2, R * 0.07, R * 0.1), Vector3(0, R * 0.3, R * 0.93), Kit.mat("#4a4f54", 0.5, 0.7), Vector3(-0.3, 0, 0))
 	Kit.box(_mask, Vector3(R * 0.09, R * 0.42, R * 0.12), Vector3(0, -R * 0.12, R * 0.97), metal, Vector3(0.12, 0, 0))
 	Kit.ball(_mask, R * 0.95, Vector3(0, 0, -0.01), Kit.mat("#050505", 0.9), 24)
+	# The downloaded bust (Sketchfab "Doctor Doom's Mask" by Nicolas_Laube, CC BY 4.0) replaces the toon mask when
+	# present: hooded iron mask and the gold collar clasps, seated on the turntable.
+	_bust = helmet_model(0.62, "incoming/doom_mask")
+	if _bust != null:
+		for c in _mask.get_children():
+			(c as Node3D).visible = false
+		_mask.add_child(_bust)
+		_bust.position = Vector3(0, 0.07, 0)
+		_eye_glow = Kit.omni(_mask, Vector3(0, 0.2, 0.3), "#3dff6e", 0.0, 0.8, false, 0.2)
 	_eye = Node3D.new()
 	_eye_rest = Vector3(R * 0.4, R * 0.075, R * 0.86)
 	_eye.position = _eye_rest
@@ -292,5 +303,9 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var et := float(ed.get("t", 1e9))
 	var dx := float(ed.get("dx", 0.3))
 	_eye.position = _eye_rest + Vector3(-R * dx * Motion.in_out(Motion.seg(t, et, et + 0.6)), 0, 0)
+	if _bust != null:
+		_eye.visible = false
+		# "He used to be different": the eyes behind the mask kindle green.
+		_eye_glow.light_energy = 1.6 * Motion.smooth(Motion.seg(t, et - 0.2, et + 0.5)) * (0.9 + 0.1 * sin(t * 6.0))
 	return {"helmet": node.global_transform * _helmet.position, "mask": node.global_transform * _mask.position,
 		"wall_shadow": node.global_transform * Vector3(HX, TOP + 0.5, WALL_Z)}

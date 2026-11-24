@@ -49,3 +49,11 @@ Existing packs reused: `kenney_castle` (later, Castle Doom), `quaternius_nature`
 - **Description credit (required):** This work is based on "Iron-Man Helmet (MK3)"
   (https://sketchfab.com/3d-models/iron-man-helmet-mk3-901d24c9a1714deeb724c98a8cb4649e) by Ritesh
   (https://sketchfab.com/designpill) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+
+## Doctor Doom bust (2026-11-24, chosen by the user; the user downloaded it)
+
+- `incoming/doom_mask/model/scene.gltf`: "Doctor Doom's Mask" by Nicolas_Laube, Sketchfab, CC BY 4.0, commercial use
+  allowed. On the gallery's right plinth (gags/gallery.gd); the toon mask is the fallback.
+- **Description credit (required):** This work is based on "Doctor Doom's Mask"
+  (https://sketchfab.com/3d-models/doctor-dooms-mask-8db5464072f341a994ad1c729d9080f7) by Nicolas_Laube
+  (https://sketchfab.com/Nicolas_Laube) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
