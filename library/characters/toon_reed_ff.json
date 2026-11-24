@@ -1,0 +1,26 @@
+{
+  "id": "toon_reed_ff",
+  "description": "Reed Richards, Mister Fantastic (comic, 1962): brown hair grey at the temples, the blue uniform.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "comic"
+  ],
+  "height": 1.56,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#6a5040"
+    },
+    "outfit": {
+      "style": "coverall",
+      "color": "#2a5ab0"
+    },
+    "shoes": "#1a1a2a",
+    "face": "determined",
+    "girth": 0.9
+  }
+}

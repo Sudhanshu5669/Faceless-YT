@@ -1,0 +1,26 @@
+{
+  "id": "toon_sue",
+  "description": "Sue Storm, the Invisible Woman (comic, 1962): blonde hair, the team's blue uniform.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "comic"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bob",
+      "color": "#e8c870"
+    },
+    "outfit": {
+      "style": "coverall",
+      "color": "#2a5ab0"
+    },
+    "shoes": "#1a1a2a",
+    "face": "shocked",
+    "girth": 0.92
+  }
+}

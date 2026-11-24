@@ -36,3 +36,7 @@ Existing packs reused: `kenney_castle` (later, Castle Doom), `quaternius_nature`
 - Logos: `sdcc.svg` and the FF #5 cover are in `library/logos/doom/`; the Marvel Studios logo is still to fetch
   (Wikimedia 429). Sources in `library/logos/SOURCES.md`.
 - The standing chalkboard model was replaced by a built slate (its orientation and size didn't suit the shot).
+
+## Pirate ship (2026-11-24, approved)
+
+- `incoming/quaternius_ships/sail_ship.glb`: Quaternius LowPoly Ship Pack (OpenGameArt, CC0), converted with Blender. Used for Blackbeard's ship (pirate_chest, pirate_thing).

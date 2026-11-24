@@ -1,0 +1,27 @@
+{
+  "id": "toon_thing",
+  "description": "Ben Grimm, the Thing (comic, 1962): orange rocky skin, a big frame, blue shorts.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "comic"
+  ],
+  "height": 1.45,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "skin": "#d8782a",
+    "hair": {
+      "style": "bald",
+      "color": "#c86a22"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#2a5ab0"
+    },
+    "shoes": "#c86a22",
+    "face": "deadpan",
+    "girth": 1.5
+  }
+}

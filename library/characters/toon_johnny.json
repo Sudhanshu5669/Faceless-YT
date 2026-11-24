@@ -1,0 +1,26 @@
+{
+  "id": "toon_johnny",
+  "description": "Johnny Storm, the Human Torch (comic, 1962): blond tuft, the blue uniform.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "comic"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "tuft",
+      "color": "#e8c060"
+    },
+    "outfit": {
+      "style": "coverall",
+      "color": "#2a5ab0"
+    },
+    "shoes": "#1a1a2a",
+    "face": "angry",
+    "girth": 0.9
+  }
+}
