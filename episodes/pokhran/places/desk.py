@@ -52,6 +52,8 @@ ACTORS = [
          {"t": W("l17b", "assumed", 0.0), "expression": "shocked", "head": [-16, 10, 0], "head_turn": 0.12},
          {"t": W("l17b", "never", 0.0), "expression": "sad", "head": [26, 0, 0], "head_turn": 0.8},
          {"t": W("l17b", "test.", 0.1), "expression": "crying", "head": [34, 0, 8], "head_turn": 0.6},
+         # end_feed: back to the night shift as the Short began (it loops into hook_feed).
+         {"t": {"shot": "end_feed", "offset": -0.05}, "action": "sit", "expression": "sleepy", "head": [0, 0, 0], "head_turn": 0.01},
      ]},
 ]
 
@@ -74,6 +76,7 @@ GAGS = [{"id": "office_us", "script": "gags/analyst_room.gd", "t": 0, "at": P(0,
                              "cam": range_place.P(-3.0, 260.0, 11.5), "ortho": 24.0, "stamp": "MAY 1998"},
                     "prints": {"cam": range_place.P(4.5, 260.0, 5.5), "ortho": 22.0, "slide": W("l6c", "morning", 0.0),
                                "hand": "analyst", "shrug": W("l6c", "same.", -0.1)},
+                    "loop": {"from": {"shot": "end_feed", "offset": -0.05}, "end": W("l21b", edge="end", offset=0.15)},
                     "report": {"hand": "cia_agent2", "drop": W("l17b", "assumed", 0.0), "at": [-0.12, -1.48]},
                     "tv": {"on": ANNOUNCED, "cam": lawn.TV_CAM, "look": lawn.TV_LOOK, "fov": 26.0,
                            # senator: the TV is showing the blast footage (the replay window in range.py).
@@ -132,5 +135,13 @@ SHOTS["review_drop"] = {
         "from": cam(P(-0.05, 1.95, -1.25), P(-0.1, 0.62, -1.5), 30, {"strength": 0.1}),
         "to": cam(P(-0.02, 0.9, -1.72), P(0.25, 1.02, -0.62), 26, {"strength": 0.14}),
         "ease": "in_out", "start": W("l17b", "assumed", 0.35), "end": W("l17b", "never", 0.2)}}
+
+SHOTS["end_feed"] = {
+    # Out of the sky and into the feed: tight on the monitor (America's White House from orbit, intact, its pass
+    # drifting), easing back to exactly hook_feed's opening frame, so the Short loops into its own first shot.
+    "look": LOOK, "camera": {
+        "from": cam(P(SX, SY, SZ + 0.28), P(SX, SY, SZ), 40, {"strength": 0.2}),
+        "to": cam(P(SX - 0.12, SY + 0.12, SZ + 0.95), P(SX + 0.01, SY - 0.01, SZ), 38, {"strength": 0.2}),
+        "ease": "in_out", "start": {"shot": "end_feed", "offset": 0.1}, "end": W("l21b", edge="end", offset=0.0)}}
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

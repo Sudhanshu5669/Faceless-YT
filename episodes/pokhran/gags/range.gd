@@ -67,8 +67,9 @@ extends RefCounted
 ##              handbrake-slides `slide` degrees into its parked pose at `at`, stopping dead at `stop` in a burst of dust;
 ##              the driver rides in the right-hand seat, "riders" [[id, fwd, side], ...] sit elsewhere (side + = right);
 ##              at slip.t the actor's oversized patrol cap slides over his eyes
-##   disguise   [{"actor": id, "cap": true, "tape": "NAME"}]   dress an actor for the field: an army patrol cap perched
-##              on top of their own hair (it escapes all round), a name tape over the right chest pocket
+##   disguise   [{"actor": id, "cap": true, "tape": "NAME", "off": t}]   dress an actor for the field: an army patrol cap
+##              perched on top of their own hair (it escapes all round), a name tape over the right chest pocket; at `off`
+##              the right hand lifts the cap off and holds it out to the side, and the hair springs up free
 ##   convoy     {"on": [[t0, t1]], "t0": t, "start": [x, z], "heading": deg, "speed": 9, "n": 4, "gap": 16, "carry": 1,
 ##              "cam0": [x, y, z], "look0": [...], "cam1": [...], "look1": [...], "lining_until": t}   an army convoy of canopy trucks rolling
 ##              across the desert in their dust (truck i is i*gap behind the lead); truck `carry` holds the device on
@@ -89,6 +90,9 @@ extends RefCounted
 ##              an observation post (a parked truck) shown only inside the windows. A window [t0, t1, t_blast] replays the
 ##              blast from t_blast instead of t (the same moment from another angle, like news footage). The 1998 site gear
 ##              and the heat-haze ring are hidden inside the windows
+##   relic      {"at": [x, z], "yaw": deg, "on": [[t0, t1]], "lines": ["WHITE", "HOUSE"]}   after the test: the White
+##              House shaft's steel plate lying blown out and bent on the crater's rim, half sunk in the sand, the chalk
+##              still on it
 ##   goggles    {"actor": id, "on": [[t0, t1]], "looks": [[x, y, z], [x, y, z]], "fov": 40, "r": 0.26}   safety goggles on
 ##              the actor's face (a rubber strap round the head, two round lenses in black cups); each lens mirrors a live
 ##              view from that eye toward its `looks` point (a SubViewport, flipped like a reflection, tinted, over the
@@ -214,7 +218,9 @@ float blast_h(vec2 p) {
 	// Fissures open between the slabs.
 	float fis = (1.0 - smoothstep(0.0, 0.08, v.x)) * smoothstep(0.03, 0.25, prof) * rs * (1.0 - slump);
 	lift -= fis * 2.5;
-	float dome = mix(lift, -0.22 * H * exp(-pow(d / (R * 0.7), 2.0)), slump);
+	// The slump: a subsidence crater with a sharp raised rim of thrown-out earth.
+	float crater = -0.3 * H * (1.0 - smoothstep(R * 0.3, R * 0.5, d)) + 0.12 * H * exp(-pow((d - R * 0.52) / (R * 0.07), 2.0));
+	float dome = mix(lift, crater, slump);
 	// The shock ring racing out across the plain.
 	float rr = s * blast_hr.z;
 	float ring = 1.8 * exp(-pow((d - rr) / 16.0, 2.0)) * exp(-s * 0.45) * smoothstep(R * 0.8, R * 1.4, d);
@@ -693,6 +699,7 @@ func build(g: Dictionary) -> Node3D:
 	_cricket_build(root)
 	_village_far_build(root)
 	_goggles_build(root)
+	_relic_build(root)
 	_blast_build(root)
 	if not (_p.get("jeep", {}) as Dictionary).is_empty():
 		_jeep = _vehicle(PB + "jeep.glb")
@@ -1000,9 +1007,44 @@ func _pose_jeep(gt: Transform3D, t: float, ctx: Dictionary) -> void:
 
 
 ## Field disguise: a patrol cap perched on the actor's own hair, a name tape on the chest (made once, on the actor).
-func _pose_disguise(ctx: Dictionary) -> void:
+func _pose_disguise(ctx: Dictionary, t: float = 0.0) -> void:
 	if not ctx.has("actor"):
 		return
+	# Caps coming off (every frame).
+	for dd in _p.get("disguise", []):
+		if not dd.has("off"):
+			continue
+		var a = ctx["actor"].call(String(dd["actor"]))
+		if a == null or not a.visible:
+			continue
+		var head := a.find_child("toon_head", true, false) as Node3D
+		if head == null:
+			continue
+		var cap := head.find_child("field_cap", true, false) as Node3D
+		var off := float(dd["off"])
+		var reach := Motion.in_out(Motion.seg(t, off - 0.45, off - 0.08))
+		var lift := Motion.out_cubic(Motion.seg(t, off - 0.08, off + 0.35))
+		var ay := float(a.rotation.y)
+		var fwd := Vector3(sin(ay), 0, cos(ay))
+		var right := -Vector3(cos(ay), 0, -sin(ay))
+		# World-space placement from the head bone (the head node's own frame differs between rigs).
+		var crown: Vector3 = a.bone_world("Head") + Vector3(0, float(dd.get("crown", 0.47)), 0) - fwd * 0.02
+		var out: Vector3 = a.bone_world("spine_03") + right * 0.42 + fwd * 0.18 + Vector3(0, 0.1, 0)
+		if cap != null:
+			var w: Vector3 = crown.lerp(crown + Vector3(0, 0.16, 0), minf(lift * 2.0, 1.0)).lerp(out, clampf(lift * 1.3 - 0.3, 0.0, 1.0))
+			var bs := Basis.from_euler(Vector3(-0.14 - 0.9 * lift, ay, 0.05 - 0.6 * lift))
+			cap.global_transform = Transform3D(bs.scaled(cap.global_transform.basis.get_scale()), w)
+			if reach > 0.0:
+				Crawl.long_arms(a, 1.45)
+				a.aim_hand("r", crown.lerp(w, lift) + Vector3(0, 0.04, 0), reach * (1.0 if lift < 1.0 else 1.0))
+		# The hair springs up free.
+		var k := t - off
+		var spring := 1.0
+		if k > 0.0:
+			spring = 1.0 + 0.14 * (1.0 - exp(-k * 6.0)) + 0.12 * exp(-k * 5.0) * sin(k * 22.0)
+		for h in head.get_children():
+			if String(h.name).contains("hair"):
+				(h as Node3D).scale = Vector3(1.0 + (spring - 1.0) * 0.6, spring, 1.0 + (spring - 1.0) * 0.6)
 	for dd in _p.get("disguise", []):
 		var aid := String(dd.get("actor", ""))
 		if _dressed.has(aid):
@@ -2805,7 +2847,7 @@ func _pose_blast(t: float) -> void:
 					pos.y = minf(pos.y, height(pos.x, pos.z) + 14.0 + 0.25 * float(sd["grow"]) * (1.0 - exp(-0.4 * a)))
 				pos.y = maxf(pos.y, height(pos.x, pos.z) + 2.0)
 				size = float(sd["s0"]) + float(sd["grow"]) * (1.0 - exp(-0.45 * a))
-				alpha = clampf(a / 0.12, 0.0, 1.0) * (0.8 - 0.3 * clampf((a - 3.0) / 8.0, 0.0, 1.0))
+				alpha = clampf(a / 0.12, 0.0, 1.0) * (0.8 - 0.3 * clampf((a - 3.0) / 8.0, 0.0, 1.0)) * (1.0 - smoothstep(12.0, 20.0, a))
 				# Backlit: a dark core and a low dark skirt, a bright lining at the edges and the crown.
 				var up := clampf((pos.y - height(pos.x, pos.z)) / 300.0, 0.0, 1.0)
 				var col_r := R * (0.9 + up * 1.2) + 1.0
@@ -2941,6 +2983,33 @@ void fragment() {
 """
 
 var _gog: Node3D
+var _relic: Node3D
+
+
+func _relic_build(root: Node3D) -> void:
+	var rd: Dictionary = _p.get("relic", {})
+	if rd.is_empty():
+		return
+	_relic = Node3D.new()
+	_relic.name = "relic"
+	root.add_child(_relic)
+	var at := Vector2(float(rd["at"][0]), float(rd["at"][1]))
+	_relic.position = ground(at.x, at.y) + Vector3(0, -0.12, 0)
+	_relic.rotation = Vector3(0.32, deg_to_rad(float(rd.get("yaw", 0.0))), -0.12)
+	var steel := Kit.shader(STEEL)
+	# The plate, buckled: two halves at a slight angle, a torn corner, bolt holes round the edge.
+	Kit.box(_relic, Vector3(1.9, 0.05, 0.95), Vector3(0, 0, -0.47), steel)
+	Kit.box(_relic, Vector3(1.9, 0.05, 0.95), Vector3(0, 0.08, 0.45), steel, Vector3(-0.16, 0, 0))
+	for k in 8:
+		var bx := -0.85 + 0.243 * k
+		Kit.cyl(_relic, 0.03, 0.03, 0.052, Vector3(bx, 0.002, -0.88), Kit.mat("#1a1612", 0.9), 10)
+	# Sand drifted over its lower edge.
+	Kit.ball(_relic, 1.0, Vector3(0.0, -0.06, -1.0), sand_pile_mat(), 16, Vector3(1.2, 0.1, 0.25))
+	# The chalk, still there.
+	var lines: Array = rd.get("lines", ["WHITE", "HOUSE"])
+	for i in lines.size():
+		var l := Kit.text(_relic, String(lines[i]), 0.22, "#e8e4da", Vector3(0, 0.03 + 0.04 * i, -0.55 + 0.62 * i), Vector3(-PI / 2 - (0.16 if i == 1 else 0.0), 0, 0), true, 0.0, Color(0, 0, 0, 0), "body")
+		l.modulate.a = 0.9
 var _gog_lens: Array = []     # [MeshInstance3D, Camera3D, SubViewport]
 
 
@@ -3486,6 +3555,12 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	# The windsock: heading and strength from the wind keys, a slow hunting swing on top.
 	_pose_village_far(t)
 	_pose_goggles(gt, t, ctx)
+	if _relic != null:
+		var ron := false
+		for w in (_p.get("relic", {}) as Dictionary).get("on", []):
+			if t >= float(w[0]) and t < float(w[1]):
+				ron = true
+		_relic.visible = ron
 	_pose_blast(t)
 	var keys: Array = _p.get("wind", [[0.0, 120.0, 0.55]])
 	var yaw := float(keys[0][1])
@@ -3526,7 +3601,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_cv_anchors = _pose_convoy(gt, t)
 	_pose_lowering(t)
 	_pose_jeep(gt, t, ctx)
-	_pose_disguise(ctx)
+	_pose_disguise(ctx, t)
 	for aid in _chai:
 		var ca = ctx["actor"].call(aid) if ctx.has("actor") else null
 		var gl: Node3D = _chai[aid]

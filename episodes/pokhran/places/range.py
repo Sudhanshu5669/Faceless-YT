@@ -836,4 +836,42 @@ SHOTS["two_more"] = {
     "camera": move(cam(P(_KC0[0], round(_K2_Y + 1.3, 3), _KC0[1]), "kalam_gog.head", 40, {"strength": 0.15}),
                    cam(P(_KC1[0], round(_K2_Y + 1.32, 3), _KC1[1]), "kalam_gog.head", 40, {"strength": 0.18}), "in_out")}
 
+# ---- kalam_cap: dusk on the range; Kalam, silhouetted against the afterglow, pulls off the "Prithviraj" cap on "fake"
+# and his hair springs free; a satellite glints across the sky above him, unseen. (A callback; the line is about 2002.)
+_KD = (-16.5, -4.5)
+ACTORS.append({"id": "kalam_dusk", "character": "toon_kalam_fatigues", "at": P(_KD[0], 0, _KD[1]),
+               "facing": P(_KD[0] + 0.6, 0, _KD[1] + 4.0), "action": "idle",
+               "shown": [[{"shot": "kalam_cap", "offset": -0.1}, {"shot": "never_noticed"}]],
+               "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("l19a", "fake", 0.15), "expression": "grin"},
+                        {"t": W("l19a", "name,", 0.0), "expression": "wink"}]})
+_rp["disguise"].append({"actor": "kalam_dusk", "cap": True, "tape": "PRITHVIRAJ", "off": W("l19a", "fake", 0.0)})
+_rp["clear"].append([_KD[0], _KD[1] + 2.0, 3.5])
+GAGS.append({"id": "sat_kalam", "script": "library:sky_pass", "t": {"shot": "kalam_cap", "offset": -0.2}, "at": P(0, 0, 0),
+             "until": {"shot": "never_noticed"},
+             "params": {"from": W("l19a", offset=0.2), "to": W("l19a", edge="end", offset=0.4), "a": [178.0, 34.0],
+                        "b": [214.0, 52.0], "distance": 3000.0, "size": 3.2, "brightness": 3.5,
+                        "flare": W("l19a", "name,", 0.0)}})
+SHOTS["kalam_cap"] = {
+    # Low and close, looking up at Kalam against the dusk glow: he takes the cap off on "fake" and the white mop springs
+    # up; a satellite crosses the sky above him and flares, unseen.
+    "look": LOOK_DUSK, "camera": move(
+        cam(P(_KD[0] - 0.3, 0.75, _KD[1] + 3.2), P(_KD[0] + 0.15, 1.55, _KD[1]), 32, {"strength": 0.1}),
+        cam(P(_KD[0] - 0.25, 0.8, _KD[1] + 2.7), P(_KD[0] + 0.1, 1.65, _KD[1]), 32, {"strength": 0.1}), "linear")}
+
+# ---- end_range: long after: the crater, the dust settled, rocks strewn; the White House plate lying blown out on the
+# rim with its chalk still on it. A crane up to the sky (end_feed continues up to the satellite and into its feed).
+_rp["blast"]["on"].append([{"shot": "end_range"}, {"shot": "end_feed"}, {"shot": "end_range", "offset": -120.0}])
+_RELIC = (28.0, 168.0)
+_rp["relic"] = {"at": list(_RELIC), "yaw": 10.0, "on": [[{"shot": "end_range", "offset": -0.1}, {"shot": "end_feed"}]],
+                "lines": ["WHITE", "HOUSE"]}
+_rp["clear"].append([_RELIC[0], _RELIC[1], 4.0])
+_RG = range_ground(*_RELIC)
+SHOTS["end_range"] = {
+    # Close on the plate in the sand, the chalk "WHITE HOUSE" on it; then a crane up and back: the crater beyond, the
+    # rocks strewn, the empty plain; tilting up into the afternoon sky.
+    "look": LOOK_AFTERNOON, "camera": {
+        "from": cam(P(_RELIC[0] + 0.4, round(_RG + 1.35, 3), _RELIC[1] + 1.5), P(_RELIC[0], round(_RG + 0.05, 3), _RELIC[1] - 0.1), 30, {"strength": 0.12}),
+        "to": cam(P(_RELIC[0] + 6.0, round(_RG + 26.0, 3), _RELIC[1] + 26.0), P(0.0, 30.0, -40.0), 30),
+        "ease": "in_out", "start": W("l21a", "one", 0.0), "end": W("l21a", edge="end", offset=0.3)}}
+
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS, "reveals": REVEALS}

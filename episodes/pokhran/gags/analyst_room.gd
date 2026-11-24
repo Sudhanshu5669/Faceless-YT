@@ -20,6 +20,8 @@ extends RefCounted
 ##           world (the PM's lawn), from `on`; from each feed's t the TV cuts to that camera (another place: the blast
 ##           footage), with its own background colour and ambient light (the room's look has no sun)
 ##   knock   t   the analyst's elbow knocks the snow globe; the snow swirls
+##   loop    {"from": t, "end": t}   the Short's loop: from `from` the feed glitches back to America's White House, intact,
+##           its feed clock running so that at `end` it is exactly where the hook starts (feed time 0)
 ##   report  {"hand": actor id, "drop": t, "at": [x, z]}   a thick bound report (navy covers, a red SECRET stamp)
 ##           held in the actor's right hand, slammed down flat onto the desk at (x, z) at `drop`: a hard landing, a
 ##           bounce, the mug and the globe jump, the snow swirls
@@ -987,6 +989,15 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 				stamp_text = String(rw.get("to", "DEC 1995"))
 			# Day-night flicker while the days strobe past; steady once it lands.
 			flicker = 1.0 - 0.45 * r2 * (0.5 + 0.5 * sin(t * 57.0)) * smoothstep(0.05, 0.3, k) * (1.0 - smoothstep(0.85, 1.0, k))
+	var loopd = _p.get("loop", {})
+	if loopd is Dictionary and loopd.has("from") and t >= float(loopd["from"]):
+		scene = 0.0
+		ft = t - float(loopd.get("end", t))
+		blast = 1e6
+		rew = 0.0
+		glitch = exp(-pow((t - float(loopd["from"])) / 0.12, 2.0))
+		stamp_text = ""
+		flicker = 1.0
 	_feed_mat.set_shader_parameter("t", ft)
 	_feed_mat.set_shader_parameter("tr", t)
 	_feed_mat.set_shader_parameter("blast", blast)
