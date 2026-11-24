@@ -496,5 +496,26 @@
     "updated": "2026-11-24 13:16:21",
     "fingerprint": "3767832c0710",
     "history": []
+  },
+  "end_range": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 13:16:27",
+    "fingerprint": "9b177e4f73d5",
+    "history": []
+  },
+  "end_feed": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 13:16:30",
+    "fingerprint": "ba1e91589086",
+    "history": []
+  },
+  "tech_day": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 13:34:10",
+    "fingerprint": "c1273c1a8fd7",
+    "history": []
   }
 }

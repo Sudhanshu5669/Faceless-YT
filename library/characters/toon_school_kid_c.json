@@ -1,0 +1,15 @@
+{
+  "id": "toon_school_kid_c",
+  "description": "An Indian schoolchild in uniform: white shirt, navy tie.",
+  "tags": ["toon", "human", "kid", "school"],
+  "height": 1.15,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "side", "color": "#211b18"},
+    "outfit": {"style": "shirt", "color": "#f4f4f2", "tie": "#1e2c5a"},
+    "shoes": "#141414",
+    "face": "happy",
+    "girth": 0.9
+  }
+}

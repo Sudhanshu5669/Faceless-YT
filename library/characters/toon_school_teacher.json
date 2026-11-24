@@ -1,0 +1,16 @@
+{
+  "id": "toon_school_teacher",
+  "description": "A schoolteacher (science): spectacles, a green cardigan over a kurta.",
+  "tags": ["toon", "human", "school"],
+  "height": 1.45,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "bun", "color": "#2a2220"},
+    "outfit": {"style": "kurta", "color": "#e8c9a0", "vest": "#2f6b4a"},
+    "shoes": "#3a2a20",
+    "accessories": ["glasses"],
+    "face": "happy",
+    "girth": 1.05
+  }
+}
