@@ -89,6 +89,10 @@ extends RefCounted
 ##              an observation post (a parked truck) shown only inside the windows. A window [t0, t1, t_blast] replays the
 ##              blast from t_blast instead of t (the same moment from another angle, like news footage). The 1998 site gear
 ##              and the heat-haze ring are hidden inside the windows
+##   goggles    {"actor": id, "on": [[t0, t1]], "looks": [[x, y, z], [x, y, z]], "fov": 40, "r": 0.26}   safety goggles on
+##              the actor's face (a rubber strap round the head, two round lenses in black cups); each lens mirrors a live
+##              view from that eye toward its `looks` point (a SubViewport, flipped like a reflection, tinted, over the
+##              faint eye behind it): aimed either side of the site, the lenses show the blast twice
 ##   village_far {"at": [x, z], "on": [[t0, t1], ...], "n": 9}   Khetolai on the horizon (only inside the windows): a
 ##              cluster of round mud huts with thatched cones inside a low mud wall, khejri trees, two threads of cooking
 ##              smoke rising: the village the wind must not blow toward (dramatised much closer than its real ~5 km)
@@ -688,6 +692,7 @@ func build(g: Dictionary) -> Node3D:
 	_lowering_build(root)
 	_cricket_build(root)
 	_village_far_build(root)
+	_goggles_build(root)
 	_blast_build(root)
 	if not (_p.get("jeep", {}) as Dictionary).is_empty():
 		_jeep = _vehicle(PB + "jeep.glb")
@@ -2915,6 +2920,115 @@ func _pose_village_far(t: float) -> void:
 		(q.material_override as StandardMaterial3D).albedo_color.a = 0.32 * sin(PI * k)
 
 
+const LENS := """
+shader_type spatial;
+render_mode cull_disabled;
+uniform sampler2D view : source_color, filter_linear;
+void fragment() {
+	vec2 q = UV - 0.5;
+	float r = length(q) * 2.0;
+	// A mirror image (flipped), bulged a little like a curved lens, tinted amber-green; a bright rim highlight.
+	vec2 uv = vec2(1.0 - UV.x, UV.y);
+	uv = 0.5 + (uv - 0.5) * (0.85 + 0.15 * r * r);
+	vec3 c = texture(view, uv).rgb * vec3(0.95, 0.9, 0.7) * 1.15;
+	c += vec3(1.0) * smoothstep(0.8, 0.95, r) * 0.25;
+	ALBEDO = c * 0.2;
+	EMISSION = c * 0.85;
+	ALPHA = 0.92 * (1.0 - smoothstep(0.97, 1.0, r));
+	ROUGHNESS = 0.05;
+	SPECULAR = 0.9;
+}
+"""
+
+var _gog: Node3D
+var _gog_lens: Array = []     # [MeshInstance3D, Camera3D, SubViewport]
+
+
+func _goggles_build(root: Node3D) -> void:
+	var gd: Dictionary = _p.get("goggles", {})
+	if gd.is_empty():
+		return
+	_gog = Node3D.new()
+	_gog.name = "goggles"
+	root.add_child(_gog)
+	var r := float(gd.get("r", 0.26))
+	var rubber := Kit.mat("#1a1a1a", 0.7)
+	# The strap: a band round the head at eye level.
+	var strap := MeshInstance3D.new()
+	var tm := TorusMesh.new()
+	tm.inner_radius = r * 1.0
+	tm.outer_radius = r * 1.07
+	tm.rings = 48
+	tm.ring_segments = 6
+	strap.mesh = tm
+	strap.material_override = rubber
+	strap.scale = Vector3(1, 0.35, 0.96)
+	_gog.add_child(strap)
+	for side: float in [-1.0, 1.0]:
+		var cup := Node3D.new()
+		cup.position = Vector3(side * r * 0.36, 0.0, r * 1.06)
+		_gog.add_child(cup)
+		Kit.cyl(cup, r * 0.27, r * 0.3, r * 0.2, Vector3(0, 0, 0), rubber, 24, Vector3(PI / 2, 0, 0))
+		var rim := MeshInstance3D.new()
+		var rt := TorusMesh.new()
+		rt.inner_radius = r * 0.22
+		rt.outer_radius = r * 0.28
+		rim.mesh = rt
+		rim.material_override = Kit.mat("#2a2a2a", 0.35, 0.6)
+		rim.rotation.x = PI / 2
+		rim.position = Vector3(0, 0, r * 0.1)
+		cup.add_child(rim)
+		var vp := SubViewport.new()
+		vp.size = Vector2i(384, 384)
+		vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+		vp.own_world_3d = false
+		vp.msaa_3d = Viewport.MSAA_2X
+		root.add_child(vp)
+		var vc := Camera3D.new()
+		vc.fov = float(gd.get("fov", 40.0))
+		vc.far = 6000.0
+		vp.add_child(vc)
+		var lm := ShaderMaterial.new()
+		lm.shader = Shader.new()
+		lm.shader.code = LENS
+		lm.set_shader_parameter("view", vp.get_texture())
+		var lens := Kit.quad(cup, Vector2(r * 0.46, r * 0.46), Vector3(0, 0, r * 0.105), lm)
+		lens.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		_gog_lens.append([lens, vc, vp, side])
+	_gog.visible = false
+
+
+func _pose_goggles(gt: Transform3D, t: float, ctx: Dictionary) -> void:
+	var gd: Dictionary = _p.get("goggles", {})
+	if _gog == null:
+		return
+	var on := false
+	for w in gd.get("on", []):
+		if t >= float(w[0]) and t < float(w[1]):
+			on = true
+	var a = ctx["actor"].call(String(gd["actor"])) if ctx.has("actor") else null
+	_gog.visible = on and a != null and a.visible
+	for e in _gog_lens:
+		(e[2] as SubViewport).render_target_update_mode = SubViewport.UPDATE_ALWAYS if _gog.visible else SubViewport.UPDATE_DISABLED
+	if not _gog.visible:
+		return
+	var inv := gt.affine_inverse()
+	var ay := float(a.rotation.y)
+	var head: Vector3 = a.bone_world("Head")
+	var r := float(gd.get("r", 0.26))
+	var centre := head + Vector3(0, float(gd.get("up", 0.2)), 0)
+	_gog.transform = Transform3D(Basis(Vector3.UP, ay - gt.basis.get_euler().y), inv * centre)
+	var looks: Array = gd.get("looks", [])
+	for i in _gog_lens.size():
+		var e: Array = _gog_lens[i]
+		var lens: MeshInstance3D = e[0]
+		var vc: Camera3D = e[1]
+		var eye := lens.global_position
+		var lk: Array = looks[i] if i < looks.size() else [0.0, 30.0, 0.0]
+		vc.global_position = eye
+		vc.look_at(gt * Vector3(float(lk[0]), float(lk[1]), float(lk[2])), Vector3.UP)
+
+
 static func _puff_tex() -> ImageTexture:
 	if _puff == null:
 		var img := Image.create(64, 64, false, Image.FORMAT_RGBA8)
@@ -3371,6 +3485,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_shimmer_mat.set_shader_parameter("strength", float(_p.get("shimmer", 1.0)))
 	# The windsock: heading and strength from the wind keys, a slow hunting swing on top.
 	_pose_village_far(t)
+	_pose_goggles(gt, t, ctx)
 	_pose_blast(t)
 	var keys: Array = _p.get("wind", [[0.0, 120.0, 0.55]])
 	var yaw := float(keys[0][1])

@@ -815,4 +815,25 @@ SHOTS.update({
                                     cam(P(298.0, round(range_ground(298.0, 139.0) + 1.5, 3), 139.0), P(0.0, 110.0, 0.0), 26), "linear")},
 })
 
+# ---- two_more: 13 May 1998, two more underground tests (Shakti-IV and V): Kalam at the observation post in safety
+# goggles; each lens reflects the desert heaving (accurate: dust domes, no fireball).
+_K2 = (_BJ_DIR[0] * (_BJ_D - 19.0) + _SIDE[0] * 0.2, _BJ_DIR[1] * (_BJ_D - 19.0) + _SIDE[1] * 0.2)
+_K2_Y = range_ground(*_K2)
+ACTORS.append({"id": "kalam_gog", "character": "toon_kalam_fatigues", "at": P(_K2[0], round(_K2_Y, 3), _K2[1]), "keep_y": True,
+               "facing": P(0.0, round(_K2_Y, 3), 0.0), "action": "idle",
+               "shown": [[{"shot": "two_more", "offset": -0.1}, {"shot": "lok_sabha"}]],
+               "cues": [{"t": 0.0, "expression": "determined"},
+                        {"t": W("l18a", "more.", 0.0), "expression": "grin"}]})
+_rp["blast"]["on"].append([{"shot": "two_more"}, {"shot": "lok_sabha"}, W("l18a", "more.", -0.55)])
+_rp["goggles"] = {"actor": "kalam_gog", "on": [[{"shot": "two_more", "offset": -0.1}, {"shot": "lok_sabha"}]],
+                  "looks": [[70.0, 30.0, 0.0], [-70.0, 30.0, 0.0]], "fov": 38.0, "r": 0.34, "up": 0.24}
+_KC0 = (_K2[0] - _BJ_DIR[0] * 1.9, _K2[1] - _BJ_DIR[1] * 1.9)
+_KC1 = (_K2[0] - _BJ_DIR[0] * 1.1, _K2[1] - _BJ_DIR[1] * 1.1)
+SHOTS["two_more"] = {
+    # Close on Kalam at the observation post, goggles on, the site behind us: on "two more" the desert heaves again and
+    # the dust climbs in both lenses; he grins. A slow push into the goggles; the shock arrives as a jolt.
+    "look": LOOK_BLAST, "shake": [{"t": W("l18a", "more.", 0.2), "amount": 0.25}],
+    "camera": move(cam(P(_KC0[0], round(_K2_Y + 1.3, 3), _KC0[1]), "kalam_gog.head", 40, {"strength": 0.15}),
+                   cam(P(_KC1[0], round(_K2_Y + 1.32, 3), _KC1[1]), "kalam_gog.head", 40, {"strength": 0.18}), "in_out")}
+
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS, "reveals": REVEALS}
