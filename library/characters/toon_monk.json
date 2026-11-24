@@ -1,0 +1,25 @@
+{
+  "id": "toon_monk",
+  "description": "A Tibetan monk (forge scene): shaven head, a maroon robe.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bald",
+      "color": "#2a2420"
+    },
+    "outfit": {
+      "style": "dress",
+      "color": "#7a1e22"
+    },
+    "shoes": "#3a2a20",
+    "face": "determined",
+    "girth": 0.98
+  }
+}
