@@ -17,9 +17,9 @@
   "voice": "Charon",
   "single_take": true,
   "inline_tags": true,
-  "max_pause": 0.5,
+  "max_pause": 0.6,
   "speed": 1.0,
-  "style": "gripping, cinematic documentary narrator for a YouTube deep dive on a comic-book villain"
+  "style": "gripping documentary storyteller"
  },
  "captions": {
   "enabled": true,
@@ -38,21 +38,21 @@
   {
    "id": "h1",
    "shot": "hall_wide",
-   "at": 0.3,
+   "at": 0.2,
    "text": "July 2024. Hall H, San Diego Comic-Con.",
    "style": "serious"
   },
   {
    "id": "h2",
    "shot": "hall_walk",
-   "at": 0.1,
+   "at": 0.05,
    "text": "More than six thousand fans watch a line of masked men in green cloaks walk onto the stage.",
    "style": "whispers"
   },
   {
    "id": "h3",
    "shot": "hall_unmask",
-   "at": 0.15,
+   "at": 0.05,
    "text": "Then one of them takes off his mask.",
    "style": "tense"
   },
@@ -66,14 +66,336 @@
   {
    "id": "h5",
    "shot": "hall_quote",
-   "at": 0.1,
+   "at": 0.05,
    "text": "And he tells the crowd: new mask, same task.",
    "style": "mischievously"
   },
   {
+   "id": "o1",
+   "shot": "gal_helmet",
+   "at": 0.05,
+   "text": "The man who spent eleven years as Marvel's greatest hero,",
+   "style": "serious"
+  },
+  {
+   "id": "o2",
+   "shot": "gal_circle",
+   "at": 0.05,
+   "text": "who died on screen saving the universe,",
+   "style": "serious"
+  },
+  {
+   "id": "o3",
+   "shot": "gal_shadow",
+   "at": 0.05,
+   "text": "is coming back as the villain who wants to rule it.",
+   "style": "tense"
+  },
+  {
+   "id": "o4",
+   "shot": "gal_title",
+   "at": 0.05,
+   "text": "His name is Victor von Doom.",
+   "style": "whispers"
+  },
+  {
+   "id": "o5",
+   "shot": "gal_two",
+   "at": 0.05,
+   "text": "And to understand why Marvel made this bet, you need two stories.",
+   "style": "serious"
+  },
+  {
+   "id": "o6",
+   "shot": "board_comic",
+   "at": 0.05,
+   "text": "The story of the most dangerous man in Marvel Comics.",
+   "style": "tense"
+  },
+  {
+   "id": "o7",
+   "shot": "board_crack",
+   "at": 0.05,
+   "text": "And the story of the year Marvel's master plan fell apart.",
+   "style": "serious"
+  },
+  {
+   "id": "o8",
+   "shot": "board_ticket",
+   "at": 0.05,
+   "text": "One is sixty years old. The other is still happening.",
+   "style": "serious"
+  },
+  {
+   "id": "o9",
+   "shot": "cinema_ticket",
+   "at": 0.05,
+   "text": "And they're about to collide on December 18th.",
+   "style": "excited"
+  },
+  {
+   "id": "c1a",
+   "shot": "cinema_2019",
+   "at": 0.05,
+   "text": "Rewind to 2019.",
+   "style": "serious"
+  },
+  {
+   "id": "c1b",
+   "shot": "cinema_crowd",
+   "at": 0.05,
+   "text": "Avengers: Endgame closes out eleven years of Marvel movies,",
+   "style": "excited"
+  },
+  {
+   "id": "c1c",
+   "shot": "cinema_counter",
+   "at": 0.05,
+   "text": "and makes nearly two point eight billion dollars.",
+   "style": "excited"
+  },
+  {
+   "id": "c1d",
+   "shot": "cinema_biggest",
+   "at": 0.05,
+   "text": "For a while, it's the biggest movie ever made.",
+   "style": "proud"
+  },
+  {
+   "id": "c1e",
+   "shot": "board_blank",
+   "at": 0.05,
+   "text": "Now Marvel needs a new villain. Someone bigger than Thanos.",
+   "style": "serious"
+  },
+  {
+   "id": "c1f",
+   "shot": "board_flip",
+   "at": 0.05,
+   "text": "They choose Kang the Conqueror: a man who rules across time itself.",
+   "style": "tense"
+  },
+  {
+   "id": "c1g",
+   "shot": "board_loki",
+   "at": 0.05,
+   "text": "A version of him appears in Loki in 2021.",
+   "style": "serious"
+  },
+  {
+   "id": "c1h",
+   "shot": "board_quantum",
+   "at": 0.05,
+   "text": "Kang himself arrives in Quantumania in 2023.",
+   "style": "serious"
+  },
+  {
+   "id": "c1i",
+   "shot": "hall_2022",
+   "at": 0.05,
+   "text": "And at Comic-Con 2022, Marvel announces the movie it's all leading to:",
+   "style": "excited"
+  },
+  {
+   "id": "c1j",
+   "shot": "hall_kang",
+   "at": 0.05,
+   "text": "Avengers: The Kang Dynasty, set for May 2025.",
+   "style": "excited"
+  },
+  {
+   "id": "k1",
+   "shot": "board_plan",
+   "at": 0.05,
+   "text": "Marvel had built its next saga around one villain: Kang.",
+   "style": "serious"
+  },
+  {
+   "id": "c1k",
+   "shot": "board_chart",
+   "at": 0.05,
+   "text": "Then it starts to crack.",
+   "style": "tense"
+  },
+  {
+   "id": "c1l",
+   "shot": "board_fade",
+   "at": 0.05,
+   "text": "Quantumania opens big, then fades fast, with brutal reviews.",
+   "style": "sighs"
+  },
+  {
+   "id": "c1m",
+   "shot": "board_arrest",
+   "at": 0.05,
+   "text": "In March 2023, the actor playing Kang, Jonathan Majors, is arrested in New York.",
+   "style": "serious"
+  },
+  {
+   "id": "k2",
+   "shot": "board_news",
+   "at": 0.05,
+   "text": "Then, in December 2023, the actor who played him is convicted of assault and harassment.",
+   "style": "serious"
+  },
+  {
+   "id": "k3",
+   "shot": "board_collapse",
+   "at": 0.05,
+   "text": "Marvel drops him the same day.",
+   "style": "serious"
+  },
+  {
+   "id": "k4",
+   "shot": "board_fall",
+   "at": 0.05,
+   "text": "And the whole plan comes down.",
+   "style": "sighs"
+  },
+  {
+   "id": "c1n",
+   "shot": "board_empty",
+   "at": 0.05,
+   "text": "Years of story, and no villain at the centre.",
+   "style": "whispers"
+  },
+  {
+   "id": "v0a",
+   "shot": "shop_night",
+   "at": 0.05,
+   "text": "Marvel needed someone new.",
+   "style": "serious"
+  },
+  {
+   "id": "v0b",
+   "shot": "shop_box",
+   "at": 0.05,
+   "text": "But the answer was already sixty years old.",
+   "style": "mischievously"
+  },
+  {
+   "id": "v0c",
+   "shot": "shop_cover",
+   "at": 0.05,
+   "text": "July 1962. Stan Lee and Jack Kirby introduce a new villain in Fantastic Four number five.",
+   "style": "excited"
+  },
+  {
+   "id": "v0d",
+   "shot": "shop_meet",
+   "at": 0.05,
+   "text": "Meet... Doctor Doom.",
+   "style": "whispers"
+  },
+  {
+   "id": "v0e",
+   "shot": "doom62_kidnap",
+   "at": 0.05,
+   "text": "In his very first story, Doom kidnaps the Invisible Woman,",
+   "style": "tense"
+  },
+  {
+   "id": "v0f",
+   "shot": "doom62_platform",
+   "at": 0.05,
+   "text": "and forces the rest of the team into his time machine,",
+   "style": "tense"
+  },
+  {
+   "id": "v0g",
+   "shot": "pirate_chest",
+   "at": 0.05,
+   "text": "to steal Blackbeard's treasure for him.",
+   "style": "excited"
+  },
+  {
+   "id": "v0h",
+   "shot": "pirate_thing",
+   "at": 0.05,
+   "text": "The Thing ends up becoming Blackbeard.",
+   "style": "laughs"
+  },
+  {
+   "id": "v0i",
+   "shot": "doom62_feet",
+   "at": 0.05,
+   "text": "That's Doom from day one. He doesn't just fight heroes. He makes them work for him.",
+   "style": "serious"
+  },
+  {
+   "id": "v0j",
+   "shot": "shop_stack",
+   "at": 0.05,
+   "text": "Within ten years, he's fought the Avengers, Spider-Man, Iron Man and Daredevil.",
+   "style": "excited"
+  },
+  {
+   "id": "v0k",
+   "shot": "lat_valley",
+   "at": 0.05,
+   "text": "His origin comes two years later.",
+   "style": "serious"
+  },
+  {
+   "id": "v0l",
+   "shot": "lat_castle",
+   "at": 0.05,
+   "text": "Victor von Doom is born in Latveria, a tiny kingdom in the mountains of Europe, to a Romani family.",
+   "style": "serious"
+  },
+  {
+   "id": "v0m",
+   "shot": "lat_wagon",
+   "at": 0.05,
+   "text": "His mother, Cynthia, is a witch. She dies when he's a baby.",
+   "style": "whispers"
+  },
+  {
+   "id": "v0n",
+   "shot": "lat_healer",
+   "at": 0.05,
+   "text": "His father, Werner, is a healer.",
+   "style": "serious"
+  },
+  {
+   "id": "v0o",
+   "shot": "lat_flee",
+   "at": 0.05,
+   "text": "When he can't save the Baron's dying wife, he runs with his son into the snow,",
+   "style": "tense"
+  },
+  {
+   "id": "v0p",
+   "shot": "lat_freeze",
+   "at": 0.05,
+   "text": "and freezes to death.",
+   "style": "whispers"
+  },
+  {
+   "id": "v0q",
+   "shot": "lat_chest",
+   "at": 0.05,
+   "text": "Alone, Victor finds his mother's secret: a chest of magic.",
+   "style": "whispers"
+  },
+  {
+   "id": "v0r",
+   "shot": "lat_vow",
+   "at": 0.05,
+   "text": "And he swears revenge.",
+   "style": "tense"
+  },
+  {
+   "id": "v0s",
+   "shot": "liner_deck",
+   "at": 0.05,
+   "text": "He grows up brilliant. So brilliant, a university in America offers him a scholarship.",
+   "style": "proud"
+  },
+  {
    "id": "v1",
    "shot": "lab_machine",
-   "at": 0.3,
+   "at": 0.05,
    "text": "At Empire State University, Victor builds a machine to reach the realm of the dead, and speak to his mother.",
    "style": "serious"
   },
@@ -89,7 +411,7 @@
    "shot": "lab_ignore",
    "at": 0.05,
    "text": "Victor ignores him.",
-   "style": "deadpan"
+   "style": "mischievously"
   },
   {
    "id": "v4",
@@ -99,25 +421,347 @@
    "style": "shouting"
   },
   {
-   "id": "k1",
-   "shot": "board_plan",
-   "at": 0.3,
-   "text": "Marvel had built its next saga around one villain: Kang.",
+   "id": "v5",
+   "shot": "campus_gates",
+   "at": 0.05,
+   "text": "He's expelled. And he blames Reed, forever.",
    "style": "serious"
   },
   {
-   "id": "k2",
-   "shot": "board_news",
+   "id": "v6",
+   "shot": "mirror_scar",
    "at": 0.05,
-   "text": "Then, in December 2023, the actor who played him was convicted of assault and harassment.",
+   "text": "In the first comics, the scar is tiny: Jack Kirby drew a small mark on his cheek.",
    "style": "serious"
   },
   {
-   "id": "k3",
-   "shot": "board_collapse",
+   "id": "v7",
+   "shot": "mirror_warp",
    "at": 0.05,
-   "text": "Marvel dropped him the same day. And the whole plan came down.",
+   "text": "But to Victor, his face is ruined.",
+   "style": "whispers"
+  },
+  {
+   "id": "v8",
+   "shot": "tibet_cliff",
+   "at": 0.05,
+   "text": "He travels to Tibet, where monks teach him their secrets,",
+   "style": "serious"
+  },
+  {
+   "id": "v9",
+   "shot": "tibet_forge",
+   "at": 0.05,
+   "text": "and there, he forges his armor.",
+   "style": "tense"
+  },
+  {
+   "id": "v10",
+   "shot": "tibet_mask",
+   "at": 0.05,
+   "text": "In one famous retelling, he puts on the mask while it's still red-hot.",
+   "style": "whispers"
+  },
+  {
+   "id": "v11",
+   "shot": "castle_gates",
+   "at": 0.05,
+   "text": "Victor goes home, and takes the throne of Latveria.",
+   "style": "proud"
+  },
+  {
+   "id": "v12",
+   "shot": "castle_throne",
+   "at": 0.05,
+   "text": "From that day, he has one name. Doctor Doom.",
+   "style": "whispers"
+  },
+  {
+   "id": "d1",
+   "shot": "throne_wide",
+   "at": 0.05,
+   "text": "So why is Doom such a big deal? Start with this: he's a king.",
+   "style": "serious"
+  },
+  {
+   "id": "d2",
+   "shot": "castle_immunity",
+   "at": 0.05,
+   "text": "A head of state, with diplomatic immunity. The heroes can't just arrest him.",
+   "style": "chuckles"
+  },
+  {
+   "id": "d3",
+   "shot": "doom_hands",
+   "at": 0.05,
+   "text": "He's one of the smartest men on Earth. And a sorcerer.",
+   "style": "tense"
+  },
+  {
+   "id": "d4",
+   "shot": "doombots_row",
+   "at": 0.05,
+   "text": "He builds robot copies of himself, Doombots,",
+   "style": "excited"
+  },
+  {
+   "id": "d5",
+   "shot": "doombots_pop",
+   "at": 0.05,
+   "text": "so you never know if you're fighting the real one.",
+   "style": "mischievously"
+  },
+  {
+   "id": "d6",
+   "shot": "hell_fight",
+   "at": 0.05,
+   "text": "And every year, he fights the Devil himself, for his mother's soul.",
+   "style": "tense"
+  },
+  {
+   "id": "d7",
+   "shot": "surfer_sky",
+   "at": 0.05,
+   "text": "He once stole the power of the Silver Surfer.",
+   "style": "excited"
+  },
+  {
+   "id": "d8",
+   "shot": "beyonder_grab",
+   "at": 0.05,
+   "text": "In 1984's Secret Wars, he steals the power of the Beyonder, a being so powerful he's practically a god.",
+   "style": "excited"
+  },
+  {
+   "id": "d9",
+   "shot": "beyonder_hand",
+   "at": 0.05,
+   "text": "For a moment, Doom holds the universe in his hand.",
+   "style": "whispers"
+  },
+  {
+   "id": "d10",
+   "shot": "bw_planet",
+   "at": 0.05,
+   "text": "In 2015, he goes even further. When the multiverse ends, Doom saves what's left,",
+   "style": "serious"
+  },
+  {
+   "id": "d11",
+   "shot": "bw_stitch",
+   "at": 0.05,
+   "text": "stitches it into one patchwork world called Battleworld,",
+   "style": "excited"
+  },
+  {
+   "id": "d12",
+   "shot": "bw_throne",
+   "at": 0.05,
+   "text": "and rules it as God Emperor Doom.",
+   "style": "proud"
+  },
+  {
+   "id": "d13",
+   "shot": "bw_heal",
+   "at": 0.05,
+   "text": "And at the very end, Reed Richards does what Victor never could. He heals his face.",
+   "style": "whispers"
+  },
+  {
+   "id": "d14",
+   "shot": "emp_cloak",
+   "at": 0.05,
+   "text": "And in 2025, after taking the title of Sorcerer Supreme from Doctor Strange, he does it again.",
+   "style": "tense"
+  },
+  {
+   "id": "d15",
+   "shot": "emp_globe",
+   "at": 0.05,
+   "text": "Overnight, Doom takes over the whole world, and names himself its emperor.",
+   "style": "excited"
+  },
+  {
+   "id": "d16",
+   "shot": "board_titles",
+   "at": 0.05,
+   "text": "That's the story Marvel's next two Avengers movies are building toward.",
+   "style": "serious"
+  },
+  {
+   "id": "d17",
+   "shot": "hosp_bed",
+   "at": 0.05,
+   "text": "And here's the twist. In 2016, while Tony Stark lay in a coma,",
+   "style": "mischievously"
+  },
+  {
+   "id": "d18",
+   "shot": "hosp_helmet",
+   "at": 0.05,
+   "text": "Doom put on the armor, and became Iron Man.",
+   "style": "tense"
+  },
+  {
+   "id": "d19",
+   "shot": "city_ironman",
+   "at": 0.05,
+   "text": "Doom has already been Iron Man once.",
+   "style": "chuckles"
+  },
+  {
+   "id": "r1",
+   "shot": "hall_why",
+   "at": 0.05,
+   "text": "So why Robert Downey Junior?",
+   "style": "serious"
+  },
+  {
+   "id": "r2",
+   "shot": "dress_oscar",
+   "at": 0.05,
+   "text": "Four months before Hall H, he'd just won his first Oscar, for Oppenheimer.",
+   "style": "proud"
+  },
+  {
+   "id": "r3",
+   "shot": "reels_past",
+   "at": 0.05,
+   "text": "And Doom has been on the big screen before.",
+   "style": "serious"
+  },
+  {
+   "id": "r4",
+   "shot": "reels_mcmahon",
+   "at": 0.05,
+   "text": "Julian McMahon played him twice for Fox, in 2005 and 2007.",
+   "style": "serious"
+  },
+  {
+   "id": "r5",
+   "shot": "reels_kebbell",
+   "at": 0.05,
+   "text": "Toby Kebbell played him in 2015.",
+   "style": "serious"
+  },
+  {
+   "id": "r6",
+   "shot": "shop_wait",
+   "at": 0.05,
+   "text": "Fans have waited a long time for a Doom that feels like the comics.",
    "style": "sighs"
+  },
+  {
+   "id": "r7",
+   "shot": "gal_mirror",
+   "at": 0.05,
+   "text": "Because Doom is Tony Stark's dark mirror.",
+   "style": "whispers"
+  },
+  {
+   "id": "r8",
+   "shot": "gal_both",
+   "at": 0.05,
+   "text": "Both are geniuses. Both hide inside metal suits. Both have enormous egos.",
+   "style": "serious"
+  },
+  {
+   "id": "r9",
+   "shot": "gal_light",
+   "at": 0.05,
+   "text": "Tony learned to use his for other people. Victor never did.",
+   "style": "serious"
+  },
+  {
+   "id": "r10",
+   "shot": "hall_russos",
+   "at": 0.05,
+   "text": "Marvel brought back the directors who made Endgame, Joe and Anthony Russo.",
+   "style": "excited"
+  },
+  {
+   "id": "r11",
+   "shot": "board_contract",
+   "at": 0.05,
+   "text": "And according to Variety, Downey's deal is worth more than eighty million dollars.",
+   "style": "excited"
+  },
+  {
+   "id": "r12",
+   "shot": "board_question",
+   "at": 0.05,
+   "text": "But how can the X-Men and the Fantastic Four even be in an Avengers movie?",
+   "style": "serious"
+  },
+  {
+   "id": "r13",
+   "shot": "board_fox",
+   "at": 0.05,
+   "text": "In 2019, Disney bought Twenty-First Century Fox, and with it, the film rights to both.",
+   "style": "serious"
+  },
+  {
+   "id": "r14",
+   "shot": "rocket_pad",
+   "at": 0.05,
+   "text": "In 2025, The Fantastic Four: First Steps brought Marvel's first family home.",
+   "style": "proud"
+  },
+  {
+   "id": "r15",
+   "shot": "rocket_shadow",
+   "at": 0.05,
+   "text": "And Doom comes with them.",
+   "style": "whispers"
+  },
+  {
+   "id": "r16",
+   "shot": "cinema_trailer",
+   "at": 0.05,
+   "text": "The trailers show the X-Men from the old Fox movies, the Fantastic Four, and Steve Rogers, back.",
+   "style": "excited"
+  },
+  {
+   "id": "r17",
+   "shot": "gal_eye",
+   "at": 0.05,
+   "text": "And in the trailer, Sue Storm says it simply: he used to be different.",
+   "style": "whispers"
+  },
+  {
+   "id": "r18",
+   "shot": "cinema_marquee",
+   "at": 0.05,
+   "text": "Avengers: Doomsday arrives on December 18th. Secret Wars follows in December 2027.",
+   "style": "excited"
+  },
+  {
+   "id": "r19",
+   "shot": "castle_night",
+   "at": 0.05,
+   "text": "Whatever Victor von Doom wants this time, one thing is certain.",
+   "style": "serious"
+  },
+  {
+   "id": "r20",
+   "shot": "castle_window",
+   "at": 0.05,
+   "text": "He has never settled for saving the world.",
+   "style": "tense"
+  },
+  {
+   "id": "e1",
+   "shot": "hall_end",
+   "at": 0.05,
+   "text": "Back in Hall H, the man who played Iron Man lifts the mask one more time.",
+   "style": "serious"
+  },
+  {
+   "id": "e2",
+   "shot": "hall_final",
+   "at": 0.05,
+   "text": "New mask. Same task.",
+   "style": "mischievously"
   }
  ],
  "actors": [
@@ -708,8 +1352,8 @@
     },
     {
      "t": {
-      "line": "k3",
-      "word": "came"
+      "line": "k4",
+      "word": "comes"
      },
      "facing": {
       "anchor": "board",
@@ -883,12 +1527,12 @@
      "actor": "feige",
      "t": {
       "line": "k3",
-      "word": "dropped"
+      "word": "drops"
      }
     },
     "collapse": {
-     "line": "k3",
-     "word": "came"
+     "line": "k4",
+     "word": "comes"
     }
    }
   }
@@ -1448,6 +2092,1594 @@
    }
   },
   {
+   "name": "gal_helmet",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "gal_circle",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "gal_shadow",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "gal_title",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "gal_two",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_comic",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_crack",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_ticket",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "cinema_ticket",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "cinema_2019",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "cinema_crowd",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "cinema_counter",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "cinema_biggest",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_blank",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_flip",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_loki",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_quantum",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "hall_2022",
+   "camera": {
+    "at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "hall_kang",
+   "camera": {
+    "at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_plan",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.2,
+       1.55,
+       40003.2
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.9,
+       39994.0
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.08
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.3,
+       1.9,
+       39998.6
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       2.55,
+       39994.0
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.1
+     }
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
+   }
+  },
+  {
+   "name": "board_chart",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_fade",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_arrest",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_news",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.6,
+       1.3,
+       39997.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.75,
+       1.15,
+       39995.15
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.16
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.45,
+       1.28,
+       39997.1
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.75,
+       1.15,
+       39995.15
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.18
+     }
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
+   }
+  },
+  {
+   "name": "board_collapse",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.6,
+       1.75,
+       39996.8
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.2,
+       2.3,
+       39994.0
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.08
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.7,
+       1.7,
+       39997.1
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.2,
+       2.2,
+       39994.0
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.08
+     }
+    },
+    "ease": "out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
+   }
+  },
+  {
+   "name": "board_fall",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       1.2,
+       1.5,
+       39998.8
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.2,
+       1.8,
+       39994.0
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.06
+     }
+    },
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       1.4,
+       1.45,
+       39999.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.2,
+       1.6,
+       39994.0
+      ]
+     },
+     "lens_mm": 26,
+     "dof": {
+      "strength": 0.06
+     }
+    },
+    "ease": "out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "k4",
+      "word": "comes",
+      "offset": 1.35
+     },
+     "amount": 0.18
+    }
+   ]
+  },
+  {
+   "name": "board_empty",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "shop_night",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "shop_box",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "shop_cover",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "shop_meet",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "doom62_kidnap",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "doom62_platform",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "pirate_chest",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "pirate_thing",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "doom62_feet",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "shop_stack",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "lat_valley",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "lat_castle",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "lat_wagon",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "lat_healer",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "lat_flee",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "lat_freeze",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "lat_chest",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "lat_vow",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "liner_deck",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
    "name": "lab_machine",
    "camera": {
     "from": {
@@ -1909,347 +4141,1327 @@
    ]
   },
   {
-   "name": "board_plan",
+   "name": "campus_gates",
    "camera": {
-    "from": {
-     "at": {
-      "anchor": "board",
-      "offset": [
-       -0.2,
-       1.55,
-       40003.2
-      ]
-     },
-     "look_at": {
-      "anchor": "board",
-      "offset": [
-       -0.0,
-       1.9,
-       39994.0
-      ]
-     },
-     "lens_mm": 28,
-     "dof": {
-      "strength": 0.08
-     }
+    "at": {
+     "anchor": "lab",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
     },
-    "to": {
-     "at": {
-      "anchor": "board",
-      "offset": [
-       -0.3,
-       1.9,
-       39998.6
-      ]
-     },
-     "look_at": {
-      "anchor": "board",
-      "offset": [
-       -0.0,
-       2.55,
-       39994.0
-      ]
-     },
-     "lens_mm": 32,
-     "dof": {
-      "strength": 0.1
-     }
+    "look_at": {
+     "anchor": "lab",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
     },
-    "ease": "in_out"
+    "lens_mm": 35
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
-   },
-   "look": {
-    "base": "night_fog",
-    "time": "23:00",
-    "weather": {
-     "fog": 0.0,
-     "rain": 0.0,
-     "clouds": 0.0,
-     "wind": 0.0
-    },
-    "sun": {
-     "elevation": -20,
-     "azimuth": 0,
-     "color": "#000000",
-     "energy": 0.0,
-     "visible": false,
-     "shadows": false
-    },
-    "moon": {
-     "elevation": -20,
-     "visible": false,
-     "energy": 0.0
-    },
-    "sky": {
-     "top": "#04060a",
-     "horizon": "#0b1220",
-     "clouds": 0.0,
-     "stars": 0.0,
-     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
-     "panorama_energy": 0.55,
-     "panorama_yaw": 90
-    },
-    "ambient": {
-     "color": "#202838",
-     "energy": 0.12,
-     "sky": 0.0
-    },
-    "fog": {
-     "begin": 400,
-     "end": 3000,
-     "curve": 1.8,
-     "volumetric": 0.0
-    },
-    "glow": {
-     "enabled": true,
-     "intensity": 0.7,
-     "bloom": 0.04,
-     "threshold": 1.1
-    },
-    "ssao": true,
-    "grade": {
-     "contrast": 1.18,
-     "saturation": 0.98,
-     "vignette": 0.45,
-     "grain": 0.04
-    }
    }
   },
   {
-   "name": "board_news",
+   "name": "mirror_scar",
    "camera": {
-    "from": {
-     "at": {
-      "anchor": "board",
-      "offset": [
-       -1.6,
-       1.3,
-       39997.4
-      ]
-     },
-     "look_at": {
-      "anchor": "board",
-      "offset": [
-       -0.75,
-       1.15,
-       39995.15
-      ]
-     },
-     "lens_mm": 40,
-     "dof": {
-      "strength": 0.16
-     }
+    "at": {
+     "anchor": "lab",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
     },
-    "to": {
-     "at": {
-      "anchor": "board",
-      "offset": [
-       -1.45,
-       1.28,
-       39997.1
-      ]
-     },
-     "look_at": {
-      "anchor": "board",
-      "offset": [
-       -0.75,
-       1.15,
-       39995.15
-      ]
-     },
-     "lens_mm": 40,
-     "dof": {
-      "strength": 0.18
-     }
+    "look_at": {
+     "anchor": "lab",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
     },
-    "ease": "in_out"
+    "lens_mm": 35
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
-   },
-   "look": {
-    "base": "night_fog",
-    "time": "23:00",
-    "weather": {
-     "fog": 0.0,
-     "rain": 0.0,
-     "clouds": 0.0,
-     "wind": 0.0
-    },
-    "sun": {
-     "elevation": -20,
-     "azimuth": 0,
-     "color": "#000000",
-     "energy": 0.0,
-     "visible": false,
-     "shadows": false
-    },
-    "moon": {
-     "elevation": -20,
-     "visible": false,
-     "energy": 0.0
-    },
-    "sky": {
-     "top": "#04060a",
-     "horizon": "#0b1220",
-     "clouds": 0.0,
-     "stars": 0.0,
-     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
-     "panorama_energy": 0.55,
-     "panorama_yaw": 90
-    },
-    "ambient": {
-     "color": "#202838",
-     "energy": 0.12,
-     "sky": 0.0
-    },
-    "fog": {
-     "begin": 400,
-     "end": 3000,
-     "curve": 1.8,
-     "volumetric": 0.0
-    },
-    "glow": {
-     "enabled": true,
-     "intensity": 0.7,
-     "bloom": 0.04,
-     "threshold": 1.1
-    },
-    "ssao": true,
-    "grade": {
-     "contrast": 1.18,
-     "saturation": 0.98,
-     "vignette": 0.45,
-     "grain": 0.04
-    }
    }
   },
   {
-   "name": "board_collapse",
+   "name": "mirror_warp",
    "camera": {
-    "from": {
-     "at": {
-      "anchor": "board",
-      "offset": [
-       1.2,
-       1.5,
-       39998.8
-      ]
-     },
-     "look_at": {
-      "anchor": "board",
-      "offset": [
-       -0.2,
-       1.8,
-       39994.0
-      ]
-     },
-     "lens_mm": 26,
-     "dof": {
-      "strength": 0.06
-     }
+    "at": {
+     "anchor": "lab",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
     },
-    "to": {
-     "at": {
-      "anchor": "board",
-      "offset": [
-       1.4,
-       1.45,
-       39999.4
-      ]
-     },
-     "look_at": {
-      "anchor": "board",
-      "offset": [
-       -0.2,
-       1.6,
-       39994.0
-      ]
-     },
-     "lens_mm": 26,
-     "dof": {
-      "strength": 0.06
-     }
+    "look_at": {
+     "anchor": "lab",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
     },
-    "ease": "out"
+    "lens_mm": 35
    },
    "duration": {
     "fit": true,
     "min": 1.0,
-    "tail": 1.8
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "tibet_cliff",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
    },
-   "look": {
-    "base": "night_fog",
-    "time": "23:00",
-    "weather": {
-     "fog": 0.0,
-     "rain": 0.0,
-     "clouds": 0.0,
-     "wind": 0.0
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "tibet_forge",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
     },
-    "sun": {
-     "elevation": -20,
-     "azimuth": 0,
-     "color": "#000000",
-     "energy": 0.0,
-     "visible": false,
-     "shadows": false
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
     },
-    "moon": {
-     "elevation": -20,
-     "visible": false,
-     "energy": 0.0
-    },
-    "sky": {
-     "top": "#04060a",
-     "horizon": "#0b1220",
-     "clouds": 0.0,
-     "stars": 0.0,
-     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
-     "panorama_energy": 0.55,
-     "panorama_yaw": 90
-    },
-    "ambient": {
-     "color": "#202838",
-     "energy": 0.12,
-     "sky": 0.0
-    },
-    "fog": {
-     "begin": 400,
-     "end": 3000,
-     "curve": 1.8,
-     "volumetric": 0.0
-    },
-    "glow": {
-     "enabled": true,
-     "intensity": 0.7,
-     "bloom": 0.04,
-     "threshold": 1.1
-    },
-    "ssao": true,
-    "grade": {
-     "contrast": 1.18,
-     "saturation": 0.98,
-     "vignette": 0.45,
-     "grain": 0.04
-    }
+    "lens_mm": 35
    },
-   "shake": [
-    {
-     "t": {
-      "line": "k3",
-      "word": "down.",
-      "offset": 0.25
-     },
-     "amount": 0.18
-    }
-   ]
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "tibet_mask",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "castle_gates",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "castle_throne",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "throne_wide",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "castle_immunity",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "doom_hands",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "doombots_row",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "doombots_pop",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "hell_fight",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "surfer_sky",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "beyonder_grab",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "beyonder_hand",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "bw_planet",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "bw_stitch",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "bw_throne",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "bw_heal",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "emp_cloak",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "emp_globe",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_titles",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "hosp_bed",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "hosp_helmet",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "city_ironman",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "hall_why",
+   "camera": {
+    "at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "dress_oscar",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "reels_past",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "reels_mcmahon",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "reels_kebbell",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "shop_wait",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "gal_mirror",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "gal_both",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "gal_light",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "hall_russos",
+   "camera": {
+    "at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_contract",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_question",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "board_fox",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "rocket_pad",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "rocket_shadow",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "cinema_trailer",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "gal_eye",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "cinema_marquee",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "castle_night",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "castle_window",
+   "camera": {
+    "at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "board",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "hall_end",
+   "camera": {
+    "at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
+  },
+  {
+   "name": "hall_final",
+   "camera": {
+    "at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hall",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.3
+   }
   }
  ]
 }

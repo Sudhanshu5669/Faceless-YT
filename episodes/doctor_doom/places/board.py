@@ -29,8 +29,8 @@ LOOK_BOARD = {
     "grade": {"contrast": 1.18, "saturation": 0.98, "vignette": 0.45, "grain": 0.04},
 }
 
-PULL = W("k3", "dropped", 0.0)
-COLLAPSE = W("k3", "came", 0.0)
+PULL = W("k3", "drops", 0.0)
+COLLAPSE = W("k4", "comes", 0.0)
 
 ACTORS = [
     {"id": "feige", "character": "toon_feige", "at": P(0.75, 0, -4.85), "facing": P(0.0, 0, -6.0), "action": "idle",
@@ -57,8 +57,12 @@ SHOTS = {
     "board_news": {"look": LOOK_BOARD, "camera": move(
         cam(P(1.6, 1.3, -2.6), P(0.75, 1.15, -4.85), 40, {"strength": 0.16}),
         cam(P(1.45, 1.28, -2.9), P(0.75, 1.15, -4.85), 40, {"strength": 0.18}), "in_out")},
-    # Wide from the table: the tear, then the cards rain and the wall comes down.
-    "board_collapse": {"look": LOOK_BOARD, "duration": {"fit": True, "min": 1.0, "tail": 1.8}, "shake": [{"t": W("k3", "down.", 0.25), "amount": 0.18}], "camera": move(
+    # Close on the wall: Feige tears the Kang card off on "drops".
+    "board_collapse": {"look": LOOK_BOARD, "camera": move(
+        cam(P(-0.6, 1.75, -3.2), P(0.2, 2.3, -6.0), 30, {"strength": 0.08}),
+        cam(P(-0.7, 1.7, -2.9), P(0.2, 2.2, -6.0), 30, {"strength": 0.08}), "out")},
+    # Wide from the table: the cards rain and the cork wall topples on "comes down".
+    "board_fall": {"look": LOOK_BOARD, "shake": [{"t": W("k4", "comes", 1.35), "amount": 0.18}], "camera": move(
         cam(P(-1.2, 1.5, -1.2), P(0.2, 1.8, -6.0), 26, {"strength": 0.06}),
         cam(P(-1.4, 1.45, -0.6), P(0.2, 1.6, -6.0), 26, {"strength": 0.06}), "out")},
 }

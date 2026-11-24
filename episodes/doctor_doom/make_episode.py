@@ -19,47 +19,24 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-PLACE_MODULES = [m for m in ["hall", "lab", "board"] if (HERE / "places" / f"{m}.py").exists()]
+from lines import L, PLACE_OF, CHAPTERS  # noqa: E402
+
+PLACE_MODULES = [m for m in ["hall", "lab", "board", "gallery", "cinema", "shop", "doom62", "latveria", "tibet", "castle",
+                             "hell", "cosmos", "hospital", "dressing"] if (HERE / "places" / f"{m}.py").exists()]
 
 NARRATION = {"model": "gemini-3.8-flash-lite-tts", "voice": "Charon", "single_take": True, "inline_tags": True,
-             "max_pause": 0.5, "speed": 1.0,
-             "style": "gripping, cinematic documentary narrator for a YouTube deep dive on a comic-book villain"}
+             "max_pause": 0.6, "speed": 1.0, "style": "gripping documentary storyteller"}
 
-# (line id, first shot, start inside that shot, text, style). Styles are one-word inline tags (see pokhran).
-LINES = [
-    # Hall H (cold open). Sources: CBC / AP 2024-07-27 (the unmasking, "New mask, same task."); Hall H seats ~6,130.
-    ("h1", "hall_wide", 0.3, "July 2024. Hall H, San Diego Comic-Con.", "serious"),
-    ("h2", "hall_walk", 0.1, "More than six thousand fans watch a line of masked men in green cloaks walk onto the stage.",
-     "whispers"),
-    ("h3", "hall_unmask", 0.15, "Then one of them takes off his mask.", "tense"),
-    ("h4", "hall_reveal", 0.05, "It's Robert Downey Junior. Iron Man himself.", "excited"),
-    ("h5", "hall_quote", 0.1, "And he tells the crowd: new mask, same task.", "mischievously"),
-    # The lab (chapter 2). Sources: Wikipedia "Doctor Doom" (Empire State University, Reed), Nerdist / TV Tropes
-    # (the machine to reach his mother in the realm of the dead, Reed's warning about the calculations, the explosion).
-    ("v1", "lab_machine", 0.3, "At Empire State University, Victor builds a machine to reach the realm of the dead, "
-     "and speak to his mother.", "serious"),
-    ("v2", "lab_warning", 0.05, "His classmate, Reed Richards, spots a flaw in the calculations.", "tense"),
-    ("v3", "lab_ignore", 0.05, "Victor ignores him.", "deadpan"),
-    ("v4", "lab_blast", 0.05, "The machine explodes in his face.", "shouting"),
-    # The board (chapter 1). Sources: Wikipedia "Avengers: Doomsday" (The Kang Dynasty, SDCC 2022), "Jonathan Majors"
-    # (convicted of assault and harassment and dropped by Marvel on 18 Dec 2023).
-    ("k1", "board_plan", 0.3, "Marvel had built its next saga around one villain: Kang.", "serious"),
-    ("k2", "board_news", 0.05, "Then, in December 2023, the actor who played him was convicted of assault and harassment.",
-     "serious"),
-    ("k3", "board_collapse", 0.05, "Marvel dropped him the same day. And the whole plan came down.", "sighs"),
-]
-
-SHOTS = [
-    ("hall_wide", "hall"), ("hall_walk", "hall"), ("hall_unmask", "hall"), ("hall_reveal", "hall"), ("hall_quote", "hall"),
-    ("lab_machine", "lab"), ("lab_warning", "lab"), ("lab_ignore", "lab"), ("lab_blast", "lab"),
-    ("board_plan", "board"), ("board_news", "board"), ("board_collapse", "board"),
-]
+# Lines and shots come from lines.py (the approved script, one line per shot).
+LINES = [(lid, shot, 0.2 if k == 0 else 0.05, text, style) for k, (lid, shot, text, style) in enumerate(L)]
+SHOTS = [(l[1], PLACE_OF[l[1].split("_")[0]]) for l in L]
 
 FIXED = {}
 
 
 def placeholder_camera(place):
-    return {"at": {"anchor": place, "offset": [0, 1.6, 6]}, "look_at": {"anchor": place, "offset": [0, 1.2, 0]},
+    bay = place if place in ("hall", "lab", "board") else "board"
+    return {"at": {"anchor": bay, "offset": [0, 1.6, 6]}, "look_at": {"anchor": bay, "offset": [0, 1.2, 0]},
             "lens_mm": 35}
 
 
