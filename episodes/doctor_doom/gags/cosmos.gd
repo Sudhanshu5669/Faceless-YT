@@ -25,7 +25,7 @@ const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
 const Paths = preload("res://scripts/core/paths.gd")
 
-const SKY := Vector3(0, 0, 0)
+const SKY := Vector3(0, 0, -6000)   # far from the space areas: its clouds must not show in them
 const VOID := Vector3(0, 0, 600)
 const WORLD := Vector3(0, 0, 1200)
 const GOD := Vector3(0, 0, 1800)

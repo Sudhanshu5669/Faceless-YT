@@ -57,3 +57,15 @@ Existing packs reused: `kenney_castle` (later, Castle Doom), `quaternius_nature`
 - **Description credit (required):** This work is based on "Doctor Doom's Mask"
   (https://sketchfab.com/3d-models/doctor-dooms-mask-8db5464072f341a994ad1c729d9080f7) by Nicolas_Laube
   (https://sketchfab.com/Nicolas_Laube) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+
+## Rigged Doom (2026-11-25, the user downloaded it)
+
+- `incoming/vltxd_doom.zip` -> pack `vltxd_doom` (`pipeline/asset_packs.json`): "Doctor Doom Avengers Doomsday Low Poly" by
+  VLTXD, Sketchfab, CC BY 4.0. GTA San Andreas ped rig; re-posed from A-pose to a T-pose facing +Z and scaled to
+  1.83 m by `pipeline/blender/tpose_character.py`; retarget map `gta_ped` in `library/rigs.json`; character
+  `library/characters/doom_realistic.json`. Used for the suited Doom in the castle, cosmos, hell, hospital and 1962 lab.
+- **Description credit (required):** This work is based on "Doctor Doom Avengers Doomsday Low Poly"
+  (https://sketchfab.com/3d-models/doctor-doom-avengers-doomsday-low-poly-9ef8eff88bb24c0da0fecb10e9654609) by VLTXD
+  (https://sketchfab.com/VLTXD) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+- Rejected: "Dr Doom V2" by VisiionLovesYou (skeleton named `sv_doctordoom01_S01`, a likely game extraction); parked in
+  `incoming/doom_v2_rejected/`, never used.

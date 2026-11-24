@@ -3189,7 +3189,7 @@
   },
   {
    "id": "doom62",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -3227,7 +3227,7 @@
   },
   {
    "id": "doom62_b",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4099,7 +4099,7 @@
   },
   {
    "id": "doom_walk",
-   "character": "toon_victor_young",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4161,7 +4161,7 @@
   {
    "id": "doom_throne",
    "freeze": 0.35,
-   "character": "toon_victor_young",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4209,7 +4209,7 @@
   },
   {
    "id": "doom_gate",
-   "character": "toon_victor_young",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4528,7 +4528,7 @@
   },
   {
    "id": "doombot_0",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4566,7 +4566,7 @@
   },
   {
    "id": "doombot_1",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4604,7 +4604,7 @@
   },
   {
    "id": "doombot_2",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4642,7 +4642,7 @@
   },
   {
    "id": "doombot_3",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4680,7 +4680,7 @@
   },
   {
    "id": "doombot_4",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4718,7 +4718,7 @@
   },
   {
    "id": "doombot_5",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4756,7 +4756,7 @@
   },
   {
    "id": "doombot_6",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -5065,13 +5065,13 @@
   {
    "id": "doom_surfer",
    "freeze": 0.35,
-   "character": "toon_victor_young",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
      -0.0,
      5.0,
-     180000.0
+     174000.0
     ]
    },
    "facing": {
@@ -5079,7 +5079,7 @@
     "offset": [
      -0.0,
      5.0,
-     180010.0
+     174010.0
     ]
    },
    "keep_y": true,
@@ -5105,7 +5105,7 @@
   {
    "id": "doom_void",
    "freeze": 0.35,
-   "character": "toon_victor_young",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -5185,7 +5185,7 @@
   {
    "id": "doom_emp",
    "freeze": 0.35,
-   "character": "toon_victor_young",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -5224,7 +5224,7 @@
   },
   {
    "id": "doom_hell",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -5302,7 +5302,7 @@
   },
   {
    "id": "doom_hosp",
-   "character": "toon_doom_extra",
+   "character": "doom_realistic",
    "at": {
     "anchor": "board",
     "offset": [
@@ -15014,7 +15014,7 @@
       "offset": [
        -2.4,
        5.9,
-       180002.6
+       174002.6
       ]
      },
      "look_at": {
@@ -15022,7 +15022,7 @@
       "offset": [
        -0.0,
        5.9,
-       180000.0
+       174000.0
       ]
      },
      "lens_mm": 28,
@@ -15036,7 +15036,7 @@
       "offset": [
        2.0,
        5.4,
-       180002.8
+       174002.8
       ]
      },
      "look_at": {
@@ -15044,7 +15044,7 @@
       "offset": [
        -0.0,
        6.0,
-       180000.0
+       174000.0
       ]
      },
      "lens_mm": 28,

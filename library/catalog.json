@@ -1,5 +1,5 @@
 {
-  "count": 724,
+  "count": 986,
   "models": [
     {
       "animations": [],
@@ -3164,6 +3164,996 @@
       "tris": 1948
     },
     {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-a",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-a",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-a.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "a"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-a.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-b",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-b",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-b.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "b"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-b.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-c",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-c",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-c.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "c"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-c.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-d",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-d",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-d.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "d"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-d.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-e",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-e",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-e.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "e"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-e.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-f",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-f",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-f.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "f"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-f.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-g",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-g",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-g.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "g"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-g.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-h",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-h",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-h.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "h"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-h.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-i",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-i",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-i.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "i"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-i.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-j",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-j",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-j.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "j"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-j.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-k",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-k",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-k.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "k"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-k.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-l",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-l",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-l.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "l"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-l.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-m",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-m",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-m.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "m"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-m.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-n",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-n",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-n.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "n"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-n.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-o",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-o",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-o.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "o"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-o.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-p",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-p",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-p.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "p"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-p.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-q",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-q",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-q.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "q"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-q.png",
+      "tris": 72
+    },
+    {
+      "animations": [
+        "attack-kick-left",
+        "attack-kick-right",
+        "attack-melee-left",
+        "attack-melee-right",
+        "die",
+        "drive",
+        "emote-no",
+        "emote-yes",
+        "holding-both",
+        "holding-both-shoot",
+        "holding-left",
+        "holding-left-shoot",
+        "holding-right",
+        "holding-right-shoot",
+        "idle",
+        "interact-left",
+        "interact-right",
+        "pick-up",
+        "sit",
+        "sprint",
+        "static",
+        "walk",
+        "wheelchair-move-back",
+        "wheelchair-move-forward",
+        "wheelchair-move-left",
+        "wheelchair-move-right",
+        "wheelchair-sit"
+      ],
+      "category": "prop",
+      "id": "kenney_blocky_characters/character-r",
+      "min": [
+        -0.8,
+        0.0,
+        -0.4
+      ],
+      "name": "character-r",
+      "node": "",
+      "pack": "kenney_blocky_characters",
+      "path": "res://assets/kenney_blocky_characters/character-r.glb",
+      "rigged": false,
+      "size": [
+        1.6,
+        2.7,
+        0.8
+      ],
+      "tags": [
+        "prop",
+        "character",
+        "r"
+      ],
+      "thumb": "library/thumbs/kenney_blocky_characters/character-r.png",
+      "tris": 72
+    },
+    {
       "animations": [],
       "category": "vehicle",
       "id": "kenney_cars/ambulance",
@@ -4504,6 +5494,2119 @@
     },
     {
       "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/bridge-draw",
+      "min": [
+        -1.002,
+        0.0,
+        -0.416
+      ],
+      "name": "bridge-draw",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/bridge-draw.glb",
+      "rigged": false,
+      "size": [
+        1.002,
+        0.1,
+        0.831
+      ],
+      "tags": [
+        "prop",
+        "bridge",
+        "draw"
+      ],
+      "thumb": "library/thumbs/kenney_castle/bridge-draw.png",
+      "tris": 40
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/bridge-straight",
+      "min": [
+        -0.465,
+        0.0,
+        -0.465
+      ],
+      "name": "bridge-straight",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/bridge-straight.glb",
+      "rigged": false,
+      "size": [
+        0.93,
+        1.176,
+        0.93
+      ],
+      "tags": [
+        "prop",
+        "bridge",
+        "straight"
+      ],
+      "thumb": "library/thumbs/kenney_castle/bridge-straight.png",
+      "tris": 192
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/bridge-straight-pillar",
+      "min": [
+        -0.465,
+        0.0,
+        -0.465
+      ],
+      "name": "bridge-straight-pillar",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/bridge-straight-pillar.glb",
+      "rigged": false,
+      "size": [
+        0.93,
+        1.176,
+        0.93
+      ],
+      "tags": [
+        "prop",
+        "bridge",
+        "straight",
+        "pillar"
+      ],
+      "thumb": "library/thumbs/kenney_castle/bridge-straight-pillar.png",
+      "tris": 156
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/door",
+      "min": [
+        -0.075,
+        0.0,
+        -0.18
+      ],
+      "name": "door",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/door.glb",
+      "rigged": false,
+      "size": [
+        0.15,
+        0.605,
+        0.359
+      ],
+      "tags": [
+        "prop",
+        "door"
+      ],
+      "thumb": "library/thumbs/kenney_castle/door.png",
+      "tris": 188
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/flag",
+      "min": [
+        -0.053,
+        0.0,
+        -0.379
+      ],
+      "name": "flag",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/flag.glb",
+      "rigged": false,
+      "size": [
+        0.106,
+        0.866,
+        0.432
+      ],
+      "tags": [
+        "prop",
+        "flag"
+      ],
+      "thumb": "library/thumbs/kenney_castle/flag.png",
+      "tris": 144
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/flag-banner-long",
+      "min": [
+        0.0,
+        0.0,
+        -0.315
+      ],
+      "name": "flag-banner-long",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/flag-banner-long.glb",
+      "rigged": false,
+      "size": [
+        0.04,
+        2.17,
+        0.63
+      ],
+      "tags": [
+        "prop",
+        "flag",
+        "banner",
+        "long"
+      ],
+      "thumb": "library/thumbs/kenney_castle/flag-banner-long.png",
+      "tris": 68
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/flag-banner-short",
+      "min": [
+        0.0,
+        0.0,
+        -0.315
+      ],
+      "name": "flag-banner-short",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/flag-banner-short.glb",
+      "rigged": false,
+      "size": [
+        0.04,
+        0.78,
+        0.63
+      ],
+      "tags": [
+        "prop",
+        "flag",
+        "banner",
+        "short"
+      ],
+      "thumb": "library/thumbs/kenney_castle/flag-banner-short.png",
+      "tris": 68
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/flag-pennant",
+      "min": [
+        -0.053,
+        0.0,
+        -0.521
+      ],
+      "name": "flag-pennant",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/flag-pennant.glb",
+      "rigged": false,
+      "size": [
+        0.106,
+        0.866,
+        0.574
+      ],
+      "tags": [
+        "prop",
+        "flag",
+        "pennant"
+      ],
+      "thumb": "library/thumbs/kenney_castle/flag-pennant.png",
+      "tris": 118
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/flag-wide",
+      "min": [
+        -0.053,
+        0.0,
+        -0.273
+      ],
+      "name": "flag-wide",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/flag-wide.glb",
+      "rigged": false,
+      "size": [
+        0.106,
+        0.866,
+        0.547
+      ],
+      "tags": [
+        "prop",
+        "flag",
+        "wide"
+      ],
+      "thumb": "library/thumbs/kenney_castle/flag-wide.png",
+      "tris": 256
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/gate",
+      "min": [
+        -0.076,
+        0.0,
+        -0.331
+      ],
+      "name": "gate",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/gate.glb",
+      "rigged": false,
+      "size": [
+        0.152,
+        0.91,
+        0.662
+      ],
+      "tags": [
+        "prop",
+        "gate"
+      ],
+      "thumb": "library/thumbs/kenney_castle/gate.png",
+      "tris": 146
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/ground",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "ground",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/ground.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "ground"
+      ],
+      "thumb": "library/thumbs/kenney_castle/ground.png",
+      "tris": 2
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/ground-hills",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "ground-hills",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/ground-hills.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.288,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "ground",
+        "hills"
+      ],
+      "thumb": "library/thumbs/kenney_castle/ground-hills.png",
+      "tris": 116
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/metal-gate",
+      "min": [
+        -0.036,
+        0.0,
+        -0.348
+      ],
+      "name": "metal-gate",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/metal-gate.glb",
+      "rigged": false,
+      "size": [
+        0.071,
+        0.73,
+        0.695
+      ],
+      "tags": [
+        "prop",
+        "metal",
+        "gate"
+      ],
+      "thumb": "library/thumbs/kenney_castle/metal-gate.png",
+      "tris": 190
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/rocks-large",
+      "min": [
+        -0.6,
+        0.0,
+        -0.674
+      ],
+      "name": "rocks-large",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/rocks-large.glb",
+      "rigged": false,
+      "size": [
+        1.201,
+        0.5,
+        1.348
+      ],
+      "tags": [
+        "prop",
+        "rocks",
+        "large"
+      ],
+      "thumb": "library/thumbs/kenney_castle/rocks-large.png",
+      "tris": 150
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/rocks-small",
+      "min": [
+        -0.515,
+        0.0,
+        -0.553
+      ],
+      "name": "rocks-small",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/rocks-small.glb",
+      "rigged": false,
+      "size": [
+        1.03,
+        0.5,
+        1.105
+      ],
+      "tags": [
+        "prop",
+        "rocks",
+        "small"
+      ],
+      "thumb": "library/thumbs/kenney_castle/rocks-small.png",
+      "tris": 140
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-ballista",
+      "min": [
+        -0.64,
+        0.0,
+        -0.599
+      ],
+      "name": "siege-ballista",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-ballista.glb",
+      "rigged": false,
+      "size": [
+        1.63,
+        0.91,
+        1.198
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "ballista"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-ballista.png",
+      "tris": 676
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-ballista-demolished",
+      "min": [
+        -0.908,
+        0.0,
+        -0.789
+      ],
+      "name": "siege-ballista-demolished",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-ballista-demolished.glb",
+      "rigged": false,
+      "size": [
+        1.754,
+        0.51,
+        1.554
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "ballista",
+        "demolished"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-ballista-demolished.png",
+      "tris": 618
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-catapult",
+      "min": [
+        -1.001,
+        -0.149,
+        -0.605
+      ],
+      "name": "siege-catapult",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-catapult.glb",
+      "rigged": false,
+      "size": [
+        1.735,
+        1.33,
+        1.21
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "catapult"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-catapult.png",
+      "tris": 928
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-catapult-demolished",
+      "min": [
+        -0.643,
+        0.0,
+        -0.867
+      ],
+      "name": "siege-catapult-demolished",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-catapult-demolished.glb",
+      "rigged": false,
+      "size": [
+        1.678,
+        0.321,
+        1.669
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "catapult",
+        "demolished"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-catapult-demolished.png",
+      "tris": 842
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-ram",
+      "min": [
+        -1.063,
+        0.0,
+        -0.5
+      ],
+      "name": "siege-ram",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-ram.glb",
+      "rigged": false,
+      "size": [
+        2.087,
+        1.184,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "ram"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-ram.png",
+      "tris": 1112
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-ram-demolished",
+      "min": [
+        -1.041,
+        0.0,
+        -0.796
+      ],
+      "name": "siege-ram-demolished",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-ram-demolished.glb",
+      "rigged": false,
+      "size": [
+        2.079,
+        0.723,
+        1.647
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "ram",
+        "demolished"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-ram-demolished.png",
+      "tris": 776
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-tower",
+      "min": [
+        -0.983,
+        0.0,
+        -0.605
+      ],
+      "name": "siege-tower",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-tower.glb",
+      "rigged": false,
+      "size": [
+        1.966,
+        2.68,
+        1.21
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "tower"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-tower.png",
+      "tris": 1598
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-tower-demolished",
+      "min": [
+        -1.09,
+        0.0,
+        -0.965
+      ],
+      "name": "siege-tower-demolished",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-tower-demolished.glb",
+      "rigged": false,
+      "size": [
+        2.173,
+        2.097,
+        1.846
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "tower",
+        "demolished"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-tower-demolished.png",
+      "tris": 1390
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-trebuchet",
+      "min": [
+        -1.117,
+        0.0,
+        -0.629
+      ],
+      "name": "siege-trebuchet",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-trebuchet.glb",
+      "rigged": false,
+      "size": [
+        1.851,
+        1.959,
+        1.258
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "trebuchet"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-trebuchet.png",
+      "tris": 1518
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/siege-trebuchet-demolished",
+      "min": [
+        -0.873,
+        0.0,
+        -1.048
+      ],
+      "name": "siege-trebuchet-demolished",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/siege-trebuchet-demolished.glb",
+      "rigged": false,
+      "size": [
+        1.935,
+        0.31,
+        2.097
+      ],
+      "tags": [
+        "prop",
+        "siege",
+        "trebuchet",
+        "demolished"
+      ],
+      "thumb": "library/thumbs/kenney_castle/siege-trebuchet-demolished.png",
+      "tris": 804
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/stairs-stone",
+      "min": [
+        -0.116,
+        0.0,
+        -0.41
+      ],
+      "name": "stairs-stone",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/stairs-stone.glb",
+      "rigged": false,
+      "size": [
+        0.233,
+        0.675,
+        0.819
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "stone"
+      ],
+      "thumb": "library/thumbs/kenney_castle/stairs-stone.png",
+      "tris": 104
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/stairs-stone-square",
+      "min": [
+        -0.116,
+        0.0,
+        -0.41
+      ],
+      "name": "stairs-stone-square",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/stairs-stone-square.glb",
+      "rigged": false,
+      "size": [
+        0.233,
+        0.675,
+        0.819
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "stone",
+        "square"
+      ],
+      "thumb": "library/thumbs/kenney_castle/stairs-stone-square.png",
+      "tris": 100
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-base",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-base",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-base.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "base"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-base.png",
+      "tris": 332
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-hexagon-base",
+      "min": [
+        -0.45,
+        0.0,
+        -0.39
+      ],
+      "name": "tower-hexagon-base",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-hexagon-base.glb",
+      "rigged": false,
+      "size": [
+        0.9,
+        1.31,
+        0.779
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "hexagon",
+        "base"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-hexagon-base.png",
+      "tris": 68
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-hexagon-mid",
+      "min": [
+        -0.476,
+        0.0,
+        -0.412
+      ],
+      "name": "tower-hexagon-mid",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-hexagon-mid.glb",
+      "rigged": false,
+      "size": [
+        0.952,
+        0.46,
+        0.825
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "hexagon",
+        "mid"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-hexagon-mid.png",
+      "tris": 404
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-hexagon-roof",
+      "min": [
+        -0.488,
+        0.0,
+        -0.423
+      ],
+      "name": "tower-hexagon-roof",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-hexagon-roof.glb",
+      "rigged": false,
+      "size": [
+        0.976,
+        0.83,
+        0.846
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "hexagon",
+        "roof"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-hexagon-roof.png",
+      "tris": 68
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-hexagon-roof-secondary",
+      "min": [
+        -0.488,
+        0.0,
+        -0.423
+      ],
+      "name": "tower-hexagon-roof-secondary",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-hexagon-roof-secondary.glb",
+      "rigged": false,
+      "size": [
+        0.976,
+        0.754,
+        0.846
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "hexagon",
+        "roof",
+        "secondary"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-hexagon-roof-secondary.png",
+      "tris": 114
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-hexagon-top",
+      "min": [
+        -0.432,
+        0.0,
+        -0.374
+      ],
+      "name": "tower-hexagon-top",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-hexagon-top.glb",
+      "rigged": false,
+      "size": [
+        0.864,
+        0.13,
+        0.748
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "hexagon",
+        "top"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-hexagon-top.png",
+      "tris": 168
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-hexagon-top-wood",
+      "min": [
+        -0.432,
+        0.0,
+        -0.374
+      ],
+      "name": "tower-hexagon-top-wood",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-hexagon-top-wood.glb",
+      "rigged": false,
+      "size": [
+        0.864,
+        0.46,
+        0.748
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "hexagon",
+        "top",
+        "wood"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-hexagon-top-wood.png",
+      "tris": 164
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-slant-roof",
+      "min": [
+        -0.585,
+        0.0,
+        -0.569
+      ],
+      "name": "tower-slant-roof",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-slant-roof.glb",
+      "rigged": false,
+      "size": [
+        1.17,
+        2.14,
+        1.137
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "slant",
+        "roof"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-slant-roof.png",
+      "tris": 534
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square.png",
+      "tris": 176
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-arch",
+      "min": [
+        -0.465,
+        0.0,
+        -0.465
+      ],
+      "name": "tower-square-arch",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-arch.glb",
+      "rigged": false,
+      "size": [
+        0.93,
+        1.01,
+        0.93
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "arch"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-arch.png",
+      "tris": 308
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-base",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-base",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-base.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.01,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "base"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-base.png",
+      "tris": 28
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-base-border",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-base-border",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-base-border.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.45,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "base",
+        "border"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-base-border.png",
+      "tris": 20
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-base-color",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-base-color",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-base-color.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.01,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "base",
+        "color"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-base-color.png",
+      "tris": 68
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-mid",
+      "min": [
+        -0.465,
+        0.0,
+        -0.465
+      ],
+      "name": "tower-square-mid",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-mid.glb",
+      "rigged": false,
+      "size": [
+        0.93,
+        1.01,
+        0.93
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "mid"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-mid.png",
+      "tris": 76
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-mid-color",
+      "min": [
+        -0.465,
+        0.0,
+        -0.465
+      ],
+      "name": "tower-square-mid-color",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-mid-color.glb",
+      "rigged": false,
+      "size": [
+        0.93,
+        0.202,
+        0.93
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "mid",
+        "color"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-mid-color.png",
+      "tris": 52
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-mid-door",
+      "min": [
+        -0.465,
+        0.0,
+        -0.465
+      ],
+      "name": "tower-square-mid-door",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-mid-door.glb",
+      "rigged": false,
+      "size": [
+        0.93,
+        1.01,
+        0.93
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "mid",
+        "door"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-mid-door.png",
+      "tris": 344
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-mid-open",
+      "min": [
+        -0.465,
+        0.0,
+        -0.465
+      ],
+      "name": "tower-square-mid-open",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-mid-open.glb",
+      "rigged": false,
+      "size": [
+        0.93,
+        1.01,
+        0.93
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "mid",
+        "open"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-mid-open.png",
+      "tris": 240
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-mid-open-simple",
+      "min": [
+        -0.465,
+        0.0,
+        -0.465
+      ],
+      "name": "tower-square-mid-open-simple",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-mid-open-simple.glb",
+      "rigged": false,
+      "size": [
+        0.93,
+        0.878,
+        0.93
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "mid",
+        "open",
+        "simple"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-mid-open-simple.png",
+      "tris": 176
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-mid-windows",
+      "min": [
+        -0.465,
+        0.0,
+        -0.465
+      ],
+      "name": "tower-square-mid-windows",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-mid-windows.glb",
+      "rigged": false,
+      "size": [
+        0.93,
+        1.01,
+        0.93
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "mid",
+        "windows"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-mid-windows.png",
+      "tris": 364
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-roof",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-roof",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-roof.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        2.01,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "roof"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-roof.png",
+      "tris": 144
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-top",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-top",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-top.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.3,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "top"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-top.png",
+      "tris": 148
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-top-color",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-top-color",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-top-color.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.38,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "top",
+        "color"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-top-color.png",
+      "tris": 156
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-top-roof",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-top-roof",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-top-roof.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "top",
+        "roof"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-top-roof.png",
+      "tris": 116
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-top-roof-high",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-top-roof-high",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-top-roof-high.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.35,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "top",
+        "roof",
+        "high"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-top-roof-high.png",
+      "tris": 116
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-top-roof-high-windows",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-top-roof-high-windows",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-top-roof-high-windows.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.08,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "top",
+        "roof",
+        "high",
+        "windows"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-top-roof-high-windows.png",
+      "tris": 258
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-square-top-roof-rounded",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-square-top-roof-rounded",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-square-top-roof-rounded.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.95,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "square",
+        "top",
+        "roof",
+        "rounded"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-square-top-roof-rounded.png",
+      "tris": 116
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tower-top",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "tower-top",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tower-top.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.13,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tower",
+        "top"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tower-top.png",
+      "tris": 320
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tree-large",
+      "min": [
+        -0.444,
+        0.0,
+        -0.445
+      ],
+      "name": "tree-large",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tree-large.glb",
+      "rigged": false,
+      "size": [
+        0.889,
+        1.849,
+        0.89
+      ],
+      "tags": [
+        "prop",
+        "tree",
+        "large"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tree-large.png",
+      "tris": 229
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tree-log",
+      "min": [
+        -0.122,
+        -0.106,
+        -0.5
+      ],
+      "name": "tree-log",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tree-log.glb",
+      "rigged": false,
+      "size": [
+        0.249,
+        0.277,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "tree",
+        "log"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tree-log.png",
+      "tris": 64
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tree-small",
+      "min": [
+        -0.369,
+        0.0,
+        -0.36
+      ],
+      "name": "tree-small",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tree-small.glb",
+      "rigged": false,
+      "size": [
+        0.738,
+        1.349,
+        0.72
+      ],
+      "tags": [
+        "prop",
+        "tree",
+        "small"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tree-small.png",
+      "tris": 164
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/tree-trunk",
+      "min": [
+        -0.198,
+        0.0,
+        -0.171
+      ],
+      "name": "tree-trunk",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/tree-trunk.glb",
+      "rigged": false,
+      "size": [
+        0.396,
+        0.375,
+        0.343
+      ],
+      "tags": [
+        "prop",
+        "tree",
+        "trunk"
+      ],
+      "thumb": "library/thumbs/kenney_castle/tree-trunk.png",
+      "tris": 38
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall.png",
+      "tris": 178
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-corner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-corner",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-corner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "corner"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-corner.png",
+      "tris": 168
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-corner-half",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-corner-half",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-corner-half.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "corner",
+        "half"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-corner-half.png",
+      "tris": 144
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-corner-half-tower",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-corner-half-tower",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-corner-half-tower.glb",
+      "rigged": false,
+      "size": [
+        1.5,
+        1.44,
+        1.5
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "corner",
+        "half",
+        "tower"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-corner-half-tower.png",
+      "tris": 632
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-corner-slant",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-corner-slant",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-corner-slant.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "corner",
+        "slant"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-corner-slant.png",
+      "tris": 140
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-doorway",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-doorway",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-doorway.glb",
+      "rigged": false,
+      "size": [
+        0.5,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "doorway"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-doorway.png",
+      "tris": 500
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-half",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-half",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-half.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "half"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-half.png",
+      "tris": 126
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-half-modular",
+      "min": [
+        -0.002,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-half-modular",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-half-modular.glb",
+      "rigged": false,
+      "size": [
+        0.605,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "half",
+        "modular"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-half-modular.png",
+      "tris": 80
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-narrow",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-narrow",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-narrow.glb",
+      "rigged": false,
+      "size": [
+        0.5,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "narrow"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-narrow.png",
+      "tris": 126
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-narrow-corner",
+      "min": [
+        -0.25,
+        0.0,
+        -0.25
+      ],
+      "name": "wall-narrow-corner",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-narrow-corner.glb",
+      "rigged": false,
+      "size": [
+        0.5,
+        1.31,
+        0.5
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "narrow",
+        "corner"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-narrow-corner.png",
+      "tris": 96
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-narrow-gate",
+      "min": [
+        -0.13,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-narrow-gate",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-narrow-gate.glb",
+      "rigged": false,
+      "size": [
+        0.63,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "narrow",
+        "gate"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-narrow-gate.png",
+      "tris": 192
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-narrow-stairs",
+      "min": [
+        -0.482,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-narrow-stairs",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-narrow-stairs.glb",
+      "rigged": false,
+      "size": [
+        0.965,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "narrow",
+        "stairs"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-narrow-stairs.png",
+      "tris": 262
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-narrow-stairs-rail",
+      "min": [
+        -0.482,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-narrow-stairs-rail",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-narrow-stairs-rail.glb",
+      "rigged": false,
+      "size": [
+        0.995,
+        1.448,
+        1.034
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "narrow",
+        "stairs",
+        "rail"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-narrow-stairs-rail.png",
+      "tris": 430
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-narrow-wood",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-narrow-wood",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-narrow-wood.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "narrow",
+        "wood"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-narrow-wood.png",
+      "tris": 266
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-narrow-wood-fence",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-narrow-wood-fence",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-narrow-wood-fence.glb",
+      "rigged": false,
+      "size": [
+        1.05,
+        1.45,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "narrow",
+        "wood",
+        "fence"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-narrow-wood-fence.png",
+      "tris": 326
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-pillar",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-pillar",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-pillar.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "pillar"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-pillar.png",
+      "tris": 186
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-stud",
+      "min": [
+        -0.135,
+        0.0,
+        -0.083
+      ],
+      "name": "wall-stud",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-stud.glb",
+      "rigged": false,
+      "size": [
+        0.27,
+        1.11,
+        0.167
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "stud"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-stud.png",
+      "tris": 16
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_castle/wall-to-narrow",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-to-narrow",
+      "node": "",
+      "pack": "kenney_castle",
+      "path": "res://assets/kenney_castle/wall-to-narrow.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.31,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "to",
+        "narrow"
+      ],
+      "thumb": "library/thumbs/kenney_castle/wall-to-narrow.png",
+      "tris": 214
+    },
+    {
+      "animations": [],
       "category": "character",
       "id": "kenney_characters/characterMedium",
       "min": [
@@ -4614,6 +7717,4625 @@
       ],
       "thumb": "library/thumbs/kenney_characters/run.png",
       "tris": 0
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/balcony-wall",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "balcony-wall",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/balcony-wall.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "balcony",
+        "wall"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/balcony-wall.png",
+      "tris": 64
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/balcony-wall-fence",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "balcony-wall-fence",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/balcony-wall-fence.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "balcony",
+        "wall",
+        "fence"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/balcony-wall-fence.png",
+      "tris": 102
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/banner-green",
+      "min": [
+        0.375,
+        0.161,
+        -0.25
+      ],
+      "name": "banner-green",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/banner-green.glb",
+      "rigged": false,
+      "size": [
+        0.05,
+        0.839,
+        0.5
+      ],
+      "tags": [
+        "prop",
+        "banner",
+        "green"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/banner-green.png",
+      "tris": 102
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/banner-red",
+      "min": [
+        0.375,
+        0.161,
+        -0.25
+      ],
+      "name": "banner-red",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/banner-red.glb",
+      "rigged": false,
+      "size": [
+        0.05,
+        0.839,
+        0.5
+      ],
+      "tags": [
+        "prop",
+        "banner",
+        "red"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/banner-red.png",
+      "tris": 98
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/blade",
+      "min": [
+        -0.055,
+        0.0,
+        -0.055
+      ],
+      "name": "blade",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/blade.glb",
+      "rigged": false,
+      "size": [
+        0.111,
+        2.0,
+        0.43
+      ],
+      "tags": [
+        "prop",
+        "blade"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/blade.png",
+      "tris": 180
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/cart",
+      "min": [
+        -0.447,
+        0.0,
+        -0.645
+      ],
+      "name": "cart",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/cart.glb",
+      "rigged": false,
+      "size": [
+        0.893,
+        0.536,
+        1.34
+      ],
+      "tags": [
+        "prop",
+        "cart"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/cart.png",
+      "tris": 608
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/cart-high",
+      "min": [
+        -0.447,
+        0.0,
+        -0.645
+      ],
+      "name": "cart-high",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/cart-high.glb",
+      "rigged": false,
+      "size": [
+        0.893,
+        0.861,
+        1.39
+      ],
+      "tags": [
+        "prop",
+        "cart",
+        "high"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/cart-high.png",
+      "tris": 1028
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/chimney",
+      "min": [
+        0.213,
+        0.0,
+        -0.17
+      ],
+      "name": "chimney",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/chimney.glb",
+      "rigged": false,
+      "size": [
+        0.212,
+        1.0,
+        0.34
+      ],
+      "tags": [
+        "prop",
+        "chimney"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/chimney.png",
+      "tris": 32
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/chimney-base",
+      "min": [
+        0.081,
+        0.0,
+        -0.26
+      ],
+      "name": "chimney-base",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/chimney-base.glb",
+      "rigged": false,
+      "size": [
+        0.344,
+        1.0,
+        0.52
+      ],
+      "tags": [
+        "prop",
+        "chimney",
+        "base"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/chimney-base.png",
+      "tris": 78
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/chimney-top",
+      "min": [
+        0.213,
+        0.0,
+        -0.17
+      ],
+      "name": "chimney-top",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/chimney-top.glb",
+      "rigged": false,
+      "size": [
+        0.252,
+        0.625,
+        0.34
+      ],
+      "tags": [
+        "prop",
+        "chimney",
+        "top"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/chimney-top.png",
+      "tris": 78
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fence",
+      "min": [
+        0.425,
+        0.0,
+        -0.5
+      ],
+      "name": "fence",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fence.glb",
+      "rigged": false,
+      "size": [
+        0.075,
+        0.38,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fence"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fence.png",
+      "tris": 84
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fence-broken",
+      "min": [
+        0.245,
+        0.0,
+        -0.5
+      ],
+      "name": "fence-broken",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fence-broken.glb",
+      "rigged": false,
+      "size": [
+        0.255,
+        0.38,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fence",
+        "broken"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fence-broken.png",
+      "tris": 124
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fence-curved",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "fence-curved",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fence-curved.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.38,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fence",
+        "curved"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fence-curved.png",
+      "tris": 308
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fence-gate",
+      "min": [
+        0.425,
+        0.0,
+        -0.5
+      ],
+      "name": "fence-gate",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fence-gate.glb",
+      "rigged": false,
+      "size": [
+        0.075,
+        0.38,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fence",
+        "gate"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fence-gate.png",
+      "tris": 560
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-center",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "fountain-center",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-center.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.14,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "center"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-center.png",
+      "tris": 4
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-corner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "fountain-corner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-corner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.28,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "corner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-corner.png",
+      "tris": 60
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-corner-inner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "fountain-corner-inner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-corner-inner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.28,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "corner",
+        "inner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-corner-inner.png",
+      "tris": 146
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-corner-inner-square",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "fountain-corner-inner-square",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-corner-inner-square.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.28,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "corner",
+        "inner",
+        "square"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-corner-inner-square.png",
+      "tris": 46
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-curved",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "fountain-curved",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-curved.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.28,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "curved"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-curved.png",
+      "tris": 266
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-edge",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "fountain-edge",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-edge.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.28,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "edge"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-edge.png",
+      "tris": 36
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-round",
+      "min": [
+        -1.0,
+        0.0,
+        -1.0
+      ],
+      "name": "fountain-round",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-round.glb",
+      "rigged": false,
+      "size": [
+        2.0,
+        0.28,
+        2.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "round"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-round.png",
+      "tris": 1002
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-round-detail",
+      "min": [
+        -1.0,
+        0.0,
+        -1.0
+      ],
+      "name": "fountain-round-detail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-round-detail.glb",
+      "rigged": false,
+      "size": [
+        2.0,
+        0.48,
+        2.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "round",
+        "detail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-round-detail.png",
+      "tris": 1628
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-square",
+      "min": [
+        -1.0,
+        0.0,
+        -1.0
+      ],
+      "name": "fountain-square",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-square.glb",
+      "rigged": false,
+      "size": [
+        2.0,
+        0.455,
+        2.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "square"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-square.png",
+      "tris": 270
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/fountain-square-detail",
+      "min": [
+        -1.0,
+        0.0,
+        -1.0
+      ],
+      "name": "fountain-square-detail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/fountain-square-detail.glb",
+      "rigged": false,
+      "size": [
+        2.0,
+        0.48,
+        2.0
+      ],
+      "tags": [
+        "prop",
+        "fountain",
+        "square",
+        "detail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/fountain-square-detail.png",
+      "tris": 334
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/hedge",
+      "min": [
+        0.25,
+        0.0,
+        -0.5
+      ],
+      "name": "hedge",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/hedge.glb",
+      "rigged": false,
+      "size": [
+        0.25,
+        0.25,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "hedge"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/hedge.png",
+      "tris": 54
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/hedge-curved",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "hedge-curved",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/hedge-curved.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.25,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "hedge",
+        "curved"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/hedge-curved.png",
+      "tris": 280
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/hedge-gate",
+      "min": [
+        0.25,
+        0.0,
+        -0.5
+      ],
+      "name": "hedge-gate",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/hedge-gate.glb",
+      "rigged": false,
+      "size": [
+        0.25,
+        0.25,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "hedge",
+        "gate"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/hedge-gate.png",
+      "tris": 76
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/hedge-large",
+      "min": [
+        0.1,
+        0.0,
+        -0.5
+      ],
+      "name": "hedge-large",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/hedge-large.glb",
+      "rigged": false,
+      "size": [
+        0.4,
+        0.6,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "hedge",
+        "large"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/hedge-large.png",
+      "tris": 90
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/hedge-large-curved",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "hedge-large-curved",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/hedge-large-curved.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.6,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "hedge",
+        "large",
+        "curved"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/hedge-large-curved.png",
+      "tris": 252
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/hedge-large-gate",
+      "min": [
+        0.1,
+        0.0,
+        -0.5
+      ],
+      "name": "hedge-large-gate",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/hedge-large-gate.glb",
+      "rigged": false,
+      "size": [
+        0.4,
+        0.6,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "hedge",
+        "large",
+        "gate"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/hedge-large-gate.png",
+      "tris": 164
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/lantern",
+      "min": [
+        -0.108,
+        0.0,
+        -0.112
+      ],
+      "name": "lantern",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/lantern.glb",
+      "rigged": false,
+      "size": [
+        0.216,
+        1.556,
+        0.224
+      ],
+      "tags": [
+        "prop",
+        "lantern"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/lantern.png",
+      "tris": 158
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/overhang",
+      "min": [
+        0.14,
+        0.67,
+        -0.5
+      ],
+      "name": "overhang",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/overhang.glb",
+      "rigged": false,
+      "size": [
+        0.285,
+        0.33,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "overhang"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/overhang.png",
+      "tris": 68
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/pillar-stone",
+      "min": [
+        -0.08,
+        0.0,
+        -0.08
+      ],
+      "name": "pillar-stone",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/pillar-stone.glb",
+      "rigged": false,
+      "size": [
+        0.16,
+        1.0,
+        0.16
+      ],
+      "tags": [
+        "prop",
+        "pillar",
+        "stone"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/pillar-stone.png",
+      "tris": 124
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/pillar-wood",
+      "min": [
+        -0.08,
+        0.0,
+        -0.08
+      ],
+      "name": "pillar-wood",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/pillar-wood.glb",
+      "rigged": false,
+      "size": [
+        0.16,
+        1.0,
+        0.16
+      ],
+      "tags": [
+        "prop",
+        "pillar",
+        "wood"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/pillar-wood.png",
+      "tris": 44
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/planks",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "planks",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/planks.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.06,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "planks"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/planks.png",
+      "tris": 96
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/planks-half",
+      "min": [
+        0.0,
+        0.0,
+        -0.5
+      ],
+      "name": "planks-half",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/planks-half.glb",
+      "rigged": false,
+      "size": [
+        0.5,
+        0.06,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "planks",
+        "half"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/planks-half.png",
+      "tris": 84
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/planks-opening",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "planks-opening",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/planks-opening.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.06,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "planks",
+        "opening"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/planks-opening.png",
+      "tris": 144
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/poles",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "poles",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/poles.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "poles"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/poles.png",
+      "tris": 28
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/poles-horizontal",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "poles-horizontal",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/poles-horizontal.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "poles",
+        "horizontal"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/poles-horizontal.png",
+      "tris": 40
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/road",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "road",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/road.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.025,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "road"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/road.png",
+      "tris": 12
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/road-bend",
+      "min": [
+        -1.5,
+        0.0,
+        -1.5
+      ],
+      "name": "road-bend",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/road-bend.glb",
+      "rigged": false,
+      "size": [
+        3.0,
+        0.05,
+        3.0
+      ],
+      "tags": [
+        "prop",
+        "road",
+        "bend"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/road-bend.png",
+      "tris": 280
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/road-corner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "road-corner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/road-corner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.05,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "road",
+        "corner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/road-corner.png",
+      "tris": 150
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/road-corner-inner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "road-corner-inner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/road-corner-inner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.05,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "road",
+        "corner",
+        "inner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/road-corner-inner.png",
+      "tris": 146
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/road-curb",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "road-curb",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/road-curb.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.05,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "road",
+        "curb"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/road-curb.png",
+      "tris": 12
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/road-curb-end",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "road-curb-end",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/road-curb-end.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.05,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "road",
+        "curb",
+        "end"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/road-curb-end.png",
+      "tris": 36
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/road-edge",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "road-edge",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/road-edge.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.05,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "road",
+        "edge"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/road-edge.png",
+      "tris": 36
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/road-edge-slope",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "road-edge-slope",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/road-edge-slope.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.25,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "road",
+        "edge",
+        "slope"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/road-edge-slope.png",
+      "tris": 38
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/road-slope",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "road-slope",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/road-slope.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.225,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "road",
+        "slope"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/road-slope.png",
+      "tris": 12
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/rock-large",
+      "min": [
+        -0.871,
+        0.0,
+        -0.725
+      ],
+      "name": "rock-large",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/rock-large.glb",
+      "rigged": false,
+      "size": [
+        1.67,
+        1.163,
+        1.549
+      ],
+      "tags": [
+        "prop",
+        "rock",
+        "large"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/rock-large.png",
+      "tris": 200
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/rock-small",
+      "min": [
+        -0.527,
+        0.0,
+        -0.785
+      ],
+      "name": "rock-small",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/rock-small.glb",
+      "rigged": false,
+      "size": [
+        0.998,
+        1.02,
+        1.326
+      ],
+      "tags": [
+        "prop",
+        "rock",
+        "small"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/rock-small.png",
+      "tris": 128
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/rock-wide",
+      "min": [
+        -0.547,
+        0.0,
+        -0.784
+      ],
+      "name": "rock-wide",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/rock-wide.glb",
+      "rigged": false,
+      "size": [
+        1.094,
+        1.02,
+        1.567
+      ],
+      "tags": [
+        "prop",
+        "rock",
+        "wide"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/rock-wide.png",
+      "tris": 156
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof",
+      "min": [
+        -0.567,
+        -0.022,
+        -0.5
+      ],
+      "name": "roof",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof.glb",
+      "rigged": false,
+      "size": [
+        1.067,
+        0.648,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof.png",
+      "tris": 64
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-corner",
+      "min": [
+        -0.567,
+        -0.022,
+        -0.5
+      ],
+      "name": "roof-corner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-corner.glb",
+      "rigged": false,
+      "size": [
+        1.067,
+        0.648,
+        1.067
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "corner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-corner.png",
+      "tris": 36
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-corner-inner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "roof-corner-inner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-corner-inner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.626,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "corner",
+        "inner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-corner-inner.png",
+      "tris": 30
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-corner-round",
+      "min": [
+        -0.567,
+        -0.022,
+        -0.5
+      ],
+      "name": "roof-corner-round",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-corner-round.glb",
+      "rigged": false,
+      "size": [
+        1.067,
+        0.648,
+        1.067
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "corner",
+        "round"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-corner-round.png",
+      "tris": 44
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-flat",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "roof-flat",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-flat.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.126,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "flat"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-flat.png",
+      "tris": 20
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-gable",
+      "min": [
+        -0.55,
+        0.0,
+        -0.535
+      ],
+      "name": "roof-gable",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-gable.glb",
+      "rigged": false,
+      "size": [
+        1.1,
+        0.571,
+        1.071
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "gable"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-gable.png",
+      "tris": 72
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-gable-detail",
+      "min": [
+        -0.55,
+        -0.035,
+        -0.606
+      ],
+      "name": "roof-gable-detail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-gable-detail.glb",
+      "rigged": false,
+      "size": [
+        1.1,
+        0.677,
+        1.212
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "gable",
+        "detail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-gable-detail.png",
+      "tris": 128
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-gable-end",
+      "min": [
+        -0.535,
+        0.0,
+        -0.535
+      ],
+      "name": "roof-gable-end",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-gable-end.glb",
+      "rigged": false,
+      "size": [
+        1.085,
+        0.571,
+        1.071
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "gable",
+        "end"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-gable-end.png",
+      "tris": 50
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-gable-top",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "roof-gable-top",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-gable-top.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.376,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "gable",
+        "top"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-gable-top.png",
+      "tris": 56
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high",
+      "min": [
+        -0.571,
+        -0.035,
+        -0.5
+      ],
+      "name": "roof-high",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high.glb",
+      "rigged": false,
+      "size": [
+        1.071,
+        1.176,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high.png",
+      "tris": 64
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-corner",
+      "min": [
+        -0.571,
+        -0.035,
+        -0.5
+      ],
+      "name": "roof-high-corner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-corner.glb",
+      "rigged": false,
+      "size": [
+        1.071,
+        1.176,
+        1.071
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "corner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-corner.png",
+      "tris": 36
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-corner-round",
+      "min": [
+        -0.571,
+        -0.035,
+        -0.5
+      ],
+      "name": "roof-high-corner-round",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-corner-round.glb",
+      "rigged": false,
+      "size": [
+        1.071,
+        1.176,
+        1.071
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "corner",
+        "round"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-corner-round.png",
+      "tris": 48
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-cornerinner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "roof-high-cornerinner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-cornerinner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.141,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "cornerinner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-cornerinner.png",
+      "tris": 30
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-flat",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "roof-high-flat",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-flat.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.141,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "flat"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-flat.png",
+      "tris": 20
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-gable",
+      "min": [
+        -0.55,
+        -0.045,
+        -0.567
+      ],
+      "name": "roof-high-gable",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-gable.glb",
+      "rigged": false,
+      "size": [
+        1.1,
+        1.157,
+        1.134
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "gable"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-gable.png",
+      "tris": 72
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-gable-detail",
+      "min": [
+        -0.6,
+        -0.089,
+        -0.634
+      ],
+      "name": "roof-high-gable-detail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-gable-detail.glb",
+      "rigged": false,
+      "size": [
+        1.1,
+        1.313,
+        1.268
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "gable",
+        "detail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-gable-detail.png",
+      "tris": 140
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-gable-end",
+      "min": [
+        -0.568,
+        -0.045,
+        -0.567
+      ],
+      "name": "roof-high-gable-end",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-gable-end.glb",
+      "rigged": false,
+      "size": [
+        1.118,
+        1.157,
+        1.134
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "gable",
+        "end"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-gable-end.png",
+      "tris": 52
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-gable-top",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "roof-high-gable-top",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-gable-top.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.641,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "gable",
+        "top"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-gable-top.png",
+      "tris": 56
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-left",
+      "min": [
+        -0.641,
+        -0.071,
+        -0.5
+      ],
+      "name": "roof-high-left",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-left.glb",
+      "rigged": false,
+      "size": [
+        1.141,
+        1.261,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "left"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-left.png",
+      "tris": 84
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-point",
+      "min": [
+        -0.55,
+        0.0,
+        -0.55
+      ],
+      "name": "roof-high-point",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-point.glb",
+      "rigged": false,
+      "size": [
+        1.1,
+        1.0,
+        1.1
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "point"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-point.png",
+      "tris": 44
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-right",
+      "min": [
+        -0.641,
+        -0.071,
+        -0.5
+      ],
+      "name": "roof-high-right",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-right.glb",
+      "rigged": false,
+      "size": [
+        1.141,
+        1.261,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "right"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-right.png",
+      "tris": 84
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-high-window",
+      "min": [
+        -0.571,
+        -0.035,
+        -0.5
+      ],
+      "name": "roof-high-window",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-high-window.glb",
+      "rigged": false,
+      "size": [
+        1.071,
+        1.176,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "high",
+        "window"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-high-window.png",
+      "tris": 258
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-left",
+      "min": [
+        -0.634,
+        -0.045,
+        -0.5
+      ],
+      "name": "roof-left",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-left.glb",
+      "rigged": false,
+      "size": [
+        1.134,
+        0.721,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "left"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-left.png",
+      "tris": 84
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-point",
+      "min": [
+        -0.55,
+        0.0,
+        -0.55
+      ],
+      "name": "roof-point",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-point.glb",
+      "rigged": false,
+      "size": [
+        1.1,
+        0.5,
+        1.1
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "point"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-point.png",
+      "tris": 44
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-right",
+      "min": [
+        -0.634,
+        -0.045,
+        -0.5
+      ],
+      "name": "roof-right",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-right.glb",
+      "rigged": false,
+      "size": [
+        1.134,
+        0.721,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "right"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-right.png",
+      "tris": 84
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/roof-window",
+      "min": [
+        -0.567,
+        -0.022,
+        -0.5
+      ],
+      "name": "roof-window",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/roof-window.glb",
+      "rigged": false,
+      "size": [
+        1.067,
+        0.648,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "roof",
+        "window"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/roof-window.png",
+      "tris": 176
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-full",
+      "min": [
+        -0.52,
+        0.0,
+        -0.5
+      ],
+      "name": "stairs-full",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-full.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        0.5,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "full"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-full.png",
+      "tris": 68
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-full-corner-inner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "stairs-full-corner-inner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-full-corner-inner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.5,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "full",
+        "corner",
+        "inner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-full-corner-inner.png",
+      "tris": 84
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-full-corner-outer",
+      "min": [
+        -0.52,
+        0.0,
+        -0.52
+      ],
+      "name": "stairs-full-corner-outer",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-full-corner-outer.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        0.5,
+        1.02
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "full",
+        "corner",
+        "outer"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-full-corner-outer.png",
+      "tris": 100
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-stone",
+      "min": [
+        -0.52,
+        0.0,
+        -0.25
+      ],
+      "name": "stairs-stone",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-stone.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        1.0,
+        0.5
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "stone"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-stone.png",
+      "tris": 136
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-stone-corner",
+      "min": [
+        -0.52,
+        0.0,
+        -0.5
+      ],
+      "name": "stairs-stone-corner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-stone-corner.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "stone",
+        "corner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-stone-corner.png",
+      "tris": 144
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-stone-handrail",
+      "min": [
+        -0.52,
+        0.0,
+        -0.25
+      ],
+      "name": "stairs-stone-handrail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-stone-handrail.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        1.445,
+        0.5
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "stone",
+        "handrail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-stone-handrail.png",
+      "tris": 272
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-stone-round",
+      "min": [
+        -0.431,
+        0.0,
+        -0.055
+      ],
+      "name": "stairs-stone-round",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-stone-round.glb",
+      "rigged": false,
+      "size": [
+        0.862,
+        1.0,
+        0.495
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "stone",
+        "round"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-stone-round.png",
+      "tris": 154
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-wide-stone",
+      "min": [
+        -0.52,
+        0.0,
+        -0.5
+      ],
+      "name": "stairs-wide-stone",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-wide-stone.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "wide",
+        "stone"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-wide-stone.png",
+      "tris": 136
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-wide-stone-handrail",
+      "min": [
+        -0.52,
+        0.0,
+        -0.5
+      ],
+      "name": "stairs-wide-stone-handrail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-wide-stone-handrail.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        1.445,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "wide",
+        "stone",
+        "handrail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-wide-stone-handrail.png",
+      "tris": 272
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-wide-wood",
+      "min": [
+        -0.52,
+        0.0,
+        -0.5
+      ],
+      "name": "stairs-wide-wood",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-wide-wood.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "wide",
+        "wood"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-wide-wood.png",
+      "tris": 424
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-wide-wood-handrail",
+      "min": [
+        -0.52,
+        0.0,
+        -0.5
+      ],
+      "name": "stairs-wide-wood-handrail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-wide-wood-handrail.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        1.445,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "wide",
+        "wood",
+        "handrail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-wide-wood-handrail.png",
+      "tris": 560
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-wood",
+      "min": [
+        -0.52,
+        0.0,
+        -0.25
+      ],
+      "name": "stairs-wood",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-wood.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        1.0,
+        0.5
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "wood"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-wood.png",
+      "tris": 432
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stairs-wood-handrail",
+      "min": [
+        -0.52,
+        0.0,
+        -0.25
+      ],
+      "name": "stairs-wood-handrail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stairs-wood-handrail.glb",
+      "rigged": false,
+      "size": [
+        1.02,
+        1.445,
+        0.5
+      ],
+      "tags": [
+        "prop",
+        "stairs",
+        "wood",
+        "handrail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stairs-wood-handrail.png",
+      "tris": 568
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stall",
+      "min": [
+        -0.325,
+        0.0,
+        -0.5
+      ],
+      "name": "stall",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stall.glb",
+      "rigged": false,
+      "size": [
+        0.65,
+        0.366,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stall"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stall.png",
+      "tris": 106
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stall-bench",
+      "min": [
+        -0.13,
+        0.0,
+        -0.47
+      ],
+      "name": "stall-bench",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stall-bench.glb",
+      "rigged": false,
+      "size": [
+        0.26,
+        0.226,
+        0.94
+      ],
+      "tags": [
+        "prop",
+        "stall",
+        "bench"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stall-bench.png",
+      "tris": 180
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stall-green",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "stall-green",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stall-green.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.237,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stall",
+        "green"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stall-green.png",
+      "tris": 322
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stall-red",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "stall-red",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stall-red.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.237,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "stall",
+        "red"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stall-red.png",
+      "tris": 270
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/stall-stool",
+      "min": [
+        -0.13,
+        0.0,
+        -0.13
+      ],
+      "name": "stall-stool",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/stall-stool.glb",
+      "rigged": false,
+      "size": [
+        0.26,
+        0.226,
+        0.26
+      ],
+      "tags": [
+        "prop",
+        "stall",
+        "stool"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/stall-stool.png",
+      "tris": 180
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/tree",
+      "min": [
+        -0.512,
+        0.0,
+        -0.512
+      ],
+      "name": "tree",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/tree.glb",
+      "rigged": false,
+      "size": [
+        1.023,
+        2.413,
+        1.023
+      ],
+      "tags": [
+        "prop",
+        "tree"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/tree.png",
+      "tris": 168
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/tree-crooked",
+      "min": [
+        -0.512,
+        0.0,
+        -0.512
+      ],
+      "name": "tree-crooked",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/tree-crooked.glb",
+      "rigged": false,
+      "size": [
+        1.023,
+        2.413,
+        1.023
+      ],
+      "tags": [
+        "prop",
+        "tree",
+        "crooked"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/tree-crooked.png",
+      "tris": 178
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/tree-high",
+      "min": [
+        -0.512,
+        0.0,
+        -0.512
+      ],
+      "name": "tree-high",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/tree-high.glb",
+      "rigged": false,
+      "size": [
+        1.023,
+        2.973,
+        1.023
+      ],
+      "tags": [
+        "prop",
+        "tree",
+        "high"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/tree-high.png",
+      "tris": 200
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/tree-high-crooked",
+      "min": [
+        -0.512,
+        0.0,
+        -0.512
+      ],
+      "name": "tree-high-crooked",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/tree-high-crooked.glb",
+      "rigged": false,
+      "size": [
+        1.023,
+        2.973,
+        1.023
+      ],
+      "tags": [
+        "prop",
+        "tree",
+        "high",
+        "crooked"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/tree-high-crooked.png",
+      "tris": 210
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/tree-high-round",
+      "min": [
+        -0.509,
+        0.0,
+        -0.509
+      ],
+      "name": "tree-high-round",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/tree-high-round.glb",
+      "rigged": false,
+      "size": [
+        1.019,
+        2.751,
+        1.019
+      ],
+      "tags": [
+        "prop",
+        "tree",
+        "high",
+        "round"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/tree-high-round.png",
+      "tris": 126
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall.png",
+      "tris": 32
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-arch",
+      "min": [
+        0.4,
+        0.0,
+        0.2
+      ],
+      "name": "wall-arch",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-arch.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        0.3
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "arch"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-arch.png",
+      "tris": 32
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-arch-top",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-arch-top",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-arch-top.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "arch",
+        "top"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-arch-top.png",
+      "tris": 146
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-arch-top-detail",
+      "min": [
+        0.37,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-arch-top-detail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-arch-top-detail.glb",
+      "rigged": false,
+      "size": [
+        0.16,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "arch",
+        "top",
+        "detail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-arch-top-detail.png",
+      "tris": 168
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-block",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-block",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-block.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "block"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-block.png",
+      "tris": 76
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-block-half",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-block-half",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-block-half.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.5,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "block",
+        "half"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-block-half.png",
+      "tris": 76
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-broken",
+      "min": [
+        0.398,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-broken",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-broken.glb",
+      "rigged": false,
+      "size": [
+        0.117,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "broken"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-broken.png",
+      "tris": 166
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-corner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-corner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-corner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "corner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-corner.png",
+      "tris": 52
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-corner-detail",
+      "min": [
+        0.37,
+        0.0,
+        0.37
+      ],
+      "name": "wall-corner-detail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-corner-detail.glb",
+      "rigged": false,
+      "size": [
+        0.16,
+        1.0,
+        0.16
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "corner",
+        "detail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-corner-detail.png",
+      "tris": 176
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-corner-diagonal",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-corner-diagonal",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-corner-diagonal.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "corner",
+        "diagonal"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-corner-diagonal.png",
+      "tris": 48
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-corner-diagonal-half",
+      "min": [
+        -0.05,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-corner-diagonal-half",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-corner-diagonal-half.glb",
+      "rigged": false,
+      "size": [
+        0.55,
+        1.0,
+        0.975
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "corner",
+        "diagonal",
+        "half"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-corner-diagonal-half.png",
+      "tris": 34
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-corner-edge",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-corner-edge",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-corner-edge.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "corner",
+        "edge"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-corner-edge.png",
+      "tris": 40
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-curved",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-curved",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-curved.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "curved"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-curved.png",
+      "tris": 120
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-detail-cross",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-detail-cross",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-detail-cross.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "detail",
+        "cross"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-detail-cross.png",
+      "tris": 80
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-detail-diagonal",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-detail-diagonal",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-detail-diagonal.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "detail",
+        "diagonal"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-detail-diagonal.png",
+      "tris": 56
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-detail-horizontal",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-detail-horizontal",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-detail-horizontal.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "detail",
+        "horizontal"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-detail-horizontal.png",
+      "tris": 46
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-diagonal",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-diagonal",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-diagonal.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "diagonal"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-diagonal.png",
+      "tris": 38
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-door",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-door",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-door.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "door"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-door.png",
+      "tris": 376
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-doorway-base",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-doorway-base",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-doorway-base.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "doorway",
+        "base"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-doorway-base.png",
+      "tris": 64
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-doorway-round",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-doorway-round",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-doorway-round.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "doorway",
+        "round"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-doorway-round.png",
+      "tris": 172
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-doorway-square",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-doorway-square",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-doorway-square.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "doorway",
+        "square"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-doorway-square.png",
+      "tris": 70
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-doorway-square-wide",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-doorway-square-wide",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-doorway-square-wide.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "doorway",
+        "square",
+        "wide"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-doorway-square-wide.png",
+      "tris": 46
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-doorway-square-wide-curved",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-doorway-square-wide-curved",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-doorway-square-wide-curved.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "doorway",
+        "square",
+        "wide",
+        "curved"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-doorway-square-wide-curved.png",
+      "tris": 166
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-half",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-half",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-half.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        0.5,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "half"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-half.png",
+      "tris": 32
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-rounded",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-rounded",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-rounded.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "rounded"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-rounded.png",
+      "tris": 136
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-side",
+      "min": [
+        0.4,
+        0.0,
+        0.24
+      ],
+      "name": "wall-side",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-side.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        0.26
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "side"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-side.png",
+      "tris": 22
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-slope",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-slope",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-slope.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "slope"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-slope.png",
+      "tris": 32
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-window-glass",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-window-glass",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-window-glass.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "window",
+        "glass"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-window-glass.png",
+      "tris": 178
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-window-round",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-window-round",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-window-round.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "window",
+        "round"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-window-round.png",
+      "tris": 278
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-window-shutters",
+      "min": [
+        0.325,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-window-shutters",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-window-shutters.glb",
+      "rigged": false,
+      "size": [
+        0.175,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "window",
+        "shutters"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-window-shutters.png",
+      "tris": 286
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-window-small",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-window-small",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-window-small.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "window",
+        "small"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-window-small.png",
+      "tris": 102
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-window-stone",
+      "min": [
+        0.375,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-window-stone",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-window-stone.glb",
+      "rigged": false,
+      "size": [
+        0.15,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "window",
+        "stone"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-window-stone.png",
+      "tris": 140
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood.png",
+      "tris": 32
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-arch",
+      "min": [
+        0.4,
+        0.0,
+        0.2
+      ],
+      "name": "wall-wood-arch",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-arch.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        0.3
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "arch"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-arch.png",
+      "tris": 32
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-arch-top",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-arch-top",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-arch-top.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "arch",
+        "top"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-arch-top.png",
+      "tris": 146
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-arch-top-detail",
+      "min": [
+        0.37,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-arch-top-detail",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-arch-top-detail.glb",
+      "rigged": false,
+      "size": [
+        0.16,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "arch",
+        "top",
+        "detail"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-arch-top-detail.png",
+      "tris": 168
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-block",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-block",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-block.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "block"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-block.png",
+      "tris": 76
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-block-half",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-block-half",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-block-half.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        0.5,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "block",
+        "half"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-block-half.png",
+      "tris": 76
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-broken",
+      "min": [
+        0.397,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-broken",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-broken.glb",
+      "rigged": false,
+      "size": [
+        0.113,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "broken"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-broken.png",
+      "tris": 166
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-corner",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-corner",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-corner.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "corner"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-corner.png",
+      "tris": 52
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-corner-diagonal",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-corner-diagonal",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-corner-diagonal.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "corner",
+        "diagonal"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-corner-diagonal.png",
+      "tris": 48
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-corner-diagonal-half",
+      "min": [
+        -0.05,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-corner-diagonal-half",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-corner-diagonal-half.glb",
+      "rigged": false,
+      "size": [
+        0.55,
+        1.0,
+        0.975
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "corner",
+        "diagonal",
+        "half"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-corner-diagonal-half.png",
+      "tris": 34
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-corner-edge",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-corner-edge",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-corner-edge.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "corner",
+        "edge"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-corner-edge.png",
+      "tris": 40
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-curved",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-curved",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-curved.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "curved"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-curved.png",
+      "tris": 120
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-detail-cross",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-detail-cross",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-detail-cross.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "detail",
+        "cross"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-detail-cross.png",
+      "tris": 80
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-detail-diagonal",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-detail-diagonal",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-detail-diagonal.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "detail",
+        "diagonal"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-detail-diagonal.png",
+      "tris": 56
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-detail-horizontal",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-detail-horizontal",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-detail-horizontal.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "detail",
+        "horizontal"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-detail-horizontal.png",
+      "tris": 46
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-diagonal",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-diagonal",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-diagonal.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "diagonal"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-diagonal.png",
+      "tris": 38
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-door",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-door",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-door.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "door"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-door.png",
+      "tris": 376
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-doorway-base",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-doorway-base",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-doorway-base.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "doorway",
+        "base"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-doorway-base.png",
+      "tris": 64
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-doorway-round",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-doorway-round",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-doorway-round.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "doorway",
+        "round"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-doorway-round.png",
+      "tris": 172
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-doorway-square",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-doorway-square",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-doorway-square.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "doorway",
+        "square"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-doorway-square.png",
+      "tris": 82
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-doorway-square-wide",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-doorway-square-wide",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-doorway-square-wide.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "doorway",
+        "square",
+        "wide"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-doorway-square-wide.png",
+      "tris": 46
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-doorway-square-wide-curved",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-doorway-square-wide-curved",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-doorway-square-wide-curved.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "doorway",
+        "square",
+        "wide",
+        "curved"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-doorway-square-wide-curved.png",
+      "tris": 166
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-half",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-half",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-half.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        0.5,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "half"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-half.png",
+      "tris": 32
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-rounded",
+      "min": [
+        -0.5,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-rounded",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-rounded.glb",
+      "rigged": false,
+      "size": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "rounded"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-rounded.png",
+      "tris": 136
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-side",
+      "min": [
+        0.4,
+        0.0,
+        0.24
+      ],
+      "name": "wall-wood-side",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-side.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        0.26
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "side"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-side.png",
+      "tris": 22
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-slope",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-slope",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-slope.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "slope"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-slope.png",
+      "tris": 84
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-window-glass",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-window-glass",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-window-glass.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "window",
+        "glass"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-window-glass.png",
+      "tris": 122
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-window-round",
+      "min": [
+        0.35,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-window-round",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-window-round.glb",
+      "rigged": false,
+      "size": [
+        0.2,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "window",
+        "round"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-window-round.png",
+      "tris": 294
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-window-shutters",
+      "min": [
+        0.4,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-window-shutters",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-window-shutters.glb",
+      "rigged": false,
+      "size": [
+        0.1,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "window",
+        "shutters"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-window-shutters.png",
+      "tris": 122
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-window-small",
+      "min": [
+        0.35,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-window-small",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-window-small.glb",
+      "rigged": false,
+      "size": [
+        0.2,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "window",
+        "small"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-window-small.png",
+      "tris": 134
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wall-wood-window-stone",
+      "min": [
+        0.375,
+        0.0,
+        -0.5
+      ],
+      "name": "wall-wood-window-stone",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wall-wood-window-stone.glb",
+      "rigged": false,
+      "size": [
+        0.15,
+        1.0,
+        1.0
+      ],
+      "tags": [
+        "prop",
+        "wall",
+        "wood",
+        "window",
+        "stone"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wall-wood-window-stone.png",
+      "tris": 202
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/watermill",
+      "min": [
+        -0.425,
+        -0.9,
+        -0.9
+      ],
+      "name": "watermill",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/watermill.glb",
+      "rigged": false,
+      "size": [
+        0.85,
+        1.799,
+        1.799
+      ],
+      "tags": [
+        "prop",
+        "watermill"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/watermill.png",
+      "tris": 600
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/watermill-wide",
+      "min": [
+        -0.525,
+        -0.9,
+        -0.9
+      ],
+      "name": "watermill-wide",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/watermill-wide.glb",
+      "rigged": false,
+      "size": [
+        1.05,
+        1.799,
+        1.799
+      ],
+      "tags": [
+        "prop",
+        "watermill",
+        "wide"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/watermill-wide.png",
+      "tris": 600
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/wheel",
+      "min": [
+        0.199,
+        0.0,
+        -0.234
+      ],
+      "name": "wheel",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/wheel.glb",
+      "rigged": false,
+      "size": [
+        0.238,
+        0.483,
+        0.468
+      ],
+      "tags": [
+        "prop",
+        "wheel"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/wheel.png",
+      "tris": 192
+    },
+    {
+      "animations": [],
+      "category": "prop",
+      "id": "kenney_fantasy_town/windmill",
+      "min": [
+        -0.235,
+        -1.557,
+        -1.557
+      ],
+      "name": "windmill",
+      "node": "",
+      "pack": "kenney_fantasy_town",
+      "path": "res://assets/kenney_fantasy_town/windmill.glb",
+      "rigged": false,
+      "size": [
+        0.471,
+        3.113,
+        3.113
+      ],
+      "tags": [
+        "prop",
+        "windmill"
+      ],
+      "thumb": "library/thumbs/kenney_fantasy_town/windmill.png",
+      "tris": 732
     },
     {
       "animations": [],
@@ -19735,6 +27457,33 @@
       ],
       "thumb": "library/thumbs/quaternius_ual/UAL2_Standard.png",
       "tris": 13744
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "vltxd_doom/Doom_VLTXD",
+      "min": [
+        -0.609,
+        0.165,
+        -0.047
+      ],
+      "name": "Doom_VLTXD",
+      "node": "",
+      "pack": "vltxd_doom",
+      "path": "res://assets/vltxd_doom/Doom_VLTXD.glb",
+      "rigged": true,
+      "size": [
+        0.851,
+        1.782,
+        1.984
+      ],
+      "tags": [
+        "character",
+        "doom",
+        "vltxd"
+      ],
+      "thumb": "library/thumbs/vltxd_doom/Doom_VLTXD.png",
+      "tris": 23870
     }
   ],
   "version": 1

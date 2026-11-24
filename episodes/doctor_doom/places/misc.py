@@ -33,11 +33,11 @@ def span(a, b):
 
 
 ACTORS = [
-    {"id": "doom_hell", "character": "toon_doom_extra", "at": P(-5.0, 0, H + 2.0), "facing": P(6.0, 0, H - 6.0), "action": "idle",
+    {"id": "doom_hell", "character": "doom_realistic", "at": P(-5.0, 0, H + 2.0), "facing": P(6.0, 0, H - 6.0), "action": "idle",
      "shown": [span("hell_fight", "surfer_sky")], "cues": [{"t": 0.0, "expression": "furious"}]},
     {"id": "tony_bed", "freeze": 0.35, "character": "toon_rdj", "at": P(0.0, 0.75, HO - 1.6), "facing": P(0.0, 0.75, HO + 3.0), "keep_y": True,
      "action": "sit", "shown": [span("hosp_bed", "city_ironman")], "cues": [{"t": 0.0, "expression": "sleepy"}]},
-    {"id": "doom_hosp", "character": "toon_doom_extra", "at": P(1.75, 0, HO - 1.0), "facing": P(1.0, 0, HO - 1.9), "action": "idle",
+    {"id": "doom_hosp", "character": "doom_realistic", "at": P(1.75, 0, HO - 1.0), "facing": P(1.0, 0, HO - 1.9), "action": "idle",
      "shown": [span("hosp_helmet", "city_ironman")], "cues": [{"t": 0.0, "expression": "scheming"}]},
     {"id": "doom_iron", "character": "toon_doom_extra", "at": P(0.0, 0, CI + 4.5), "facing": P(0.0, 0, CI - 5.0), "action": "idle",
      "shown": [span("city_ironman", "shop_rise")], "cues": [{"t": 0.0, "expression": "smug"}]},

@@ -1,0 +1,15 @@
+{
+  "id": "doom_realistic",
+  "description": "Doctor Doom, realistic (VLTXD's 'Doctor Doom Avengers Doomsday Low Poly', CC BY 4.0): iron mask, green hood and cloak, armour.",
+  "tags": [
+    "doctor_doom",
+    "villain",
+    "realistic",
+    "cc-by"
+  ],
+  "body": "male",
+  "model": "vltxd_doom/Doom_VLTXD",
+  "height": 1.9,
+  "idle": "idle_formal",
+  "gait": "walk_formal"
+}

@@ -40,15 +40,15 @@ def span(a, b):
 
 ACTORS = [
     # Doom walking in (the gates shot only).
-    {"id": "doom_walk", "character": "toon_victor_young", "at": P(0.0, 0, 16.0), "facing": P(0.0, 0, -26.0), "action": "idle",
+    {"id": "doom_walk", "character": "doom_realistic", "at": P(0.0, 0, 16.0), "facing": P(0.0, 0, -26.0), "action": "idle",
      "route": {"via": [P(0.0, 0, 6.0)], "gait": "walk_formal", "start": W("v11", 0, 0.2), "arrive": W("v11", "Latveria.", 0.3)},
      "shown": [span("castle_gates", "castle_throne")], "cues": [{"t": 0.0, "expression": "determined"}]},
     # Doom on the throne.
-    {"id": "doom_throne", "freeze": 0.35, "character": "toon_victor_young", "at": P(TH[0], TH[1] + 0.32, TH[2] + 0.28), "facing": P(0.0, 1.2, 10.0), "keep_y": True,
+    {"id": "doom_throne", "freeze": 0.35, "character": "doom_realistic", "at": P(TH[0], TH[1] + 0.32, TH[2] + 0.28), "facing": P(0.0, 1.2, 10.0), "keep_y": True,
      "action": "sit", "shown": [span("castle_throne", "castle_immunity"), span("doom_hands", "hell_fight")],
      "cues": [{"t": 0.0, "expression": "scheming"}]},
     # Doom above the gate, before his people.
-    {"id": "doom_gate", "character": "toon_victor_young", "at": P(0.0, 12.0, GZ + 1.0), "facing": P(0.0, 12.0, GZ + 20.0),
+    {"id": "doom_gate", "character": "doom_realistic", "at": P(0.0, 12.0, GZ + 1.0), "facing": P(0.0, 12.0, GZ + 20.0),
      "keep_y": True, "action": "idle", "shown": [span("castle_people", "doom_hands")],
      "cues": [{"t": 0.0, "expression": "smug"}]},
     # The hero at the gate with handcuffs.
@@ -64,7 +64,7 @@ for _i, (_x, _z) in enumerate([(-2.0, 4.0), (2.0, 4.0), (-2.0, -2.0), (2.0, -2.0
                    "cues": [{"t": 0.0, "expression": "nervous"}]})
 # Doombots in a line across the nave (doombots_row, doombots_pop).
 for _i in range(7):
-    ACTORS.append({"id": f"doombot_{_i}", "character": "toon_doom_extra", "at": P(-4.2 + 1.4 * _i, 0, -12.0),
+    ACTORS.append({"id": f"doombot_{_i}", "character": "doom_realistic", "at": P(-4.2 + 1.4 * _i, 0, -12.0),
                    "facing": P(-4.2 + 1.4 * _i, 0, 10.0), "action": "idle", "shown": [span("doombots_row", "hell_fight")],
                    "cues": [{"t": 0.0, "expression": "smug"}]})
 # Villagers in the gate court cheering up at him.

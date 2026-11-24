@@ -36,9 +36,9 @@ def span(a, b):
 
 
 ACTORS = [
-    {"id": "doom62", "character": "toon_doom_extra", "at": P(0.5, 0, -2.7), "facing": P(-2.2, 0, -1.5), "action": "idle",
+    {"id": "doom62", "character": "doom_realistic", "at": P(0.5, 0, -2.7), "facing": P(-2.2, 0, -1.5), "action": "idle",
      "shown": [span("doom62_kidnap", "pirate_chest")], "cues": [{"t": 0.0, "expression": "smug"}]},
-    {"id": "doom62_b", "character": "toon_doom_extra", "at": P(0.9, 0, 0.3), "facing": P(0.9, 0, 6.0), "action": "idle",
+    {"id": "doom62_b", "character": "doom_realistic", "at": P(0.9, 0, 0.3), "facing": P(0.9, 0, 6.0), "action": "idle",
      "shown": [span("doom62_feet", "shop_stack")], "cues": [{"t": 0.0, "expression": "smug"}]},
     {"id": "sue", "character": "toon_sue", "at": P(2.4, 0, -1.8), "facing": P(2.4, 0, 3.0), "action": "idle",
      "shown": [span("doom62_kidnap", "pirate_chest")], "cues": [{"t": 0.0, "expression": "shocked"}]},

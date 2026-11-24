@@ -88,6 +88,40 @@
         "foot_r": "foot_r",
         "ball_r": "ball_r"
       }
+    },
+    "gta_ped": {
+      "packs": [
+        "vltxd_doom"
+      ],
+      "skeleton": "Sketchfab_model/DokDoom_fbx/RootNode/unnamed/Root_005/Object_5/Skeleton3D",
+      "_note": "GTA San Andreas ped skeleton (VLTXD's Doom), re-posed from an A-pose to a T-pose facing +Z by pipeline/blender/tpose_character.py. Bone names keep their leading spaces.",
+      "bones": {
+        "pelvis": " Pelvis_02",
+        "spine_01": " Spine_03",
+        "spine_03": " Spine1_04",
+        "neck_01": " Neck_05",
+        "Head": " Head_06",
+        "clavicle_l": "Bip01 L Clavicle_010",
+        "upperarm_l": " L UpperArm_011",
+        "lowerarm_l": " L ForeArm_012",
+        "hand_l": " L Hand_013",
+        "index_01_l": " L Finger_014",
+        "index_02_l": "L Finger01_015",
+        "clavicle_r": "Bip01 R Clavicle_00",
+        "upperarm_r": " R UpperArm_016",
+        "lowerarm_r": " R ForeArm_017",
+        "hand_r": " R Hand_018",
+        "index_01_r": " R Finger_019",
+        "index_02_r": "R Finger01_020",
+        "thigh_l": " L Thigh_024",
+        "calf_l": " L Calf_025",
+        "foot_l": " L Foot_026",
+        "ball_l": " L Toe0_027",
+        "thigh_r": " R Thigh_028",
+        "calf_r": " R Calf_029",
+        "foot_r": " R Foot_030",
+        "ball_r": " R Toe0_031"
+      }
     }
   }
 }

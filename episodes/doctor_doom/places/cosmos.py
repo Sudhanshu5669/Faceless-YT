@@ -7,6 +7,7 @@ Battleworld r 30; GOD (0,0,1800) the throne at (0, 0.55, 1794); EARTH (0,0,2600)
 from .common import W, frame, cam, move
 
 P = frame("board", 180000.0)
+SK = -6000.0
 VO, WO, GO, EA, PA = 600.0, 1200.0, 1800.0, 5000.0, 7000.0
 
 _DARK = {
@@ -50,13 +51,13 @@ def span(a, b):
 
 
 ACTORS = [
-    {"id": "doom_surfer", "freeze": 0.35, "character": "toon_victor_young", "at": P(0.0, 5.0, 0.0), "facing": P(0.0, 5.0, 10.0), "keep_y": True,
+    {"id": "doom_surfer", "freeze": 0.35, "character": "doom_realistic", "at": P(0.0, 5.0, SK), "facing": P(0.0, 5.0, SK + 10.0), "keep_y": True,
      "action": "idle", "shown": [span("surfer_sky", "beyonder_grab")], "cues": [{"t": 0.0, "expression": "determined"}]},
-    {"id": "doom_void", "freeze": 0.35, "character": "toon_victor_young", "at": P(0.0, 0.0, VO), "facing": P(0.0, 0.0, VO + 10.0), "keep_y": True,
+    {"id": "doom_void", "freeze": 0.35, "character": "doom_realistic", "at": P(0.0, 0.0, VO), "facing": P(0.0, 0.0, VO + 10.0), "keep_y": True,
      "action": "idle", "shown": [span("beyonder_grab", "bw_planet")], "cues": [{"t": 0.0, "expression": "scheming"}]},
     {"id": "doom_god", "freeze": 0.35, "character": "toon_victor_young", "at": P(0.0, 0.55, GO - 6.0), "facing": P(0.0, 0.55, GO + 10.0),
      "keep_y": True, "action": "sit", "shown": [span("bw_throne", "emp_cloak")], "cues": [{"t": 0.0, "expression": "smug"}]},
-    {"id": "doom_emp", "freeze": 0.35, "character": "toon_victor_young", "at": P(0.0, -5.0, EA + 52.0), "facing": P(0.0, -5.0, EA + 70.0),
+    {"id": "doom_emp", "freeze": 0.35, "character": "doom_realistic", "at": P(0.0, -5.0, EA + 52.0), "facing": P(0.0, -5.0, EA + 70.0),
      "keep_y": True, "action": "idle", "shown": [span("emp_cloak", "board_titles")], "cues": [{"t": 0.0, "expression": "smug"}]},
 ]
 
@@ -76,8 +77,8 @@ GAGS = [
 SHOTS = {
     # Above the storm: Doom rides the crackling silver board; we circle him as lightning splits the clouds.
     "surfer_sky": {"look": LOOK_STORMSKY, "camera": move(
-        cam(P(2.4, 5.9, 2.6), P(0.0, 5.9, 0.0), 28, {"strength": 0.06}),
-        cam(P(-2.0, 5.4, 2.8), P(0.0, 6.0, 0.0), 28, {"strength": 0.06}), "in_out")},
+        cam(P(2.4, 5.9, SK + 2.6), P(0.0, 5.9, SK), 28, {"strength": 0.06}),
+        cam(P(-2.0, 5.4, SK + 2.8), P(0.0, 6.0, SK), 28, {"strength": 0.06}), "in_out")},
     # The void: the Beyonder's star streams across space into his reaching hand.
     "beyonder_grab": {"look": LOOK_SPACE, "camera": move(
         cam(P(2.2, 1.5, VO + 2.6), P(-1.0, 2.2, VO - 6.0), 24, {"strength": 0.03}),
