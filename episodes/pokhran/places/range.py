@@ -594,4 +594,144 @@ SHOTS = {
     "shaft_dive": {"look": LOOK_DIVE, "camera": cam("range_site.dive_cam", "range_site.dive_look", 24)},
 }
 
+# ---- 11 May 1998: the wrong wind, the wait, the turn (windsock, wait_row, wait_clock, wind_turns) ----------------------
+import math as _m
+
+
+def range_ground(x, z):
+    """Terrain height at gag-local (x, z): a port of height() in gags/range.gd (keep in step)."""
+    ss = lambda a, b, v: (lambda u: u * u * (3 - 2 * u))(min(1.0, max(0.0, (v - a) / (b - a))))
+    h = 0.22 * _m.sin(0.11 * x + 0.7) * _m.cos(0.083 * z + 1.3) + 0.12 * _m.sin(0.23 * x - 0.17 * z + 2.1)
+    h += 0.05 * _m.sin(0.47 * x + 0.31 * z) + 0.025 * _m.sin(1.3 * x - 0.9 * z + 0.4)
+    d = _m.hypot(x, z)
+    far = ss(90.0, 420.0, d)
+    dn = 0.5 + 0.5 * _m.sin(0.021 * x + 1.7 * _m.sin(0.006 * z) + 0.3)
+    h += far * (5.0 * dn ** 3 + 2.0 * _m.sin(0.013 * z + 0.9) * _m.sin(0.017 * x))
+    h += ss(700.0, 2200.0, d) * (16.0 + 10.0 * _m.sin(0.004 * x + 2.0) * _m.sin(0.0031 * z))
+    h = -0.02 + (h + 0.02) * ss(6.0, 13.2, d)
+    tz = 5.6 + 4.0 * _m.sin(x * 0.04 + 0.5)
+    dz = abs(z - tz)
+    on = 1.0 - ss(60.0, 90.0, abs(x))
+    h += (-0.05 * _m.exp(-((dz - 0.85) / 0.15) ** 2) + 0.012 * _m.exp(-(dz / 0.35) ** 2)) * on
+    return h
+
+
+def PG(x, dy, z):
+    """A gag-local point dy metres above the sand."""
+    return P(x, round(range_ground(x, z) + dy, 3), z)
+
+
+SOCK = (-7.6, -23.6)                 # the windsock's pole (gags/range.gd SOCK_AT)
+DV = (0.75, -0.66)                   # the wrong wind: toward Khetolai (clear of the camp)
+VILLAGE = (SOCK[0] + 200 * DV[0], SOCK[1] + 200 * DV[1])
+YAW_WRONG = -48.7                    # the sock's heading blowing along DV
+YAW_TURNED = 131.3                   # 15:45: the other way, away from the village
+TENT = (-18.4, -21.4)            # west of the sock, clear of the parked jeep
+TF = (0.622, -0.783)                 # the tent's open front faces this way (the sock off to its front-left)
+TX = (-TF[1], TF[0])                 # the tent's local +x in gag-local coordinates
+
+
+def TL(lx, lz):
+    return (TENT[0] + lx * TX[0] + lz * TF[0], TENT[1] + lx * TX[1] + lz * TF[1])
+
+
+def TLP(lx, dy, lz):
+    x, z = TL(lx, lz)
+    return PG(x, dy, z)
+
+
+# The morning of 11 May: the sun low in the east, long shadows, a clean hard light. Noon for the time-lapse.
+LOOK_MORNING = dict(LOOK_AFTERNOON, time="09:00",
+                    sun={"elevation": 30, "azimuth": 98, "color": "#ffe8c8", "energy": 3.0, "softness": 0.6,
+                         "visible": True, "size": 1.3, "glow": 1.3, "shadows": True})
+LOOK_NOON = dict(LOOK_AFTERNOON, time="12:30",
+                 sun={"elevation": 74, "azimuth": 170, "color": "#fff4e0", "energy": 3.3, "softness": 0.5,
+                      "visible": True, "size": 1.2, "glow": 1.0, "shadows": True},
+                 ambient={"color": "#c4a884", "energy": 0.4, "sky": 0.6})
+
+TENT_ON = [{"shot": "wait_row", "offset": -0.1}, {"shot": "key_turn"}]
+_BENCH = -0.55
+_WAITERS = [("toon_sci_fatigues_a", -1.5), ("toon_barc_sci", -0.9), ("toon_kalam_fatigues", -0.3),
+            ("toon_chidambaram", 0.3), ("toon_sci_fatigues_b", 0.9), ("toon_jawan_c", 1.5)]
+_TW_FROM = W("l13a", offset=0.15)
+_TW_TO = W("l13a", "waits.", 0.35)
+_TURN = W("l14a", "turns.", -0.1)
+for _i, (_ch, _lx) in enumerate(_WAITERS):
+    _cues = [{"t": 0.0, "expression": "deadpan" if _i % 2 else "sleepy"},
+             # The tumbleweed goes by: every head follows it, in unison.
+             {"t": W("l13a", offset=0.2), "head": [6, 38, 0], "head_turn": 0.3},
+             {"t": W("l13a", "India", 0.0), "head": [6, -38, 0], "head_turn": 1.1},
+             {"t": W("l13a", "waits.", 0.25), "head": [8, 0, 0], "head_turn": 0.5},
+             # Six hours: they wilt.
+             {"t": W("l13b", "hours.", 0.0), "expression": "sleepy", "head": [18, 0, 10 if _i % 2 else -10], "head_turn": 0.6},
+             {"t": W("l13b", "Staring", 0.0), "expression": "deadpan", "head": [2, 22, 0], "head_turn": 0.5},
+             # 15:45: the wind turns; they leap up.
+             {"t": _TURN, "expression": "shocked", "head": [-10, 0, 0], "head_turn": 0.2},
+             {"t": W("l14a", "turns.", 0.25), "action": "jump", "expression": "cheer"}]
+    if _ch == "toon_kalam_fatigues":
+        # Kalam nods off during the six hours.
+        _cues.insert(5, {"t": W("l13b", "hours.", 0.2), "expression": "sleepy", "head": [30, 0, 18], "head_turn": 0.8})
+    ACTORS.append({"id": f"wt_{_i}", "character": _ch, "at": TLP(_lx, 0, _BENCH), "facing": TLP(_lx, 0, 6.0),
+                   "action": "sit", "shown": [TENT_ON], "cues": _cues})
+
+GAGS.append({"id": "wait_tent", "script": "gags/wait_tent.gd", "t": TENT_ON[0], "until": TENT_ON[1],
+             "at": TLP(0, 0, 0), "face": TLP(0, 0, 10.0),
+             "params": {"clock": [[0.0, "09:20"], [W("l13b", offset=0.05), "09:20"], [W("l13b", "hours.", 0.3), "15:00"],
+                                  [W("l13b", edge="end", offset=0.2), "15:38"], [W("l14a", "turns.", 0.0), "15:45"]],
+                        "sitters": [f"wt_{i}" for i in range(6)],
+                        "chins": ["wt_0", "wt_3", "wt_5"], "fan": ["wt_1"],
+                        "tumbleweed": {"from": _TW_FROM, "to": _TW_TO, "a": [-5.5, 2.9], "b": [5.5, 3.3], "r": 0.4, "hops": 4},
+                        "sweep": {"from": W("l13b", offset=0.05), "to": W("l13b", "hours.", 0.35)}}})
+
+_rp = GAGS[0]["params"]
+_rp["wind"] = [[0.0, 115.0, 0.55], [W("l12b", "wrong", -0.2), YAW_WRONG, 0.85], [_TURN, YAW_TURNED, 0.8]]
+_rp["village_far"] = {"at": list(VILLAGE), "on": [[{"shot": "windsock"}, {"shot": "village_far"}]], "n": 14}
+
+# The windsock camera: upwind of the sock, looking down the wrong wind at the village on the horizon.
+_WS_CAM = (SOCK[0] - 25 * DV[0] + 1.0 * 0.66, SOCK[1] - 25 * DV[1] + 1.0 * 0.75)
+_WS_CAM_Y = range_ground(*_WS_CAM) + 2.2
+
+
+def _ahead(cam_xz, cam_y, d, dist, elev_deg):
+    return P(cam_xz[0] + d[0] * dist, round(cam_y + dist * _m.tan(_m.radians(elev_deg)), 3), cam_xz[1] + d[1] * dist)
+
+
+_SOCK_DIR = ((SOCK[0] - _WS_CAM[0]), (SOCK[1] - _WS_CAM[1]))
+_n = _m.hypot(*_SOCK_DIR)
+_SOCK_DIR = (_SOCK_DIR[0] / _n, _SOCK_DIR[1] / _n)
+# wind_turns: low under the sock, looking up past it at the tent.
+# Side-on to the wind, so the sock swings in profile: from DV to the other way.
+_WT_CAM = (SOCK[0] - 3.6 * 0.66, SOCK[1] - 3.6 * 0.75)
+_WT_Y = range_ground(*_WT_CAM) + 0.5
+_WT_DIR = (0.66, 0.75)
+
+# Keep the scattered scrub off the tent, its forecourt and the camera spots.
+_rp["clear"] = _rp["clear"] + [[*TL(0, 0), 4.5], [*TL(0, 4.5), 3.5], [*_WS_CAM, 2.0], [*_WT_CAM, 1.6]]
+# ... and the line of sight from the sock to the village.
+_rp["clear"] += [[SOCK[0] + k * DV[0], SOCK[1] + k * DV[1], 7.0] for k in range(10, 130, 10)]
+
+SHOTS.update({
+    # Low, upwind of the windsock, the sock big against the morning sky: on "wrong way" a gust whips it round to point
+    # straight down the plain at Khetolai on the horizon (huts, cooking smoke), and the lens punches in toward the village.
+    "windsock": {"look": LOOK_MORNING, "camera": {
+        "from": cam(P(_WS_CAM[0], round(_WS_CAM_Y, 3), _WS_CAM[1]), _ahead(_WS_CAM, _WS_CAM_Y, _SOCK_DIR, 20, 6), 50, {"strength": 0.04}),
+        "to": cam(P(_WS_CAM[0], round(_WS_CAM_Y, 3), _WS_CAM[1]), _ahead(_WS_CAM, _WS_CAM_Y, DV, 20, 3.5), 85),
+        "ease": "out", "start": W("l12b", "wrong", 0.1), "end": W("l12b", "way.", 0.35)}},
+    # Outside the tent's open front, low: a bench packed with bored scientists in the shade, chins on fists, one fanning
+    # himself with a file; a tumbleweed bounces across in front and every head follows it, in unison. A slow drift.
+    "wait_row": {"look": LOOK_MORNING, "camera": move(
+        cam(TLP(1.0, 1.0, 5.8), TLP(0.15, 1.0, _BENCH), 30, {"strength": 0.08}),
+        cam(TLP(0.7, 1.0, 5.5), TLP(0.0, 1.0, _BENCH), 30, {"strength": 0.08}), "linear")},
+    # Closer, the clock on the back pole over their heads: the time-lapse: its hands whirl 9 -> 3, a sunbeam slides
+    # across them, they wilt; Kalam nods off; on "Staring at the wind" they all stare out, dead-eyed.
+    "wait_clock": {"look": LOOK_NOON, "camera": move(
+        cam(TLP(0.75, 1.3, 3.6), TLP(0.0, 1.55, -2.4), 30, {"strength": 0.1}),
+        cam(TLP(0.6, 1.33, 3.0), TLP(0.0, 1.6, -2.4), 30, {"strength": 0.12}), "linear")},
+    # Low under the windsock, side-on to the wind, the sock big in profile against the afternoon sky: at 15:45, on
+    # "turns", it whips round to blow the other way, away from the village (a gust, a jolt). A small push up the pole.
+    "wind_turns": {"look": LOOK_AFTERNOON, "shake": [{"t": _TURN, "amount": 0.15}], "camera": move(
+        cam(P(_WT_CAM[0], round(_WT_Y, 3), _WT_CAM[1]), _ahead(_WT_CAM, _WT_Y, _WT_DIR, 10, 34), 24, {"strength": 0.05}),
+        cam(P(_WT_CAM[0] + 0.1, round(_WT_Y + 0.1, 3), _WT_CAM[1] + 0.3), _ahead(_WT_CAM, _WT_Y + 0.1, _WT_DIR, 10, 37), 24, {"strength": 0.05}), "linear")},
+})
+
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS, "reveals": REVEALS}

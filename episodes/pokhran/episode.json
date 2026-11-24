@@ -2853,6 +2853,764 @@
    ]
   },
   {
+   "id": "wt_0",
+   "character": "toon_sci_fatigues_a",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     19.917,
+     -0.043,
+     14978.098
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     15.843,
+     -0.116,
+     14972.969
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "wait_row",
+      "offset": -0.1
+     },
+     {
+      "shot": "key_turn"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy"
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "offset": 0.2
+     },
+     "head": [
+      6,
+      38,
+      0
+     ],
+     "head_turn": 0.3
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "India"
+     },
+     "head": [
+      6,
+      -38,
+      0
+     ],
+     "head_turn": 1.1
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "waits.",
+      "offset": 0.25
+     },
+     "head": [
+      8,
+      0,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "hours."
+     },
+     "expression": "sleepy",
+     "head": [
+      18,
+      0,
+      -10
+     ],
+     "head_turn": 0.6
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "Staring"
+     },
+     "expression": "deadpan",
+     "head": [
+      2,
+      22,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": -0.1
+     },
+     "expression": "shocked",
+     "head": [
+      -10,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": 0.25
+     },
+     "action": "jump",
+     "expression": "cheer"
+    }
+   ]
+  },
+  {
+   "id": "wt_1",
+   "character": "toon_barc_sci",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     19.447,
+     -0.055,
+     14978.471
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     15.373,
+     -0.142,
+     14973.342
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "wait_row",
+      "offset": -0.1
+     },
+     {
+      "shot": "key_turn"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "offset": 0.2
+     },
+     "head": [
+      6,
+      38,
+      0
+     ],
+     "head_turn": 0.3
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "India"
+     },
+     "head": [
+      6,
+      -38,
+      0
+     ],
+     "head_turn": 1.1
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "waits.",
+      "offset": 0.25
+     },
+     "head": [
+      8,
+      0,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "hours."
+     },
+     "expression": "sleepy",
+     "head": [
+      18,
+      0,
+      10
+     ],
+     "head_turn": 0.6
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "Staring"
+     },
+     "expression": "deadpan",
+     "head": [
+      2,
+      22,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": -0.1
+     },
+     "expression": "shocked",
+     "head": [
+      -10,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": 0.25
+     },
+     "action": "jump",
+     "expression": "cheer"
+    }
+   ]
+  },
+  {
+   "id": "wt_2",
+   "character": "toon_kalam_fatigues",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     18.977,
+     -0.067,
+     14978.844
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     14.903,
+     -0.164,
+     14973.715
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "wait_row",
+      "offset": -0.1
+     },
+     {
+      "shot": "key_turn"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy"
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "offset": 0.2
+     },
+     "head": [
+      6,
+      38,
+      0
+     ],
+     "head_turn": 0.3
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "India"
+     },
+     "head": [
+      6,
+      -38,
+      0
+     ],
+     "head_turn": 1.1
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "waits.",
+      "offset": 0.25
+     },
+     "head": [
+      8,
+      0,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "hours."
+     },
+     "expression": "sleepy",
+     "head": [
+      18,
+      0,
+      -10
+     ],
+     "head_turn": 0.6
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "hours.",
+      "offset": 0.2
+     },
+     "expression": "sleepy",
+     "head": [
+      30,
+      0,
+      18
+     ],
+     "head_turn": 0.8
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "Staring"
+     },
+     "expression": "deadpan",
+     "head": [
+      2,
+      22,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": -0.1
+     },
+     "expression": "shocked",
+     "head": [
+      -10,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": 0.25
+     },
+     "action": "jump",
+     "expression": "cheer"
+    }
+   ]
+  },
+  {
+   "id": "wt_3",
+   "character": "toon_chidambaram",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     18.507,
+     -0.08,
+     14979.217
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     14.433,
+     -0.181,
+     14974.089
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "wait_row",
+      "offset": -0.1
+     },
+     {
+      "shot": "key_turn"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "offset": 0.2
+     },
+     "head": [
+      6,
+      38,
+      0
+     ],
+     "head_turn": 0.3
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "India"
+     },
+     "head": [
+      6,
+      -38,
+      0
+     ],
+     "head_turn": 1.1
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "waits.",
+      "offset": 0.25
+     },
+     "head": [
+      8,
+      0,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "hours."
+     },
+     "expression": "sleepy",
+     "head": [
+      18,
+      0,
+      10
+     ],
+     "head_turn": 0.6
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "Staring"
+     },
+     "expression": "deadpan",
+     "head": [
+      2,
+      22,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": -0.1
+     },
+     "expression": "shocked",
+     "head": [
+      -10,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": 0.25
+     },
+     "action": "jump",
+     "expression": "cheer"
+    }
+   ]
+  },
+  {
+   "id": "wt_4",
+   "character": "toon_sci_fatigues_b",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     18.037,
+     -0.09,
+     14979.59
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     13.963,
+     -0.191,
+     14974.462
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "wait_row",
+      "offset": -0.1
+     },
+     {
+      "shot": "key_turn"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy"
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "offset": 0.2
+     },
+     "head": [
+      6,
+      38,
+      0
+     ],
+     "head_turn": 0.3
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "India"
+     },
+     "head": [
+      6,
+      -38,
+      0
+     ],
+     "head_turn": 1.1
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "waits.",
+      "offset": 0.25
+     },
+     "head": [
+      8,
+      0,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "hours."
+     },
+     "expression": "sleepy",
+     "head": [
+      18,
+      0,
+      -10
+     ],
+     "head_turn": 0.6
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "Staring"
+     },
+     "expression": "deadpan",
+     "head": [
+      2,
+      22,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": -0.1
+     },
+     "expression": "shocked",
+     "head": [
+      -10,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": 0.25
+     },
+     "action": "jump",
+     "expression": "cheer"
+    }
+   ]
+  },
+  {
+   "id": "wt_5",
+   "character": "toon_jawan_c",
+   "at": {
+    "anchor": "range",
+    "offset": [
+     17.568,
+     -0.098,
+     14979.964
+    ]
+   },
+   "facing": {
+    "anchor": "range",
+    "offset": [
+     13.493,
+     -0.193,
+     14974.835
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "wait_row",
+      "offset": -0.1
+     },
+     {
+      "shot": "key_turn"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "offset": 0.2
+     },
+     "head": [
+      6,
+      38,
+      0
+     ],
+     "head_turn": 0.3
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "India"
+     },
+     "head": [
+      6,
+      -38,
+      0
+     ],
+     "head_turn": 1.1
+    },
+    {
+     "t": {
+      "line": "l13a",
+      "word": "waits.",
+      "offset": 0.25
+     },
+     "head": [
+      8,
+      0,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "hours."
+     },
+     "expression": "sleepy",
+     "head": [
+      18,
+      0,
+      10
+     ],
+     "head_turn": 0.6
+    },
+    {
+     "t": {
+      "line": "l13b",
+      "word": "Staring"
+     },
+     "expression": "deadpan",
+     "head": [
+      2,
+      22,
+      0
+     ],
+     "head_turn": 0.5
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": -0.1
+     },
+     "expression": "shocked",
+     "head": [
+      -10,
+      0,
+      0
+     ],
+     "head_turn": 0.2
+    },
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": 0.25
+     },
+     "action": "jump",
+     "expression": "cheer"
+    }
+   ]
+  },
+  {
    "id": "vajpayee_pmo",
    "character": "toon_vajpayee",
    "at": {
@@ -3121,6 +3879,214 @@
       "word": "Minister"
      },
      "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "fire_op",
+   "character": "toon_sci_fatigues_b",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -0.3,
+     0,
+     40999.08
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.3,
+     0,
+     40997.0
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "clock_nine",
+      "offset": -0.1
+     },
+     {
+      "shot": "windsock"
+     }
+    ],
+    [
+     {
+      "shot": "key_turn",
+      "offset": -0.1
+     },
+     {
+      "shot": "desert_jumps"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l14b",
+      "word": "turns.",
+      "offset": -0.3
+     },
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "l14b",
+      "word": "turns.",
+      "offset": 0.1
+     },
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "radio_op",
+   "character": "toon_jawan_b",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     0.62,
+     0,
+     40999.05
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     0.62,
+     0,
+     40997.0
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "clock_nine",
+      "offset": -0.1
+     },
+     {
+      "shot": "windsock"
+     }
+    ],
+    [
+     {
+      "shot": "key_turn",
+      "offset": -0.1
+     },
+     {
+      "shot": "desert_jumps"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "deadpan"
+    }
+   ]
+  },
+  {
+   "id": "cal_man",
+   "character": "toon_barc_sci",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -0.95,
+     0,
+     40998.02
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.45,
+     0,
+     40997.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "clock_nine",
+      "offset": -0.1
+     },
+     {
+      "shot": "windsock"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l12a",
+      "word": "11th.",
+      "offset": 0.1
+     },
+     "expression": "grin"
+    }
+   ]
+  },
+  {
+   "id": "kalam_bunker",
+   "character": "toon_kalam_fatigues",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     0.35,
+     0,
+     41000.1
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.5,
+     0,
+     40997.8
+    ]
+   },
+   "action": "fold_arms",
+   "shown": [
+    [
+     {
+      "shot": "clock_nine",
+      "offset": -0.1
+     },
+     {
+      "shot": "windsock"
+     }
+    ],
+    [
+     {
+      "shot": "key_turn",
+      "offset": -0.1
+     },
+     {
+      "shot": "desert_jumps"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined",
+     "head": [
+      0,
+      0,
+      -14
+     ]
     }
    ]
   },
@@ -3859,6 +4825,291 @@
    ]
   },
   {
+   "id": "vk_tyre",
+   "character": "toon_market_kid",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -0.35,
+     0,
+     48994.5
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.4,
+     0,
+     49006.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "village_far",
+      "offset": -0.1
+     },
+     {
+      "shot": "wait_row"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "bunker",
+      "offset": [
+       -0.45,
+       0,
+       49004.2
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "shot": "village_far",
+     "offset": -0.4
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "laugh"
+    }
+   ]
+  },
+  {
+   "id": "vk_chase",
+   "character": "toon_hasan_child_a",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     0.9,
+     0,
+     48992.6
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     0.6,
+     0,
+     49006.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "village_far",
+      "offset": -0.1
+     },
+     {
+      "shot": "wait_row"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "bunker",
+      "offset": [
+       0.7,
+       0,
+       49002.6
+      ]
+     }
+    ],
+    "gait": "run",
+    "start": {
+     "shot": "village_far",
+     "offset": -0.4
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "grin"
+    }
+   ]
+  },
+  {
+   "id": "vw_pots",
+   "character": "toon_market_woman",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     6.0,
+     0,
+     48990.4
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -3.0,
+     0,
+     48989.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "village_far",
+      "offset": -0.1
+     },
+     {
+      "shot": "wait_row"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "bunker",
+      "offset": [
+       -3.0,
+       0,
+       48989.6
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "shot": "village_far",
+     "offset": -0.4
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "vw_well",
+   "character": "toon_hasan_wife",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     2.35,
+     0,
+     48997.6
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     3.6,
+     0,
+     48997.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "village_far",
+      "offset": -0.1
+     },
+     {
+      "shot": "wait_row"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "v_elder",
+   "character": "toon_market_elder",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -5.6,
+     0,
+     48993.1
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -5.2,
+     0,
+     49002.0
+    ]
+   },
+   "action": "sit",
+   "shown": [
+    [
+     {
+      "shot": "village_far",
+      "offset": -0.1
+     },
+     {
+      "shot": "wait_row"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sleepy",
+     "head": [
+      20,
+      0,
+      14
+     ],
+     "head_turn": 0.01
+    }
+   ]
+  },
+  {
+   "id": "vk_door",
+   "character": "toon_hasan_child_b",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     5.0,
+     0,
+     48995.6
+    ]
+   },
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     0,
+     48999.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "village_far",
+      "offset": -0.1
+     },
+     {
+      "shot": "wait_row"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    }
+   ]
+  },
+  {
    "id": "vajpayee",
    "character": "toon_vajpayee",
    "at": {
@@ -4377,6 +5628,24 @@
       0.0,
       115.0,
       0.55
+     ],
+     [
+      {
+       "line": "l12b",
+       "word": "wrong",
+       "offset": -0.2
+      },
+      -48.7,
+      0.85
+     ],
+     [
+      {
+       "line": "l14a",
+       "word": "turns.",
+       "offset": -0.1
+      },
+      131.3,
+      0.8
      ]
     ],
     "shimmer": 1.0,
@@ -4447,6 +5716,86 @@
       -2.6,
       14.0,
       2.5
+     ],
+     [
+      -18.4,
+      -21.4,
+      4.5
+     ],
+     [
+      -15.600999999999999,
+      -24.923499999999997,
+      3.5
+     ],
+     [
+      -25.69,
+      -6.350000000000001,
+      2.0
+     ],
+     [
+      -9.975999999999999,
+      -26.3,
+      1.6
+     ],
+     [
+      -0.09999999999999964,
+      -30.200000000000003,
+      7.0
+     ],
+     [
+      7.4,
+      -36.800000000000004,
+      7.0
+     ],
+     [
+      14.9,
+      -43.400000000000006,
+      7.0
+     ],
+     [
+      22.4,
+      -50.0,
+      7.0
+     ],
+     [
+      29.9,
+      -56.6,
+      7.0
+     ],
+     [
+      37.4,
+      -63.2,
+      7.0
+     ],
+     [
+      44.9,
+      -69.80000000000001,
+      7.0
+     ],
+     [
+      52.4,
+      -76.4,
+      7.0
+     ],
+     [
+      59.9,
+      -83.0,
+      7.0
+     ],
+     [
+      67.4,
+      -89.6,
+      7.0
+     ],
+     [
+      74.9,
+      -96.20000000000002,
+      7.0
+     ],
+     [
+      82.4,
+      -102.80000000000001,
+      7.0
      ]
     ],
     "dive": {
@@ -4542,7 +5891,24 @@
       0.75,
       0.6
      ]
-    ]
+    ],
+    "village_far": {
+     "at": [
+      142.4,
+      -155.6
+     ],
+     "on": [
+      [
+       {
+        "shot": "windsock"
+       },
+       {
+        "shot": "village_far"
+       }
+      ]
+     ],
+     "n": 14
+    }
    }
   },
   {
@@ -4680,6 +6046,119 @@
     "side": "r",
     "reach": 1.3,
     "seed": 3
+   }
+  },
+  {
+   "id": "wait_tent",
+   "script": "gags/wait_tent.gd",
+   "t": {
+    "shot": "wait_row",
+    "offset": -0.1
+   },
+   "until": {
+    "shot": "key_turn"
+   },
+   "at": {
+    "anchor": "range",
+    "offset": [
+     18.4,
+     -0.068,
+     14978.6
+    ]
+   },
+   "face": {
+    "anchor": "range",
+    "offset": [
+     12.18,
+     -0.229,
+     14970.77
+    ]
+   },
+   "params": {
+    "clock": [
+     [
+      0.0,
+      "09:20"
+     ],
+     [
+      {
+       "line": "l13b",
+       "offset": 0.05
+      },
+      "09:20"
+     ],
+     [
+      {
+       "line": "l13b",
+       "word": "hours.",
+       "offset": 0.3
+      },
+      "15:00"
+     ],
+     [
+      {
+       "line": "l13b",
+       "edge": "end",
+       "offset": 0.2
+      },
+      "15:38"
+     ],
+     [
+      {
+       "line": "l14a",
+       "word": "turns."
+      },
+      "15:45"
+     ]
+    ],
+    "sitters": [
+     "wt_0",
+     "wt_1",
+     "wt_2",
+     "wt_3",
+     "wt_4",
+     "wt_5"
+    ],
+    "chins": [
+     "wt_0",
+     "wt_3",
+     "wt_5"
+    ],
+    "fan": [
+     "wt_1"
+    ],
+    "tumbleweed": {
+     "from": {
+      "line": "l13a",
+      "offset": 0.15
+     },
+     "to": {
+      "line": "l13a",
+      "word": "waits.",
+      "offset": 0.35
+     },
+     "a": [
+      -5.5,
+      2.9
+     ],
+     "b": [
+      5.5,
+      3.3
+     ],
+     "r": 0.4,
+     "hops": 4
+    },
+    "sweep": {
+     "from": {
+      "line": "l13b",
+      "offset": 0.05
+     },
+     "to": {
+      "line": "l13b",
+      "word": "hours.",
+      "offset": 0.35
+     }
+    }
    }
   },
   {
@@ -4890,6 +6369,64 @@
    }
   },
   {
+   "id": "control",
+   "script": "gags/control.gd",
+   "t": 0,
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     0,
+     0,
+     41000.0
+    ]
+   },
+   "params": {
+    "clock": [
+     [
+      0.0,
+      "08:59"
+     ],
+     [
+      {
+       "line": "l12a",
+       "word": "nine",
+       "offset": -0.3
+      },
+      "08:59"
+     ],
+     [
+      {
+       "line": "l12a",
+       "word": "nine",
+       "offset": 0.02
+      },
+      "09:00"
+     ]
+    ],
+    "calendar": {
+     "from": "10",
+     "to": "11",
+     "month": "MAY",
+     "tear": {
+      "line": "l12a",
+      "word": "11th."
+     },
+     "hand": "cal_man"
+    },
+    "key": {
+     "turn": {
+      "line": "l14b",
+      "word": "turns."
+     },
+     "hand": "fire_op"
+    },
+    "sitters": [
+     "fire_op",
+     "radio_op"
+    ]
+   }
+  },
+  {
    "id": "flight",
    "script": "gags/flight.gd",
    "t": 0,
@@ -4992,6 +6529,56 @@
       7.0
      ]
     ]
+   }
+  },
+  {
+   "id": "village",
+   "script": "gags/village.gd",
+   "t": 0,
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     0,
+     0,
+     49000.0
+    ]
+   },
+   "params": {
+    "tyre": [
+     {
+      "actor": "vk_tyre"
+     }
+    ],
+    "pots": [
+     "vw_pots"
+    ],
+    "well": {
+     "actor": "vw_well",
+     "from": {
+      "shot": "village_far",
+      "offset": -0.3
+     },
+     "to": {
+      "line": "l12c",
+      "edge": "end",
+      "offset": 0.4
+     }
+    },
+    "dust": {
+     "from": {
+      "shot": "village_far",
+      "offset": -0.4
+     },
+     "to": {
+      "line": "l12c",
+      "edge": "end",
+      "offset": 0.6
+     },
+     "dir": [
+      0.25,
+      -1.0
+     ]
+    }
    }
   },
   {
@@ -8786,191 +10373,750 @@
   {
    "name": "clock_nine",
    "camera": {
-    "at": {
-     "anchor": "bunker",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.5,
+       1.95,
+       40999.8
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.5,
+       1.95,
+       40997.8
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "bunker",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.5,
+       2.0,
+       40999.15
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.5,
+       2.02,
+       40997.8
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#2a2620",
+     "energy": 0.06,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 2600,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#5a4a38",
+     "anisotropy": 0.65,
+     "length": 8
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.06,
+     "threshold": 1.0
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 0.98,
+     "vignette": 0.5,
+     "grain": 0.05
+    }
    }
   },
   {
    "name": "windsock",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       25.69,
+       1.947,
+       14993.65
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       11.216,
+       4.049,
+       14979.848
+      ]
+     },
+     "lens_mm": 50,
+     "dof": {
+      "strength": 0.04
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       25.69,
+       1.947,
+       14993.65
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       10.69,
+       3.171,
+       14980.45
+      ]
+     },
+     "lens_mm": 85
     },
-    "lens_mm": 35
+    "ease": "out",
+    "start": {
+     "line": "l12b",
+     "word": "wrong",
+     "offset": 0.1
+    },
+    "end": {
+     "line": "l12b",
+     "word": "way.",
+     "offset": 0.35
+    }
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "09:00",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 30,
+     "azimuth": 98,
+     "color": "#ffe8c8",
+     "energy": 3.0,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.3,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b89c78",
+     "energy": 0.32,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 25,
+     "end": 2300,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "village_far",
    "camera": {
-    "at": {
-     "anchor": "village",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -1.4,
+       1.35,
+       49013.0
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       1.3,
+       48994.0
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.06
+     }
     },
-    "look_at": {
-     "anchor": "village",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.8,
+       1.15,
+       49007.5
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.1,
+       1.0,
+       48999.0
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "09:00",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 30,
+     "azimuth": 98,
+     "color": "#ffe8c8",
+     "energy": 3.0,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.3,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b89c78",
+     "energy": 0.36,
+     "sky": 0.6
+    },
+    "fog": {
+     "begin": 40,
+     "end": 1800,
+     "curve": 1.6,
+     "volumetric": 0.0,
+     "color": "#d8c8a8"
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "wait_row",
    "camera": {
-    "at": {
-     "anchor": "bunker",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       14.009,
+       0.809,
+       14974.681
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       18.625,
+       0.923,
+       14979.124
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "look_at": {
-     "anchor": "bunker",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       14.431,
+       0.821,
+       14974.729
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       18.742,
+       0.926,
+       14979.031
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "lens_mm": 35
+    "ease": "linear"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "09:00",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 30,
+     "azimuth": 98,
+     "color": "#ffe8c8",
+     "energy": 3.0,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.3,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b89c78",
+     "energy": 0.32,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 25,
+     "end": 2300,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "wait_clock",
    "camera": {
-    "at": {
-     "anchor": "bunker",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       15.574,
+       1.202,
+       14976.248
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       19.893,
+       1.391,
+       14980.479
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "bunker",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       16.064,
+       1.232,
+       14976.624
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       19.893,
+       1.441,
+       14980.479
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "linear"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 74,
+     "azimuth": 170,
+     "color": "#fff4e0",
+     "energy": 3.3,
+     "softness": 0.5,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.0,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#c4a884",
+     "energy": 0.4,
+     "sky": 0.6
+    },
+    "fog": {
+     "begin": 25,
+     "end": 2300,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "wind_turns",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       9.976,
+       0.299,
+       14973.7
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       3.376,
+       7.044,
+       14981.2
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       9.876,
+       0.399,
+       14974.0
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       3.376,
+       7.934,
+       14981.2
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "lens_mm": 35
+    "ease": "linear"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 36,
+     "azimuth": 212,
+     "color": "#ffe2b6",
+     "energy": 3.1,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.3,
+     "glow": 1.4,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b89c78",
+     "energy": 0.32,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 25,
+     "end": 2300,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l14a",
+      "word": "turns.",
+      "offset": -0.1
+     },
+     "amount": 0.15
+    }
+   ]
   },
   {
    "name": "key_turn",
    "camera": {
-    "at": {
-     "anchor": "bunker",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.44,
+       1.16,
+       40998.02
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.3,
+       0.98,
+       40998.8
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "bunker",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.41,
+       1.13,
+       40998.08
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.3,
+       0.97,
+       40998.8
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.14
+     }
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "energy": 0,
+     "visible": false
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#2a2620",
+     "energy": 0.06,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 2600,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#5a4a38",
+     "anisotropy": 0.65,
+     "length": 8
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.06,
+     "threshold": 1.0
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 0.98,
+     "vignette": 0.5,
+     "grain": 0.05
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l14b",
+      "word": "turns.",
+      "offset": 0.02
+     },
+     "amount": 0.12
+    }
+   ]
   },
   {
    "name": "desert_jumps",

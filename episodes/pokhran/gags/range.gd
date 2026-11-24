@@ -79,6 +79,9 @@ extends RefCounted
 ##              night: three shaft heads, each with an open collar, a 6 m tripod, a steel cage carrying a device stood on
 ##              end, lowered steadily (it passes the collar at its down_t, or `down`), and a sodium floodlight on a pole
 ##              (position in the rig's frame); trucks parked with their headlights on
+##   village_far {"at": [x, z], "on": [[t0, t1], ...], "n": 9}   Khetolai on the horizon (only inside the windows): a
+##              cluster of round mud huts with thatched cones inside a low mud wall, khejri trees, two threads of cooking
+##              smoke rising: the village the wind must not blow toward (dramatised much closer than its real ~5 km)
 ## The shaft: a 205 m steel-cased bore (1.8 m) under the plate, the firing-cable bundle hanging down its axis
 ## with clamps, a work lamp glowing at the bottom. No sky light reaches inside (ambient off).
 ## anchors: plate, apex, winch, spoil, tree, camp, windsock, track, jeep (its cab), dive_cam, dive_look, dive_count, dive_face
@@ -582,6 +585,7 @@ func build(g: Dictionary) -> Node3D:
 	_convoy_build(root)
 	_lowering_build(root)
 	_cricket_build(root)
+	_village_far_build(root)
 	if not (_p.get("jeep", {}) as Dictionary).is_empty():
 		_jeep = _vehicle(PB + "jeep.glb")
 		_jeep.name = "jeep"
@@ -2453,6 +2457,92 @@ func sand_pile_mat() -> ShaderMaterial:
 
 ## A soft round puff (for dust sprites), generated once.
 static var _puff: ImageTexture
+var _vfar: Node3D
+var _vfar_smoke: Array = []
+
+
+func _village_far_build(root: Node3D) -> void:
+	var vd: Dictionary = _p.get("village_far", {})
+	if vd.is_empty():
+		return
+	_vfar = Node3D.new()
+	_vfar.name = "village_far"
+	root.add_child(_vfar)
+	var c := Vector2(float(vd["at"][0]), float(vd["at"][1]))
+	var mud := Kit.mat("#b98a5a", 0.95)
+	var mud2 := Kit.mat("#c9a070", 0.95)
+	var thatch := Kit.mat("#8a7448", 0.95)
+	var rng := Kit.rng("village_far")
+	var n := int(vd.get("n", 9))
+	for i in n:
+		var a := rng.randf() * TAU
+		var d := sqrt(rng.randf()) * 26.0
+		var x := c.x + cos(a) * d
+		var z := c.y + sin(a) * d * 0.6
+		var g := ground(x, z)
+		var r := rng.randf_range(2.3, 3.1)
+		var h := rng.randf_range(2.2, 2.8)
+		Kit.cyl(_vfar, r, r * 1.04, h, g + Vector3(0, h * 0.5 - 0.1, 0), mud if i % 2 == 0 else mud2, 14)
+		Kit.cyl(_vfar, 0.05, r * 1.25, r * 1.15, g + Vector3(0, h + r * 0.55, 0), thatch, 14)
+		# A flat-roofed block house here and there.
+		if i % 4 == 3:
+			Kit.box(_vfar, Vector3(4.5, 2.6, 3.4), ground(x + 5.0, z) + Vector3(0, 1.2, 0), mud2, Vector3(0, a, 0))
+	# The low mud wall round the cluster.
+	for k in 28:
+		var a0 := TAU * float(k) / 28.0
+		var a1 := TAU * float(k + 1) / 28.0
+		if k % 9 == 4:
+			continue
+		var p0 := Vector3(c.x + cos(a0) * 30.0, 0, c.y + sin(a0) * 19.0)
+		var p1 := Vector3(c.x + cos(a1) * 30.0, 0, c.y + sin(a1) * 19.0)
+		var m := (p0 + p1) * 0.5
+		var seg := Kit.box(_vfar, Vector3((p1 - p0).length() + 0.2, 1.0, 0.45), ground(m.x, m.z) + Vector3(0, 0.4, 0), mud)
+		seg.rotation.y = -atan2(p1.z - p0.z, p1.x - p0.x)
+	for k in 3:
+		var tr := Kit.model(PB + ["khejri_a_far.glb", "khejri_b_far.glb", "khejri_c_far.glb"][k])
+		tr.position = ground(c.x - 20.0 + 18.0 * k, c.y + 8.0 - 12.0 * (k % 2))
+		tr.scale = Vector3.ONE * 1.2
+		_vfar.add_child(tr)
+	# Two threads of cooking smoke (billboard puffs that rise, grow and fade on a loop).
+	var dm := StandardMaterial3D.new()
+	dm.albedo_color = Color(0.85, 0.83, 0.8, 0.35)
+	dm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	dm.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	dm.billboard_keep_scale = true
+	dm.albedo_texture = _puff_tex()
+	dm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	for s2 in 2:
+		var base := ground(c.x - 6.0 + 13.0 * s2, c.y - 3.0 + 4.0 * s2) + Vector3(0, 2.0, 0)
+		for k in 10:
+			var q := MeshInstance3D.new()
+			var qm := QuadMesh.new()
+			qm.size = Vector2(1.0, 1.0)
+			q.mesh = qm
+			q.material_override = dm.duplicate()
+			q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			_vfar.add_child(q)
+			_vfar_smoke.append([q, base, float(k) / 10.0, float(s2)])
+
+
+func _pose_village_far(t: float) -> void:
+	if _vfar == null:
+		return
+	var on := false
+	for w in (_p.get("village_far", {}) as Dictionary).get("on", []):
+		if t >= float(w[0]) and t < float(w[1]):
+			on = true
+	_vfar.visible = on
+	if not on:
+		return
+	for e in _vfar_smoke:
+		var q: MeshInstance3D = e[0]
+		var base: Vector3 = e[1]
+		var k := fposmod(t * 0.12 + float(e[2]) + 0.37 * float(e[3]), 1.0)
+		q.position = base + Vector3(2.5 * k * k + 0.4 * sin(k * 9.0 + float(e[3])), 9.0 * k, 0.6 * k)
+		q.scale = Vector3.ONE * (0.8 + 3.2 * k)
+		(q.material_override as StandardMaterial3D).albedo_color.a = 0.32 * sin(PI * k)
+
+
 static func _puff_tex() -> ImageTexture:
 	if _puff == null:
 		var img := Image.create(64, 64, false, Image.FORMAT_RGBA8)
@@ -2907,6 +2997,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_shimmer_mat.set_shader_parameter("t", t)
 	_shimmer_mat.set_shader_parameter("strength", float(_p.get("shimmer", 1.0)))
 	# The windsock: heading and strength from the wind keys, a slow hunting swing on top.
+	_pose_village_far(t)
 	var keys: Array = _p.get("wind", [[0.0, 120.0, 0.55]])
 	var yaw := float(keys[0][1])
 	var strength := float(keys[0][2])
