@@ -22,7 +22,7 @@ sys.path.insert(0, str(HERE))
 from lines import L, PLACE_OF, CHAPTERS  # noqa: E402
 
 PLACE_MODULES = [m for m in ["hall", "lab", "board", "gallery", "cinema", "shop", "doom62", "latveria", "tibet", "castle",
-                             "hell", "cosmos", "hospital", "dressing"] if (HERE / "places" / f"{m}.py").exists()]
+                             "hell", "cosmos", "hospital", "dressing", "misc"] if (HERE / "places" / f"{m}.py").exists()]
 
 NARRATION = {"model": "gemini-3.8-flash-lite-tts", "voice": "Charon", "single_take": True, "inline_tags": True,
              "max_pause": 0.6, "speed": 1.0, "style": "gripping documentary storyteller"}

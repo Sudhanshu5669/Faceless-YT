@@ -130,10 +130,10 @@ L = [
 
 # The place module of every shot, by the shot name's prefix.
 PLACE_OF = {"hall": "hall", "gal": "gallery", "board": "board", "cinema": "cinema", "shop": "shop", "doom62": "doom62",
-            "pirate": "doom62", "lat": "latveria", "liner": "latveria", "lab": "lab", "campus": "lab", "mirror": "lab",
+            "pirate": "doom62", "lat": "latveria", "liner": "latveria", "lab": "lab", "campus": "misc", "mirror": "misc",
             "tibet": "tibet", "castle": "castle", "throne": "castle", "doom": "castle", "doombots": "castle",
-            "hell": "hell", "surfer": "cosmos", "beyonder": "cosmos", "bw": "cosmos", "emp": "cosmos",
-            "hosp": "hospital", "city": "hospital", "dress": "dressing", "reels": "dressing", "rocket": "cosmos"}
+            "hell": "misc", "surfer": "cosmos", "beyonder": "cosmos", "bw": "cosmos", "emp": "cosmos",
+            "hosp": "misc", "city": "misc", "dress": "misc", "reels": "misc", "rocket": "cosmos"}
 
 # Chapter cards (HyperFrames overlays) open these shots.
 CHAPTERS = {"cinema_2019": ("CHAPTER ONE", "THE VILLAIN MARVEL LOST"), "shop_night": ("CHAPTER TWO", "VICTOR"),
