@@ -5908,6 +5908,29 @@
       ]
      ],
      "n": 14
+    },
+    "blast": {
+     "t": {
+      "line": "l14c",
+      "word": "jumps.",
+      "offset": -0.08
+     },
+     "at": [
+      0.0,
+      0.0
+     ],
+     "h": 7.5,
+     "r": 36.0,
+     "on": [
+      [
+       {
+        "shot": "desert_jumps"
+       },
+       {
+        "shot": "khetolai_crack"
+       }
+      ]
+     ]
     }
    }
   },
@@ -11121,29 +11144,124 @@
   {
    "name": "desert_jumps",
    "camera": {
-    "at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -18.0,
+       2.021,
+       15200.0
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -0.0,
+       26.0,
+       15000.0
+      ]
+     },
+     "lens_mm": 50
     },
-    "look_at": {
-     "anchor": "range",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "range",
+      "offset": [
+       -17.2,
+       2.271,
+       15196.0
+      ]
+     },
+     "look_at": {
+      "anchor": "range",
+      "offset": [
+       -0.0,
+       34.0,
+       15000.0
+      ]
+     },
+     "lens_mm": 50
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "day",
+    "time": "15:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 36,
+     "azimuth": 212,
+     "color": "#ffe2b6",
+     "energy": 3.1,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.3,
+     "glow": 1.4,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#7998bd",
+     "horizon": "#e8dcc4",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b89c78",
+     "energy": 0.32,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 25,
+     "end": 2300,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
+   },
+   "hold": 1.4,
+   "slowmo": {
+    "from": {
+     "line": "l14c",
+     "word": "jumps.",
+     "offset": -0.08
+    },
+    "to": {
+     "line": "l14c",
+     "word": "jumps.",
+     "offset": 1.0
+    },
+    "rate": 0.3
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l14c",
+      "word": "jumps.",
+      "offset": 1.45
+     },
+     "amount": 0.7
+    }
+   ]
   },
   {
    "name": "khetolai_crack",

@@ -734,4 +734,21 @@ SHOTS.update({
         cam(P(_WT_CAM[0] + 0.1, round(_WT_Y + 0.1, 3), _WT_CAM[1] + 0.3), _ahead(_WT_CAM, _WT_Y + 0.1, _WT_DIR, 10, 37), 24, {"strength": 0.05}), "linear")},
 })
 
+# ---- 15:45, 11 May 1998: Shakti-I. The desert jumps (accurate: underground, no fireball, no mushroom cloud) -----------
+BLAST_T = W("l14c", "jumps.", -0.08)
+BLAST_ON = [{"shot": "desert_jumps"}, {"shot": "khetolai_crack"}]
+_rp["blast"] = {"t": BLAST_T, "at": [0.0, 0.0], "h": 7.5, "r": 36.0, "on": [BLAST_ON]}
+_BJ_CAM = (18.0, 200.0)
+_BJ_Y = range_ground(*_BJ_CAM) + 1.1
+SHOTS["desert_jumps"] = {
+    # Far out on the plain, low, the site small in the afternoon haze: on "jumps" the desert heaves up into a dome (slow
+    # motion), a ripple races out across the sand, dust erupts into a towering curtain and a base surge rolls toward us;
+    # then silence, until the shock arrives and hits the camera.
+    "look": LOOK_AFTERNOON, "hold": 1.4,
+    "slowmo": {"from": W("l14c", "jumps.", -0.08), "to": W("l14c", "jumps.", 1.0), "rate": 0.3},
+    "shake": [{"t": W("l14c", "jumps.", 1.45), "amount": 0.7}],
+    "camera": move(cam(P(_BJ_CAM[0], round(_BJ_Y, 3), _BJ_CAM[1]), P(0.0, 26.0, 0.0), 50),
+                   cam(P(_BJ_CAM[0] - 0.8, round(_BJ_Y + 0.25, 3), _BJ_CAM[1] - 4.0), P(0.0, 34.0, 0.0), 50), "out"),
+}
+
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS, "reveals": REVEALS}

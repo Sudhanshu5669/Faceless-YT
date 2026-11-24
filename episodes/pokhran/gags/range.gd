@@ -79,6 +79,11 @@ extends RefCounted
 ##              night: three shaft heads, each with an open collar, a 6 m tripod, a steel cage carrying a device stood on
 ##              end, lowered steadily (it passes the collar at its down_t, or `down`), and a sodium floodlight on a pole
 ##              (position in the rig's frame); trucks parked with their headlights on
+##   blast      {"t": t, "at": [x, z], "h": 7.0, "r": 35.0, "on": [[t0, t1], ...]}   the underground test (accurate: no
+##              fireball, no mushroom cloud): at t the desert heaves up into a dome (h metres, radius r) in a third of a
+##              second, a shock ripple races out across the sand, dust erupts off the dome into a towering curtain and a
+##              base surge rolls outward along the ground; from ~1.2 s the dome slumps into a shallow crater. The 1998
+##              site gear (tripod, plates) is hidden inside the windows (the shaft was sealed and the site cleared)
 ##   village_far {"at": [x, z], "on": [[t0, t1], ...], "n": 9}   Khetolai on the horizon (only inside the windows): a
 ##              cluster of round mud huts with thatched cones inside a low mud wall, khejri trees, two threads of cooking
 ##              smoke rising: the village the wind must not blow toward (dramatised much closer than its real ~5 km)
@@ -142,6 +147,24 @@ static func ground(x: float, z: float) -> Vector3:
 
 
 const HEIGHT_GLSL := """
+uniform float now = 0.0;
+uniform vec4 blast = vec4(0.0, 0.0, 1e9, 0.0);   // centre x, z; t0; on
+uniform vec2 blast_hr = vec2(7.0, 35.0);
+float blast_h(vec2 p) {
+	if (blast.w < 0.5) return 0.0;
+	float s = now - blast.z;
+	if (s < 0.0) return 0.0;
+	float d = length(p - blast.xy);
+	float rise = 1.0 - pow(1.0 - clamp(s / 0.33, 0.0, 1.0), 3.0);
+	float wob = 1.0 + 0.06 * sin(s * 14.0) * exp(-s * 3.0);
+	float slump = smoothstep(1.2, 3.6, s);
+	float dome = mix(blast_hr.x * rise * wob, -0.3 * blast_hr.x, slump) * exp(-pow(d / blast_hr.y, 2.0));
+	// Cracks of the heave: a rough skin over the dome.
+	dome *= 1.0 + 0.08 * sin(p.x * 0.9 + p.y * 0.4) * sin(p.y * 1.1 - p.x * 0.3);
+	float rr = s * 150.0;
+	float ring = 0.9 * exp(-pow((d - rr) / 7.0, 2.0)) * exp(-s * 1.4) * smoothstep(blast_hr.y * 0.6, blast_hr.y * 1.2, d);
+	return dome + ring;
+}
 float track_z(float x) { return 5.6 + 4.0 * sin(x * 0.04 + 0.5); }
 float ruts(vec2 p) {
 	float dz = abs(p.y - track_z(p.x));
@@ -159,7 +182,7 @@ float height(vec2 p) {
 	h += smoothstep(700.0, 2200.0, d) * (16.0 + 10.0 * sin(0.004 * x + 2.0) * sin(0.0031 * z));
 	float k = smoothstep(PAD_R, PAD_R * 2.2, d);
 	h = mix(-0.02, h, k);
-	return h + ruts(p);
+	return h + ruts(p) + blast_h(p);
 }
 """
 
@@ -536,6 +559,7 @@ var _sock: MeshInstance3D
 var _sock_pivot: Node3D
 var _sock_mat: ShaderMaterial
 var _shimmer_mat: ShaderMaterial
+var _shimmer_node: MeshInstance3D
 var _bags := {}
 var _hook: Node3D
 var _kites_n: Array = []
@@ -586,6 +610,7 @@ func build(g: Dictionary) -> Node3D:
 	_lowering_build(root)
 	_cricket_build(root)
 	_village_far_build(root)
+	_blast_build(root)
 	if not (_p.get("jeep", {}) as Dictionary).is_empty():
 		_jeep = _vehicle(PB + "jeep.glb")
 		_jeep.name = "jeep"
@@ -1829,6 +1854,7 @@ func _ground(root: Node3D) -> void:
 	m.set_shader_parameter("s_alb", Kit.texture(TX + "sand_01_diff_2k.jpg"))
 	m.set_shader_parameter("s_nor", Kit.texture(TX + "sand_01_nor_gl_2k.jpg", true))
 	mi.material_override = m
+	_ground_mat = m
 	root.add_child(mi)
 
 
@@ -2459,6 +2485,143 @@ func sand_pile_mat() -> ShaderMaterial:
 static var _puff: ImageTexture
 var _vfar: Node3D
 var _vfar_smoke: Array = []
+var _ground_mat: ShaderMaterial
+var _blast_dust: MultiMeshInstance3D
+var _blast_seeds: Array = []
+const BLAST_N := 560
+
+
+## A soft, cloudy puff (value-noise fbm under a radial falloff): no visible pattern at any size.
+static var _dust_t: ImageTexture
+static func _dust_tex() -> ImageTexture:
+	if _dust_t == null:
+		var n := 128
+		var img := Image.create(n, n, false, Image.FORMAT_RGBA8)
+		var rng := RandomNumberGenerator.new()
+		rng.seed = 4242
+		var grid := []
+		for i in 17 * 17:
+			grid.append(rng.randf())
+		for y in n:
+			for x in n:
+				var v := 0.0
+				var amp := 0.55
+				var f := 4.0
+				for o in 3:
+					var gx := float(x) / n * f
+					var gy := float(y) / n * f
+					var ix := int(gx) % 16
+					var iy := int(gy) % 16
+					var fx: float = gx - floor(gx)
+					var fy: float = gy - floor(gy)
+					fx = fx * fx * (3.0 - 2.0 * fx)
+					fy = fy * fy * (3.0 - 2.0 * fy)
+					var a: float = lerpf(grid[iy * 17 + ix], grid[iy * 17 + ix + 1], fx)
+					var b: float = lerpf(grid[(iy + 1) * 17 + ix], grid[(iy + 1) * 17 + ix + 1], fx)
+					v += amp * lerpf(a, b, fy)
+					amp *= 0.5
+					f *= 2.0
+				var d := Vector2(x - n * 0.5 + 0.5, y - n * 0.5 + 0.5).length() / (n * 0.5)
+				var fall := clampf(1.0 - d, 0.0, 1.0)
+				var al := clampf(fall * fall * (0.55 + 0.9 * v) * 1.6 - 0.1, 0.0, 1.0)
+				var sh := 0.8 + 0.25 * v
+				img.set_pixel(x, y, Color(sh, sh, sh, al))
+		img.generate_mipmaps()
+		_dust_t = ImageTexture.create_from_image(img)
+	return _dust_t
+
+
+func _blast_build(root: Node3D) -> void:
+	var bd: Dictionary = _p.get("blast", {})
+	if bd.is_empty():
+		return
+	var mm := MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D
+	mm.use_colors = true
+	var q := QuadMesh.new()
+	q.size = Vector2(1.0, 1.0)
+	mm.mesh = q
+	mm.instance_count = BLAST_N
+	var dm := StandardMaterial3D.new()
+	dm.albedo_color = Color(0.9, 0.82, 0.7, 1.0)
+	dm.vertex_color_use_as_albedo = true
+	dm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	dm.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	dm.billboard_keep_scale = true
+	dm.albedo_texture = _dust_tex()
+	dm.roughness = 1.0
+	dm.backlight_enabled = true
+	dm.backlight = Color(0.85, 0.72, 0.5)
+	_blast_dust = MultiMeshInstance3D.new()
+	_blast_dust.name = "blast_dust"
+	_blast_dust.multimesh = mm
+	_blast_dust.material_override = dm
+	_blast_dust.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_blast_dust.extra_cull_margin = 400.0
+	root.add_child(_blast_dust)
+	var r := float(bd.get("r", 35.0))
+	var rng := Kit.rng("blast")
+	for k in BLAST_N:
+		var surge := k % 3 == 0
+		var a := rng.randf() * TAU
+		var d := sqrt(rng.randf()) * r * (1.1 if surge else 0.85)
+		var core := 1.0 - d / (r * 1.1)
+		var v := Vector3(cos(a), 0, sin(a))
+		var vel: Vector3
+		if surge:
+			# The base surge: rolls outward low along the ground.
+			vel = v * rng.randf_range(28.0, 55.0) + Vector3(0, rng.randf_range(2.0, 7.0), 0)
+		else:
+			# The curtain: thrown up off the dome, fastest at the crown.
+			vel = v * rng.randf_range(3.0, 14.0) + Vector3(0, rng.randf_range(30.0, 95.0) * (0.3 + 0.7 * core), 0)
+		_blast_seeds.append({"p": Vector3(cos(a) * d, 0, sin(a) * d), "v": vel, "t0": rng.randf_range(0.04, 0.3) + (0.0 if not surge else 0.15),
+			"s0": rng.randf_range(6.0, 11.0) if not surge else rng.randf_range(6.0, 10.0), "grow": rng.randf_range(8.0, 16.0),
+			"shade": rng.randf_range(0.62, 1.08), "surge": surge})
+
+
+func _pose_blast(t: float) -> void:
+	var bd: Dictionary = _p.get("blast", {})
+	if bd.is_empty():
+		return
+	var on := false
+	for w in bd.get("on", []):
+		if t >= float(w[0]) and t < float(w[1]):
+			on = true
+	var c := Vector2(float(bd["at"][0]), float(bd["at"][1]))
+	var t0 := float(bd["t"])
+	_ground_mat.set_shader_parameter("now", t)
+	_ground_mat.set_shader_parameter("blast", Vector4(c.x, c.y, t0, 1.0 if on else 0.0))
+	_ground_mat.set_shader_parameter("blast_hr", Vector2(float(bd.get("h", 7.0)), float(bd.get("r", 35.0))))
+	# The heat-haze ring reads the screen without the (transparent) dust: off during the blast.
+	_shimmer_node.visible = not on
+	_blast_dust.visible = on and t >= t0
+	if not _blast_dust.visible:
+		return
+	var s := t - t0
+	var h := float(bd.get("h", 7.0))
+	var r := float(bd.get("r", 35.0))
+	var mm := _blast_dust.multimesh
+	for k in BLAST_N:
+		var e: Dictionary = _blast_seeds[k]
+		var a := s - float(e["t0"])
+		if a <= 0.0:
+			mm.set_instance_transform(k, Transform3D(Basis.from_scale(Vector3.ZERO), Vector3.ZERO))
+			continue
+		var p0: Vector3 = e["p"]
+		var dome := h * exp(-pow(p0.length() / r, 2.0))
+		var drag := 0.9 if not bool(e["surge"]) else 0.75
+		var travel: Vector3 = (e["v"] as Vector3) * (1.0 - exp(-drag * a)) / drag
+		var sag := -2.0 * a * a * 0.5 if not bool(e["surge"]) else 0.0
+		var pos := Vector3(c.x, 0, c.y) + p0 + travel + Vector3(0, dome + sag, 0)
+		pos.y = maxf(pos.y, height(pos.x, pos.z) + 0.5)
+		var size := float(e["s0"]) + float(e["grow"]) * (1.0 - exp(-0.7 * a)) * 2.0
+		mm.set_instance_transform(k, Transform3D(Basis.from_scale(Vector3.ONE * size), pos))
+		var alpha := clampf(a / 0.12, 0.0, 1.0) * (0.85 - 0.25 * clampf((a - 2.0) / 6.0, 0.0, 1.0))
+		# Backlit by the afternoon sun: deep shade low in the column, a bright lining at the edges and the crown.
+		var up := clampf((pos.y - height(pos.x, pos.z)) / 80.0, 0.0, 1.0)
+		var edge := clampf(Vector2(pos.x - c.x, pos.z - c.y).length() / (r * 1.6), 0.0, 1.0)
+		var sh := float(e["shade"]) * (0.5 + 0.4 * up + 0.35 * edge * edge)
+		mm.set_instance_color(k, Color(sh, sh * 0.97, sh * 0.92, alpha))
 
 
 func _village_far_build(root: Node3D) -> void:
@@ -2949,6 +3112,7 @@ func _shimmer(root: Node3D) -> void:
 	mi.material_override = _shimmer_mat
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	root.add_child(mi)
+	_shimmer_node = mi
 
 
 # --- helpers ----------------------------------------------------------------------------------------
@@ -2998,6 +3162,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_shimmer_mat.set_shader_parameter("strength", float(_p.get("shimmer", 1.0)))
 	# The windsock: heading and strength from the wind keys, a slow hunting swing on top.
 	_pose_village_far(t)
+	_pose_blast(t)
 	var keys: Array = _p.get("wind", [[0.0, 120.0, 0.55]])
 	var yaw := float(keys[0][1])
 	var strength := float(keys[0][2])
@@ -3078,6 +3243,9 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			is95 = true
 	_g95.visible = is95
 	_g98.visible = not is95
+	for w in (_p.get("blast", {}) as Dictionary).get("on", []):
+		if t >= float(w[0]) and t < float(w[1]):
+			_g98.visible = false
 	if is95:
 		_pose_leave(t)
 		_pose_shovels(gt, t, ctx)
