@@ -1,0 +1,26 @@
+{
+  "id": "toon_victor_boy",
+  "description": "Victor von Doom as a boy in Latveria: black hair, a patched brown coat.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "comic"
+  ],
+  "height": 1.2,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#141012"
+    },
+    "outfit": {
+      "style": "coverall",
+      "color": "#5a4232"
+    },
+    "shoes": "#2a1e14",
+    "face": "sad",
+    "girth": 0.9
+  }
+}

@@ -1,4 +1,4 @@
-# "Who is Doctor Doom, and why is Iron Man playing him?": script v1 (2026-11-24, for the user's approval)
+# "Who is Doctor Doom, and why is Iron Man playing him?": script v1.1 (v1 approved 2026-11-24; v1.1 adds ten lines for length, option 1 chosen by the user)
 
 Format: long-form, 16:9, ~9-10 min, English narration (Charon), four chapters + cold open + bookend. Documentary
 storyteller: gripping, dry wit, never mocking the real-world case in chapter 1 (restraint: headlines, no gags about
@@ -192,3 +192,21 @@ About 1055 narration words: ~7.5 min of voice at the demo pace (141 wpm), plus f
 | 54 | Fox X-Men cast (Marsden's Cyclops: "To me, my X-Men"), the Fantastic Four, Steve Rogers in the trailers | Yahoo, SlashFilm, The National (Nov 2026) |
 | 55 | Sue Storm: Doom "used to be different" (final trailer) | Empire transcript; Motion Pictures (2026 trailer: "He used to be different.") |
 | 56 | Doomsday 18 Dec 2026 (US); Secret Wars 17 Dec 2027 | Wikipedia |
+
+
+## v1.1 additions (2026-11-24, for length: the user chose "make it longer, option 1")
+
+The narration text lives in `lines.py` (one line per shot). Added lines, with where they sit and their sources:
+
+| Line | After | Text | Source |
+|---|---|---|---|
+| c1d2 | c1d | Then the heroes everyone grew up with step aside. Iron Man dies. Captain America retires. | Avengers: Endgame (2019) plot |
+| c1j2 | c1j | And Secret Wars six months later. Two Avengers movies, one villain. | SDCC 2022: Kang Dynasty 2 May 2025, Secret Wars 7 Nov 2025 (Collider, BGR, Yahoo) |
+| c1o | c1n | So Marvel needs a new villain. Fast. | (transition) |
+| v0j2 | v0j | One comics historian calls Doom Reed Richards' distorted double. A genius who can never admit he was wrong. | Ben Saunders: Doom as Mister Fantastic's "Jungian shadow or distorted double" (Wikipedia, Saunders 2023) |
+| v12b | v12 | Not a superhero. Not a monster. A king who believes only he can save the world. | characterisation (Secret Wars 2015; Infamous Iron Man) |
+| d2b | d2 | And in the comics, he truly cares for his people, with a warped code of honour all his own. | Saunders: "a sense of responsibility for his people, and a warped code of honor" (Wikipedia) |
+| d19b | d19 | Marvel even renamed that comic for this movie. It's now called Rise of Doom. | Bleeding Cool: Infamous Iron Man reissued as Rise of Doom for 2026 |
+| r2b | r2 | Back in 2008, his Iron Man launched the entire Marvel Cinematic Universe. | Iron Man (2 May 2008), the first MCU film |
+| r2c | r2b | Now the man who started it all returns as the villain who might end it. | (framing) |
+| r18b | r18 | It's the first Avengers movie in more than seven years. | Endgame April 2019 -> Doomsday Dec 2026 |

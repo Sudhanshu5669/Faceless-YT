@@ -1,0 +1,27 @@
+{
+  "id": "toon_werner",
+  "description": "Werner von Doom, Victor's father, a Romani healer: dark hair going grey, a beard, a heavy brown coat.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "comic"
+  ],
+  "height": 1.55,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#3a302a"
+    },
+    "outfit": {
+      "style": "coverall",
+      "color": "#4a3424"
+    },
+    "shoes": "#2a1e14",
+    "face": "thinking",
+    "beard": "#4a3e34",
+    "girth": 1.02
+  }
+}
