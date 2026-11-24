@@ -5,11 +5,15 @@ extends RefCounted
 ## Local frame: the lectern stands at the origin facing +z (towards the press); its top at y 0.92. The
 ## speaker stands at (0, 0, -0.42). Behind: a white shamiana with a maroon valance, a clipped hedge, garden
 ## lamps, a dusk sky. TV crews' lights from the front left and right; a warm rim from the shamiana.
-## params: flashes [t, ...] (a camera flash pops near the press line at each time)
+## params: flashes [t, ...] (a camera flash pops near the press line at each time; from the press cameras if any)
+##         press   [actor ids]   press photographers: each holds a 35 mm SLR with a flashgun up to his face, both hands
+##                 on it (the flashes fire from these cameras in turn)
+##         tvcam   [x, z, yaw_deg]   a TV news camera on a tripod in the press line (a 1990s shoulder camera)
 ## anchors: lectern, mics, speaker_head, press
 
 const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
+const Crawl = preload("res://scripts/actors/toon_crawl.gd")
 
 const LAWN := """
 shader_type spatial;
@@ -43,6 +47,7 @@ void fragment() {
 var _p := {}
 var _flash: OmniLight3D
 var _flash_ball: MeshInstance3D
+var _slrs := {}
 
 
 func build(g: Dictionary) -> Node3D:
@@ -94,6 +99,30 @@ func build(g: Dictionary) -> Node3D:
 	_flash = Kit.omni(root, Vector3(1.0, 1.3, 2.5), "#f4f8ff", 0.0, 7.0, false, 0.2)
 	_flash_ball = Kit.ball(root, 0.03, Vector3(1.0, 1.3, 2.5), Kit.lit("#ffffff", 30.0), 8)
 	_flash_ball.visible = false
+	# Press cameras: a black SLR body, a lens, a flashgun on the hot shoe.
+	var black := Kit.mat("#141416", 0.45, 0.2)
+	for aid in _p.get("press", []):
+		var c := Node3D.new()
+		Kit.box(c, Vector3(0.15, 0.095, 0.07), Vector3.ZERO, black)
+		Kit.cyl(c, 0.035, 0.035, 0.09, Vector3(0, -0.005, 0.07), black, 14, Vector3(PI / 2, 0, 0))
+		Kit.cyl(c, 0.03, 0.03, 0.005, Vector3(0, -0.005, 0.117), Kit.mat("#3a4a6a", 0.1, 0.6), 14, Vector3(PI / 2, 0, 0))
+		Kit.box(c, Vector3(0.07, 0.09, 0.06), Vector3(0.0, 0.1, 0.01), black)
+		Kit.box(c, Vector3(0.06, 0.04, 0.005), Vector3(0.0, 0.12, 0.042), Kit.mat("#e8eef4", 0.2))
+		root.add_child(c)
+		_slrs[String(aid)] = c
+	var tv: Array = _p.get("tvcam", [])
+	if tv.size() == 3:
+		var tn := Node3D.new()
+		tn.position = Vector3(float(tv[0]), 0, float(tv[1]))
+		tn.rotation.y = deg_to_rad(float(tv[2]))
+		root.add_child(tn)
+		for k in 3:
+			var a := TAU * k / 3.0
+			Kit.rod(tn, Vector3(0, 1.25, 0), Vector3(cos(a) * 0.45, 0, sin(a) * 0.45), 0.015, black, 6)
+		var vc := Kit.model("incoming/polyhaven_pokhran/models/vintage_video_camera/vintage_video_camera_2k.gltf")
+		vc.position = Vector3(0, 1.3, 0)
+		vc.rotation.y = PI
+		tn.add_child(vc)
 	return root
 
 
@@ -111,6 +140,29 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var e := exp(-best * 22.0) if best < 0.4 else 0.0
 	var r := Kit.rng("flash", idx)
 	var at := Vector3(r.randf_range(-2.2, 2.2), r.randf_range(1.0, 1.6), r.randf_range(2.2, 3.4))
+	# Press cameras held at the face; the flashes fire from them in turn.
+	var inv := gt.affine_inverse()
+	var keys := _slrs.keys()
+	if ctx.has("actor"):
+		for aid in keys:
+			var a = ctx["actor"].call(aid)
+			var c: Node3D = _slrs[aid]
+			c.visible = a != null and a.visible
+			if not c.visible:
+				continue
+			var ay := float(a.rotation.y)
+			var fwd := Vector3(sin(ay), 0, cos(ay))
+			var left := Vector3(cos(ay), 0, -sin(ay))
+			var head: Vector3 = a.bone_world("Head")
+			var cp: Vector3 = head + fwd * 0.3 + Vector3(0, 0.02, 0)
+			c.transform = Transform3D(Basis(Vector3.UP, ay - gt.basis.get_euler().y), inv * cp)
+			Crawl.long_arms(a, 1.35)
+			a.aim_hand("l", cp + left * 0.09 - fwd * 0.02, 1.0)
+			a.aim_hand("r", cp - left * 0.09 + Vector3(0, 0.03, 0), 1.0)
+		if not keys.is_empty() and best < 0.4:
+			var fc: Node3D = _slrs[keys[idx % keys.size()]]
+			if fc.visible:
+				at = fc.position + Vector3(0, 0.12, 0)
 	_flash.position = at
 	_flash.light_energy = 9.0 * e
 	_flash_ball.position = at

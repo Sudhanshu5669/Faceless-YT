@@ -788,4 +788,31 @@ SHOTS["desert_jumps"] = {
                "ease": "in_out", "start": W("l14c", "jumps.", 0.1), "end": W("l14c", "jumps.", 2.6)},
 }
 
+# ---- The blast as footage (the user's direction, 2026-11-23): it plays across presser_quote, phones_ring and
+# analyst_feed under the narration (each shot a replay of the same moment from another angle), then senator opens on it
+# playing on the CIA man's TV (places/desk.py) and pulls back.
+# (shot, the next shot, the replay's heave relative to the shot's start): the windows abut, never overlap.
+for _shot, _nxt, _off in [("presser_quote", "phones_ring", 0.7), ("phones_ring", "analyst_feed", -0.7),
+                          ("analyst_feed", "senator", -0.5)]:
+    _rp["blast"]["on"].append([{"shot": _shot}, {"shot": _nxt}, {"shot": _shot, "offset": _off}])
+# The TV feed in senator (desk) replays it from the observation post, already towering.
+_rp["blast"]["on"].append([{"shot": "senator", "offset": -0.05}, {"shot": "review_drop"}, {"shot": "senator", "offset": -3.2}])
+
+SHOTS.update({
+    # The heave from the ground, then the whole column: low on the plain 260 m off, a long crane up and back (to 900 m) as the
+    # desert breaks open, sand jets out of the cracks and the dust climbs past us to its crown, 400 m up, in the
+    # afternoon sun. Vajpayee's statement plays over it.
+    "presser_quote": {"look": LOOK_BLAST, "camera": move(
+        cam(P(-240.0, round(range_ground(-240.0, 110.0) + 1.6, 3), 110.0), P(0.0, 18.0, 0.0), 32),
+        cam(P(-700.0, 300.0, 560.0), P(0.0, 210.0, 0.0), 32), "in_out")},
+    # Straight down from 1.4 km: the shock ring racing out across the desert, the column boiling up at us.
+    "phones_ring": {"look": LOOK_BLAST, "camera": move(
+        cam(P(0.0, 1400.0, 40.0), P(0.0, 0.0, -20.0), 35),
+        cam(P(0.0, 1250.0, 40.0), P(0.0, 0.0, -20.0), 35), "linear")},
+    # Low on the plain 330 m out, a khejri beside us: the base surge comes rolling across the sand and swallows us.
+    "analyst_feed": {"look": LOOK_BLAST, "shake": [{"t": {"shot": "analyst_feed", "offset": 1.7}, "amount": 0.5}],
+                     "camera": move(cam(P(300.0, round(range_ground(300.0, 140.0) + 1.3, 3), 140.0), P(0.0, 60.0, 0.0), 26),
+                                    cam(P(298.0, round(range_ground(298.0, 139.0) + 1.5, 3), 139.0), P(0.0, 110.0, 0.0), 26), "linear")},
+})
+
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS, "reveals": REVEALS}

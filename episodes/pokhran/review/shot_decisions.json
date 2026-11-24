@@ -412,5 +412,19 @@
     "updated": "2026-11-24 11:35:05",
     "fingerprint": "68032b474751",
     "history": []
+  },
+  "desert_jumps": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 12:10:43",
+    "fingerprint": "f14c677bdc77",
+    "history": []
+  },
+  "khetolai_crack": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 12:10:48",
+    "fingerprint": "e58c21889ca4",
+    "history": []
   }
 }

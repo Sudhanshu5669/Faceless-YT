@@ -30,7 +30,10 @@ ANNOUNCED = W("l1b", "announced", -0.1)
 
 ACTORS = [
     {"id": "analyst", "character": "toon_analyst", "at": P(0.25, 0, -0.62), "facing": P(0.1, 0, -30),
-     "action": "sit", "keep_y": True, "cues": [
+     "action": "sit", "keep_y": True,
+     # Off for senator (the CIA man has the room; the camera pulls back through his chair).
+     "shown": [[0.0, {"shot": "senator"}], [{"shot": "review_drop"}, {"shot": "end_feed", "offset": 30.0}]],
+     "cues": [
          {"t": 0.0, "expression": "sleepy"},
          {"t": ANNOUNCED, "expression": "shocked", "action": "sit_talk"},
          {"t": W("l1b", "it", 0.1), "expression": "panic"},
@@ -44,8 +47,24 @@ ACTORS = [
          # The feed shows soldiers playing cricket: he watches, bored, and slumps on "bored".
          {"t": W("l8d", offset=-0.6), "expression": "deadpan", "head": [4, 0, 0], "head_turn": 0.3},
          {"t": W("l8d", "bored", 0.0), "expression": "sleepy", "head": [38, 0, 10], "head_turn": 0.5},
+         # The review lands on his desk on "assumed": he jumps, then sinks, then the tears.
+         {"t": {"shot": "review_drop", "offset": -0.1}, "action": "sit", "expression": "nervous", "head": [-6, 25, 0], "head_turn": 0.3},
+         {"t": W("l17b", "assumed", 0.0), "expression": "shocked", "head": [-16, 10, 0], "head_turn": 0.12},
+         {"t": W("l17b", "never", 0.0), "expression": "sad", "head": [26, 0, 0], "head_turn": 0.8},
+         {"t": W("l17b", "test.", 0.1), "expression": "crying", "head": [34, 0, 8], "head_turn": 0.6},
      ]},
 ]
+
+# The CIA man (a stand-in, no real person): he watches India's blast on the wall TV, then rounds on us, furious.
+TV = (-0.55, 1.95, 2.0)     # gags/analyst_room.gd TV_AT
+ACTORS.append({"id": "cia_agent", "character": "toon_agent", "at": P(-0.35, 0, 1.3), "facing": P(0.05, 0, -3.0),
+               "action": "idle", "shown": [[{"shot": "senator", "offset": -0.1}, {"shot": "review_drop"}]],
+               "cues": [{"t": 0.0, "expression": "furious"},
+                        {"t": W("l17a", "colossal", -0.1), "action": "call_out", "expression": "furious"}]})
+# review_drop: he stands at the desk's end with the review in hand and slams it down on "assumed".
+ACTORS.append({"id": "cia_agent2", "character": "toon_agent", "at": P(-0.62, 0, -1.2), "facing": P(0.3, 0, -1.5),
+               "action": "idle", "shown": [[{"shot": "review_drop", "offset": -0.1}, {"shot": "two_more"}]],
+               "cues": [{"t": 0.0, "expression": "angry"}, {"t": W("l17b", "assumed", 0.3), "expression": "smug"}]})
 
 GAGS = [{"id": "office_us", "script": "gags/analyst_room.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"wh": {"blast": W("l1a", "blew", -0.05), "rewind": W("l2a", "Not", -0.05),
@@ -55,7 +74,13 @@ GAGS = [{"id": "office_us", "script": "gags/analyst_room.gd", "t": 0, "at": P(0,
                              "cam": range_place.P(-3.0, 260.0, 11.5), "ortho": 24.0, "stamp": "MAY 1998"},
                     "prints": {"cam": range_place.P(4.5, 260.0, 5.5), "ortho": 22.0, "slide": W("l6c", "morning", 0.0),
                                "hand": "analyst", "shrug": W("l6c", "same.", -0.1)},
-                    "tv": {"on": ANNOUNCED, "cam": lawn.TV_CAM, "look": lawn.TV_LOOK, "fov": 26.0}}}]
+                    "report": {"hand": "cia_agent2", "drop": W("l17b", "assumed", 0.0), "at": [-0.12, -1.48]},
+                    "tv": {"on": ANNOUNCED, "cam": lawn.TV_CAM, "look": lawn.TV_LOOK, "fov": 26.0,
+                           # senator: the TV is showing the blast footage (the replay window in range.py).
+                           "feeds": [[{"shot": "senator", "offset": -0.1},
+                                      range_place.P(range_place._BJ_CAM[0], round(range_place._BJ_Y, 3), range_place._BJ_CAM[1]),
+                                      range_place.P(0.0, 190.0, 0.0), 34.0,
+                                      {"bg": "#a9bcd4", "ambient": 1.25, "ambient_color": "#e8d8c0"}]]}}}]
 
 SX, SY, SZ = SCREEN
 STAMP = (-0.07, 1.158, -1.814)     # the date stamp on the hero CRT (gag-local)
@@ -90,5 +115,22 @@ SHOTS = {
         cam(P(0.12, 1.5, 0.05), P(SX + 0.02, SY - 0.08, SZ), 42, {"strength": 0.1}),
         cam(P(0.1, 1.45, -0.2), P(SX + 0.02, SY - 0.08, SZ), 46, {"strength": 0.1}), "linear")},
 }
+
+TX, TY, TZ = TV
+SHOTS["senator"] = {
+    # The blast fills the frame (it is on the CIA man's wall TV, CRT lines and all); on "colossal" the camera rips back
+    # across the dark office and finds him in front of the TV, sunglasses on, rounding on us, furious.
+    "look": LOOK, "camera": {
+        "from": cam(P(TX, TY, TZ - 0.55), P(TX, TY, TZ), 34),
+        "to": cam(P(0.1, 1.42, -1.05), P(-0.42, 1.45, 1.6), 26, {"strength": 0.1}),
+        "ease": "in_out", "start": W("l17a", "colossal", -0.35), "end": W("l17a", "failure.", 0.05)}}
+
+SHOTS["review_drop"] = {
+    # Top-down on the desk: the review slams down on "assumed" (the mug and the globe jump); then the camera drops to
+    # the analyst's face across the monitor as he sinks, then the tears.
+    "look": LOOK, "shake": [{"t": W("l17b", "assumed", 0.0), "amount": 0.35}], "camera": {
+        "from": cam(P(-0.05, 1.95, -1.25), P(-0.1, 0.62, -1.5), 30, {"strength": 0.1}),
+        "to": cam(P(-0.02, 0.9, -1.72), P(0.25, 1.02, -0.62), 26, {"strength": 0.14}),
+        "ease": "in_out", "start": W("l17b", "assumed", 0.35), "end": W("l17b", "never", 0.2)}}
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

@@ -86,7 +86,8 @@ extends RefCounted
 ##              column of dust climbs hundreds of metres, rocks fly out on ballistic arcs, a base surge rolls outward along
 ##              the ground, and the shock races across the plain at `shock` m/s raising a ring of dust (denser in the
 ##              `toward` direction, the camera's side) out to `ring_to`; from ~3 s the dome slumps into a crater. `post`:
-##              an observation post (a sandbag parapet, a parked truck) shown only inside the windows. The 1998 site gear
+##              an observation post (a parked truck) shown only inside the windows. A window [t0, t1, t_blast] replays the
+##              blast from t_blast instead of t (the same moment from another angle, like news footage). The 1998 site gear
 ##              and the heat-haze ring are hidden inside the windows
 ##   village_far {"at": [x, z], "on": [[t0, t1], ...], "n": 9}   Khetolai on the horizon (only inside the windows): a
 ##              cluster of round mud huts with thatched cones inside a low mud wall, khejri trees, two threads of cooking
@@ -2731,12 +2732,15 @@ func _pose_blast(t: float) -> void:
 	if bd.is_empty():
 		return
 	var on := false
+	var t0 := float(bd["t"])
 	for w in bd.get("on", []):
 		if t >= float(w[0]) and t < float(w[1]):
 			on = true
+			# A window can replay the blast from its own start time (news footage of the same moment, another angle).
+			if (w as Array).size() > 2:
+				t0 = float(w[2])
 	var c := Vector2(float(bd["at"][0]), float(bd["at"][1]))
 	var c3 := Vector3(c.x, 0, c.y)
-	var t0 := float(bd["t"])
 	var H := float(bd.get("h", 30.0))
 	var R := float(bd.get("r", 130.0))
 	_ground_mat.set_shader_parameter("now", t)

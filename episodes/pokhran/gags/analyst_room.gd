@@ -15,9 +15,14 @@ extends RefCounted
 ##   rewind  {"from", "until", "to": "DEC 1995"}  the feed rewinds like a VHS tape: the picture runs backwards faster
 ##           and faster with day-night flicker and tracking bars; the stamp's date rolls back day by day from
 ##           11 May 1998 and lands on "to" (month and year only: the exact day of the 1995 imagery isn't public)
-##   tv      {"on": t, "cam": point, "look": point, "fov": deg}  the wall TV flicks on and shows the
-##           live view of a SubViewport camera placed in the world (the PM's lawn), from `on`
+##   tv      {"on": t, "cam": point, "look": point, "fov": deg, "feeds": [[t, cam, look, fov, {"bg": "#rrggbb",
+##           "ambient": e}], ...]}  the wall TV flicks on and shows the live view of a SubViewport camera placed in the
+##           world (the PM's lawn), from `on`; from each feed's t the TV cuts to that camera (another place: the blast
+##           footage), with its own background colour and ambient light (the room's look has no sun)
 ##   knock   t   the analyst's elbow knocks the snow globe; the snow swirls
+##   report  {"hand": actor id, "drop": t, "at": [x, z]}   a thick bound report (navy covers, a red SECRET stamp)
+##           held in the actor's right hand, slammed down flat onto the desk at (x, z) at `drop`: a hard landing, a
+##           bounce, the mug and the globe jump, the snow swirls
 ##   stamp   "11 MAY 1998"  the date on the feed (default)
 ##   live    {"from": t, "until": t, "cam": point, "ortho": 26, "stamp": "MAY 1998"}   the hero CRT shows a live overhead view straight down
 ##           from `cam` (the place's own actors as specks), with the same sensor look
@@ -28,6 +33,7 @@ extends RefCounted
 
 const Kit = preload("res://scripts/world/gag_kit.gd")
 const Motion = preload("res://scripts/timeline/motion.gd")
+const Crawl = preload("res://scripts/actors/toon_crawl.gd")
 
 const ROOM := Vector3(5.2, 2.65, 4.4)
 const DESK_TOP := 0.62
@@ -510,7 +516,70 @@ func build(g: Dictionary) -> Node3D:
 	_live_build(root)
 	_shelves(root)
 	_tv(root)
+	_report_build(root)
 	return root
+
+
+var _report: Node3D
+
+
+func _report_build(root: Node3D) -> void:
+	var rd: Dictionary = _p.get("report", {})
+	if rd.is_empty():
+		return
+	_report = Node3D.new()
+	_report.name = "report"
+	root.add_child(_report)
+	var navy := Kit.mat("#1c2a48", 0.6)
+	Kit.box(_report, Vector3(0.23, 0.008, 0.3), Vector3(0, 0.004, 0), navy)
+	Kit.box(_report, Vector3(0.22, 0.07, 0.29), Vector3(0.004, 0.043, 0), Kit.mat("#efeadc", 0.9))
+	Kit.box(_report, Vector3(0.23, 0.008, 0.3), Vector3(0, 0.082, 0), navy)
+	Kit.box(_report, Vector3(0.012, 0.086, 0.3), Vector3(-0.115, 0.043, 0), Kit.mat("#0c0c10", 0.5))
+	for k in 6:
+		Kit.box(_report, Vector3(0.21, 0.0015, 0.28), Vector3(0.005, 0.012 + 0.011 * k, 0.0), Kit.mat("#d8d2c0", 0.95))
+	Kit.text(_report, "SECRET", 0.04, "#c0201a", Vector3(0.0, 0.0865, -0.08), Vector3(-PI / 2, 0, 0), true)
+	Kit.box(_report, Vector3(0.16, 0.001, 0.03), Vector3(0.0, 0.0868, -0.08), Kit.mat("#c0201a", 0.7))
+	Kit.text(_report, "SECRET", 0.03, "#f4f0e8", Vector3(0.0, 0.0872, -0.08), Vector3(-PI / 2, 0, 0), true)
+
+
+func _pose_report(gt: Transform3D, t: float, ctx: Dictionary) -> float:
+	## Returns how long ago it landed (negative before).
+	var rd: Dictionary = _p.get("report", {})
+	if _report == null:
+		return -1e9
+	var drop := float(rd["drop"])
+	var desk := Vector3(float(rd["at"][0]), DESK_TOP, float(rd["at"][1]))
+	var inv := gt.affine_inverse()
+	var a = ctx["actor"].call(String(rd["hand"])) if ctx.has("actor") else null
+	_report.visible = a != null and a.visible or t >= drop
+	if a == null or not _report.visible:
+		return t - drop
+	var ay := float(a.rotation.y)
+	var fwd := Vector3(sin(ay), 0, cos(ay))
+	var held: Vector3 = inv * (a.bone_world("spine_03") + fwd * 0.32 + Vector3(0, 0.25, 0))
+	var lift := held + Vector3(0, 0.35, 0)
+	if t < drop - 0.45:
+		_report.position = held
+		_report.rotation = Vector3(-0.3, ay - gt.basis.get_euler().y, 0.0)
+	elif t < drop:
+		# Wind-up (raise it high) then slam down: anticipation, then a fast in-cubic fall.
+		var u := Motion.seg(t, drop - 0.45, drop - 0.2)
+		var v := Motion.in_cubic(Motion.seg(t, drop - 0.2, drop))
+		var top := held.lerp(lift, Motion.out_cubic(u))
+		_report.position = top.lerp(desk, v)
+		_report.rotation = Vector3(lerpf(-0.6, 0.0, v), lerpf(ay - gt.basis.get_euler().y, 0.25, v), 0.0)
+	else:
+		var k := t - drop
+		var bounce := 0.025 * exp(-k * 14.0) * absf(sin(k * 40.0))
+		_report.position = desk + Vector3(0, bounce, 0)
+		_report.rotation = Vector3(0.0, 0.25, 0.04 * exp(-k * 10.0) * sin(k * 50.0))
+		var sq := Motion.squash(-0.25 * exp(-k * 18.0))
+		_report.scale = sq
+	# The hand follows the report until the slam.
+	if t < drop + 0.15:
+		Crawl.long_arms(a, 1.4)
+		a.aim_hand("r", gt * (_report.position + Vector3(0.0, 0.09, 0.0)), 1.0)
+	return t - drop
 
 
 # --- the room ---------------------------------------------------------------------------
@@ -949,6 +1018,9 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		(sm as ShaderMaterial).set_shader_parameter("t", t)
 	# The snow globe: an elbow knock tips it; the snow swirls up and settles.
 	var knock := float(_p.get("knock", 1e9))
+	var slam := _pose_report(gt, t, ctx)
+	if slam >= 0.0 and slam < 4.0:
+		knock = t - slam
 	var dk := t - knock
 	var tip := 0.0
 	if dk > 0.0:
@@ -975,13 +1047,22 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		_tv_mat.set_shader_parameter("on", on)
 		_tv_mat.set_shader_parameter("t", t)
 		_tv_view.render_target_update_mode = SubViewport.UPDATE_ALWAYS if on > -0.5 else SubViewport.UPDATE_DISABLED
-		if tv.has("cam") and tv.has("look"):
-			var cp: Dictionary = ctx["point"].call(tv["cam"])
-			var lp: Dictionary = ctx["point"].call(tv["look"])
+		var feed := [tv.get("cam"), tv.get("look"), tv.get("fov", 30.0), {}]
+		for f in tv.get("feeds", []):
+			if t >= float(f[0]):
+				feed = [f[1], f[2], f[3], f[4] if (f as Array).size() > 4 else {}]
+		var env := _tv_cam.environment
+		var fe: Dictionary = feed[3]
+		env.background_color = Color(String(fe.get("bg", "#1f1a1f")))
+		env.ambient_light_energy = float(fe.get("ambient", 0.5))
+		env.ambient_light_color = Color(String(fe.get("ambient_color", "#8c807a")))
+		if feed[0] != null and feed[1] != null:
+			var cp: Dictionary = ctx["point"].call(feed[0])
+			var lp: Dictionary = ctx["point"].call(feed[1])
 			if cp.has("pos") and lp.has("pos"):
 				_tv_cam.global_position = cp["pos"]
 				_tv_cam.look_at(lp["pos"], Vector3.UP)
-			_tv_cam.fov = float(tv.get("fov", 30.0))
+			_tv_cam.fov = float(feed[2])
 		if glow:
 			glow.light_energy = 0.6 * clampf(on / 0.2, 0.0, 1.0) * (0.9 + 0.1 * sin(t * 9.0))
 	elif glow:
