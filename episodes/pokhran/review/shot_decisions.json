@@ -475,5 +475,26 @@
     "updated": "2026-11-24 12:52:24",
     "fingerprint": "1173ed3ddb9e",
     "history": []
+  },
+  "kalam_cap": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 13:16:15",
+    "fingerprint": "ef908aaadf6b",
+    "history": []
+  },
+  "never_noticed": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 13:16:18",
+    "fingerprint": "5d0d997e508a",
+    "history": []
+  },
+  "rashtrapati": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 13:16:21",
+    "fingerprint": "3767832c0710",
+    "history": []
   }
 }

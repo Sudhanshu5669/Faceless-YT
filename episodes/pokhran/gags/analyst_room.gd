@@ -20,6 +20,7 @@ extends RefCounted
 ##           world (the PM's lawn), from `on`; from each feed's t the TV cuts to that camera (another place: the blast
 ##           footage), with its own background colour and ambient light (the room's look has no sun)
 ##   knock   t   the analyst's elbow knocks the snow globe; the snow swirls
+##   spill   t   the analyst jolts awake and knocks his coffee over: the mug tips and rolls a little, a pool spreads
 ##   loop    {"from": t, "end": t}   the Short's loop: from `from` the feed glitches back to America's White House, intact,
 ##           its feed clock running so that at `end` it is exactly where the hook starts (feed time 0)
 ##   report  {"hand": actor id, "drop": t, "at": [x, z]}   a thick bound report (navy covers, a red SECRET stamp)
@@ -523,6 +524,8 @@ func build(g: Dictionary) -> Node3D:
 
 
 var _report: Node3D
+var _mug: Node3D
+var _spill: MeshInstance3D
 
 
 func _report_build(root: Node3D) -> void:
@@ -734,6 +737,10 @@ func _desk(root: Node3D) -> void:
 	var mug := Node3D.new()
 	mug.position = MUG_AT
 	root.add_child(mug)
+	_mug = mug
+	# The spill (param "spill"): a coffee pool spreading over the desk from the tipped mug.
+	_spill = Kit.cyl(root, 1.0, 1.0, 0.003, MUG_AT + Vector3(0.12, 0.002, 0.04), Kit.mat("#2a140a", 0.08, 0.0, 0.9), 24)
+	_spill.visible = false
 	Kit.cyl(mug, 0.042, 0.04, 0.1, Vector3(0, 0.05, 0), Kit.mat("#f0ece4", 0.25, 0.0, 0.7), 24)
 	Kit.cyl(mug, 0.038, 0.038, 0.005, Vector3(0, 0.085, 0), Kit.mat("#2a160a", 0.15, 0.0, 0.8), 24)
 	var handle := MeshInstance3D.new()
@@ -1030,6 +1037,20 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	# The snow globe: an elbow knock tips it; the snow swirls up and settles.
 	var knock := float(_p.get("knock", 1e9))
 	var slam := _pose_report(gt, t, ctx)
+	var spill := float(_p.get("spill", 1e9))
+	var ks := t - spill
+	if _mug != null:
+		if ks >= 0.0:
+			var tip := Motion.out_bounce(clampf(ks / 0.35, 0.0, 1.0))
+			_mug.rotation = Vector3(0.0, 0.4, -1.5 * tip)
+			_mug.position = MUG_AT + Vector3(0.06 * tip, 0.04 * tip, 0.0)
+			_spill.visible = ks > 0.12
+			var r := 0.03 + 0.17 * (1.0 - exp(-(ks - 0.12) * 2.5))
+			_spill.scale = Vector3(r * 1.3, 1.0, r)
+		else:
+			_mug.rotation = Vector3.ZERO
+			_mug.position = MUG_AT
+			_spill.visible = false
 	if slam >= 0.0 and slam < 4.0:
 		knock = t - slam
 	var dk := t - knock

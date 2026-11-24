@@ -7,6 +7,7 @@ on the back wall; the window with blinds in the -x wall (frame right when lookin
 from .common import W, frame, cam, move
 from . import lawn
 from . import range as range_place
+from . import rashtrapati
 
 DESK_Z = 3000.0
 P = frame("desk", DESK_Z)
@@ -52,6 +53,9 @@ ACTORS = [
          {"t": W("l17b", "assumed", 0.0), "expression": "shocked", "head": [-16, 10, 0], "head_turn": 0.12},
          {"t": W("l17b", "never", 0.0), "expression": "sad", "head": [26, 0, 0], "head_turn": 0.8},
          {"t": W("l17b", "test.", 0.1), "expression": "crying", "head": [34, 0, 8], "head_turn": 0.6},
+         # never_noticed (2002): dozing at his feed; Kalam on the TV behind him; he jolts awake on "noticed".
+         {"t": {"shot": "never_noticed", "offset": -0.1}, "action": "sit", "expression": "sleepy", "head": [30, 0, 12], "head_turn": 0.01},
+         {"t": W("l19c", "noticed,", -0.1), "action": "sit_talk", "expression": "shocked", "head": [-12, 0, 0], "head_turn": 0.12},
          # end_feed: back to the night shift as the Short began (it loops into hook_feed).
          {"t": {"shot": "end_feed", "offset": -0.05}, "action": "sit", "expression": "sleepy", "head": [0, 0, 0], "head_turn": 0.01},
      ]},
@@ -76,6 +80,7 @@ GAGS = [{"id": "office_us", "script": "gags/analyst_room.gd", "t": 0, "at": P(0,
                              "cam": range_place.P(-3.0, 260.0, 11.5), "ortho": 24.0, "stamp": "MAY 1998"},
                     "prints": {"cam": range_place.P(4.5, 260.0, 5.5), "ortho": 22.0, "slide": W("l6c", "morning", 0.0),
                                "hand": "analyst", "shrug": W("l6c", "same.", -0.1)},
+                    "spill": W("l19c", "noticed,", -0.02),
                     "loop": {"from": {"shot": "end_feed", "offset": -0.05}, "end": W("l21b", edge="end", offset=0.15)},
                     "report": {"hand": "cia_agent2", "drop": W("l17b", "assumed", 0.0), "at": [-0.12, -1.48]},
                     "tv": {"on": ANNOUNCED, "cam": lawn.TV_CAM, "look": lawn.TV_LOOK, "fov": 26.0,
@@ -83,7 +88,11 @@ GAGS = [{"id": "office_us", "script": "gags/analyst_room.gd", "t": 0, "at": P(0,
                            "feeds": [[{"shot": "senator", "offset": -0.1},
                                       range_place.P(range_place._BJ_CAM[0], round(range_place._BJ_Y, 3), range_place._BJ_CAM[1]),
                                       range_place.P(0.0, 190.0, 0.0), 34.0,
-                                      {"bg": "#a9bcd4", "ambient": 1.25, "ambient_color": "#e8d8c0"}]]}}}]
+                                      {"bg": "#a9bcd4", "ambient": 1.25, "ambient_color": "#e8d8c0"}],
+                                     # never_noticed (2002): Kalam, President, at Rashtrapati Bhavan on the news.
+                                     [{"shot": "never_noticed", "offset": -0.1},
+                                      rashtrapati.P(0.7, 6.2, -10.4), rashtrapati.P(0.0, 6.0, -12.6), 22.0,
+                                      {"bg": "#9cb8dc", "ambient": 1.1, "ambient_color": "#efe2cc"}]]}}}]
 
 SX, SY, SZ = SCREEN
 STAMP = (-0.07, 1.158, -1.814)     # the date stamp on the hero CRT (gag-local)
@@ -143,5 +152,12 @@ SHOTS["end_feed"] = {
         "from": cam(P(SX, SY, SZ + 0.28), P(SX, SY, SZ), 40, {"strength": 0.2}),
         "to": cam(P(SX - 0.12, SY + 0.12, SZ + 0.95), P(SX + 0.01, SY - 0.01, SZ), 38, {"strength": 0.2}),
         "ease": "in_out", "start": {"shot": "end_feed", "offset": 0.1}, "end": W("l21b", edge="end", offset=0.0)}}
+
+SHOTS["never_noticed"] = {
+    # From beside the monitor: the analyst, 2002, asleep at his feed; on the wall TV behind him Kalam, now President, at
+    # Rashtrapati Bhavan. On "noticed" he jolts awake and the coffee goes over. A slow push.
+    "look": LOOK, "camera": move(
+        cam(P(-0.17, 0.9, -1.67), P(0.17, 1.4, 0.8), 18, {"strength": 0.12}),
+        cam(P(-0.13, 0.95, -1.52), P(0.15, 1.45, 0.8), 20, {"strength": 0.15}), "in_out")}
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

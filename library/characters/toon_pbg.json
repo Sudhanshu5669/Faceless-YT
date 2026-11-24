@@ -1,0 +1,15 @@
+{
+  "id": "toon_pbg",
+  "description": "A trooper of the President's Bodyguard, ceremonial dress (caricature): a scarlet tunic, a blue-and-gold turban.",
+  "tags": ["toon", "human", "pokhran", "guard"],
+  "height": 1.62,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "turban", "color": "#1f3c8a"},
+    "outfit": {"style": "suit", "color": "#b3171f", "accent": "#e2b23c"},
+    "shoes": "#141010",
+    "face": "determined",
+    "girth": 1.0
+  }
+}

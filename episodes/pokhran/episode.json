@@ -657,6 +657,35 @@
     },
     {
      "t": {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     "action": "sit",
+     "expression": "sleepy",
+     "head": [
+      30,
+      0,
+      12
+     ],
+     "head_turn": 0.01
+    },
+    {
+     "t": {
+      "line": "l19c",
+      "word": "noticed,",
+      "offset": -0.1
+     },
+     "action": "sit_talk",
+     "expression": "shocked",
+     "head": [
+      -12,
+      0,
+      0
+     ],
+     "head_turn": 0.12
+    },
+    {
+     "t": {
       "shot": "end_feed",
       "offset": -0.05
      },
@@ -5937,6 +5966,374 @@
      "expression": "determined"
     }
    ]
+  },
+  {
+   "id": "kalam_rb",
+   "character": "toon_kalam_bandhgala",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     4.8,
+     56987.4
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     4.8,
+     56980.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     {
+      "shot": "tech_day"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       4.8,
+       56983.5
+      ]
+     }
+    ],
+    "gait": "walk",
+    "start": {
+     "shot": "rashtrapati",
+     "offset": -0.3
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "pbg_0_l",
+   "character": "toon_pbg",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     3.2,
+     1.0,
+     56997.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     1.0,
+     56997.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     {
+      "shot": "tech_day"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "pbg_0_r",
+   "character": "toon_pbg",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -3.2,
+     1.0,
+     56997.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     1.0,
+     56997.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     {
+      "shot": "tech_day"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "pbg_1_l",
+   "character": "toon_pbg",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     3.35,
+     2.2,
+     56994.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     2.2,
+     56994.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     {
+      "shot": "tech_day"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "pbg_1_r",
+   "character": "toon_pbg",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -3.35,
+     2.2,
+     56994.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     2.2,
+     56994.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     {
+      "shot": "tech_day"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "pbg_2_l",
+   "character": "toon_pbg",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     3.5,
+     3.4,
+     56991.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     3.4,
+     56991.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     {
+      "shot": "tech_day"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "pbg_2_r",
+   "character": "toon_pbg",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -3.5,
+     3.4,
+     56991.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     3.4,
+     56991.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     {
+      "shot": "tech_day"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "pbg_3_l",
+   "character": "toon_pbg",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     3.65,
+     4.6,
+     56988.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     4.6,
+     56988.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     {
+      "shot": "tech_day"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "pbg_3_r",
+   "character": "toon_pbg",
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     -3.65,
+     4.6,
+     56988.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "bunker",
+    "offset": [
+     -0.0,
+     4.6,
+     56988.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "never_noticed",
+      "offset": -0.1
+     },
+     {
+      "shot": "tech_day"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
   }
  ],
  "gags": [
@@ -6023,6 +6420,11 @@
       "offset": -0.1
      }
     },
+    "spill": {
+     "line": "l19c",
+     "word": "noticed,",
+     "offset": -0.02
+    },
     "loop": {
      "from": {
       "shot": "end_feed",
@@ -6095,6 +6497,34 @@
         "bg": "#a9bcd4",
         "ambient": 1.25,
         "ambient_color": "#e8d8c0"
+       }
+      ],
+      [
+       {
+        "shot": "never_noticed",
+        "offset": -0.1
+       },
+       {
+        "anchor": "bunker",
+        "offset": [
+         -1.6,
+         6.3,
+         56991.5
+        ]
+       },
+       {
+        "anchor": "bunker",
+        "offset": [
+         -0.0,
+         6.0,
+         56987.4
+        ]
+       },
+       30.0,
+       {
+        "bg": "#9cb8dc",
+        "ambient": 1.1,
+        "ambient_color": "#efe2cc"
        }
       ]
      ]
@@ -7793,6 +8223,32 @@
      3.6,
      200.0
     ]
+   }
+  },
+  {
+   "id": "rashtrapati",
+   "script": "gags/rashtrapati.gd",
+   "t": 0,
+   "at": {
+    "anchor": "bunker",
+    "offset": [
+     0,
+     0,
+     57000.0
+    ]
+   },
+   "params": {
+    "lances": [
+     "pbg_0_l",
+     "pbg_0_r",
+     "pbg_1_l",
+     "pbg_1_r",
+     "pbg_2_l",
+     "pbg_2_r",
+     "pbg_3_l",
+     "pbg_3_r"
+    ],
+    "flag": true
    }
   }
  ],
@@ -13424,55 +13880,222 @@
   {
    "name": "never_noticed",
    "camera": {
-    "at": {
-     "anchor": "desk",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "desk",
+      "offset": [
+       0.17,
+       0.9,
+       2998.33
+      ]
+     },
+     "look_at": {
+      "anchor": "desk",
+      "offset": [
+       -0.17,
+       1.4,
+       3000.8
+      ]
+     },
+     "lens_mm": 18,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "desk",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "desk",
+      "offset": [
+       0.13,
+       0.95,
+       2998.48
+      ]
+     },
+     "look_at": {
+      "anchor": "desk",
+      "offset": [
+       -0.15,
+       1.45,
+       3000.8
+      ]
+     },
+     "lens_mm": 20,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "05:50",
+    "ssao": true,
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0
+    },
+    "sun": {
+     "energy": 0,
+     "visible": false
+    },
+    "moon": {
+     "energy": 0,
+     "visible": false
+    },
+    "ambient": {
+     "color": "#46506a",
+     "energy": 0.12
+    },
+    "sky": {
+     "top": "#04050a",
+     "horizon": "#0a0c12",
+     "stars": 0
+    },
+    "fog": {
+     "begin": 1,
+     "end": 30,
+     "color": "#10141c",
+     "volumetric": 0.02,
+     "anisotropy": 0.5,
+     "length": 12
+    },
+    "ground_fog": {
+     "density": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.08,
+     "threshold": 1.0
+    },
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 0.92,
+     "vignette": 0.38,
+     "grain": 0.06
+    },
+    "practical_lights": {
+     "level": 0
+    }
    }
   },
   {
    "name": "rashtrapati",
    "camera": {
-    "at": {
-     "anchor": "rashtrapati",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.4,
+       1.0,
+       57009.0
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       5.6,
+       56986.0
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.06
+     }
     },
-    "look_at": {
-     "anchor": "rashtrapati",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.3,
+       10.0,
+       57007.0
+      ]
+     },
+     "look_at": {
+      "anchor": "bunker",
+      "offset": [
+       -0.0,
+       36.0,
+       56966.0
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.04
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out",
+    "start": {
+     "line": "l19b",
+     "word": "President",
+     "offset": -0.35
+    },
+    "end": {
+     "line": "l19b",
+     "word": "India.",
+     "offset": 0.3
+    }
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "08:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 28,
+     "azimuth": 35,
+     "color": "#ffe6c4",
+     "energy": 3.0,
+     "softness": 0.6,
+     "visible": false,
+     "size": 1.2,
+     "glow": 1.0,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#6f95c8",
+     "horizon": "#e4dccb",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#b0a48e",
+     "energy": 0.38,
+     "sky": 0.6
+    },
+    "fog": {
+     "begin": 80,
+     "end": 1500,
+     "curve": 1.6,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.04,
+     "threshold": 1.15
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.15,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {

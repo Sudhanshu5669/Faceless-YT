@@ -1,0 +1,15 @@
+{
+  "id": "toon_kalam_bandhgala",
+  "description": "A. P. J. Abdul Kalam as President, 2002 (caricature): long white side-swept hair, a dark closed-collar bandhgala.",
+  "tags": ["toon", "human", "pokhran", "real-person"],
+  "height": 1.46,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {"style": "mop", "color": "#eeece6"},
+    "outfit": {"style": "safari", "color": "#1f2433"},
+    "shoes": "#141010",
+    "face": "happy",
+    "girth": 0.98
+  }
+}
