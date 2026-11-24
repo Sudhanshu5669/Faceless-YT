@@ -10,7 +10,12 @@
 ##   pots     [actor ids]   two clay matkas stacked on the head, a hand up steadying them
 ##   well     {"actor": id, "from": t, "to": t}   she hauls the bucket up the well hand over hand on the pulley rope
 ##   dust     {"from": t, "to": t, "dir": [x, z]}   wisps of sand blowing in from the desert along dir, low over the ground
-## anchors: well, lane (the lane's middle at head height), tree, wall (the hero hut wall facing +z)
+##   crack    {"from": t, "to": t, "hut": 0, "angle": deg, "shake": t}   a crack runs up the hut's mud wall (from the
+##            plinth toward the eave, zigzag, with two branches) between from and to, at `angle` degrees round from its
+##            door; from `shake` the thatch sheds dust and mud chips fall
+##   ripple   {"t": t, "at": [x, z]}   an open clay matka full of water on a stand at (x, z): at t its surface rings with
+##            concentric ripples (the shock arriving through the ground)
+## anchors: pot (the water's surface), crack (the crack's middle), well, lane (the lane's middle at head height), tree, wall (the hero hut wall facing +z)
 extends RefCounted
 
 const Kit = preload("res://scripts/world/gag_kit.gd")
@@ -77,6 +82,26 @@ void fragment() {
 }
 """
 
+const WATER := """
+shader_type spatial;
+uniform float s = -1.0;
+void fragment() {
+	vec2 q = UV - 0.5;
+	float d = length(q) * 2.0;
+	float k = 0.0;
+	if (s > 0.0) {
+		float env = exp(-s * 0.9) * smoothstep(0.0, 0.05, s);
+		k = env * sin(d * 46.0 - s * 26.0) * smoothstep(1.0, 0.2, d);
+	}
+	vec3 deep = vec3(0.05, 0.07, 0.07);
+	ALBEDO = deep;
+	NORMAL_MAP = normalize(vec3(q / max(d, 0.001) * k * 0.9, 1.0)) * 0.5 + 0.5;
+	ROUGHNESS = 0.04;
+	SPECULAR = 0.8;
+	METALLIC = 0.0;
+}
+"""
+
 const DUST := """
 shader_type spatial;
 render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, shadows_disabled;
@@ -103,6 +128,12 @@ var _rope_up: MeshInstance3D
 var _dust: MultiMeshInstance3D
 var _dust_mat: ShaderMaterial
 var _hero_wall := Vector3.ZERO
+var _crack_segs: Array = []      # [node, t_appear]
+var _crack_mid := Vector3.ZERO
+var _water_mat: ShaderMaterial
+var _pot_top := Vector3.ZERO
+var _chips: Array = []           # [node, start, t0]
+var _eave_dust: Array = []
 
 
 func build(g: Dictionary) -> Node3D:
@@ -187,6 +218,8 @@ func build(g: Dictionary) -> Node3D:
 		root.add_child(m)
 	_charpai(root, TREE_AT + Vector3(1.4, 0, 1.6), 0.4)
 	_well(root)
+	_crack_build(root)
+	_ripple_build(root)
 	# Scattered: a few pots by the huts, a pile of dung cakes, stones.
 	for k in 6:
 		var pt := Vector3(-5.0 + 2.2 * k + 0.6 * sin(k * 3.1), 0, -4.2 - 3.0 * absf(sin(k * 1.7)))
@@ -239,6 +272,115 @@ func build(g: Dictionary) -> Node3D:
 		_dust.extra_cull_margin = 60.0
 		root.add_child(_dust)
 	return root
+
+
+func _crack_build(root: Node3D) -> void:
+	var cd: Dictionary = _p.get("crack", {})
+	if cd.is_empty():
+		return
+	var hd: Array = HUTS[int(cd.get("hut", 0))]
+	var c := Vector3(float(hd[0]), 0, float(hd[1]))
+	var r := float(hd[2])
+	var h := float(hd[3])
+	var to_lane := Vector3(-c.x, 0, 4.0).normalized()
+	var a0 := atan2(to_lane.z, to_lane.x) + deg_to_rad(float(cd.get("angle", 30.0)))
+	var t0 := float(cd["from"])
+	var t1 := float(cd["to"])
+	var dark := Kit.mat("#120c08", 0.95)
+	var rng := Kit.rng("crack")
+	# The main crack: a zigzag from the plinth band up to the eave; two branches off it.
+	var paths := [[a0, 0.36, h - 0.05, 0.0, 1.0, 0.03], [a0 + 0.05, 1.0, 1.65, 0.45, 0.8, 0.018], [a0 - 0.02, 1.45, 1.9, 0.62, 0.95, 0.015]]
+	for pi in paths.size():
+		var pd: Array = paths[pi]
+		var ang := float(pd[0])
+		var y := float(pd[1])
+		var y1 := float(pd[2])
+		var n := 14 if pi == 0 else 6
+		var prev := Vector3(cos(ang) * (r + 0.012), y, sin(ang) * (r + 0.012)) + c
+		for k in n:
+			var u := float(k + 1) / n
+			ang += rng.randf_range(-0.07, 0.07) + (0.03 if pi == 1 else (-0.03 if pi == 2 else 0.0))
+			var yy := lerpf(float(pd[1]), y1, u)
+			var nxt := Vector3(cos(ang) * (r + 0.012), yy, sin(ang) * (r + 0.012)) + c
+			var seg := MeshInstance3D.new()
+			var bm := BoxMesh.new()
+			var w := float(pd[5]) * (1.0 - 0.5 * u)
+			bm.size = Vector3(w, (nxt - prev).length() + w, 0.012)
+			seg.mesh = bm
+			seg.material_override = dark
+			var up := (nxt - prev).normalized()
+			var out := Vector3(cos(ang), 0, sin(ang))
+			var side := up.cross(out).normalized()
+			seg.transform = Transform3D(Basis(side, up, side.cross(up)), (prev + nxt) * 0.5)
+			root.add_child(seg)
+			var tu := lerpf(float(pd[3]), float(pd[4]), u)
+			_crack_segs.append([seg, lerpf(t0, t1, tu)])
+			if pi == 0 and k == n / 2:
+				_crack_mid = nxt
+			prev = nxt
+	# Mud chips and eave dust (from the shake).
+	var mud := Kit.mat("#a87a4c", 0.95)
+	for k in 10:
+		var ang := a0 + rng.randf_range(-0.3, 0.3)
+		var st := Vector3(cos(ang) * (r + 0.05), rng.randf_range(0.8, h), sin(ang) * (r + 0.05)) + c
+		var chip := Kit.box(root, Vector3(0.05, 0.035, 0.04) * rng.randf_range(0.7, 1.4), st, mud)
+		chip.visible = false
+		_chips.append([chip, st, rng.randf_range(0.0, 0.9), Vector3(cos(ang), 0, sin(ang)) * rng.randf_range(0.2, 0.6)])
+	var dm := StandardMaterial3D.new()
+	dm.albedo_color = Color(0.82, 0.72, 0.56, 0.0)
+	dm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	dm.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	dm.billboard_keep_scale = true
+	dm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	var gtex := GradientTexture2D.new()
+	gtex.fill = GradientTexture2D.FILL_RADIAL
+	gtex.fill_from = Vector2(0.5, 0.5)
+	gtex.fill_to = Vector2(1.0, 0.5)
+	var gr := Gradient.new()
+	gr.set_color(0, Color(1, 1, 1, 1))
+	gr.set_color(1, Color(1, 1, 1, 0))
+	gtex.gradient = gr
+	dm.albedo_texture = gtex
+	for k in 8:
+		var ang := a0 + rng.randf_range(-0.5, 0.5)
+		var q := MeshInstance3D.new()
+		var qm := QuadMesh.new()
+		qm.size = Vector2(0.5, 0.5)
+		q.mesh = qm
+		q.material_override = dm.duplicate()
+		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		root.add_child(q)
+		_eave_dust.append([q, Vector3(cos(ang) * (r * 1.25), h + 0.05, sin(ang) * (r * 1.25)) + c, rng.randf_range(0.0, 0.6)])
+
+
+func _ripple_build(root: Node3D) -> void:
+	var rd: Dictionary = _p.get("ripple", {})
+	if rd.is_empty():
+		return
+	var at := Vector3(float(rd["at"][0]), 0, float(rd["at"][1]))
+	var wood := Kit.mat("#5e4428", 0.85)
+	# A low wooden stand, the open matka on it, full to the neck.
+	Kit.box(root, Vector3(0.5, 0.06, 0.5), at + Vector3(0, 0.42, 0), wood)
+	for sx: float in [-0.21, 0.21]:
+		for sz: float in [-0.21, 0.21]:
+			Kit.box(root, Vector3(0.05, 0.42, 0.05), at + Vector3(sx, 0.21, sz), wood)
+	var clay := Kit.mat("#9a4a2a", 0.85)
+	Kit.ball(root, 0.27, at + Vector3(0, 0.7, 0), clay, 24, Vector3(1, 0.92, 1))
+	Kit.cyl(root, 0.17, 0.15, 0.1, at + Vector3(0, 0.98, 0), clay, 20)
+	var lip := MeshInstance3D.new()
+	var tm := TorusMesh.new()
+	tm.inner_radius = 0.15
+	tm.outer_radius = 0.19
+	lip.mesh = tm
+	lip.material_override = Kit.mat("#8a3e22", 0.85)
+	lip.position = at + Vector3(0, 1.03, 0)
+	root.add_child(lip)
+	_water_mat = Kit.shader(WATER)
+	_pot_top = at + Vector3(0, 1.02, 0)
+	var w := Kit.quad(root, Vector2(0.32, 0.32), _pot_top, _water_mat, Vector3(-PI / 2, 0, 0))
+	w.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	# A brass lota beside it.
+	Kit.cyl(root, 0.06, 0.08, 0.14, at + Vector3(0.18, 0.52, 0.12), Kit.mat("#c9a24a", 0.3, 0.9), 14)
 
 
 func _charpai(root: Node3D, at: Vector3, yaw: float) -> void:
@@ -369,5 +511,30 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			var face := Basis.looking_at(-dir, Vector3.UP)
 			mm.set_instance_transform(k, Transform3D(face.rotated(Vector3.UP, PI / 2) * Basis.from_scale(Vector3.ONE * (0.8 + age * 0.4)), p))
 			mm.set_instance_custom_data(k, Color(sin(PI * age / life), 0, 0, 0))
-	return {"well": gt * (WELL_AT + Vector3(0, 1.2, 0)), "lane": gt * Vector3(0, 1.2, -4.0),
+	# The crack grows; chips fall; the thatch sheds dust.
+	var cd: Dictionary = _p.get("crack", {})
+	for e in _crack_segs:
+		(e[0] as Node3D).visible = t >= float(e[1])
+	if not cd.is_empty():
+		var sk := float(cd.get("shake", cd["from"]))
+		for e in _chips:
+			var a := t - sk - float(e[2])
+			var nd: Node3D = e[0]
+			nd.visible = a > 0.0 and a < 1.2
+			if nd.visible:
+				var st: Vector3 = e[1]
+				var y := maxf(st.y - 4.9 * a * a, 0.02)
+				nd.position = Vector3(st.x, y, st.z) + (e[3] as Vector3) * minf(a, 0.5)
+				nd.rotation = Vector3(a * 9.0, a * 7.0, 0)
+		for e in _eave_dust:
+			var a := t - sk - float(e[2])
+			var q: MeshInstance3D = e[0]
+			q.visible = a > 0.0 and a < 2.0
+			if q.visible:
+				q.position = (e[1] as Vector3) + Vector3(0.1 * a, -0.6 * a, 0.1 * a)
+				q.scale = Vector3.ONE * (0.4 + 1.2 * a)
+				(q.material_override as StandardMaterial3D).albedo_color.a = 0.45 * sin(PI * a / 2.0)
+	if _water_mat != null:
+		_water_mat.set_shader_parameter("s", t - float((_p.get("ripple", {}) as Dictionary).get("t", 1e9)))
+	return {"pot": gt * _pot_top, "crack": gt * _crack_mid, "well": gt * (WELL_AT + Vector3(0, 1.2, 0)), "lane": gt * Vector3(0, 1.2, -4.0),
 		"tree": gt * (TREE_AT + Vector3(0, 2.0, 0)), "wall": gt * _hero_wall}

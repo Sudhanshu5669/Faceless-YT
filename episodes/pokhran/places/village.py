@@ -45,10 +45,21 @@ ACTORS = [
      "shown": [VF], "cues": [{"t": 0.0, "expression": "happy"}]},
 ]
 
+# The hero hut's wall where the crack runs (hut 0, 30 degrees round from its door): a point on it and its outward normal.
+_WALL = (-5.287, -4.721)
+_N = (0.4567, 0.8896)
+_POT = (_WALL[0] + 1.0 * _N[0], _WALL[1] + 1.0 * _N[1])
+_CC = (_WALL[0] + 2.7 * _N[0] + 0.25 * _N[1], _WALL[1] + 2.7 * _N[1] - 0.25 * _N[0])
+
 GAGS = [{"id": "village", "script": "gags/village.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"tyre": [{"actor": "vk_tyre"}], "pots": ["vw_pots"],
                     "well": {"actor": "vw_well", "from": {"shot": "village_far", "offset": -0.3}, "to": W("l12c", edge="end", offset=0.4)},
-                    "dust": {"from": {"shot": "village_far", "offset": -0.4}, "to": W("l12c", edge="end", offset=0.6), "dir": [0.25, -1.0]}}}]
+                    "dust": {"from": {"shot": "village_far", "offset": -0.4}, "to": W("l12c", edge="end", offset=0.6), "dir": [0.25, -1.0]},
+                    # khetolai_crack: the shock reaches the village: the water in a matka rings, then a crack runs up a
+                    # hut's mud wall on "cracked".
+                    "ripple": {"t": W("l14d", offset=0.05), "at": [_POT[0], _POT[1]]},
+                    "crack": {"from": W("l14d", "cracked.", -0.3), "to": W("l14d", "cracked.", 0.3), "hut": 0, "angle": 30.0,
+                              "shake": W("l14d", offset=0.1)}}}]
 
 SHOTS = {
     # From the desert's edge, low, the dust blowing past us into the village: a slow push down the lane as the kids race
@@ -57,5 +68,14 @@ SHOTS = {
         cam(P(1.4, 1.35, 13.0), P(0.0, 1.3, -6.0), 32, {"strength": 0.06}),
         cam(P(0.8, 1.15, 7.5), P(0.1, 1.0, -1.0), 32, {"strength": 0.08}), "in_out")},
 }
+
+SHOTS["khetolai_crack"] = {
+    # Low by a hut in Khetolai, stacked for 9:16: the open matka of water close in the foreground, the mud wall behind:
+    # the shock arrives and the water rings, dust sifts off the thatch, chips fall; on "cracked" a crack runs up the wall.
+    "look": LOOK_VILLAGE,
+    "shake": [{"t": W("l14d", offset=0.08), "amount": 0.18}, {"t": W("l14d", "cracked.", -0.25), "amount": 0.12}],
+    "camera": move(cam(P(_CC[0], 1.05, _CC[1]), P(_WALL[0], 1.15, _WALL[1]), 28, {"strength": 0.12}),
+                   cam(P(_CC[0], 1.2, _CC[1]), P(_WALL[0], 1.4, _WALL[1]), 28, {"strength": 0.12}),
+                   "in_out")}
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}

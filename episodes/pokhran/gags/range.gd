@@ -79,11 +79,15 @@ extends RefCounted
 ##              night: three shaft heads, each with an open collar, a 6 m tripod, a steel cage carrying a device stood on
 ##              end, lowered steadily (it passes the collar at its down_t, or `down`), and a sodium floodlight on a pole
 ##              (position in the rig's frame); trucks parked with their headlights on
-##   blast      {"t": t, "at": [x, z], "h": 7.0, "r": 35.0, "on": [[t0, t1], ...]}   the underground test (accurate: no
-##              fireball, no mushroom cloud): at t the desert heaves up into a dome (h metres, radius r) in a third of a
-##              second, a shock ripple races out across the sand, dust erupts off the dome into a towering curtain and a
-##              base surge rolls outward along the ground; from ~1.2 s the dome slumps into a shallow crater. The 1998
-##              site gear (tripod, plates) is hidden inside the windows (the shaft was sealed and the site cleared)
+##   blast      {"t": t, "at": [x, z], "h": 30, "r": 130, "shock": 450, "ring_to": 1600, "toward": [x, z], "on": [[t0, t1]],
+##              "post": {"at": [x, z], "face": [x, z]}}   the underground test, at massive scale (accurate: no fireball, no
+##              mushroom cloud): at t the crust heaves up into a dome (h m high, radius r) that breaks into ~9 m slabs with
+##              black fissures between them (GPU, in the ground's height), sand jets spurt from the cracks, a towering
+##              column of dust climbs hundreds of metres, rocks fly out on ballistic arcs, a base surge rolls outward along
+##              the ground, and the shock races across the plain at `shock` m/s raising a ring of dust (denser in the
+##              `toward` direction, the camera's side) out to `ring_to`; from ~3 s the dome slumps into a crater. `post`:
+##              an observation post (a sandbag parapet, a parked truck) shown only inside the windows. The 1998 site gear
+##              and the heat-haze ring are hidden inside the windows
 ##   village_far {"at": [x, z], "on": [[t0, t1], ...], "n": 9}   Khetolai on the horizon (only inside the windows): a
 ##              cluster of round mud huts with thatched cones inside a low mud wall, khejri trees, two threads of cooking
 ##              smoke rising: the village the wind must not blow toward (dramatised much closer than its real ~5 km)
@@ -117,7 +121,18 @@ const LAMP_AT := Vector3(-0.42, -SHAFT_D + 2.3, 0.8)
 const CAMP := [Vector3(-10.0, 0, -29.2), Vector3(-9.7, 0, -36.4), Vector3(-3.3, 0, -34.6), Vector3(-17.8, 0, -36.1)]
 
 ## Terrain height (metres) at local (x, z). Mirrors height() in GROUND.
+static var post_pad := Vector4(0.0, 0.0, 0.0, 0.0)   # x, z, height, on: a flat pad for the observation post
+
+
 static func height(x: float, z: float) -> float:
+	var raw := _height_raw(x, z)
+	if post_pad.w < 0.5:
+		return raw
+	var k := smoothstep(60.0, 120.0, Vector2(x - post_pad.x, z - post_pad.y).length())
+	return lerpf(post_pad.z, raw, k)
+
+
+static func _height_raw(x: float, z: float) -> float:
 	var h := 0.22 * sin(0.11 * x + 0.7) * cos(0.083 * z + 1.3) + 0.12 * sin(0.23 * x - 0.17 * z + 2.1)
 	h += 0.05 * sin(0.47 * x + 0.31 * z) + 0.025 * sin(1.3 * x - 0.9 * z + 0.4)
 	var d := sqrt(x * x + z * z)
@@ -149,21 +164,64 @@ static func ground(x: float, z: float) -> Vector3:
 const HEIGHT_GLSL := """
 uniform float now = 0.0;
 uniform vec4 blast = vec4(0.0, 0.0, 1e9, 0.0);   // centre x, z; t0; on
-uniform vec2 blast_hr = vec2(7.0, 35.0);
+uniform vec3 blast_hr = vec3(30.0, 130.0, 450.0);  // dome height, dome radius, shock speed (m/s)
+vec2 bl_hash2(vec2 p) { p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3))); return fract(sin(p) * 43758.5453); }
+// Voronoi: x = distance to the nearest cell edge (F2 - F1), yz = the nearest cell's centre (in cell units).
+vec3 bl_vor(vec2 p) {
+	vec2 i = floor(p);
+	vec2 f = fract(p);
+	float d1 = 8.0;
+	float d2 = 8.0;
+	vec2 c1 = vec2(0.0);
+	for (int y = -1; y <= 1; y++) {
+		for (int x = -1; x <= 1; x++) {
+			vec2 g = vec2(float(x), float(y));
+			vec2 o = bl_hash2(i + g);
+			vec2 r = g + o - f;
+			float d = dot(r, r);
+			if (d < d1) { d2 = d1; d1 = d; c1 = i + g + o; } else if (d < d2) { d2 = d; }
+		}
+	}
+	return vec3(sqrt(d2) - sqrt(d1), c1);
+}
+float bl_rise(float s) { return 1.0 - pow(1.0 - clamp(s / 0.5, 0.0, 1.0), 3.0); }
 float blast_h(vec2 p) {
 	if (blast.w < 0.5) return 0.0;
 	float s = now - blast.z;
 	if (s < 0.0) return 0.0;
-	float d = length(p - blast.xy);
-	float rise = 1.0 - pow(1.0 - clamp(s / 0.33, 0.0, 1.0), 3.0);
-	float wob = 1.0 + 0.06 * sin(s * 14.0) * exp(-s * 3.0);
-	float slump = smoothstep(1.2, 3.6, s);
-	float dome = mix(blast_hr.x * rise * wob, -0.3 * blast_hr.x, slump) * exp(-pow(d / blast_hr.y, 2.0));
-	// Cracks of the heave: a rough skin over the dome.
-	dome *= 1.0 + 0.08 * sin(p.x * 0.9 + p.y * 0.4) * sin(p.y * 1.1 - p.x * 0.3);
-	float rr = s * 150.0;
-	float ring = 0.9 * exp(-pow((d - rr) / 7.0, 2.0)) * exp(-s * 1.4) * smoothstep(blast_hr.y * 0.6, blast_hr.y * 1.2, d);
+	vec2 q = p - blast.xy;
+	float d = length(q);
+	float H = blast_hr.x;
+	float R = blast_hr.y;
+	float slump = smoothstep(3.0, 8.0, s);
+	float wob = 1.0 + 0.05 * sin(s * 9.0) * exp(-s * 2.0);
+	// The heave breaks the crust into slabs (Voronoi cells about 9 m): each lifts by the dome's height at its centre,
+	// tilted down the dome's flank, so the edges step: a broken, heaving skin.
+	vec3 v = bl_vor(q / 9.0);
+	vec2 cc = v.yz * 9.0;
+	float dc = length(cc);
+	float prof = exp(-pow(dc / R, 2.0));
+	float jit = 0.85 + 0.3 * bl_hash2(v.yz).x;
+	float rs = bl_rise(s - dc / 1200.0);
+	float lift = H * prof * jit * rs * wob;
+	vec2 dir = dc > 0.01 ? cc / dc : vec2(0.0);
+	lift += dot(q - cc, dir) * (-2.0 * H * dc / (R * R)) * prof * rs * 0.9;
+	// Fissures open between the slabs.
+	float fis = (1.0 - smoothstep(0.0, 0.08, v.x)) * smoothstep(0.03, 0.25, prof) * rs * (1.0 - slump);
+	lift -= fis * 2.5;
+	float dome = mix(lift, -0.22 * H * exp(-pow(d / (R * 0.7), 2.0)), slump);
+	// The shock ring racing out across the plain.
+	float rr = s * blast_hr.z;
+	float ring = 1.8 * exp(-pow((d - rr) / 16.0, 2.0)) * exp(-s * 0.45) * smoothstep(R * 0.8, R * 1.4, d);
 	return dome + ring;
+}
+float blast_fis(vec2 p) {
+	if (blast.w < 0.5) return 0.0;
+	float s = now - blast.z;
+	if (s < 0.0) return 0.0;
+	vec3 v = bl_vor((p - blast.xy) / 9.0);
+	float prof = exp(-pow(length(v.yz * 9.0) / blast_hr.y, 2.0));
+	return (1.0 - smoothstep(0.0, 0.06, v.x)) * smoothstep(0.03, 0.25, prof) * bl_rise(s) * (1.0 - smoothstep(3.0, 8.0, s));
 }
 float track_z(float x) { return 5.6 + 4.0 * sin(x * 0.04 + 0.5); }
 float ruts(vec2 p) {
@@ -171,7 +229,8 @@ float ruts(vec2 p) {
 	float on = 1.0 - smoothstep(60.0, 90.0, abs(p.x));
 	return (-0.05 * exp(-pow((dz - 0.85) / 0.15, 2.0)) + 0.012 * exp(-pow(dz / 0.35, 2.0))) * on;
 }
-float height(vec2 p) {
+uniform vec4 post_pad = vec4(0.0);
+float height_raw(vec2 p) {
 	float x = p.x, z = p.y;
 	float h = 0.22 * sin(0.11 * x + 0.7) * cos(0.083 * z + 1.3) + 0.12 * sin(0.23 * x - 0.17 * z + 2.1);
 	h += 0.05 * sin(0.47 * x + 0.31 * z) + 0.025 * sin(1.3 * x - 0.9 * z + 0.4);
@@ -183,6 +242,11 @@ float height(vec2 p) {
 	float k = smoothstep(PAD_R, PAD_R * 2.2, d);
 	h = mix(-0.02, h, k);
 	return h + ruts(p) + blast_h(p);
+}
+float height(vec2 p) {
+	float raw = height_raw(p);
+	if (post_pad.w < 0.5) return raw;
+	return mix(post_pad.z, raw, smoothstep(60.0, 120.0, length(p - post_pad.xy)));
 }
 """
 
@@ -248,6 +312,13 @@ void fragment() {
 	// Broad tone patches (gravel fans, darker crusts) that read at a distance.
 	col *= 0.88 + 0.24 * fbm(vec3(p * 0.012, 9.0));
 	col *= tint;
+	// The blast: the torn crust darker and damper (subsoil turned up), black fissures between the slabs.
+	if (blast.w > 0.5 && now > blast.z) {
+		float bs = now - blast.z;
+		float bprof = exp(-pow(length(p - blast.xy) / blast_hr.y, 2.0));
+		col = mix(col, col * vec3(0.72, 0.64, 0.55), bprof * bl_rise(bs));
+		col *= 1.0 - 0.9 * blast_fis(p);
+	}
 	ALBEDO = col;
 	vec3 na = mix(texture(a_nor, uv).rgb, texture(b_nor, uv * 0.8 + 0.5).rgb, mab);
 	vec3 ns = texture(s_nor, p * 0.3).rgb;
@@ -581,6 +652,12 @@ var _drips: Array = []        # [{"from", "to", "period", "phase", "drop", "ring
 func build(g: Dictionary) -> Node3D:
 	_p = g.get("params", {})
 	var root := Node3D.new()
+	post_pad = Vector4(0.0, 0.0, 0.0, 0.0)
+	var post: Dictionary = (_p.get("blast", {}) as Dictionary).get("post", {})
+	if not post.is_empty():
+		var px := float(post["at"][0])
+		var pz := float(post["at"][1])
+		post_pad = Vector4(px, pz, _height_raw(px, pz), 1.0)
 	_ground(root)
 	_g98 = Node3D.new()
 	_g98.name = "era_1998"
@@ -1841,7 +1918,7 @@ func _ground(root: Node3D) -> void:
 	arr[Mesh.ARRAY_INDEX] = idx
 	var mesh := ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
-	mesh.custom_aabb = AABB(Vector3(-2500, -5, -2500), Vector3(5000, 60, 5000))
+	mesh.custom_aabb = AABB(Vector3(-2500, -15, -2500), Vector3(5000, 100, 5000))
 	var mi := MeshInstance3D.new()
 	mi.name = "ground"
 	mi.mesh = mesh
@@ -1853,6 +1930,7 @@ func _ground(root: Node3D) -> void:
 	m.set_shader_parameter("b_nor", Kit.texture(TX + "sandy_gravel_02_nor_gl_2k.jpg", true))
 	m.set_shader_parameter("s_alb", Kit.texture(TX + "sand_01_diff_2k.jpg"))
 	m.set_shader_parameter("s_nor", Kit.texture(TX + "sand_01_nor_gl_2k.jpg", true))
+	m.set_shader_parameter("post_pad", post_pad)
 	mi.material_override = m
 	_ground_mat = m
 	root.add_child(mi)
@@ -2486,9 +2564,12 @@ static var _puff: ImageTexture
 var _vfar: Node3D
 var _vfar_smoke: Array = []
 var _ground_mat: ShaderMaterial
-var _blast_dust: MultiMeshInstance3D
-var _blast_seeds: Array = []
-const BLAST_N := 560
+var _blast_mm: Array = []          # [MultiMeshInstance3D, kind]
+var _blast_seeds := {}             # kind -> Array of seed dictionaries
+var _blast_debris: MultiMeshInstance3D
+var _post: Node3D
+const BLAST_KINDS := {"column": 2200, "surge": 900, "jet": 380, "ring": 800}
+const BLAST_DEBRIS := 380
 
 
 ## A soft, cloudy puff (value-noise fbm under a radial falloff): no visible pattern at any size.
@@ -2507,7 +2588,7 @@ static func _dust_tex() -> ImageTexture:
 				var v := 0.0
 				var amp := 0.55
 				var f := 4.0
-				for o in 3:
+				for o in 5:
 					var gx := float(x) / n * f
 					var gy := float(y) / n * f
 					var ix := int(gx) % 16
@@ -2523,8 +2604,8 @@ static func _dust_tex() -> ImageTexture:
 					f *= 2.0
 				var d := Vector2(x - n * 0.5 + 0.5, y - n * 0.5 + 0.5).length() / (n * 0.5)
 				var fall := clampf(1.0 - d, 0.0, 1.0)
-				var al := clampf(fall * fall * (0.55 + 0.9 * v) * 1.6 - 0.1, 0.0, 1.0)
-				var sh := 0.8 + 0.25 * v
+				var al := smoothstep(0.32, 0.62, fall * (0.35 + 1.1 * v))
+				var sh := 0.62 + 0.5 * v * (0.6 + 0.4 * (1.0 - float(y) / n))
 				img.set_pixel(x, y, Color(sh, sh, sh, al))
 		img.generate_mipmaps()
 		_dust_t = ImageTexture.create_from_image(img)
@@ -2535,13 +2616,6 @@ func _blast_build(root: Node3D) -> void:
 	var bd: Dictionary = _p.get("blast", {})
 	if bd.is_empty():
 		return
-	var mm := MultiMesh.new()
-	mm.transform_format = MultiMesh.TRANSFORM_3D
-	mm.use_colors = true
-	var q := QuadMesh.new()
-	q.size = Vector2(1.0, 1.0)
-	mm.mesh = q
-	mm.instance_count = BLAST_N
 	var dm := StandardMaterial3D.new()
 	dm.albedo_color = Color(0.9, 0.82, 0.7, 1.0)
 	dm.vertex_color_use_as_albedo = true
@@ -2552,31 +2626,104 @@ func _blast_build(root: Node3D) -> void:
 	dm.roughness = 1.0
 	dm.backlight_enabled = true
 	dm.backlight = Color(0.85, 0.72, 0.5)
-	_blast_dust = MultiMeshInstance3D.new()
-	_blast_dust.name = "blast_dust"
-	_blast_dust.multimesh = mm
-	_blast_dust.material_override = dm
-	_blast_dust.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	_blast_dust.extra_cull_margin = 400.0
-	root.add_child(_blast_dust)
-	var r := float(bd.get("r", 35.0))
+	for kind in BLAST_KINDS:
+		var mm := MultiMesh.new()
+		mm.transform_format = MultiMesh.TRANSFORM_3D
+		mm.use_colors = true
+		var q := QuadMesh.new()
+		q.size = Vector2(1.0, 1.0)
+		if kind == "jet":
+			q.center_offset = Vector3(0, 0.5, 0)
+		mm.mesh = q
+		mm.instance_count = int(BLAST_KINDS[kind])
+		var mi := MultiMeshInstance3D.new()
+		mi.name = "blast_" + kind
+		mi.multimesh = mm
+		mi.material_override = dm
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mi.extra_cull_margin = 2000.0
+		root.add_child(mi)
+		_blast_mm.append([mi, kind])
+	var dmm := MultiMesh.new()
+	dmm.transform_format = MultiMesh.TRANSFORM_3D
+	dmm.mesh = BoxMesh.new()
+	dmm.instance_count = BLAST_DEBRIS
+	_blast_debris = MultiMeshInstance3D.new()
+	_blast_debris.name = "blast_debris"
+	_blast_debris.multimesh = dmm
+	_blast_debris.material_override = Kit.mat("#4a3a2a", 0.95)
+	_blast_debris.extra_cull_margin = 2000.0
+	root.add_child(_blast_debris)
+	var R := float(bd.get("r", 130.0))
+	var cam2: Array = bd.get("toward", [0.0, 1.0])
+	var tow := Vector2(float(cam2[0]), float(cam2[1])).normalized()
+	var tow_a := atan2(tow.y, tow.x)
 	var rng := Kit.rng("blast")
-	for k in BLAST_N:
-		var surge := k % 3 == 0
+	for kind in BLAST_KINDS:
+		var arr: Array = []
+		for k in int(BLAST_KINDS[kind]):
+			var a := rng.randf() * TAU
+			var e := {"shade": rng.randf_range(0.65, 1.08)}
+			if kind == "column":
+				var d := sqrt(rng.randf()) * R * 0.95
+				var core := 1.0 - d / R
+				e["p"] = Vector3(cos(a) * d, 0, sin(a) * d)
+				e["v"] = Vector3(cos(a), 0, sin(a)) * rng.randf_range(4.0, 26.0) + Vector3(0, rng.randf_range(70.0, 210.0) * (0.2 + 0.8 * pow(core, 0.6)), 0)
+				e["t0"] = 0.32 + rng.randf() * 0.6 + d / 1200.0
+				e["s0"] = rng.randf_range(8.0, 26.0)
+				e["grow"] = rng.randf_range(18.0, 60.0)
+				e["k"] = 0.5
+			elif kind == "surge":
+				var d := R * rng.randf_range(0.75, 1.1)
+				e["p"] = Vector3(cos(a) * d, 0, sin(a) * d)
+				e["v"] = Vector3(cos(a), 0, sin(a)) * rng.randf_range(50.0, 150.0) + Vector3(0, rng.randf_range(2.0, 14.0), 0)
+				e["t0"] = 0.5 + rng.randf() * 0.8
+				e["s0"] = rng.randf_range(18.0, 32.0)
+				e["grow"] = rng.randf_range(40.0, 90.0)
+				e["k"] = 0.32
+			elif kind == "jet":
+				var d := sqrt(rng.randf()) * R * 0.85
+				e["p"] = Vector3(cos(a) * d, 0, sin(a) * d)
+				e["v"] = Vector3(0, rng.randf_range(90.0, 220.0) * (1.0 - 0.5 * d / R), 0)
+				e["t0"] = 0.05 + rng.randf() * 0.35 + d / 1500.0
+				e["w"] = rng.randf_range(2.0, 6.0)
+				e["h"] = rng.randf_range(20.0, 70.0)
+				e["k"] = 1.3
+			else:
+				# The shock ring's dust: half of it in the sector facing the camera, where it reads.
+				var aa := a if k % 2 == 0 else tow_a + rng.randf_range(-0.45, 0.45)
+				var d := lerpf(R * 1.3, float(bd.get("ring_to", 1600.0)), pow(rng.randf(), 0.8))
+				e["p"] = Vector3(cos(aa) * d, 0, sin(aa) * d)
+				e["dir"] = Vector3(cos(aa), 0, sin(aa))
+				e["t0"] = d / float(bd.get("shock", 450.0)) + rng.randf_range(-0.05, 0.05)
+				e["s0"] = rng.randf_range(6.0, 14.0)
+				e["grow"] = rng.randf_range(14.0, 34.0)
+				e["rise"] = rng.randf_range(6.0, 26.0)
+			arr.append(e)
+		_blast_seeds[kind] = arr
+	var deb: Array = []
+	for k in BLAST_DEBRIS:
 		var a := rng.randf() * TAU
-		var d := sqrt(rng.randf()) * r * (1.1 if surge else 0.85)
-		var core := 1.0 - d / (r * 1.1)
-		var v := Vector3(cos(a), 0, sin(a))
-		var vel: Vector3
-		if surge:
-			# The base surge: rolls outward low along the ground.
-			vel = v * rng.randf_range(28.0, 55.0) + Vector3(0, rng.randf_range(2.0, 7.0), 0)
-		else:
-			# The curtain: thrown up off the dome, fastest at the crown.
-			vel = v * rng.randf_range(3.0, 14.0) + Vector3(0, rng.randf_range(30.0, 95.0) * (0.3 + 0.7 * core), 0)
-		_blast_seeds.append({"p": Vector3(cos(a) * d, 0, sin(a) * d), "v": vel, "t0": rng.randf_range(0.04, 0.3) + (0.0 if not surge else 0.15),
-			"s0": rng.randf_range(6.0, 11.0) if not surge else rng.randf_range(6.0, 10.0), "grow": rng.randf_range(8.0, 16.0),
-			"shade": rng.randf_range(0.62, 1.08), "surge": surge})
+		var d := sqrt(rng.randf()) * R * 0.7
+		var core := 1.0 - d / R
+		deb.append({"p": Vector3(cos(a) * d, 0, sin(a) * d),
+			"v": Vector3(cos(a), 0, sin(a)) * rng.randf_range(10.0, 55.0) + Vector3(0, rng.randf_range(35.0, 130.0) * core, 0),
+			"t0": 0.15 + rng.randf() * 0.4, "size": rng.randf_range(0.6, 3.2), "spin": Vector3(rng.randf_range(-6, 6), rng.randf_range(-6, 6), rng.randf_range(-6, 6))})
+	_blast_seeds["debris"] = deb
+	# The observation post: a sandbag parapet facing the blast, a field radio, a canopy truck parked behind.
+	var post: Dictionary = bd.get("post", {})
+	if not post.is_empty():
+		_post = Node3D.new()
+		_post.name = "obs_post"
+		root.add_child(_post)
+		var pa := Vector2(float(post["at"][0]), float(post["at"][1]))
+		var pf := (Vector2(float(post["face"][0]), float(post["face"][1])) - pa).normalized()
+		var side := Vector2(-pf.y, pf.x)
+		var tr := _vehicle(PB + "truck_canopy.glb")
+		var tp := pa - pf * 9.0 + side * 7.5
+		tr.position = ground(tp.x, tp.y)
+		tr.rotation.y = atan2(pf.x, pf.y) + 1.2
+		_post.add_child(tr)
 
 
 func _pose_blast(t: float) -> void:
@@ -2588,40 +2735,98 @@ func _pose_blast(t: float) -> void:
 		if t >= float(w[0]) and t < float(w[1]):
 			on = true
 	var c := Vector2(float(bd["at"][0]), float(bd["at"][1]))
+	var c3 := Vector3(c.x, 0, c.y)
 	var t0 := float(bd["t"])
+	var H := float(bd.get("h", 30.0))
+	var R := float(bd.get("r", 130.0))
 	_ground_mat.set_shader_parameter("now", t)
 	_ground_mat.set_shader_parameter("blast", Vector4(c.x, c.y, t0, 1.0 if on else 0.0))
-	_ground_mat.set_shader_parameter("blast_hr", Vector2(float(bd.get("h", 7.0)), float(bd.get("r", 35.0))))
-	# The heat-haze ring reads the screen without the (transparent) dust: off during the blast.
+	_ground_mat.set_shader_parameter("blast_hr", Vector3(H, R, float(bd.get("shock", 450.0))))
 	_shimmer_node.visible = not on
-	_blast_dust.visible = on and t >= t0
-	if not _blast_dust.visible:
+	if _post != null:
+		_post.visible = on
+	var live := on and t >= t0
+	for e in _blast_mm:
+		(e[0] as Node3D).visible = live
+	_blast_debris.visible = live
+	if not live:
 		return
 	var s := t - t0
-	var h := float(bd.get("h", 7.0))
-	var r := float(bd.get("r", 35.0))
-	var mm := _blast_dust.multimesh
-	for k in BLAST_N:
-		var e: Dictionary = _blast_seeds[k]
-		var a := s - float(e["t0"])
+	for e in _blast_mm:
+		var mm: MultiMesh = (e[0] as MultiMeshInstance3D).multimesh
+		var kind: String = e[1]
+		var seeds: Array = _blast_seeds[kind]
+		for k in seeds.size():
+			var sd: Dictionary = seeds[k]
+			var a := s - float(sd["t0"])
+			if a <= 0.0:
+				mm.set_instance_transform(k, Transform3D(Basis.from_scale(Vector3.ZERO), c3))
+				continue
+			var p0: Vector3 = sd["p"]
+			var dome := H * exp(-pow(p0.length() / R, 2.0)) * bl_rise_cpu(a)
+			var pos: Vector3
+			var size := 1.0
+			var alpha := 1.0
+			var sh := float(sd["shade"])
+			if kind == "ring":
+				var rise := float(sd["rise"]) * (1.0 - exp(-1.8 * a))
+				pos = c3 + p0 + (sd["dir"] as Vector3) * 6.0 * a + Vector3(0, rise * 0.6, 0)
+				pos.y += height(pos.x, pos.z)
+				size = float(sd["s0"]) + float(sd["grow"]) * (1.0 - exp(-0.8 * a))
+				alpha = clampf(a / 0.15, 0.0, 1.0) * (1.0 - clampf((a - 0.8) / 3.5, 0.0, 1.0)) * 0.55
+				sh *= 0.8
+				mm.set_instance_transform(k, Transform3D(Basis.from_scale(Vector3(size * 1.6, size * 0.7, 1.0)), pos))
+			elif kind == "jet":
+				var kk := float(sd["k"])
+				var travel := (sd["v"] as Vector3) * (1.0 - exp(-kk * a)) / kk
+				pos = c3 + p0 + Vector3(0, dome, 0) + travel * 0.35
+				var hh := float(sd["h"]) * minf(a / 0.25, 1.0) * (1.0 + a)
+				alpha = clampf(a / 0.05, 0.0, 1.0) * (1.0 - clampf((a - 0.5) / 1.2, 0.0, 1.0)) * 0.7
+				mm.set_instance_transform(k, Transform3D(Basis.from_scale(Vector3(float(sd["w"]) * (1.0 + a), hh, 1.0)), pos))
+			else:
+				var kk := float(sd["k"])
+				var travel := (sd["v"] as Vector3) * (1.0 - exp(-kk * a)) / kk
+				pos = c3 + p0 + travel + Vector3(0, dome, 0)
+				if kind == "column":
+					# The column spreads as it climbs, and sags a little as it slows.
+					var up0 := travel.y
+					pos += Vector3(p0.x, 0, p0.z).normalized() * up0 * 0.22 if p0.length() > 0.1 else Vector3.ZERO
+					pos.y -= 1.2 * a * a
+				else:
+					pos.y = minf(pos.y, height(pos.x, pos.z) + 14.0 + 0.25 * float(sd["grow"]) * (1.0 - exp(-0.4 * a)))
+				pos.y = maxf(pos.y, height(pos.x, pos.z) + 2.0)
+				size = float(sd["s0"]) + float(sd["grow"]) * (1.0 - exp(-0.45 * a))
+				alpha = clampf(a / 0.12, 0.0, 1.0) * (0.8 - 0.3 * clampf((a - 3.0) / 8.0, 0.0, 1.0))
+				# Backlit: a dark core and a low dark skirt, a bright lining at the edges and the crown.
+				var up := clampf((pos.y - height(pos.x, pos.z)) / 300.0, 0.0, 1.0)
+				var col_r := R * (0.9 + up * 1.2) + 1.0
+				var edge := clampf(Vector2(pos.x - c.x, pos.z - c.y).length() / col_r, 0.0, 1.0)
+				sh *= 0.3 + 0.5 * up + 0.5 * edge * edge * edge
+				mm.set_instance_transform(k, Transform3D(Basis.from_scale(Vector3.ONE * size), pos))
+			mm.set_instance_color(k, Color(sh, sh * 0.96, sh * 0.9, alpha))
+	# Debris: rocks thrown out on ballistic arcs, tumbling; they lie where they land.
+	var dmm := _blast_debris.multimesh
+	var deb: Array = _blast_seeds["debris"]
+	for k in deb.size():
+		var sd: Dictionary = deb[k]
+		var a := s - float(sd["t0"])
 		if a <= 0.0:
-			mm.set_instance_transform(k, Transform3D(Basis.from_scale(Vector3.ZERO), Vector3.ZERO))
+			dmm.set_instance_transform(k, Transform3D(Basis.from_scale(Vector3.ZERO), c3))
 			continue
-		var p0: Vector3 = e["p"]
-		var dome := h * exp(-pow(p0.length() / r, 2.0))
-		var drag := 0.9 if not bool(e["surge"]) else 0.75
-		var travel: Vector3 = (e["v"] as Vector3) * (1.0 - exp(-drag * a)) / drag
-		var sag := -2.0 * a * a * 0.5 if not bool(e["surge"]) else 0.0
-		var pos := Vector3(c.x, 0, c.y) + p0 + travel + Vector3(0, dome + sag, 0)
-		pos.y = maxf(pos.y, height(pos.x, pos.z) + 0.5)
-		var size := float(e["s0"]) + float(e["grow"]) * (1.0 - exp(-0.7 * a)) * 2.0
-		mm.set_instance_transform(k, Transform3D(Basis.from_scale(Vector3.ONE * size), pos))
-		var alpha := clampf(a / 0.12, 0.0, 1.0) * (0.85 - 0.25 * clampf((a - 2.0) / 6.0, 0.0, 1.0))
-		# Backlit by the afternoon sun: deep shade low in the column, a bright lining at the edges and the crown.
-		var up := clampf((pos.y - height(pos.x, pos.z)) / 80.0, 0.0, 1.0)
-		var edge := clampf(Vector2(pos.x - c.x, pos.z - c.y).length() / (r * 1.6), 0.0, 1.0)
-		var sh := float(e["shade"]) * (0.5 + 0.4 * up + 0.35 * edge * edge)
-		mm.set_instance_color(k, Color(sh, sh * 0.97, sh * 0.92, alpha))
+		var p0: Vector3 = sd["p"]
+		var v: Vector3 = sd["v"]
+		var pos := c3 + p0 + Vector3(0, H * exp(-pow(p0.length() / R, 2.0)), 0) + v * a + Vector3(0, -4.9 * a * a, 0)
+		var g := height(pos.x, pos.z)
+		var spin: Vector3 = sd["spin"] * a
+		if pos.y < g:
+			pos.y = g
+			spin = Vector3.ZERO
+		var sz := float(sd["size"])
+		dmm.set_instance_transform(k, Transform3D(Basis.from_euler(spin).scaled(Vector3(sz, sz * 0.7, sz * 0.85)), pos))
+
+
+static func bl_rise_cpu(s: float) -> float:
+	return 1.0 - pow(1.0 - clampf(s / 0.5, 0.0, 1.0), 3.0)
 
 
 func _village_far_build(root: Node3D) -> void:

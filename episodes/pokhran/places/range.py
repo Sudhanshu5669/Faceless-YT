@@ -598,8 +598,21 @@ SHOTS = {
 import math as _m
 
 
+_POST_PAD = None    # (x, z, h): the observation post's flat pad (set below, mirrors range.gd post_pad)
+
+
 def range_ground(x, z):
     """Terrain height at gag-local (x, z): a port of height() in gags/range.gd (keep in step)."""
+    raw = _range_ground_raw(x, z)
+    if _POST_PAD is None:
+        return raw
+    d = _m.hypot(x - _POST_PAD[0], z - _POST_PAD[1])
+    u = min(1.0, max(0.0, (d - 60.0) / 60.0))
+    k = u * u * (3 - 2 * u)
+    return _POST_PAD[2] + (raw - _POST_PAD[2]) * k
+
+
+def _range_ground_raw(x, z):
     ss = lambda a, b, v: (lambda u: u * u * (3 - 2 * u))(min(1.0, max(0.0, (v - a) / (b - a))))
     h = 0.22 * _m.sin(0.11 * x + 0.7) * _m.cos(0.083 * z + 1.3) + 0.12 * _m.sin(0.23 * x - 0.17 * z + 2.1)
     h += 0.05 * _m.sin(0.47 * x + 0.31 * z) + 0.025 * _m.sin(1.3 * x - 0.9 * z + 0.4)
@@ -735,20 +748,44 @@ SHOTS.update({
 })
 
 # ---- 15:45, 11 May 1998: Shakti-I. The desert jumps (accurate: underground, no fireball, no mushroom cloud) -----------
+# Massive scale (the user, 2026-11-24: "REALLY MASSIVE scale ... EXTREMELY DETAILED"): watched from an observation post a
+# kilometre out on a long lens; the team in silhouette behind the parapet in the foreground.
 BLAST_T = W("l14c", "jumps.", -0.08)
 BLAST_ON = [{"shot": "desert_jumps"}, {"shot": "khetolai_crack"}]
-_rp["blast"] = {"t": BLAST_T, "at": [0.0, 0.0], "h": 7.5, "r": 36.0, "on": [BLAST_ON]}
-_BJ_CAM = (18.0, 200.0)
-_BJ_Y = range_ground(*_BJ_CAM) + 1.1
+_BJ_DIR = (0.12, 0.993)                       # from the shaft toward the observation post
+_BJ_D = 1000.0
+_BJ_CAM = (_BJ_DIR[0] * _BJ_D, _BJ_DIR[1] * _BJ_D)
+_BJ_POST = (_BJ_DIR[0] * (_BJ_D - 16.0), _BJ_DIR[1] * (_BJ_D - 16.0))
+_POST_PAD = (_BJ_POST[0], _BJ_POST[1], _range_ground_raw(*_BJ_POST))
+_BJ_Y = range_ground(*_BJ_CAM) + 2.3
+_SHOCK = 450.0
+_ARRIVE = (_BJ_D - 16.0) / _SHOCK              # scene seconds from the heave to the shock reaching the post
+_rp["blast"] = {"t": BLAST_T, "at": [0.0, 0.0], "h": 30.0, "r": 130.0, "shock": _SHOCK, "ring_to": _BJ_D + 150.0,
+                "toward": list(_BJ_DIR), "on": [BLAST_ON], "post": {"at": list(_BJ_POST), "face": [0.0, 0.0]}}
+_SIDE = (-_BJ_DIR[1], _BJ_DIR[0])
+for _i, (_ch, _off) in enumerate([("toon_sci_fatigues_a", -1.35), ("toon_kalam_fatigues", -0.45),
+                                  ("toon_chidambaram", 0.45), ("toon_jawan_a", 1.35)]):
+    _x = _BJ_DIR[0] * (_BJ_D - 19.0) + _SIDE[0] * _off * 1.3
+    _z = _BJ_DIR[1] * (_BJ_D - 19.0) + _SIDE[1] * _off * 1.3
+    ACTORS.append({"id": f"obs_{_i}", "character": _ch, "at": P(_x, round(range_ground(_x, _z), 3), _z), "keep_y": True,
+                   "facing": P(0.0, round(range_ground(_x, _z), 3), 0.0),
+                   "action": "idle", "shown": [[{"shot": "desert_jumps", "offset": -0.05}, {"shot": "khetolai_crack"}]],
+                   "cues": [{"t": 0.0, "expression": "determined"},
+                            {"t": W("l14c", "jumps.", 0.0), "expression": "shocked", "head": [-14, 0, 0], "head_turn": 0.4},
+                            {"t": W("l14c", "jumps.", _ARRIVE - 0.1), "action": "crouch", "expression": "panic"}]})
+LOOK_BLAST = dict(LOOK_AFTERNOON, fog={"begin": 400, "end": 9000, "curve": 1.4, "volumetric": 0.0},
+                  grade={"contrast": 1.2, "saturation": 1.0, "vignette": 0.5, "grain": 0.04})
 SHOTS["desert_jumps"] = {
-    # Far out on the plain, low, the site small in the afternoon haze: on "jumps" the desert heaves up into a dome (slow
-    # motion), a ripple races out across the sand, dust erupts into a towering curtain and a base surge rolls toward us;
-    # then silence, until the shock arrives and hits the camera.
-    "look": LOOK_AFTERNOON, "hold": 1.4,
-    "slowmo": {"from": W("l14c", "jumps.", -0.08), "to": W("l14c", "jumps.", 1.0), "rate": 0.3},
-    "shake": [{"t": W("l14c", "jumps.", 1.45), "amount": 0.7}],
-    "camera": move(cam(P(_BJ_CAM[0], round(_BJ_Y, 3), _BJ_CAM[1]), P(0.0, 26.0, 0.0), 50),
-                   cam(P(_BJ_CAM[0] - 0.8, round(_BJ_Y + 0.25, 3), _BJ_CAM[1] - 4.0), P(0.0, 34.0, 0.0), 50), "out"),
+    # A kilometre out, on a long lens over the team's shoulders at the observation post's parapet: silence; on "jumps"
+    # the desert heaves up into a dome that splits into slabs, sand jets out of the cracks, rocks fly, and a column of
+    # dust climbs out of the top of the frame (the lens tilts up after it); a base surge rolls out; then the shock comes
+    # racing across the plain as a ring of dust and hits the post (shake), the team ducks.
+    "look": LOOK_BLAST, "hold": 3.0,
+    "slowmo": {"from": W("l14c", "jumps.", -0.08), "to": W("l14c", "jumps.", 0.9), "rate": 0.35},
+    "shake": [{"t": W("l14c", "jumps.", -0.08 + _ARRIVE), "amount": 0.9}],
+    "camera": {"from": cam(P(_BJ_CAM[0], round(_BJ_Y, 3), _BJ_CAM[1]), P(0.0, 95.0, 0.0), 50),
+               "to": cam(P(_BJ_CAM[0], round(_BJ_Y + 0.4, 3), _BJ_CAM[1]), P(0.0, 215.0, 0.0), 50),
+               "ease": "in_out", "start": W("l14c", "jumps.", 0.1), "end": W("l14c", "jumps.", 2.6)},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS, "reveals": REVEALS}
