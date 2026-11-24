@@ -9,8 +9,10 @@
 ##            unmask: on t the actor reaches up (anticipation from t - 0.45), lifts the mask up and off the face
 ##            (out-cubic, 0.4 s) and lowers it to hold at his chest; the hood slides back off the head with it
 ##            (hood_back, default true). Before t the mask sits on the face.
+##            hand: "r" (default), "l", or "none" (someone else lifts it: no arm moves)
 ##            remask: on t the held mask comes back up and onto the face (the unmask in reverse, 0.9 s), hood up.
-##   metal    "#8d9399" the plate colour; tunic "#2b6a35"; cloak "#1d4a26"
+##   metal    "#8d9399" the plate colour; tunic "#2b6a35"; cloak "#1d4a26" (each can also be set per actor entry,
+##            as metal, tunic, cloak_color; e.g. God Emperor Doom: gold and white)
 ## anchors: "<actor>.mask" (the mask's world position) for every dressed actor.
 extends RefCounted
 
@@ -133,10 +135,10 @@ func _dress(a: Node3D, d: Dictionary) -> void:
 		return
 	var hm := head.get_node_or_null("head") as MeshInstance3D
 	var hr := hm.get_aabb().size.x * 0.5 if hm != null else Toon.HEAD_R * Toon.H
-	var metal := Kit.mat(String(_p.get("metal", "#8a9096")), 0.52, 0.7)
+	var metal := Kit.mat(String(d.get("metal", _p.get("metal", "#8a9096"))), 0.52, 0.7)
 	var metal_dark := Kit.mat("#4a4f54", 0.55, 0.7)
-	var tunic_col := Color(String(_p.get("tunic", "#1f5229")))
-	var cloak_mat := Toon.material(Color(String(_p.get("cloak", "#173d20"))), Toon.OUTLINE * 0.7)
+	var tunic_col := Color(String(d.get("tunic", _p.get("tunic", "#1f5229"))))
+	var cloak_mat := Toon.material(Color(String(d.get("cloak_color", _p.get("cloak", "#173d20")))), Toon.OUTLINE * 0.7)
 	cloak_mat = cloak_mat.duplicate()
 	cloak_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	# The mask.
@@ -264,7 +266,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 						if h.has_meta("doom_hair"):
 							(h as Node3D).visible = hb > 0.35
 			# The hand: up to the chin, with the mask, then down to hold it.
-			if reach > 0.0:
+			if reach > 0.0 and side != "none":
 				Crawl.long_arms(a, 1.35)
 				var chin: Vector3 = face_xf.origin + Vector3(0, -0.12, 0) + Vector3(sin(float(a.rotation.y)), 0, cos(float(a.rotation.y))) * 0.2
 				var target: Vector3 = chin if lift <= 0.0 else mask.global_transform.origin + Vector3(0, -0.1, 0)
