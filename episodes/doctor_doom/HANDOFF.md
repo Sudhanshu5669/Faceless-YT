@@ -11,12 +11,19 @@
 
 | | |
 |---|---|
-| Decided by the user (2026-11-24) | Title "Who is Doctor Doom, and why is Iron Man playing him?"; HyperFrames approved for 2D overlays; real comic covers allowed (held as props, a few seconds); Poly Haven + logos download approved. "Make the animation look grand." Demo shots first, then the full script. |
-| DEMO shots built + rendered (review clips, 30 fps), WAITING for the user | **Hall H** (`places/hall.py`, `gags/hall_h.gd`): hall_wide, hall_walk, hall_unmask, hall_reveal, hall_quote. **Lab** (`places/lab.py`, `gags/lab.gd`): lab_machine, lab_warning, lab_ignore, lab_blast. **Boardroom** (`places/board.py`, `gags/boardroom.gd`): board_plan, board_news (+ HyperFrames headline composited into the review clip), board_collapse. Clips: `review/shot_loop/`; browser: `python pipeline/tf.py shot doctor_doom --serve`. |
-| Narration | Demo take only (Charon, gemini-3.8-flash-lite-tts, 53 s). The take read the style direction aloud at the start; it was trimmed off the cached `_scrub.wav` (backup `output/scrub_backup_doom.wav`). Keep `style` short or drop it. The full script needs a new take. |
-| Next | 1) The user's verdict on the demo look. 2) Write `script.md` (~1,400 words, chapters in pitch.md, every fact sourced). 3) `beats.md`. 4) Build the remaining places (Latveria camp in the snow, Tibet monastery forge, Castle Doom throne room, Battleworld, courthouse exterior, cinema). |
+| Decided by the user (2026-11-24) | Title "Who is Doctor Doom, and why is Iron Man playing him?". Demo look APPROVED ("this is the level of grand I am looking for"); wants professional grade: downloaded SFX, this animation, a great script. **Script v1 APPROVED** (`script.md`, sources per line). SFX download approved (Sonniss GDC 2026, `incoming/sonniss_gdc2026/wav/`, licence in LICENSE.txt/pdf). Music: the user asked for copyright-free music -> 10 Scott Buckley tracks, CC BY 4.0, in `incoming/music_doom/` (LICENSE.txt has the credit format; credits go in the description). The user reviews everything in the shot UI (`tf shot doctor_doom --serve`). |
+| Lines | `lines.py`: the approved script as 104 shot lines (one per shot: the single take needs it); `PLACE_OF` maps shot prefixes to place modules; `CHAPTERS` = chapter cards (HyperFrames, to do). |
+| Narration | Full single take recorded 2026-11-24: **410.6 s (6.8 min)** of voice; 9 read-aloud tags were scrubbed automatically. Length question for the user: 6.8 min voice + cards/holds ~ 7.5 min, under the 8-min mid-roll mark -> options: add ~150 words, slow to 0.93x, music breathers, a 10-15 s end screen. |
+| Built + rendered | Hall H (5), lab (4: lab_machine..lab_blast), gallery (9: gal_*), boardroom (19: board_*; batch rendering 2026-11-24). Clips in `review/shot_loop/`. |
+| Not built yet (placeholder camera) | cinema (cinema_ticket/2019/crowd/counter/biggest/trailer/marquee), hall extras (hall_2022, hall_kang, hall_why, hall_russos, hall_end, hall_final), shop (shop_night/box/cover/meet/stack/wait), doom62 (doom62_kidnap/platform/feet, pirate_chest/thing), latveria (lat_*, liner_deck), lab extras (campus_gates, mirror_scar, mirror_warp), tibet (tibet_cliff/forge/mask), castle (castle_gates/throne/immunity/night/window, throne_wide, doom_hands, doombots_row/pop), hell (hell_fight), cosmos (surfer_sky, beyonder_grab/hand, bw_planet/stitch/throne/heal, emp_cloak/globe, rocket_pad/shadow), hospital (hosp_bed/helmet, city_ironman), dressing (dress_oscar, reels_past/mcmahon/kebbell). |
+| Sound | Not mixed yet. Plan: Buckley score per chapter (Eyes In The Void cold open, Anabasis I ch1, Penumbra ch2 origin, Aphelion ch3 escalation, Starfire/Born Of The Sky ch4 + end), Sonniss SFX per beat (Braams on reveals, Colossal Impacts on the blast/collapse, Arc for the machine, Extreme Winds for Latveria, crowd for Hall H, Paper Foley for comics). Check that `ambience`/beds accept `file` (AUDIO_SPEC says one-shots do). |
 
-## Known soft spots in the demo (fix before final)
+## Known soft spots (fix before final)
+
+- Gallery: the helmet's red crown pokes up like horns; the gold faceplate shows the red shell through the mouth slot.
+- board_contract is dim; the contract barely reads. board_empty opens on the end of the fall.
+- The arrest headline (c1m) and the chapter cards still need their HyperFrames overlays (exact headline text, sourced).
+
 
 - Hall screens show a red box, not the Marvel Studios logo: Wikimedia rate-limited the download (429). Retry
   `https://upload.wikimedia.org/wikipedia/commons/6/63/Marvel_Studios_logo.svg` into `library/logos/doom/marvel-studios.svg`

@@ -1301,6 +1301,35 @@
     ]
    },
    "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "board_comic",
+      "offset": -0.1
+     },
+     {
+      "shot": "cinema_ticket"
+     }
+    ],
+    [
+     {
+      "shot": "board_blank",
+      "offset": -0.1
+     },
+     {
+      "shot": "shop_night"
+     }
+    ],
+    [
+     {
+      "shot": "board_titles",
+      "offset": -0.1
+     },
+     {
+      "shot": "hosp_bed"
+     }
+    ]
+   ],
    "cues": [
     {
      "t": 0.0,
@@ -1308,10 +1337,54 @@
     },
     {
      "t": {
+      "line": "c1f",
+      "word": "Kang"
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
       "line": "k1",
       "word": "Kang."
      },
      "expression": "smug"
+    },
+    {
+     "t": {
+      "line": "c1k",
+      "word": 0
+     },
+     "facing": {
+      "anchor": "board",
+      "offset": [
+       -3.3,
+       0,
+       39996.4
+      ]
+     },
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "c1l",
+      "word": "fades"
+     },
+     "expression": "sad"
+    },
+    {
+     "t": {
+      "line": "c1m",
+      "word": 0
+     },
+     "facing": {
+      "anchor": "board",
+      "offset": [
+       -0.75,
+       0,
+       40002.0
+      ]
+     },
+     "expression": "shocked"
     },
     {
      "t": {
@@ -1364,6 +1437,87 @@
       ]
      },
      "expression": "panic"
+    },
+    {
+     "t": {
+      "line": "c1n",
+      "word": 0
+     },
+     "expression": "sad"
+    },
+    {
+     "t": {
+      "line": "d16",
+      "word": 0
+     },
+     "facing": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       0,
+       39994.0
+      ]
+     },
+     "expression": "scheming"
+    }
+   ]
+  },
+  {
+   "id": "feige_table",
+   "character": "toon_feige",
+   "at": {
+    "anchor": "board",
+    "offset": [
+     -0.0,
+     0,
+     40002.75
+    ]
+   },
+   "facing": {
+    "anchor": "board",
+    "offset": [
+     -0.0,
+     0,
+     39996.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "board_contract",
+      "offset": -0.1
+     },
+     {
+      "shot": "rocket_pad"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "smug"
+    },
+    {
+     "t": {
+      "line": "r11",
+      "word": "eighty"
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "r12",
+      "word": 0
+     },
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "r13",
+      "word": "bought"
+     },
+     "expression": "grin"
     }
    ]
   }
@@ -1533,6 +1687,113 @@
     "collapse": {
      "line": "k4",
      "word": "comes"
+    },
+    "pins_from": {
+     "line": "c1d",
+     "word": 0
+    },
+    "flip": {
+     "line": "c1f",
+     "word": "Kang"
+    },
+    "pins": {
+     "0": {
+      "line": "c1e",
+      "word": "villain."
+     },
+     "1": {
+      "line": "c1g",
+      "word": "Loki"
+     },
+     "2": {
+      "line": "c1h",
+      "word": "Quantumania"
+     },
+     "3": {
+      "line": "c1i",
+      "word": "Comic-Con"
+     },
+     "4": {
+      "line": "c1i",
+      "word": "announces"
+     }
+    },
+    "comic": {
+     "line": "o6",
+     "word": "Comics."
+    },
+    "chart": {
+     "t": {
+      "line": "c1k",
+      "word": 0
+     },
+     "fall": {
+      "line": "c1l",
+      "word": "fades"
+     }
+    },
+    "rebuild": {
+     "line": "d15",
+     "word": 0
+    },
+    "contract": {
+     "line": "r11",
+     "word": "deal"
+    },
+    "cans": {
+     "line": "r13",
+     "word": "bought",
+     "offset": 0.2
+    }
+   }
+  },
+  {
+   "id": "gallery_set",
+   "script": "gags/gallery.gd",
+   "t": 0,
+   "at": {
+    "anchor": "board",
+    "offset": [
+     0,
+     0,
+     60000.0
+    ]
+   },
+   "params": {
+    "spin": 0.03,
+    "morph": {
+     "line": "o3",
+     "word": "villain"
+    },
+    "mask_on": {
+     "line": "o5",
+     "word": "two",
+     "offset": -0.1
+    },
+    "both": [
+     {
+      "line": "r8",
+      "word": 0
+     },
+     {
+      "line": "r8",
+      "word": 3
+     },
+     {
+      "line": "r8",
+      "word": 8
+     }
+    ],
+    "split": {
+     "line": "r9",
+     "word": "Tony"
+    },
+    "eye": {
+     "t": {
+      "line": "r17",
+      "word": "different."
+     },
+     "dx": 0.35
     }
    }
   }
@@ -2094,217 +2355,908 @@
   {
    "name": "gal_helmet",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.85,
+       1.47,
+       60001.9
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.1,
+       1.42,
+       60000.0
+      ]
+     },
+     "lens_mm": 50,
+     "dof": {
+      "strength": 0.18
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.9,
+       1.44,
+       60001.35
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.1,
+       1.42,
+       60000.0
+      ]
+     },
+     "lens_mm": 50,
+     "dof": {
+      "strength": 0.2
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a1d26",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#9a9a9a",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.0,
+     "vignette": 0.55,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "gal_circle",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.1,
+       1.0,
+       60001.3
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.1,
+       1.42,
+       60000.0
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.16
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       2.0,
+       1.05,
+       60001.45
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.1,
+       1.42,
+       60000.0
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.16
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a1d26",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#9a9a9a",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.0,
+     "vignette": 0.55,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "gal_shadow",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.9,
+       1.25,
+       60003.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.1,
+       1.55,
+       59998.7
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.7,
+       1.3,
+       60003.0
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.1,
+       1.55,
+       59998.5
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a1d26",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#9a9a9a",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.0,
+     "vignette": 0.55,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "gal_title",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.1,
+       1.6,
+       59999.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.1,
+       1.55,
+       59997.4
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.04
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.25,
+       1.58,
+       59999.0
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.1,
+       1.55,
+       59997.4
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.04
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a1d26",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#9a9a9a",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.0,
+     "vignette": 0.55,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "gal_two",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.45,
+       60004.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.3,
+       60000.0
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.06
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.4,
+       60003.6
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.3,
+       60000.0
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.06
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a1d26",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#9a9a9a",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.0,
+     "vignette": 0.55,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "board_comic",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.05,
+       1.42,
+       39998.75
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       0.15,
+       0.8,
+       39998.38
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.08,
+       1.32,
+       39998.67
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       0.15,
+       0.8,
+       39998.38
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
-   }
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "o6",
+      "word": "Comics.",
+      "offset": 0.02
+     },
+     "amount": 0.05
+    }
+   ]
   },
   {
    "name": "board_crack",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       1.0,
+       1.9,
+       39996.6
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.2,
+       2.3,
+       39994.0
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.7,
+       2.1,
+       39996.3
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.2,
+       2.4,
+       39994.0
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
-   }
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "o7",
+      "word": "apart."
+     },
+     "amount": 0.1
+    }
+   ]
   },
   {
    "name": "board_ticket",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.15,
+       0.98,
+       39999.1
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       0.2,
+       1.3,
+       39994.0
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.1,
+       1.0,
+       39998.95
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       0.2,
+       1.35,
+       39994.0
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
@@ -2445,109 +3397,445 @@
   {
    "name": "board_blank",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.4,
+       1.7,
+       39997.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.2,
+       2.2,
+       39994.0
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.2,
+       1.75,
+       39997.0
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.1,
+       2.3,
+       39994.0
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "board_flip",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.3,
+       2.45,
+       39995.6
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       2.75,
+       39994.0
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.25,
+       2.5,
+       39995.35
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       2.75,
+       39994.0
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "board_loki",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       1.2,
+       2.3,
+       39995.9
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.4,
+       2.4,
+       39994.0
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       1.0,
+       2.35,
+       39995.7
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.3,
+       2.4,
+       39994.0
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "board_quantum",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.4,
+       1.75,
+       39996.0
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.0,
+       1.6,
+       39994.0
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.5,
+       1.8,
+       39995.8
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.0,
+       1.65,
+       39994.0
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
@@ -2718,82 +4006,334 @@
   {
    "name": "board_chart",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.2,
+       1.6,
+       39998.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -3.3,
+       1.75,
+       39996.4
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.5,
+       1.65,
+       39998.1
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -3.3,
+       1.75,
+       39996.4
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "board_fade",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.3,
+       1.45,
+       39995.9
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -3.3,
+       1.65,
+       39996.4
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.14
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.4,
+       1.45,
+       39995.7
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -3.3,
+       1.65,
+       39996.4
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.14
+     }
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "board_arrest",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.7,
+       1.25,
+       39997.5
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.75,
+       1.15,
+       39995.15
+      ]
+     },
+     "lens_mm": 45,
+     "dof": {
+      "strength": 0.18
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.55,
+       1.24,
+       39997.25
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.75,
+       1.15,
+       39995.15
+      ]
+     },
+     "lens_mm": 45,
+     "dof": {
+      "strength": 0.18
+     }
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
@@ -3142,28 +4682,112 @@
   {
    "name": "board_empty",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.3,
+       1.45,
+       39997.8
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.3,
+       0.6,
+       39995.0
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.06
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.15,
+       1.4,
+       39997.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.3,
+       0.6,
+       39995.0
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.06
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
@@ -4764,28 +6388,112 @@
   {
    "name": "board_titles",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       2.0,
+       39997.4
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       2.6,
+       39994.0
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       2.1,
+       39996.8
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       2.65,
+       39994.0
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
@@ -5034,82 +6742,334 @@
   {
    "name": "gal_mirror",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       0.75,
+       60001.7
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.5,
+       60000.0
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       0.8,
+       60001.35
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.5,
+       60000.0
+      ]
+     },
+     "lens_mm": 24,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a1d26",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#9a9a9a",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.0,
+     "vignette": 0.55,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "gal_both",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.55,
+       60002.7
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.4,
+       60000.0
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.5,
+       60002.3
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.4,
+       60000.0
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a1d26",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#9a9a9a",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.0,
+     "vignette": 0.55,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "gal_light",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.6,
+       1.4,
+       60001.9
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       1.1,
+       1.42,
+       60000.0
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.6,
+       1.4,
+       60001.9
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -1.1,
+       1.42,
+       60000.0
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a1d26",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#9a9a9a",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.0,
+     "vignette": 0.55,
+     "grain": 0.045
+    }
    }
   },
   {
@@ -5142,82 +7102,334 @@
   {
    "name": "board_contract",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.7,
+       1.45,
+       40003.1
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       0.8,
+       40000.6
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.6,
+       1.4,
+       40002.9
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       0.8,
+       40001.1
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "board_question",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.6,
+       1.2,
+       40000.6
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.15,
+       40002.75
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -0.5,
+       1.2,
+       40000.9
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       1.15,
+       40002.75
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.15
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "board_fox",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.9,
+       1.05,
+       40000.2
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       0.82,
+       40001.6
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       0.8,
+       1.05,
+       40000.5
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -0.0,
+       0.82,
+       40001.6
+      ]
+     },
+     "lens_mm": 30,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#04060a",
+     "horizon": "#0b1220",
+     "clouds": 0.0,
+     "stars": 0.0,
+     "panorama": "incoming/polyhaven_doom/hdris/modern_buildings_night_4k.hdr",
+     "panorama_energy": 0.55,
+     "panorama_yaw": 90
+    },
+    "ambient": {
+     "color": "#202838",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.0
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.04,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 0.98,
+     "vignette": 0.45,
+     "grain": 0.04
+    }
    }
   },
   {
@@ -5304,28 +7516,112 @@
   {
    "name": "gal_eye",
    "camera": {
-    "at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.22,
+       1.44,
+       60000.75
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -1.15,
+       1.43,
+       60000.0
+      ]
+     },
+     "lens_mm": 70,
+     "dof": {
+      "strength": 0.3
+     }
     },
-    "look_at": {
-     "anchor": "board",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "board",
+      "offset": [
+       -1.2,
+       1.44,
+       60000.62
+      ]
+     },
+     "look_at": {
+      "anchor": "board",
+      "offset": [
+       -1.15,
+       1.43,
+       60000.0
+      ]
+     },
+     "lens_mm": 70,
+     "dof": {
+      "strength": 0.3
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a1d26",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.02,
+     "color": "#9a9a9a",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.0,
+     "vignette": 0.55,
+     "grain": 0.045
+    }
    }
   },
   {
