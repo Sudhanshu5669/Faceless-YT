@@ -57,8 +57,8 @@ SHOTS = {
         cam(P(0.7, 1.3, 3.0), P(HX, 1.55, -1.5), 30, {"strength": 0.05}), "in_out")},
     # Close on the shadow mask on the wall.
     "gal_title": {"look": LOOK_GALLERY, "camera": move(
-        cam(P(HX + 1.0, 1.6, -0.6), P(HX, 1.55, -2.6), 32, {"strength": 0.04}),
-        cam(P(HX + 0.85, 1.58, -1.0), P(HX, 1.55, -2.6), 32, {"strength": 0.04}), "in_out")},
+        cam(P(HX + 1.2, 1.85, 0.2), P(HX, 1.95, -2.6), 30, {"strength": 0.04}),
+        cam(P(HX + 1.0, 1.85, -0.3), P(HX, 2.0, -2.6), 30, {"strength": 0.04}), "in_out")},
     # Wide and symmetrical: two plinths; the mask's spot comes up on "two".
     "gal_two": {"look": LOOK_GALLERY, "camera": move(
         cam(P(0.0, 1.45, 4.4), P(0.0, 1.3, 0.0), 28, {"strength": 0.06}),

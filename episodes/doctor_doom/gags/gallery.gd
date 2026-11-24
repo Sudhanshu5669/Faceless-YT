@@ -88,6 +88,53 @@ var _shield_spot: SpotLight3D
 var _has_model := false
 
 
+## Doom's bust as a cut-out image: a hood with a peak, the mask's plates, scowling eye slits, a barred mouth grille,
+## a cloak over the shoulders with a round clasp. Opaque where the shadow falls; holes let the light through.
+static func _silhouette(n: int) -> ImageTexture:
+	var half := [Vector2(0.0, 0.97), Vector2(0.17, 0.92), Vector2(0.33, 0.78), Vector2(0.43, 0.58), Vector2(0.47, 0.34),
+		Vector2(0.47, 0.08), Vector2(0.5, -0.14), Vector2(0.64, -0.3), Vector2(0.86, -0.42), Vector2(0.98, -0.58),
+		Vector2(1.0, -1.0)]
+	var outline := PackedVector2Array()
+	for p in half:
+		outline.append(p)
+	for i in range(half.size() - 1, -1, -1):
+		var p: Vector2 = half[i]
+		if p.x > 0.0:
+			outline.append(Vector2(-p.x, p.y))
+	# The mask's edge inside the hood: a thin gap line.
+	var mask_half := [Vector2(0.0, 0.62), Vector2(0.24, 0.56), Vector2(0.31, 0.36), Vector2(0.3, 0.1), Vector2(0.22, -0.1),
+		Vector2(0.1, -0.2), Vector2(0.0, -0.22)]
+	var eyes := []
+	for sgn: float in [-1.0, 1.0]:
+		# Inner ends lower than the outer: a scowl.
+		eyes.append(PackedVector2Array([Vector2(sgn * 0.05, 0.25), Vector2(sgn * 0.25, 0.33), Vector2(sgn * 0.24, 0.37),
+			Vector2(sgn * 0.06, 0.31)]))
+	var img := Image.create(n, n, false, Image.FORMAT_RGBA8)
+	for y in n:
+		for x in n:
+			var p := Vector2((x + 0.5) / n * 2.0 - 1.0, 1.0 - (y + 0.5) / n * 2.0)
+			var on := Geometry2D.is_point_in_polygon(p, outline)
+			if on:
+				for e in eyes:
+					if Geometry2D.is_point_in_polygon(p, e):
+						on = false
+				# Mouth grille: five narrow vertical slots.
+				if p.y > -0.1 and p.y < -0.01 and absf(p.x) < 0.13 and fposmod(p.x + 0.13, 0.065) < 0.022:
+					on = false
+				# The mask edge (mirrored polyline) as a 1.5 % gap.
+				var q := Vector2(absf(p.x), p.y)
+				for k in mask_half.size() - 1:
+					var c := Geometry2D.get_closest_point_to_segment(q, mask_half[k], mask_half[k + 1])
+					if q.distance_to(c) < 0.014:
+						on = false
+				# The cloak's round clasp ring at the collar.
+				var d := p.distance_to(Vector2(0.0, -0.5))
+				if d > 0.06 and d < 0.08:
+					on = false
+			img.set_pixel(x, y, Color(0, 0, 0, 1) if on else Color(0, 0, 0, 0))
+	return ImageTexture.create_from_image(img)
+
+
 func build(g: Dictionary) -> Node3D:
 	_p = g.get("params", {})
 	var root := Node3D.new()
@@ -174,26 +221,30 @@ func build(g: Dictionary) -> Node3D:
 	# Shadow casters: the helmet's own shapes cast until `morph`; then an invisible Doom-mask silhouette does.
 	_helmet_shadow = Node3D.new()
 	_helmet.add_child(_helmet_shadow)
+	# The Doom silhouette: a cut-out card (alpha scissor, shadows only) facing the shadow light. Its eye slits and mouth
+	# grille are holes, so the green light shines through them onto the wall.
 	_mask_shadow = Node3D.new()
 	_mask_shadow.position = _helmet.position
 	root.add_child(_mask_shadow)
-	var ms := MeshInstance3D.new()
-	ms.mesh = suit().call("_mask", 1.0)
-	ms.scale = Vector3.ONE * R * 1.06
-	ms.material_override = metal
-	ms.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
-	_mask_shadow.add_child(ms)
-	var hood := MeshInstance3D.new()
-	hood.mesh = suit().call("_hood", 1.0)
-	hood.scale = Vector3.ONE * R * 1.25
-	hood.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
-	hood.material_override = metal
-	_mask_shadow.add_child(hood)
+	var card := MeshInstance3D.new()
+	var qm := QuadMesh.new()
+	qm.size = Vector2(0.62, 0.62)
+	card.mesh = qm
+	var cm := StandardMaterial3D.new()
+	cm.albedo_texture = _silhouette(560)
+	cm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+	cm.alpha_scissor_threshold = 0.5
+	cm.cull_mode = BaseMaterial3D.CULL_DISABLED
+	cm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	card.material_override = cm
+	card.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	card.position = Vector3(0, 0.02, 0)
+	_mask_shadow.add_child(card)
 	# Lights: two narrow museum spots, the low shadow-throwing light in front of the helmet, a faint wall wash.
 	_spot_h = Kit.spot(root, Vector3(HX, 4.9, 0.9), Vector3(HX, TOP + 0.2, 0), "#fff1dc", 26.0, 7.0, 13.0, true, 0.8)
 	_spot_m = Kit.spot(root, Vector3(MX, 4.9, 0.9), Vector3(MX, TOP + 0.2, 0), "#fff1dc", 0.0, 7.0, 13.0, true, 0.8)
 	_shadow_light = Kit.spot(root, Vector3(HX + 0.05, TOP + 0.15, 2.4), Vector3(HX, TOP + 0.3, 0), "#ffe7c4", 18.0, 9.0, 16.0, true, 0.3)
-	_shadow_light.shadow_blur = 0.6
+	_shadow_light.shadow_blur = 0.25
 	Kit.spot(root, Vector3(0, 5.0, 3.5), Vector3(0, 1.5, WALL_Z), "#7f8aa8", 2.5, 12.0, 45.0, false, 0.2)
 	return root
 
@@ -217,7 +268,10 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	for mi in _helmet.find_children("*", "MeshInstance3D", true, false):
 		(mi as GeometryInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF if after else GeometryInstance3D.SHADOW_CASTING_SETTING_ON
 	_mask_shadow.visible = after
-	_mask_shadow.rotation = Vector3(0, turn, 0)
+	# After the swap the silhouette slides toward the light: its shadow grows and looms over the wall.
+	var loom := Motion.in_out(Motion.seg(t, morph, morph + 2.2))
+	_mask_shadow.position = _helmet.position + Vector3(0, 0.02 * loom, 0.75 * loom)
+	_mask_shadow.rotation = Vector3(0, 0.04 * sin(t * 0.5), 0)
 	# Spots.
 	var mask_on := Motion.smooth(Motion.seg(t, float(_p.get("mask_on", 1e9)), float(_p.get("mask_on", 1e9)) + 0.8))
 	var pulse := 0.0
