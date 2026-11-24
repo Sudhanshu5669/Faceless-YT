@@ -4,7 +4,7 @@
 ## sparks down to the floor. In front, the device stands on end on a plinth, cabled up, with a code-name sticker on its
 ## casing that changes with the line.
 ##
-## Local frame: the chamber's axis at x 0, z 0; floor y 0; the device on its plinth at DEVICE_AT, facing +z (the camera
+## Local frame: the chamber's axis at x 0, z 0; floor y 0; the device (scaled DEV_SCALE) on its plinth at DEVICE_AT on the axis, facing +z (the camera
 ## usually stands at +z looking -z).
 ##
 ## params:
@@ -23,9 +23,13 @@ const PB := "incoming/pokhran_blender/"
 const PH := "incoming/polyhaven_pokhran/models/"
 const R := 7.0
 const H := 16.0
-const DEVICE_AT := Vector3(0.0, 0.0, 1.6)
-const NSPARK := 90
-const STICKER_AT := Vector3(0.0, 2.14, 0.344)    # on the label plate, relative to DEVICE_AT
+const DEVICE_AT := Vector3(0.0, 0.0, 0.0)
+const NSPARK := 110
+const DEV_SCALE := 2.2          # the device is imposing: about 5 m tall on its plinth
+const PLINTH := 0.7             # plinth height (the device stands on it)
+const PLINTH_R := 1.5
+# On the label plate, relative to DEVICE_AT (the model's plate sits 1.74 m up, 0.344 m out at scale 1).
+const STICKER_AT := Vector3(0.0, PLINTH + 1.74 * DEV_SCALE, 0.344 * DEV_SCALE)
 
 const CONCRETE := """
 shader_type spatial;
@@ -80,6 +84,7 @@ var _sticker_tex := {}
 var _lift: Node3D
 var _held := {}
 var _spark_lights: Array = []
+var _beacon: Node3D
 
 
 func build(g: Dictionary) -> Node3D:
@@ -179,20 +184,43 @@ func build(g: Dictionary) -> Node3D:
 		lamp.position = lp
 		root.add_child(lamp)
 		Kit.rod(root, lp + Vector3(0, 0.4, 0), lp + Vector3(0, H - 7.6, 0), 0.008, steel, 4)
-		var sl := Kit.spot(root, lp + Vector3(0, -0.1, 0), lp + Vector3(0, -8, 0), Color(1.0, 0.8, 0.55), 6.0, 12.0, 42.0, k == 0, 1.5)
-		sl.spot_attenuation = 1.0
-	for fx: float in [-1.0, 1.0]:
-		var stand := Vector3(fx * 2.6, 0, DEVICE_AT.z + 2.2)
-		Kit.rod(root, stand, stand + Vector3(0, 2.2, 0), 0.03, steel, 6)
-		Kit.box(root, Vector3(0.4, 0.3, 0.2), stand + Vector3(0, 2.3, 0), Kit.mat("#202220", 0.5, 0.3))
-		Kit.spot(root, stand + Vector3(0, 2.3, 0), DEVICE_AT + Vector3(0, 1.3, 0), Color(1.0, 0.9, 0.78), 9.0, 9.0, 24.0, true, 0.8)
-	# The cold shaft of light from the opening far above.
-	var shaft := Kit.spot(root, Vector3(0, H + 4.0, 0), Vector3(0, 0, 0.6), Color(0.62, 0.74, 1.0), 18.0, 30.0, 9.0, true, 6.0)
+		# Dim practicals: a small warm pool under each, the chamber stays black between them.
+		var sl := Kit.spot(root, lp + Vector3(0, -0.1, 0), lp + Vector3(0, -8, 0), Color(1.0, 0.7, 0.4), 0.7, 9.0, 30.0, false, 0.6)
+		sl.spot_attenuation = 1.6
+	# The key: one low work flood on the floor, front left, raking UP the device (hard, warm, ominous under-light).
+	var stand := DEVICE_AT + Vector3(-2.9, 0, 3.0)
+	Kit.rod(root, stand, stand + Vector3(0, 0.45, 0), 0.03, steel, 6)
+	Kit.box(root, Vector3(0.45, 0.32, 0.22), stand + Vector3(0, 0.55, 0), Kit.mat("#202220", 0.5, 0.3))
+	var key := Kit.spot(root, stand + Vector3(0.4, 0.62, -0.4), DEVICE_AT + Vector3(0, PLINTH + 1.6, 0), Color(1.0, 0.78, 0.5), 24.0, 14.0, 30.0, true, 0.5)
+	key.spot_attenuation = 0.8
+	# A weaker warm work lamp on the floor front right, so the crew at the plinth's foot read as people.
+	var st2 := DEVICE_AT + Vector3(2.7, 0, 3.4)
+	Kit.box(root, Vector3(0.4, 0.28, 0.2), st2 + Vector3(0, 0.3, 0), Kit.mat("#202220", 0.5, 0.3))
+	var fill := Kit.spot(root, st2 + Vector3(-0.35, 0.4, -0.35), DEVICE_AT + Vector3(0, 0.9, 1.0), Color(1.0, 0.72, 0.42), 3.5, 9.0, 40.0, true, 0.3)
+	fill.spot_attenuation = 1.2
+	# The rim: a cold hard light from high behind right, outlining the casing against the black.
+	var rim := Kit.spot(root, DEVICE_AT + Vector3(3.2, 8.5, -4.2), DEVICE_AT + Vector3(0, PLINTH + 2.4, 0), Color(0.6, 0.75, 1.0), 40.0, 16.0, 14.0, true, 0.4)
+	rim.spot_attenuation = 0.7
+	# The cold shaft of light from the opening far above, a narrow column through the haze onto the device's top.
+	var shaft := Kit.spot(root, Vector3(0, H + 4.0, 0), DEVICE_AT + Vector3(0, PLINTH + 5.0, 0), Color(0.55, 0.68, 1.0), 22.0, 30.0, 5.5, true, 7.0)
 	shaft.spot_attenuation = 0.6
+	# A rotating red warning beacon on the lower gantry behind the device: its beam sweeps the walls.
+	var bpos := Vector3(0, 6.15, -(R - 1.0))
+	Kit.cyl(root, 0.13, 0.15, 0.22, bpos + Vector3(0, -0.11, 0), Kit.mat("#1a1a1a", 0.5, 0.5), 12)
+	Kit.ball(root, 0.13, bpos + Vector3(0, 0.08, 0), Kit.lit("#ff1a10", 9.0), 10)
+	Kit.omni(root, bpos + Vector3(0, 0.1, 0.3), Color(1.0, 0.1, 0.05), 1.4, 5.0, false, 1.0)
+	_beacon = Node3D.new()
+	_beacon.position = bpos + Vector3(0, 0.08, 0)
+	root.add_child(_beacon)
+	for d: float in [1.0, -1.0]:
+		var bl := Kit.spot(_beacon, Vector3.ZERO, Vector3(d, -0.18, 0), Color(1.0, 0.08, 0.04), 30.0, 20.0, 16.0, false, 2.5)
+		bl.spot_attenuation = 0.5
 	# The device on its plinth: stood on end, cabled to a junction box; the sticker on its casing.
-	Kit.cyl(root, 1.0, 1.1, 0.4, DEVICE_AT + Vector3(0, 0.2, 0), conc, 32)
+	Kit.cyl(root, PLINTH_R - 0.1, PLINTH_R, PLINTH, DEVICE_AT + Vector3(0, PLINTH * 0.5, 0), conc, 40)
+	Kit.cyl(root, PLINTH_R + 0.05, PLINTH_R + 0.05, 0.06, DEVICE_AT + Vector3(0, PLINTH - 0.03, 0), Kit.mat("#a08a2a", 0.6, 0.3), 40)
 	var dev := Kit.model(PB + "device.glb")
-	dev.transform = Transform3D(Basis(Vector3(0, 0, 1), PI / 2) * Basis(Vector3(1, 0, 0), PI / 2), DEVICE_AT + Vector3(0.0, 1.52, -0.62))
+	var db := (Basis(Vector3(0, 0, 1), PI / 2) * Basis(Vector3(1, 0, 0), PI / 2)).scaled(Vector3.ONE * DEV_SCALE)
+	dev.transform = Transform3D(db, DEVICE_AT + Vector3(0, PLINTH, 0) + Vector3(0.0, 1.12, -0.62) * DEV_SCALE)
 	root.add_child(dev)
 	for mi in dev.find_children("*", "MeshInstance3D", true, false):
 		var m := mi as MeshInstance3D
@@ -201,19 +229,19 @@ func build(g: Dictionary) -> Node3D:
 			if mt != null and String(mt.resource_name) == "indicator":
 				m.set_surface_override_material(si, Kit.lit("#3dff7a", 5.0))
 	var cab := Kit.mat("#111111", 0.5)
-	for k in 4:
-		var a := -0.7 + 0.45 * k
-		var p0 := DEVICE_AT + Vector3(sin(a) * 0.36, 0.9 + 0.12 * k, cos(a) * 0.36)
-		var p1 := DEVICE_AT + Vector3(-1.6 + 0.2 * k, 0.03, -1.4)
-		var mid := p0.lerp(p1, 0.5) + Vector3(0, -0.5, 0)
-		Kit.rod(root, p0, mid, 0.022, cab, 6)
-		Kit.rod(root, mid, p1, 0.022, cab, 6)
-	Kit.box(root, Vector3(0.6, 0.8, 0.4), DEVICE_AT + Vector3(-1.7, 0.4, -1.5), olive)
+	for k in 5:
+		var a := -0.9 + 0.4 * k
+		var p0 := DEVICE_AT + Vector3(sin(a) * 0.36 * DEV_SCALE, PLINTH + (0.5 + 0.12 * k) * DEV_SCALE, cos(a) * 0.36 * DEV_SCALE)
+		var p1 := DEVICE_AT + Vector3(-2.3 + 0.18 * k, 0.03, -1.9)
+		var mid := p0.lerp(p1, 0.5) + Vector3(0, -0.8, 0)
+		Kit.rod(root, p0, mid, 0.04, cab, 6)
+		Kit.rod(root, mid, p1, 0.04, cab, 6)
+	Kit.box(root, Vector3(0.7, 0.9, 0.45), DEVICE_AT + Vector3(-2.4, 0.45, -2.0), olive)
 	# The sticker, slapped on the label plate (which faces the camera with the device stood on end).
 	_sticker_mat = Kit.shader(STICKER)
 	var patch := MeshInstance3D.new()
 	var sq := QuadMesh.new()
-	sq.size = Vector2(0.34, 0.34)
+	sq.size = Vector2(0.34, 0.34) * DEV_SCALE
 	patch.mesh = sq
 	patch.material_override = _sticker_mat
 	patch.position = DEVICE_AT + STICKER_AT
@@ -243,7 +271,7 @@ func build(g: Dictionary) -> Node3D:
 	for w in welders:
 		var wp := Vector3(float(w[0]), float(w[1]), float(w[2]))
 		Kit.ball(root, 0.05, wp, Kit.lit("#fff3c8", 18.0), 8)
-		var ol := Kit.omni(root, wp, Color(1.0, 0.75, 0.45), 2.0, 9.0, false, 2.0)
+		var ol := Kit.omni(root, wp, Color(1.0, 0.72, 0.4), 3.0, 12.0, false, 2.5)
 		_spark_lights.append(ol)
 	# Props held by actors.
 	for aid in _p.get("clipboards", []):
@@ -274,6 +302,8 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		if t >= float(a[0]):
 			ly = lerpf(float(a[1]), float(b[1]), Motion.in_out(Motion.seg(t, float(a[0]), float(b[0]))))
 	_lift.position.y = ly
+	# The beacon turns (about one sweep a second and a half).
+	_beacon.rotation.y = t * 4.2
 	# Sparks: each lives ~1.5 s, thrown out from its welder and falling under gravity, the streak along its velocity.
 	var welders: Array = _p.get("welders", [])
 	var mm := _sparks.multimesh
@@ -281,7 +311,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var w: Array = welders[wi]
 		var wp := Vector3(float(w[0]), float(w[1]), float(w[2]))
 		var burst := 0.6 + 0.4 * sin(t * 13.0 + wi * 2.1) * sin(t * 5.3 + wi)
-		(_spark_lights[wi] as OmniLight3D).light_energy = 1.2 + 2.4 * maxf(burst, 0.0)
+		(_spark_lights[wi] as OmniLight3D).light_energy = 1.6 + 4.0 * maxf(burst, 0.0)
 		for k in NSPARK:
 			var idx := wi * NSPARK + k
 			var rng := RandomNumberGenerator.new()
@@ -328,5 +358,5 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 				nd.transform = Transform3D(Basis.looking_at(-fwd, Vector3.UP).scaled(Vector3.ONE * 0.6), box + Vector3(0, -0.12, 0))
 				a.aim_hand("l", gt * (box + left * 0.2), 1.0)
 				a.aim_hand("r", gt * (box - left * 0.2), 1.0)
-	return {"device": gt * (DEVICE_AT + Vector3(0, 1.3, 0)), "sticker": gt * (DEVICE_AT + STICKER_AT),
+	return {"device": gt * (DEVICE_AT + Vector3(0, PLINTH + 2.5, 0)), "sticker": gt * (DEVICE_AT + STICKER_AT),
 		"top": gt * Vector3(0, H, 0)}
