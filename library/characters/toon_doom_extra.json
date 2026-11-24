@@ -1,0 +1,26 @@
+{
+  "id": "toon_doom_extra",
+  "description": "A performer in a Doctor Doom costume (the masked figures on the Hall H stage); dressed by library:doom_suit.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "costume"
+  ],
+  "height": 1.52,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "bowl",
+      "color": "#2a2420"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#2b6a35"
+    },
+    "shoes": "#141418",
+    "face": "smug",
+    "girth": 1.0
+  }
+}

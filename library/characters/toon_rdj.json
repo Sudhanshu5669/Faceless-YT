@@ -1,0 +1,30 @@
+{
+  "id": "toon_rdj",
+  "description": "Robert Downey Jr. (caricature): dark brown hair swept back, a dark goatee and moustache, a black suit (under Doom's costume at Hall H).",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "real-person",
+    "actor"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#3b2a1f"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#1b1b20",
+      "tie": "#1b1b20"
+    },
+    "shoes": "#141418",
+    "face": "smug",
+    "mustache": "#3b2a1f",
+    "girth": 0.95,
+    "goatee": "#3b2a1f"
+  }
+}

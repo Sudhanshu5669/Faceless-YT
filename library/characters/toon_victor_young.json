@@ -1,0 +1,28 @@
+{
+  "id": "toon_victor_young",
+  "description": "Victor von Doom as a 1960s university student: black hair combed back, a white lab coat over a dark tie.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "comic",
+    "scientist"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "slick",
+      "color": "#141012"
+    },
+    "outfit": {
+      "style": "labcoat",
+      "color": "#ecebe6",
+      "tie": "#2b3a2e"
+    },
+    "shoes": "#1a1614",
+    "face": "smug",
+    "girth": 0.92
+  }
+}

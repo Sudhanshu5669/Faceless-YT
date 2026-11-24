@@ -6,3 +6,7 @@
 - `nyt-wordmark.svg`: The New York Times wordmark. [Wikimedia Commons: NewYorkTimes.svg](https://commons.wikimedia.org/wiki/File:NewYorkTimes.svg) (public domain, text logo). Mangalyaan episode (lines 19-20, news commentary), approved 2026-11-18.
 - SCI (Shipping Corporation of India): no logo file on Wikimedia Commons; the ship uses plain colours.
 - `pokhran/generated/sticker_white_house.png`, `sticker_taj_mahal.png`, `sticker_kumbhkaran.png`: die-cut sticker illustrations made with Codex's image generation (gpt-6.1-sol, built-in image_gen) at the user's explicit request (2026-11-24), an exception to AGENTS.md rule 9 for these stickers only. Used on the devices in the pokhran lid shots.
+- `doom/sdcc.svg`: the San Diego Comic-Con International logo. [Wikipedia: San Diego Comic-Con International logo.svg](https://en.wikipedia.org/wiki/File:San_Diego_Comic-Con_International_logo.svg) (non-free logo, used as commentary). Doctor Doom episode, approved by the user 2026-11-24.
+- `doom/ff5_doom_debut.jpg`: the cover of The Fantastic Four #5 (July 1962, art by Jack Kirby), Doctor Doom's debut. [Wikipedia: FF Doctor Doom.jpg](https://en.wikipedia.org/wiki/File:FF_Doctor_Doom.jpg) (non-free, commentary). Shown as a held comic prop for a few seconds; approved by the user 2026-11-24.
+- `doom/marvel-studios.svg` (not downloaded yet: Wikimedia rate limit): [Wikimedia Commons: Marvel Studios logo.svg](https://commons.wikimedia.org/wiki/File:Marvel_Studios_logo.svg) (public domain text logo). Approved 2026-11-24.
+

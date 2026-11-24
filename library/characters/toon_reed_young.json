@@ -1,0 +1,28 @@
+{
+  "id": "toon_reed_young",
+  "description": "Reed Richards as a 1960s university student: brown hair with a side parting, a pale blue shirt, a dark tie, a pencil-and-chalk look.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "comic",
+    "scientist"
+  ],
+  "height": 1.54,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#5a3c26"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#cfdbe8",
+      "tie": "#26324a"
+    },
+    "shoes": "#2a2018",
+    "face": "thinking",
+    "girth": 0.9
+  }
+}

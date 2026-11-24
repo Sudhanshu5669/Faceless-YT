@@ -224,7 +224,15 @@ void fragment() {
 				col = mix(col, TEAR, cover(d));
 			}
 		}
-		if (beard > 0.0) {
+		if (beard > 1.5) {
+			// Goatee (beard = 2): a rounded tuft on the chin joined to the moustache by two thin lines.
+			float d = sd_ellipse(p - vec2(0.0, -0.47), vec2(0.15, 0.13));
+			for (float s = -1.0; s <= 1.0; s += 2.0) {
+				d = min(d, sd_seg(p, vec2(0.19 * s, -0.22), vec2(0.12 * s, -0.44)) - 0.028);
+			}
+			vec3 bc = beard_color * (0.9 + 0.1 * sin(lp.x * 90.0 + lp.y * 40.0));
+			col = mix(col, bc, cover(d));
+		} else if (beard > 0.0) {
 			// The jawline rises toward the ears; the beard fills everything under it on the front half.
 			float jaw = -0.24 + 0.34 * smoothstep(0.42, 0.92, abs(lp.x));
 			float d = lp.y - jaw;

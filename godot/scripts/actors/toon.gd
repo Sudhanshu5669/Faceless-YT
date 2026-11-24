@@ -38,7 +38,7 @@ const LIMB_COLOR := Color("17171a")
 const INK := Color("0a0a0c")
 const SHORTEN := ["calf_l", "foot_l", "calf_r", "foot_r"]
 
-const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth", "mustache", "beard"]
+const KEYS := ["skin", "hair", "outfit", "shoes", "accessories", "face", "girth", "mustache", "beard", "goatee"]
 const HAIR_KEYS := ["style", "color", "lamp"]
 const OUTFIT_KEYS := ["style", "color", "chain", "tie", "accent", "vest", "bow", "badge", "camo"]
 const HAIR_STYLES := ["bowl", "tuft", "slick", "curly", "cap", "beanie", "bob", "bun", "bald", "hardhat", "hood", "turban", "side", "patrol", "horseshoe", "mop"]
@@ -115,7 +115,7 @@ static func validate(t, where: String) -> Array:
 	for k in t:
 		if not (k in KEYS):
 			e.append("%s: toon has unknown key '%s' (known: %s)" % [where, k, ", ".join(PackedStringArray(KEYS))])
-	for k in ["skin", "shoes", "mustache", "beard"]:
+	for k in ["skin", "shoes", "mustache", "beard", "goatee"]:
 		if t.has(k) and not Color.html_is_valid(String(t[k])):
 			e.append("%s: toon.%s is not a hex colour" % [where, k])
 	var hair: Dictionary = t.get("hair", {})
@@ -177,6 +177,9 @@ static func build(body: Node3D, src: Skeleton3D, t: Dictionary) -> Dictionary:
 	if t.has("beard"):
 		face.set_shader_parameter("beard", 1.0)
 		face.set_shader_parameter("beard_color", Color(String(t["beard"])))
+	if t.has("goatee"):
+		face.set_shader_parameter("beard", 2.0)
+		face.set_shader_parameter("beard_color", Color(String(t["goatee"])))
 	face.next_pass = _outline(OUTLINE)
 	apply_face(face, String(t.get("face", "smug")))
 	var head := MeshInstance3D.new()

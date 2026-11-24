@@ -1,0 +1,32 @@
+{
+  "id": "toon_feige",
+  "description": "Kevin Feige, president of Marvel Studios (caricature): his trademark baseball cap, a trimmed grey beard, glasses, a dark blazer.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "real-person",
+    "executive"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "cap",
+      "color": "#1d1d24"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#25252c",
+      "tie": "#25252c"
+    },
+    "shoes": "#141418",
+    "face": "smug",
+    "beard": "#9a9893",
+    "accessories": [
+      "glasses"
+    ],
+    "girth": 1.0
+  }
+}
