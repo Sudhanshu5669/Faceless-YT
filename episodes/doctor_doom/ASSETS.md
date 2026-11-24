@@ -40,3 +40,12 @@ Existing packs reused: `kenney_castle` (later, Castle Doom), `quaternius_nature`
 ## Pirate ship (2026-11-24, approved)
 
 - `incoming/quaternius_ships/sail_ship.glb`: Quaternius LowPoly Ship Pack (OpenGameArt, CC0), converted with Blender. Used for Blackbeard's ship (pirate_chest, pirate_thing).
+
+## Iron Man helmet (2026-11-24, chosen by the user; the user downloaded it)
+
+- `incoming/ironman_helmet/model/scene.gltf`: "Iron-Man Helmet (MK3)" by Ritesh (designpill), Sketchfab,
+  CC BY 4.0, commercial use allowed. Loaded by gags/gallery.gd and gags/misc.gd (`helmet_model`); without the file the
+  scenes fall back to the built toon helmet.
+- **Description credit (required):** This work is based on "Iron-Man Helmet (MK3)"
+  (https://sketchfab.com/3d-models/iron-man-helmet-mk3-901d24c9a1714deeb724c98a8cb4649e) by Ritesh
+  (https://sketchfab.com/designpill) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

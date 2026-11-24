@@ -40,6 +40,39 @@ static func suit() -> GDScript:
 	return _suit
 
 
+
+## The downloaded helmet (Sketchfab "Iron-Man Helmet (MK3)" by designpill, CC BY 4.0), if present: the first
+## .gltf/.glb under incoming/ironman_helmet/, scaled so its height is `height` and centred on the node's origin.
+static func helmet_model(height: float) -> Node3D:
+	var dir := Paths.repo_path("incoming/ironman_helmet")
+	var found := ""
+	var stack := [dir]
+	while not stack.is_empty() and found == "":
+		var d: String = stack.pop_back()
+		var da := DirAccess.open(d)
+		if da == null:
+			continue
+		for f in da.get_files():
+			if f.get_extension().to_lower() in ["gltf", "glb"]:
+				found = d.path_join(f)
+				break
+		for sub in da.get_directories():
+			stack.append(d.path_join(sub))
+	if found == "":
+		return null
+	var doc := GLTFDocument.new()
+	var state := GLTFState.new()
+	if doc.append_from_file(found, state) != OK:
+		return null
+	var model := doc.generate_scene(state) as Node3D
+	var holder := Node3D.new()
+	holder.add_child(model)
+	var bb := Kit.bounds(model)
+	var s := height / maxf(bb.size.y, 0.001)
+	model.scale = Vector3.ONE * s
+	model.position = -(bb.position + bb.size * 0.5) * s
+	return holder
+
 var _p := {}
 var _helmet: Node3D
 var _mask: Node3D
@@ -52,6 +85,7 @@ var _eye: Node3D
 var _eye_rest := Vector3.ZERO
 var _candles: Array[OmniLight3D] = []
 var _shield_spot: SpotLight3D
+var _has_model := false
 
 
 func build(g: Dictionary) -> Node3D:
@@ -73,20 +107,26 @@ func build(g: Dictionary) -> Node3D:
 	_helmet = Node3D.new()
 	_helmet.position = Vector3(HX, TOP + 0.03 + R * 1.1, 0)
 	root.add_child(_helmet)
-	var red := Kit.mat("#a3121b", 0.28, 0.8)
-	var gold := Kit.mat("#d9a441", 0.25, 0.9)
-	Kit.ball(_helmet, R, Vector3(0, 0.02, -0.05), red, 32, Vector3(1.0, 1.1, 0.98))
-	var plate := MeshInstance3D.new()
-	plate.mesh = suit().call("_mask", 1.0)
-	plate.material_override = gold
-	plate.scale = Vector3(1.0, 1.0, 1.0) * R * 1.06
-	plate.position = Vector3(0, -0.01, 0.03)
-	_helmet.add_child(plate)
-	for s: float in [-1.0, 1.0]:
-		var eye := Kit.box(_helmet, Vector3(R * 0.46, R * 0.12, 0.01), Vector3(s * R * 0.4, R * 0.075, R * 0.94), Kit.lit("#dff4ff", 5.0),
-			Vector3(0, s * 0.35, s * -0.18))
-		eye.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	Kit.box(_helmet, Vector3(R * 1.6, R * 0.06, R * 0.5), Vector3(0, R * 0.62, R * 0.55), red, Vector3(-0.4, 0, 0))
+	var dl := helmet_model(R * 2.35)
+	_has_model = dl != null
+	if dl != null:
+		_helmet.add_child(dl)
+		dl.position = Vector3(0, -0.06, 0)   # seated on the turntable, not floating
+	else:
+		var red := Kit.mat("#a3121b", 0.28, 0.8)
+		var gold := Kit.mat("#d9a441", 0.25, 0.9)
+		Kit.ball(_helmet, R, Vector3(0, 0.02, -0.05), red, 32, Vector3(1.0, 1.1, 0.98))
+		var plate := MeshInstance3D.new()
+		plate.mesh = suit().call("_mask", 1.0)
+		plate.material_override = gold
+		plate.scale = Vector3(1.0, 1.0, 1.0) * R * 1.06
+		plate.position = Vector3(0, -0.01, 0.03)
+		_helmet.add_child(plate)
+		for s: float in [-1.0, 1.0]:
+			var eye := Kit.box(_helmet, Vector3(R * 0.46, R * 0.12, 0.01), Vector3(s * R * 0.4, R * 0.075, R * 0.94), Kit.lit("#dff4ff", 5.0),
+				Vector3(0, s * 0.35, s * -0.18))
+			eye.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		Kit.box(_helmet, Vector3(R * 1.6, R * 0.06, R * 0.5), Vector3(0, R * 0.62, R * 0.55), red, Vector3(-0.4, 0, 0))
 	# A memorial ribbon and candles on the helmet's plinth.
 	Kit.box(root, Vector3(0.05, 0.5, 0.012), Vector3(HX + 0.22, TOP - 0.3, 0.315), Kit.mat("#050505", 0.6), Vector3(0, 0, 0.6))
 	Kit.box(root, Vector3(0.05, 0.5, 0.012), Vector3(HX + 0.27, TOP - 0.3, 0.315), Kit.mat("#050505", 0.6), Vector3(0, 0, -0.6))
@@ -173,7 +213,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	if absf(t - morph) < 0.35:
 		flick = 0.35 + 0.65 * absf(sin((t - morph) * 60.0))
 	_shadow_light.light_color = Color("#ffe7c4").lerp(Color("#3dff6e"), Motion.smooth(Motion.seg(t, morph - 0.1, morph + 0.5)))
-	_shadow_light.light_energy = 18.0 * flick
+	_shadow_light.light_energy = (3.5 if _has_model else 18.0) * flick
 	for mi in _helmet.find_children("*", "MeshInstance3D", true, false):
 		(mi as GeometryInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF if after else GeometryInstance3D.SHADOW_CASTING_SETTING_ON
 	_mask_shadow.visible = after
@@ -186,7 +226,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		if k >= 0.0:
 			pulse = maxf(pulse, exp(-k * 5.0))
 	var split := Motion.smooth(Motion.seg(t, float(_p.get("split", 1e9)), float(_p.get("split", 1e9)) + 0.8))
-	_spot_h.light_energy = 26.0 * (1.0 + 1.5 * pulse)
+	_spot_h.light_energy = (7.0 if _has_model else 26.0) * (1.0 + 1.5 * pulse)
 	_spot_h.light_color = Color("#fff1dc").lerp(Color("#ffb347"), split)
 	_spot_m.light_energy = 15.0 * mask_on * (1.0 + 1.5 * pulse)
 	_spot_m.light_color = Color("#fff1dc").lerp(Color("#39ff6e"), split)

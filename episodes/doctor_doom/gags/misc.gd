@@ -55,6 +55,39 @@ static func suit_mask() -> Mesh:
 	return _suit.call("_mask", 1.0)
 
 
+
+## The downloaded helmet (Sketchfab "Iron-Man Helmet (MK3)" by designpill, CC BY 4.0), if present: the first
+## .gltf/.glb under incoming/ironman_helmet/, scaled so its height is `height` and centred on the node's origin.
+static func helmet_model(height: float) -> Node3D:
+	var dir := Paths.repo_path("incoming/ironman_helmet")
+	var found := ""
+	var stack := [dir]
+	while not stack.is_empty() and found == "":
+		var d: String = stack.pop_back()
+		var da := DirAccess.open(d)
+		if da == null:
+			continue
+		for f in da.get_files():
+			if f.get_extension().to_lower() in ["gltf", "glb"]:
+				found = d.path_join(f)
+				break
+		for sub in da.get_directories():
+			stack.append(d.path_join(sub))
+	if found == "":
+		return null
+	var doc := GLTFDocument.new()
+	var state := GLTFState.new()
+	if doc.append_from_file(found, state) != OK:
+		return null
+	var model := doc.generate_scene(state) as Node3D
+	var holder := Node3D.new()
+	holder.add_child(model)
+	var bb := Kit.bounds(model)
+	var s := height / maxf(bb.size.y, 0.001)
+	model.scale = Vector3.ONE * s
+	model.position = -(bb.position + bb.size * 0.5) * s
+	return holder
+
 var _p := {}
 var _lava_mat: ShaderMaterial
 var _green_beam: MeshInstance3D
@@ -71,6 +104,10 @@ var _dressed := {}
 func _helmet_node(parent: Node3D, r: float) -> Node3D:
 	var h := Node3D.new()
 	parent.add_child(h)
+	var dl := helmet_model(r * 2.35)
+	if dl != null:
+		h.add_child(dl)
+		return h
 	Kit.ball(h, r, Vector3(0, 0.02, -0.05), Kit.mat("#a3121b", 0.28, 0.8), 24, Vector3(1.0, 1.1, 0.98))
 	var plate := MeshInstance3D.new()
 	plate.mesh = suit_mask()
