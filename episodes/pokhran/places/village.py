@@ -45,11 +45,11 @@ ACTORS = [
      "shown": [VF], "cues": [{"t": 0.0, "expression": "happy"}]},
 ]
 
-# The hero hut's wall where the crack runs (hut 0, 30 degrees round from its door): a point on it and its outward normal.
-_WALL = (-5.287, -4.721)
-_N = (0.4567, 0.8896)
+# The hero hut's wall where the crack runs (hut 0, 60 degrees round from its door, clear of the well): a point on it and its outward normal.
+_WALL = (-6.299, -4.502)
+_N = (-0.0494, 0.9988)
 _POT = (_WALL[0] + 1.0 * _N[0], _WALL[1] + 1.0 * _N[1])
-_CC = (_WALL[0] + 2.7 * _N[0] + 0.25 * _N[1], _WALL[1] + 2.7 * _N[1] - 0.25 * _N[0])
+_CC = (_WALL[0] + 2.4 * _N[0] + 0.2 * _N[1], _WALL[1] + 2.4 * _N[1] - 0.2 * _N[0])
 
 GAGS = [{"id": "village", "script": "gags/village.gd", "t": 0, "at": P(0, 0, 0),
          "params": {"tyre": [{"actor": "vk_tyre"}], "pots": ["vw_pots"],
@@ -58,7 +58,7 @@ GAGS = [{"id": "village", "script": "gags/village.gd", "t": 0, "at": P(0, 0, 0),
                     # khetolai_crack: the shock reaches the village: the water in a matka rings, then a crack runs up a
                     # hut's mud wall on "cracked".
                     "ripple": {"t": W("l14d", offset=0.05), "at": [_POT[0], _POT[1]]},
-                    "crack": {"from": W("l14d", "cracked.", -0.3), "to": W("l14d", "cracked.", 0.3), "hut": 0, "angle": 30.0,
+                    "crack": {"from": W("l14d", "cracked.", -0.3), "to": W("l14d", "cracked.", 0.3), "hut": 0, "angle": 60.0,
                               "shake": W("l14d", offset=0.1)}}}]
 
 SHOTS = {
@@ -74,8 +74,8 @@ SHOTS["khetolai_crack"] = {
     # the shock arrives and the water rings, dust sifts off the thatch, chips fall; on "cracked" a crack runs up the wall.
     "look": LOOK_VILLAGE,
     "shake": [{"t": W("l14d", offset=0.08), "amount": 0.18}, {"t": W("l14d", "cracked.", -0.25), "amount": 0.12}],
-    "camera": move(cam(P(_CC[0], 1.05, _CC[1]), P(_WALL[0], 1.15, _WALL[1]), 28, {"strength": 0.12}),
-                   cam(P(_CC[0], 1.2, _CC[1]), P(_WALL[0], 1.4, _WALL[1]), 28, {"strength": 0.12}),
+    "camera": move(cam(P(_CC[0], 1.5, _CC[1]), P(_WALL[0], 1.05, _WALL[1]), 28, {"strength": 0.12}),
+                   cam(P(_CC[0], 1.58, _CC[1]), P(_WALL[0], 1.35, _WALL[1]), 28, {"strength": 0.12}),
                    "in_out")}
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}
