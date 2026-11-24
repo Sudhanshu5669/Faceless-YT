@@ -45,12 +45,12 @@ static func suit() -> GDScript:
 func _comic_mesh(parent: Node3D, cover: String, col: Color) -> Node3D:
 	var c := Node3D.new()
 	parent.add_child(c)
-	Kit.box(c, Vector3(0.17, 0.26, 0.004), Vector3.ZERO, Kit.mat("#efe9da", 0.8))
+	Kit.box(c, Vector3(0.165, 0.255, 0.002), Vector3.ZERO, Kit.mat("#efe9da", 0.8))
 	var m: Material = Kit.textured(cover) if cover != "" else Kit.mat(col, 0.6)
-	var q := Kit.quad(c, Vector2(0.17, 0.26), Vector3(0, 0, 0.0025), m)
+	var q := Kit.quad(c, Vector2(0.17, 0.26), Vector3(0, 0, 0.006), m)
 	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	# The same cover on the back (turned round, so it reads the right way from either side).
-	var q2 := Kit.quad(c, Vector2(0.17, 0.26), Vector3(0, 0, -0.0025), m, Vector3(0, PI, 0))
+	var q2 := Kit.quad(c, Vector2(0.17, 0.26), Vector3(0, 0, -0.006), m, Vector3(0, PI, 0))
 	q2.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	return c
 
