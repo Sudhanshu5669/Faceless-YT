@@ -12,6 +12,7 @@
 ##   mask_on  t   the mask plinth's spot fades up (before it the right plinth is dark)
 ##   both     [t, t, t]   on each beat both spots flash and both pieces turn a quarter on their turntables
 ##   split    t   the helmet's light goes warm gold, the mask's cold green
+##   shield_on t   a round star shield (a toon caricature) leaning on the helmet's plinth catches its own spot
 ##   eye      {"t": t, "dx": 0.3}   the eye behind the mask's left slit slides across (the drawn eye moves)
 ## anchors: helmet, mask, wall_shadow
 extends RefCounted
@@ -50,6 +51,7 @@ var _shadow_light: SpotLight3D
 var _eye: Node3D
 var _eye_rest := Vector3.ZERO
 var _candles: Array[OmniLight3D] = []
+var _shield_spot: SpotLight3D
 
 
 func build(g: Dictionary) -> Node3D:
@@ -93,6 +95,18 @@ func build(g: Dictionary) -> Node3D:
 		Kit.cyl(root, 0.03, 0.03, 0.12 + 0.05 * (k % 3), Vector3(cx, 0.06 + 0.025 * (k % 3), 0.75), Kit.mat("#efe6d2", 0.7), 12)
 		Kit.ball(root, 0.012, Vector3(cx, 0.15 + 0.05 * (k % 3), 0.75), Kit.lit("#ffcc77", 6.0), 8, Vector3(1, 1.8, 1))
 		_candles.append(Kit.omni(root, Vector3(cx, 0.22 + 0.05 * (k % 3), 0.75), "#ff9a3c", 0.25, 1.4, false, 0.2))
+	# A round shield leaning on the helmet's plinth (concentric red and white, a blue centre, a white star).
+	var sh := Node3D.new()
+	sh.position = Vector3(HX - 0.45, 0.36, 0.25)
+	sh.rotation = Vector3(-0.2, 0.5, 0)
+	root.add_child(sh)
+	for k in 4:
+		var r := 0.34 - k * 0.075
+		Kit.cyl(sh, r, r, 0.03 + 0.005 * k, Vector3(0, 0, 0.005 * k), Kit.mat(["#b3141c", "#e8e4dc", "#b3141c", "#1e3a8a"][k], 0.35, 0.6), 40,
+			Vector3(PI / 2, 0, 0))
+	var star := Kit.text(sh, "★", 0.16, Color("#f2efe8"), Vector3(0, -0.01, 0.04), Vector3.ZERO, true)
+	star.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_shield_spot = Kit.spot(root, Vector3(HX - 0.9, 2.6, 1.6), Vector3(HX - 0.45, 0.36, 0.25), "#e8eeff", 0.0, 4.0, 14.0, true, 0.5)
 	# Doom's mask on the right plinth (the faceplate, rivets, the brow band), with a drawn eye behind the left slit.
 	_mask = Node3D.new()
 	_mask.position = Vector3(MX, TOP + 0.03 + R * 1.05, 0)
@@ -176,6 +190,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_spot_h.light_color = Color("#fff1dc").lerp(Color("#ffb347"), split)
 	_spot_m.light_energy = 15.0 * mask_on * (1.0 + 1.5 * pulse)
 	_spot_m.light_color = Color("#fff1dc").lerp(Color("#39ff6e"), split)
+	_shield_spot.light_energy = 14.0 * Motion.smooth(Motion.seg(t, float(_p.get("shield_on", 1e9)), float(_p.get("shield_on", 1e9)) + 0.5))
 	for i in _candles.size():
 		_candles[i].light_energy = 0.25 * (0.85 + 0.15 * sin(t * (9.0 + i) + i))
 	# The eye.

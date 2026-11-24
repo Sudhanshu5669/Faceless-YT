@@ -31,10 +31,18 @@ GAGS = [
     {"id": "gallery_set", "script": "gags/gallery.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"spin": 0.03, "morph": W("o3", "villain", 0.0), "mask_on": W("o5", "two", -0.1),
                 "both": [W("r8", 0), W("r8", 3), W("r8", 8)], "split": W("r9", "Tony", 0.0),
-                "eye": {"t": W("r17", "different.", 0.0), "dx": 0.35}}},
+                "eye": {"t": W("r17", "different.", 0.0), "dx": 0.35}, "shield_on": W("c1d2", "Captain", 0.0)}},
 ]
 
 SHOTS = {
+    # Chapter 1: the memorial: the helmet among its candles on "Iron Man dies", the shield lit on "Captain America".
+    "gal_farewell": {"look": LOOK_GALLERY, "camera": move(
+        cam(P(HX + 0.9, 0.9, 1.6), P(HX - 0.1, 0.9, 0.0), 32, {"strength": 0.15}),
+        cam(P(HX + 0.6, 0.85, 1.3), P(HX - 0.3, 0.7, 0.1), 32, {"strength": 0.18}), "in_out")},
+    # Chapter 4: from the helmet to the mask: "the man who started it all returns as the villain".
+    "gal_return": {"look": LOOK_GALLERY, "camera": move(
+        cam(P(HX + 0.3, C, 1.3), P(HX, C, 0.0), 45, {"strength": 0.2}),
+        cam(P(MX - 0.3, C, 1.3), P(MX, C, 0.0), 45, {"strength": 0.2}), "in_out")},
     # The helmet alone under its spot, candles below; a slow push.
     "gal_helmet": {"look": LOOK_GALLERY, "camera": move(
         cam(P(HX + 0.25, C + 0.05, 1.9), P(HX, C, 0.0), 50, {"strength": 0.18}),

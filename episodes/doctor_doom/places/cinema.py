@@ -52,7 +52,9 @@ GAGS = [
                            {"t": W("c1d", 0, -0.2), "show": "white"},
                            {"t": W("r16", 0, -0.3), "show": "trailer"}],
                 "cheer": CHEER, "ticket": W("o9", 0, -0.4),
-                "marquee": ["AVENGERS: DOOMSDAY", "OPENS DEC 18"], "poster": "AVENGERS:\nSECRET WARS\nDECEMBER 2027"}},
+                "marquee": ["AVENGERS: DOOMSDAY", "OPENS DEC 18"],
+                "marquee_sets": [{"t": W("r2b", 0, -1.2), "lines": ["IRON MAN", "MAY 2 2008"]},
+                                 {"t": W("r2c", 0, -0.1), "lines": ["AVENGERS: DOOMSDAY", "OPENS DEC 18"]}], "poster": "AVENGERS:\nSECRET WARS\nDECEMBER 2027"}},
 ]
 
 REVEALS = [
@@ -87,6 +89,14 @@ SHOTS = {
     "cinema_trailer": {"look": LOOK_CINEMA, "camera": move(
         cam(P(-2.6, 1.25, -9.4), P(-1.6, 1.0, ROW0_Z), 32, {"strength": 0.15}),
         cam(P(0.2, 1.25, -9.4), P(0.4, 1.0, ROW0_Z), 32, {"strength": 0.15}), "in_out")},
+    # 2008: the same marquee reads IRON MAN; a slow tilt down from the letters.
+    "cinema_2008": {"look": LOOK_STREET, "camera": move(
+        cam(P(79.0, 4.5, 7.5), P(80.0, 6.6, 2.2), 30, {"strength": 0.04}),
+        cam(P(79.3, 3.6, 7.0), P(80.0, 6.2, 2.2), 30, {"strength": 0.04}), "in_out")},
+    # The marquee and the poster: the first Avengers film in seven years.
+    "cinema_years": {"look": LOOK_STREET, "camera": move(
+        cam(P(84.0, 1.5, 8.0), P(82.0, 4.5, 1.0), 26, {"strength": 0.04}),
+        cam(P(83.0, 1.8, 7.0), P(81.0, 5.0, 1.0), 26, {"strength": 0.04}), "in_out")},
     # Outside, night: the marquee with chasing bulbs, the wet street, the poster.
     "cinema_marquee": {"look": LOOK_STREET, "camera": move(
         cam(P(77.5, 2.2, 9.5), P(80.0, 5.9, 2.2), 28, {"strength": 0.04}),

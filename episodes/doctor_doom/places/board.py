@@ -132,6 +132,10 @@ SHOTS = {
     "board_empty": {"look": LOOK_BOARD, "camera": move(
         cam(P(1.3, 1.45, -2.2), P(0.3, 0.6, -5.0), 28, {"strength": 0.06}),
         cam(P(1.15, 1.4, -2.6), P(0.3, 0.6, -5.0), 28, {"strength": 0.06}), "in_out")},
+    # After the fall: Feige among the scattered cards, a blank card in his hand. "Fast."
+    "board_fast": {"look": LOOK_BOARD, "camera": move(
+        cam(P(1.6, 1.2, -2.6), P(0.75, 1.1, -4.85), 35, {"strength": 0.15}),
+        cam(P(1.4, 1.15, -3.0), P(0.75, 1.1, -4.85), 35, {"strength": 0.15}), "in")},
     # Chapter 3: the wall stands again with the new plan.
     "board_titles": {"look": LOOK_BOARD, "camera": move(
         cam(P(0.0, 2.0, -2.6), P(0.0, 2.6, -6.0), 32, {"strength": 0.08}),

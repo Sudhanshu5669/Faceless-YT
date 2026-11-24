@@ -71,6 +71,8 @@ GAGS = [
      "params": {"screens": [{"t": 0.0, "show": "logo"}, {"t": W("h3", "takes", 0.0), "show": "live", "actor": "rdj"},
                             {"t": W("c1i", 0, -0.3), "show": "logo"},
                             {"t": W("c1j", 0, -0.1), "show": "title", "text": "AVENGERS: THE KANG DYNASTY"},
+                            {"t": W("c1j2", 0, -0.1), "show": "title", "text": "AVENGERS: SECRET WARS"},
+                            {"t": W("k1", 0, -0.1), "show": "logo"},
                             {"t": W("r1", 0, -0.3), "show": "live", "actor": "rdj"},
                             {"t": W("r10", 0, -0.3), "show": "logo"},
                             {"t": W("e1", 0, -0.3), "show": "live", "actor": "rdj"}],
@@ -114,6 +116,10 @@ SHOTS = {
     "hall_kang": {"look": LOOK_HALL, "camera": move(
         cam(P(0.5, 2.4, 9.0), P(0.0, 8.6, -12.2), 32, {"strength": 0.05}),
         cam(P(0.3, 2.6, 7.5), P(0.0, 8.6, -12.2), 32, {"strength": 0.05}), "in")},
+    # 2022: AVENGERS: SECRET WARS on the screens; the side screens from the hall's flank.
+    "hall_wars": {"look": LOOK_HALL, "camera": move(
+        cam(P(14.0, 3.0, 10.0), P(-2.0, 8.0, -10.0), 26, {"strength": 0.04}),
+        cam(P(11.0, 3.4, 8.0), P(-2.0, 8.4, -10.0), 26, {"strength": 0.04}), "in_out")},
     # Chapter 4: back in Hall H, quieter: the line of masks, the unmasked man in the middle, a slow push.
     "hall_why": {"look": LOOK_HALL, "camera": move(
         cam(P(0.0, 2.6, 5.5), P(0.0, 2.7, -3.0), 35, {"strength": 0.08}),

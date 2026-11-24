@@ -40,7 +40,7 @@ GAGS = [
     {"id": "shop_set", "script": "gags/shop.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"pull": {"actor": "collector", "t": PULL}, "tilt": W("v0c", 0),
                 "stack": [W("v0j", "Avengers,", 0.0), W("v0j", "Spider-Man,", 0.0), W("v0j", "Iron", 0.0),
-                          W("v0j", "Daredevil.", 0.0)]}},
+                          W("v0j", "Daredevil.", 0.0)], "rise": W("d19b", "Rise", 0.0)}},
 ]
 
 SHOTS = {
@@ -64,6 +64,10 @@ SHOTS = {
     "shop_stack": {"look": LOOK_SHOP, "camera": move(
         cam(P(1.55, 2.05, -0.25), P(1.55, 1.0, -0.62), 32, {"strength": 0.08}),
         cam(P(1.55, 1.9, -0.3), P(1.55, 1.0, -0.62), 32, {"strength": 0.08}), "in")},
+    # The new comic, RISE OF DOOM, slaps down on the counter on "Rise".
+    "shop_rise": {"look": LOOK_SHOP, "camera": move(
+        cam(P(1.75, 1.6, -0.2), P(1.7, 1.0, -0.5), 35, {"strength": 0.1}),
+        cam(P(1.72, 1.5, -0.25), P(1.7, 1.0, -0.5), 35, {"strength": 0.1}), "in")},
     # The cardboard Doom standee by the window in front; the collector and his comic behind.
     "shop_wait": {"look": LOOK_SHOP, "camera": move(
         cam(P(2.6, 1.35, 0.7), P(3.3, 1.45, 2.0), 30, {"strength": 0.12}),

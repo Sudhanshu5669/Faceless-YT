@@ -55,6 +55,10 @@ GAGS = [
 ]
 
 SHOTS = {
+    # Chapter 2 (flash-forward): Reed at the board, Victor at his machine, facing each other across the lab.
+    "lab_double": {"look": LOOK_LAB, "camera": move(
+        cam(P(-0.3, 1.25, 1.8), P(-0.3, 1.1, -1.8), 30, {"strength": 0.06}),
+        cam(P(-0.2, 1.3, 1.2), P(-0.25, 1.1, -1.8), 30, {"strength": 0.06}), "in_out")},
     # From the door, low: the benches in moonlight, the machine waking at the far end, Victor at the console
     # silhouetted against the portal. A slow push in.
     "lab_machine": {"look": LOOK_LAB, "camera": move(

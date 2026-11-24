@@ -10,6 +10,7 @@
 ##   cheer    t   the audience leaps up cheering (staggered)
 ##   ticket   t   a ticket (AVENGERS: DOOMSDAY / 18 DEC) flutters down through the projector beam, landing at t + 2
 ##   marquee  ["LINE 1", "LINE 2"]   the marquee letters; poster: the lightbox poster's text
+##   marquee_sets [{"t": t, "lines": ["...", "..."]}]   change the marquee letters from t (e.g. IRON MAN in 2008)
 ## anchors: screen, beam, ticket, marquee, front_row
 extends RefCounted
 
@@ -53,6 +54,7 @@ var _ticket: Node3D
 var _bulbs: Array[MeshInstance3D] = []
 var _bulb_on: StandardMaterial3D
 var _bulb_off: StandardMaterial3D
+var _marquee_labels: Array[Label3D] = []
 
 
 func build(g: Dictionary) -> Node3D:
@@ -194,6 +196,7 @@ func _build_marquee(root: Node3D) -> void:
 	for i in lines.size():
 		var l := Kit.text(m, String(lines[i]), 0.62, Color("#151515"), Vector3(0, 6.75 - i * 0.95, 2.27), Vector3.ZERO, true)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_marquee_labels.append(l)
 	_bulb_on = Kit.lit("#ffd27a", 5.0)
 	_bulb_off = Kit.mat("#5a4a2a", 0.4)
 	var bulb := SphereMesh.new()
@@ -292,6 +295,12 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var hold := Motion.smooth(Motion.seg(t, tt + 1.6, tt + 2.0))
 		var rot := Vector3(0.5 * sin(fall * 4.0) * (1.0 - hold), sin(fall * 2.0) * 0.7 * (1.0 - hold) + 0.2, 0.3 * cos(fall * 3.0) * (1.0 - hold))
 		_ticket.transform = Transform3D(Basis.from_euler(rot), p)
+	var mlines: Array = _p.get("marquee", ["AVENGERS: DOOMSDAY", "OPENS DEC 18"])
+	for ms in _p.get("marquee_sets", []):
+		if t >= float(ms["t"]):
+			mlines = ms["lines"]
+	for i in _marquee_labels.size():
+		_marquee_labels[i].text = String(mlines[i]) if i < mlines.size() else ""
 	# Chasing marquee bulbs.
 	for i in _bulbs.size():
 		_bulbs[i].material_override = _bulb_on if (i + int(t * 8.0)) % 3 != 0 else _bulb_off

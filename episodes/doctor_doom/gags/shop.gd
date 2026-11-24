@@ -10,6 +10,7 @@
 ##   pull   {"actor": id, "t": t}   the actor reaches into the long box, draws FF #5 out on t and holds it up
 ##   tilt   t   the held comic tilts toward the lamp (the cover catches the light)
 ##   stack  [t, t, t, t]   four comics slap down on the counter one by one
+##   rise   t   a new comic, RISE OF DOOM (the 2026 reissue of Infamous Iron Man), slaps down on the counter
 ##   covers ["path.jpg", ...]   optional cover textures for the four stacked comics (else plain colours)
 ## anchors: comic, box, counter, standee, window
 extends RefCounted
@@ -26,6 +27,7 @@ const COVER := "library/logos/doom/ff5_doom_debut.jpg"
 var _p := {}
 var _comic: Node3D
 var _stack: Array[Node3D] = []
+var _rise: Node3D
 var _rain: MultiMesh
 
 
@@ -173,6 +175,16 @@ func build(g: Dictionary) -> Node3D:
 	var cols := ["#c8202a", "#1f6fd0", "#b81e1e", "#8a1a1a"]
 	for i in 4:
 		_stack.append(_comic_mesh(root, String(covers[i]) if i < covers.size() else "", Color(cols[i])))
+	_rise = _comic_mesh(root, "", Color("#3a3f46"))
+	var rt := Kit.text(_rise, "RISE OF
+DOOM", 0.034, Color("#7dff9a"), Vector3(0, 0.07, 0.004), Vector3.ZERO, true, 1.2)
+	rt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var em := MeshInstance3D.new()
+	em.mesh = suit().call("_mask", 1.0)
+	em.material_override = Kit.mat("#9aa0a6", 0.4, 0.7)
+	em.scale = Vector3(0.05, 0.056, 0.012)
+	em.position = Vector3(0, -0.04, 0.004)
+	_rise.add_child(em)
 	return root
 
 
@@ -225,6 +237,14 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			var sq := Motion.squash(Motion.impact(t - ct, 0.2, 6.0, 10.0)) if t > ct else Vector3.ONE
 			c.transform = Transform3D(Basis.from_euler(Vector3(-PI / 2 + (1.0 - k) * 0.6, 0.2 * (i - 1.5) + (1.0 - k) * 1.2, 0)).scaled(sq),
 				Vector3(land.x, y, land.z))
+	var rset := float(_p.get("rise", 1e9))
+	_rise.visible = t >= rset - 0.35
+	if _rise.visible:
+		var k := Motion.in_cubic(Motion.seg(t, rset - 0.35, rset))
+		var land := COUNTER + Vector3(0.1, 0.06, 0.12)
+		var sq := Motion.squash(Motion.impact(t - rset, 0.25, 6.0, 10.0)) if t > rset else Vector3.ONE
+		_rise.transform = Transform3D(Basis.from_euler(Vector3(-PI / 2 + (1.0 - k) * 0.7, 0.15 + (1.0 - k), 0)).scaled(sq),
+			Vector3(land.x, lerpf(land.y + 0.8, land.y, k), land.z))
 	return {"comic": node.global_transform * xf.origin, "box": node.global_transform * BOX,
 		"counter": node.global_transform * COUNTER, "standee": node.global_transform * Vector3(3.6, 1.4, 2.2),
 		"window": node.global_transform * Vector3(0, 2.0, 3.2)}
