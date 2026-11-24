@@ -1,74 +1,105 @@
 # Doctor Doom: handoff (read this first to continue the video)
 
-*Last updated 2026-11-24. Update after every shot. Also read `AGENTS.md` (the user's standing rules) and the
-`toon-short` skill.*
+*Last updated 2026-11-25 (end of session). Update after every shot. Also read `AGENTS.md` (the user's standing
+rules, incl. rule 11 "Make it grand") and the `toon-short` skill.*
 
 **The video:** "Who is Doctor Doom, and why is Iron Man playing him?": the channel's first **long-form** video
-(16:9, 1920x1080, 60 fps, ~9.5 min), for Avengers: Doomsday (US release 18 Dec 2026, premiere 14 Dec). Target upload
-**Dec 12-15**. Pitch, chapters, facts table: `pitch.md`. Assets: `ASSETS.md`.
+(16:9, 1920x1080, 60 fps, ~8.5 min), for Avengers: Doomsday (US release 18 Dec 2026, premiere 14 Dec). Target upload
+**Dec 12-15**. Pitch: `pitch.md`. Script + every fact's source: `script.md`. Assets + licences + credits: `ASSETS.md`.
 
-## State
+## Where we stopped (2026-11-25)
 
-| | |
-|---|---|
-| Decided by the user (2026-11-24) | Title "Who is Doctor Doom, and why is Iron Man playing him?". Demo look APPROVED ("this is the level of grand I am looking for"); wants professional grade: downloaded SFX, this animation, a great script. **Script v1 APPROVED** (`script.md`, sources per line). SFX download approved (Sonniss GDC 2026, `incoming/sonniss_gdc2026/wav/`, licence in LICENSE.txt/pdf). Music: the user asked for copyright-free music -> 10 Scott Buckley tracks, CC BY 4.0, in `incoming/music_doom/` (LICENSE.txt has the credit format; credits go in the description). The user reviews everything in the shot UI (`tf shot doctor_doom --serve`). |
-| Lines | `lines.py`: the approved script as 104 shot lines (one per shot: the single take needs it); `PLACE_OF` maps shot prefixes to place modules; `CHAPTERS` = chapter cards (HyperFrames, to do). |
-| Narration | Full single take recorded 2026-11-24: **410.6 s (6.8 min)** of voice; 9 read-aloud tags were scrubbed automatically. Length question for the user: 6.8 min voice + cards/holds ~ 7.5 min, under the 8-min mid-roll mark -> options: add ~150 words, slow to 0.93x, music breathers, a 10-15 s end screen. |
-| Script | v1.1 (user chose "make it longer, option 1", 2026-11-24): +10 lines (see script.md "v1.1 additions"), 114 shots. New take **458.2 s** (7.6 min voice) -> ~8.5 min with cards/holds/end screen. |
-| Rendered clips | Hall H, lab, gallery, boardroom, cinema clips exist in `review/shot_loop/` BUT were rendered on the OLD 410 s timing: re-render everything (`tf shot doctor_doom <names>`) before review. |
-| Built + storyboarded | hall (all 12), gallery (11 incl. gal_farewell, gal_return), board (21 incl. board_fast), cinema (9 incl. cinema_2008, cinema_years), shop (7 incl. shop_rise; open bug: the held FF #5 shows a blank face), lab (5 incl. lab_double), castle (11), latveria (9: lat_*, liner_deck), tibet (3). |
-| Built (cosmos, 2026-11-24) | surfer_sky, beyonder_grab/hand, bw_planet/stitch/throne/heal, emp_cloak/globe, rocket_pad, rocket_shadow (now a porthole with Doom's mask inside). Earth uses the Mangalyaan-style EARTH_SHADER (StandardMaterial didn't show the maps). Open: a white spiky object shows in the VOID/WORLD shots' background (find it); Battleworld still a bit dark. |
-| ALL 114 SHOTS BUILT (2026-11-24) | + doom62 (FF #5 lab, Blackbeard ship: Quaternius CC0 via Blender), misc (hell, hospital, Iron Man Doom rooftop, dressing room, film reels, campus gate, mirror). Polish list: the Devil silhouette is faint (hell_fight); (fixed: the shop FF #5 cover); a stray white object in the VOID/WORLD backgrounds; board_contract dim; helmet horns (gallery). Chapter cards + the arrest headline (HyperFrames), the sound mix, then RE-RENDER every clip on the 458 s timing. |
-| (old row) | doom62 (doom62_kidnap/platform/feet, pirate_chest/thing: needs a pirate ship, ASK to download: Quaternius or Kenney Pirate Kit, CC0), campus/mirror (campus_gates, mirror_scar, mirror_warp), hell (hell_fight), cosmos (surfer_sky, beyonder_grab/hand, bw_planet/stitch/throne/heal, emp_cloak/globe, rocket_pad/shadow: the First Steps rocket, ASK: Kenney Space Kit CC0), hospital (hosp_bed/helmet, city_ironman), dressing (dress_oscar, reels_past/mcmahon/kebbell). |
-| Sound (DONE 2026-11-24) | `sound.py`: 9 Scott Buckley music cues + 71 Sonniss effects on their words; WAVs built by `make_audio.py` into git-ignored `audio/lib/`. Mixer now supports recorded `music` cues. Full mix measured -14.0 LUFS, LRA 5.3. |
-| Overlays (DONE) | `make_overlays.py` renders the chapter cards (ch1-ch4) and two real headlines (NPR arrest 25/03/2023, Euronews verdict 19/12/2023) with HyperFrames into git-ignored `overlays/out/`; the final render composites them under the captions (`overlays` key). |
-| (old sound plan) | Not mixed yet. Plan: Buckley score per chapter (Eyes In The Void cold open, Anabasis I ch1, Penumbra ch2 origin, Aphelion ch3 escalation, Starfire/Born Of The Sky ch4 + end), Sonniss SFX per beat (Braams on reveals, Colossal Impacts on the blast/collapse, Arc for the machine, Extreme Winds for Latveria, crowd for Hall H, Paper Foley for comics). Check that `ambience`/beds accept `file` (AUDIO_SPEC says one-shots do). |
+All 114 shots are built and have review clips. The user is reviewing in the shot UI
+(`python pipeline/tf.py shot doctor_doom --serve`, http://127.0.0.1:8770/). Verdicts: `review/shot_decisions.json`
+(`tf shot doctor_doom --status`; it is slow on 114 shots, give it a few minutes).
 
-## Known soft spots (fix before final)
+- **First round of verdicts (66 approved)** were all addressed and re-rendered (see "Verdict fixes" below). The user
+  has NOT yet re-reviewed those re-rendered clips; their statuses still read `changes` from round one.
+- **Realistic rigged Doom** (VLTXD, see below) was swapped in and 22 shots re-rendered on 2026-11-25.
+- **Pending, not rendered:** `castle_gates`: the door light was dimmed (castle.gd `_door_light` 900 -> 160) so Doom
+  walks in as a silhouette instead of vanishing in the glare. Storyboard checked; run `tf shot doctor_doom castle_gates`.
 
-- Gallery: the helmet's red crown pokes up like horns; the gold faceplate shows the red shell through the mouth slot.
-- board_contract is dim; the contract barely reads. board_empty opens on the end of the fall.
-- The arrest headline (c1m) and the chapter cards still need their HyperFrames overlays (exact headline text, sourced).
+## Next steps
 
+1. Render `castle_gates` (above). Push-notify the user that the re-renders are ready.
+2. The user re-reviews; fix their next verdicts the same way (storyboard, look, render the clip, notify).
+3. Known soft spots still open (fix before the final):
+   - Hall H screens show a red box, not the Marvel Studios logo (Wikimedia 429). Retry
+     `https://upload.wikimedia.org/wikipedia/commons/6/63/Marvel_Studios_logo.svg` -> `library/logos/doom/marvel-studios.svg`.
+   - hell_fight: the Devil silhouette is faint. board_news: the headline card covers Feige's face. The boardroom
+     window HDRI (a river and a bridge) is not Burbank.
+   - lab_blast: Victor has his back to the lens at the blast.
+   - Unreviewed shots ("-"): board_ticket/loki/quantum/chart/fade/fall/empty/fast, shop_night/box/meet, lat_castle/
+     healer/flee/freeze, mirror_warp, tibet_mask, emp_globe, hosp_helmet, reels_kebbell, shop_wait.
+4. When every shot is approved: **final render** `python pipeline/tf.py render doctor_doom` (1920x1080, 60 fps, motion
+   blur 2, music + 71 effects + 7 overlays + captions, -14 LUFS). Rebuild the git-ignored inputs first if missing:
+   `python episodes/doctor_doom/make_audio.py` (audio/lib) and `python episodes/doctor_doom/make_overlays.py`
+   (overlays/out). **Never render on battery** (check `(Get-CimInstance Win32_Battery).BatteryStatus` = 2).
+   The render takes a while (7.6 min of 60 fps); a 114-shot `tf shot` batch once stopped at shot 105, so split big
+   batches.
+5. Then: thumbnail (16:9), title, description with **all credits** (below), chapters (timestamps from the overlays).
 
-- Hall screens show a red box, not the Marvel Studios logo: Wikimedia rate-limited the download (429). Retry
-  `https://upload.wikimedia.org/wikipedia/commons/6/63/Marvel_Studios_logo.svg` into `library/logos/doom/marvel-studios.svg`
-  (public domain text logo); `hall_h.gd` picks it up automatically.
-- RDJ's hair/forehead still catch too much of the follow spot in hall_quote.
-- Beam cones (`hall_h.gd` BEAM_SHADER) still show faceted edges in hall_walk.
-- lab_blast: by the blast Victor has his back to the camera, so "in his face" isn't literal; turn him to the lens or
-  move the camera round.
-- board_news: the headline card covers Feige's face; move the card right or reframe. The night view through the glass
-  (Poly Haven `modern_buildings_night`: a river and bridge) isn't Burbank; find a better match.
-- board_collapse: the clip ends (end of the demo audio) before the cork wall finishes falling; in the full edit the
-  next line gives it room.
+## Credits for the description (required)
+
+- Music: each Scott Buckley track used - `'<Track>' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au`
+  (Eyes In The Void, Anabasis I, Convergence, Penumbra, Aphelion, Starfire; `incoming/music_doom/LICENSE.txt`).
+- Iron-Man Helmet (MK3) by Ritesh/designpill, Doctor Doom's Mask by Nicolas_Laube, Doctor Doom Avengers Doomsday Low
+  Poly by VLTXD: exact credit lines in `ASSETS.md` (all CC BY 4.0).
+- Sound effects: Sonniss GDC 2026 bundle (no credit required). Ships: Quaternius (CC0). Poly Haven (CC0).
+- Posters/covers/logos/headlines: commentary use; sources in `library/logos/SOURCES.md` and `script.md`.
+
+## The user's decisions for this video (binding)
+
+- Title "Who is Doctor Doom, and why is Iron Man playing him?". Demo look approved: "this is the level of grand I am
+  looking for" -> rule 11 "Make it grand" (AGENTS.md + toon-short skill, cinematics.md section 10).
+- Script v1 approved; v1.1 = +10 lines for length (the user chose "make it longer, option 1"). 114 shot lines in
+  `lines.py`; narration single take **458.2 s** (Charon, gemini-3.8-flash-lite-tts; cached, do not regenerate casually).
+- Professional grade: downloaded SFX (Sonniss), copyright-free music (Scott Buckley, CC BY), posters instead of title
+  cards ("i want posters here"), real comic covers as props.
+- Realistic downloaded models are wanted for Iron Man's helmet and Doom (the user chose them). Toon people otherwise.
+- **The user downloads Sketchfab files themselves** (needs their login): open the exact page + target folder for them
+  (`Start-Process <url>; Start-Process explorer.exe <folder>`), then they say "downloaded".
+- Check licences AND provenance: "Dr Doom V2" (VisiionLovesYou) was rejected - skeleton `sv_doctordoom01_S01` points
+  to a game extraction; parked in `incoming/doom_v2_rejected/`, never used. Game rips (Fortnite, MUA, Marvel Chaos)
+  are out even if tagged CC BY.
+
+## Verdict fixes made 2026-11-24/25 (what changed, so you don't redo it)
+
+- "Shaking" was not the camera: the `Sitting_Idle` pose + idle breathing in close-ups. Seated/close-up actors now have
+  `"freeze": 0.35` (faces still change).
+- Posters: board cards (`boardroom.gd` CARDS + `_poster`), the rebuilt wall (Doomsday poster + Secret Wars logo), film
+  reels (FF 2005/2007/2015 posters), the shop stack (Avengers #1, ASM #1, Iron Man #1, Daredevil #1). Files in
+  `library/logos/doom/posters/` (fetched slowly from Wikipedia; it rate-limits hard). The Kang Dynasty has no poster
+  (cancelled) and stays a title card.
+- No card flip; Feige without glasses; throne seat; chest glow; mountain snow caps (z-fighting); hammer rests on the
+  plate and the monk holds it; cinema_ticket = the screen lights "AVENGERS: DOOMSDAY · DEC 18"; shop comic cover
+  visible, drops to the floor, shop_meet looks down at it; shop_rise = comic racks + the Bleeding Cool headline
+  overlay (`news_rise`); board_contract (rejected) -> RDJ swims in a cash heap (`library:cash_stream`) with a
+  $80,000,000+ counter landing on "million"; emp_cloak; city_ironman = Doom wearing the real Iron Man helmet
+  (misc.gd `ironhead`); mirror reframed; the storm sky moved to z -6000 so its clouds don't show in space.
+- Gallery: the Iron Man helmet is the downloaded MK3; Doom's shadow is a cut-out silhouette that looms; the right
+  plinth holds the downloaded Doom bust; gal_eye = the eyes kindle green on "different".
+
+## Realistic rigged Doom (how it works)
+
+- Pack `vltxd_doom` (`pipeline/asset_packs.json`, from `incoming/vltxd_doom.zip`). The GTA-SA rig was re-posed from
+  A-pose to a T-pose facing +Z at 1.83 m by `pipeline/blender/tpose_character.py` (reusable for other A-pose rigs).
+- Retarget map `gta_ped` in `library/rigs.json` (bone names keep their leading spaces); character
+  `library/characters/doom_realistic.json`.
+- Used for the suited Doom: castle (doom_walk, doom_throne, doom_gate, doombot_0..6), cosmos (doom_surfer, doom_void,
+  doom_emp), misc (doom_hell, doom_hosp), doom62 (doom62, doom62_b). Still toon: God Emperor (white/gold), the Iron
+  Man-helmet Doom (head swap), Hall H performers + RDJ, young Victor.
 
 ## How the places work
 
-- Each place is a gag on its own bay, kilometres apart (`frame("lab", 20000)`, `frame("board", 40000)`): the bays
-  sit close together and Hall H is 130 m wide. **Never name a gag after its bay** (a gag's id becomes an anchor and
-  shadows the bay's anchor, so every camera offset doubles): gag ids are `hall_set`, `lab_set`, `board_set`.
-- Doom's costume is `library/gags/doom_suit.gd` (mask with eye slits so the drawn eyes act through it, hood, mantle,
-  cloak, tunic, belt; `unmask` lifts the mask and drops the hood). Our own toon design, not a copy of a model.
-- Toon heads: for a `height` 1.5 toon the head centre is about 1.12-1.2 m; aim close-ups there.
-- New characters: `toon_rdj` (slick hair, moustache + **goatee**: new toon key `goatee`), `toon_doom_extra`,
-  `toon_victor_young`, `toon_reed_young`, `toon_feige`.
-- GLSL gotchas met here: `smoothstep(a, b, x)` needs a < b; `pow(x, y)` with x < 0 is NaN (a white square on screen).
-
-## HyperFrames (2D overlays)
-
-Installed in the scratchpad only (`npx hyperframes`, v0.9.88, Apache 2.0, telemetry off with
-`HYPERFRAMES_NO_TELEMETRY=1`). Compositions live in `overlays/<name>/index.html`. Render transparent:
-`npx hyperframes render <dir> --fps 60 --format mov -o out.mov` (ProRes 4444 with alpha, 5 s in ~25-55 s), then
-overlay in ffmpeg. GSAP loads from a CDN in the composition: vendor it before the final. To do: an `overlays` list in
-`episode.json` that the final render composites automatically.
-
-## Sources (facts used in the demo lines)
-
-CBC / AP 2024-07-27 (the unmasking at Hall H, "New mask, same task"); The Vendry / SDCC blog (Hall H ~6,130 seated,
-6,500 often quoted, so the line says "more than six thousand"); Wikipedia "Doctor Doom" (FF #5 July 1962, Lee & Kirby,
-origin in FF Annual #2 1964, Empire State University, Reed, Tibet, diplomatic immunity, Infamous Iron Man 2016);
-Nerdist / TV Tropes (the machine to reach his mother in the realm of the dead, Reed's warning, the explosion);
-Wikipedia "Avengers: Doomsday" (Kang Dynasty SDCC 2022, retitled + RDJ SDCC 2024, release dates, cast);
-Wikipedia "Jonathan Majors", Fortune 2023-12-18, Euronews 2023-12-19 (split verdict: third-degree assault and
-harassment; Marvel dropped him the same day; headline "Jonathan Majors found guilty of assault and dropped by Marvel").
+- `make_episode.py` builds episode.json from `lines.py` (lines + shot->place map), `places/*.py` (actors, gags, shots
+  per place), `sound.py` (music cues, effects, overlay times). Edit those, never episode.json.
+- Each place is a gag on the "board" bay, kilometres apart (z 40000 board, 60000 gallery, 80000 cinema, 100000 shop,
+  120000 castle, 140000 latveria, 160000 tibet, 180000 cosmos, 200000 doom62, 220000 misc). **Never name a gag after
+  its bay** (the id becomes an anchor and shadows the bay's).
+- Gag scripts load from source at runtime: no `preload` of files outside `godot/`; load library gags via
+  `GDScript.new()` + `source_code` (see `suit()` in gallery.gd).
+- Pipeline changes this session: stills/frames globs handle 100+ shots; recorded `music` cues in the mixer; `overlays`
+  (HyperFrames renders with alpha) composited in the final render (AUDIO_SPEC.md).
+- GLSL gotchas: `smoothstep(a, b, x)` needs a < b; `pow(x, y)` with x < 0 is NaN; heredocs in bash mangle `\n` and
+  backslashes, so patch GDScript with the Edit tool or a .py file.

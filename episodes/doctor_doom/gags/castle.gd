@@ -282,7 +282,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	for i in _doors.size():
 		var s := -1.0 if i == 0 else 1.0
 		_doors[i].rotation = Vector3(0, s * open * 1.75, 0)
-	_door_light.light_energy = 900.0 * open
+	_door_light.light_energy = 160.0 * open
 	# Lightning.
 	var flash := 0.0
 	for lt in _p.get("lightning", []):
