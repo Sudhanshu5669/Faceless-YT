@@ -1,0 +1,32 @@
+{
+  "id": "toon_russo_joe",
+  "description": "Joe Russo, co-director (caricature): short dark hair, a trimmed dark beard, black glasses, a dark jacket.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "real-person",
+    "director"
+  ],
+  "height": 1.52,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "side",
+      "color": "#2a2420"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#202024",
+      "tie": "#202024"
+    },
+    "shoes": "#141418",
+    "face": "smug",
+    "beard": "#2a2420",
+    "accessories": [
+      "glasses"
+    ],
+    "girth": 1.0
+  }
+}

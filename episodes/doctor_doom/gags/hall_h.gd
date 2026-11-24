@@ -8,7 +8,9 @@
 ## the seats run from z 4 to z 75 (+z), cameras in the hall look -z.
 ##
 ## params:
-##   screens  [{"t": t, "show": "logo" | "live" | "black", "actor": id}]   what the screens show from t
+##   screens  [{"t": t, "show": "logo" | "live" | "black" | "title", "actor": id, "text": "..."}]   what the screens
+##            show from t (title: big white letters on black, e.g. AVENGERS: THE KANG DYNASTY)
+##   flare    t   the screens flare green (the bookend)
 ##   beams    {"focus": t, "x": 0.0, "z": -3.0}   the moving heads sweep, then converge on (x, z) from `focus`
 ##   flash    t   every light spikes white on the reveal and settles warm on the follow spot
 ##   phones   t   phones come up across the hall from t (a quarter of the fans), more on cheer
@@ -33,6 +35,7 @@ uniform sampler2D live : source_color, filter_linear;
 uniform float show_logo = 1.0;
 uniform float show_live = 0.0;
 uniform float bright = 1.0;
+uniform float flare = 0.0;
 uniform float logo_aspect = 2.1;
 uniform float aspect = 1.78;
 void fragment() {
@@ -51,6 +54,7 @@ void fragment() {
 	// LED pixel grid, faint.
 	vec2 px = fract(uv * vec2(aspect, 1.0) * 220.0);
 	col *= 0.86 + 0.14 * step(0.18, px.x) * step(0.18, px.y);
+	col = mix(col, vec3(0.25, 1.0, 0.45), flare);
 	ALBEDO = col * bright;
 }
 """
@@ -81,6 +85,7 @@ void fragment() {
 var _p := {}
 var _beams := []        # [light, material, base strength]
 var _screens: Array[MeshInstance3D] = []
+var _titles: Array[Label3D] = []
 var _screen_mat: ShaderMaterial
 var _view: SubViewport
 var _cam: Camera3D
@@ -142,6 +147,12 @@ func build(g: Dictionary) -> Node3D:
 		var q := Kit.quad(root, sc[0], sc[1], _screen_mat, Vector3(0, sc[2], 0))
 		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		_screens.append(q)
+		var tl := Kit.text(root, "", sc[0].y * 0.11, Color(1, 1, 1), sc[1] + Vector3(0, 0, 0.06).rotated(Vector3.UP, sc[2]),
+			Vector3(0, sc[2], 0), true, 1.4)
+		tl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		tl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		tl.width = sc[0].x * 0.8 / tl.pixel_size
+		_titles.append(tl)
 		frame.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	# The live (IMAG) camera.
 	_view = SubViewport.new()
@@ -350,11 +361,16 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var show := "logo"
 	var live_actor := ""
 	var since := 0.0
+	var title := ""
 	for s in _p.get("screens", []):
 		if t >= float(s["t"]):
 			show = String(s.get("show", "logo"))
 			live_actor = String(s.get("actor", ""))
+			title = String(s.get("text", ""))
 			since = t - float(s["t"])
+	for tl in _titles:
+		tl.text = title if show == "title" else ""
+		tl.modulate = Color(1.4, 1.4, 1.4) * Motion.smooth(clampf(since / 0.5, 0.0, 1.0))
 	var fade := Motion.smooth(clampf(since / 0.35, 0.0, 1.0))
 	_screen_mat.set_shader_parameter("show_logo", fade if show == "logo" else 0.0)
 	_screen_mat.set_shader_parameter("show_live", fade if show == "live" else 0.0)
@@ -390,7 +406,12 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var fdd: Dictionary = _p.get("follow", {})
 	_follow.look_at(Vector3(float(fdd.get("x", 0.0)), STAGE + 1.0, float(fdd.get("z", -3.0))), Vector3.UP)
 	_follow.light_energy = 120.0 * (0.5 + 0.5 * conv)
-	_screen_mat.set_shader_parameter("bright", 0.9 + 0.6 * fl)
+	var flare := Motion.smooth(Motion.seg(t, float(_p.get("flare", 1e9)), float(_p.get("flare", 1e9)) + 0.4))
+	_screen_mat.set_shader_parameter("bright", 0.9 + 0.6 * fl + 1.5 * flare)
+	_screen_mat.set_shader_parameter("flare", flare)
+	if flare > 0.0:
+		_screen_mat.set_shader_parameter("show_logo", 0.0)
+		_screen_mat.set_shader_parameter("show_live", 1.0 - flare)
 	for b in _beams:
 		var l: SpotLight3D = b[0]
 		var base := 55.0 if _heads.has(l) else 40.0

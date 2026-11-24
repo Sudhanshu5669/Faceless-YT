@@ -236,8 +236,8 @@ def cmd_render(cfg: dict, args) -> int:
         scale = float(args.scale)
     frames_root = root / "frames"
     only = [s for s in (args.shots or "").split(",") if s]
-    for d in frames_root.glob("[0-9][0-9]_*"):
-        if not only or d.name[3:] in only:
+    for d in frames_root.glob("[0-9]*_*"):
+        if not only or d.name.split("_", 1)[1] in only:
             for f in d.glob("*.png"):
                 f.unlink()
     if getattr(args, "remix", False):
@@ -517,7 +517,8 @@ def cmd_storyboard(cfg: dict, args) -> int:
                      timeout=300 + 20 * n_shots)
     if code != 0:
         return code
-    stills = sorted(out.glob("[0-9][0-9]_*_[abc].png"))
+    # Shot numbers grow past 99 in long-form episodes: match any digits, sort by number then still.
+    stills = sorted(out.glob("[0-9]*_*_[abc].png"), key=lambda f: (int(f.name.split("_", 1)[0]), f.name[-5]))
     if len(stills) != 3 * n_shots:
         print(f"ERROR: expected {3 * n_shots} storyboard stills, got {len(stills)}", file=sys.stderr)
         return 1
@@ -690,7 +691,7 @@ def cmd_preview_set(cfg: dict, args) -> int:
                      pre_args=["--quit-after", str(budget)])
     if code != 0:
         return code
-    stills = sorted(p for p in out.glob("[0-9][0-9]_*.png"))
+    stills = sorted(p for p in out.glob("[0-9]*_*.png"))
     if len(stills) != len(views):
         print(f"ERROR: expected {len(views)} stills, got {len(stills)} (see errors above)", file=sys.stderr)
         return 1

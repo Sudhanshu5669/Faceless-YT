@@ -9,6 +9,7 @@
 ##            unmask: on t the actor reaches up (anticipation from t - 0.45), lifts the mask up and off the face
 ##            (out-cubic, 0.4 s) and lowers it to hold at his chest; the hood slides back off the head with it
 ##            (hood_back, default true). Before t the mask sits on the face.
+##            remask: on t the held mask comes back up and onto the face (the unmask in reverse, 0.9 s), hood up.
 ##   metal    "#8d9399" the plate colour; tunic "#2b6a35"; cloak "#1d4a26"
 ## anchors: "<actor>.mask" (the mask's world position) for every dressed actor.
 extends RefCounted
@@ -229,10 +230,15 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 					(h as Node3D).visible = false
 		if d.has("unmask"):
 			var off := float(d["unmask"])
+			# Put back on: play the unmask backwards, ending on the face at `remask`.
+			var tu := t
+			if d.has("remask") and tu >= float(d["remask"]) - 1.15:
+				var rm := float(d["remask"])
+				tu = off + 1.1 - clampf((tu - (rm - 1.15)) / 1.15, 0.0, 1.0) * (1.1 + 0.46)
 			var side := String(d.get("hand", "r"))
-			var reach := Motion.in_out(Motion.seg(t, off - 0.45, off - 0.05))
-			var lift := Motion.out_cubic(Motion.seg(t, off - 0.05, off + 0.4))
-			var lower := Motion.in_out(Motion.seg(t, off + 0.4, off + 1.1))
+			var reach := Motion.in_out(Motion.seg(tu, off - 0.45, off - 0.05))
+			var lift := Motion.out_cubic(Motion.seg(tu, off - 0.05, off + 0.4))
+			var lower := Motion.in_out(Motion.seg(tu, off + 0.4, off + 1.1))
 			var face_xf: Transform3D = mask.global_transform
 			if lift > 0.0:
 				var ay := float(a.rotation.y)
@@ -252,7 +258,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 				var q2 := held_xf.basis.get_rotation_quaternion()
 				mask.global_transform = Transform3D(Basis(q0.slerp(q1, lift).slerp(q2, lower)).scaled(sc), w)
 				if hood != null and bool(d.get("hood_back", true)):
-					var hb := Motion.out_cubic(Motion.seg(t, off + 0.05, off + 0.55))
+					var hb := Motion.out_cubic(Motion.seg(tu, off + 0.05, off + 0.55))
 					hood.transform = Transform3D(Basis.from_euler(Vector3(-1.05 * hb, 0, 0)), Vector3(0, -0.05 * hb, -0.09 * hb))
 					for h in head.get_children():
 						if h.has_meta("doom_hair"):

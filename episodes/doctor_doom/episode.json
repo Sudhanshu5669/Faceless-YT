@@ -843,7 +843,68 @@
       "offset": 0.1
      },
      "expression": "wink"
+    },
+    {
+     "t": {
+      "line": "r1",
+      "word": 0
+     },
+     "expression": "smug"
+    },
+    {
+     "t": {
+      "line": "e1",
+      "word": "mask"
+     },
+     "expression": "scheming"
+    },
+    {
+     "t": {
+      "line": "e2",
+      "word": "task."
+     },
+     "expression": "wink"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hall_wide",
+      "offset": -0.1
+     },
+     {
+      "shot": "gal_helmet"
+     }
+    ],
+    [
+     {
+      "shot": "hall_why",
+      "offset": -0.1
+     },
+     {
+      "shot": "dress_oscar"
+     }
+    ],
+    [
+     {
+      "shot": "hall_russos",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_contract"
+     }
+    ],
+    [
+     {
+      "shot": "hall_end",
+      "offset": -0.1
+     },
+     {
+      "line": "e2",
+      "word": "task.",
+      "offset": 3.0
+     }
+    ]
    ]
   },
   {
@@ -895,6 +956,46 @@
      "t": 0.0,
      "expression": "smug"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hall_wide",
+      "offset": -0.1
+     },
+     {
+      "shot": "gal_helmet"
+     }
+    ],
+    [
+     {
+      "shot": "hall_why",
+      "offset": -0.1
+     },
+     {
+      "shot": "dress_oscar"
+     }
+    ],
+    [
+     {
+      "shot": "hall_russos",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_contract"
+     }
+    ],
+    [
+     {
+      "shot": "hall_end",
+      "offset": -0.1
+     },
+     {
+      "line": "e2",
+      "word": "task.",
+      "offset": 3.0
+     }
+    ]
    ]
   },
   {
@@ -946,6 +1047,46 @@
      "t": 0.0,
      "expression": "smug"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hall_wide",
+      "offset": -0.1
+     },
+     {
+      "shot": "gal_helmet"
+     }
+    ],
+    [
+     {
+      "shot": "hall_why",
+      "offset": -0.1
+     },
+     {
+      "shot": "dress_oscar"
+     }
+    ],
+    [
+     {
+      "shot": "hall_russos",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_contract"
+     }
+    ],
+    [
+     {
+      "shot": "hall_end",
+      "offset": -0.1
+     },
+     {
+      "line": "e2",
+      "word": "task.",
+      "offset": 3.0
+     }
+    ]
    ]
   },
   {
@@ -997,6 +1138,46 @@
      "t": 0.0,
      "expression": "smug"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hall_wide",
+      "offset": -0.1
+     },
+     {
+      "shot": "gal_helmet"
+     }
+    ],
+    [
+     {
+      "shot": "hall_why",
+      "offset": -0.1
+     },
+     {
+      "shot": "dress_oscar"
+     }
+    ],
+    [
+     {
+      "shot": "hall_russos",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_contract"
+     }
+    ],
+    [
+     {
+      "shot": "hall_end",
+      "offset": -0.1
+     },
+     {
+      "line": "e2",
+      "word": "task.",
+      "offset": 3.0
+     }
+    ]
    ]
   },
   {
@@ -1048,6 +1229,46 @@
      "t": 0.0,
      "expression": "smug"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hall_wide",
+      "offset": -0.1
+     },
+     {
+      "shot": "gal_helmet"
+     }
+    ],
+    [
+     {
+      "shot": "hall_why",
+      "offset": -0.1
+     },
+     {
+      "shot": "dress_oscar"
+     }
+    ],
+    [
+     {
+      "shot": "hall_russos",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_contract"
+     }
+    ],
+    [
+     {
+      "shot": "hall_end",
+      "offset": -0.1
+     },
+     {
+      "line": "e2",
+      "word": "task.",
+      "offset": 3.0
+     }
+    ]
    ]
   },
   {
@@ -1099,6 +1320,46 @@
      "t": 0.0,
      "expression": "smug"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hall_wide",
+      "offset": -0.1
+     },
+     {
+      "shot": "gal_helmet"
+     }
+    ],
+    [
+     {
+      "shot": "hall_why",
+      "offset": -0.1
+     },
+     {
+      "shot": "dress_oscar"
+     }
+    ],
+    [
+     {
+      "shot": "hall_russos",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_contract"
+     }
+    ],
+    [
+     {
+      "shot": "hall_end",
+      "offset": -0.1
+     },
+     {
+      "line": "e2",
+      "word": "task.",
+      "offset": 3.0
+     }
+    ]
    ]
   },
   {
@@ -1149,6 +1410,184 @@
     {
      "t": 0.0,
      "expression": "smug"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hall_wide",
+      "offset": -0.1
+     },
+     {
+      "shot": "gal_helmet"
+     }
+    ],
+    [
+     {
+      "shot": "hall_why",
+      "offset": -0.1
+     },
+     {
+      "shot": "dress_oscar"
+     }
+    ],
+    [
+     {
+      "shot": "hall_russos",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_contract"
+     }
+    ],
+    [
+     {
+      "shot": "hall_end",
+      "offset": -0.1
+     },
+     {
+      "line": "e2",
+      "word": "task.",
+      "offset": 3.0
+     }
+    ]
+   ]
+  },
+  {
+   "id": "feige_hall",
+   "character": "toon_feige",
+   "at": {
+    "anchor": "hall",
+    "offset": [
+     3.2,
+     1.4,
+     -3.0
+    ]
+   },
+   "facing": {
+    "anchor": "hall",
+    "offset": [
+     -0.0,
+     1.4,
+     6.0
+    ]
+   },
+   "keep_y": true,
+   "action": "talk",
+   "shown": [
+    [
+     {
+      "shot": "hall_2022",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_plan"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "c1j",
+      "word": "Kang"
+     },
+     "expression": "grin"
+    }
+   ]
+  },
+  {
+   "id": "russo_0",
+   "character": "toon_russo_joe",
+   "at": {
+    "anchor": "hall",
+    "offset": [
+     2.6,
+     1.4,
+     -1.6
+    ]
+   },
+   "facing": {
+    "anchor": "hall",
+    "offset": [
+     -0.0,
+     1.4,
+     6.0
+    ]
+   },
+   "keep_y": true,
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "hall_russos",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_contract"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "r10",
+      "word": "Endgame,"
+     },
+     "expression": "grin"
+    }
+   ]
+  },
+  {
+   "id": "russo_1",
+   "character": "toon_russo_anthony",
+   "at": {
+    "anchor": "hall",
+    "offset": [
+     3.6,
+     1.4,
+     -1.6
+    ]
+   },
+   "facing": {
+    "anchor": "hall",
+    "offset": [
+     -0.0,
+     1.4,
+     6.0
+    ]
+   },
+   "keep_y": true,
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "hall_russos",
+      "offset": -0.1
+     },
+     {
+      "shot": "board_contract"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    },
+    {
+     "t": {
+      "line": "r10",
+      "word": "Endgame,"
+     },
+     "expression": "grin"
     }
    ]
   },
@@ -1798,8 +2237,56 @@
       },
       "show": "live",
       "actor": "rdj"
+     },
+     {
+      "t": {
+       "line": "c1i",
+       "word": 0,
+       "offset": -0.3
+      },
+      "show": "logo"
+     },
+     {
+      "t": {
+       "line": "c1j",
+       "word": 0,
+       "offset": -0.1
+      },
+      "show": "title",
+      "text": "AVENGERS: THE KANG DYNASTY"
+     },
+     {
+      "t": {
+       "line": "r1",
+       "word": 0,
+       "offset": -0.3
+      },
+      "show": "live",
+      "actor": "rdj"
+     },
+     {
+      "t": {
+       "line": "r10",
+       "word": 0,
+       "offset": -0.3
+      },
+      "show": "logo"
+     },
+     {
+      "t": {
+       "line": "e1",
+       "word": 0,
+       "offset": -0.3
+      },
+      "show": "live",
+      "actor": "rdj"
      }
     ],
+    "flare": {
+     "line": "e2",
+     "word": "task.",
+     "offset": 0.25
+    },
     "beams": {
      "focus": {
       "line": "h3",
@@ -1848,6 +2335,10 @@
        "line": "h3",
        "word": "mask.",
        "offset": -0.1
+      },
+      "remask": {
+       "line": "e2",
+       "word": "Same"
       }
      },
      {
@@ -4625,55 +5116,223 @@
   {
    "name": "hall_2022",
    "camera": {
-    "at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       6.0,
+       3.2,
+       14.0
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       2.0,
+       4.5,
+       -8.0
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "look_at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       4.5,
+       3.6,
+       11.5
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       1.5,
+       5.0,
+       -8.0
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a2430",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.013,
+     "color": "#7f9a88",
+     "anisotropy": 0.6,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.2
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.05,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "hall_kang",
    "camera": {
-    "at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       -0.5,
+       2.4,
+       9.0
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       8.6,
+       -12.2
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "look_at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       -0.3,
+       2.6,
+       7.5
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       8.6,
+       -12.2
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.05
+     }
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a2430",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.013,
+     "color": "#7f9a88",
+     "anisotropy": 0.6,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.2
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.05,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
@@ -7364,28 +8023,112 @@
   {
    "name": "hall_why",
    "camera": {
-    "at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       2.6,
+       5.5
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       2.7,
+       -3.0
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "look_at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       2.65,
+       4.2
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       2.75,
+       -3.0
+      ]
+     },
+     "lens_mm": 35,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a2430",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.013,
+     "color": "#7f9a88",
+     "anisotropy": 0.6,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.2
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.05,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
@@ -7859,28 +8602,112 @@
   {
    "name": "hall_russos",
    "camera": {
-    "at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       1.4,
+       2.5,
+       2.3
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       3.1,
+       2.55,
+       -1.6
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "look_at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       1.7,
+       2.5,
+       2.0
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       3.1,
+       2.55,
+       -1.6
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a2430",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.013,
+     "color": "#7f9a88",
+     "anisotropy": 0.6,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.2
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.05,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
@@ -8658,56 +9485,234 @@
   {
    "name": "hall_end",
    "camera": {
-    "at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       0.35,
+       2.45,
+       0.6
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       2.9,
+       -2.8
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.1
+     }
     },
-    "look_at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       0.25,
+       2.5,
+       -0.2
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       2.9,
+       -2.8
+      ]
+     },
+     "lens_mm": 40,
+     "dof": {
+      "strength": 0.12
+     }
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.3
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a2430",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.013,
+     "color": "#7f9a88",
+     "anisotropy": 0.6,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.2
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.05,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "hall_final",
    "camera": {
-    "at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       2.6,
+       1.6
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       2.85,
+       -2.8
+      ]
+     },
+     "lens_mm": 32,
+     "dof": {
+      "strength": 0.08
+     }
     },
-    "look_at": {
-     "anchor": "hall",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       2.9,
+       4.5
+      ]
+     },
+     "look_at": {
+      "anchor": "hall",
+      "offset": [
+       -0.0,
+       3.4,
+       -2.8
+      ]
+     },
+     "lens_mm": 28,
+     "dof": {
+      "strength": 0.06
+     }
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
-    "tail": 0.3
-   }
+    "tail": 1.5
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "21:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#020203",
+     "horizon": "#030304",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#1a2430",
+     "energy": 0.05,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 400,
+     "end": 3000,
+     "curve": 1.8,
+     "volumetric": 0.013,
+     "color": "#7f9a88",
+     "anisotropy": 0.6,
+     "length": 90
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.05,
+     "threshold": 1.2
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.05,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "e2",
+      "word": "task.",
+      "offset": 0.25
+     },
+     "amount": 0.06
+    }
+   ]
   }
  ]
 }

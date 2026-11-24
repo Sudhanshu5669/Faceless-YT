@@ -230,7 +230,7 @@ func _fall(rest: Transform3D, t0: float, t: float, seed: int, floor_y: float) ->
 	var side := rng.randf_range(-1.0, 1.0)
 	# Swing on the pin (0..0.25 s), then drop with flutter.
 	var swing := Motion.out_back(clampf(k / 0.25, 0.0, 1.0), 1.4) * side * 0.6
-	var drop := maxf(k - 0.2, 0.0)
+	var drop := clampf(k - 0.2, 0.0, 1.6)   # landed long before 1.6 s; never integrate on
 	var y := rest.origin.y - 2.2 * drop * drop - 0.4 * drop
 	var land := false
 	if y < floor_y:

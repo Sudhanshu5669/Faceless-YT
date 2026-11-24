@@ -471,7 +471,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		else:
 			_lever.rotation = Vector3(-1.15, 0, 0)
 	# The blast.
-	var bt := t - blast_t
+	var bt := minf(t - blast_t, 3.0)
 	_flash.light_energy = 0.0
 	for mi in _fire:
 		mi.visible = false

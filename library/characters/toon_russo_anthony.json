@@ -1,0 +1,29 @@
+{
+  "id": "toon_russo_anthony",
+  "description": "Anthony Russo, co-director (caricature): dark curly hair, a full dark beard, a dark jacket.",
+  "tags": [
+    "toon",
+    "human",
+    "doctor_doom",
+    "real-person",
+    "director"
+  ],
+  "height": 1.52,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "curly",
+      "color": "#2a2420"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#26262c",
+      "tie": "#26262c"
+    },
+    "shoes": "#141418",
+    "face": "happy",
+    "beard": "#2a2420",
+    "girth": 1.02
+  }
+}

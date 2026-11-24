@@ -106,7 +106,7 @@ def _stills(cfg: dict, spec: dict, out: Path, work: Path, name: str) -> list[Pat
     views = spec["preview"]["views"]
     code = tf.run_godot(cfg, ["--spec", str(spec_path), "--stills", str(out)],
                         pre_args=["--quit-after", str(600 + 60 * len(views))])
-    stills = sorted(out.glob("[0-9][0-9]_*.png"))
+    stills = sorted(out.glob("[0-9]*_*.png"))
     if code != 0 or len(stills) != len(views):
         raise SystemExit(f"ERROR: review stills for {name} failed ({len(stills)}/{len(views)} rendered)")
     return stills
