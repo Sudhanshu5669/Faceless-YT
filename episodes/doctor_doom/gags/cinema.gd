@@ -84,7 +84,7 @@ func build(g: Dictionary) -> Node3D:
 	_screen_mat.albedo_color = Color(0.05, 0.05, 0.06)
 	var scr := Kit.quad(root, Vector2(14.4, 6.0), SCREEN, _screen_mat)
 	scr.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	_title = Kit.text(root, "", 0.9, Color(1, 1, 1), SCREEN + Vector3(0, 0, 0.05), Vector3.ZERO, true, 1.6)
+	_title = Kit.text(root, "", 0.6, Color(1, 1, 1), SCREEN + Vector3(0, 0, 0.05), Vector3.ZERO, true, 1.6)
 	_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_spill = Kit.spot(root, SCREEN + Vector3(0, 0, 0.5), Vector3(0, 2.5, 6), "#dfe6ff", 14.0, 30.0, 55.0, false, 0.2)
 	# The projector beam.
@@ -248,7 +248,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var spill := 0.0
 	match show:
 		"title":
-			col = Color(0.16, 0.12, 0.32)
+			col = Color(0.05, 0.22, 0.1) if text.contains("DOOMSDAY") else Color(0.16, 0.12, 0.32)
 			spill = 0.7
 		"white":
 			col = Color(0.9, 0.92, 1.0)

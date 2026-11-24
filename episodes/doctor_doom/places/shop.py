@@ -38,9 +38,11 @@ ACTORS = [
 
 GAGS = [
     {"id": "shop_set", "script": "gags/shop.gd", "t": 0, "at": P(0, 0, 0),
-     "params": {"pull": {"actor": "collector", "t": PULL}, "tilt": W("v0c", 0),
+     "params": {"pull": {"actor": "collector", "t": PULL}, "tilt": W("v0c", 0), "drop": W("v0d", 0, -0.55),
+                "covers": ["library/logos/doom/posters/avengers1.jpg", "library/logos/doom/posters/spiderman.jpg",
+                           "library/logos/doom/posters/ironman_comic.jpg", "library/logos/doom/posters/daredevil.jpg"],
                 "stack": [W("v0j", "Avengers,", 0.0), W("v0j", "Spider-Man,", 0.0), W("v0j", "Iron", 0.0),
-                          W("v0j", "Daredevil.", 0.0)], "rise": W("d19b", "Rise", 0.0)}},
+                          W("v0j", "Daredevil.", 0.0)], "rise": 1e9}},
 ]
 
 SHOTS = {
@@ -56,18 +58,18 @@ SHOTS = {
     "shop_cover": {"look": LOOK_SHOP, "camera": move(
         cam(P(-0.15, 1.15, 0.6), P(-0.35, 1.06, -0.37), 40, {"strength": 0.22}),
         cam(P(-0.2, 1.12, 0.4), P(-0.35, 1.06, -0.37), 40, {"strength": 0.25}), "in")},
-    # Extreme close-up on Doom on the cover.
+    # The comic lies face up on the floor where it fell: top-down, a slow push onto Doom.
     "shop_meet": {"look": LOOK_SHOP, "camera": move(
-        cam(P(-0.33, 1.1, 0.0), P(-0.36, 1.03, -0.37), 50, {"strength": 0.3}),
-        cam(P(-0.34, 1.08, -0.08), P(-0.36, 1.03, -0.37), 50, {"strength": 0.3}), "in")},
+        cam(P(0.12, 0.75, 0.62), P(0.1, 0.0, 0.55), 40, {"strength": 0.08}),
+        cam(P(0.11, 0.5, 0.6), P(0.1, 0.0, 0.55), 40, {"strength": 0.08}), "in")},
     # Top-down on the counter: four comics slap down, one per name.
     "shop_stack": {"look": LOOK_SHOP, "camera": move(
         cam(P(1.55, 2.05, -0.25), P(1.55, 1.0, -0.62), 32, {"strength": 0.08}),
         cam(P(1.55, 1.9, -0.3), P(1.55, 1.0, -0.62), 32, {"strength": 0.08}), "in")},
-    # The new comic, RISE OF DOOM, slaps down on the counter on "Rise".
+    # The Doom standee in the shop window, lit; the Bleeding Cool headline slides in (overlay news_rise).
     "shop_rise": {"look": LOOK_SHOP, "camera": move(
-        cam(P(1.75, 1.6, -0.2), P(1.7, 1.0, -0.5), 35, {"strength": 0.1}),
-        cam(P(1.72, 1.5, -0.25), P(1.7, 1.0, -0.5), 35, {"strength": 0.1}), "in")},
+        cam(P(-2.5, 1.5, 1.6), P(-1.5, 1.6, -3.2), 28, {"strength": 0.08}),
+        cam(P(0.5, 1.5, 1.4), P(1.0, 1.6, -3.2), 28, {"strength": 0.08}), "in_out")},
     # The cardboard Doom standee by the window in front; the collector and his comic behind.
     "shop_wait": {"look": LOOK_SHOP, "camera": move(
         cam(P(2.6, 1.35, 0.7), P(3.3, 1.45, 2.0), 30, {"strength": 0.12}),

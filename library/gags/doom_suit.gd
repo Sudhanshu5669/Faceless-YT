@@ -12,7 +12,7 @@
 ##            hand: "r" (default), "l", or "none" (someone else lifts it: no arm moves)
 ##            remask: on t the held mask comes back up and onto the face (the unmask in reverse, 0.9 s), hood up.
 ##   metal    "#8d9399" the plate colour; tunic "#2b6a35"; cloak "#1d4a26" (each can also be set per actor entry,
-##            as metal, tunic, cloak_color; e.g. God Emperor Doom: gold and white)
+##            as metal, tunic, cloak_color (the long cloak only); e.g. God Emperor Doom: gold and white)
 ## anchors: "<actor>.mask" (the mask's world position) for every dressed actor.
 extends RefCounted
 
@@ -138,9 +138,13 @@ func _dress(a: Node3D, d: Dictionary) -> void:
 	var metal := Kit.mat(String(d.get("metal", _p.get("metal", "#8a9096"))), 0.52, 0.7)
 	var metal_dark := Kit.mat("#4a4f54", 0.55, 0.7)
 	var tunic_col := Color(String(d.get("tunic", _p.get("tunic", "#1f5229"))))
-	var cloak_mat := Toon.material(Color(String(d.get("cloak_color", _p.get("cloak", "#173d20")))), Toon.OUTLINE * 0.7)
+	var cloak_mat := Toon.material(Color(String(_p.get("cloak", "#173d20"))), Toon.OUTLINE * 0.7)
 	cloak_mat = cloak_mat.duplicate()
 	cloak_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	var long_mat: Material = cloak_mat
+	if d.has("cloak_color"):
+		long_mat = Toon.material(Color(String(d["cloak_color"])), Toon.OUTLINE * 0.7).duplicate()
+		(long_mat as BaseMaterial3D).cull_mode = BaseMaterial3D.CULL_DISABLED
 	# The mask.
 	var mask := Node3D.new()
 	mask.name = "doom_mask"
@@ -199,7 +203,7 @@ func _dress(a: Node3D, d: Dictionary) -> void:
 		cloak.name = "doom_cloak"
 		var ground := -Toon.BEAN_BOTTOM * Toon.H + 0.06
 		cloak.mesh = _drape(bh * 0.95, ground, rb * 1.08, rb * 1.75, PI * 0.42, PI * 1.58, 0.08)
-		cloak.material_override = cloak_mat
+		cloak.material_override = long_mat
 		torso.add_child(cloak)
 
 

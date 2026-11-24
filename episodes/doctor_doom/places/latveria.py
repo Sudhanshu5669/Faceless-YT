@@ -62,7 +62,7 @@ ACTORS = [
      "shown": [span("lat_flee", "lat_freeze")], "cues": [{"t": 0.0, "expression": "nervous"}]},
     {"id": "boy_tree", "character": "toon_victor_boy", "at": P(FO[0] - 0.6, 0, -6.6), "facing": P(FO[0] + 0.6, 0, -8.4),
      "action": "idle", "shown": [span("lat_freeze", "lat_chest")], "cues": [{"t": 0.0, "expression": "crying"}]},
-    {"id": "boy_chest", "character": "toon_victor_boy", "at": P(CH[0], 0, CH[1] + 0.85), "facing": P(CH[0], 0, CH[1] - 1.0),
+    {"id": "boy_chest", "freeze": 0.35, "character": "toon_victor_boy", "at": P(CH[0], 0, CH[1] + 0.85), "facing": P(CH[0], 0, CH[1] - 1.0),
      "action": "idle", "shown": [span("lat_chest", "liner_deck")],
      "cues": [{"t": 0.0, "expression": "sad"}, {"t": W("v0q", "secret:", 0.0), "expression": "surprised"},
               {"t": W("v0r", "swears", 0.0), "expression": "angry"}]},

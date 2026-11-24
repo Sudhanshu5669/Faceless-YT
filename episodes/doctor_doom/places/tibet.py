@@ -50,7 +50,7 @@ ACTORS = [
 
 GAGS = [
     {"id": "tibet_set", "script": "gags/tibet.gd", "t": 0, "at": P(0, 0, 0),
-     "params": {"strikes": [W("v9", "forges", 0.0), W("v9", "his", 0.0), W("v9", "armor.", 0.0)],
+     "params": {"smith": "monk_0", "strikes": [W("v9", "forges", 0.0), W("v9", "his", 0.0), W("v9", "armor.", 0.0)],
                 "mask": {"t": W("v10", 0, -0.2), "white": W("v10", "red-hot.", 0.1)}}},
 ]
 

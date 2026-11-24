@@ -104,7 +104,7 @@ func build(g: Dictionary) -> Node3D:
 		var h := 90.0 + rng.randf() * 110.0
 		var c := Vector3(sin(a) * d, 0, -cos(a) * d - 60.0)
 		Kit.cyl(root, 0.0, h * 0.75, h, c + Vector3(0, h * 0.5 - 2, 0), rock, 10)
-		Kit.cyl(root, 0.0, h * 0.3, h * 0.4, c + Vector3(0, h * 0.8 - 2, 0), snow, 10)
+		Kit.cyl(root, 0.0, h * 0.34, h * 0.42, c + Vector3(0, h * 0.8 - 2 + h * 0.012, 0), snow, 10)
 	for i in 70:
 		var p := Vector3(rng.randf_range(-70, 70), 0, rng.randf_range(-90, 25))
 		if Vector2(p.x, p.z).length() < 12.0:
@@ -211,10 +211,9 @@ func build(g: Dictionary) -> Node3D:
 	ch.add_child(_lid)
 	Kit.box(_lid, Vector3(0.92, 0.12, 0.57), Vector3(0, 0.06, 0.285), oak)
 	Kit.box(_lid, Vector3(0.94, 0.03, 0.08), Vector3(0, 0.1, 0.285), brass)
-	_chest_light = Kit.omni(ch, Vector3(0, 0.55, 0.05), "#4dff7a", 0.0, 4.0, true, 1.5)
-	var glow := Kit.box(ch, Vector3(0.8, 0.02, 0.45), Vector3(0, 0.44, 0), Kit.lit("#4dff7a", 1.6))
+	_chest_light = Kit.omni(ch, Vector3(0, 0.5, 0.25), "#4dff7a", 0.0, 3.0, false, 0.6)
+	var glow := Kit.box(ch, Vector3(0.78, 0.01, 0.48), Vector3(0, 0.3, 0), Kit.lit("#4dff7a", 0.8))
 	glow.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	glow.name = "chest_glow"
 	# LINER.
 	_deck = Node3D.new()
 	_deck.position = LINER

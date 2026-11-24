@@ -31,14 +31,31 @@ const PH := "incoming/polyhaven_doom/"
 const WALL_Z := -5.85
 const KANG := Vector3(0, 2.75, -5.82)
 
-# (title, x, y, w, h, colour): the real titles; the Kang card in the middle at the top.
+# [title, x, y, width, height, colour, poster image in POSTERS ("" = a title card)]. The Kang Dynasty never had a
+# poster (the film was cancelled before one existed), so it stays a title card.
+const POSTERS := "library/logos/doom/posters/"
 const CARDS := [
-	["THE KANG\nDYNASTY", 0.0, 2.75, 1.25, 0.9, "#3b2a6a"],
-	["LOKI", -2.35, 2.55, 0.8, 1.05, "#2a4a2a"],
-	["ANT-MAN AND THE WASP:\nQUANTUMANIA", -1.25, 1.55, 0.9, 1.15, "#5a2a1e"],
-	["LOKI\nSEASON 2", 1.3, 1.55, 0.8, 1.05, "#26403a"],
-	["AVENGERS:\nSECRET WARS", 2.45, 2.55, 0.95, 1.1, "#1e2a4a"],
+	["THE KANG\nDYNASTY", 0.0, 2.75, 1.25, 0.9, "#3b2a6a", ""],
+	["LOKI", -2.35, 2.55, 1.0, 0.56, "#050505", "loki_s1.png"],
+	["ANT-MAN AND THE WASP:\nQUANTUMANIA", -1.25, 1.55, 0.78, 1.16, "#101010", "quantumania.jpg"],
+	["LOKI\nSEASON 2", 1.3, 1.55, 0.76, 1.13, "#101010", "loki_s2.jpg"],
+	["AVENGERS:\nSECRET WARS", 2.45, 2.55, 1.0, 0.38, "#050505", "secret_wars.png"],
 ]
+
+
+## A poster board: a thin black mount with the image, or a coloured title card when there is no image.
+func _poster(card: Node3D, title: String, w: float, h: float, col: String, img: String) -> void:
+	Kit.box(card, Vector3(w + 0.03, h + 0.03, 0.012), Vector3(0, -h * 0.5, 0), Kit.mat("#0a0a0a" if img != "" else col, 0.7))
+	if img != "":
+		var m := Kit.textured(POSTERS + img).duplicate()
+		m.roughness = 0.6
+		var q := Kit.quad(card, Vector2(w, h), Vector3(0, -h * 0.5, 0.0075), m)
+		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	else:
+		Kit.box(card, Vector3(w - 0.06, h - 0.06, 0.004), Vector3(0, -h * 0.5, 0.007), Kit.mat(col, 0.5))
+		var th := 0.17 if w > 1.0 else 0.1
+		var label := Kit.text(card, title, th, Color("#f2ead8"), Vector3(0, -h * 0.5, 0.012), Vector3.ZERO, true)
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
 var _p := {}
 var _cards: Array[Node3D] = []        # [0] = Kang
@@ -117,6 +134,8 @@ func build(g: Dictionary) -> Node3D:
 		Kit.box(_wall, Vector3(0.08, 3.0, 0.12), Vector3(s * 3.36, 2.05, -5.93), Kit.mat("#2a1e14", 0.6))
 	Kit.spot(root, Vector3(-1.8, 3.9, -4.2), Vector3(-1.0, 2.1, -5.9), "#ffe2bc", 7.0, 6.0, 42.0, true, 0.4)
 	Kit.spot(root, Vector3(0.8, 3.9, -3.2), Vector3(0.6, 0.0, -4.8), "#ffd8a8", 6.0, 6.0, 35.0, true, 0.3)
+	# A warm key on the floor by the windows (the cash heap in chapter 4).
+	Kit.spot(root, Vector3(1.6, 3.9, 0.6), Vector3(2.6, 0.4, -1.0), "#ffe0b0", 14.0, 7.0, 38.0, true, 0.3)
 	Kit.spot(root, Vector3(1.8, 3.9, -4.2), Vector3(1.0, 2.1, -5.9), "#ffe2bc", 7.0, 6.0, 42.0, true, 0.4)
 	# Title cards (poster boards with their titles) on pins.
 	for c in CARDS:
@@ -124,11 +143,7 @@ func build(g: Dictionary) -> Node3D:
 		root.add_child(card)
 		var w := float(c[3])
 		var h := float(c[4])
-		Kit.box(card, Vector3(w, h, 0.012), Vector3(0, -h * 0.5, 0), Kit.mat(String(c[5]), 0.7))
-		Kit.box(card, Vector3(w - 0.06, h - 0.06, 0.004), Vector3(0, -h * 0.5, 0.007), Kit.mat(String(c[5]).replace("#", "#") , 0.5))
-		var th := 0.17 if w > 1.0 else 0.1
-		var label := Kit.text(card, String(c[0]), th, Color("#f2ead8"), Vector3(0, -h * 0.5, 0.012), Vector3.ZERO, true)
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_poster(card, String(c[0]), w, h, String(c[5]), String(c[6]))
 		Kit.ball(card, 0.025, Vector3(0, -0.04, 0.02), Kit.mat("#c81e1e", 0.4), 10)
 		var xf := Transform3D(Basis.IDENTITY, Vector3(float(c[1]), float(c[2]) + h * 0.5, WALL_Z + 0.02))
 		card.transform = xf
@@ -155,8 +170,9 @@ func build(g: Dictionary) -> Node3D:
 	_comic = Node3D.new()
 	root.add_child(_comic)
 	Kit.box(_comic, Vector3(0.18, 0.006, 0.27), Vector3.ZERO, Kit.mat("#efe9da", 0.8))
-	var cover := Kit.quad(_comic, Vector2(0.18, 0.27), Vector3(0, 0.0035, 0),
-		Kit.textured("library/logos/doom/ff5_doom_debut.jpg"), Vector3(-PI / 2, 0, 0))
+	var cmat := Kit.textured("library/logos/doom/ff5_doom_debut.jpg").duplicate()
+	cmat.roughness = 0.85
+	var cover := Kit.quad(_comic, Vector2(0.18, 0.27), Vector3(0, 0.008, 0), cmat, Vector3(-PI / 2, 0, 0))
 	cover.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_comic.visible = false
 	# The wall TV on a floor stand, angled to the table, a dark chart screen.
@@ -180,14 +196,13 @@ func build(g: Dictionary) -> Node3D:
 	tv.add_child(_tv_line)
 	Kit.omni(root, TV_AT + Vector3(-0.5, 0, 0.3), "#5a8ad0", 0.8, 3.5, false, 0.1)
 	# The new plan for `rebuild`.
-	for c in [["AVENGERS:\nDOOMSDAY", -0.95, "#1f4d27"], ["AVENGERS:\nSECRET WARS", 0.95, "#1e2a4a"]]:
+	# [title, x, width, height, image, top y]: the Doomsday poster and the Secret Wars logo.
+	for c in [["AVENGERS:\nDOOMSDAY", -0.95, 0.8, 1.19, "doomsday.jpg", 3.05], ["AVENGERS:\nSECRET WARS", 0.95, 1.25, 0.48, "secret_wars.png", 2.75]]:
 		var nc := Node3D.new()
 		root.add_child(nc)
-		Kit.box(nc, Vector3(1.25, 0.9, 0.012), Vector3(0, -0.45, 0), Kit.mat(String(c[2]), 0.7))
-		var lab := Kit.text(nc, String(c[0]), 0.15, Color("#f2ead8"), Vector3(0, -0.45, 0.012), Vector3.ZERO, true)
-		lab.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_poster(nc, String(c[0]), float(c[2]), float(c[3]), "#101010", String(c[4]))
 		Kit.ball(nc, 0.025, Vector3(0, -0.04, 0.02), Kit.mat("#c81e1e", 0.4), 10)
-		nc.position = Vector3(float(c[1]), 2.95, WALL_Z + 0.02)
+		nc.position = Vector3(float(c[1]), float(c[5]), WALL_Z + 0.02)
 		nc.visible = false
 		_new_cards.append(nc)
 	# The contract and its pen; two film cans.
@@ -303,11 +318,11 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_comic.visible = t >= ct - 0.45
 	if _comic.visible:
 		var k := Motion.in_cubic(Motion.seg(t, ct - 0.45, ct))
-		var y := lerpf(COMIC_AT.y + 0.9, COMIC_AT.y + 0.004, k)
+		var y := lerpf(COMIC_AT.y + 0.9, COMIC_AT.y + 0.006, k)
 		var tilt := (1.0 - k) * 0.9
 		var sq := Vector3.ONE
 		if t > ct:
-			sq = Motion.squash(Motion.impact(t - ct, 0.18, 6.0, 10.0))
+			sq = Vector3.ONE
 		_comic.transform = Transform3D(Basis.from_euler(Vector3(tilt, 0.35 + 0.4 * (1.0 - k), tilt * 0.5)).scaled(sq),
 			Vector3(COMIC_AT.x, y, COMIC_AT.z))
 	# The box-office line on the TV.

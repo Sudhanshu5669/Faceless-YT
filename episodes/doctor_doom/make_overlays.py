@@ -23,6 +23,9 @@ OVERLAYS = {
     # NPR, 25 Mar 2023 (also run by NPR member stations): the arrest.
     "news_arrest": ("headline", {"outlet": "NPR", "date": "25/03/2023", "before": "Actor Jonathan Majors ",
                                  "mark": "was arrested for assault", "after": " in New York City", "dur": 5.0}),
+    # Bleeding Cool, 5 Dec 2025: Infamous Iron Man reissued as Rise of Doom.
+    "news_rise": ("headline", {"outlet": "Bleeding Cool", "date": "05/12/2025", "before": "Marvel Comics Renames “Infamous Iron Man” As ",
+                               "mark": "“Rise Of Doom”", "after": "", "dur": 4.0}),
     # Euronews (AP copy), 19 Dec 2023: the verdict and Marvel's decision.
     "news_verdict": ("headline", {"outlet": "euronews.", "date": "19/12/2023", "before": "Jonathan Majors ",
                                   "mark": "found guilty of assault", "after": " and dropped by Marvel", "dur": 6.0}),

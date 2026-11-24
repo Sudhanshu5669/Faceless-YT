@@ -46,12 +46,13 @@ for _i, (_ch, _x) in enumerate([("toon_you", -2.1), ("toon_redhead", -1.45), ("t
 
 GAGS = [
     {"id": "cinema_set", "script": "gags/cinema.gd", "t": 0, "at": P(0, 0, 0),
-     "params": {"screen": [{"t": 0.0, "show": "white"},
+     "params": {"screen": [{"t": 0.0, "show": "black"},
+                           {"t": W("o9", "collide", -0.2), "show": "title", "text": "AVENGERS: DOOMSDAY · DEC 18"},
                            {"t": W("c1a", 0, -0.3), "show": "title", "text": "AVENGERS: ENDGAME"},
                            {"t": W("c1c", 0, -0.2), "show": "black"},
                            {"t": W("c1d", 0, -0.2), "show": "white"},
                            {"t": W("r16", 0, -0.3), "show": "trailer"}],
-                "cheer": CHEER, "ticket": W("o9", 0, -0.4),
+                "cheer": CHEER,
                 "marquee": ["AVENGERS: DOOMSDAY", "OPENS DEC 18"],
                 "marquee_sets": [{"t": W("r2b", 0, -1.2), "lines": ["IRON MAN", "MAY 2 2008"]},
                                  {"t": W("r2c", 0, -0.1), "lines": ["AVENGERS: DOOMSDAY", "OPENS DEC 18"]}], "poster": "AVENGERS:\nSECRET WARS\nDECEMBER 2027"}},
@@ -65,10 +66,10 @@ REVEALS = [
 ]
 
 SHOTS = {
-    # The projector beam overhead; a ticket flutters down through it and turns to the lens.
+    # Low behind the front row, the fans in silhouette; the screen lights up with the date on "collide".
     "cinema_ticket": {"look": LOOK_CINEMA, "camera": move(
-        cam(P(0.45, 4.6, -7.1), P(0.3, 4.6, -6.0), 40, {"strength": 0.25}),
-        cam(P(0.4, 4.2, -6.85), P(0.3, 4.1, -6.0), 40, {"strength": 0.3}), "in_out")},
+        cam(P(0.4, 2.6, ROW0_Z + 5.5), P(0.0, 4.0, -13.9), 24, {"strength": 0.03}),
+        cam(P(0.3, 2.4, ROW0_Z + 4.6), P(0.0, 4.1, -13.9), 24, {"strength": 0.03}), "in")},
     # From the back, high: a packed house, the beam, ENDGAME on the screen.
     "cinema_2019": {"look": LOOK_CINEMA, "camera": move(
         cam(P(3.0, 8.0, 7.4), P(0.0, 3.5, -13.0), 24, {"strength": 0.04}),

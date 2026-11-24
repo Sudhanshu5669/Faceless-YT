@@ -13,6 +13,7 @@
 ##   slide   t   the film frames slide in, one by one, from t (REELS; each 1.3 s apart)
 ##   scar    {"actor": id, "warp": t}   a small scar on that actor's cheek; from `warp` his head distorts and the scar
 ##           grows (MIRROR, the reflection)
+##   ironhead {"actor": id}   the actor's head (and Doom's mask) is replaced by the Iron Man helmet (Doom as Iron Man)
 ##   bandage {"actor": id}   a white bandage round that actor's head (CAMPUS)
 ## anchors: devil, doom_ledge, bed, helmet, roof, statue, reels, gate, window, mirror
 extends RefCounted
@@ -269,12 +270,11 @@ func build(g: Dictionary) -> Node3D:
 			Kit.box(fr, Vector3(3.6, 0.35, 0.025), Vector3(0, s * 1.35, 0), Kit.mat("#141414", 0.6))
 			for k in 10:
 				Kit.box(fr, Vector3(0.14, 0.14, 0.03), Vector3(-1.6 + k * 0.36, s * 1.35, 0), Kit.lit("#e8dcc0", 0.4))
-		var m := MeshInstance3D.new()
-		m.mesh = suit_mask()
-		m.material_override = Kit.mat(["#9aa0a6", "#5a5e62", "#3a3c3a"][i], [0.35, 0.6, 0.8][i], 0.7)
-		m.scale = Vector3([0.62, 0.7, 0.6][i], [0.72, 0.62, 0.76][i], 0.4)
-		m.position = Vector3(0, 0, 0.1)
-		fr.add_child(m)
+		# The film's real poster (Wikipedia, commentary use) on the frame.
+		var pm := Kit.textured("library/logos/doom/posters/" + ["ff2005.jpg", "ff2007.jpg", "ff2015.jpg"][i]).duplicate()
+		pm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		var pq := Kit.quad(fr, Vector2(1.5, 2.22), Vector3(0, 0, 0.02), pm)
+		pq.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		var yr := Kit.text(fr, ["2005", "2007", "2015"][i], 0.18, Color("#f2e6c8"), Vector3(1.2, -1.35, 0.03), Vector3.ZERO, true, 1.2)
 		yr.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		_frames.append(fr)
@@ -447,6 +447,21 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 					var sc := head.find_child("scar", false, false) as Node3D
 					if sc != null:
 						sc.scale = Vector3(1.0 + 8.0 * wk, 1.0 + 3.0 * wk, 1.0)
+		var ih: Dictionary = _p.get("ironhead", {})
+		if ih.has("actor"):
+			var a4 = ctx["actor"].call(String(ih["actor"]))
+			if a4 != null:
+				var head4 := a4.find_child("toon_head", true, false) as Node3D
+				if head4 != null:
+					if head4.get_node_or_null("iron_head") == null:
+						var hm4 := head4.get_node_or_null("head") as MeshInstance3D
+						var hr4 := hm4.get_aabb().size.x * 0.5 if hm4 != null else 0.28
+						var ir := helmet_model(hr4 * 2.6)
+						if ir != null:
+							ir.name = "iron_head"
+							head4.add_child(ir)
+					for c in head4.get_children():
+						(c as Node3D).visible = String(c.name) == "iron_head"
 		var bd: Dictionary = _p.get("bandage", {})
 		if bd.has("actor"):
 			var a3 = ctx["actor"].call(String(bd["actor"]))

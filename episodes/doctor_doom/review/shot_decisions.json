@@ -90,11 +90,18 @@
     "history": []
   },
   "board_plan": {
-    "status": "approved",
-    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
-    "updated": "2026-11-24 16:59:40",
-    "fingerprint": "c4fd0875ed88",
-    "history": []
+    "status": "changes",
+    "note": "again, posters",
+    "updated": "2026-11-24 22:33:02",
+    "fingerprint": "e90aa330294c",
+    "history": [
+      {
+        "status": "approved",
+        "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+        "updated": "2026-11-24 16:59:40",
+        "fingerprint": "c4fd0875ed88"
+      }
+    ]
   },
   "board_news": {
     "status": "approved",
@@ -108,6 +115,580 @@
     "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
     "updated": "2026-11-24 16:59:40",
     "fingerprint": "cf093669681b",
+    "history": []
+  },
+  "gal_helmet": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:29:22",
+    "fingerprint": "8f3f55445d32",
+    "history": []
+  },
+  "gal_circle": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:29:26",
+    "fingerprint": "fa2dfdb42f16",
+    "history": []
+  },
+  "gal_shadow": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:29:30",
+    "fingerprint": "2df472cf4d6a",
+    "history": []
+  },
+  "gal_title": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:29:34",
+    "fingerprint": "e71b5f9c6e9f",
+    "history": []
+  },
+  "gal_two": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:29:39",
+    "fingerprint": "ad5e8c53f7e7",
+    "history": []
+  },
+  "board_comic": {
+    "status": "changes",
+    "note": "the scene is shaking so much, and, the cover clips white after falling.",
+    "updated": "2026-11-24 22:30:44",
+    "fingerprint": "11bac5c2e137",
+    "history": []
+  },
+  "board_crack": {
+    "status": "changes",
+    "note": "i want posters here instead of name placeholders",
+    "updated": "2026-11-24 22:31:04",
+    "fingerprint": "1f347d820ea2",
+    "history": []
+  },
+  "cinema_ticket": {
+    "status": "changes",
+    "note": "This is such a horrible scene",
+    "updated": "2026-11-24 22:31:19",
+    "fingerprint": "9d7105c29e62",
+    "history": []
+  },
+  "cinema_2019": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:31:37",
+    "fingerprint": "7283318dcb35",
+    "history": []
+  },
+  "cinema_crowd": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:31:38",
+    "fingerprint": "90efcdedbf5d",
+    "history": []
+  },
+  "cinema_counter": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:31:39",
+    "fingerprint": "95747761195c",
+    "history": []
+  },
+  "cinema_biggest": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:31:40",
+    "fingerprint": "89ae8216c0b1",
+    "history": []
+  },
+  "gal_farewell": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:31:48",
+    "fingerprint": "bad454ef717d",
+    "history": []
+  },
+  "board_blank": {
+    "status": "changes",
+    "note": "posters, again pls",
+    "updated": "2026-11-24 22:31:59",
+    "fingerprint": "6c1124e86b94",
+    "history": []
+  },
+  "board_flip": {
+    "status": "changes",
+    "note": "dont flip the photo, just show it clearly",
+    "updated": "2026-11-24 22:32:23",
+    "fingerprint": "2ec7c5d21af0",
+    "history": []
+  },
+  "hall_2022": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:32:39",
+    "fingerprint": "30b2598740a0",
+    "history": []
+  },
+  "hall_kang": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:32:44",
+    "fingerprint": "3e33e09eda45",
+    "history": []
+  },
+  "hall_wars": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:32:50",
+    "fingerprint": "1da216fef1d1",
+    "history": []
+  },
+  "board_arrest": {
+    "status": "changes",
+    "note": "why he got 2 glasses",
+    "updated": "2026-11-24 22:33:30",
+    "fingerprint": "42af709ae524",
+    "history": []
+  },
+  "shop_cover": {
+    "status": "changes",
+    "note": "cover is not visible. also, show the comic falling on floor in this shot too",
+    "updated": "2026-11-24 22:34:36",
+    "fingerprint": "aea2f345f9ea",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:34:03",
+        "fingerprint": "aea2f345f9ea"
+      }
+    ]
+  },
+  "doom62_kidnap": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:34:54",
+    "fingerprint": "7a134394c13a",
+    "history": []
+  },
+  "doom62_platform": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:34:58",
+    "fingerprint": "9513ce804c82",
+    "history": []
+  },
+  "pirate_chest": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:35:02",
+    "fingerprint": "627decab8aa8",
+    "history": []
+  },
+  "pirate_thing": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:35:06",
+    "fingerprint": "fb0d18dabfd4",
+    "history": []
+  },
+  "doom62_feet": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:35:11",
+    "fingerprint": "5a10d7b79f89",
+    "history": []
+  },
+  "shop_stack": {
+    "status": "changes",
+    "note": "images not shown again, and whole shot shaky",
+    "updated": "2026-11-24 22:35:35",
+    "fingerprint": "abe8a07ca0b0",
+    "history": []
+  },
+  "lab_double": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:35:47",
+    "fingerprint": "dade33e6337f",
+    "history": []
+  },
+  "lat_valley": {
+    "status": "changes",
+    "note": "the peaks are glitching",
+    "updated": "2026-11-24 22:36:05",
+    "fingerprint": "79b52d1e4706",
+    "history": []
+  },
+  "lat_wagon": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:36:21",
+    "fingerprint": "2df5109ea70c",
+    "history": []
+  },
+  "lat_chest": {
+    "status": "changes",
+    "note": "green clipping",
+    "updated": "2026-11-24 22:36:46",
+    "fingerprint": "267a909b04bc",
+    "history": []
+  },
+  "lat_vow": {
+    "status": "changes",
+    "note": "camera shaky? whats this issue",
+    "updated": "2026-11-24 22:37:00",
+    "fingerprint": "cb95e9dea1db",
+    "history": []
+  },
+  "liner_deck": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:37:08",
+    "fingerprint": "69f0df94850d",
+    "history": []
+  },
+  "campus_gates": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:37:32",
+    "fingerprint": "be0fe45d042a",
+    "history": []
+  },
+  "mirror_scar": {
+    "status": "changes",
+    "note": "everything is shaky again and clipping into itself",
+    "updated": "2026-11-24 22:37:52",
+    "fingerprint": "8a3ee74d98bb",
+    "history": []
+  },
+  "tibet_cliff": {
+    "status": "changes",
+    "note": "peaks glitching again",
+    "updated": "2026-11-24 22:38:20",
+    "fingerprint": "6ea2d1a4c74c",
+    "history": []
+  },
+  "tibet_forge": {
+    "status": "changes",
+    "note": "hammer hitting in the air wtf",
+    "updated": "2026-11-24 22:38:38",
+    "fingerprint": "72b98155ed93",
+    "history": []
+  },
+  "castle_gates": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:38:52",
+    "fingerprint": "c61e6b00eaf3",
+    "history": []
+  },
+  "castle_throne": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:39:01",
+    "fingerprint": "340f0c2691b4",
+    "history": []
+  },
+  "castle_king": {
+    "status": "changes",
+    "note": "he clipping in the chair? make him sit properly",
+    "updated": "2026-11-24 22:39:26",
+    "fingerprint": "9f027a6171c0",
+    "history": []
+  },
+  "throne_wide": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:39:33",
+    "fingerprint": "7ffb73fb9964",
+    "history": []
+  },
+  "castle_immunity": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:39:40",
+    "fingerprint": "96f260edd95b",
+    "history": []
+  },
+  "castle_people": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:39:48",
+    "fingerprint": "481c843e2d9a",
+    "history": []
+  },
+  "doom_hands": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:39:53",
+    "fingerprint": "22c94b7d5315",
+    "history": []
+  },
+  "doombots_row": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:39:58",
+    "fingerprint": "a5c5d3125e52",
+    "history": []
+  },
+  "doombots_pop": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:40:02",
+    "fingerprint": "a92df5078e05",
+    "history": []
+  },
+  "hell_fight": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:40:08",
+    "fingerprint": "3d8e1228a178",
+    "history": []
+  },
+  "surfer_sky": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:40:11",
+    "fingerprint": "a35889918efd",
+    "history": []
+  },
+  "beyonder_grab": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:40:21",
+    "fingerprint": "0ff1d4c38c6a",
+    "history": []
+  },
+  "beyonder_hand": {
+    "status": "changes",
+    "note": "whhy he shaking?!",
+    "updated": "2026-11-24 22:40:33",
+    "fingerprint": "a932e8c5702b",
+    "history": []
+  },
+  "bw_planet": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:40:43",
+    "fingerprint": "a90563685433",
+    "history": []
+  },
+  "bw_stitch": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:40:48",
+    "fingerprint": "4dce261f1459",
+    "history": []
+  },
+  "bw_throne": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:40:52",
+    "fingerprint": "08a80481537f",
+    "history": []
+  },
+  "bw_heal": {
+    "status": "changes",
+    "note": "shaking, wtf",
+    "updated": "2026-11-24 22:41:02",
+    "fingerprint": "ae8553529a13",
+    "history": []
+  },
+  "emp_cloak": {
+    "status": "changes",
+    "note": "the cape is so weird wth",
+    "updated": "2026-11-24 22:41:25",
+    "fingerprint": "5f787bec582d",
+    "history": []
+  },
+  "board_titles": {
+    "status": "changes",
+    "note": "posters pls",
+    "updated": "2026-11-24 22:41:44",
+    "fingerprint": "b967bfe99a8a",
+    "history": []
+  },
+  "hosp_bed": {
+    "status": "changes",
+    "note": "shaking",
+    "updated": "2026-11-24 22:41:54",
+    "fingerprint": "459bbe0dba08",
+    "history": []
+  },
+  "city_ironman": {
+    "status": "changes",
+    "note": "looks weird af",
+    "updated": "2026-11-24 22:42:08",
+    "fingerprint": "109bbee5c2fd",
+    "history": []
+  },
+  "shop_rise": {
+    "status": "changes",
+    "note": "wthh",
+    "updated": "2026-11-24 22:42:15",
+    "fingerprint": "4449c8107e4e",
+    "history": []
+  },
+  "hall_why": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:42:20",
+    "fingerprint": "707c67da6a81",
+    "history": []
+  },
+  "dress_oscar": {
+    "status": "changes",
+    "note": "shaking again?!",
+    "updated": "2026-11-24 22:42:29",
+    "fingerprint": "40b26654b74c",
+    "history": []
+  },
+  "cinema_2008": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:42:36",
+    "fingerprint": "615fae036285",
+    "history": []
+  },
+  "gal_return": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:42:43",
+    "fingerprint": "45a36636dcbe",
+    "history": []
+  },
+  "reels_past": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:42:47",
+    "fingerprint": "6bf3cc852ac5",
+    "history": []
+  },
+  "reels_mcmahon": {
+    "status": "changes",
+    "note": "glitching. i need posters",
+    "updated": "2026-11-24 22:43:00",
+    "fingerprint": "a8a7efde3dc7",
+    "history": []
+  },
+  "gal_mirror": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:43:14",
+    "fingerprint": "08b6928df26b",
+    "history": []
+  },
+  "gal_both": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:43:21",
+    "fingerprint": "2c3699e7e371",
+    "history": []
+  },
+  "gal_light": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:43:26",
+    "fingerprint": "8465b5cd178c",
+    "history": []
+  },
+  "hall_russos": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:43:32",
+    "fingerprint": "b67851f240c1",
+    "history": []
+  },
+  "board_contract": {
+    "status": "rejected",
+    "note": "show rdj swimming in cash here",
+    "updated": "2026-11-24 22:43:50",
+    "fingerprint": "ac352e4a2d3f",
+    "history": []
+  },
+  "board_question": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:43:58",
+    "fingerprint": "a27625b2a3d5",
+    "history": []
+  },
+  "board_fox": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:44:05",
+    "fingerprint": "d385c7e4b305",
+    "history": []
+  },
+  "rocket_pad": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:44:11",
+    "fingerprint": "0467280b1803",
+    "history": []
+  },
+  "rocket_shadow": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:44:14",
+    "fingerprint": "3a508feb3818",
+    "history": []
+  },
+  "cinema_trailer": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:44:21",
+    "fingerprint": "1d70e808a3b9",
+    "history": []
+  },
+  "gal_eye": {
+    "status": "changes",
+    "note": "btw can we get a better doom mask here",
+    "updated": "2026-11-24 22:44:41",
+    "fingerprint": "8658eb00d19f",
+    "history": []
+  },
+  "cinema_marquee": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:44:49",
+    "fingerprint": "d54f9cdc13ca",
+    "history": []
+  },
+  "cinema_years": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:44:54",
+    "fingerprint": "e50730ce9a1f",
+    "history": []
+  },
+  "castle_night": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:44:59",
+    "fingerprint": "84f2faa67589",
+    "history": []
+  },
+  "castle_window": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:45:02",
+    "fingerprint": "d1a34935dbcc",
+    "history": []
+  },
+  "hall_end": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:45:08",
+    "fingerprint": "00b49aa50be7",
+    "history": []
+  },
+  "hall_final": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-24 22:45:13",
+    "fingerprint": "b00d91d2a483",
     "history": []
   }
 }

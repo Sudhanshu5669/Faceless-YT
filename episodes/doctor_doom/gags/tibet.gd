@@ -7,6 +7,7 @@
 ##
 ## params:
 ##   strikes  [t, ...]   hammer blows on the plate (sparks, a flash, a ring)
+##   smith    actor id   that actor's right hand holds the hammer's grip
 ##   mask     {"t": t, "white": t}   the tongs lift the glowing mask from the coals from t, carry it toward the lens;
 ##            at `white` the frame floods white (the moment itself is never shown)
 ## anchors: monastery, anvil, coals, mask
@@ -61,7 +62,7 @@ func build(g: Dictionary) -> Node3D:
 		var h := 200.0 + rng.randf() * 180.0
 		var c := Vector3(sin(a) * d, -40, -cos(a) * d - 100.0)
 		Kit.cyl(root, 0.0, h * 0.55, h, c + Vector3(0, h * 0.5, 0), rock, 8)
-		Kit.cyl(root, 0.0, h * 0.22, h * 0.4, c + Vector3(0, h * 0.8, 0), snow, 8)
+		Kit.cyl(root, 0.0, h * 0.25, h * 0.42, c + Vector3(0, h * 0.8 + h * 0.012, 0), snow, 8)
 	Kit.cyl(root, 18.0, 46.0, 50.0, Vector3(0, -16, -62), rock, 10)
 	Kit.cyl(root, 18.5, 20.0, 2.0, Vector3(0, 9.5, -62), snow, 14)
 	for k in 4:
@@ -126,7 +127,7 @@ func build(g: Dictionary) -> Node3D:
 	plate.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	# The hammer (pivot at the striker's grip).
 	_hammer = Node3D.new()
-	_hammer.position = Vector3(0.35, 1.25, 0.45)
+	_hammer.position = Vector3(0.33, 1.04, 0.33)
 	fg.add_child(_hammer)
 	Kit.rod(_hammer, Vector3.ZERO, Vector3(-0.35, -0.2, -0.3), 0.025, Kit.mat("#6a4a2a", 0.7), 8)
 	Kit.box(_hammer, Vector3(0.1, 0.1, 0.22), Vector3(-0.38, -0.22, -0.33), iron, Vector3(0, -0.7, 0))
@@ -196,7 +197,11 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 				swing = Motion.impact(k, 0.25, 6.0, 12.0)
 			if t >= s:
 				last = s
-	_hammer.rotation = Vector3(0, 0, swing)
+	_hammer.rotation = Vector3(0, 0, -maxf(swing, 0.0))   # negative z lifts the head off the plate
+	if _p.has("smith") and ctx.has("actor"):
+		var sm = ctx["actor"].call(String(_p["smith"]))
+		if sm != null:
+			sm.aim_hand("r", node.global_transform * (FORGE + _hammer.position), 1.0)
 	var k2 := t - last
 	_flash.light_energy = 18.0 * exp(-k2 * 10.0) if k2 >= 0.0 and k2 < 1.0 else 0.0
 	_plate_mat.emission_energy_multiplier = 2.5 + 3.0 * (exp(-k2 * 6.0) if k2 >= 0.0 and k2 < 1.0 else 0.0)

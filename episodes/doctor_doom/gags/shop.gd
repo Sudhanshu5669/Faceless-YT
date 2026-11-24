@@ -10,6 +10,7 @@
 ##   pull   {"actor": id, "t": t}   the actor reaches into the long box, draws FF #5 out on t and holds it up
 ##   tilt   t   the held comic tilts toward the lamp (the cover catches the light)
 ##   stack  [t, t, t, t]   four comics slap down on the counter one by one
+##   drop   t   the hero comic slips from the hand and flutters to the floor, landing face up at (0.1, 0, 0.55)
 ##   rise   t   a new comic, RISE OF DOOM (the 2026 reissue of Infamous Iron Man), slaps down on the counter
 ##   covers ["path.jpg", ...]   optional cover textures for the four stacked comics (else plain colours)
 ## anchors: comic, box, counter, standee, window
@@ -149,6 +150,7 @@ func build(g: Dictionary) -> Node3D:
 	Kit.rod(root, Vector3(0.45, 0.62, -0.3), Vector3(0.45, 1.5, -0.3), 0.012, Kit.mat("#202020", 0.4, 0.6), 8)
 	Kit.cyl(root, 0.03, 0.12, 0.14, Vector3(0.3, 1.5, -0.2), Kit.mat("#1c3a2a", 0.4, 0.5), 16, Vector3(0.5, 0, 0.6))
 	Kit.spot(root, Vector3(0.7, 1.7, 0.6), Vector3(-0.3, 1.05, -0.35), "#ffd09a", 1.3, 4.0, 40.0, true, 0.3)
+	Kit.spot(root, Vector3(0.5, 2.4, 1.3), Vector3(0.1, 0.0, 0.55), "#ffd8a8", 2.2, 4.0, 22.0, true, 0.2)
 	Kit.omni(root, Vector3(0, 3.2, -1.0), "#9fb8ff", 1.2, 9.0, false, 0.1)
 	# The Doom standee by the window: a cardboard cutout (cloak silhouette, the mask).
 	var st := Node3D.new()
@@ -223,6 +225,13 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			var hand_target: Vector3 = node.global_transform * (xf.origin + Vector3(0.08, -0.08, 0))
 			if reach > 0.0:
 				a.aim_hand("r", hand_target if draw > 0.0 else node.global_transform * (rest.origin + Vector3(0, 0.1, 0)), reach)
+	var dt := float(_p.get("drop", 1e9))
+	if t >= dt:
+		var k := Motion.in_cubic(Motion.seg(t, dt, dt + 0.75))
+		var land := Transform3D(Basis.from_euler(Vector3(-PI / 2, 0.5, 0)), Vector3(0.1, 0.006, 0.55))
+		var mid := xf.origin.lerp(land.origin, k) + Vector3(0.06 * sin(k * 9.0), 0.15 * sin(PI * k), 0)
+		xf = Transform3D(Basis(xf.basis.get_rotation_quaternion().slerp(land.basis.get_rotation_quaternion(), Motion.out_cubic(k))
+			* Quaternion(Vector3(0, 0, 1), 0.6 * sin(k * 7.0) * (1.0 - k))), mid if k < 1.0 else land.origin)
 	_comic.transform = xf
 	# The stack on the counter.
 	var st: Array = _p.get("stack", [])
@@ -234,7 +243,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			var k := Motion.in_cubic(Motion.seg(t, ct - 0.35, ct))
 			var land := COUNTER + Vector3(-0.25 + 0.17 * i, 0.03 + 0.006 * i, 0.05 - 0.02 * i)
 			var y := lerpf(land.y + 0.7, land.y, k)
-			var sq := Motion.squash(Motion.impact(t - ct, 0.2, 6.0, 10.0)) if t > ct else Vector3.ONE
+			var sq := Vector3.ONE
 			c.transform = Transform3D(Basis.from_euler(Vector3(-PI / 2 + (1.0 - k) * 0.6, 0.2 * (i - 1.5) + (1.0 - k) * 1.2, 0)).scaled(sq),
 				Vector3(land.x, y, land.z))
 	var rset := float(_p.get("rise", 1e9))

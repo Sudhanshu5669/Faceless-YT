@@ -1,0 +1,62 @@
+{
+ "loki_s1": {
+  "article": "Loki (TV series)",
+  "file": "Loki (TV series) logo.png",
+  "url": "https://upload.wikimedia.org/wikipedia/en/4/4e/Loki_%28TV_series%29_logo.png"
+ },
+ "loki_s2": {
+  "article": "Loki season 2",
+  "file": "Loki season 2 poster.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/4/4b/Loki_season_2_poster.jpg"
+ },
+ "quantumania": {
+  "article": "Ant-Man and the Wasp: Quantumania",
+  "file": "Ant-Man and the Wasp Quantumania poster.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/3/30/Ant-Man_and_the_Wasp_Quantumania_poster.jpg"
+ },
+ "doomsday": {
+  "article": "Avengers: Doomsday",
+  "file": "Avengers Doomsday poster.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/e/ee/Avengers_Doomsday_poster.jpg"
+ },
+ "ff2005": {
+  "article": "Fantastic Four (2005 film)",
+  "file": "Fantastic Four poster.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/4/4a/Fantastic_Four_poster.jpg"
+ },
+ "ff2007": {
+  "article": "Fantastic Four: Rise of the Silver Surfer",
+  "file": "Fantastic Four 2 Poster.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/e/e6/Fantastic_Four_2_Poster.jpg"
+ },
+ "ff2015": {
+  "article": "Fantastic Four (2015 film)",
+  "file": "The Fantastic Four poster.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/f/f4/Fantastic_Four_2015_poster.jpg"
+ },
+ "avengers1": {
+  "article": "The Avengers (comic book)",
+  "file": "Avengers-1.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/8/84/Avengers-1.jpg"
+ },
+ "spiderman": {
+  "article": "The Amazing Spider-Man",
+  "file": "AmazingSpider-Man1.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/5/54/AmazingSpider-Man1.jpg"
+ },
+ "daredevil": {
+  "article": "Daredevil (Marvel Comics series)",
+  "file": "Daredevil (1964) 1.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/0/03/Daredevil_%281964%29_1.jpg"
+ },
+ "ironman_comic": {
+  "article": "Iron Man (comic book)",
+  "file": "Ironman001.jpg",
+  "url": "https://upload.wikimedia.org/wikipedia/en/f/f4/Ironman001.jpg"
+ },
+ "kang_dynasty": {
+  "article": "Avengers: The Kang Dynasty",
+  "file": "Avengers Doomsday and Secret Wars logos.png",
+  "url": "https://upload.wikimedia.org/wikipedia/en/2/2d/Avengers_Doomsday_and_Secret_Wars_logos.png"
+ }
+}

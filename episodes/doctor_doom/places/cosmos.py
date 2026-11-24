@@ -50,13 +50,13 @@ def span(a, b):
 
 
 ACTORS = [
-    {"id": "doom_surfer", "character": "toon_victor_young", "at": P(0.0, 5.0, 0.0), "facing": P(0.0, 5.0, 10.0), "keep_y": True,
+    {"id": "doom_surfer", "freeze": 0.35, "character": "toon_victor_young", "at": P(0.0, 5.0, 0.0), "facing": P(0.0, 5.0, 10.0), "keep_y": True,
      "action": "idle", "shown": [span("surfer_sky", "beyonder_grab")], "cues": [{"t": 0.0, "expression": "determined"}]},
-    {"id": "doom_void", "character": "toon_victor_young", "at": P(0.0, 0.0, VO), "facing": P(0.0, 0.0, VO + 10.0), "keep_y": True,
+    {"id": "doom_void", "freeze": 0.35, "character": "toon_victor_young", "at": P(0.0, 0.0, VO), "facing": P(0.0, 0.0, VO + 10.0), "keep_y": True,
      "action": "idle", "shown": [span("beyonder_grab", "bw_planet")], "cues": [{"t": 0.0, "expression": "scheming"}]},
-    {"id": "doom_god", "character": "toon_victor_young", "at": P(0.0, 0.55, GO - 6.0), "facing": P(0.0, 0.55, GO + 10.0),
+    {"id": "doom_god", "freeze": 0.35, "character": "toon_victor_young", "at": P(0.0, 0.55, GO - 6.0), "facing": P(0.0, 0.55, GO + 10.0),
      "keep_y": True, "action": "sit", "shown": [span("bw_throne", "emp_cloak")], "cues": [{"t": 0.0, "expression": "smug"}]},
-    {"id": "doom_emp", "character": "toon_victor_young", "at": P(0.0, -5.0, EA + 52.0), "facing": P(0.0, -5.0, EA + 70.0),
+    {"id": "doom_emp", "freeze": 0.35, "character": "toon_victor_young", "at": P(0.0, -5.0, EA + 52.0), "facing": P(0.0, -5.0, EA + 70.0),
      "keep_y": True, "action": "idle", "shown": [span("emp_cloak", "board_titles")], "cues": [{"t": 0.0, "expression": "smug"}]},
 ]
 
@@ -64,13 +64,13 @@ GAGS = [
     {"id": "cosmos_set", "script": "gags/cosmos.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"board": {"actor": "doom_surfer"}, "lightning": [W("d7", "Silver", 0.0), W("d7", "Surfer.", 0.2)],
                 "beyonder": {"actor": "doom_void", "t": W("d8", "god.", 0.0)}, "stitch": W("d11", "stitches", 0.0),
-                "stretch": {"t": W("d13", "Reed", 0.0)}, "cloak": {"actor": "doom_emp", "t": W("d14", "Supreme", 0.0)},
+                "stretch": {"t": W("d13", "Reed", 0.0)},
                 "green": W("d15", "Overnight,", 0.0)}},
     {"id": "cosmos_suits", "script": "library:doom_suit", "t": 0, "at": P(0, 0, 0),
      "params": {"actors": [{"actor": "doom_surfer"}, {"actor": "doom_void"},
                            {"actor": "doom_god", "metal": "#d8aa3a", "tunic": "#efe9dc", "cloak_color": "#f2ece0",
                             "unmask": W("d13", "heals", 0.0), "hand": "none"},
-                           {"actor": "doom_emp"}]}},
+                           {"actor": "doom_emp", "cloak_color": "#9a1420"}]}},
 ]
 
 SHOTS = {
@@ -104,8 +104,8 @@ SHOTS = {
         cam(P(-3.0, 2.2, GO - 4.8), P(0.3, 1.7, GO - 5.4), 32, {"strength": 0.1}), "in")},
     # Before the Earth: the red cloak and the amulet drop onto his shoulders on "Supreme".
     "emp_cloak": {"look": LOOK_SPACE, "camera": move(
-        cam(P(2.6, -3.8, EA + 56.5), P(0.0, -4.0, EA + 52.0), 35, {"strength": 0.06}),
-        cam(P(2.2, -3.9, EA + 55.8), P(0.0, -4.0, EA + 52.0), 35, {"strength": 0.06}), "in")},
+        cam(P(1.5, -3.85, EA + 54.4), P(0.0, -4.15, EA + 52.0), 35, {"strength": 0.05}),
+        cam(P(1.25, -3.9, EA + 54.0), P(0.0, -4.1, EA + 52.0), 35, {"strength": 0.05}), "in")},
     # Pull out from Doom to the whole Earth turning green, banners rising across it.
     "emp_globe": {"look": LOOK_SPACE, "camera": move(
         cam(P(1.5, -3.5, EA + 56.0), P(0.0, -3.5, EA + 50.0), 30, {"strength": 0.03}),

@@ -44,7 +44,7 @@ ACTORS = [
      "route": {"via": [P(0.0, 0, 6.0)], "gait": "walk_formal", "start": W("v11", 0, 0.2), "arrive": W("v11", "Latveria.", 0.3)},
      "shown": [span("castle_gates", "castle_throne")], "cues": [{"t": 0.0, "expression": "determined"}]},
     # Doom on the throne.
-    {"id": "doom_throne", "character": "toon_victor_young", "at": P(*TH), "facing": P(0.0, 1.2, 10.0), "keep_y": True,
+    {"id": "doom_throne", "freeze": 0.35, "character": "toon_victor_young", "at": P(TH[0], TH[1] + 0.32, TH[2] + 0.28), "facing": P(0.0, 1.2, 10.0), "keep_y": True,
      "action": "sit", "shown": [span("castle_throne", "castle_immunity"), span("doom_hands", "hell_fight")],
      "cues": [{"t": 0.0, "expression": "scheming"}]},
     # Doom above the gate, before his people.

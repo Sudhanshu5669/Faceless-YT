@@ -1,6 +1,6 @@
 {
   "id": "toon_feige",
-  "description": "Kevin Feige, president of Marvel Studios (caricature): his trademark baseball cap, a trimmed grey beard, glasses, a dark blazer.",
+  "description": "Kevin Feige, president of Marvel Studios (caricature): his trademark baseball cap, a trimmed grey beard, a dark blazer.",
   "tags": [
     "toon",
     "human",
@@ -24,9 +24,6 @@
     "shoes": "#141418",
     "face": "smug",
     "beard": "#9a9893",
-    "accessories": [
-      "glasses"
-    ],
     "girth": 1.0
   }
 }

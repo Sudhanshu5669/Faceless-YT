@@ -60,20 +60,35 @@ ACTORS = [
               {"t": W("r12", 0), "expression": "thinking"}, {"t": W("r13", "bought", 0.0), "expression": "grin"}]},
 ]
 
+# RDJ's deal (r11): bills rain onto the boardroom floor and pile up; he swims on top of the heap.
+HEAP = P(2.6, 0, -1.0)   # lit by the gag's heap_light (boardroom.gd: cash light)
+ACTORS.append({"id": "rdj_cash", "character": "toon_rdj", "at": P(2.6, 0.5, -0.9), "facing": P(0.6, 0.5, 1.5), "keep_y": True,
+               "action": "swim", "shown": [span("board_contract", "board_question")],
+               "cues": [{"t": 0.0, "expression": "star_eyes"}, {"t": W("r11", "million", 0.0), "expression": "laugh"}]})
+REVEALS = [
+    {"id": "rdj_pay", "t": W("r11", 0, -0.1), "until": W("r12", 0),
+     "at": P(2.6, 1.75, -1.0), "size": 0.36,
+     "counter": {"from": 0, "to": 80000000, "prefix": "$", "suffix": "+", "commas": True,
+                 "land": W("r11", "million", 0.0), "label": "REPORTED DEAL (VARIETY)"}, "sound": "ding"},
+]
+
 GAGS = [
     {"id": "board_set", "script": "gags/boardroom.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"pull": {"actor": "feige", "t": PULL}, "collapse": COLLAPSE,
-                "pins_from": W("c1d", 0), "flip": W("c1f", "Kang", 0.0),
+                "pins_from": W("c1d", 0),
                 "pins": {"0": W("c1e", "villain.", 0.0), "1": W("c1g", "Loki", 0.0), "2": W("c1h", "Quantumania", 0.0),
                          "3": W("c1i", "Comic-Con", 0.0), "4": W("c1i", "announces", 0.0)},
                 "comic": W("o6", "Comics.", 0.0), "chart": {"t": W("c1k", 0), "fall": W("c1l", "fades", 0.0)},
-                "rebuild": W("d15", 0), "contract": W("r11", "deal", 0.0), "cans": W("r13", "bought", 0.2)}},
+                "rebuild": W("d15", 0), "cans": W("r13", "bought", 0.2)}},
+    {"id": "cash_pile", "script": "library:cash_stream", "t": W("r11", 0, -2.2), "until": W("r12", 0), "at": HEAP,
+     "params": {"fire": W("r11", 0, -2.0), "duration": 4.5, "count": 1600, "radius": 1.5, "height": 0.85,
+                "flight": 0.7, "arc": 0.2, "size": 0.17, "seed": 11}},
 ]
 
 WALL = P(0.0, 2.2, -6.0)
 SHOTS = {
     # Low over the table: the comic drops and slaps down in front of us on "Comics."; the plan wall soft behind.
-    "board_comic": {"look": LOOK_BOARD, "shake": [{"t": W("o6", "Comics.", 0.02), "amount": 0.05}], "camera": move(
+    "board_comic": {"look": LOOK_BOARD, "camera": move(
         cam(P(-0.05, 1.42, -1.25), P(-0.15, 0.8, -1.62), 40, {"strength": 0.12}),
         cam(P(-0.08, 1.32, -1.33), P(-0.15, 0.8, -1.62), 40, {"strength": 0.12}), "out")},
     # The plan wall, close and slowly tilting; strings and cards.
@@ -140,10 +155,10 @@ SHOTS = {
     "board_titles": {"look": LOOK_BOARD, "camera": move(
         cam(P(0.0, 2.0, -2.6), P(0.0, 2.6, -6.0), 32, {"strength": 0.08}),
         cam(P(0.0, 2.1, -3.2), P(0.0, 2.65, -6.0), 32, {"strength": 0.08}), "in")},
-    # Chapter 4: from behind Feige at the head of the table; the contract slides down to him.
+    # Chapter 4: bills pour from above onto a growing heap; RDJ swims across the top; the counter lands on "million".
     "board_contract": {"look": LOOK_BOARD, "camera": move(
-        cam(P(1.7, 1.45, 3.1), P(0.0, 0.8, 0.6), 30, {"strength": 0.1}),
-        cam(P(1.6, 1.4, 2.9), P(0.0, 0.8, 1.1), 30, {"strength": 0.1}), "in_out")},
+        cam(P(0.9, 1.5, 2.0), P(2.6, 0.8, -1.0), 30, {"strength": 0.06}),
+        cam(P(1.2, 1.7, 1.5), P(2.6, 1.0, -1.0), 30, {"strength": 0.06}), "in_out")},
     # Feige thinks, the long table and the rebuilt wall behind him.
     "board_question": {"look": LOOK_BOARD, "camera": move(
         cam(P(0.6, 1.2, 0.6), P(0.0, 1.15, 2.75), 40, {"strength": 0.15}),
@@ -154,4 +169,4 @@ SHOTS = {
         cam(P(-0.8, 1.05, 0.5), P(0.0, 0.82, 1.6), 30, {"strength": 0.12}), "in_out")},
 }
 
-PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}
+PLACE = {"gags": GAGS, "actors": ACTORS, "reveals": REVEALS, "shots": SHOTS}
