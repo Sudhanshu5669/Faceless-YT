@@ -1,6 +1,6 @@
 # Pokhran: handoff (read this first to continue the video)
 
-*Last updated 2026-11-24. Update this file after every shot (state, decisions, lessons). The repo-wide
+*Last updated 2026-11-24. **FINAL RENDERED: `renders/pokhran.mp4` (162.2 s, 60 fps, -14 LUFS); posting kit `POST.md`; thumbnails `thumbnail/` (`create_thumbnail.gd`).** Update this file after every shot (state, decisions, lessons). The repo-wide
 `HANDOFF.md` points here. Also read `AGENTS.md` (the user's standing rules) and the `toon-short` skill.*
 
 **The video:** "India blew up the White House": the true story of Pokhran-II (11 May 1998), told as an

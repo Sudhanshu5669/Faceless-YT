@@ -1,6 +1,6 @@
 # Pokhran: posting kit (YouTube Short)
 
-**File:** `episodes/pokhran/renders/pokhran.mp4` (1080x1920, 60 fps, ~156 s, loops into its own first frame).
+**File:** `episodes/pokhran/renders/pokhran.mp4` (1080x1920, 60 fps, 162.2 s, -14 LUFS, captions burned in; loops into its own first frame). Thumbnails: `thumbnail/pokhran_shorts_cover.png` (1080x1920) and `thumbnail/pokhran_youtube_thumbnail.png` (1280x720).
 
 ## Title (pick one)
 
