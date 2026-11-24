@@ -1,0 +1,107 @@
+{
+  "hall_wide": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "3d9352b2b607",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 16:57:57",
+        "fingerprint": "3d9352b2b607"
+      }
+    ]
+  },
+  "hall_walk": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "e0a7b7736b6e",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 16:58:04",
+        "fingerprint": "e0a7b7736b6e"
+      }
+    ]
+  },
+  "hall_unmask": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "7903dc2b1a48",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 16:58:08",
+        "fingerprint": "7903dc2b1a48"
+      }
+    ]
+  },
+  "hall_reveal": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "eefc073c1a1f",
+    "history": []
+  },
+  "hall_quote": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "ce6205a18025",
+    "history": []
+  },
+  "lab_machine": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "62dee95b33cc",
+    "history": []
+  },
+  "lab_warning": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "90b3c375f14e",
+    "history": []
+  },
+  "lab_ignore": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "3f8194ccd7c8",
+    "history": []
+  },
+  "lab_blast": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "b81765c66927",
+    "history": []
+  },
+  "board_plan": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "c4fd0875ed88",
+    "history": []
+  },
+  "board_news": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "f19944e62530",
+    "history": []
+  },
+  "board_collapse": {
+    "status": "approved",
+    "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
+    "updated": "2026-11-24 16:59:40",
+    "fingerprint": "cf093669681b",
+    "history": []
+  }
+}
