@@ -109,3 +109,10 @@ SFX = [
     fx("braam_a", W("e2", "task.", 0.1), -3.0),
     fx("crowd_cheer", W("e2", "task.", 0.4), -6.0),
 ]
+
+
+# 2D overlays (HyperFrames, rendered by make_overlays.py into overlays/out/), placed at their words.
+OVERLAY_AT = {
+    "ch1": W("c1a", 0, -0.2), "ch2": W("v0a", 0, -0.2), "ch3": W("d1", 0, -0.2), "ch4": W("r1", 0, -0.2),
+    "news_arrest": W("c1m", 0, 0.3), "news_verdict": W("k2", 0, 0.6),
+}

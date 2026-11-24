@@ -50,3 +50,5 @@ desktop.ini
 
 # Licensed audio cut from incoming/ packs (Sonniss: no redistribution; music: rebuilt by make_audio.py)
 episodes/*/audio/lib/
+episodes/*/overlays/out/
+episodes/*/overlays/*/.hyperframes/

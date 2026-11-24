@@ -318,7 +318,8 @@ def _remix(cfg: dict, res: dict, root: Path, ep_id: str, fps: int, draft: bool) 
     captions = None
     if res["lines"] and res["captions"].get("enabled", True):
         captions = episode_audio.write_captions(res, root / "captions.ass")
-    episode_audio.finish(cfg["ffmpeg"], picture, audio, captions, out, res["end_black"], fps, video_codec(cfg))
+    episode_audio.finish(cfg["ffmpeg"], picture, audio, captions, out, res["end_black"], fps, video_codec(cfg),
+                         res.get("overlays"))
     lufs = episode_audio.measure_lufs(cfg["ffmpeg"], out)
     print(f"[TownForge] sound: {len(res['lines'])} lines, {len(res['sfx'])} effects, "
           f"{len(res['ambience'])} beds, {lufs:.1f} LUFS" + (", captions burned in" if captions else ""))

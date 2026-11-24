@@ -20,7 +20,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from lines import L, PLACE_OF, CHAPTERS  # noqa: E402
-from sound import SFX, MUSIC  # noqa: E402
+from sound import SFX, MUSIC, OVERLAY_AT  # noqa: E402
 
 PLACE_MODULES = [m for m in ["hall", "lab", "board", "gallery", "cinema", "shop", "doom62", "latveria", "tibet", "castle",
                              "hell", "cosmos", "hospital", "dressing", "misc"] if (HERE / "places" / f"{m}.py").exists()]
@@ -78,6 +78,8 @@ def build():
         "captions": {"enabled": True, "max_words": 3, "position": 0.9},
         "ambience": [],
         "music": MUSIC,
+        "overlays": [{"file": f"overlays/out/{k}.mov", "at": at} for k, at in OVERLAY_AT.items()
+                     if (HERE / "overlays" / "out" / f"{k}.mov").exists()],
         "sfx": SFX,
         "lines": lines,
         "actors": actors,

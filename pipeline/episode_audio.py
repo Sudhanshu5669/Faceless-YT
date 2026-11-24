@@ -40,7 +40,7 @@ FIT_KEYS = {"fit", "min", "tail"}
 DEFAULT_TAIL = 0.25
 BATCH_WORDS = 30  # long requests get cut off unpredictably
 # Keys only the Python pipeline reads (stripped before Godot renders).
-AUDIO_KEYS = ["narration", "lines", "sfx", "ambience", "captions", "music", "end_black", "review"]
+AUDIO_KEYS = ["narration", "lines", "sfx", "ambience", "captions", "music", "end_black", "review", "overlays"]
 
 
 class EpisodeError(SystemExit):
@@ -562,7 +562,14 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
                       "offset": float(m.get("offset", 0.0)), "gain": float(m.get("gain", -12.0)),
                       "fade_in": float(m.get("fade_in", 0.5)), "fade_out": float(m.get("fade_out", 1.5)),
                       "duck": float(m.get("duck", 0.4))})
-    res = {"episode": out, "shots": shots, "lines": lines, "sfx": sfx, "ambience": amb, "music": music,
+    # 2D overlays (HyperFrames renders with alpha) composited over the picture at their times.
+    overlays = []
+    for i, o in enumerate(ep.get("overlays", [])):
+        path = (ep_dir / o["file"]).resolve()
+        if not path.is_relative_to(ep_dir.resolve()) or not path.exists():
+            raise EpisodeError(f"ERROR: overlays[{i}]: file not found inside the episode: {o['file']}")
+        overlays.append({"file": str(path), "t": ref(o["at"], "edit", f"overlays[{i}].at")})
+    res = {"episode": out, "shots": shots, "lines": lines, "sfx": sfx, "ambience": amb, "music": music, "overlays": overlays,
            "duration": total, "end_black": end_black, "captions": ep.get("captions", {}),
            "resolution": ep.get("format", {}).get("resolution", [1080, 1920])}
     if verbose:
@@ -949,8 +956,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
 
 def finish(cfg_ffmpeg: str, picture: Path, audio: Path, captions: Path | None, out: Path,
-           end_black: float, fps: int, vcodec: list[str] | None = None) -> None:
-    """Burn captions, add the black tail, mux the soundtrack."""
+           end_black: float, fps: int, vcodec: list[str] | None = None, overlays: list | None = None) -> None:
+    """Composite the overlays, burn captions, add the black tail, mux the soundtrack."""
     vf = []
     if captions is not None:
         # The house caption font ships with the repo; libass finds it via fontsdir (a sibling dir).
@@ -963,9 +970,23 @@ def finish(cfg_ffmpeg: str, picture: Path, audio: Path, captions: Path | None, o
     if end_black > 0:
         vf.append(f"tpad=stop_mode=add:stop_duration={end_black}:color=black")
     cmd = [cfg_ffmpeg, "-y", "-loglevel", "error", "-i", str(picture.resolve()), "-i", str(audio.resolve())]
-    if vf:
+    overlays = overlays or []
+    for o in overlays:
+        cmd += ["-i", str(Path(o["file"]).resolve())]
+    vmap = "0:v:0"
+    if overlays:
+        chain = []
+        cur = "[0:v]"
+        for k, o in enumerate(overlays):
+            chain.append(f"[{2 + k}:v]format=rgba,setpts=PTS-STARTPTS+{o['t']:.3f}/TB[o{k}]")
+            chain.append(f"{cur}[o{k}]overlay=0:0:eof_action=pass:format=auto[v{k}]")
+            cur = f"[v{k}]"
+        chain.append(f"{cur}{','.join(vf) if vf else 'null'}[vout]")
+        cmd += ["-filter_complex", ";".join(chain)]
+        vmap = "[vout]"
+    elif vf:
         cmd += ["-vf", ",".join(vf)]
-    cmd += ["-map", "0:v:0", "-map", "1:a:0", *(vcodec or ["-c:v", "libx264", "-preset", "medium", "-crf", "18"]),
+    cmd += ["-map", vmap, "-map", "1:a:0", *(vcodec or ["-c:v", "libx264", "-preset", "medium", "-crf", "18"]),
             "-pix_fmt", "yuv420p", "-r", str(fps), "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
             "-shortest", str(out.resolve())]
     # Run next to the .ass file: Windows drive letters break the filter's path syntax.

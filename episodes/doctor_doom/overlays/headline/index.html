@@ -1,0 +1,52 @@
+<!doctype html>
+<!-- A real news headline as a card (HyperFrames, transparent). Text must be the outlet's exact headline. -->
+<html lang="en" data-resolution="landscape" data-composition-variables='[
+  {"id":"outlet","type":"string","label":"Outlet","default":"euronews."},
+  {"id":"date","type":"string","label":"Date","default":"19/12/2023"},
+  {"id":"before","type":"string","label":"Headline before the highlight","default":"Jonathan Majors "},
+  {"id":"mark","type":"string","label":"Highlighted words","default":"found guilty of assault"},
+  {"id":"after","type":"string","label":"Headline after","default":" and dropped by Marvel"},
+  {"id":"dur","type":"number","label":"Seconds","default":6.0}]'>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; background:transparent; }
+  #root { width:100%; height:100%; position:relative; font-family: Georgia, 'Times New Roman', serif; }
+  #card { position:absolute; right:110px; top:220px; width:820px; background:#f7f5f0; color:#111;
+          border-radius:6px; box-shadow:0 30px 80px rgba(0,0,0,.55), 0 4px 14px rgba(0,0,0,.4); overflow:hidden; }
+  #bar { height:10px; background:#0b2a5b; }
+  #inner { padding:34px 44px 40px; }
+  #src { font-family:'Segoe UI', Arial, sans-serif; font-size:24px; font-weight:700; color:#0b2a5b; }
+  #date { font-family:'Segoe UI', Arial, sans-serif; font-size:22px; color:#555; margin-left:14px; }
+  #hl { font-size:56px; line-height:1.12; font-weight:700; margin-top:22px; }
+  .mark { background:linear-gradient(transparent 60%, rgba(255,214,0,.85) 60%); background-size:0% 100%; background-repeat:no-repeat; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+  <div id="card" class="clip" data-start="0" data-duration="6">
+    <div id="bar"></div>
+    <div id="inner"><div><span id="src"></span><span id="date"></span></div>
+      <div id="hl"><span id="b"></span><span class="mark" id="m"></span><span id="a"></span></div></div>
+  </div>
+</div>
+<script>
+  const v = window.__hyperframes.getVariables();
+  document.querySelector("#src").textContent = v.outlet;
+  document.querySelector("#date").textContent = v.date;
+  document.querySelector("#b").textContent = v.before;
+  document.querySelector("#m").textContent = v.mark;
+  document.querySelector("#a").textContent = v.after;
+  const d = Number(v.dur);
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#card", {x:140, opacity:0, rotation:2}, {x:0, opacity:1, rotation:0, duration:0.7, ease:"power3.out"}, 0.2);
+  tl.to("#m", {backgroundSize:"100% 100%", duration:0.6, ease:"power2.inOut"}, 1.6);
+  tl.to("#card", {x:60, opacity:0, duration:0.45, ease:"power2.in"}, d - 0.55);
+  window.__timelines["main"] = tl;
+  tl.seek(0);
+</script>
+</body>
+</html>

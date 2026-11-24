@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- Chapter card (HyperFrames, transparent): a number line and a big title, Doom green, in and out in 3.6 s. -->
+<html lang="en" data-resolution="landscape" data-composition-variables='[
+  {"id":"num","type":"string","label":"Chapter","default":"CHAPTER ONE"},
+  {"id":"title","type":"string","label":"Title","default":"THE VILLAIN MARVEL LOST"}]'>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; background:transparent; }
+  #root { width:100%; height:100%; position:relative; font-family: Georgia, 'Times New Roman', serif; }
+  #shade { position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(0,0,0,.55) 0%, rgba(0,0,0,.0) 70%); }
+  #card { position:absolute; left:0; right:0; top:390px; text-align:center; color:#e9f2e4; }
+  #num { font-size:34px; letter-spacing:0.6em; color:#8fd18a; font-family:'Segoe UI', sans-serif; font-weight:600; }
+  #title { font-size:120px; letter-spacing:0.05em; font-weight:700; line-height:1.05; margin-top:18px;
+           text-shadow:0 0 40px rgba(80,200,90,.5), 0 6px 0 #0b1a0c; }
+  #rule { width:0; height:4px; margin:30px auto 0; background:linear-gradient(90deg,transparent,#6fe06a,transparent); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="3.6" data-width="1920" data-height="1080">
+  <div id="shade" class="clip" data-start="0" data-duration="3.6"></div>
+  <div id="card" class="clip" data-start="0" data-duration="3.6">
+    <div id="num"></div><div id="title"></div><div id="rule"></div>
+  </div>
+</div>
+<script>
+  const v = window.__hyperframes.getVariables();
+  document.querySelector("#num").textContent = v.num;
+  document.querySelector("#title").textContent = v.title;
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#shade", {opacity:0}, {opacity:1, duration:0.5}, 0);
+  tl.fromTo("#num", {opacity:0, y:20, letterSpacing:"1.2em"}, {opacity:1, y:0, letterSpacing:"0.6em", duration:0.8, ease:"power3.out"}, 0.1);
+  tl.fromTo("#title", {opacity:0, scale:1.2, filter:"blur(14px)"}, {opacity:1, scale:1, filter:"blur(0px)", duration:1.0, ease:"expo.out"}, 0.3);
+  tl.to("#rule", {width:900, duration:0.9, ease:"power2.inOut"}, 0.7);
+  tl.to(["#card", "#shade"], {opacity:0, duration:0.5, ease:"power2.in"}, 3.05);
+  window.__timelines["main"] = tl;
+  tl.seek(0);
+</script>
+</body>
+</html>
