@@ -92,7 +92,13 @@ static func _add_model(inst: Node3D, model_id: String) -> void:
 
 
 static func model_skeleton(inst: Node3D, model_id: String) -> Skeleton3D:
-	return inst.get_node("model/" + String(Retarget.rigs()[Retarget.rig_for(model_id)]["skeleton"])) as Skeleton3D
+	# A rig may pin the skeleton's node path; without one (or if it is absent) use the model's first Skeleton3D, so one
+	# rig map serves several downloads whose node trees differ (VLTXD's three witches).
+	var path := String(Retarget.rigs()[Retarget.rig_for(model_id)].get("skeleton", ""))
+	if path != "" and inst.has_node("model/" + path):
+		return inst.get_node("model/" + path) as Skeleton3D
+	var found := inst.get_node("model").find_children("*", "Skeleton3D", true, false)
+	return found[0] as Skeleton3D if not found.is_empty() else null
 
 
 static var _model_materials: Dictionary = {}

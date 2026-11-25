@@ -214,15 +214,21 @@
     ]
   },
   "board_crack": {
-    "status": "changes",
+    "status": "approved",
     "note": "Put kang's photo in the kang dynasty placeholder there.",
-    "updated": "2026-11-25 10:38:44",
-    "fingerprint": "1f347d820ea2",
+    "updated": "2026-11-25 12:38:24",
+    "fingerprint": "793ead34bb4a",
     "history": [
       {
         "status": "changes",
         "note": "i want posters here instead of name placeholders",
         "updated": "2026-11-24 22:31:04",
+        "fingerprint": "1f347d820ea2"
+      },
+      {
+        "status": "changes",
+        "note": "Put kang's photo in the kang dynasty placeholder there.",
+        "updated": "2026-11-25 10:38:44",
         "fingerprint": "1f347d820ea2"
       }
     ]
@@ -1080,10 +1086,17 @@
     "history": []
   },
   "board_ticket": {
-    "status": "changes",
+    "status": "approved",
     "note": "Put kang's photo in the kang dynasty placeholder there.",
-    "updated": "2026-11-25 10:38:52",
-    "fingerprint": "8ba1555f5370",
-    "history": []
+    "updated": "2026-11-25 12:38:30",
+    "fingerprint": "d6603ae83ed2",
+    "history": [
+      {
+        "status": "changes",
+        "note": "Put kang's photo in the kang dynasty placeholder there.",
+        "updated": "2026-11-25 10:38:52",
+        "fingerprint": "8ba1555f5370"
+      }
+    ]
   }
 }

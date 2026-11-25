@@ -1,0 +1,13 @@
+{
+  "id": "witch_green",
+  "description": "A Latverian witch, realistic (VLTXD's 'Latverian Witch Avengers Doomsday Low Poly', CC BY 4.0, character 0 of 3): green robes and a silver mask (used for Cynthia von Doom).",
+  "tags": [
+    "latveria",
+    "witch",
+    "realistic",
+    "cc-by"
+  ],
+  "body": "female",
+  "height": 1.72,
+  "model": "vltxd_witch/Witch_VLTXD_0"
+}

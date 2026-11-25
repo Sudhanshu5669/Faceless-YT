@@ -439,6 +439,26 @@
      ""
     ]
    ]
+  },
+  {
+   "id": "vltxd_witch",
+   "author": "VLTXD",
+   "license": "CC BY 4.0",
+   "url": "https://sketchfab.com/3d-models/latverian-witch-avengers-doomsday-low-poly-c11f6629d056445db63a5f18d6fb279b",
+   "credit": "This work is based on \"Latverian Witch Avengers Doomsday Low Poly\" (https://sketchfab.com/3d-models/latverian-witch-avengers-doomsday-low-poly-c11f6629d056445db63a5f18d6fb279b) by VLTXD (https://sketchfab.com/VLTXD) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+   "zip": "vltxd_witch.zip",
+   "files": [
+    [
+     "",
+     "*.glb",
+     ""
+    ],
+    [
+     "",
+     "LICENSE.txt",
+     ""
+    ]
+   ]
   }
  ]
 }

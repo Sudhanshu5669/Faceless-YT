@@ -3692,7 +3692,7 @@
   },
   {
    "id": "cynthia",
-   "character": "toon_cynthia",
+   "character": "witch_green",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4034,7 +4034,7 @@
   },
   {
    "id": "camp_0",
-   "character": "toon_market_woman",
+   "character": "witch_purple",
    "at": {
     "anchor": "board",
     "offset": [
@@ -4124,7 +4124,7 @@
   },
   {
    "id": "camp_2",
-   "character": "toon_market_man",
+   "character": "witch_orange",
    "at": {
     "anchor": "board",
     "offset": [

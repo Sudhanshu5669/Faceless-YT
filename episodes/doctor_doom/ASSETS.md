@@ -69,3 +69,11 @@ Existing packs reused: `kenney_castle` (later, Castle Doom), `quaternius_nature`
   (https://sketchfab.com/VLTXD) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 - Rejected: "Dr Doom V2" by VisiionLovesYou (skeleton named `sv_doctordoom01_S01`, a likely game extraction); parked in
   `incoming/doom_v2_rejected/`, never used.
+
+## Latverian witches (VLTXD, CC BY 4.0), added 2026-11-25
+
+- Credit: This work is based on "Latverian Witch Avengers Doomsday Low Poly" (https://sketchfab.com/3d-models/latverian-witch-avengers-doomsday-low-poly-c11f6629d056445db63a5f18d6fb279b) by VLTXD (https://sketchfab.com/VLTXD) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+- One file holds three witches. Each was re-posed separately: `tpose_character.py ... 1.72 ... <armature>` with
+  `TF_STRIP_BONE_SUFFIX=1` (armatures Object_4, Object_61, Object_118 -> Witch_VLTXD_0/1/2), packed as
+  `incoming/vltxd_witch.zip` (pack `vltxd_witch`, rig map `gta_ped_clean`).
+- Characters: `witch_green` (Cynthia, lat_wagon), `witch_purple` and `witch_orange` (the Romani camp by the fire).

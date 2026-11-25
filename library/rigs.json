@@ -122,6 +122,39 @@
         "foot_r": " R Foot_030",
         "ball_r": " R Toe0_031"
       }
+    },
+    "gta_ped_clean": {
+      "packs": [
+        "vltxd_witch"
+      ],
+      "_note": "The GTA SA ped skeleton with Sketchfab's per-node '_NN' suffixes stripped (tpose_character.py with TF_STRIP_BONE_SUFFIX=1), so one map fits every character of a multi-character file (VLTXD's three Latverian witches). No fixed skeleton path: cast.gd uses the model's first Skeleton3D.",
+      "bones": {
+        "pelvis": " Pelvis",
+        "spine_01": " Spine",
+        "spine_03": " Spine1",
+        "neck_01": " Neck",
+        "Head": " Head",
+        "clavicle_l": "Bip01 L Clavicle",
+        "upperarm_l": " L UpperArm",
+        "lowerarm_l": " L ForeArm",
+        "hand_l": " L Hand",
+        "index_01_l": " L Finger",
+        "index_02_l": "L Finger01",
+        "clavicle_r": "Bip01 R Clavicle",
+        "upperarm_r": " R UpperArm",
+        "lowerarm_r": " R ForeArm",
+        "hand_r": " R Hand",
+        "index_01_r": " R Finger",
+        "index_02_r": "R Finger01",
+        "thigh_l": " L Thigh",
+        "calf_l": " L Calf",
+        "foot_l": " L Foot",
+        "ball_l": " L Toe0",
+        "thigh_r": " R Thigh",
+        "calf_r": " R Calf",
+        "foot_r": " R Foot",
+        "ball_r": " R Toe0"
+      }
     }
   }
 }

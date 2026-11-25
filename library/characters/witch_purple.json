@@ -1,0 +1,13 @@
+{
+  "id": "witch_purple",
+  "description": "A Latverian witch, realistic (VLTXD's 'Latverian Witch Avengers Doomsday Low Poly', CC BY 4.0, character 1 of 3): purple robes and a gold mask.",
+  "tags": [
+    "latveria",
+    "witch",
+    "realistic",
+    "cc-by"
+  ],
+  "body": "female",
+  "height": 1.72,
+  "model": "vltxd_witch/Witch_VLTXD_1"
+}

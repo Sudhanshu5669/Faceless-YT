@@ -46,7 +46,8 @@ def span(a, b):
 
 
 ACTORS = [
-    {"id": "cynthia", "character": "toon_cynthia", "at": P(WG[0] - 0.2, 0, WG[1] + 0.35), "facing": P(WG[0] + 0.6, 0, WG[1] - 0.4),
+    {"id": "cynthia", "character": "witch_green",   # VLTXD's Latverian witch (the user, 2026-11-25)
+     "at": P(WG[0] - 0.2, 0, WG[1] + 0.35), "facing": P(WG[0] + 0.6, 0, WG[1] - 0.4),
      "action": "idle", "shown": [span("lat_wagon", "lat_healer")],
      "cues": [{"t": 0.0, "expression": "happy"}, {"t": W("v0m", "witch.", 0.0), "expression": "smug"},
               {"t": W("v0m", "dies", 0.0), "expression": "sleepy"}]},
@@ -70,7 +71,7 @@ ACTORS = [
      "keep_y": True, "action": "idle", "shown": [span("liner_deck", "lab_machine")],
      "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("v0s", "scholarship.", 0.0), "expression": "smug"}]},
 ]
-for _i, (_ch, _x, _z) in enumerate([("toon_market_woman", 1.6, 1.8), ("toon_market_kid", -0.9, -1.8), ("toon_market_man", 2.0, -1.2)]):
+for _i, (_ch, _x, _z) in enumerate([("witch_purple", 1.6, 1.8), ("toon_market_kid", -0.9, -1.8), ("witch_orange", 2.0, -1.2)]):
     ACTORS.append({"id": f"camp_{_i}", "character": _ch, "at": P(_x, 0, _z), "facing": P(0.0, 0, 0.0), "action": "idle",
                    "shown": [span("lat_valley", "lat_wagon"), span("lat_healer", "lat_flee")],
                    "cues": [{"t": 0.0, "expression": "happy"}]})

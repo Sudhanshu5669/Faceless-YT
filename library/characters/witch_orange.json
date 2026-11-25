@@ -1,0 +1,13 @@
+{
+  "id": "witch_orange",
+  "description": "A Latverian witch, realistic (VLTXD's 'Latverian Witch Avengers Doomsday Low Poly', CC BY 4.0, character 2 of 3): rust-orange robes and a gold mask.",
+  "tags": [
+    "latveria",
+    "witch",
+    "realistic",
+    "cc-by"
+  ],
+  "body": "female",
+  "height": 1.72,
+  "model": "vltxd_witch/Witch_VLTXD_2"
+}

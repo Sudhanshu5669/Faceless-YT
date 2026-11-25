@@ -52,6 +52,8 @@ All 114 shots are built and have review clips. The user is reviewing in the shot
 
 ## Credits for the description (required)
 
+- Latverian Witch Avengers Doomsday Low Poly by VLTXD (CC BY 4.0): Cynthia + two camp witches (ASSETS.md).
+
 - Music: each Scott Buckley track used - `'<Track>' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au`
   (Eyes In The Void, Anabasis I, Convergence, Penumbra, Aphelion, Starfire; `incoming/music_doom/LICENSE.txt`).
 - Iron-Man Helmet (MK3) by Ritesh/designpill, Doctor Doom's Mask by Nicolas_Laube, Doctor Doom Avengers Doomsday Low
