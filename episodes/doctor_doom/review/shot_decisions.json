@@ -821,29 +821,41 @@
   },
   "hosp_bed": {
     "status": "approved",
-    "note": "shaking",
-    "updated": "2026-11-25 13:59:24",
-    "fingerprint": "a69a2408b647",
+    "note": "ICU shot approved in chat.",
+    "updated": "2026-11-25 15:16:05",
+    "fingerprint": "7d37bb53f70b",
     "history": [
       {
         "status": "changes",
         "note": "shaking",
         "updated": "2026-11-24 22:41:54",
         "fingerprint": "459bbe0dba08"
+      },
+      {
+        "status": "approved",
+        "note": "shaking",
+        "updated": "2026-11-25 13:59:24",
+        "fingerprint": "a69a2408b647"
       }
     ]
   },
   "city_ironman": {
     "status": "approved",
-    "note": "looks weird af",
-    "updated": "2026-11-25 13:59:33",
-    "fingerprint": "19557a5c6821",
+    "note": "Original comic-cover reveal approved in chat.",
+    "updated": "2026-11-25 15:16:05",
+    "fingerprint": "a69aa932a819",
     "history": [
       {
         "status": "changes",
         "note": "looks weird af",
         "updated": "2026-11-24 22:42:08",
         "fingerprint": "109bbee5c2fd"
+      },
+      {
+        "status": "approved",
+        "note": "looks weird af",
+        "updated": "2026-11-25 13:59:33",
+        "fingerprint": "19557a5c6821"
       }
     ]
   },
@@ -1184,16 +1196,44 @@
   },
   "hosp_helmet": {
     "status": "approved",
-    "note": "",
-    "updated": "2026-11-25 13:59:29",
-    "fingerprint": "9c0f0e421700",
-    "history": []
+    "note": "Original comic-cover reveal approved in chat.",
+    "updated": "2026-11-25 15:16:05",
+    "fingerprint": "cdb00c4bba4c",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-25 13:59:29",
+        "fingerprint": "9c0f0e421700"
+      }
+    ]
   },
   "shop_wait": {
     "status": "approved",
+    "note": "Latest collector clip approved in chat.",
+    "updated": "2026-11-25 16:15:32",
+    "fingerprint": "d9aac7ae1e53",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-25 14:00:01",
+        "fingerprint": "208bdf00c52a"
+      }
+    ]
+  },
+  "reels_kebbell": {
+    "status": "approved",
     "note": "",
-    "updated": "2026-11-25 14:00:01",
-    "fingerprint": "208bdf00c52a",
+    "updated": "2026-11-25 15:39:06",
+    "fingerprint": "3db3c0704fac",
+    "history": []
+  },
+  "mirror_warp": {
+    "status": "approved",
+    "note": "Approved in chat as part of the completed episode for final render.",
+    "updated": "2026-11-25 16:15:32",
+    "fingerprint": "121f5a43b0a6",
     "history": []
   }
 }

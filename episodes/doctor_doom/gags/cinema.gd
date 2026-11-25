@@ -6,7 +6,7 @@
 ## floor y 0.35k), the booth at (0, 6.6, 8.2). The marquee facade stands apart at x 80 facing +z (street at z > 0 there).
 ##
 ## params:
-##   screen   [{"t": t, "show": "title" | "white" | "trailer" | "black", "text": "AVENGERS: ENDGAME"}]
+##   screen   [{"t": t, "show": "title" | "logo" | "poster" | "white" | "trailer" | "standby" | "black"}]
 ##   cheer    t   the audience leaps up cheering (staggered)
 ##   ticket   t   a ticket (AVENGERS: DOOMSDAY / 18 DEC) flutters down through the projector beam, landing at t + 2
 ##   marquee  ["LINE 1", "LINE 2"]   the marquee letters; poster: the lightbox poster's text
@@ -266,6 +266,9 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var col := Color(0.03, 0.03, 0.035)
 	var spill := 0.0
 	match show:
+		"standby":
+			col = Color(0.17, 0.19, 0.23)
+			spill = 0.35
 		"title":
 			col = Color(0.05, 0.22, 0.1) if text.contains("DOOMSDAY") else Color(0.16, 0.12, 0.32)
 			spill = 0.7
@@ -313,7 +316,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_title.modulate = Color(1.6, 1.5, 1.2) * clampf(since / 0.6, 0.0, 1.0)
 	_spill.light_color = col.lightened(0.3)
 	_spill.light_energy = 14.0 * spill
-	_beam_mat.set_shader_parameter("strength", 0.06 + 0.12 * spill)
+	_beam_mat.set_shader_parameter("strength", 0.42 if show == "standby" else 0.06 + 0.12 * spill)
 	_beam_mat.set_shader_parameter("color", col.lightened(0.5))
 	# Crowd.
 	var cheer := float(_p.get("cheer", 1e9))

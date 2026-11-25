@@ -4,7 +4,7 @@
 ##                        universe swirling in his palm
 ##   WORLD (0, 0, 1200)   Battleworld: twelve mismatched world-patches (desert, ice, jungle, ocean, lava, cities) that
 ##                        fly together and stitch into one planet, seams glowing
-##   GOD (0, 0, 1800)     a golden world tree above the clouds, a throne at its crown
+##   GOD (0, 0, 1800)     a throne between the roots of the world tree, above the clouds
 ##   EARTH (0, 0, 5000)   the real Earth (Solar System Scope maps, CC BY 4.0) with the night side's cities turning
 ##                        green and Doom's banners rising across it
 ##   PAD (0, 0, 7000)     a retro rocket on its pad at dawn whose long shadow is Doom's mask
@@ -15,7 +15,8 @@
 ##   beyonder  {"actor": id, "t": t}   the star crosses the void into the actor's right hand by t + 1.2, then shrinks
 ##             into a palm-sized universe
 ##   stitch    t   Battleworld's patches converge (2.5 s), seams glow
-##   stretch   {"t": t}   Reed's stretching arm reaches in from off-frame toward the throne (GOD), glowing white
+##   emperor   actor id   uses the ivory variant of the rigged Doom atlas
+##   renewal   t   cool light crosses the platform as reality is restored
 ##   cloak     {"actor": id, "t": t}   a red cloak and a gold amulet drop onto the actor's shoulders (EARTH)
 ##   green     t   Earth's city lights turn green, banners rise across the globe
 ## anchors: board, star, palm, planet, throne, earth, rocket
@@ -75,13 +76,29 @@ var _patches: Array[MeshInstance3D] = []
 var _patch_dirs: Array[Vector3] = []
 var _seams: Array[MeshInstance3D] = []
 var _seam_mat: StandardMaterial3D
-var _arm: MeshInstance3D
-var _arm_light: OmniLight3D
+var _renewal_light: OmniLight3D
+var _emperor_dressed := false
 var _earth: MeshInstance3D
 var _earth_mat: ShaderMaterial
 var _banners: Array[Node3D] = []
 var _banner_dirs: Array[Vector3] = []
 var _cloak: Node3D
+
+
+func _dress_emperor(actor: Node3D) -> void:
+	var atlas := Kit.texture("episodes/doctor_doom/art/doom_emperor_ivory.png")
+	var materials := {}
+	for mesh: MeshInstance3D in actor.get_node("body/model").find_children("*", "MeshInstance3D", true, false):
+		for slot in mesh.mesh.get_surface_count():
+			var original := mesh.mesh.surface_get_material(slot) as BaseMaterial3D
+			if original == null or original.albedo_texture == null:
+				continue
+			if not materials.has(original):
+				var ivory := original.duplicate() as BaseMaterial3D
+				ivory.albedo_texture = atlas
+				materials[original] = ivory
+			mesh.set_surface_override_material(slot, materials[original])
+	_emperor_dressed = true
 
 
 ## A patch of a sphere (unit radius) between longitudes a0..a1 and latitudes b0..b1.
@@ -240,21 +257,33 @@ func build(g: Dictionary) -> Node3D:
 	root.add_child(seam)
 	_seams.append(seam)
 
-	# GOD: the world tree, the throne, clouds below, a golden light; Reed's stretching arm.
-	var gold := Kit.mat("#d8aa3a", 0.3, 0.9)
-	var bark := Kit.mat("#6a5030", 0.8)
-	Kit.cyl(root, 4.0, 9.0, 60.0, GOD + Vector3(0, -32, -6), bark, 16)
-	for k in 9:
-		var a := k * TAU / 9.0
-		Kit.rod(root, GOD + Vector3(0, -6 - (k % 3) * 6, -6), GOD + Vector3(cos(a) * 26, 4 + (k % 3) * 3, -6 + sin(a) * 26), 1.6 - 0.3 * (k % 3), bark, 8, 0.4)
-		Kit.ball(root, 6.0, GOD + Vector3(cos(a) * 26, 6 + (k % 3) * 3, -6 + sin(a) * 26), Kit.mat("#c8a040", 0.5, 0.6), 12, Vector3(1, 0.5, 1))
-	Kit.cyl(root, 5.0, 5.5, 1.0, GOD + Vector3(0, -0.5, -6), gold, 24)
+	# GOD: a dark throne caught between the roots, with the clouds far below.
+	var gold := Kit.mat("#87714a", 0.43, 0.67)
+	var bark := Kit.textured("incoming/polyhaven_doom/textures/dark_wood_diff_2k.jpg",
+		"incoming/polyhaven_doom/textures/dark_wood_nor_gl_2k.jpg", "incoming/polyhaven_doom/textures/dark_wood_rough_2k.jpg",
+		Vector3(2, 3, 1), Color("#6c5647"))
+	var slate := Kit.mat("#252430", 0.87)
+	Kit.cyl(root, 6.2, 7.0, 1.0, GOD + Vector3(0, -0.5, -5.3), slate, 32)
 	var th := Node3D.new()
 	th.position = GOD + Vector3(0, 0, -6)
 	root.add_child(th)
-	Kit.box(th, Vector3(1.6, 0.55, 1.3), Vector3(0, 0.27, 0), gold)
-	Kit.box(th, Vector3(1.9, 5.5, 0.3), Vector3(0, 2.7, -0.6), gold)
-	Kit.cyl(th, 0.0, 1.3, 2.0, Vector3(0, 6.4, -0.6), gold, 16)
+	Kit.cyl(th, 3.0, 4.0, 28.0, Vector3(0, -15.0, 0), bark, 12)
+	Kit.box(th, Vector3(3.05, 0.24, 2.1), Vector3(0, 0.12, 0.08), slate)
+	Kit.box(th, Vector3(1.10, 0.085, 0.62), Vector3(0, 0.67, -0.16), bark)
+	Kit.box(th, Vector3(1.11, 0.035, 0.63), Vector3(0, 0.71, -0.16), gold)
+	Kit.box(th, Vector3(1.22, 2.25, 0.22), Vector3(0, 1.43, -0.45), bark, Vector3(-0.10, 0, 0))
+	for side: float in [-1.0, 1.0]:
+		Kit.rod(th, Vector3(side * 0.52, 0.245, 0.10), Vector3(side * 0.48, 0.67, 0.08), 0.13, bark, 9, 0.10)
+		Kit.rod(th, Vector3(side * 0.54, 0.66, -0.45), Vector3(side * 0.39, 2.62, -0.61), 0.16, bark, 11, 0.045)
+		Kit.rod(th, Vector3(side * 0.65, 0.25, 0.31), Vector3(side * 0.75, 1.02, 0.26), 0.12, bark, 9, 0.09)
+		Kit.rod(th, Vector3(side * 0.74, 1.02, 0.26), Vector3(side * 0.71, 1.11, -0.49), 0.09, gold, 9, 0.10)
+		for i in 3:
+			var foot := Vector3(side * (0.60 + 0.54 * i), 0.15, -0.75 - 0.45 * i)
+			var fork := Vector3(side * (0.88 + 0.68 * i), 2.3 + 0.72 * i, -1.25 - 0.52 * i)
+			var crown := Vector3(side * (1.24 + 1.98 * i), 5.9 + 0.8 * i, -1.70 - 0.75 * i)
+			Kit.rod(th, foot, fork, 0.43 + 0.1 * i, bark, 11, 0.34)
+			Kit.rod(th, fork, crown, 0.34, bark, 10, 0.075)
+			Kit.rod(th, fork, crown + Vector3(side * 2.3, -1.5, -1.2), 0.21, bark, 9, 0.045)
 	for i in 30:
 		var c := MeshInstance3D.new()
 		c.mesh = sphere
@@ -264,16 +293,10 @@ func build(g: Dictionary) -> Node3D:
 		c.position = GOD + Vector3(rng.randf_range(-140, 140), rng.randf_range(-48, -34), rng.randf_range(-160, 60))
 		root.add_child(c)
 	Kit.omni(root, WORLD + Vector3(45, 30, 70), "#fff2dc", 40.0, 160.0, false, 0.0)
-	Kit.spot(root, GOD + Vector3(30, 60, 50), GOD + Vector3(0, 1, -6), "#ffe2a8", 120.0, 120.0, 20.0, true, 0.4)
-	_arm = MeshInstance3D.new()
-	var cm := CylinderMesh.new()
-	cm.top_radius = 0.09
-	cm.bottom_radius = 0.09
-	cm.height = 1.0
-	_arm.mesh = cm
-	_arm.material_override = Kit.mat("#2a4a9a", 0.6)
-	root.add_child(_arm)
-	_arm_light = Kit.omni(root, GOD, "#ffffff", 0.0, 10.0, false, 0.6)
+	Kit.spot(root, GOD + Vector3(-2.0, 3.7, -1.5), GOD + Vector3(0, 1.2, -5.2), "#e4d9cc", 4.8, 11.0, 44.0, false, 0.18)
+	Kit.spot(root, GOD + Vector3(3.6, 5.6, -8.3), GOD + Vector3(0, 1.2, -5), "#ffd29a", 19.0, 14.0, 42.0, false, 0.8)
+	Kit.omni(root, GOD + Vector3(0.7, 2.5, -2.9), "#91b9ff", 1.7, 6.0, false, 0.22)
+	_renewal_light = Kit.omni(root, GOD + Vector3(-1.4, 2.4, -5.3), "#afc8ff", 0.0, 7.0, false, 0.45)
 	# EARTH: the globe; banners.
 	_earth_mat = Kit.shader(EARTH_SHADER)
 	_earth_mat.set_shader_parameter("day", Kit.texture("incoming/sss_textures/8k_earth_daymap.jpg"))
@@ -453,20 +476,13 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		_patches[i].rotation = Vector3(0, (1.0 - conv) * (0.5 - 0.1 * i), (1.0 - conv) * 0.3 * sin(i))
 	_seam_mat.emission_energy_multiplier = 3.0 * conv * (0.8 + 0.2 * sin(t * 3.0))
 	_seams[0].visible = conv > 0.6
-	# Reed's arm stretching in toward the throne.
-	var sd: Dictionary = _p.get("stretch", {})
-	var stt := float(sd.get("t", 1e9))
-	var reachk := Motion.in_out(Motion.seg(t, stt, stt + 1.4))
-	var from := GOD + Vector3(14.0, 3.0, 8.0)
-	var tip := from.lerp(GOD + Vector3(0.25, 2.1, -5.1), reachk)
-	_arm.visible = reachk > 0.0
-	if _arm.visible:
-		var mid := (from + tip) * 0.5
-		var len := (tip - from).length()
-		_arm.transform = Transform3D(Basis.looking_at((tip - from).normalized(), Vector3.UP) * Basis.from_euler(Vector3(-PI / 2, 0, 0)), mid)
-		_arm.scale = Vector3(1, len, 1)
-	_arm_light.position = tip
-	_arm_light.light_energy = 12.0 * Motion.smooth(Motion.seg(t, stt + 1.2, stt + 1.8))
+	if not _emperor_dressed and ctx.has("actor"):
+		var emperor: Node3D = ctx["actor"].call(String(_p.get("emperor", "")))
+		if emperor != null:
+			_dress_emperor(emperor)
+	var renewal := Motion.in_out(Motion.seg(t, float(_p.get("renewal", 1e9)), float(_p.get("renewal", 1e9)) + 1.0))
+	_renewal_light.position.x = lerpf(-1.4, 1.25, renewal)
+	_renewal_light.light_energy = 2.5 * sin(PI * renewal)
 	# The cloak drops onto the actor's shoulders.
 	var cd: Dictionary = _p.get("cloak", {})
 	var ct := float(cd.get("t", 1e9))

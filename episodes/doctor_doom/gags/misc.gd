@@ -1,21 +1,16 @@
 ## The smaller places, as areas of one gag:
 ##   HELL (0, 0, 0)       a red cavern over a lava river: Doom's green spell meets a towering horned shadow's red
-##   HOSP (0, 0, 300)     a hospital room at night: the bed, a heart monitor, the red-and-gold helmet on the table
-##   CITY (0, 0, 600)     a rooftop over a night city (Doom in his Iron Man armour stands here)
+##   HOSP (0, 0, 300)     Tony's ICU bay
 ##   DRESS (0, 0, 900)    a dressing room: a bulb-ringed mirror, a vanity, a gold statuette, the folded cloak and mask
-##   REELS (0, 0, 1200)   three film frames sliding past in the dark, a different Doom mask in each, year on the edge
 ##   CAMPUS (0, 0, 1500)  a university gate in the rain at night: iron gates, the arch sign, lamps, a lit building
 ##   MIRROR (0, 0, 1800)  a cheap room with a mirror: the reflection is a second figure behind the frame
 ##
 ## params:
 ##   clash   t   the two spells meet with sparks (HELL)
-##   take    {"actor": id, "t": t}   the actor's hand takes the helmet from the table (HOSP)
-##   slide   t   the film frames slide in, one by one, from t (REELS; each 1.3 s apart)
 ##   scar    {"actor": id, "warp": t}   a small scar on that actor's cheek; from `warp` his head distorts and the scar
 ##           grows (MIRROR, the reflection)
-##   ironhead {"actor": id}   the actor's head (and Doom's mask) is replaced by the Iron Man helmet (Doom as Iron Man)
 ##   bandage {"actor": id}   a white bandage round that actor's head (CAMPUS)
-## anchors: devil, doom_ledge, bed, helmet, roof, statue, reels, gate, window, mirror
+## anchors: devil, doom_ledge, bed, statue, gate, window, mirror
 extends RefCounted
 
 const Kit = preload("res://scripts/world/gag_kit.gd")
@@ -26,9 +21,7 @@ const HELL := Vector3(0, 0, 0)
 const DEVIL := Vector3(9.0, -6.0, -11.0)   # the Devil's foot (in the lava), HELL-relative
 const DEVIL_S := 2.0
 const HOSP := Vector3(0, 0, 300)
-const CITY := Vector3(0, 0, 600)
 const DRESS := Vector3(0, 0, 900)
-const REELS := Vector3(0, 0, 1200)
 const CAMPUS := Vector3(0, 0, 1500)
 const MIRROR := Vector3(0, 0, 1800)
 const TABLE := Vector3(0, 0, 2100)   # reels_mcmahon: the Fox posters thrown down on a table
@@ -61,38 +54,6 @@ static func suit_mask() -> Mesh:
 
 
 
-## The downloaded helmet (Sketchfab "Iron-Man Helmet (MK3)" by designpill, CC BY 4.0), if present: the first
-## .gltf/.glb under incoming/ironman_helmet/, scaled so its height is `height` and centred on the node's origin.
-static func helmet_model(height: float) -> Node3D:
-	var dir := Paths.repo_path("incoming/ironman_helmet")
-	var found := ""
-	var stack := [dir]
-	while not stack.is_empty() and found == "":
-		var d: String = stack.pop_back()
-		var da := DirAccess.open(d)
-		if da == null:
-			continue
-		for f in da.get_files():
-			if f.get_extension().to_lower() in ["gltf", "glb"]:
-				found = d.path_join(f)
-				break
-		for sub in da.get_directories():
-			stack.append(d.path_join(sub))
-	if found == "":
-		return null
-	var doc := GLTFDocument.new()
-	var state := GLTFState.new()
-	if doc.append_from_file(found, state) != OK:
-		return null
-	var model := doc.generate_scene(state) as Node3D
-	var holder := Node3D.new()
-	holder.add_child(model)
-	var bb := Kit.bounds(model)
-	var s := height / maxf(bb.size.y, 0.001)
-	model.scale = Vector3.ONE * s
-	model.position = -(bb.position + bb.size * 0.5) * s
-	return holder
-
 var _p := {}
 var _lava_mat: ShaderMaterial
 var _green_beam: MeshInstance3D
@@ -100,30 +61,75 @@ var _red_beam: MeshInstance3D
 var _clash_light: OmniLight3D
 var _thrown: Array[Node3D] = []
 var _sparks: MultiMesh
-var _helmet: Node3D
 var _monitor_line: MeshInstance3D
-var _frames: Array[Node3D] = []
+var _sheet: MeshInstance3D
 var _rain: MultiMesh
 var _dressed := {}
 
+const MONITOR := Vector3(-0.82, 1.42, -1.32)
 
-func _helmet_node(parent: Node3D, r: float) -> Node3D:
-	var h := Node3D.new()
-	parent.add_child(h)
-	var dl := helmet_model(r * 2.35)
-	if dl != null:
-		h.add_child(dl)
-		return h
-	Kit.ball(h, r, Vector3(0, 0.02, -0.05), Kit.mat("#a3121b", 0.28, 0.8), 24, Vector3(1.0, 1.1, 0.98))
-	var plate := MeshInstance3D.new()
-	plate.mesh = suit_mask()
-	plate.material_override = Kit.mat("#d9a441", 0.25, 0.9)
-	plate.scale = Vector3.ONE * r * 1.06
-	plate.position = Vector3(0, -0.01, 0.03)
-	h.add_child(plate)
-	for s: float in [-1.0, 1.0]:
-		Kit.box(h, Vector3(r * 0.46, r * 0.12, 0.01), Vector3(s * r * 0.4, r * 0.075, r * 0.94), Kit.lit("#dff4ff", 2.0), Vector3(0, s * 0.35, s * -0.18))
-	return h
+
+func _icu(root: Node3D) -> void:
+	var room := Node3D.new()
+	room.position = HOSP
+	root.add_child(room)
+	var tile := Kit.mat("#435560", 0.38)
+	var steel := Kit.mat("#7b96a2", 0.34, 0.46)
+	var walls := Kit.mat("#374a55")
+	Kit.box(room, Vector3(8, 0.1, 7), Vector3(0, -0.05, 0), tile)
+	Kit.box(room, Vector3(8, 3.3, 0.18), Vector3(0, 1.65, -2.4), walls)
+	Kit.box(room, Vector3(0.18, 3.3, 7), Vector3(-3.9, 1.65, 0), walls)
+	Kit.box(room, Vector3(6.0, 0.17, 0.12), Vector3(0, 1.00, -2.28), steel)
+	for y in 12:
+		Kit.box(room, Vector3(2.4, 0.042, 0.12), Vector3(1.3, 1.23 + y * 0.12, -2.25), steel)
+	Kit.box(room, Vector3(1.16, 0.14, 2.52), Vector3(0, 0.62, -0.28), steel)
+	Kit.box(room, Vector3(1.12, 0.17, 2.48), Vector3(0, 0.75, -0.28), Kit.mat("#adbec7"))
+	Kit.box(room, Vector3(0.55, 0.15, 0.49), Vector3(0, 0.85, -1.04), Kit.mat("#dde7ef"))
+	_sheet = Kit.box(room, Vector3(1.06, 0.21, 1.63), Vector3(0, 0.935, 0.18), Kit.mat("#597e93"))
+	Kit.box(room, Vector3(1.07, 0.08, 0.075), Vector3(0, 1.025, -0.60), Kit.mat("#7f9eac"))
+	for side: float in [-1.0, 1.0]:
+		for level: float in [0.75, 0.97]:
+			Kit.rod(room, Vector3(side * 0.59, level, -0.28), Vector3(side * 0.59, level, 0.73), 0.025, steel)
+		for z: float in [-0.28, 0.73]:
+			Kit.rod(room, Vector3(side * 0.59, 0.69, z), Vector3(side * 0.59, 0.97, z), 0.025, steel)
+	var shell := Kit.mat("#152a35", 0.42)
+	Kit.rod(room, MONITOR - Vector3(0, 1.42, 0), MONITOR, 0.04, steel)
+	Kit.box(room, Vector3(0.64, 0.42, 0.16), MONITOR, shell)
+	Kit.box(room, Vector3(0.57, 0.33, 0.025), MONITOR + Vector3(0, 0, 0.09), Kit.lit("#032322", 0.8))
+	_monitor_line = MeshInstance3D.new()
+	_monitor_line.mesh = ImmediateMesh.new()
+	_monitor_line.material_override = Kit.flat("#77ffc3")
+	room.add_child(_monitor_line)
+	Kit.rod(room, Vector3(-1.13, 0.0, -0.6), Vector3(-1.13, 1.98, -0.6), 0.022, steel)
+	Kit.box(room, Vector3(0.15, 0.26, 0.06), Vector3(-1.13, 1.73, -0.6), Kit.mat("#b2ceda"))
+	Kit.rod(room, Vector3(-1.13, 1.60, -0.6), Vector3(-0.57, 1.03, -0.3), 0.006, steel)
+	Kit.box(room, Vector3(1.3, 0.035, 0.16), Vector3(0, 2.62, -0.83), Kit.lit("#c1e7ff", 2.3))
+	Kit.spot(room, Vector3(0.32, 2.58, -0.77), Vector3(0, 0.99, -0.85), "#c4e3ff", 1.3, 5.0, 54.0, true, 0.15)
+	Kit.omni(room, Vector3(1.7, 1.55, 0.1), "#b5d4f0", 0.7, 4.0, false, 0.2)
+	Kit.omni(room, MONITOR + Vector3(0.25, 0, 0.38), "#32ffb4", 0.45, 2.2, false, 0.1)
+
+
+func _pose_hospital(t: float, ctx: Dictionary) -> void:
+	var patient: Node3D = ctx["actor"].call("tony_bed")
+	if patient != null:
+		patient.rotation.x = -PI / 2.0
+	_sheet.scale.y = 1.0 + 0.016 * sin(t * 2.15)
+	var trace := _monitor_line.mesh as ImmediateMesh
+	trace.clear_surfaces()
+	trace.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	var last := Vector3.ZERO
+	var width := Vector3(0, 0.003, 0)
+	for i in 61:
+		var u := float(i) / 60.0
+		var phase := fposmod(u * 1.85 - t * 0.95, 1.0)
+		var pulse := 0.112 * exp(-pow((phase - 0.48) / 0.036, 2.0))
+		pulse -= 0.057 * exp(-pow((phase - 0.53) / 0.031, 2.0))
+		var p := MONITOR + Vector3(lerpf(-0.267, 0.267, u), pulse, 0.107)
+		if i > 0:
+			for v: Vector3 in [last - width, last + width, p + width, last - width, p + width, p - width]:
+				trace.surface_add_vertex(v)
+		last = p
+	trace.surface_end()
 
 
 func build(g: Dictionary) -> Node3D:
@@ -190,54 +196,7 @@ func build(g: Dictionary) -> Node3D:
 	smi.material_override = Kit.lit("#ffd27a", 6.0)
 	smi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	root.add_child(smi)
-	# HOSP.
-	var ho := Node3D.new()
-	ho.position = HOSP
-	root.add_child(ho)
-	Kit.box(ho, Vector3(8, 0.1, 7), Vector3(0, -0.05, 0), Kit.mat("#8a9a9a", 0.4))
-	Kit.box(ho, Vector3(8, 3.2, 0.2), Vector3(0, 1.6, -2.6), Kit.mat("#a8b8b8", 0.8))
-	for s: float in [-1.0, 1.0]:
-		Kit.box(ho, Vector3(0.2, 3.2, 7), Vector3(s * 4.0, 1.6, 0), Kit.mat("#a8b8b8", 0.8))
-	Kit.box(ho, Vector3(1.1, 0.5, 2.2), Vector3(0, 0.35, -1.2), Kit.mat("#d8dcdc", 0.5, 0.4))
-	Kit.box(ho, Vector3(1.0, 0.18, 2.1), Vector3(0, 0.69, -1.2), Kit.mat("#eef0f2", 0.9))
-	Kit.box(ho, Vector3(1.0, 0.7, 0.06), Vector3(0, 0.95, -2.3), Kit.mat("#c8ccd0", 0.4, 0.5))
-	Kit.box(ho, Vector3(0.6, 0.12, 0.35), Vector3(0, 0.84, -2.0), Kit.mat("#f4f6f8", 0.9))
-	for s: float in [-1.0, 1.0]:
-		Kit.rod(ho, Vector3(s * 0.55, 0.8, -1.8), Vector3(s * 0.55, 0.8, -0.4), 0.02, Kit.mat("#c8ccd0", 0.3, 0.8), 8)
-	Kit.box(ho, Vector3(0.6, 0.6, 0.5), Vector3(1.0, 0.3, -1.9), Kit.mat("#c8ccd0", 0.5, 0.4))
-	_helmet = _helmet_node(ho, 0.2)
-	_helmet.position = Vector3(1.0, 0.82, -1.9)
-	_helmet.rotation = Vector3(0, -0.5, 0)
-	Kit.box(ho, Vector3(0.5, 0.35, 0.3), Vector3(-1.0, 1.4, -2.2), Kit.mat("#1a1c20", 0.4, 0.5))
-	Kit.box(ho, Vector3(0.44, 0.28, 0.02), Vector3(-1.0, 1.4, -2.04), Kit.lit("#0a2a1a", 1.0))
-	_monitor_line = MeshInstance3D.new()
-	_monitor_line.mesh = ImmediateMesh.new()
-	_monitor_line.material_override = Kit.lit("#4dff7a", 4.0)
-	ho.add_child(_monitor_line)
-	Kit.omni(ho, Vector3(-1.0, 1.4, -1.7), "#4dff7a", 0.8, 3.0, false, 0.2)
-	var win := Kit.box(ho, Vector3(0.05, 1.6, 2.0), Vector3(3.9, 1.7, -0.4), Kit.lit("#1a2a4a", 0.6))
-	win.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	Kit.spot(ho, Vector3(3.5, 2.6, -0.4), Vector3(0, 0.8, -1.2), "#8fa8e8", 6.0, 8.0, 40.0, true, 0.3)
-	Kit.omni(ho, Vector3(0, 2.8, 0.5), "#c8d8e8", 0.8, 8.0, false, 0.1)
-	# CITY: a rooftop and a skyline.
-	var ci := Node3D.new()
-	ci.position = CITY
-	root.add_child(ci)
-	Kit.box(ci, Vector3(12, 1, 12), Vector3(0, -0.5, 0), Kit.mat("#3a3c40", 0.8))
-	Kit.box(ci, Vector3(12, 0.6, 0.3), Vector3(0, 0.3, 6.0), Kit.mat("#4a4c50", 0.8))
-	var lit := Kit.lit("#ffd9a0", 2.2)
-	for i in 70:
-		var bw := rng.randf_range(6, 16)
-		var bh := rng.randf_range(20, 110)
-		var p := Vector3(rng.randf_range(-160, 160), -40 + bh * 0.5, rng.randf_range(30, 220))
-		Kit.box(ci, Vector3(bw, bh, bw), p, Kit.mat("#1c2028", 0.8)).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		for w in 4:
-			var wl := Kit.box(ci, Vector3(bw * 0.7, 0.9, 0.2), Vector3(p.x, p.y - bh * 0.4 + rng.randf() * bh * 0.8, p.z - bw * 0.5 - 0.1), lit)
-			wl.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	Kit.spot(ci, Vector3(-4, 6, -6), Vector3(0, 1.2, 0), "#9fb8ff", 14.0, 14.0, 30.0, true, 0.3)
-	Kit.spot(ci, Vector3(1.5, 3.0, 1.0), Vector3(0, 1.3, 4.5), "#ffd0b0", 12.0, 8.0, 35.0, true, 0.2)
-	Kit.spot(ci, Vector3(0, 3.5, 9.0), Vector3(0, 1.5, 4.5), "#7fa0ff", 10.0, 10.0, 30.0, false, 0.4)
-	Kit.spot(ci, Vector3(3, 2, 5), Vector3(0, 1.2, 0), "#ff6a4a", 5.0, 10.0, 40.0, false, 0.2)
+	_icu(root)
 	# DRESS.
 	var dr := Node3D.new()
 	dr.position = DRESS
@@ -271,24 +230,6 @@ func build(g: Dictionary) -> Node3D:
 	mk.position = Vector3(0.55, 0.92, -1.1)
 	mk.rotation = Vector3(-1.2, 0.2, 0)
 	dr.add_child(mk)
-	# REELS: three frames.
-	for i in 3:
-		var fr := Node3D.new()
-		root.add_child(fr)
-		Kit.box(fr, Vector3(3.2, 2.4, 0.02), Vector3.ZERO, Kit.lit("#e8dcc0", 0.25))
-		for s: float in [-1.0, 1.0]:
-			Kit.box(fr, Vector3(3.6, 0.35, 0.025), Vector3(0, s * 1.35, 0), Kit.mat("#141414", 0.6))
-			for k in 10:
-				Kit.box(fr, Vector3(0.14, 0.14, 0.03), Vector3(-1.6 + k * 0.36, s * 1.35, 0), Kit.lit("#e8dcc0", 0.4))
-		# The film's real poster (Wikipedia, commentary use) on the frame.
-		var pm := Kit.textured("library/logos/doom/posters/" + ["ff2005.jpg", "ff2007.jpg", "ff2015.jpg"][i]).duplicate()
-		pm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		var pq := Kit.quad(fr, Vector2(1.5, 2.22), Vector3(0, 0, 0.06), pm)   # >= 4 float steps proud at z 221 km
-		pq.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		var yr := Kit.text(fr, ["2005", "2007", "2015"][i], 0.18, Color("#f2e6c8"), Vector3(1.2, -1.35, 0.08), Vector3.ZERO, true, 1.2)
-		yr.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_frames.append(fr)
-	Kit.spot(root, REELS + Vector3(0, 3, 6), REELS, "#fff0d8", 8.0, 14.0, 40.0, false, 0.4)
 	# CAMPUS.
 	var ca := Node3D.new()
 	ca.position = CAMPUS
@@ -381,7 +322,6 @@ func _dress_once(a: Node3D, key: String, f: Callable) -> void:
 
 func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_p = g.get("params", {})
-	var inv: Transform3D = node.global_transform.affine_inverse()
 	_lava_mat.set_shader_parameter("time", t)
 	# HELL: beams from Doom's hand (the ledge) and the shadow's hand, meeting in the middle.
 	var from_g := HELL + Vector3(-4.6, 1.4, 2.4)
@@ -409,54 +349,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			continue
 		var v := Vector3(rng.randf_range(-1, 1), rng.randf_range(-0.3, 1), rng.randf_range(-1, 1)).normalized() * 4.0
 		_sparks.set_instance_transform(i, Transform3D(Basis.looking_at(v.normalized(), Vector3.UP), meet + v * k * 0.6 + Vector3(0, -2.0 * k * k, 0)))
-	# HOSP: the monitor line; the helmet taken.
-	var im := _monitor_line.mesh as ImmediateMesh
-	im.clear_surfaces()
-	im.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
-	var prev := Vector3.ZERO
-	for i in 41:
-		var u := float(i) / 40.0
-		var ph := fposmod(u * 2.0 - t * 0.8, 1.0)
-		var y := 0.0
-		if ph > 0.45 and ph < 0.5:
-			y = 0.1 * sin((ph - 0.45) / 0.05 * PI)
-		elif ph > 0.5 and ph < 0.53:
-			y = -0.04
-		var q := Vector3(-1.2 + u * 0.4, 1.4 + y, -2.025)
-		if i > 0:
-			var w := Vector3(0, 0.004, 0)
-			for vv in [prev - w, prev + w, q + w, prev - w, q + w, q - w]:
-				im.surface_add_vertex(vv - HOSP + HOSP)
-		prev = q
-	im.surface_end()
-	var td: Dictionary = _p.get("take", {})
-	if td.has("actor") and ctx.has("actor"):
-		var a = ctx["actor"].call(String(td["actor"]))
-		var tt := float(td.get("t", 1e9))
-		if a != null:
-			var reach := Motion.in_out(Motion.seg(t, tt - 0.6, tt))
-			var lift := Motion.in_out(Motion.seg(t, tt, tt + 0.8))
-			var rest := Vector3(1.0, 0.82, -1.9)
-			var held: Vector3 = inv * a.bone_world("hand_r") - HOSP + Vector3(0, 0.12, 0)
-			if reach > 0.0 and lift <= 0.0:
-				a.aim_hand("r", node.global_transform * (HOSP + rest + Vector3(0, 0.15, 0)), reach)
-			_helmet.position = rest.lerp(held, lift)
-			if lift > 0.0:
-				a.aim_hand("r", node.global_transform * (HOSP + rest.lerp(rest + Vector3(-0.3, 0.6, 0.6), lift)), 1.0)
-				_helmet.position = rest.lerp(rest + Vector3(-0.3, 0.75, 0.6), lift)
-	# REELS slide in.
-	var sl := float(_p.get("slide", 1e9))
-	var slides: Array = _p.get("slides", [sl, sl + 1.3, sl + 2.6])
-	for i in _frames.size():
-		var ti := float(slides[i])
-		var k := Motion.out_cubic(Motion.seg(t, ti, ti + 0.6))
-		var drift := (t - ti) * 0.15
-		_frames[i].position = REELS + Vector3(lerpf(9.0, 0.0, k) - maxf(drift, 0.0), 0, -0.5 * i)
-		_frames[i].visible = k > 0.0
-		if i < _frames.size() - 1:
-			var tn := float(slides[i + 1])
-			var nxt := Motion.in_cubic(Motion.seg(t, tn - 0.2, tn + 0.4))
-			_frames[i].position.x -= 9.0 * nxt
+	_pose_hospital(t, ctx)
 	# CAMPUS rain.
 	for i in _rain.instance_count:
 		rng.seed = 2000 + i
@@ -481,21 +374,6 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 					var sc := head.find_child("scar", false, false) as Node3D
 					if sc != null:
 						sc.scale = Vector3(1.0 + 8.0 * wk, 1.0 + 3.0 * wk, 1.0)
-		var ih: Dictionary = _p.get("ironhead", {})
-		if ih.has("actor"):
-			var a4 = ctx["actor"].call(String(ih["actor"]))
-			if a4 != null:
-				var head4 := a4.find_child("toon_head", true, false) as Node3D
-				if head4 != null:
-					if head4.get_node_or_null("iron_head") == null:
-						var hm4 := head4.get_node_or_null("head") as MeshInstance3D
-						var hr4 := hm4.get_aabb().size.x * 0.5 if hm4 != null else 0.28
-						var ir := helmet_model(hr4 * 2.6)
-						if ir != null:
-							ir.name = "iron_head"
-							head4.add_child(ir)
-					for c in head4.get_children():
-						(c as Node3D).visible = String(c.name) == "iron_head"
 		var bd: Dictionary = _p.get("bandage", {})
 		if bd.has("actor"):
 			var a3 = ctx["actor"].call(String(bd["actor"]))
@@ -532,7 +410,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var sq := Motion.squash(Motion.impact(t - tl, 0.12, 6.0, 12.0)) if t > tl else Vector3.ONE
 		pn.transform = Transform3D(Basis(Vector3.UP, spin) * Basis(Vector3.RIGHT, tilt), pos).scaled_local(Vector3(sq.x, 1.0, sq.z))
 	return {"devil": node.global_transform * (HELL + DEVIL + Vector3(0, 10, 0) * DEVIL_S), "doom_ledge": node.global_transform * (HELL + Vector3(-5, 0, 2)),
-		"bed": node.global_transform * (HOSP + Vector3(0, 0.8, -1.2)), "helmet": node.global_transform * (HOSP + _helmet.position),
-		"roof": node.global_transform * CITY, "statue": node.global_transform * (DRESS + Vector3(-0.6, 1.0, -1.1)),
-		"reels": node.global_transform * REELS, "gate": node.global_transform * (CAMPUS + Vector3(0, 2, -2)),
+		"bed": node.global_transform * (HOSP + Vector3(0, 0.8, -1.2)),
+		"statue": node.global_transform * (DRESS + Vector3(-0.6, 1.0, -1.1)),
+		"gate": node.global_transform * (CAMPUS + Vector3(0, 2, -2)),
 		"window": node.global_transform * (CAMPUS + Vector3(-1.4, 6.5, -11.9)), "mirror": node.global_transform * (MIRROR + Vector3(0, 1.55, 0))}

@@ -44,6 +44,12 @@ LOOK_DAWN = dict(LOOK_GOLD, time="06:20",
                  sun={"elevation": 5, "azimuth": 0, "color": "#ffb48a", "energy": 2.0, "softness": 0.6, "visible": True,
                       "size": 1.6, "glow": 2.0, "shadows": True},
                  sky={"top": "#3a5a9a", "horizon": "#ffc8a0", "clouds": 0.15})
+LOOK_BATTLEWORLD = dict(LOOK_GOLD, time="20:30",
+                        sun={"elevation": 6, "azimuth": 205, "color": "#eabf86", "energy": 0.65,
+                             "softness": 0.8, "visible": False, "shadows": True},
+                        sky={"top": "#131d34", "horizon": "#6b625c", "clouds": 0.2},
+                        ambient={"color": "#a4afc9", "energy": 0.30, "sky": 0.0},
+                        fog={"begin": 35, "end": 220, "curve": 1.6, "volumetric": 0.009, "color": "#a08d81"})
 
 
 def span(a, b):
@@ -55,8 +61,15 @@ ACTORS = [
      "action": "idle", "shown": [span("surfer_sky", "beyonder_grab")], "cues": [{"t": 0.0, "expression": "determined"}]},
     {"id": "doom_void", "freeze": 0.35, "character": "doom_realistic", "at": P(0.0, 0.0, VO), "facing": P(0.0, 0.0, VO + 10.0), "keep_y": True,
      "action": "idle", "shown": [span("beyonder_grab", "bw_planet")], "cues": [{"t": 0.0, "expression": "scheming"}]},
-    {"id": "doom_god", "freeze": 0.35, "character": "toon_victor_young", "at": P(0.0, 0.55, GO - 6.0), "facing": P(0.0, 0.55, GO + 10.0),
-     "keep_y": True, "action": "sit", "shown": [span("bw_throne", "emp_cloak")], "cues": [{"t": 0.0, "expression": "smug"}]},
+    {"id": "doom_god", "character": "doom_realistic", "at": P(0.0, 0.24, GO - 5.78), "facing": P(0.0, 0.24, GO + 10.0),
+     "keep_y": True, "action": "sit_down", "freeze": 0.999, "shown": [span("bw_throne", "bw_heal")]},
+    {"id": "reed_battleworld", "character": "toon_reed_ff", "at": P(-1.02, 0, GO - 4.10),
+     "facing": P(-0.34, 0, GO - 3.00), "keep_y": True, "freeze": 0.35, "action": "idle",
+     "shown": [span("bw_heal", "emp_cloak")], "cues": [{"t": 0.0, "expression": "determined"}]},
+    {"id": "victor_restored", "character": "toon_victor_young", "at": P(0.47, 0, GO - 4.26),
+     "facing": P(0.47, 0, GO + 8.0), "keep_y": True, "freeze": 0.35, "action": "idle",
+     "shown": [span("bw_heal", "emp_cloak")], "cues": [{"t": 0.0, "expression": "sad"},
+                                                         {"t": W("d13", "face.", 0.05), "expression": "happy"}]},
     {"id": "doom_emp", "freeze": 0.35, "character": "doom_realistic", "at": P(0.0, -5.0, EA + 52.0), "facing": P(0.0, -5.0, EA + 70.0),
      "keep_y": True, "action": "idle", "shown": [span("emp_cloak", "board_titles")], "cues": [{"t": 0.0, "expression": "smug"}]},
 ]
@@ -65,13 +78,11 @@ GAGS = [
     {"id": "cosmos_set", "script": "gags/cosmos.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"board": {"actor": "doom_surfer"}, "lightning": [W("d7", "Silver", 0.0), W("d7", "Surfer.", 0.2)],
                 "beyonder": {"actor": "doom_void", "t": W("d8", "god.", 0.0), "cup": {"shot": "beyonder_hand", "offset": 0.4}}, "stitch": W("d11", "stitches", 0.0),
-                "stretch": {"t": W("d13", "Reed", 0.0)},
+                "emperor": "doom_god", "renewal": W("d13", "could.", -0.12),
                 "green": W("d15", "Overnight,", 0.0)}},
     {"id": "cosmos_suits", "script": "library:doom_suit", "t": 0, "at": P(0, 0, 0),
-     "params": {"actors": [{"actor": "doom_surfer"}, {"actor": "doom_void"},
-                           {"actor": "doom_god", "metal": "#d8aa3a", "tunic": "#efe9dc", "cloak_color": "#f2ece0",
-                            "unmask": W("d13", "heals", 0.0), "hand": "none"},
-                           {"actor": "doom_emp", "cloak_color": "#9a1420"}]}},
+     "params": {"cloak": "#d9d4c8", "actors": [{"actor": "victor_restored", "metal": "#aab0b9", "tunic": "#e2ded4",
+                                                   "cloak_color": "#eee7da", "unmask": W("d13", "heals", -0.10)}]}},
 ]
 
 SHOTS = {
@@ -95,14 +106,15 @@ SHOTS = {
     "bw_stitch": {"look": LOOK_SPACE, "shake": [{"t": W("d11", "Battleworld,", 0.0), "amount": 0.08}], "camera": move(
         cam(P(-20.0, 10.0, WO + 80.0), P(0.0, 0.0, WO), 32, {"strength": 0.02}),
         cam(P(10.0, 6.0, WO + 72.0), P(0.0, 0.0, WO), 32, {"strength": 0.02}), "in")},
-    # God Emperor Doom on the throne at the crown of the world tree; low, looking up.
-    "bw_throne": {"look": LOOK_GOLD, "camera": move(
-        cam(P(3.2, 0.6, GO + 1.0), P(0.0, 1.6, GO - 6.0), 28, {"strength": 0.05}),
-        cam(P(2.2, 0.9, GO - 1.2), P(0.0, 1.7, GO - 6.0), 28, {"strength": 0.05}), "in")},
-    # From behind the throne: Reed's arm reaches in, white light, the mask lifts away; his face never shown.
-    "bw_heal": {"look": LOOK_GOLD, "camera": move(
-        cam(P(-3.4, 2.3, GO - 5.0), P(0.3, 1.7, GO - 5.4), 32, {"strength": 0.1}),
-        cam(P(-3.0, 2.2, GO - 4.8), P(0.3, 1.7, GO - 5.4), 32, {"strength": 0.1}), "in")},
+    # Doom is already seated. The low camera closes in on the Emperor and his throne.
+    "bw_throne": {"look": LOOK_BATTLEWORLD, "camera": move(
+        cam(P(1.82, 0.82, GO - 2.46), P(0.0, 1.21, GO - 5.78), 35),
+        cam(P(0.52, 1.06, GO - 3.47), P(0.0, 1.27, GO - 5.78), 44), "in_out")},
+    # Start on Reed and Victor, then settle the camera before the mask moves.
+    "bw_heal": {"look": LOOK_BATTLEWORLD, "camera": {**move(
+        cam(P(-0.95, 1.48, GO - 1.81), P(-0.37, 1.28, GO - 4.2), 38),
+        cam(P(0.69, 1.36, GO - 2.52), P(0.47, 1.24, GO - 4.26), 50), "in_out"),
+        "start": W("d13", "does", 0.0), "end": W("d13", "heals", -0.48)}},
     # Before the Earth: the red cloak and the amulet drop onto his shoulders on "Supreme".
     "emp_cloak": {"look": LOOK_SPACE, "camera": move(
         cam(P(1.5, -3.85, EA + 54.4), P(0.0, -4.15, EA + 52.0), 35, {"strength": 0.05}),

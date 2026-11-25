@@ -53,6 +53,9 @@ GAGS = [
                             "aspect": 2.566, "bg": "#2c1f63"},
                            {"t": W("c1c", 0, -0.2), "show": "black"},
                            {"t": W("c1d", 0, -0.2), "show": "white"},
+                           {"t": {"shot": "reels_past"}, "show": "standby"},
+                           {"t": W("r3", "big", -0.10), "show": "poster", "bg": "#594337",
+                            "image": "library/logos/doom/posters/ff2005.jpg"},
                            {"t": W("r16", 0, -0.3), "show": "trailer"}],
                 "cheer": CHEER,
                 "marquee": ["AVENGERS: DOOMSDAY", "OPENS DEC 18"],
@@ -96,6 +99,10 @@ SHOTS = {
     "cinema_2008": {"look": LOOK_STREET, "camera": move(
         cam(P(79.0, 4.5, 7.5), P(80.0, 6.6, 2.2), 30, {"strength": 0.04}),
         cam(P(79.3, 3.6, 7.0), P(80.0, 6.2, 2.2), 30, {"strength": 0.04}), "in_out")},
+    # Push through the audience silhouettes into the 2005 one-sheet on the screen.
+    "reels_past": {"look": LOOK_CINEMA, "camera": move(
+        cam(P(-2.4, 5.65, -0.15), P(0.0, 3.95, -13.9), 33),
+        cam(P(-0.6, 4.50, -5.1), P(0.0, 4.55, -13.9), 42), "in_out")},
     # The marquee and the poster: the first Avengers film in seven years.
     "cinema_years": {"look": LOOK_STREET, "camera": move(
         cam(P(84.0, 1.5, 8.0), P(82.0, 4.5, 1.0), 26, {"strength": 0.04}),

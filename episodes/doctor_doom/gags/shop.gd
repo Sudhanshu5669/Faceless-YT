@@ -12,6 +12,8 @@
 ##   stack  [t, t, t, t]   four comics slap down on the counter one by one
 ##   drop   t   the hero comic slips from the hand and flutters to the floor, landing face up at (0.1, 0, 0.55)
 ##   rise   t   a new comic, RISE OF DOOM (the 2026 reissue of Infamous Iron Man), slaps down on the counter
+##   infamous {"from": t, "land": t, "until": t}   the original first issue slides into the cleared counter insert
+##   comparison {"actor": id, "from": t, "until": t, "clear": t, "draw": t, "land": t}   a collector clears the film posters and draws FF #5 forward
 ##   covers ["path.jpg", ...]   optional cover textures for the four stacked comics (else plain colours)
 ## anchors: comic, box, counter, standee, window
 extends RefCounted
@@ -24,12 +26,22 @@ const Paths = preload("res://scripts/core/paths.gd")
 const BOX := Vector3(-0.35, 0.62, 0.0)   # toon height: the hero table is low
 const COUNTER := Vector3(1.6, 1.0, -0.6)
 const COVER := "library/logos/doom/ff5_doom_debut.jpg"
+const INFAMOUS_COVER := "library/logos/doom/posters/infamous_iron_man_1.jpg"
+const FILM_POSTERS := ["ff2005.jpg", "ff2007.jpg", "ff2015.jpg"]
 
 var _p := {}
 var _comic: Node3D
 var _stack: Array[Node3D] = []
 var _rise: Node3D
+var _infamous: Node3D
 var _rain: MultiMesh
+var _counter_top: MeshInstance3D
+var _counter_plain: Material
+var _counter_wood: Material
+var _counter_lamp: OmniLight3D
+var _counter_step: MeshInstance3D
+var _movie_prints: Array[Node3D] = []
+var _comparison_comic: Node3D
 
 
 static var _suit: GDScript
@@ -146,7 +158,11 @@ func build(g: Dictionary) -> Node3D:
 					Kit.mat(c, 0.6), Vector3(-0.15, 0, 0))
 	# The counter and the desk lamp.
 	Kit.box(root, Vector3(1.4, 1.0, 0.7), COUNTER + Vector3(0, -0.5, 0), Kit.mat("#3a2818", 0.6))
-	Kit.box(root, Vector3(1.5, 0.04, 0.8), COUNTER, Kit.mat("#5a3e26", 0.4))
+	_counter_plain = Kit.mat("#5a3e26", 0.4)
+	_counter_wood = Kit.textured("incoming/polyhaven_doom/textures/dark_wood_diff_2k.jpg",
+		"incoming/polyhaven_doom/textures/dark_wood_nor_gl_2k.jpg", "incoming/polyhaven_doom/textures/dark_wood_rough_2k.jpg",
+		Vector3(2.0, 2.0, 1.0), Color("#b6997c"))
+	_counter_top = Kit.box(root, Vector3(1.5, 0.04, 0.8), COUNTER, _counter_plain)
 	Kit.rod(root, Vector3(0.45, 0.62, -0.3), Vector3(0.45, 1.5, -0.3), 0.012, Kit.mat("#202020", 0.4, 0.6), 8)
 	Kit.cyl(root, 0.03, 0.12, 0.14, Vector3(0.3, 1.5, -0.2), Kit.mat("#1c3a2a", 0.4, 0.5), 16, Vector3(0.5, 0, 0.6))
 	Kit.spot(root, Vector3(0.7, 1.7, 0.6), Vector3(-0.3, 1.05, -0.35), "#ffd09a", 1.3, 4.0, 40.0, true, 0.3)
@@ -172,9 +188,16 @@ func build(g: Dictionary) -> Node3D:
 	Kit.box(st, Vector3(0.02, 1.6, 0.3), Vector3(0, 0.8, -0.16), Kit.mat("#c8b89a", 0.9), Vector3(0.15, 0, 0))
 	Kit.spot(root, Vector3(2.2, 2.6, 1.0), Vector3(3.6, 1.3, 2.2), "#ffcf9a", 5.0, 5.0, 30.0, true, 0.2)
 	# A warm work lamp over the counter so the stacked covers read.
-	Kit.omni(root, COUNTER + Vector3(0.0, 0.75, 0.15), "#ffd9a8", 1.4, 2.2, false, 0.0)
+	_counter_lamp = Kit.omni(root, COUNTER + Vector3(0.0, 0.75, 0.15), "#ffd9a8", 1.4, 2.2, false, 0.0)
+	_counter_step = Kit.box(root, Vector3(0.55, 0.21, 0.49), Vector3(1.59, 0.105, -1.21), Kit.mat("#3c342e", 0.88))
 	# The hero comic and the four stacked comics.
 	_comic = _comic_mesh(root, COVER, Color.WHITE)
+	_infamous = _comic_mesh(root, INFAMOUS_COVER, Color.WHITE)
+	Kit.box(_infamous, Vector3(0.168, 0.258, 0.009), Vector3.ZERO, Kit.mat("#d7cdb9", 0.88))
+	for file: String in FILM_POSTERS:
+		_movie_prints.append(_comic_mesh(root, "library/logos/doom/posters/" + file, Color.WHITE))
+	_comparison_comic = _comic_mesh(root, COVER, Color.WHITE)
+	Kit.box(_comparison_comic, Vector3(0.168, 0.258, 0.009), Vector3.ZERO, Kit.mat("#bcb097", 0.9))
 	var covers: Array = _p.get("covers", [])
 	var cols := ["#c8202a", "#1f6fd0", "#b81e1e", "#8a1a1a"]
 	for i in 4:
@@ -190,6 +213,38 @@ DOOM", 0.034, Color("#7dff9a"), Vector3(0, 0.07, 0.004), Vector3.ZERO, true, 1.2
 	em.position = Vector3(0, -0.04, 0.004)
 	_rise.add_child(em)
 	return root
+
+
+func _pose_comparison(node: Node3D, t: float, ctx: Dictionary) -> bool:
+	var p: Dictionary = _p.get("comparison", {})
+	var active := t >= float(p.get("from", INF)) and t < float(p.get("until", INF))
+	_comparison_comic.visible = active
+	for poster in _movie_prints:
+		poster.visible = active
+	if not active:
+		return false
+	var clear := float(p["clear"])
+	var draw := float(p["draw"])
+	var land := float(p["land"])
+	var sweep := Motion.in_out(Motion.seg(t, clear, clear + 0.7))
+	var spread := Motion.out_cubic(Motion.seg(t, clear + 0.34, clear + 0.94))
+	for i in _movie_prints.size():
+		_movie_prints[i].position = COUNTER + Vector3(-0.18 + 0.20 * i - 0.40 * sweep, 0.051 + 0.004 * i,
+			-0.065 - 0.020 * i + 0.04 * spread * (i - 1))
+		_movie_prints[i].rotation = Vector3(-PI / 2.0, 0.13 * (i - 1) + 0.24 * spread, 0)
+	var pull := Motion.in_out(Motion.seg(t, draw, land))
+	_comparison_comic.position = COUNTER + Motion.arc(Vector3(0.22, 0.034, -0.14), Vector3(0, 0.034, 0.075), 0.023, pull)
+	_comparison_comic.rotation = Vector3(-PI / 2.0, lerpf(0.14, -0.04, pull), 0)
+	var actor = ctx["actor"].call(String(p["actor"]))
+	if actor != null:
+		Crawl.long_arms(actor, 1.32)
+		var sweep_hold := Motion.in_out(Motion.seg(t, clear - 0.35, clear)) * (1.0 - Motion.in_out(Motion.seg(t, clear + 0.68, clear + 1.05)))
+		var grip := Motion.in_out(Motion.seg(t, draw - 0.31, draw)) * (1.0 - Motion.in_out(Motion.seg(t, land + 0.03, land + 0.32)))
+		var push_edge := _movie_prints[1].position + Vector3(0.055, 0.035, -0.09)
+		var cover_edge := _comparison_comic.position + Vector3(0.065, 0.027, -0.085)
+		actor.aim_hand("r", node.global_transform * push_edge, sweep_hold)
+		actor.aim_hand("l", node.global_transform * cover_edge, grip)
+	return true
 
 
 func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
@@ -235,12 +290,18 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		xf = Transform3D(Basis(xf.basis.get_rotation_quaternion().slerp(land.basis.get_rotation_quaternion(), Motion.out_cubic(k))
 			* Quaternion(Vector3(0, 0, 1), 0.6 * sin(k * 7.0) * (1.0 - k))), mid if k < 1.0 else land.origin)
 	_comic.transform = xf
+	var infamous: Dictionary = _p["infamous"]
+	var insert := t >= float(infamous["from"]) and t < float(infamous["until"])
+	var comparison := _pose_comparison(node, t, ctx)
+	_counter_top.material_override = _counter_wood if insert or comparison else _counter_plain
+	_counter_lamp.light_energy = 1.0 if comparison else 1.4
+	_counter_step.visible = comparison
 	# The stack on the counter.
 	var st: Array = _p.get("stack", [])
 	for i in _stack.size():
 		var c := _stack[i]
 		var ct := float(st[i]) if i < st.size() else 1e9
-		c.visible = t >= ct - 0.35
+		c.visible = not (insert or comparison) and t >= ct - 0.35
 		if c.visible:
 			var k := Motion.in_cubic(Motion.seg(t, ct - 0.35, ct))
 			var land := COUNTER + Vector3(-0.285 + 0.19 * i, 0.03 + 0.006 * i, 0.05 - 0.02 * i)
@@ -256,6 +317,16 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var sq := Motion.squash(Motion.impact(t - rset, 0.25, 6.0, 10.0)) if t > rset else Vector3.ONE
 		_rise.transform = Transform3D(Basis.from_euler(Vector3(-PI / 2 + (1.0 - k) * 0.7, 0.15 + (1.0 - k), 0)).scaled(sq),
 			Vector3(land.x, lerpf(land.y + 0.8, land.y, k), land.z))
+	var hit := float(infamous["land"])
+	_infamous.visible = insert and t >= hit - 0.62
+	if _infamous.visible:
+		var enter := Motion.seg(t, hit - 0.62, hit)
+		var settled := Motion.out_cubic(Motion.seg(t, hit, hit + 0.24))
+		var slide := -0.37 * (1.0 - Motion.out_cubic(enter)) - 0.014 * (1.0 - settled)
+		var pitch := -PI / 2.0 + 0.24 * (1.0 - enter)
+		var height := 0.034 + 0.11 * (1.0 - enter * enter) + 0.006 * sin(PI * settled)
+		_infamous.position = COUNTER + Vector3(slide, height, 0)
+		_infamous.rotation = Vector3(pitch, 0.34 * (1.0 - enter) - 0.035 * settled, 0)
 	return {"comic": node.global_transform * xf.origin, "box": node.global_transform * BOX,
 		"counter": node.global_transform * COUNTER, "standee": node.global_transform * Vector3(3.6, 1.4, 2.2),
 		"window": node.global_transform * Vector3(0, 2.0, 3.2)}

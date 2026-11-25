@@ -1,5 +1,5 @@
 {
-  "count": 986,
+  "count": 989,
   "models": [
     {
       "animations": [],
@@ -27484,6 +27484,87 @@
       ],
       "thumb": "library/thumbs/vltxd_doom/Doom_VLTXD.png",
       "tris": 23870
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "vltxd_witch/Witch_VLTXD_0",
+      "min": [
+        -1.259,
+        0.215,
+        -0.233
+      ],
+      "name": "Witch_VLTXD_0",
+      "node": "",
+      "pack": "vltxd_witch",
+      "path": "res://assets/vltxd_witch/Witch_VLTXD_0.glb",
+      "rigged": true,
+      "size": [
+        1.578,
+        1.596,
+        1.991
+      ],
+      "tags": [
+        "character",
+        "witch",
+        "vltxd"
+      ],
+      "thumb": "library/thumbs/vltxd_witch/Witch_VLTXD_0.png",
+      "tris": 9989
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "vltxd_witch/Witch_VLTXD_1",
+      "min": [
+        -1.259,
+        0.215,
+        -0.233
+      ],
+      "name": "Witch_VLTXD_1",
+      "node": "",
+      "pack": "vltxd_witch",
+      "path": "res://assets/vltxd_witch/Witch_VLTXD_1.glb",
+      "rigged": true,
+      "size": [
+        1.578,
+        1.596,
+        1.99
+      ],
+      "tags": [
+        "character",
+        "witch",
+        "vltxd"
+      ],
+      "thumb": "library/thumbs/vltxd_witch/Witch_VLTXD_1.png",
+      "tris": 8585
+    },
+    {
+      "animations": [],
+      "category": "character",
+      "id": "vltxd_witch/Witch_VLTXD_2",
+      "min": [
+        -1.257,
+        0.204,
+        -0.231
+      ],
+      "name": "Witch_VLTXD_2",
+      "node": "",
+      "pack": "vltxd_witch",
+      "path": "res://assets/vltxd_witch/Witch_VLTXD_2.glb",
+      "rigged": true,
+      "size": [
+        1.576,
+        1.596,
+        1.99
+      ],
+      "tags": [
+        "character",
+        "witch",
+        "vltxd"
+      ],
+      "thumb": "library/thumbs/vltxd_witch/Witch_VLTXD_2.png",
+      "tris": 8585
     }
   ],
   "version": 1

@@ -7,6 +7,19 @@ rules, incl. rule 11 "Make it grand") and the `toon-short` skill.*
 (16:9, 1920x1080, 60 fps, ~8.5 min), for Avengers: Doomsday (US release 18 Dec 2026, premiere 14 Dec). Target upload
 **Dec 12-15**. Pitch: `pitch.md`. Script + every fact's source: `script.md`. Assets + licences + credits: `ASSETS.md`.
 
+## FINAL RENDER DONE (2026-11-25 17:25)
+
+All 114 shots approved. **The upload file is `renders/doctor_doom_aligned.mp4`** (249 MB, 1920x1080, 60 fps,
+458.18 s; audio 458.20 s = the mix; -14.0 LUFS integrated, -1.2 dBTP; all 7 overlays + captions checked on stills).
+`renders/doctor_doom.mp4` (17:11) is an aborted encode with no moov atom: unplayable, ignore/delete it.
+- **Pipeline bug (not fixed in code):** `tf.py` `_episode_frames` and the Godot timeline round each shot's duration to
+  frames on its own (`round(duration * 120)` with motion blur 2), so 114 shots came out 34 frames (0.57 s) longer than
+  the narration. The fix for this video was a one-off ffmpeg pass that drops one frame at 34 shot cuts
+  (`select=not(eq(n,...))`) before the overlays/captions. Fix properly before the next long render: derive each shot's
+  frame range from the cumulative time (`round(t_end*fps) - round(t_start*fps)`, a multiple of `blur`).
+- Left: thumbnail (16:9), title, description with all credits (below), chapters (overlay times: ch1 51.07 s,
+  ch2 131.27, ch3 254.33, ch4 353.48), commit the uncommitted Doom work.
+
 ## Where we stopped (2026-11-25)
 
 All 114 shots are built and have review clips. The user is reviewing in the shot UI
@@ -45,7 +58,8 @@ All 114 shots are built and have review clips. The user is reviewing in the shot
 - castle_throne: Doom now stands before the throne like castle_king (same actor `doom_stand`; the seated
   `doom_throne` only appears from throne_wide on). Rendered, awaiting the verdict.
 - reels_kebbell: the same table as reels_mcmahon; the FF (2015) one-sheet is thrown onto the pile on "2015."
-  (misc.gd `thrown` now takes three times). The film-frame reels remain only in reels_past. Rendered, awaiting the verdict.
+  (misc.gd `thrown` takes three times). Shot 93 (`reels_past`) opens in the cinema and lights up the 2005 poster
+  on "big screen" before shot 94 uses the same artwork on the table.
 - All 20 board review clips re-rendered with the Kang poster on the wall (the old clips showed the purple placeholder).
 - **Rejected for licence:** the Sketchfab "Avengers: Doomsday Title" (CC BY-NC-SA, non-commercial).
 - **Open questions for the user (ask again):** (1) hell_fight Devil: amaraha "Free Rigged Devil" (itch.io, CC BY 4.0)?
@@ -61,6 +75,11 @@ All 114 shots are built and have review clips. The user is reviewing in the shot
 ## Next steps
 
 1. The user re-reviews in the shot UI; fix their next verdicts the same way (storyboard, look, render the clip, notify).
+   Shot 96 now follows the collector clearing the three film posters and drawing Fantastic Four #5 into the desk light.
+   Shots 80–81 now stage the ivory rigged Doom at the world-tree throne, then show Reed and hold on Victor's face
+   as he lifts the mask. The old stretching arm was removed from the healing beat.
+   The user accepted shot 85's ICU staging. Shots 86–87 use Alex Maleev's original Infamous Iron Man #1 cover in the
+   comic shop, cutting from the split-mask artwork to the full issue. The original narration and shot IDs are still used.
 2. Still open: the boardroom window HDRI (a river and a bridge) is not Burbank; needs a downloaded CC0 HDRI (ask first).
 3. Unreviewed shots ("-") besides board/shop: lat_castle/healer/flee/freeze, mirror_warp, tibet_mask, emp_globe,
    hosp_helmet.

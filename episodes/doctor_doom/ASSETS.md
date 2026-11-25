@@ -28,6 +28,8 @@ Existing packs reused: `kenney_castle` (later, Castle Doom), `quaternius_nature`
   licences, so they don't qualify.
 - **Hall H crowd**: 6,500 seats as MultiMesh toon silhouettes with phone lights (no pack needed).
 - **Toon RDJ, Reed (1960s student), Kevin Feige, the Russos**: `library/characters/` JSONs on the toon body.
+- **God Emperor ivory finish**: `art/doom_emperor_ivory.png` recolors the green cloth in the existing Doom atlas.
+  Based on VLTXD's *Doctor Doom Avengers Doomsday Low Poly* (CC BY 4.0), with the original metal, skin and gold retained.
 
 ## Download notes (2026-11-24)
 

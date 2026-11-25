@@ -6,8 +6,8 @@ window wall at z 3.2 with the street beyond. Cameras inside at +z looking -z.
 
 shop_night (v0a: the rainy window, the neon sign, push in), shop_box (v0b: he draws a comic out of the long box on
 "answer"), shop_cover (v0c: FF #5 held up, tilting into the lamp), shop_meet (v0d: close on Doom on the cover),
-shop_stack (v0j: four comics slap down, one per name), shop_wait (r6: the standee in front, the collector and his
-comic behind).
+shop_stack (v0j: four comics slap down, one per name), shop_wait (r6: the collector slides the film posters aside
+and pulls FF #5 into the lamp).
 """
 from .common import W, frame, cam, move
 
@@ -31,9 +31,14 @@ PULL = W("v0b", "answer", 0.0)
 
 ACTORS = [
     {"id": "collector", "character": "toon_nerd", "at": P(-0.35, 0, -0.75), "facing": P(-0.35, 0, 3.0), "action": "idle",
+     "shown": [[{"shot": "shop_night"}, {"shot": "doom62_kidnap"}], [{"shot": "shop_stack"}, {"shot": "lab_double"}],
+               [{"shot": "hosp_helmet"}, {"shot": "hall_why"}]],
      "cues": [{"t": 0.0, "expression": "thinking"}, {"t": PULL, "expression": "star_eyes"},
-              {"t": W("v0d", "Doom.", 0.0), "expression": "shocked"}, {"t": W("r6", 0), "expression": "happy"},
-              {"t": W("r6", "comics.", 0.0), "expression": "star_eyes"}]},
+              {"t": W("v0d", "Doom.", 0.0), "expression": "shocked"}]},
+    {"id": "collector_counter", "character": "toon_nerd", "at": P(1.59, 0.21, -1.12), "facing": P(1.59, 0.21, 2.0),
+     "action": "idle", "freeze": 0.35, "keep_y": True,
+     "shown": [[{"shot": "shop_wait"}, {"shot": "gal_mirror"}]],
+     "cues": [{"t": W("r6", 0), "expression": "thinking"}, {"t": W("r6", "feels"), "expression": "happy"}]},
 ]
 
 GAGS = [
@@ -42,7 +47,12 @@ GAGS = [
                 "covers": ["library/logos/doom/posters/avengers1.jpg", "library/logos/doom/posters/spiderman.jpg",
                            "library/logos/doom/posters/ironman_comic.jpg", "library/logos/doom/posters/daredevil.jpg"],
                 "stack": [W("v0j", "Avengers,", 0.0), W("v0j", "Spider-Man,", 0.0), W("v0j", "Iron", 0.0),
-                          W("v0j", "Daredevil.", 0.0)], "rise": 1e9}},
+                          W("v0j", "Daredevil.", 0.0)], "rise": 1e9,
+                "infamous": {"from": {"shot": "hosp_helmet"}, "land": W("d18", "armor,"),
+                             "until": {"shot": "shop_rise"}},
+                "comparison": {"actor": "collector_counter", "from": {"shot": "shop_wait"},
+                               "until": {"shot": "gal_mirror"}, "clear": W("r6", "waited"),
+                               "draw": W("r6", "feels"), "land": W("r6", "comics.", -0.13)}}},
 ]
 
 SHOTS = {
@@ -66,14 +76,23 @@ SHOTS = {
     "shop_stack": {"look": LOOK_SHOP, "camera": move(
         cam(P(1.55, 1.66, -0.4), P(1.55, 1.0, -0.62), 32, {"strength": 0.05}),
         cam(P(1.55, 1.58, -0.42), P(1.55, 1.0, -0.62), 32, {"strength": 0.05}), "in")},   # covers fill the frame
+    # The original cover slides in on "armor". Stay on the split face until the cut.
+    "hosp_helmet": {"look": LOOK_SHOP, "camera": move(
+        cam(P(1.56, 1.31, -0.52), P(1.58, 1.04, -0.58), 52),
+        cam(P(1.60, 1.34, -0.52), P(1.60, 1.04, -0.585), 60), "in_out")},
+    # Pull back from the face to the full issue, with room below for captions.
+    "city_ironman": {"look": LOOK_SHOP, "camera": move(
+        cam(P(1.60, 1.47, -0.54), P(1.60, 1.04, -0.58), 43),
+        cam(P(1.61, 1.51, -0.52), P(1.60, 1.04, -0.58), 43), "in_out")},
     # The Doom standee in the shop window, lit; the Bleeding Cool headline slides in (overlay news_rise).
     "shop_rise": {"look": LOOK_SHOP, "camera": move(
         cam(P(-2.5, 1.5, 1.6), P(-1.5, 1.6, -3.2), 28, {"strength": 0.08}),
         cam(P(0.5, 1.5, 1.4), P(1.0, 1.6, -3.2), 28, {"strength": 0.08}), "in_out")},
-    # The cardboard Doom standee by the window in front; the collector and his comic behind.
-    "shop_wait": {"look": LOOK_SHOP, "camera": move(
-        cam(P(2.6, 1.35, 0.7), P(3.3, 1.45, 2.0), 30, {"strength": 0.12}),
-        cam(P(2.45, 1.35, 0.6), P(2.0, 1.3, -0.3), 30, {"strength": 0.12}), "in_out")},
+    # Start wide enough to see the collector and the posters, then close on Kirby's Doom.
+    "shop_wait": {"look": LOOK_SHOP, "camera": {**move(
+        cam(P(2.08, 1.72, 0.19), P(1.62, 1.23, -0.76), 34),
+        cam(P(1.63, 1.34, -0.45), P(1.58, 1.04, -0.572), 51), "in_out"),
+        "start": W("r6", "time", 0.0), "end": W("r6", "comics.", 0.12)}},
 }
 
 PLACE = {"gags": GAGS, "actors": ACTORS, "shots": SHOTS}
