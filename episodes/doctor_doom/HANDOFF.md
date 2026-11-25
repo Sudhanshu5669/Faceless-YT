@@ -20,7 +20,10 @@ All 114 shots approved. **The upload file is `renders/doctor_doom_aligned.mp4`**
 - Upload package: `youtube.md` (title, description with chapters and every credit, tags). Four 1280x720 thumbnails
   in `thumbnail/` from `thumbnail/create_thumbnails.gd` (frames of the picture file; PNGs git-ignored):
   A "WHY HIM?" (Hall H unmask), B "NEW MASK. / SAME TASK." (Iron Man helmet | Doom split), C clean Doom close-up,
-  D "HE FIGHTS THE DEVIL / EVERY YEAR." (hell). Waiting on the user's pick; upload up to 3 to Test & compare.
+  D "HE FIGHTS THE DEVIL / EVERY YEAR." (hell). The user didn't like round 1 -> round 2 (`create_thumbnails_v2.gd`,
+  `thumb_sheet_v2.png`): E One World Under Doom, F Scientist/Sorcerer/King (throne), G Most Dangerous Man (door of
+  light), H Iron Man's Dark Mirror (helmet + shadow), I He Stole a God's Power (galaxy), J He Took Over the World.
+  Georgia Bold "cinema" style vs Impact "punch" style. Waiting on the user's pick.
 
 ## Where we stopped (2026-11-25)
 
