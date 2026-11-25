@@ -7,6 +7,30 @@ explosion. The user gave Claude end-to-end ownership of the channel and full per
 asked to **review every shot before the final render** (`python pipeline/tf.py shot bombay_gold --serve`,
 http://127.0.0.1:8770/).
 
+## Where we stopped (2026-11-25, late night) — READ FIRST
+
+- Review round 1: 43 approved, 9 "changes" (gold_fall railings, man_lift angle/table clip, ground glitch on
+  stikine_bow/dock_moor/engines_race/helmets, flat_return = gold bar silhouette against the burning sky,
+  police_desk/cheque_999 "policeman's head on the table"). **All 9 fixed and committed (b6909cc)**; review clips
+  re-rendered for them + bar_wall, window_whip, hook_rain, cotton_rain, gold_rain (same sets changed).
+  Fixes: quay wall tops 6 cm under the paving (coplanar = z-fighting); balcony actors at x +-6.35; table scaled 0.75
+  (TOP 0.75), man at (1.45, 0, -1.0); police platform 0.6 m, inspector y 0.6, eye-level cameras; new actor
+  `parsi_eve` at the window + `_bar_sil` dark bar + sky panel colour ramps to burning red at `dusk`; the Parsi cap
+  sits on the `<id>.head` anchor (= drawn toon head centre, ~1.19 m) + 0.25, NOT bone_world("head") (~1.6 m).
+- **Next:** the user re-reviews the re-rendered clips (`python pipeline/tf.py shot bombay_gold --serve --port 8771`;
+  port 8770 is held by an old doctor_doom server). `tf render bombay_gold` refuses until every shot is approved
+  (do not --force). Check power (BatteryStatus 2) right before rendering; ~1.5 h.
+- **Before the final render, fix the frame drift** (known bug from doctor_doom): `godot/scripts/timeline/episode.gd`
+  `timeline()` rounds each shot's frames on its own (`roundi(dur * fps)`); make it `round(t_end * out_fps) -
+  round(t_start * out_fps)` in output frames, times `blur` (pass blur in from main.gd `_fps()` callers at lines
+  ~327/359/471/575; `args.blur`), and mirror it in `pipeline/tf.py` `_episode_frames` (line ~160) and the shot loop
+  (line ~441). Run `tf test` after.
+- Kimodo (`E:\AgentTools\kimodo`): venv + torch 2.6 cu124 OK, SOMA-X installed from a local clone (git-lfs hook
+  blocked the pip clone; `git restore` finished it), deps installed; **kimodo itself won't build: its
+  MotionCorrection C++ extension needs MSVC** (no compiler on this PC). Waiting for the user: install "Build Tools for
+  Visual Studio 2022" (Desktop development with C++), then `cd repo && ../venv/Scripts/python.exe -m pip install -e .
+  --no-deps --no-build-isolation`. The user also needs an HF token in `E:\AgentTools\kimodo\.env` (Llama-3 licence).
+
 ## State
 
 - Script v1 approved (`script.md`); one Gemini take cached (lines were later split into sub-lines without new tags,
