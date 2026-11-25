@@ -46,6 +46,7 @@ All 114 shots are built and have review clips. The user is reviewing in the shot
   `doom_throne` only appears from throne_wide on). Rendered, awaiting the verdict.
 - reels_kebbell: the same table as reels_mcmahon; the FF (2015) one-sheet is thrown onto the pile on "2015."
   (misc.gd `thrown` now takes three times). The film-frame reels remain only in reels_past. Rendered, awaiting the verdict.
+- All 20 board review clips re-rendered with the Kang poster on the wall (the old clips showed the purple placeholder).
 - **Rejected for licence:** the Sketchfab "Avengers: Doomsday Title" (CC BY-NC-SA, non-commercial).
 - **Open questions for the user (ask again):** (1) hell_fight Devil: amaraha "Free Rigged Devil" (itch.io, CC BY 4.0)?
   (2) God Emperor Doom: polish the white/gold Doom (only a paid, editorial-only RenderHub model exists)?
