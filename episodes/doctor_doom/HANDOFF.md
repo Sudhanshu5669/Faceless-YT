@@ -17,8 +17,10 @@ All 114 shots approved. **The upload file is `renders/doctor_doom_aligned.mp4`**
   the narration. The fix for this video was a one-off ffmpeg pass that drops one frame at 34 shot cuts
   (`select=not(eq(n,...))`) before the overlays/captions. Fix properly before the next long render: derive each shot's
   frame range from the cumulative time (`round(t_end*fps) - round(t_start*fps)`, a multiple of `blur`).
-- Left: thumbnail (16:9), title, description with all credits (below), chapters (overlay times: ch1 51.07 s,
-  ch2 131.27, ch3 254.33, ch4 353.48), commit the uncommitted Doom work.
+- Upload package: `youtube.md` (title, description with chapters and every credit, tags). Four 1280x720 thumbnails
+  in `thumbnail/` from `thumbnail/create_thumbnails.gd` (frames of the picture file; PNGs git-ignored):
+  A "WHY HIM?" (Hall H unmask), B "NEW MASK. / SAME TASK." (Iron Man helmet | Doom split), C clean Doom close-up,
+  D "HE FIGHTS THE DEVIL / EVERY YEAR." (hell). Waiting on the user's pick; upload up to 3 to Test & compare.
 
 ## Where we stopped (2026-11-25)
 
