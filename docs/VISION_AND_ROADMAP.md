@@ -94,6 +94,32 @@ The creative stages (1, 2, 5, review in 6) become **project skills** in `.claude
 8. **Learning loop:** retention logging per episode, playbook updates, A/B hooks.
 9. **Long-form:** 16:9, multi-location episodes, chapters.
 
+## Future goals: channel direction
+
+Decided with the user on 2026-11-25. Data: [`docs/research/niches_2026-11.md`](research/niches_2026-11.md).
+
+**Now: Indian tragedy true stories** (disasters, accidents, rescues): Shorts first (`bombay_gold` is the
+first), growing into long-form. Search demand is proven (Kedarnath 2013 in Hindi: 7.6M views on a 27k-sub
+channel), and our realistic 3D sets beat the 2D competition.
+
+**Next: a zombie / apocalypse survival series** as the long-form lane, in English:
+- **Why:** the hottest gap in the scan. "Day 1 to Day 100" survival stories exploded in Oct-Nov 2026 with no
+  100k+ channel in the niche: Nobody Gets In (73k subs) got 4.7M views on "30 Days Locked Inside a
+  Supermarket"; DoodleSurvivals (17k) 2.1M on a 67-min "Day 1 to Day 100"; Kit vs The End (17k) 1.4M on a
+  zombie cruise ship; Your Other Life (10k) 919k on a bunker story.
+- **Our edge:** competitors are stick-figure and doodle animation; we have realistic 3D worlds with toon
+  survivors. **India-set** zombie survival (a Mumbai mall, a local train, a Dadar chawl, a Himalayan bunker)
+  is a second gap on top of it. It is fiction (no fact-check bottleneck), suits a recurring series, and runs
+  20-60 min (mid-rolls, watch hours). It is also TownForge's original idea (the zombie supermarket; the
+  supermarket set exists).
+- **Risk:** cheap to copy, so the niche will flood fast; the window is weeks to months. Re-run the scan before
+  starting.
+- **First step when we start:** pitch three premises plus the episode-one hook, and map the "Day 1 to Day N"
+  structure (day counters, supply counters, base upgrades) to the pipeline.
+
+**Watch list:** documented Indian spy stories (RAW vs ISI; hot, but only verifiable cases), 3D megaproject
+builds (low supply, modest demand).
+
 ## Known gaps
 
 - Switches between actions are instant (only clip segments inside one action blend); routes are
