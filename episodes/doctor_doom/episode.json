@@ -4371,14 +4371,6 @@
    "shown": [
     [
      {
-      "shot": "castle_throne"
-     },
-     {
-      "shot": "castle_king"
-     }
-    ],
-    [
-     {
       "shot": "throne_wide"
      },
      {
@@ -4426,7 +4418,7 @@
    "shown": [
     [
      {
-      "shot": "castle_king"
+      "shot": "castle_throne"
      },
      {
       "shot": "throne_wide"

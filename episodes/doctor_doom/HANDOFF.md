@@ -42,6 +42,8 @@ All 114 shots are built and have review clips. The user is reviewing in the shot
   cinema_ticket = the real Doomsday logo on the screen + "DECEMBER 18"; cinema_2019 = the Endgame title logo
   (`posters/endgame_logo_silver.svg`, Commons PD, fills swapped) on a purple screen. Screen modes in cinema.gd:
   `title`, `logo` (additive image, `aspect`, `bg` tint), `poster` (opaque one-sheet), `white`, `trailer`.
+- castle_throne: Doom now stands before the throne like castle_king (same actor `doom_stand`; the seated
+  `doom_throne` only appears from throne_wide on). Rendered, awaiting the verdict.
 - **Rejected for licence:** the Sketchfab "Avengers: Doomsday Title" (CC BY-NC-SA, non-commercial).
 - **Open questions for the user (ask again):** (1) hell_fight Devil: amaraha "Free Rigged Devil" (itch.io, CC BY 4.0)?
   (2) God Emperor Doom: polish the white/gold Doom (only a paid, editorial-only RenderHub model exists)?

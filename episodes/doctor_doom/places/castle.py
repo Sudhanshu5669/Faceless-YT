@@ -45,14 +45,13 @@ ACTORS = [
      "shown": [span("castle_gates", "castle_throne")], "cues": [{"t": 0.0, "expression": "determined"}]},
     # Doom on the throne.
     {"id": "doom_throne", "freeze": 0.35, "character": "doom_realistic", "at": P(TH[0], TH[1] + 0.32, TH[2] + 0.28), "facing": P(0.0, 1.2, 10.0), "keep_y": True,
-     "action": "sit", "shown": [span("castle_throne", "castle_king"), span("throne_wide", "castle_immunity"),
-                                span("doombots_row", "hell_fight")],
+     "action": "sit", "shown": [span("throne_wide", "castle_immunity"), span("doombots_row", "hell_fight")],
      "cues": [{"t": 0.0, "expression": "scheming"}]},
     # castle_king: Doom standing on the dais before his empty throne, looking up at it (the user: "stand in front of the
     # throne, facing the throne and looking at it").
     {"id": "doom_stand", "character": "doom_realistic", "at": P(TH[0], TH[1], TH[2] + 1.6), "facing": P(TH[0], TH[1] + 3.0, TH[2]),
      "keep_y": True, "action": "fold_arms", "freeze": 0.5,
-     "shown": [span("castle_king", "throne_wide"), span("doom_hands", "doombots_row")],
+     "shown": [span("castle_throne", "throne_wide"), span("doom_hands", "doombots_row")],   # castle_throne too (the user)
      # doom_hands: he turns to us and raises his gauntlets (the castle gag lights a reactor and a spell in them).
      "cues": [{"t": 0.0, "expression": "determined"},
               {"t": W("d3", 0, -2.5), "facing": P(TH[0], TH[1] + 1.6, 10.0), "action": "idle"}]},

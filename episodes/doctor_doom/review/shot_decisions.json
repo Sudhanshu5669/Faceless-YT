@@ -90,10 +90,10 @@
     "history": []
   },
   "board_plan": {
-    "status": "changes",
+    "status": "approved",
     "note": "Put kang's photo in the kang dynasty placeholder there.",
-    "updated": "2026-11-25 10:39:17",
-    "fingerprint": "e90aa330294c",
+    "updated": "2026-11-25 13:40:21",
+    "fingerprint": "7da8b1835319",
     "history": [
       {
         "status": "approved",
@@ -105,6 +105,12 @@
         "status": "changes",
         "note": "again, posters",
         "updated": "2026-11-24 22:33:02",
+        "fingerprint": "e90aa330294c"
+      },
+      {
+        "status": "changes",
+        "note": "Put kang's photo in the kang dynasty placeholder there.",
+        "updated": "2026-11-25 10:39:17",
         "fingerprint": "e90aa330294c"
       }
     ]
@@ -283,29 +289,41 @@
     "history": []
   },
   "board_blank": {
-    "status": "changes",
+    "status": "approved",
     "note": "Put kang's photo in the kang dynasty placeholder there.",
-    "updated": "2026-11-25 10:39:04",
-    "fingerprint": "6c1124e86b94",
+    "updated": "2026-11-25 13:39:45",
+    "fingerprint": "eb2882431d97",
     "history": [
       {
         "status": "changes",
         "note": "posters, again pls",
         "updated": "2026-11-24 22:31:59",
         "fingerprint": "6c1124e86b94"
+      },
+      {
+        "status": "changes",
+        "note": "Put kang's photo in the kang dynasty placeholder there.",
+        "updated": "2026-11-25 10:39:04",
+        "fingerprint": "6c1124e86b94"
       }
     ]
   },
   "board_flip": {
-    "status": "changes",
+    "status": "approved",
     "note": "Put kang's photo in the kang dynasty placeholder there.",
-    "updated": "2026-11-25 10:39:10",
-    "fingerprint": "2ec7c5d21af0",
+    "updated": "2026-11-25 13:39:51",
+    "fingerprint": "c5a96d274010",
     "history": [
       {
         "status": "changes",
         "note": "dont flip the photo, just show it clearly",
         "updated": "2026-11-24 22:32:23",
+        "fingerprint": "2ec7c5d21af0"
+      },
+      {
+        "status": "changes",
+        "note": "Put kang's photo in the kang dynasty placeholder there.",
+        "updated": "2026-11-25 10:39:10",
         "fingerprint": "2ec7c5d21af0"
       }
     ]
