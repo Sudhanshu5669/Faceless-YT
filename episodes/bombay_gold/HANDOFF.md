@@ -9,6 +9,11 @@ http://127.0.0.1:8770/).
 
 ## Where we stopped (2026-11-25, late night) — READ FIRST
 
+- **All 52 shots approved by the user (round 2). Final render started** (`tf render bombay_gold`, log
+  `output/bombay_gold_render.log`, ~1.5 h) -> `renders/bombay_gold.mp4`. Next: watch samples of the MP4 (strip with
+  ffmpeg), check duration vs 131.51 s and loudness, then thumbnail + title + description (credits in ASSETS.md).
+
+
 - Review round 1: 43 approved, 9 "changes" (gold_fall railings, man_lift angle/table clip, ground glitch on
   stikine_bow/dock_moor/engines_race/helmets, flat_return = gold bar silhouette against the burning sky,
   police_desk/cheque_999 "policeman's head on the table"). **All 9 fixed and committed (b6909cc)**; review clips
