@@ -156,8 +156,15 @@ def cmd_voice(cfg: dict, args) -> int:
     return 0
 
 
-def _episode_frames(ep: dict, fps: int) -> int:
-    return sum(max(1, round(float(s["duration"]) * fps)) for s in ep.get("shots", []))
+def _episode_frames(ep: dict, fps: int, blur: int = 1) -> int:
+    """Total rendered frames; mirrors Episode.timeline() (cumulative rounding in output frames, times blur)."""
+    blur = max(1, blur)
+    out_fps, t, total = fps / blur, 0.0, 0
+    for s in ep.get("shots", []):
+        d = float(s["duration"])
+        total += max(1, round((t + d) * out_fps) - round(t * out_fps)) * blur
+        t += d
+    return total
 
 
 _CODEC: list[str] | None = None
@@ -243,7 +250,7 @@ def cmd_render(cfg: dict, args) -> int:
     if getattr(args, "remix", False):
         return _remix(cfg, res, root, ep_id, fps, args.draft)
     rfps = fps * blur  # rendered frame rate (sub-frames when motion blur is on)
-    total = _episode_frames(ep, rfps) + 40 * len(ep.get("shots", []))
+    total = _episode_frames(ep, rfps, blur) + 40 * len(ep.get("shots", []))
     user = ["--episode", str(resolved), "--frames", str(frames_root), "--fps", str(rfps), "--scale", str(scale)]
     if only:
         user += ["--shots", ",".join(only)]
@@ -253,7 +260,7 @@ def cmd_render(cfg: dict, args) -> int:
         user += ["--stream", str(root / "shots"), "--ffmpeg", _which(cfg["ffmpeg"]), "--vcodec", "|".join(video_codec(cfg)),
                  "--blur", str(blur), "--out_fps", str(fps)]
     print(f"[TownForge] rendering {ep_id}: {len(ep.get('shots', []))} shots, "
-          f"{_episode_frames(ep, rfps)} frames at {rfps} fps" + (f" ({blur} sub-frames each)" if blur > 1 else ""))
+          f"{_episode_frames(ep, rfps, blur)} frames at {rfps} fps" + (f" ({blur} sub-frames each)" if blur > 1 else ""))
     code = run_godot(cfg, user, pre_args=["--fixed-fps", str(rfps), "--disable-vsync", "--quit-after", str(total + 600)],
                      timeout=600 + total * 2)
     if code != 0:

@@ -194,16 +194,22 @@ static func resolution_of(ep: Dictionary) -> Array:
 
 ## The expanded timeline: one entry per shot with its frame range and scene time.
 ##   [{"index", "name", "duration", "frames", "first_frame", "scene_t", "camera"}]
-static func timeline(ep: Dictionary, fps: int) -> Array:
+## Frame ranges come from the cumulative edit time (round(t_end) - round(t_start), in output frames, times `blur`), so
+## per-shot rounding never drifts the picture away from the narration (doctor_doom drifted 0.57 s over 114 shots).
+static func timeline(ep: Dictionary, fps: int, blur: int = 1) -> Array:
 	var out := []
 	var scene_t := 0.0
 	var frame := 0
+	var edit_t := 0.0
+	var b := maxi(1, blur)
+	var out_fps := float(fps) / float(b)
 	for i in ep["shots"].size():
 		var s: Dictionary = ep["shots"][i]
 		if s.has("scene_t"):
 			scene_t = float(s["scene_t"])
 		var dur := float(s["duration"])
-		var frames := maxi(1, roundi(dur * fps))
+		var frames := maxi(1, roundi((edit_t + dur) * out_fps) - roundi(edit_t * out_fps)) * b
+		edit_t += dur
 		out.append({"index": i, "name": String(s["name"]), "duration": dur, "frames": frames,
 			"first_frame": frame, "scene_t": scene_t, "camera": s["camera"], "look": s.get("look"),
 			"whip_in": String(s.get("whip_in", "")), "whip_out": String(s.get("whip_out", "")),

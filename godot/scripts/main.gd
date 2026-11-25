@@ -324,7 +324,7 @@ func _check_episode_cameras() -> bool:
 		_fail("
   - ".join(PackedStringArray(target_errors)))
 		return false
-	for shot in Episode.timeline(episode, _fps()):
+	for shot in Episode.timeline(episode, _fps(), int(args.get("blur", "1"))):
 		var frames := int(shot["frames"])
 		var frame_look := _look_for_shot(shot)
 		var warned := {}
@@ -356,7 +356,7 @@ func _run_frames(out_dir: String) -> void:
 	var fps := _fps()
 	var size := _out_size(float(args.get("scale", 1.0)))
 	get_window().content_scale_size = size
-	var shots := Episode.timeline(episode, fps)
+	var shots := Episode.timeline(episode, fps, int(args.get("blur", "1")))
 	var only := PackedStringArray(String(args.get("shots", "")).split(",", false))
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	var summary := []
@@ -468,7 +468,7 @@ func _framing_report(path: String) -> void:
 	var only := PackedStringArray(String(args.get("shots", "")).split(",", false))
 	var issues := []
 	var reveals: Array = spec.get("reveals", [])
-	for shot in Episode.timeline(episode, fps):
+	for shot in Episode.timeline(episode, fps, int(args.get("blur", "1"))):
 		if not only.is_empty() and not (String(shot["name"]) in only):
 			continue
 		var t0 := float(shot["scene_t"])
@@ -572,7 +572,7 @@ func _run_storyboard(out_dir: String) -> void:
 	get_window().content_scale_size = _out_size(float(args.get("scale", 1.0 / 3.0)))
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	var only := PackedStringArray(String(args.get("shots", "")).split(",", false))
-	for shot in Episode.timeline(episode, fps):
+	for shot in Episode.timeline(episode, fps, int(args.get("blur", "1"))):
 		if not only.is_empty() and not (String(shot["name"]) in only):
 			continue
 		var frames := int(shot["frames"])

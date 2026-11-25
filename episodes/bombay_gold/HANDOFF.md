@@ -20,11 +20,9 @@ http://127.0.0.1:8770/).
 - **Next:** the user re-reviews the re-rendered clips (`python pipeline/tf.py shot bombay_gold --serve --port 8771`;
   port 8770 is held by an old doctor_doom server). `tf render bombay_gold` refuses until every shot is approved
   (do not --force). Check power (BatteryStatus 2) right before rendering; ~1.5 h.
-- **Before the final render, fix the frame drift** (known bug from doctor_doom): `godot/scripts/timeline/episode.gd`
-  `timeline()` rounds each shot's frames on its own (`roundi(dur * fps)`); make it `round(t_end * out_fps) -
-  round(t_start * out_fps)` in output frames, times `blur` (pass blur in from main.gd `_fps()` callers at lines
-  ~327/359/471/575; `args.blur`), and mirror it in `pipeline/tf.py` `_episode_frames` (line ~160) and the shot loop
-  (line ~441). Run `tf test` after.
+- Frame drift **fixed** (2026-11-25): `Episode.timeline(ep, fps, blur)` and `tf._episode_frames(ep, fps, blur)` take
+  each shot's frames from the cumulative edit time (whole blur groups); tests pass. Bombay Gold: 15782 sub-frames =
+  131.517 s for 131.510 s of narration.
 - Kimodo (`E:\AgentTools\kimodo`): venv + torch 2.6 cu124 OK, SOMA-X installed from a local clone (git-lfs hook
   blocked the pip clone; `git restore` finished it), deps installed; **kimodo itself won't build: its
   MotionCorrection C++ extension needs MSVC** (no compiler on this PC). Waiting for the user: install "Build Tools for
