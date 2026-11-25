@@ -28,3 +28,5 @@
 - `posters/secret_wars.png`, `posters/doomsday_logo.png`: crops of `doomsday_secretwars_logos.png` (the official logos, from the "Avengers: The Kang Dynasty" redirect).
 - `doom/posters/kang_dynasty_fan.jpg`: a **fan-made** "Avengers: The Kang Dynasty" poster (Kang in his helmet; not official Marvel art, artist unknown), supplied by the user 2026-11-25 for the Kang card on the boardroom wall (doctor_doom). Credit the artist if found.
 - `posters/doomsday_logo_x4.png`: `doomsday_logo.png` upscaled 4x (Lanczos) for the cinema screen (doctor_doom cinema_ticket).
+- `posters/endgame_logo_black.svg`: [Wikimedia Commons: Avengers Endgame Logo Black.svg](https://commons.wikimedia.org/wiki/File:Avengers_Endgame_Logo_Black.svg) (public domain text logo). `endgame_logo_silver.svg` = the same with the fills swapped (silver logo, black knockouts) for the cinema screen. Requested by the user 2026-11-25 (cinema_2019).
+- `posters/endgame.jpg`: [Wikipedia: Avengers Endgame poster.jpg](https://en.wikipedia.org/wiki/File:Avengers_Endgame_poster.jpg) (non-free poster, commentary). Fetched 2026-11-25, currently unused.

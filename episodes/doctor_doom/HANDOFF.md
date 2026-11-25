@@ -1,6 +1,6 @@
 # Doctor Doom: handoff (read this first to continue the video)
 
-*Last updated 2026-11-25 (end of session). Update after every shot. Also read `AGENTS.md` (the user's standing
+*Last updated 2026-11-25 (late; round-2 verdicts done, see "Where we stopped"). Update after every shot. Also read `AGENTS.md` (the user's standing
 rules, incl. rule 11 "Make it grand") and the `toon-short` skill.*
 
 **The video:** "Who is Doctor Doom, and why is Iron Man playing him?": the channel's first **long-form** video
@@ -35,6 +35,23 @@ All 114 shots are built and have review clips. The user is reviewing in the shot
   the Jonathan Majors premiere photo, Wikimedia CC BY-SA 2.0, was blocked pending their OK); hell_fight rigged Devil
   (candidate: amaraha "Free Rigged Devil", itch.io, CC BY 4.0); bw_throne God Emperor Doom model (only a paid,
   editorial-only RenderHub model found); optionally a better throne.
+
+- **Later on 2026-11-25 (all rendered, on the review page, awaiting the user's verdicts):** Kang Dynasty card = the
+  fan-made Kang poster the user supplied (`posters/kang_dynasty_fan.jpg`, logged as fan art); Latverian witches
+  (VLTXD, CC BY 4.0; ASSETS.md): Cynthia = `witch_green` in lat_wagon, `witch_purple`/`witch_orange` at the camp fire;
+  cinema_ticket = the real Doomsday logo on the screen + "DECEMBER 18"; cinema_2019 = the Endgame title logo
+  (`posters/endgame_logo_silver.svg`, Commons PD, fills swapped) on a purple screen. Screen modes in cinema.gd:
+  `title`, `logo` (additive image, `aspect`, `bg` tint), `poster` (opaque one-sheet), `white`, `trailer`.
+- **Rejected for licence:** the Sketchfab "Avengers: Doomsday Title" (CC BY-NC-SA, non-commercial).
+- **Open questions for the user (ask again):** (1) hell_fight Devil: amaraha "Free Rigged Devil" (itch.io, CC BY 4.0)?
+  (2) God Emperor Doom: polish the white/gold Doom (only a paid, editorial-only RenderHub model exists)?
+  (3) build a spiked iron throne in Blender for the castle? (4) Kimodo (NVIDIA text-to-motion): needs ~17 GB VRAM by
+  default (Llama-3-8B text encoder); options: local with Llama 8-bit on CPU (~17 GB download, HF token + Meta licence),
+  a rented cloud GPU, or after Doom ships. Weights: SOMA variants "NVIDIA Open Model" licence (read the full text before
+  relying on it); avoid the SMPL-X variant (R&D licence). Output is NPZ (77-joint SOMA): needs a retarget converter.
+- **Tools added:** `tpose_character.py` takes an optional armature name (multi-character files) and
+  `TF_STRIP_BONE_SUFFIX=1`; rig map `gta_ped_clean`; cast.gd uses the model's first Skeleton3D when a rig has no path.
+- **Power rule:** check `(Get-CimInstance Win32_Battery).BatteryStatus` = 2 BEFORE (not alongside) any render.
 
 ## Next steps
 

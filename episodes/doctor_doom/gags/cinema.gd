@@ -252,12 +252,16 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var show := "black"
 	var text := ""
 	var image := ""
+	var bg := ""
+	var logo_aspect := 2.514
 	var since := 0.0
 	for s in _p.get("screen", []):
 		if t >= float(s["t"]):
 			show = String(s.get("show", "black"))
 			text = String(s.get("text", ""))
 			image = String(s.get("image", ""))
+			bg = String(s.get("bg", ""))
+			logo_aspect = float(s.get("aspect", 2.514))
 			since = t - float(s["t"])
 	var col := Color(0.03, 0.03, 0.035)
 	var spill := 0.0
@@ -265,9 +269,14 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		"title":
 			col = Color(0.05, 0.22, 0.1) if text.contains("DOOMSDAY") else Color(0.16, 0.12, 0.32)
 			spill = 0.7
+		"poster":
+			# The screen glows in the poster's own colour ("bg") so it reads as a lit screen, the one-sheet centred.
+			col = Color(bg) * 0.55 if bg != "" else Color(0.015, 0.015, 0.02)
+			spill = 0.7
 		"logo":
 			# Near-black with a green breath behind the logo; the logo blooms in over 0.8 s.
-			col = Color(0.02, 0.07, 0.04).lerp(Color(0.05, 0.16, 0.08), clampf(since / 0.8, 0.0, 1.0))
+			var tint := Color(bg) if bg != "" else Color(0.05, 0.16, 0.08)
+			col = (tint * 0.35).lerp(tint, clampf(since / 0.8, 0.0, 1.0))
 			spill = 0.55
 		"white":
 			col = Color(0.9, 0.92, 1.0)
@@ -278,14 +287,27 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			spill = 0.55 + 0.45 * f
 	_screen_mat.albedo_color = col
 	_title.text = text if show == "title" else ""
-	_logo.visible = show == "logo" and image != ""
+	# "logo": a wide title logo on black, added (its black vanishes). "poster": a film's one-sheet, opaque, screen height.
+	_logo.visible = (show == "logo" or show == "poster") and image != ""
 	if _logo.visible:
 		if _logo_mat.albedo_texture == null or _logo_mat.get_meta("src", "") != image:
 			_logo_mat.albedo_texture = Kit.texture(image)
 			_logo_mat.set_meta("src", image)
 		var k := Motion.out_cubic(clampf(since / 0.8, 0.0, 1.0))
-		_logo_mat.albedo_color = Color(1.3, 1.3, 1.3) * k
-		_logo.scale = Vector3.ONE * lerpf(0.92, 1.0, k) * (1.0 + 0.01 * since)
+		var grow := lerpf(0.92, 1.0, k) * (1.0 + 0.01 * since)
+		if show == "poster":
+			var tex: Texture2D = _logo_mat.albedo_texture
+			var aspect := float(tex.get_width()) / float(tex.get_height())
+			var h := 5.6
+			_logo_mat.blend_mode = BaseMaterial3D.BLEND_MODE_MIX
+			_logo_mat.albedo_color = Color(1.15, 1.15, 1.15) * k
+			_logo.position = SCREEN + Vector3(0, 0, 0.08)
+			_logo.scale = Vector3(h * aspect / 9.6, h / (9.6 / 2.514), 1.0) * grow
+		else:
+			_logo_mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+			_logo_mat.albedo_color = Color(1.3, 1.3, 1.3) * k
+			_logo.position = SCREEN + Vector3(0, 0.55, 0.08)
+			_logo.scale = Vector3(1.0, 2.514 / logo_aspect, 1.0) * grow
 	_date.text = text if show == "logo" else ""
 	_date.modulate = Color(1.5, 1.45, 1.3) * clampf((since - 0.5) / 0.6, 0.0, 1.0)
 	_title.modulate = Color(1.6, 1.5, 1.2) * clampf(since / 0.6, 0.0, 1.0)
