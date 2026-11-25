@@ -126,49 +126,90 @@
   "gal_helmet": {
     "status": "approved",
     "note": "",
-    "updated": "2026-11-24 22:29:22",
-    "fingerprint": "8f3f55445d32",
-    "history": []
+    "updated": "2026-11-25 12:14:23",
+    "fingerprint": "3dc1235eed44",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:29:22",
+        "fingerprint": "8f3f55445d32"
+      }
+    ]
   },
   "gal_circle": {
     "status": "approved",
     "note": "",
-    "updated": "2026-11-24 22:29:26",
-    "fingerprint": "fa2dfdb42f16",
-    "history": []
+    "updated": "2026-11-25 12:14:26",
+    "fingerprint": "baadf95bd455",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:29:26",
+        "fingerprint": "fa2dfdb42f16"
+      }
+    ]
   },
   "gal_shadow": {
     "status": "approved",
     "note": "",
-    "updated": "2026-11-24 22:29:30",
-    "fingerprint": "2df472cf4d6a",
-    "history": []
+    "updated": "2026-11-25 12:14:29",
+    "fingerprint": "bb8741a3b6ff",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:29:30",
+        "fingerprint": "2df472cf4d6a"
+      }
+    ]
   },
   "gal_title": {
     "status": "approved",
     "note": "",
-    "updated": "2026-11-24 22:29:34",
-    "fingerprint": "e71b5f9c6e9f",
-    "history": []
+    "updated": "2026-11-25 12:14:33",
+    "fingerprint": "9e938549cc5e",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:29:34",
+        "fingerprint": "e71b5f9c6e9f"
+      }
+    ]
   },
   "gal_two": {
     "status": "approved",
     "note": "",
-    "updated": "2026-11-24 22:29:39",
-    "fingerprint": "ad5e8c53f7e7",
-    "history": []
+    "updated": "2026-11-25 12:14:35",
+    "fingerprint": "3205d237c8d1",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:29:39",
+        "fingerprint": "ad5e8c53f7e7"
+      }
+    ]
   },
   "board_comic": {
     "status": "approved",
-    "note": "the scene is shaking so much, and, the cover clips white after falling.",
-    "updated": "2026-11-25 10:38:17",
-    "fingerprint": "156d0ed40c26",
+    "note": "",
+    "updated": "2026-11-25 12:14:36",
+    "fingerprint": "5a62cb24ebc4",
     "history": [
       {
         "status": "changes",
         "note": "the scene is shaking so much, and, the cover clips white after falling.",
         "updated": "2026-11-24 22:30:44",
         "fingerprint": "11bac5c2e137"
+      },
+      {
+        "status": "approved",
+        "note": "the scene is shaking so much, and, the cover clips white after falling.",
+        "updated": "2026-11-25 10:38:17",
+        "fingerprint": "156d0ed40c26"
       }
     ]
   },
@@ -354,15 +395,21 @@
     "history": []
   },
   "shop_stack": {
-    "status": "changes",
+    "status": "approved",
     "note": "Fix the shakiness again, and make the comic covers bigger so they are more clearly visible",
-    "updated": "2026-11-25 10:27:13",
-    "fingerprint": "abe8a07ca0b0",
+    "updated": "2026-11-25 12:15:09",
+    "fingerprint": "112c5002a8be",
     "history": [
       {
         "status": "changes",
         "note": "images not shown again, and whole shot shaky",
         "updated": "2026-11-24 22:35:35",
+        "fingerprint": "abe8a07ca0b0"
+      },
+      {
+        "status": "changes",
+        "note": "Fix the shakiness again, and make the comic covers bigger so they are more clearly visible",
+        "updated": "2026-11-25 10:27:13",
         "fingerprint": "abe8a07ca0b0"
       }
     ]
@@ -396,29 +443,41 @@
     "history": []
   },
   "lat_chest": {
-    "status": "changes",
+    "status": "approved",
     "note": "The whole shot is shaking",
-    "updated": "2026-11-25 10:29:02",
-    "fingerprint": "267a909b04bc",
+    "updated": "2026-11-25 12:15:16",
+    "fingerprint": "f7bc2e4714af",
     "history": [
       {
         "status": "changes",
         "note": "green clipping",
         "updated": "2026-11-24 22:36:46",
         "fingerprint": "267a909b04bc"
+      },
+      {
+        "status": "changes",
+        "note": "The whole shot is shaking",
+        "updated": "2026-11-25 10:29:02",
+        "fingerprint": "267a909b04bc"
       }
     ]
   },
   "lat_vow": {
-    "status": "changes",
+    "status": "approved",
     "note": "Camera is shaky again",
-    "updated": "2026-11-25 10:29:11",
-    "fingerprint": "cb95e9dea1db",
+    "updated": "2026-11-25 12:15:19",
+    "fingerprint": "7cae9a3e32e0",
     "history": [
       {
         "status": "changes",
         "note": "camera shaky? whats this issue",
         "updated": "2026-11-24 22:37:00",
+        "fingerprint": "cb95e9dea1db"
+      },
+      {
+        "status": "changes",
+        "note": "Camera is shaky again",
+        "updated": "2026-11-25 10:29:11",
         "fingerprint": "cb95e9dea1db"
       }
     ]
@@ -438,16 +497,22 @@
     "history": []
   },
   "mirror_scar": {
-    "status": "changes",
+    "status": "approved",
     "note": "Everything is shaking",
-    "updated": "2026-11-25 10:29:26",
-    "fingerprint": "1e792c70b872",
+    "updated": "2026-11-25 12:15:28",
+    "fingerprint": "3b20712032d2",
     "history": [
       {
         "status": "changes",
         "note": "everything is shaky again and clipping into itself",
         "updated": "2026-11-24 22:37:52",
         "fingerprint": "8a3ee74d98bb"
+      },
+      {
+        "status": "changes",
+        "note": "Everything is shaking",
+        "updated": "2026-11-25 10:29:26",
+        "fingerprint": "1e792c70b872"
       }
     ]
   },
@@ -487,32 +552,52 @@
     "history": []
   },
   "castle_throne": {
-    "status": "approved",
-    "note": "",
-    "updated": "2026-11-24 22:39:01",
-    "fingerprint": "340f0c2691b4",
-    "history": []
+    "status": "changes",
+    "note": "Make doom in this shot stand in the same way as castle_king shot",
+    "updated": "2026-11-25 12:16:10",
+    "fingerprint": "ef81bddd7f6b",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:39:01",
+        "fingerprint": "340f0c2691b4"
+      }
+    ]
   },
   "castle_king": {
-    "status": "changes",
+    "status": "approved",
     "note": "Make him stand in front of the throne, facing the throne and looking at it instead of sitting like this. him sitting like this is not looking cool.",
-    "updated": "2026-11-25 10:30:35",
-    "fingerprint": "9f027a6171c0",
+    "updated": "2026-11-25 12:16:19",
+    "fingerprint": "47ece8966a0e",
     "history": [
       {
         "status": "changes",
         "note": "he clipping in the chair? make him sit properly",
         "updated": "2026-11-24 22:39:26",
         "fingerprint": "9f027a6171c0"
+      },
+      {
+        "status": "changes",
+        "note": "Make him stand in front of the throne, facing the throne and looking at it instead of sitting like this. him sitting like this is not looking cool.",
+        "updated": "2026-11-25 10:30:35",
+        "fingerprint": "9f027a6171c0"
       }
     ]
   },
   "throne_wide": {
-    "status": "approved",
-    "note": "",
-    "updated": "2026-11-24 22:39:33",
-    "fingerprint": "7ffb73fb9964",
-    "history": []
+    "status": "changes",
+    "note": "Make his position same as castle_king in this shot as well",
+    "updated": "2026-11-25 12:16:40",
+    "fingerprint": "2671f6fdb48d",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:39:33",
+        "fingerprint": "7ffb73fb9964"
+      }
+    ]
   },
   "castle_immunity": {
     "status": "approved",
@@ -529,15 +614,21 @@
     "history": []
   },
   "doom_hands": {
-    "status": "changes",
+    "status": "approved",
     "note": "The model is very weird tbh.",
-    "updated": "2026-11-25 10:31:32",
-    "fingerprint": "22c94b7d5315",
+    "updated": "2026-11-25 12:16:54",
+    "fingerprint": "5c42cee71bd1",
     "history": [
       {
         "status": "approved",
         "note": "",
         "updated": "2026-11-24 22:39:53",
+        "fingerprint": "22c94b7d5315"
+      },
+      {
+        "status": "changes",
+        "note": "The model is very weird tbh.",
+        "updated": "2026-11-25 10:31:32",
         "fingerprint": "22c94b7d5315"
       }
     ]
@@ -585,15 +676,21 @@
     "history": []
   },
   "beyonder_hand": {
-    "status": "changes",
+    "status": "approved",
     "note": "He is shaking, i want it changed and made stable. also, the model is rigged, so why are you not making an animation of him holding the universe in his hands and looking at it",
-    "updated": "2026-11-25 10:33:35",
-    "fingerprint": "a932e8c5702b",
+    "updated": "2026-11-25 12:17:20",
+    "fingerprint": "3e2f6824e094",
     "history": [
       {
         "status": "changes",
         "note": "whhy he shaking?!",
         "updated": "2026-11-24 22:40:33",
+        "fingerprint": "a932e8c5702b"
+      },
+      {
+        "status": "changes",
+        "note": "He is shaking, i want it changed and made stable. also, the model is rigged, so why are you not making an animation of him holding the universe in his hands and looking at it",
+        "updated": "2026-11-25 10:33:35",
         "fingerprint": "a932e8c5702b"
       }
     ]
@@ -718,16 +815,22 @@
     "history": []
   },
   "reels_mcmahon": {
-    "status": "changes",
+    "status": "approved",
     "note": "Just show posters being thrown on table instead of this",
-    "updated": "2026-11-25 10:36:07",
-    "fingerprint": "0a2c106f10f1",
+    "updated": "2026-11-25 12:18:05",
+    "fingerprint": "3c05555699ca",
     "history": [
       {
         "status": "changes",
         "note": "glitching. i need posters",
         "updated": "2026-11-24 22:43:00",
         "fingerprint": "a8a7efde3dc7"
+      },
+      {
+        "status": "changes",
+        "note": "Just show posters being thrown on table instead of this",
+        "updated": "2026-11-25 10:36:07",
+        "fingerprint": "0a2c106f10f1"
       }
     ]
   },

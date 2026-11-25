@@ -31,11 +31,11 @@ const PH := "incoming/polyhaven_doom/"
 const WALL_Z := -5.85
 const KANG := Vector3(0, 2.75, -5.82)
 
-# [title, x, y, width, height, colour, poster image in POSTERS ("" = a title card)]. The Kang Dynasty never had a
-# poster (the film was cancelled before one existed), so it stays a title card.
+# [title, x, y, width, height, colour, poster image in POSTERS ("" = a title card)]. The Kang Dynasty never had an
+# official poster (cancelled); the Kang card uses a fan-made one the user chose (2026-11-25, library/logos/SOURCES.md).
 const POSTERS := "library/logos/doom/posters/"
 const CARDS := [
-	["THE KANG\nDYNASTY", 0.0, 2.75, 1.25, 0.9, "#3b2a6a", ""],
+	["THE KANG\nDYNASTY", 0.0, 2.75, 0.8, 1.2, "#101010", "kang_dynasty_fan.jpg"],
 	["LOKI", -2.35, 2.55, 1.0, 0.56, "#050505", "loki_s1.png"],
 	["ANT-MAN AND THE WASP:\nQUANTUMANIA", -1.25, 1.55, 0.78, 1.16, "#101010", "quantumania.jpg"],
 	["LOKI\nSEASON 2", 1.3, 1.55, 0.76, 1.13, "#101010", "loki_s2.jpg"],

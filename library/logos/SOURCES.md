@@ -26,3 +26,4 @@
 - `posters/ironman_comic`: Ironman001.jpg from Wikipedia "Iron Man (comic book)" (https://upload.wikimedia.org/wikipedia/en/f/f4/Ironman001.jpg), non-free poster/cover used as commentary.
 - `posters/kang_dynasty`: Avengers Doomsday and Secret Wars logos.png from Wikipedia "Avengers: The Kang Dynasty" (https://upload.wikimedia.org/wikipedia/en/2/2d/Avengers_Doomsday_and_Secret_Wars_logos.png), non-free poster/cover used as commentary.
 - `posters/secret_wars.png`, `posters/doomsday_logo.png`: crops of `doomsday_secretwars_logos.png` (the official logos, from the "Avengers: The Kang Dynasty" redirect).
+- `doom/posters/kang_dynasty_fan.jpg`: a **fan-made** "Avengers: The Kang Dynasty" poster (Kang in his helmet; not official Marvel art, artist unknown), supplied by the user 2026-11-25 for the Kang card on the boardroom wall (doctor_doom). Credit the artist if found.
