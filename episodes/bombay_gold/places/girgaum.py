@@ -20,14 +20,14 @@ LOOK_GIRGAUM = {
     "grade": {"contrast": 1.2, "saturation": 1.08, "vignette": 0.46, "grain": 0.04},
 }
 
-GOLD = {"t0": {"line": "l1", "edge": "start", "offset": -4.0}, "hero": W("l1", "gold", 0.0), "near": [5.2, 4.7, -11.0]}
+GOLD = {"t0": {"line": "l1", "edge": "start", "offset": -4.0}, "hero": W("l1", "gold", 0.0), "near": [5.0, 4.7, -11.0]}
 
 ACTORS = []
 # People in the lane and on the balconies, looking up at the sky (the hook), then running from the burning cotton.
 for _i, (_ch, _x, _y, _z) in enumerate([("toon_market_man", -2.6, 0.0, -9.0), ("toon_market_woman", 1.8, 0.0, -12.0),
                                          ("toon_market_kid", -1.2, 0.0, -14.5), ("toon_market_vendor", 3.6, 0.0, -18.0),
-                                         ("toon_market_elder", -5.6, 4.68, -6.5), ("toon_market_woman_b", 5.6, 4.68, -11.0),
-                                         ("toon_market_vendor_b", -5.5, 4.68, -16.0), ("toon_shopkeeper", 5.7, 8.18, -7.5)]):
+                                         ("toon_market_elder", -6.35, 4.68, -6.5), ("toon_market_woman_b", 6.35, 4.68, -11.0),
+                                         ("toon_market_vendor_b", -6.35, 4.68, -16.0), ("toon_shopkeeper", 6.35, 8.18, -7.5)]):
     ACTORS.append({"id": f"gg_{_i}", "character": _ch, "at": P(_x, _y, _z), "keep_y": True, "facing": P(_x * 0.6, _y + 8.0, -60.0),
                    "action": "idle", "cues": [{"t": 0.0, "expression": "surprised"},
                                               {"t": W("l1", "gold", 0.15 + _i * 0.06), "expression": "shocked", "head": [-25, 0, 0]},
@@ -46,8 +46,8 @@ SHOTS = {
         cam(P(0.3, 1.3, 4.6), P(0.0, 24.0, -60.0), 20), "out")},
     # On the first-floor balcony across: neighbours stare up as bars fall past them into the lane.
     "gold_fall": {"look": LOOK_GIRGAUM, "camera": move(
-        cam(P(3.2, 6.2, -15.2), P(5.5, 6.4, -11.0), 30),
-        cam(P(3.4, 6.1, -14.6), P(5.5, 6.8, -11.0), 30), "in_out")},
+        cam(P(3.4, 6.3, -15.4), P(6.2, 6.4, -11.0), 30),
+        cam(P(3.6, 6.2, -14.8), P(6.2, 6.8, -11.0), 30), "in_out")},
     # Burning cotton bales arc over the rooftops trailing smoke and smash onto the tiles; people run.
     "cotton_rain": {"look": LOOK_GIRGAUM, "camera": move(
         cam(P(1.5, 1.4, 4.0), P(0.0, 18.0, -50.0), 22),

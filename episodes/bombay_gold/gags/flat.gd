@@ -20,7 +20,7 @@ const PH := "incoming/bombay_gold/polyhaven/"
 const PH0 := "incoming/polyhaven_pokhran/models/"
 const HOLE := Vector3(-3.2, 1.7, -1.2)
 const TABLE := Vector3(0.2, 0.0, -0.6)
-const TOP := 0.76
+const TOP := 0.75
 
 var FX
 var _p := {}
@@ -34,6 +34,13 @@ var _sun: SpotLight3D
 var _lamp: OmniLight3D
 var _fan: Node3D
 var _glint: OmniLight3D
+var _fire
+var _sky_day: MeshInstance3D
+var _sky_night: MeshInstance3D
+var _back: OmniLight3D
+var _sky_mat: StandardMaterial3D
+var _bar_mat: Material
+var _bar_sil: StandardMaterial3D
 
 
 func _h(i: int, salt: int) -> float:
@@ -91,15 +98,33 @@ func build(g: Dictionary) -> Node3D:
 	for k in 8:
 		Kit.box(root, Vector3(1.1, 1.9, 0.1), Vector3(-8.0 + k * 2.6, 1.0, -17.45), Kit.mat("#16120e", 0.9))
 	Kit.box(root, Vector3(30, 0.25, 1.6), Vector3(0.6, 4.1, -17.2), _tex("clay_roof_tiles_02", 0.5))
-	var sky := Kit.box(root, Vector3(400, 300, 1.0), Vector3(0, 40, -400.0), Kit.flat("#a8b8cc"))
-	sky.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_sky_mat = StandardMaterial3D.new()
+	_sky_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	_sky_mat.albedo_color = Color("#a8b8cc")
+	_sky_mat.disable_fog = true
+	_sky_day = Kit.box(root, Vector3(400, 300, 1.0), Vector3(0, 40, -120.0), _sky_mat)
+	_sky_day.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	# The evening sky over the burning docks: a deep red-orange glow under black smoke.
+	_sky_night = Kit.box(root, Vector3(400, 300, 1.0), Vector3(0, 40, -399.0), Kit.shader("""
+shader_type spatial;
+render_mode unshaded;
+varying vec3 lp;
+void vertex() { lp = VERTEX; }
+void fragment() {
+	float y = clamp((lp.y + 0.5), 0.0, 1.0);
+	ALBEDO = mix(vec3(1.0, 0.42, 0.12) * 1.6, vec3(0.06, 0.03, 0.03), smoothstep(0.08, 0.32, y));
+}
+"""))
+	_sky_night.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_sky_night.visible = false
+	_back = Kit.omni(root, Vector3(0.6, 1.8, -4.5), "#ff7a2a", 0.0, 9.0, false, 1.0)
 	# Furniture (Poly Haven) and a portrait.
 	_model(root, PH + "models/vintage_cabinet_01/vintage_cabinet_01_2k.gltf", Vector3(3.2, 0, 0.6), -PI * 0.5, 0.95)
 	_model(root, PH + "models/vintage_grandfather_clock_01/vintage_grandfather_clock_01_2k.gltf", Vector3(-2.9, 0, 1.4), PI * 0.5)
 	_model(root, PH + "models/ornate_mirror_01/ornate_mirror_01_2k.gltf", Vector3(3.3, 1.7, -1.6), -PI * 0.5)
 	_model(root, PH + "models/fancy_picture_frame_01/fancy_picture_frame_01_2k.gltf", Vector3(-3.15, 2.4, 0.2), PI * 0.5, 1.4)
 	_model(root, PH + "models/Rockingchair_01/Rockingchair_01_2k.gltf", Vector3(1.9, 0, -1.6), -0.6)
-	_model(root, PH + "models/round_wooden_table_01/round_wooden_table_01_2k.gltf", TABLE, 0.0, 1.0)
+	_model(root, PH + "models/round_wooden_table_01/round_wooden_table_01_2k.gltf", TABLE, 0.0, 0.75)
 	_model(root, PH + "models/painted_wooden_chair_01/painted_wooden_chair_01_2k.gltf", TABLE + Vector3(-0.9, 0, 0.3), 1.2)
 	_model(root, PH + "models/vintage_oil_lamp/vintage_oil_lamp_2k.gltf", TABLE + Vector3(-0.3, TOP, -0.2), 0.0)
 	_model(root, PH + "models/wooden_bookshelf_worn/wooden_bookshelf_worn_2k.gltf", Vector3(-2.9, 0, -2.2), PI * 0.5, 0.9)
@@ -126,22 +151,28 @@ func build(g: Dictionary) -> Node3D:
 	cmi.material_override = Kit.mat("#d8d4c4", 0.9)
 	root.add_child(cmi)
 	_smoke = FX.layer(root, 400, "smoke")
+	_fire = FX.layer(root, 200, "fire")
 	_smoke.mat.set_shader_parameter("lit_col", Color(0.86, 0.84, 0.78))
 	_smoke.mat.set_shader_parameter("shade_col", Color(0.55, 0.52, 0.48))
 	# The bar.
 	var gold := StandardMaterial3D.new()
 	gold.albedo_color = Color("#f4c84a")
 	gold.metallic = 1.0
-	gold.roughness = 0.3
+	gold.roughness = 0.2
 	gold.emission_enabled = true
 	gold.emission = Color("#ffb428")
-	gold.emission_energy_multiplier = 0.08
+	gold.emission_energy_multiplier = 0.3
 	var bm := BoxMesh.new()
 	bm.size = Vector3(0.26, 0.075, 0.13)
 	_bar = MeshInstance3D.new()
 	_bar.mesh = bm
 	_bar.material_override = gold
 	_bar.visible = false
+	_bar_mat = gold
+	_bar_sil = StandardMaterial3D.new()
+	_bar_sil.albedo_color = Color("#4a3410")
+	_bar_sil.metallic = 1.0
+	_bar_sil.roughness = 0.28
 	root.add_child(_bar)
 	_glint = Kit.omni(root, Vector3.ZERO, "#ffd27a", 0.0, 1.6, false, 0.0)
 	# His cap: the black Parsi topi, slightly slanted.
@@ -219,11 +250,31 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_bar.visible = b["vis"]
 	var man_id := String(_p.get("man", ""))
 	var man = ctx["actor"].call(man_id) if ctx.has("actor") and man_id != "" else null
+	var eve = ctx["actor"].call(String(_p.get("eve_man", ""))) if ctx.has("actor") and _p.has("eve_man") else null
+	var evening: bool = eve != null and eve.visible
 	var bar_pos: Vector3 = b.get("pos", Vector3.ZERO)
 	if b["vis"]:
 		_bar.position = bar_pos
 		_bar.rotation = b["rot"]
-	if man != null and man.visible:
+	if evening:
+		# At the window that evening: he holds the bar up against the glow of the burning docks.
+		var efwd := Vector3(sin(eve.rotation.y), 0, cos(eve.rotation.y))
+		var eright := Vector3(cos(eve.rotation.y), 0, -sin(eve.rotation.y))
+		var ehead: Vector3 = eve.bone_world("head")
+		var up := Motion.smooth(clampf((t - dusk - 0.2) / 1.2, 0.0, 1.0))
+		var hp: Vector3 = (ehead + efwd * 0.45 + Vector3(0, -0.55, 0)).lerp(ehead + efwd * 0.62 + Vector3(0, -0.12, 0), up)
+		eve.aim_hand("r", hp + eright * 0.11, 1.0)
+		eve.aim_hand("l", hp - eright * 0.11, 1.0)
+		_bar.visible = true
+		_bar.material_override = _bar_sil
+		_bar.position = inv * hp
+		_bar.rotation = Vector3(0.15, eve.rotation.y - gt.basis.get_euler().y, 0)
+		_cap.position = inv * (Vector3((ctx["point"].call(String(_p.get("eve_man", "")) + ".head") as Dictionary).get("pos", ehead)) + Vector3(0, 0.25, 0) - efwd * 0.03)
+		_cap.rotation = Vector3(0, eve.rotation.y - gt.basis.get_euler().y, 0)
+		_cap.visible = true
+		_paper.visible = false
+	elif man != null and man.visible:
+		_bar.material_override = _bar_mat
 		var fwd := Vector3(sin(man.rotation.y), 0, cos(man.rotation.y))
 		var right := Vector3(cos(man.rotation.y), 0, -sin(man.rotation.y))
 		var chest: Vector3 = man.bone_world("spine_03")
@@ -242,7 +293,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		var lk := Motion.smooth(clampf((t - lift) / 0.9, 0.0, 1.0))
 		if t >= lift and b["vis"]:
 			var on_table: Vector3 = gt * bar_pos
-			var held: Vector3 = man.bone_world("head") + fwd * 0.78 + Vector3(0, -0.5 - 0.03 * sin(clampf(t - lift - 0.9, 0.0, 9.0) * 3.0) * exp(-(t - lift - 0.9)), 0)
+			var held: Vector3 = man.bone_world("head") + fwd * 0.55 + Vector3(0, -0.6 - 0.03 * sin(clampf(t - lift - 0.9, 0.0, 9.0) * 3.0) * exp(-(t - lift - 0.9)), 0)
 			var reach := Motion.smooth(clampf((t - lift) / 0.35, 0.0, 1.0))
 			var hp: Vector3 = on_table.lerp(held, lk)
 			man.aim_hand("r", hp + right * 0.1, reach)
@@ -252,21 +303,33 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 				_bar.rotation = Vector3(0, man.rotation.y - gt.basis.get_euler().y, 0)
 		# The cap on his head.
 		var head: Vector3 = man.bone_world("head")
-		_cap.position = inv * (head + Vector3(0, 0.28, 0) - fwd * 0.03)
+		var hd: Dictionary = ctx["point"].call(man_id + ".head")
+		# The ".head" anchor is the drawn toon head's centre; the cap sits on its crown.
+		_cap.position = inv * (Vector3(hd.get("pos", man.bone_world("head"))) + Vector3(0, 0.25, 0) - fwd * 0.03)
 		_cap.rotation = Vector3(0, man.rotation.y - gt.basis.get_euler().y, 0)
 		_cap.visible = true
 	else:
 		_cap.visible = false
 		_paper.visible = false
 	_glint.position = _bar.position + Vector3(0, 0.2, 0.1)
-	_glint.light_energy = (0.12 + 0.06 * sin(t * 5.0)) if _bar.visible else 0.0
-	# Evening: the sun goes, the lamp is lit.
+	_glint.light_energy = (0.12 + 0.06 * sin(t * 5.0)) if (_bar.visible and not evening) else 0.0
+	# Evening: the sun is gone, the room is dark; the sky beyond the rooftops glows over the burning docks.
 	var ev := clampf((t - dusk) / 0.5, 0.0, 1.0)
 	_sun.light_energy = 22.0 * (1.0 - ev)
-	_lamp.light_energy = 1.4 * ev
+	_lamp.light_energy = 0.0
+	_sky_day.visible = true
+	_sky_night.visible = false
+	_sky_mat.albedo_color = Color("#a8b8cc").lerp(Color("#c2461a"), ev)
+	_back.light_energy = ev * (3.2 + 0.6 * sin(t * 7.0) + 0.4 * sin(t * 13.0))
+	FX.begin(_fire)
+	if ev > 0.0:
+		for k in 9:
+			FX.flames(_fire, Vector3(-30.0 + k * 9.0, 5.5, -60.0 - (k % 3) * 25.0), Vector2(5.0, 2.0), t, {"count": 6, "height": 10.0,
+				"size": 10.0, "heat": 1.0, "seed": 1200 + k})
 	for j in 26:
 		var u := float(j) / 26.0
-		var p := Vector3(-40.0 + (_h(j, 31) - 0.5) * 30.0 - u * 50.0, -20.0 + u * 260.0, -300.0 + (_h(j, 32) - 0.5) * 20.0)
-		FX.add(_smoke, p, 60.0 + u * 70.0, Color(_h(j, 33), 0.0, 0.7 + 0.25 * (1.0 - u), 0.95))
+		var p := Vector3(4.0 + (_h(j, 31) - 0.5) * 12.0 - u * 12.0, -8.0 + u * 95.0, -105.0 + (_h(j, 32) - 0.5) * 8.0)
+		FX.add(_smoke, p, 22.0 + u * 26.0, Color(_h(j, 33), ev * 0.9 * (1.0 - u), 0.7 + 0.25 * (1.0 - u), 0.95))
 	FX.finish(_smoke, cam_l, t)
+	FX.finish(_fire, cam_l, t)
 	return {"hole": gt * HOLE, "table": gt * (TABLE + Vector3(0, TOP, 0)), "bar": gt * _bar.position, "window": gt * Vector3(0.6, 2.2, -3.1)}

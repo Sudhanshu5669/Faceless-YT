@@ -1,0 +1,366 @@
+{
+  "hook_rain": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:01:17",
+    "fingerprint": "33969505a4ab",
+    "history": []
+  },
+  "bar_wall": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:01:43",
+    "fingerprint": "21cf0ad78c88",
+    "history": []
+  },
+  "window_whip": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:01:57",
+    "fingerprint": "9e5aa15fdbfc",
+    "history": []
+  },
+  "dock_wide": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:02:16",
+    "fingerprint": "e9dc12af1735",
+    "history": []
+  },
+  "xray_munitions": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:02:27",
+    "fingerprint": "5242fb50d5d4",
+    "history": []
+  },
+  "crane_shells": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:02:32",
+    "fingerprint": "7bf88fe3e42c",
+    "history": []
+  },
+  "cotton_sling": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:02:46",
+    "fingerprint": "a9e99f8fd3e0",
+    "history": []
+  },
+  "gold_crates": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:02:50",
+    "fingerprint": "e4751c99db38",
+    "history": []
+  },
+  "xray_stack": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:02:54",
+    "fingerprint": "ac521d27408a",
+    "history": []
+  },
+  "empty_mast": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:02:58",
+    "fingerprint": "b5bf63f97512",
+    "history": []
+  },
+  "clock_1230": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:03:01",
+    "fingerprint": "cd865408fb5e",
+    "history": []
+  },
+  "officer_bino": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:03:35",
+    "fingerprint": "de103d1d8e1d",
+    "history": []
+  },
+  "smoke_hold": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:03:40",
+    "fingerprint": "94924e66927c",
+    "history": []
+  },
+  "vent_push": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:03:48",
+    "fingerprint": "37717877e736",
+    "history": []
+  },
+  "clock_1345": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:04:19",
+    "fingerprint": "e8baa463b6e2",
+    "history": []
+  },
+  "fireboats": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:04:49",
+    "fingerprint": "032a04410cb1",
+    "history": []
+  },
+  "hoses_900": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:04:54",
+    "fingerprint": "26d24350f2b0",
+    "history": []
+  },
+  "hold_steam": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:04:57",
+    "fingerprint": "5ecdd0716f9c",
+    "history": []
+  },
+  "hold_pops": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:01",
+    "fingerprint": "61d33d4ff410",
+    "history": []
+  },
+  "abandon": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:06",
+    "fingerprint": "f8ad8a1d6664",
+    "history": []
+  },
+  "clock_406": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:08",
+    "fingerprint": "f182faea4394",
+    "history": []
+  },
+  "calm_406": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:15",
+    "fingerprint": "aa596f1ba38d",
+    "history": []
+  },
+  "blast_wide": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:18",
+    "fingerprint": "c21d52d47c58",
+    "history": []
+  },
+  "hull_split": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:21",
+    "fingerprint": "acb646e7cc38",
+    "history": []
+  },
+  "jala_lift": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:25",
+    "fingerprint": "4f4415d3f3a1",
+    "history": []
+  },
+  "jalapadma": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:28",
+    "fingerprint": "f3f8d5d868c5",
+    "history": []
+  },
+  "shockwave_roofs": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:32",
+    "fingerprint": "686614cc74e6",
+    "history": []
+  },
+  "shimla_town": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:36",
+    "fingerprint": "bd2728331c13",
+    "history": []
+  },
+  "seismograph": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:39",
+    "fingerprint": "368f6f3bd835",
+    "history": []
+  },
+  "cotton_rain": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:44",
+    "fingerprint": "4cbb291a8a8b",
+    "history": []
+  },
+  "gold_rain": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:46",
+    "fingerprint": "4cc2d5ad1690",
+    "history": []
+  },
+  "second_blast": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:50",
+    "fingerprint": "c03cb99b3bcc",
+    "history": []
+  },
+  "night_masts": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:53",
+    "fingerprint": "7efd2276c7f7",
+    "history": []
+  },
+  "dock_fire": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:05:57",
+    "fingerprint": "ef3614099b6c",
+    "history": []
+  },
+  "dawn_ruins": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:06:01",
+    "fingerprint": "14f8b35def19",
+    "history": []
+  },
+  "families_walk": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:06:04",
+    "fingerprint": "d60832735967",
+    "history": []
+  },
+  "fire_day": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:06:12",
+    "fingerprint": "e71a42944e2c",
+    "history": []
+  },
+  "fire_salute": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:06:16",
+    "fingerprint": "de18309779cd",
+    "history": []
+  },
+  "relief_box": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:06:32",
+    "fingerprint": "bb9c1306f21d",
+    "history": []
+  },
+  "dredger_2011": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:06:35",
+    "fingerprint": "19f2a1b48b58",
+    "history": []
+  },
+  "grab_rise": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:06:39",
+    "fingerprint": "b98ef5d974f6",
+    "history": []
+  },
+  "dredger_crew": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:06:42",
+    "fingerprint": "0a651c1212bd",
+    "history": []
+  },
+  "grab_bar": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 22:06:46",
+    "fingerprint": "a7efa74faeaa",
+    "history": []
+  },
+  "gold_fall": {
+    "status": "changes",
+    "note": "The guys are clipping into the railings",
+    "updated": "2026-11-25 22:07:38",
+    "fingerprint": "50c1cfe5d42d",
+    "history": []
+  },
+  "man_lift": {
+    "status": "changes",
+    "note": "The angle is weird, plus he is clipping into the table",
+    "updated": "2026-11-25 22:08:07",
+    "fingerprint": "0ca01fe10b92",
+    "history": []
+  },
+  "stikine_bow": {
+    "status": "changes",
+    "note": "The ground is glitching",
+    "updated": "2026-11-25 22:08:23",
+    "fingerprint": "4ebfa5c2fae4",
+    "history": []
+  },
+  "dock_moor": {
+    "status": "changes",
+    "note": "Ground is glitching",
+    "updated": "2026-11-25 22:08:35",
+    "fingerprint": "9cd5bcb33f43",
+    "history": []
+  },
+  "engines_race": {
+    "status": "changes",
+    "note": "ground is glitching",
+    "updated": "2026-11-25 22:08:52",
+    "fingerprint": "d04bf5c3670e",
+    "history": []
+  },
+  "helmets": {
+    "status": "changes",
+    "note": "Ground is glitching",
+    "updated": "2026-11-25 22:09:21",
+    "fingerprint": "fbb75102254e",
+    "history": []
+  },
+  "flat_return": {
+    "status": "changes",
+    "note": "This shot should've been the gold bar's silhouette visible in front of burning fire",
+    "updated": "2026-11-25 22:09:43",
+    "fingerprint": "f7ce79dc515f",
+    "history": []
+  },
+  "police_desk": {
+    "status": "changes",
+    "note": "The policeman's head is served on a table bruh",
+    "updated": "2026-11-25 22:09:59",
+    "fingerprint": "4ca03dc551fe",
+    "history": []
+  },
+  "cheque_999": {
+    "status": "changes",
+    "note": "Policeman's head bruh",
+    "updated": "2026-11-25 22:10:07",
+    "fingerprint": "6a152d5d7e44",
+    "history": []
+  }
+}

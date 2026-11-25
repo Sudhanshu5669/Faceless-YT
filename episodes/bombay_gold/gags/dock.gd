@@ -183,7 +183,7 @@ func _build_quays(root: Node3D) -> void:
 	var paving := _tex("stone_pavers", 0.3, Color(0.9, 0.86, 0.78))
 	var iron_dark := Kit.mat("#2a2a2c", 0.5, 0.6)
 	# Near quay: the wall into the water, the apron, a coping-stone edge, rails, bollards, tyre fenders.
-	Kit.box(root, Vector3(1000, QH + 8.0, 6.0), Vector3(0, QH * 0.5 - 4.0, QZ + 3.0), wall)
+	Kit.box(root, Vector3(1000, QH + 7.94, 6.0), Vector3(0, (QH - 0.06 - 8.0) * 0.5, QZ + 3.0), wall)
 	Kit.box(root, Vector3(1000, 0.4, 140), Vector3(0, QH - 0.2, QZ + 70.0), paving)
 	Kit.box(root, Vector3(1000, 0.35, 0.9), Vector3(0, QH + 0.05, QZ + 0.45), Kit.mat("#8c8478", 0.85))
 	for k in 34:
@@ -194,7 +194,7 @@ func _build_quays(root: Node3D) -> void:
 		ty.rotation.x = PI * 0.5
 	var rail := Kit.mat("#4a4440", 0.35, 0.85)
 	for rz: float in [QZ + 5.0, QZ + 6.45, QZ + 14.0, QZ + 15.45]:
-		Kit.box(root, Vector3(1000, 0.14, 0.09), Vector3(0, QH + 0.07, rz), rail)
+		Kit.box(root, Vector3(1000, 0.14, 0.09), Vector3(0, QH + 0.08, rz), rail)
 	# Mooring lines from the Stikine to the bollards.
 	var rope := Kit.mat("#b8a27a", 0.9)
 	for x: float in [-58.0, -40.0, 46.0, 62.0]:
@@ -228,7 +228,7 @@ func _build_quays(root: Node3D) -> void:
 			_roofs.append(r)
 			_roof_home.append(home)
 	# The far quay across the basin, godowns and cranes behind.
-	Kit.box(root, Vector3(1600, QH + 8.0, 8.0), Vector3(0, QH * 0.5 - 4.0, -164.0), wall)
+	Kit.box(root, Vector3(1600, QH + 7.94, 8.0), Vector3(0, (QH - 0.06 - 8.0) * 0.5, -164.0), wall)
 	Kit.box(root, Vector3(1600, 0.4, 160), Vector3(0, QH - 0.2, -244.0), paving)
 	for k in 8:
 		var x := -500.0 + k * 140.0

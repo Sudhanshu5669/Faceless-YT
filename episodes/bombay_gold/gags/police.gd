@@ -63,7 +63,7 @@ func build(g: Dictionary) -> Node3D:
 	Kit.cyl(root, 0.04, 0.05, 0.07, Vector3(1.4, 0.92, -1.2), Kit.mat("#141414", 0.3, 0.3), 12)
 	Kit.ball(root, 0.06, Vector3(-0.4, 0.94, -1.0), Kit.mat("#b8892e", 0.3, 0.9), 12, Vector3(1, 0.6, 1))
 	# Behind the counter, a raised wooden platform for the duty officer.
-	Kit.box(root, Vector3(5.0, 0.35, 2.2), Vector3(0, 0.175, -2.4), teak)
+	Kit.box(root, Vector3(5.0, 0.6, 2.2), Vector3(0, 0.3, -2.4), teak)
 	# Behind the counter: a desk, files on shelves, a notice board; a wall clock (Poly Haven), a bench.
 	_model(root, PH0 + "vintage_wooden_drawer_01/vintage_wooden_drawer_01_2k.gltf", Vector3(-2.6, 0, -3.5), 0.0, 1.2)
 	_model(root, PH0 + "steel_frame_shelves_01/steel_frame_shelves_01_2k.gltf", Vector3(2.4, 0, -3.6), 0.0)

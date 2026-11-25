@@ -25,7 +25,7 @@ ACTORS = [
      "shown": [[{"shot": "police_desk"}, {"shot": "relief_box"}]],
      "cues": [{"t": 0.0, "expression": "determined"}, {"t": W("l23a", "reward", 0.0), "expression": "surprised"},
               {"t": W("l23a", "rupees.", 0.0), "expression": "thinking"}]},
-    {"id": "inspector", "character": "toon_inspector_1944", "at": P(0.6, 0.35, -1.9), "keep_y": True, "facing": P(0.5, 0.0, 1.0),
+    {"id": "inspector", "character": "toon_inspector_1944", "at": P(0.6, 0.6, -1.95), "keep_y": True, "facing": P(0.5, 0.0, 1.0),
      "action": "idle", "cues": [{"t": 0.0, "expression": "deadpan"}, {"t": W("l22b", "police.", 0.0), "expression": "shocked"},
                                 {"t": W("l23a", "reward", 0.0), "expression": "happy"}]},
     {"id": "constable", "character": "toon_dockworker_b", "at": P(-2.2, 0.0, -2.6), "keep_y": True, "facing": P(0.2, 0.0, 0.0),
@@ -44,19 +44,19 @@ GAGS = [{"id": "police_set", "script": "gags/police.gd", "t": 0, "at": P(0, 0, 0
                     "write": W("l23a", "reward", -0.2), "hand": W("l23a", "rupees.", -0.3), "drop": W("l23b", "relief", 0.1)}}]
 
 REVEALS = [
-    {"id": "n_999", "t": W("l23a", offset=0.05), "until": {"shot": "relief_box"}, "at": P(0.6, 1.45, -0.6), "size": 0.15,
+    {"id": "n_999", "t": W("l23a", offset=0.05), "until": {"shot": "relief_box"}, "at": P(0.95, 1.08, -0.8), "size": 0.11,
      "counter": {"from": 0, "to": 999, "prefix": "Rs ", "land": W("l23a", "ninety-nine", 0.15), "label": "REWARD"}, "sound": "ding"},
 ]
 
 SHOTS = {
     # Across the counter: he sets the gold bar down in front of the sub-inspector, whose jaw drops.
     "police_desk": {"look": LOOK_POLICE, "camera": move(
-        cam(P(-1.3, 1.65, 2.2), P(0.35, 1.2, -1.1), 26),
-        cam(P(-1.1, 1.6, 1.8), P(0.35, 1.2, -1.1), 28), "in_out")},
+        cam(P(-1.1, 1.3, 2.0), P(0.4, 1.4, -1.6), 26),
+        cam(P(-0.95, 1.3, 1.7), P(0.4, 1.4, -1.6), 28), "in_out")},
     # Over the inspector's shoulder: he writes the cheque and hands it across.
     "cheque_999": {"look": LOOK_POLICE, "camera": move(
-        cam(P(0.3, 2.25, 0.9), P(0.75, 1.0, -1.3), 30),
-        cam(P(0.35, 2.15, 0.6), P(0.75, 1.0, -1.3), 32), "in_out")},
+        cam(P(1.5, 1.35, 0.3), P(0.55, 1.25, -1.6), 30),
+        cam(P(1.35, 1.35, 0.1), P(0.55, 1.25, -1.6), 32), "in_out")},
     # Outside under the lamp: he walks to the relief table and drops the cheque into the box.
     "relief_box": {"look": LOOK_POLICE, "camera": move(
         cam(P(13.0, 1.6, 3.8), P(12.4, 1.75, -0.4), 26),
