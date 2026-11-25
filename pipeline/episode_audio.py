@@ -178,8 +178,20 @@ def _check_verbatim(wav, script_text: str) -> None:
     style made Gemini invent lines, 2026-11-22). The forced aligner would still place every script word, so the
     take is transcribed and its word count compared with the script's."""
     from ctc_align import transcribe
-    heard = len(transcribe(wav).split())
+    import re
+    heard_words = transcribe(wav).split()
+    heard = len(heard_words)
     want = len(align.script_words(script_text))
+    # A short direction read aloud at the start passes the count check (13 words on bombay_gold, 2026-11-25),
+    # so the take must also open with the script's first words.
+    norm = lambda w: re.sub(r"[^A-Z0-9]", "", w.upper())
+    first = [norm(w) for w in script_text.split() if norm(w)][:2]
+    lead = next((i for i in range(min(len(heard_words), 40))
+                 if [norm(w) for w in heard_words[i:i + len(first)]] == first), None)
+    if first and (lead is None or lead > 2):
+        raise EpisodeError(f"ERROR: the take does not open with the script ({' '.join(first)}...); it starts "
+                           f"\"{' '.join(heard_words[:12])}\": the TTS read its direction aloud. Shorten or drop the "
+                           f"style, then delete {wav} to retake")
     if heard > want * 1.08 + 3:
         raise EpisodeError(f"ERROR: the take has about {heard} words, the script {want}: the TTS read its direction "
                            f"aloud or improvised. Shorten the style (no content in it), then delete {wav} to retake")

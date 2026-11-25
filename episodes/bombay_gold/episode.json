@@ -1,0 +1,1506 @@
+{
+ "schema_version": "0.1",
+ "id": "bombay_gold",
+ "title": "It Rained Gold on Bombay",
+ "description": "The Fort Stikine explosion, Victoria Dock, Bombay, 14 April 1944.",
+ "set": "specs/sets/bombay_gold.json",
+ "format": {
+  "resolution": [
+   1080,
+   1920
+  ],
+  "fps": 60,
+  "motion_blur": 2
+ },
+ "narration": {
+  "model": "gemini-3.8-flash-lite-tts",
+  "voice": "Charon",
+  "single_take": true,
+  "inline_tags": true,
+  "max_pause": 0.4,
+  "speed": 1.0,
+  "style": ""
+ },
+ "captions": {
+  "enabled": true,
+  "max_words": 2,
+  "position": 0.87
+ },
+ "ambience": [
+  {
+   "sound": "beat",
+   "gain": -21,
+   "duck": 0.55
+  }
+ ],
+ "sfx": [],
+ "lines": [
+  {
+   "id": "l1",
+   "shot": "hook_rain",
+   "at": 0.05,
+   "text": "It rained gold on Bombay.",
+   "style": "tense"
+  },
+  {
+   "id": "l2a",
+   "shot": "gold_fall",
+   "at": 0.0,
+   "text": "Real gold bars, falling out of the sky.",
+   "style": "tense"
+  },
+  {
+   "id": "l2b",
+   "shot": "bar_wall",
+   "at": 0.0,
+   "text": "One smashed into this man's home.",
+   "style": "serious"
+  },
+  {
+   "id": "l3a",
+   "shot": "man_lift",
+   "at": 0.1,
+   "text": "What he did next, almost nobody would do.",
+   "style": "whispers"
+  },
+  {
+   "id": "l3b",
+   "shot": "window_whip",
+   "at": 0.0,
+   "text": "But first: where did the gold come from?",
+   "style": "tense"
+  },
+  {
+   "id": "l4a",
+   "shot": "dock_wide",
+   "at": 0.25,
+   "text": "It's April 14, 1944. World War Two.",
+   "style": "serious"
+  },
+  {
+   "id": "l4b",
+   "shot": "stikine_bow",
+   "at": 0.0,
+   "text": "A British cargo ship, the Fort Stikine, is tied up in Bombay's Victoria Dock.",
+   "style": "serious"
+  },
+  {
+   "id": "l5a",
+   "shot": "xray_munitions",
+   "at": 0.1,
+   "text": "In her holds: about fourteen hundred tons of explosives.",
+   "style": "tense"
+  },
+  {
+   "id": "l5b",
+   "shot": "crane_shells",
+   "at": 0.0,
+   "text": "Torpedoes, mines, shells.",
+   "style": "tense"
+  },
+  {
+   "id": "l6",
+   "shot": "cotton_sling",
+   "at": 0.05,
+   "text": "Eight thousand seven hundred bales of raw cotton.",
+   "style": "serious"
+  },
+  {
+   "id": "l7",
+   "shot": "gold_crates",
+   "at": 0.05,
+   "text": "And thirty-one crates of gold.",
+   "style": "whispers"
+  },
+  {
+   "id": "l8a",
+   "shot": "xray_stack",
+   "at": 0.15,
+   "text": "The cotton is packed underneath the explosives.",
+   "style": "tense"
+  },
+  {
+   "id": "l8b",
+   "shot": "empty_mast",
+   "at": 0.0,
+   "text": "And she isn't flying the red flag that warns of danger on board.",
+   "style": "serious"
+  },
+  {
+   "id": "l9a",
+   "shot": "clock_1230",
+   "at": 0.25,
+   "text": "At twelve-thirty, an officer on the next ship sees smoke coming out of hold number two.",
+   "style": "tense"
+  },
+  {
+   "id": "l9b",
+   "shot": "vent_push",
+   "at": 0.05,
+   "text": "The hold with the gold.",
+   "style": "whispers"
+  },
+  {
+   "id": "l10",
+   "shot": "clock_1345",
+   "at": 0.15,
+   "text": "It's more than an hour before anyone raises the alarm.",
+   "style": "serious"
+  },
+  {
+   "id": "l11a",
+   "shot": "engines_race",
+   "at": 0.1,
+   "text": "Firemen race in.",
+   "style": "excited"
+  },
+  {
+   "id": "l11b",
+   "shot": "fireboats",
+   "at": 0.0,
+   "text": "Fireboats pull alongside.",
+   "style": "tense"
+  },
+  {
+   "id": "l11c",
+   "shot": "hoses_900",
+   "at": 0.0,
+   "text": "They pour more than nine hundred tons of water into the ship,",
+   "style": "tense"
+  },
+  {
+   "id": "l11d",
+   "shot": "hold_steam",
+   "at": 0.0,
+   "text": "and still can't find the fire.",
+   "style": "serious"
+  },
+  {
+   "id": "l12a",
+   "shot": "hold_pops",
+   "at": 0.15,
+   "text": "Down in the hold, the shells start going off.",
+   "style": "tense"
+  },
+  {
+   "id": "l12b",
+   "shot": "abandon",
+   "at": 0.0,
+   "text": "At three-fifty comes the order: abandon ship.",
+   "style": "shouting"
+  },
+  {
+   "id": "l13",
+   "shot": "clock_406",
+   "at": 0.2,
+   "text": "Sixteen minutes later.",
+   "style": "whispers"
+  },
+  {
+   "id": "l14a",
+   "shot": "blast_wide",
+   "at": 0.1,
+   "text": "Four-oh-six p.m. The Fort Stikine explodes.",
+   "style": "shouting"
+  },
+  {
+   "id": "l14b",
+   "shot": "hull_split",
+   "at": 0.0,
+   "text": "The ship is torn in two.",
+   "style": "serious"
+  },
+  {
+   "id": "l15",
+   "shot": "jalapadma",
+   "at": 0.05,
+   "text": "The blast throws another ship, the Jalapadma, out of the water and onto the dock.",
+   "style": "tense"
+  },
+  {
+   "id": "l16a",
+   "shot": "shockwave_roofs",
+   "at": 0.1,
+   "text": "Windows shatter twelve kilometres away.",
+   "style": "tense"
+  },
+  {
+   "id": "l16b",
+   "shot": "seismograph",
+   "at": 0.0,
+   "text": "In Shimla, seventeen hundred kilometres away, instruments feel the ground shake.",
+   "style": "serious"
+  },
+  {
+   "id": "l17a",
+   "shot": "cotton_rain",
+   "at": 0.15,
+   "text": "Burning cotton falls across the city.",
+   "style": "tense"
+  },
+  {
+   "id": "l17b",
+   "shot": "gold_rain",
+   "at": 0.0,
+   "text": "And with it, gold.",
+   "style": "whispers"
+  },
+  {
+   "id": "l18",
+   "shot": "second_blast",
+   "at": 0.15,
+   "text": "Less than half an hour later, a second explosion.",
+   "style": "tense"
+  },
+  {
+   "id": "l19a",
+   "shot": "night_masts",
+   "at": 0.3,
+   "text": "Thirteen ships are lost.",
+   "style": "serious"
+  },
+  {
+   "id": "l19b",
+   "shot": "dock_fire",
+   "at": 0.0,
+   "text": "The docks burn for three days.",
+   "style": "serious"
+  },
+  {
+   "id": "l20a",
+   "shot": "dawn_ruins",
+   "at": 0.2,
+   "text": "More than seven hundred people are killed.",
+   "style": "serious"
+  },
+  {
+   "id": "l20b",
+   "shot": "families_walk",
+   "at": 0.0,
+   "text": "Eighty thousand lose their homes.",
+   "style": "sighs"
+  },
+  {
+   "id": "l21a",
+   "shot": "helmets",
+   "at": 0.2,
+   "text": "Sixty-six of the dead are firemen.",
+   "style": "serious"
+  },
+  {
+   "id": "l21b",
+   "shot": "fire_day",
+   "at": 0.1,
+   "text": "That's why, every April 14th, India marks National Fire Service Day.",
+   "style": "proud"
+  },
+  {
+   "id": "l22a",
+   "shot": "flat_return",
+   "at": 0.3,
+   "text": "And the gold bar in Girgaum?",
+   "style": "serious"
+  },
+  {
+   "id": "l22b",
+   "shot": "police_desk",
+   "at": 0.0,
+   "text": "Its owner carries it to the police.",
+   "style": "serious"
+  },
+  {
+   "id": "l23a",
+   "shot": "cheque_999",
+   "at": 0.1,
+   "text": "They reward him nine hundred and ninety-nine rupees.",
+   "style": "serious"
+  },
+  {
+   "id": "l23b",
+   "shot": "relief_box",
+   "at": 0.0,
+   "text": "He gives every rupee to the relief fund for the victims.",
+   "style": "proud"
+  },
+  {
+   "id": "l24a",
+   "shot": "dredger_2011",
+   "at": 0.3,
+   "text": "And the gold kept turning up.",
+   "style": "serious"
+  },
+  {
+   "id": "l24b",
+   "shot": "grab_bar",
+   "at": 0.0,
+   "text": "As late as 2011, dredgers in Bombay's docks were still pulling the ship's gold bars out of the mud.",
+   "style": "tense"
+  }
+ ],
+ "actors": [],
+ "gags": [],
+ "reveals": [],
+ "shots": [
+  {
+   "name": "hook_rain",
+   "camera": {
+    "at": {
+     "anchor": "girgaum",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "girgaum",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "gold_fall",
+   "camera": {
+    "at": {
+     "anchor": "girgaum",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "girgaum",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "bar_wall",
+   "camera": {
+    "at": {
+     "anchor": "flat",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "flat",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "man_lift",
+   "camera": {
+    "at": {
+     "anchor": "flat",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "flat",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "window_whip",
+   "camera": {
+    "at": {
+     "anchor": "flat",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "flat",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "dock_wide",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "stikine_bow",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "xray_munitions",
+   "camera": {
+    "at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "crane_shells",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "cotton_sling",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "gold_crates",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "xray_stack",
+   "camera": {
+    "at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "empty_mast",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "clock_1230",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "vent_push",
+   "camera": {
+    "at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "clock_1345",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "engines_race",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "fireboats",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "hoses_900",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "hold_steam",
+   "camera": {
+    "at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "hold_pops",
+   "camera": {
+    "at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "hold",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "abandon",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "clock_406",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "blast_wide",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "hull_split",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "jalapadma",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "shockwave_roofs",
+   "camera": {
+    "at": {
+     "anchor": "city",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "city",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "seismograph",
+   "camera": {
+    "at": {
+     "anchor": "shimla",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "shimla",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "cotton_rain",
+   "camera": {
+    "at": {
+     "anchor": "girgaum",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "girgaum",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "gold_rain",
+   "camera": {
+    "at": {
+     "anchor": "girgaum",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "girgaum",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "second_blast",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "night_masts",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "dock_fire",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "dawn_ruins",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "families_walk",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "helmets",
+   "camera": {
+    "at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "dock",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "fire_day",
+   "camera": {
+    "at": {
+     "anchor": "firestation",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "firestation",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "flat_return",
+   "camera": {
+    "at": {
+     "anchor": "flat",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "flat",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "police_desk",
+   "camera": {
+    "at": {
+     "anchor": "police",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "police",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "cheque_999",
+   "camera": {
+    "at": {
+     "anchor": "police",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "police",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "relief_box",
+   "camera": {
+    "at": {
+     "anchor": "police",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "police",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "dredger_2011",
+   "camera": {
+    "at": {
+     "anchor": "port",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "port",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  },
+  {
+   "name": "grab_bar",
+   "camera": {
+    "at": {
+     "anchor": "port",
+     "offset": [
+      0,
+      1.6,
+      6
+     ]
+    },
+    "look_at": {
+     "anchor": "port",
+     "offset": [
+      0,
+      1.2,
+      0
+     ]
+    },
+    "lens_mm": 35
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   }
+  }
+ ]
+}

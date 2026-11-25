@@ -1,0 +1,169 @@
+{
+  "schema_version": "0.1",
+  "set": {
+    "id": "bombay_gold",
+    "generator": "stage",
+    "seed": 1944,
+    "params": {
+      "bays": [
+        {
+          "id": "girgaum",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "flat",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "dock",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "hold",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "city",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "shimla",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "police",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "firestation",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        },
+        {
+          "id": "port",
+          "size": [
+            12,
+            12
+          ],
+          "wall": "none",
+          "floor": "none",
+          "neon": [],
+          "light": "#000000",
+          "neon_colors": [
+            "#000000",
+            "#000000"
+          ]
+        }
+      ]
+    }
+  },
+  "look": {
+    "base": "night_fog",
+    "time": "22:00",
+    "weather": {
+      "fog": 0.05
+    },
+    "ambient": {
+      "color": "#7a849c",
+      "energy": 0.15
+    },
+    "sun": {
+      "energy": 0
+    },
+    "moon": {
+      "energy": 0.05,
+      "visible": false
+    },
+    "grade": {
+      "contrast": 1.05,
+      "vignette": 0.2
+    }
+  }
+}
