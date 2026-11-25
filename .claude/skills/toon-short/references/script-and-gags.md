@@ -36,6 +36,22 @@ hypotheticals, restraint for real tragedies. 130–170 s for a Short at ~150 wor
 intro, no "in this video", no outro. Read it aloud: every sentence must suggest a picture. Check
 every fact and number; credibility comes from real figures.
 
+## The first line decides the views (our own analytics, 2026-11-25)
+
+| Short | Opening line | Stayed to watch | Views |
+|---|---|---|---|
+| mangalyaan | "A one-kilometre auto ride in Ahmedabad costs about ten rupees. India went to Mars for seven." | 81.4% | 365k |
+| pokhran | "India blew up the White House." | 77.1% | 6.1k in day 1 |
+| silkyara_rescue | "Before dawn in Uttarakhand." | 71.4% | 11.5k, then the feed stopped (day 2) |
+| jio_story | "Imagine you're Mukesh Ambani..." (a long sentence) | 67.8% | 77k (rescued by 79% still watching at 0:30) |
+
+Once people stayed, every Short held about the same (63-69% viewed). The difference was the swipe in second one.
+- **Line one is a paradox, a shock or a number that sounds wrong**, said in under 2 s. Never scene-setting
+  ("Before dawn in…"), never a date, never the news summary people already know.
+- For a known story, open on the part nobody knows (Silkyara's thumbnail had it, "helped save 41, then lost
+  his home"; the narration didn't).
+- Titles: no spoiler-only titles and no typos ("it's bitter outcome").
+
 ## The ten style rules
 
 1. **Show every noun on its word.** A list becomes items arriving one per word (reveals with
