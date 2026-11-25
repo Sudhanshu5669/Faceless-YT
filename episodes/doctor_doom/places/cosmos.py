@@ -64,7 +64,7 @@ ACTORS = [
 GAGS = [
     {"id": "cosmos_set", "script": "gags/cosmos.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"board": {"actor": "doom_surfer"}, "lightning": [W("d7", "Silver", 0.0), W("d7", "Surfer.", 0.2)],
-                "beyonder": {"actor": "doom_void", "t": W("d8", "god.", 0.0)}, "stitch": W("d11", "stitches", 0.0),
+                "beyonder": {"actor": "doom_void", "t": W("d8", "god.", 0.0), "cup": {"shot": "beyonder_hand", "offset": 0.4}}, "stitch": W("d11", "stitches", 0.0),
                 "stretch": {"t": W("d13", "Reed", 0.0)},
                 "green": W("d15", "Overnight,", 0.0)}},
     {"id": "cosmos_suits", "script": "library:doom_suit", "t": 0, "at": P(0, 0, 0),
@@ -83,10 +83,10 @@ SHOTS = {
     "beyonder_grab": {"look": LOOK_SPACE, "camera": move(
         cam(P(2.2, 1.5, VO + 2.6), P(-1.0, 2.2, VO - 6.0), 24, {"strength": 0.03}),
         cam(P(1.8, 1.4, VO + 2.2), P(-0.3, 1.5, VO - 1.0), 24, {"strength": 0.03}), "in_out")},
-    # The universe in his palm.
+    # He cups the universe in both hands at his chest and bows his head to look at it; low, close, 3/4 front.
     "beyonder_hand": {"look": LOOK_SPACE, "camera": move(
-        cam(P(0.8, 1.2, VO + 1.7), P(0.0, 1.35, VO + 0.45), 40, {"strength": 0.2}),
-        cam(P(0.65, 1.22, VO + 1.45), P(0.0, 1.35, VO + 0.45), 40, {"strength": 0.22}), "in")},
+        cam(P(0.75, 1.3, VO + 1.55), P(0.0, 1.5, VO + 0.3), 38, {"strength": 0.15}),
+        cam(P(0.6, 1.32, VO + 1.3), P(0.0, 1.52, VO + 0.3), 38, {"strength": 0.16}), "in")},
     # Battleworld's pieces hang apart in space.
     "bw_planet": {"look": LOOK_SPACE, "camera": move(
         cam(P(30.0, 25.0, WO + 110.0), P(0.0, 0.0, WO), 30, {"strength": 0.02}),

@@ -6,6 +6,7 @@ from .common import W, frame, cam, move
 
 P = frame("board", 7200.0)   # near the origin (float precision); gags are shown only in their shots
 H, HO, CI, DR, RE, CA, MI = 0.0, 300.0, 600.0, 900.0, 1200.0, 1500.0, 1800.0
+TB = 2100.0   # the table where the Fox posters are thrown down (reels_mcmahon)
 
 _NIGHT = {
     "base": "night_fog", "time": "23:00",
@@ -60,7 +61,7 @@ GAGS = [
                            {"actor": "doom_iron", "hood": False}]}},
     {"id": "misc_set", "script": "gags/misc.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"clash": W("d6", "Devil", 0.0), "take": {"actor": "doom_hosp", "t": W("d18", "armor,", 0.0)},
-                "slides": [W("r3", 0, 0.2), W("r4", "2007.", 0.0), W("r5", "Kebbell", 0.0)], "scar": {"actor": "victor_reflect", "warp": W("v7", 0, -0.1)},
+                "slides": [W("r3", 0, 0.2), W("r4", "2007.", 0.0), W("r5", "Kebbell", 0.0)], "thrown": [W("r4", "McMahon", 0.0), W("r4", "2007.", 0.0)], "scar": {"actor": "victor_reflect", "warp": W("v7", 0, -0.1)},
                 "bandage": {"actor": "victor_gate"}, "ironhead": {"actor": "doom_iron"}}},
 ]
 
@@ -90,9 +91,10 @@ SHOTS = {
     "reels_past": {"look": _NIGHT, "camera": move(
         cam(P(0.0, 0.2, RE + 4.0), P(0.0, 0.0, RE), 30, {"strength": 0.04}),
         cam(P(0.0, 0.15, RE + 3.6), P(0.0, 0.0, RE), 30, {"strength": 0.04}), "in")},
+    # The user: "show posters being thrown on table instead": the 2005 and 2007 one-sheets slap down on their years.
     "reels_mcmahon": {"look": _NIGHT, "camera": move(
-        cam(P(0.2, 0.15, RE + 3.6), P(0.0, 0.0, RE), 32, {"strength": 0.04}),
-        cam(P(-0.2, 0.15, RE + 3.5), P(0.0, 0.0, RE), 32, {"strength": 0.04}), "in_out")},
+        cam(P(0.0, 2.05, TB + 1.35), P(0.0, 0.9, TB + 0.05), 32, {"strength": 0.05}),
+        cam(P(0.0, 1.95, TB + 1.25), P(0.0, 0.9, TB + 0.05), 32, {"strength": 0.05}), "in")},
     "reels_kebbell": {"look": _NIGHT, "camera": move(
         cam(P(-0.2, 0.15, RE + 3.5), P(0.0, 0.0, RE), 32, {"strength": 0.04}),
         cam(P(0.0, 0.1, RE + 3.3), P(0.0, 0.0, RE), 32, {"strength": 0.04}), "in")},

@@ -64,8 +64,8 @@ SHOTS = {
         cam(P(0.11, 0.5, 0.6), P(0.1, 0.0, 0.55), 40, {"strength": 0.08}), "in")},
     # Top-down on the counter: four comics slap down, one per name.
     "shop_stack": {"look": LOOK_SHOP, "camera": move(
-        cam(P(1.55, 2.05, -0.25), P(1.55, 1.0, -0.62), 32, {"strength": 0.08}),
-        cam(P(1.55, 1.9, -0.3), P(1.55, 1.0, -0.62), 32, {"strength": 0.08}), "in")},
+        cam(P(1.55, 1.66, -0.4), P(1.55, 1.0, -0.62), 32, {"strength": 0.05}),
+        cam(P(1.55, 1.58, -0.42), P(1.55, 1.0, -0.62), 32, {"strength": 0.05}), "in")},   # covers fill the frame
     # The Doom standee in the shop window, lit; the Bleeding Cool headline slides in (overlay news_rise).
     "shop_rise": {"look": LOOK_SHOP, "camera": move(
         cam(P(-2.5, 1.5, 1.6), P(-1.5, 1.6, -3.2), 28, {"strength": 0.08}),

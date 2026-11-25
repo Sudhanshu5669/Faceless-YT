@@ -45,8 +45,17 @@ ACTORS = [
      "shown": [span("castle_gates", "castle_throne")], "cues": [{"t": 0.0, "expression": "determined"}]},
     # Doom on the throne.
     {"id": "doom_throne", "freeze": 0.35, "character": "doom_realistic", "at": P(TH[0], TH[1] + 0.32, TH[2] + 0.28), "facing": P(0.0, 1.2, 10.0), "keep_y": True,
-     "action": "sit", "shown": [span("castle_throne", "castle_immunity"), span("doom_hands", "hell_fight")],
+     "action": "sit", "shown": [span("castle_throne", "castle_king"), span("throne_wide", "castle_immunity"),
+                                span("doombots_row", "hell_fight")],
      "cues": [{"t": 0.0, "expression": "scheming"}]},
+    # castle_king: Doom standing on the dais before his empty throne, looking up at it (the user: "stand in front of the
+    # throne, facing the throne and looking at it").
+    {"id": "doom_stand", "character": "doom_realistic", "at": P(TH[0], TH[1], TH[2] + 1.6), "facing": P(TH[0], TH[1] + 3.0, TH[2]),
+     "keep_y": True, "action": "fold_arms", "freeze": 0.5,
+     "shown": [span("castle_king", "throne_wide"), span("doom_hands", "doombots_row")],
+     # doom_hands: he turns to us and raises his gauntlets (the castle gag lights a reactor and a spell in them).
+     "cues": [{"t": 0.0, "expression": "determined"},
+              {"t": W("d3", 0, -2.5), "facing": P(TH[0], TH[1] + 1.6, 10.0), "action": "idle"}]},
     # Doom above the gate, before his people.
     {"id": "doom_gate", "character": "doom_realistic", "at": P(0.0, 12.0, GZ + 1.0), "facing": P(0.0, 12.0, GZ + 20.0),
      "keep_y": True, "action": "idle", "shown": [span("castle_people", "doom_hands")],
@@ -79,10 +88,11 @@ GAGS = [
     {"id": "castle_set", "script": "gags/castle.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"doors": W("v11", 0, -0.2), "lightning": [W("v12", "Doom.", 0.0), W("v12b", "king", 0.0),
                                                           W("r19", "certain.", 0.0), W("r20", "world.", 0.0)],
-                "pop": {"actor": "doombot_3", "t": W("d5", "real", 0.0)}, "hands": {"t": W("d3", 0)},
+                "pop": {"actor": "doombot_3", "t": W("d5", "real", 0.0)}, "hands": {"t": W("d3", 0), "actor": "doom_stand", "reactor": W("d3", "smartest", 0.0),
+                          "spell": W("d3", "sorcerer.", 0.0)},
                 "flag": {"t": W("d2", "immunity.", -0.2)}}},
     {"id": "castle_suits", "script": "library:doom_suit", "t": 0, "at": P(0, 0, 0),
-     "params": {"actors": [{"actor": a} for a in ["doom_walk", "doom_throne", "doom_gate"]]
+     "params": {"actors": [{"actor": a} for a in ["doom_walk", "doom_throne", "doom_stand", "doom_gate"]]
                 + [{"actor": f"doombot_{i}", "hood": True} for i in range(7)]}},
 ]
 
@@ -96,10 +106,10 @@ SHOTS = {
     "castle_throne": {"look": LOOK_CASTLE, "shake": [{"t": W("v12", "Doom.", 0.0), "amount": 0.05}], "camera": move(
         cam(P(0.0, 1.6, -14.0), THC, 30, {"strength": 0.06}),
         cam(P(0.0, 1.8, -19.0), THC, 30, {"strength": 0.08}), "in")},
-    # Low, close on Doom on the throne: a king.
+    # Doom stands before his empty throne and looks up at it; profile from the side, low, lightning on "king".
     "castle_king": {"look": LOOK_CASTLE, "camera": move(
-        cam(P(1.4, 1.5, -22.5), THC, 38, {"strength": 0.12}),
-        cam(P(0.9, 1.45, -23.0), THC, 38, {"strength": 0.12}), "in_out")},
+        cam(P(2.7, 2.35, -23.5), P(0.2, 3.0, -25.1), 35, {"strength": 0.08}),
+        cam(P(2.4, 2.4, -23.65), P(0.2, 3.05, -25.1), 35, {"strength": 0.08}), "in")},
     # Chapter 3: the whole nave, high: columns, banners, braziers, the throne far off.
     "throne_wide": {"look": LOOK_CASTLE, "camera": move(
         cam(P(3.5, 11.0, 12.0), P(0.0, 2.0, -26.0), 22, {"strength": 0.03}),
@@ -113,9 +123,10 @@ SHOTS = {
         cam(P(2.5, 1.2, GZ + 10.0), P(0.0, 11.0, GZ + 1.0), 28, {"strength": 0.04}),
         cam(P(1.8, 1.3, GZ + 9.0), P(0.0, 11.5, GZ + 1.0), 28, {"strength": 0.04}), "in_out")},
     # The gauntlets: a reactor in one, a spell in the other.
+    # Doom on the dais, waist up, raising his gauntlets: the reactor kindles on "smartest", the spell on "sorcerer".
     "doom_hands": {"look": LOOK_CASTLE, "camera": move(
-        cam(P(0.0, 2.75, -22.6), P(0.0, 2.65, -24.0), 40, {"strength": 0.25}),
-        cam(P(0.0, 2.72, -22.9), P(0.0, 2.65, -24.0), 40, {"strength": 0.25}), "in")},
+        cam(P(0.3, 2.6, -22.5), P(0.0, 2.7, -24.4), 35, {"strength": 0.12}),
+        cam(P(0.25, 2.62, -22.8), P(0.0, 2.72, -24.4), 35, {"strength": 0.12}), "in")},
     # A line of identical Dooms across the nave; a slow track along them.
     "doombots_row": {"look": LOOK_CASTLE, "camera": move(
         cam(P(-5.5, 1.3, -8.5), P(-2.0, 1.2, -12.0), 30, {"strength": 0.08}),

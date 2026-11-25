@@ -171,6 +171,8 @@ func build(g: Dictionary) -> Node3D:
 	sl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	Kit.box(st, Vector3(0.02, 1.6, 0.3), Vector3(0, 0.8, -0.16), Kit.mat("#c8b89a", 0.9), Vector3(0.15, 0, 0))
 	Kit.spot(root, Vector3(2.2, 2.6, 1.0), Vector3(3.6, 1.3, 2.2), "#ffcf9a", 5.0, 5.0, 30.0, true, 0.2)
+	# A warm work lamp over the counter so the stacked covers read.
+	Kit.omni(root, COUNTER + Vector3(0.0, 0.75, 0.15), "#ffd9a8", 1.4, 2.2, false, 0.0)
 	# The hero comic and the four stacked comics.
 	_comic = _comic_mesh(root, COVER, Color.WHITE)
 	var covers: Array = _p.get("covers", [])
@@ -241,7 +243,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		c.visible = t >= ct - 0.35
 		if c.visible:
 			var k := Motion.in_cubic(Motion.seg(t, ct - 0.35, ct))
-			var land := COUNTER + Vector3(-0.25 + 0.17 * i, 0.03 + 0.006 * i, 0.05 - 0.02 * i)
+			var land := COUNTER + Vector3(-0.285 + 0.19 * i, 0.03 + 0.006 * i, 0.05 - 0.02 * i)
 			var y := lerpf(land.y + 0.7, land.y, k)
 			var sq := Vector3.ONE
 			c.transform = Transform3D(Basis.from_euler(Vector3(-PI / 2 + (1.0 - k) * 0.6, 0.2 * (i - 1.5) + (1.0 - k) * 1.2, 0)).scaled(sq),

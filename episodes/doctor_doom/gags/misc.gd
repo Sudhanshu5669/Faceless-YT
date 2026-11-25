@@ -31,6 +31,8 @@ const DRESS := Vector3(0, 0, 900)
 const REELS := Vector3(0, 0, 1200)
 const CAMPUS := Vector3(0, 0, 1500)
 const MIRROR := Vector3(0, 0, 1800)
+const TABLE := Vector3(0, 0, 2100)   # reels_mcmahon: the Fox posters thrown down on a table
+const TABLE_Y := 0.9
 
 const LAVA_SHADER := """
 shader_type spatial;
@@ -96,6 +98,7 @@ var _lava_mat: ShaderMaterial
 var _green_beam: MeshInstance3D
 var _red_beam: MeshInstance3D
 var _clash_light: OmniLight3D
+var _thrown: Array[Node3D] = []
 var _sparks: MultiMesh
 var _helmet: Node3D
 var _monitor_line: MeshInstance3D
@@ -338,6 +341,30 @@ func build(g: Dictionary) -> Node3D:
 	Kit.ball(mi, 0.08, Vector3(0, 2.8, 1.5), Kit.lit("#ffe0a8", 4.0), 10)
 	Kit.omni(mi, Vector3(0, 2.6, 1.5), "#ffd8a0", 3.0, 7.0, true, 0.3)
 	Kit.omni(mi, Vector3(0, 2.6, -1.5), "#ffd8a0", 3.0, 7.0, true, 0.3)
+	# TABLE: a dark wooden table under one hanging lamp; the real FF (2005) and FF: Rise of the Silver Surfer (2007)
+	# one-sheets are thrown down on it, one per year (params.thrown = [t2005, t2007]).
+	var tb := Node3D.new()
+	tb.position = TABLE
+	root.add_child(tb)
+	var wood := Kit.mat("#3a2414", 0.55)
+	Kit.box(tb, Vector3(2.6, 0.08, 1.6), Vector3(0, TABLE_Y - 0.04, 0), wood)
+	for lx: float in [-1.15, 1.15]:
+		for lz: float in [-0.65, 0.65]:
+			Kit.box(tb, Vector3(0.08, TABLE_Y - 0.08, 0.08), Vector3(lx, (TABLE_Y - 0.08) * 0.5, lz), wood)
+	Kit.box(tb, Vector3(30, 0.1, 30), Vector3(0, -0.05, 0), Kit.mat("#0c0b0a", 0.9))
+	Kit.cyl(tb, 0.02, 0.3, 0.22, Vector3(0, 2.25, 0), Kit.mat("#1a1a1a", 0.5, 0.6), 24)
+	Kit.ball(tb, 0.05, Vector3(0, 2.15, 0), Kit.lit("#ffe6b8", 6.0), 10)
+	Kit.spot(tb, Vector3(0, 2.15, 0), Vector3(0, TABLE_Y, 0), "#ffdcab", 3.2, 4.0, 48.0, true, 0.05)
+	for i in 2:
+		var pm := Kit.textured("library/logos/doom/posters/" + ["ff2005.jpg", "ff2007.jpg"][i]).duplicate()
+		pm.roughness = 0.45
+		var pn := Node3D.new()
+		tb.add_child(pn)
+		# One-sheets are 27 x 40 in; face up (+Y), 1 cm apart so they never z-fight.
+		var q := Kit.quad(pn, Vector2(0.62, 0.92), Vector3.ZERO, pm, Vector3(-PI / 2, 0, 0))
+		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+		pn.visible = false
+		_thrown.append(pn)
 	return root
 
 
@@ -485,6 +512,25 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 					b.position = Vector3(0, hr * 0.35, 0)
 					b.rotation = Vector3(0.25, 0, 0.1)
 					head.add_child(b))
+	# TABLE: each poster sails in from above the lens, flat-spinning, slaps down on its word and skids to rest.
+	var th: Array = _p.get("thrown", [])
+	for i in _thrown.size():
+		var pn := _thrown[i]
+		var tl := float(th[i]) if i < th.size() else 1e9
+		pn.visible = t >= tl - 0.45
+		if not pn.visible:
+			continue
+		var land := Vector3(-0.22 + 0.44 * i, TABLE_Y + 0.004 + 0.01 * i, 0.32 - 0.08 * i)
+		var yaw_rest: float = [0.12, -0.2][i]
+		var start: Vector3 = land + Vector3([-1.4, 1.6][i], 1.3, 1.6)
+		var k := Motion.in_cubic(Motion.seg(t, tl - 0.45, tl))
+		var skid := Motion.out_cubic(Motion.seg(t, tl, tl + 0.3))
+		var pos: Vector3 = start.lerp(land, k) + Vector3([-0.06, 0.07][i], 0, -0.05) * skid
+		pos.y += sin(k * PI) * 0.25
+		var tilt := (1.0 - k) * 0.9
+		var spin: float = yaw_rest + (1.0 - k) * float([2.4, -2.8][i]) + 0.06 * skid
+		var sq := Motion.squash(Motion.impact(t - tl, 0.12, 6.0, 12.0)) if t > tl else Vector3.ONE
+		pn.transform = Transform3D(Basis(Vector3.UP, spin) * Basis(Vector3.RIGHT, tilt), pos).scaled_local(Vector3(sq.x, 1.0, sq.z))
 	return {"devil": node.global_transform * (HELL + DEVIL + Vector3(0, 10, 0) * DEVIL_S), "doom_ledge": node.global_transform * (HELL + Vector3(-5, 0, 2)),
 		"bed": node.global_transform * (HOSP + Vector3(0, 0.8, -1.2)), "helmet": node.global_transform * (HOSP + _helmet.position),
 		"roof": node.global_transform * CITY, "statue": node.global_transform * (DRESS + Vector3(-0.6, 1.0, -1.1)),

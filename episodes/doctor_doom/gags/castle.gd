@@ -44,6 +44,8 @@ var _flash: Array[Light3D] = []
 var _fires: Array[MeshInstance3D] = []
 var _fire_lights: Array[OmniLight3D] = []
 var _hands: Node3D
+var _reactor: Node3D
+var _spell_light: OmniLight3D
 var _spell: Node3D
 var _reactor_light: OmniLight3D
 var _sparks: MultiMesh
@@ -126,6 +128,8 @@ func build(g: Dictionary) -> Node3D:
 	th.add_child(em2)
 	Kit.spot(root, THRONE + Vector3(0, 9, 5), THRONE + Vector3(0, 1.2, 0), "#9ff5b0", 18.0, 14.0, 16.0, true, 1.0)
 	Kit.spot(root, THRONE + Vector3(0, 2.5, -4), THRONE + Vector3(0, 2.0, 2), "#5aff7e", 12.0, 9.0, 30.0, false, 1.5)
+	# The seat's own glow: lights whoever stands before the throne (castle_king) from below, green.
+	Kit.omni(root, THRONE + Vector3(0, 0.9, 1.0), "#5aff7e", 1.6, 3.5, false, 0.2)
 	# Braziers down both sides: iron bowls, flickering fire, warm light.
 	var sphere := SphereMesh.new()
 	sphere.radius = 1.0
@@ -156,24 +160,25 @@ func build(g: Dictionary) -> Node3D:
 		_doors.append(hinge)
 	Kit.box(root, Vector3(22, 18, 1), Vector3(-0.0, 9, DOORS_Z + 0.7), stone)
 	_door_light = Kit.spot(root, Vector3(0, 4.5, DOORS_Z + 6), Vector3(0, 0, -6), "#ffe9c8", 0.0, 50.0, 30.0, true, 2.5)
-	# The hands (the gauntlets reveal): a glowing reactor and a green spell.
+	# The hands: a glowing reactor and a green spell, held in Doom's own gauntlets (params.hands.actor); the old
+	# stand-alone primitive gauntlets read as two green cylinders ("the model is very weird").
 	_hands = Node3D.new()
 	_hands.position = THRONE + Vector3(0, 1.4, 2.0)
 	root.add_child(_hands)
-	var metal := Kit.mat("#8a9096", 0.4, 0.8)
-	for s: float in [-1.0, 1.0]:
-		var hand := Node3D.new()
-		hand.position = Vector3(s * 0.45, 0, 0)
-		_hands.add_child(hand)
-		Kit.ball(hand, 0.12, Vector3.ZERO, metal, 16, Vector3(1.0, 0.8, 1.1))
-		for f in 4:
-			Kit.cyl(hand, 0.025, 0.03, 0.12, Vector3(-0.06 + f * 0.04, 0.1, 0.03), metal, 8, Vector3(-0.3, 0, 0))
-		Kit.cyl(hand, 0.1, 0.12, 0.3, Vector3(0, -0.2, 0), green, 12)
-	var reactor := Kit.ball(_hands, 0.07, Vector3(-0.45, 0.17, 0.05), Kit.lit("#9fe4ff", 6.0), 16)
-	reactor.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	_reactor_light = Kit.omni(_hands, Vector3(-0.45, 0.25, 0.2), "#8fd8ff", 0.0, 2.5, false, 0.6)
+	_reactor = Node3D.new()
+	_hands.add_child(_reactor)
+	var core := Kit.ball(_reactor, 0.05, Vector3.ZERO, Kit.lit("#c9f2ff", 8.0), 16)
+	core.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var rtorus := TorusMesh.new()
+	rtorus.inner_radius = 0.065
+	rtorus.outer_radius = 0.085
+	var rring := MeshInstance3D.new()
+	rring.mesh = rtorus
+	rring.material_override = Kit.mat("#6a7078", 0.35, 0.9)
+	rring.rotation = Vector3(PI / 2, 0, 0)
+	_reactor.add_child(rring)
+	_reactor_light = Kit.omni(_reactor, Vector3(0, 0.05, 0.1), "#8fd8ff", 0.0, 2.5, false, 0.6)
 	_spell = Node3D.new()
-	_spell.position = Vector3(0.45, 0.22, 0.05)
 	_hands.add_child(_spell)
 	var torus := TorusMesh.new()
 	torus.inner_radius = 0.1
@@ -184,7 +189,7 @@ func build(g: Dictionary) -> Node3D:
 		ring.material_override = Kit.lit("#4dff7a", 5.0)
 		ring.scale = Vector3.ONE * (1.0 + 0.4 * r)
 		_spell.add_child(ring)
-	Kit.omni(_hands, Vector3(0.45, 0.3, 0.2), "#4dff7a", 1.5, 2.5, false, 0.6)
+	_spell_light = Kit.omni(_spell, Vector3(0, 0.05, 0.1), "#4dff7a", 0.0, 2.5, false, 0.6)
 	_hands.visible = false
 	# Doombot sparks.
 	var sm := BoxMesh.new()
@@ -307,10 +312,31 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	var ht := float(hd.get("t", 1e9))
 	_hands.visible = t >= ht - 0.2 and t < ht + 6.0
 	if _hands.visible:
-		var on := Motion.out_cubic(Motion.seg(t, ht, ht + 0.6))
-		_reactor_light.light_energy = 3.0 * on
+		# The reactor kindles in the right palm on "smartest", the spell in the left on "sorcerer"; each hand rises
+		# into view first (anticipation), then the light blooms.
+		var rt := float(hd.get("reactor", ht))
+		var st := float(hd.get("spell", ht))
+		var r_up := Motion.out_cubic(Motion.seg(t, rt - 0.5, rt))
+		var s_up := Motion.out_cubic(Motion.seg(t, st - 0.5, st))
+		var r_on := Motion.out_back(Motion.seg(t, rt, rt + 0.45))
+		var s_on := Motion.out_back(Motion.seg(t, st, st + 0.45))
+		var inv := node.global_transform.affine_inverse()
+		var a = ctx["actor"].call(String(hd["actor"])) if hd.has("actor") and ctx.has("actor") else null
+		if a != null:
+			var o: Vector3 = a.global_transform.origin
+			var fwd := Vector3(sin(a.rotation.y), 0, cos(a.rotation.y))
+			var left := Vector3(cos(a.rotation.y), 0, -sin(a.rotation.y))
+			var chest := o + Vector3.UP * 1.3
+			a.aim_hand("r", chest + fwd * 0.45 - left * 0.36 + Vector3.UP * 0.38, r_up)
+			a.aim_hand("l", chest + fwd * 0.45 + left * 0.36 + Vector3.UP * 0.42, s_up)
+			_reactor.position = inv * (a.bone_world("hand_r") + fwd * 0.06 + Vector3.UP * 0.09) - _hands.position
+			_spell.position = inv * (a.bone_world("hand_l") + fwd * 0.06 + Vector3.UP * 0.16) - _hands.position
+		_reactor.scale = Vector3.ONE * maxf(r_on, 0.01)
+		_reactor.rotation = Vector3(0, 0, t * 1.5)
+		_reactor_light.light_energy = 3.0 * clampf(r_on, 0.0, 1.0)
 		_spell.rotation = Vector3(t * 2.0, t * 3.1, 0)
-		_spell.scale = Vector3.ONE * maxf(on, 0.01)
+		_spell.scale = Vector3.ONE * maxf(s_on, 0.01)
+		_spell_light.light_energy = 2.0 * clampf(s_on, 0.0, 1.0)
 	# The immunity gag: flag unrolls, portcullis slams.
 	var fd: Dictionary = _p.get("flag", {})
 	var ft := float(fd.get("t", 1e9))

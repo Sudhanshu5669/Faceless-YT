@@ -199,7 +199,7 @@ func aim_hand(side: String, target: Vector3, weight: float = 1.0, shoulder_lift:
 	var fwd := Vector3(sin(rotation.y), 0, cos(rotation.y))
 	var left := Vector3(cos(rotation.y), 0, -sin(rotation.y))
 	var side_sign := 1.0 if side == "l" else -1.0
-	var upper := "upperarm_" + side
+	var upper := _dst_bone("upperarm_" + side)
 	if shoulder_lift > 0.0:
 		var bone := sk.find_bone(upper)
 		if bone >= 0:
@@ -207,8 +207,18 @@ func aim_hand(side: String, target: Vector3, weight: float = 1.0, shoulder_lift:
 			var parent_basis := Cast.bone_global(sk, parent).basis if parent >= 0 else Basis.IDENTITY
 			var up := parent_basis.inverse() * inv.basis * Vector3.UP
 			sk.set_bone_pose_position(bone, sk.get_bone_pose_position(bone) + up * shoulder_lift * weight)
-	_ik_limb(sk, upper, "lowerarm_" + side, "hand_" + side, inv * target,
+	_ik_limb(sk, upper, _dst_bone("lowerarm_" + side), _dst_bone("hand_" + side), inv * target,
 		inv.basis * (Vector3.DOWN + left * side_sign * 0.72 - fwd * 0.26), weight)
+
+
+## A source-rig bone name on the skeleton IK works on: retargeted models (the realistic Doom's GTA-style rig) name
+## their bones differently, so map through the retarget (else IK silently did nothing on them).
+func _dst_bone(src_name: String) -> String:
+	if retarget != null:
+		var n: String = retarget.target_bone(src_name)
+		if n != "":
+			return n
+	return src_name
 
 
 ## Tilt the head after pose_at(): `pitch` radians nods it down (negative looks up), `yaw` turns it to the actor's
@@ -235,7 +245,7 @@ func tilt_head(pitch: float, yaw: float = 0.0) -> void:
 func aim_foot(side: String, target: Vector3, knee: Vector3) -> void:
 	var sk: Skeleton3D = retarget.dst if retarget != null else skeleton
 	var inv := _world_of(sk).affine_inverse()
-	_ik_limb(sk, "thigh_" + side, "calf_" + side, "foot_" + side, inv * target, inv.basis * knee)
+	_ik_limb(sk, _dst_bone("thigh_" + side), _dst_bone("calf_" + side), _dst_bone("foot_" + side), inv * target, inv.basis * knee)
 
 
 ## Lower the chair-sit pose to a floor seat and fold the legs forward.

@@ -176,12 +176,20 @@ func build(g: Dictionary) -> Node3D:
 	Kit.spot(root, EARTH + Vector3(3, 0, 58), EARTH + Vector3(0, -4.2, 52), "#d8e0ff", 8.0, 12.0, 30.0, true, 0.0)
 	_palm = Node3D.new()
 	root.add_child(_palm)
-	var pcore := Kit.ball(_palm, 0.09, Vector3.ZERO, Kit.lit("#cfd8ff", 4.0), 24)
+	# A spiral galaxy small enough to cup in two hands: a hot core, two arms of stars, a faint halo.
+	var pcore := Kit.ball(_palm, 0.03, Vector3.ZERO, Kit.lit("#fff1d8", 4.0), 24)
 	pcore.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	for k in 40:
-		var a := k * 2.39996
-		var r := 0.04 + 0.05 * sqrt(float(k) / 40.0)
-		var d := Kit.ball(_palm, 0.006, Vector3(cos(a) * r, 0.01 * sin(k), sin(a) * r), Kit.lit(["#ffffff", "#ffcf8a", "#8fc8ff"][k % 3], 6.0), 4)
+	var halo := Kit.ball(_palm, 0.075, Vector3.ZERO, Kit.lit("#7f8cff", 0.4), 24, Vector3(1.0, 0.35, 1.0))
+	halo.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var grng := RandomNumberGenerator.new()
+	grng.seed = 4242
+	for k in 180:
+		var arm := float(k % 2) * PI
+		var u := float(k) / 180.0
+		var r := 0.02 + 0.15 * u
+		var a := arm + u * 7.0 + grng.randf_range(-0.25, 0.25)
+		var d := Kit.ball(_palm, 0.004 + 0.004 * grng.randf(), Vector3(cos(a) * r, grng.randf_range(-0.008, 0.008), sin(a) * r),
+			Kit.lit(["#ffffff", "#ffcf8a", "#8fc8ff", "#c9a8ff"][k % 4], 2.5), 4)
 		d.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	Kit.omni(_palm, Vector3(0, 0.1, 0), "#bfd0ff", 1.5, 2.0, false, 0.3)
 	var sm := SphereMesh.new()
@@ -393,17 +401,37 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			if reach > 0.0:
 				a2.aim_hand("r", a2.bone_world("spine_03") + Vector3(0, 0.45, 0) + Vector3(sin(float(a2.rotation.y)), 0, cos(float(a2.rotation.y))) * 0.5, reach)
 				hand = inv * a2.bone_world("hand_r")
-	var k3 := Motion.in_cubic(Motion.seg(t, bt - 1.2, bt + 0.6))
+	var k3 := Motion.in_cubic(Motion.seg(t, bt - 1.2, bt + 0.15))
 	var far := VOID + Vector3(-4.0, 6.0, -30.0)
 	_star.position = far.lerp(hand + Vector3(0, 0.15, 0), k3)
 	var size := lerpf(3.0, 0.12, k3)
 	_star.scale = Vector3.ONE * size
-	_star.visible = t < bt + 0.7
+	_star.visible = t < bt + 0.2
 	_star_light.position = _star.position
 	_star_light.light_energy = 20.0 * (1.0 - 0.8 * k3) if _star.visible else 0.0
-	_palm.visible = t >= bt + 0.5
+	_palm.visible = t >= bt + 0.1
 	_palm.position = hand + Vector3(0, 0.1, 0)
-	_palm.rotation = Vector3(0.2, t * 1.4, 0)
+	_palm.rotation = Vector3(0.2, t * 0.9, 0)
+	# beyonder_hand: from "hold" (params.beyonder.cup) he brings both hands together at his chest, cupping the
+	# universe, and bows his head to look at it.
+	var cup_t := float(byd.get("cup", 1e9))
+	var cup := Motion.in_out(Motion.seg(t, cup_t - 0.9, cup_t))
+	if cup > 0.0 and byd.has("actor") and ctx.has("actor"):
+		var a3 = ctx["actor"].call(String(byd["actor"]))
+		if a3 != null:
+			var fwd := Vector3(sin(float(a3.rotation.y)), 0, cos(float(a3.rotation.y)))
+			var left := Vector3(cos(float(a3.rotation.y)), 0, -sin(float(a3.rotation.y)))
+			var bowl: Vector3 = a3.bone_world("spine_03") + fwd * 0.48 + Vector3(0, -0.16, 0)
+			a3.aim_hand("r", bowl - left * 0.13, cup)
+			a3.aim_hand("l", bowl + left * 0.13, cup)
+			a3.tilt_head(0.65 * cup)
+			var held: Vector3 = inv * (bowl + Vector3(0, 0.16, 0) + fwd * 0.03)
+			_palm.position = _palm.position.lerp(held, cup)
+			_palm.scale = Vector3.ONE * lerpf(1.0, 1.25, cup)
+			# Tipped toward the lens, spinning about its own axis (tilt * spin, not Godot's YXZ euler, which turned the
+			# disc edge-on once per turn).
+			var sc := _palm.scale
+			_palm.basis = (Basis(Vector3.RIGHT, lerpf(0.2, 0.75, cup)) * Basis(Vector3.UP, t * 0.9)).scaled(sc)
 	var hidden := Transform3D(Basis.IDENTITY.scaled(Vector3.ONE * 0.001), Vector3(0, -50, 0))
 	var rng2 := RandomNumberGenerator.new()
 	for i in _streams.instance_count:
