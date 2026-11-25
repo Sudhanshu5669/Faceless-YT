@@ -1,0 +1,25 @@
+{
+  "id": "toon_dockworker_b",
+  "description": "Bombay dockworker, 1944: khaki shirt, white head-cloth.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.58,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "turban",
+      "color": "#f0ece2"
+    },
+    "outfit": {
+      "style": "shirt",
+      "color": "#a89470"
+    },
+    "shoes": "#5a4030",
+    "face": "determined",
+    "mustache": "#2a2018"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "toon_parsi_gent",
+  "description": "Retired Parsi gentleman, Girgaum 1944: white sadra-and-pyjama (kurta), grey moustache, round glasses; a black Parsi cap is added by the gag.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.5,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "horseshoe",
+      "color": "#c8c8c8"
+    },
+    "outfit": {
+      "style": "kurta",
+      "color": "#f2efe6"
+    },
+    "shoes": "#2a2420",
+    "accessories": [
+      "round_glasses"
+    ],
+    "face": "deadpan",
+    "mustache": "#9a9a9a",
+    "girth": 1.05
+  }
+}

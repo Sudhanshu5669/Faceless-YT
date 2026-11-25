@@ -1,0 +1,27 @@
+{
+  "id": "toon_bfb_chief",
+  "description": "Bombay Fire Brigade officer, 1944: navy double-breasted tunic, brass helmet, thick moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.62,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#d4a446"
+    },
+    "outfit": {
+      "style": "suit",
+      "color": "#1a2238",
+      "tie": "#141414"
+    },
+    "shoes": "#141210",
+    "face": "determined",
+    "mustache": "#2a2018",
+    "girth": 1.1
+  }
+}

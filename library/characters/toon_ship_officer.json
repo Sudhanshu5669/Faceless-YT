@@ -1,0 +1,25 @@
+{
+  "id": "toon_ship_officer",
+  "description": "Merchant navy officer, 1944: white tropical uniform, officer's cap.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.62,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "cap",
+      "color": "#f2f2f0"
+    },
+    "outfit": {
+      "style": "safari",
+      "color": "#d6d0bc"
+    },
+    "shoes": "#ecebe4",
+    "face": "deadpan",
+    "mustache": "#5a4630"
+  }
+}

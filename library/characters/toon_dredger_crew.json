@@ -1,0 +1,26 @@
+{
+  "id": "toon_dredger_crew",
+  "description": "Dredger crewman, Mumbai port 2011: orange hi-vis, white helmet.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#f2f2f0"
+    },
+    "outfit": {
+      "style": "hivis",
+      "color": "#ff7a1a",
+      "accent": "#2a3a5a"
+    },
+    "shoes": "#141210",
+    "face": "deadpan",
+    "mustache": "#1a1410"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "toon_guard_1944",
+  "description": "Indian Army sentry, 1944: khaki drill, khaki pagri, beard (a Sikh soldier).",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.66,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "turban",
+      "color": "#a8905e"
+    },
+    "outfit": {
+      "style": "safari",
+      "color": "#9c8658"
+    },
+    "shoes": "#2a2018",
+    "face": "deadpan",
+    "beard": "#1a1410",
+    "mustache": "#1a1410"
+  }
+}

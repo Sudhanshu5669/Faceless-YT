@@ -1,0 +1,24 @@
+{
+  "id": "toon_bfb_fireman_b",
+  "description": "Bombay Fire Brigade fireman, 1944 (clean-shaven).",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.58,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#c9973a"
+    },
+    "outfit": {
+      "style": "coverall",
+      "color": "#1c2640"
+    },
+    "shoes": "#141210",
+    "face": "determined"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "toon_dockworker_a",
+  "description": "Bombay dockworker, 1944: white vest, red head-cloth, moustache.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.55,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "turban",
+      "color": "#b8322a"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#ece6d8"
+    },
+    "shoes": "#5a4030",
+    "face": "determined",
+    "mustache": "#1d1813",
+    "girth": 0.95
+  }
+}

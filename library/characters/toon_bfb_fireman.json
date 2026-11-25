@@ -1,0 +1,25 @@
+{
+  "id": "toon_bfb_fireman",
+  "description": "Bombay Fire Brigade fireman, 1944: navy tunic and trousers, brass helmet.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#c9973a"
+    },
+    "outfit": {
+      "style": "coverall",
+      "color": "#1f2a44"
+    },
+    "shoes": "#141210",
+    "face": "determined",
+    "mustache": "#1d1813"
+  }
+}

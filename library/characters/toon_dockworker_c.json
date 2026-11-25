@@ -1,0 +1,25 @@
+{
+  "id": "toon_dockworker_c",
+  "description": "Bombay dockworker, 1944: blue vest, bare head.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.56,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "tuft",
+      "color": "#1a1410"
+    },
+    "outfit": {
+      "style": "tee",
+      "color": "#5a6e8a"
+    },
+    "shoes": "#5a4030",
+    "face": "determined",
+    "beard": "#1d1813"
+  }
+}

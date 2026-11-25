@@ -1,0 +1,25 @@
+{
+  "id": "toon_fireman_today",
+  "description": "Maharashtra fire brigade firefighter today, ceremonial: khaki uniform, navy peaked cap.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.62,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "patrol",
+      "color": "#26304a"
+    },
+    "outfit": {
+      "style": "safari",
+      "color": "#8a7a52"
+    },
+    "shoes": "#141210",
+    "face": "deadpan",
+    "mustache": "#1a1410"
+  }
+}

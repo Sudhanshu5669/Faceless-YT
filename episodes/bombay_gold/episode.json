@@ -28,12 +28,316 @@
  },
  "ambience": [
   {
-   "sound": "beat",
+   "sound": "drone",
+   "gain": -26,
+   "duck": 0.5
+  }
+ ],
+ "music": [
+  {
+   "file": "audio/lib/sfx/street_amb.wav",
+   "at": {
+    "line": "l1"
+   },
+   "until": {
+    "shot": "dock_wide"
+   },
    "gain": -21,
+   "fade_in": 0.5,
+   "fade_out": 1.0,
+   "duck": 0.6
+  },
+  {
+   "file": "audio/lib/sfx/dock_amb.wav",
+   "at": {
+    "shot": "dock_wide"
+   },
+   "until": {
+    "shot": "vent_push"
+   },
+   "gain": -22,
+   "fade_in": 1.0,
+   "fade_out": 1.0,
+   "duck": 0.6
+  },
+  {
+   "file": "audio/lib/sfx/fire_crackle.wav",
+   "at": {
+    "shot": "hoses_900"
+   },
+   "until": {
+    "line": "l14c",
+    "word": "explodes"
+   },
+   "gain": -18,
+   "fade_in": 1.5,
+   "fade_out": 0.2,
+   "duck": 0.6
+  },
+  {
+   "file": "audio/lib/sfx/fire_crackle.wav",
+   "at": {
+    "shot": "night_masts"
+   },
+   "until": {
+    "shot": "dawn_ruins"
+   },
+   "gain": -16,
+   "fade_in": 0.5,
+   "fade_out": 1.5,
+   "duck": 0.6
+  },
+  {
+   "file": "audio/lib/sfx/wind.wav",
+   "at": {
+    "shot": "shimla_town"
+   },
+   "until": {
+    "shot": "cotton_rain"
+   },
+   "gain": -22,
+   "fade_in": 0.5,
+   "fade_out": 0.5,
+   "duck": 0.6
+  },
+  {
+   "file": "audio/lib/sfx/wind.wav",
+   "at": {
+    "shot": "dawn_ruins"
+   },
+   "until": {
+    "shot": "fire_day"
+   },
+   "gain": -24,
+   "fade_in": 1.0,
+   "fade_out": 1.0,
+   "duck": 0.6
+  },
+  {
+   "file": "audio/lib/music/penumbra.wav",
+   "at": {
+    "line": "l1"
+   },
+   "until": {
+    "line": "l14c",
+    "word": "explodes"
+   },
+   "offset": 24.0,
+   "gain": -16,
+   "fade_in": 0.3,
+   "fade_out": 0.15,
+   "duck": 0.55
+  },
+  {
+   "file": "audio/lib/music/memories_of_stone.wav",
+   "at": {
+    "line": "l19a"
+   },
+   "offset": 0.0,
+   "gain": -15,
+   "fade_in": 2.5,
+   "fade_out": 2.0,
    "duck": 0.55
   }
  ],
- "sfx": [],
+ "sfx": [
+  {
+   "file": "audio/lib/sfx/braam.wav",
+   "at": {
+    "line": "l1"
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/smash.wav",
+   "at": {
+    "line": "l2b",
+    "word": "smashed"
+   },
+   "gain": -3.0
+  },
+  {
+   "file": "audio/lib/sfx/woosh_debris.wav",
+   "at": {
+    "line": "l2b",
+    "word": "smashed",
+    "offset": 0.05
+   },
+   "gain": -10.0
+  },
+  {
+   "file": "audio/lib/sfx/crane.wav",
+   "at": {
+    "line": "l5b",
+    "word": "Torpedoes,",
+    "offset": -0.3
+   },
+   "gain": -14.0
+  },
+  {
+   "file": "audio/lib/sfx/clock_tick.wav",
+   "at": {
+    "shot": "clock_1230"
+   },
+   "gain": -11.0
+  },
+  {
+   "file": "audio/lib/sfx/bell.wav",
+   "at": {
+    "line": "l10",
+    "word": "alarm",
+    "offset": -0.05
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/truck_pass.wav",
+   "at": {
+    "line": "l11a",
+    "word": "Firemen",
+    "offset": -0.6
+   },
+   "gain": -7.0
+  },
+  {
+   "file": "audio/lib/sfx/water_douse.wav",
+   "at": {
+    "line": "l11c",
+    "word": "pour"
+   },
+   "gain": -10.0
+  },
+  {
+   "file": "audio/lib/sfx/water_douse.wav",
+   "at": {
+    "shot": "hold_steam"
+   },
+   "gain": -9.0
+  },
+  {
+   "file": "audio/lib/sfx/smash.wav",
+   "at": {
+    "line": "l12a",
+    "word": "going"
+   },
+   "gain": -12.0,
+   "repeat": 4,
+   "every": 0.55
+  },
+  {
+   "file": "audio/lib/sfx/clock_tick.wav",
+   "at": {
+    "line": "l13",
+    "word": "Sixteen"
+   },
+   "gain": -9.0
+  },
+  {
+   "file": "audio/lib/sfx/clock_tick.wav",
+   "at": {
+    "line": "l13",
+    "word": "later",
+    "offset": 0.05
+   },
+   "gain": -5.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_big.wav",
+   "at": {
+    "line": "l14c",
+    "word": "explodes"
+   },
+   "gain": -1.0
+  },
+  {
+   "file": "audio/lib/sfx/impact_sweep.wav",
+   "at": {
+    "line": "l14c",
+    "word": "explodes",
+    "offset": 0.05
+   },
+   "gain": -8.0
+  },
+  {
+   "file": "audio/lib/sfx/woosh_debris.wav",
+   "at": {
+    "line": "l14c",
+    "word": "explodes",
+    "offset": 0.4
+   },
+   "gain": -7.0
+  },
+  {
+   "file": "audio/lib/sfx/metal_scrape.wav",
+   "at": {
+    "line": "l14b",
+    "word": "torn"
+   },
+   "gain": -6.0
+  },
+  {
+   "file": "audio/lib/sfx/metal_crash.wav",
+   "at": {
+    "line": "l15b",
+    "word": "dock.",
+    "offset": -0.05
+   },
+   "gain": -3.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_far.wav",
+   "at": {
+    "line": "l16a",
+    "word": "Windows",
+    "offset": -0.2
+   },
+   "gain": -9.0
+  },
+  {
+   "file": "audio/lib/sfx/glass.wav",
+   "at": {
+    "line": "l16a",
+    "word": "shatter",
+    "offset": -0.02
+   },
+   "gain": -3.0
+  },
+  {
+   "file": "audio/lib/sfx/walla_panic.wav",
+   "at": {
+    "line": "l17a",
+    "word": "Burning",
+    "offset": -0.3
+   },
+   "gain": -13.0
+  },
+  {
+   "file": "audio/lib/sfx/boom_mid.wav",
+   "at": {
+    "line": "l18",
+    "word": "second"
+   },
+   "gain": -2.0
+  },
+  {
+   "file": "audio/lib/sfx/smash.wav",
+   "at": {
+    "line": "l22b",
+    "word": "police.",
+    "offset": -0.3
+   },
+   "gain": -14.0
+  },
+  {
+   "file": "audio/lib/sfx/braam_b.wav",
+   "at": {
+    "line": "l24d",
+    "word": "gold",
+    "offset": -0.1
+   },
+   "gain": -9.0
+  }
+ ],
  "lines": [
   {
    "id": "l1",
@@ -81,8 +385,14 @@
    "id": "l4b",
    "shot": "stikine_bow",
    "at": 0.0,
-   "text": "A British cargo ship, the Fort Stikine, is tied up in Bombay's Victoria Dock.",
+   "text": "A British cargo ship, the Fort Stikine,",
    "style": "serious"
+  },
+  {
+   "id": "l4c",
+   "shot": "dock_moor",
+   "at": 0.0,
+   "text": "is tied up in Bombay's Victoria Dock."
   },
   {
    "id": "l5a",
@@ -130,8 +440,20 @@
    "id": "l9a",
    "shot": "clock_1230",
    "at": 0.25,
-   "text": "At twelve-thirty, an officer on the next ship sees smoke coming out of hold number two.",
+   "text": "At twelve-thirty,",
    "style": "tense"
+  },
+  {
+   "id": "l9c",
+   "shot": "officer_bino",
+   "at": 0.0,
+   "text": "an officer on the next ship"
+  },
+  {
+   "id": "l9d",
+   "shot": "smoke_hold",
+   "at": 0.0,
+   "text": "sees smoke coming out of hold number two."
   },
   {
    "id": "l9b",
@@ -198,10 +520,16 @@
   },
   {
    "id": "l14a",
-   "shot": "blast_wide",
+   "shot": "calm_406",
    "at": 0.1,
-   "text": "Four-oh-six p.m. The Fort Stikine explodes.",
+   "text": "Four-oh-six p.m.",
    "style": "shouting"
+  },
+  {
+   "id": "l14c",
+   "shot": "blast_wide",
+   "at": 0.0,
+   "text": "The Fort Stikine explodes."
   },
   {
    "id": "l14b",
@@ -212,10 +540,16 @@
   },
   {
    "id": "l15",
-   "shot": "jalapadma",
+   "shot": "jala_lift",
    "at": 0.05,
-   "text": "The blast throws another ship, the Jalapadma, out of the water and onto the dock.",
+   "text": "The blast throws another ship, the Jalapadma,",
    "style": "tense"
+  },
+  {
+   "id": "l15b",
+   "shot": "jalapadma",
+   "at": 0.0,
+   "text": "out of the water and onto the dock."
   },
   {
    "id": "l16a",
@@ -226,10 +560,16 @@
   },
   {
    "id": "l16b",
+   "shot": "shimla_town",
+   "at": 0.0,
+   "text": "In Shimla, seventeen hundred kilometres away,",
+   "style": "serious"
+  },
+  {
+   "id": "l16c",
    "shot": "seismograph",
    "at": 0.0,
-   "text": "In Shimla, seventeen hundred kilometres away, instruments feel the ground shake.",
-   "style": "serious"
+   "text": "instruments feel the ground shake."
   },
   {
    "id": "l17a",
@@ -291,8 +631,14 @@
    "id": "l21b",
    "shot": "fire_day",
    "at": 0.1,
-   "text": "That's why, every April 14th, India marks National Fire Service Day.",
+   "text": "That's why, every April 14th,",
    "style": "proud"
+  },
+  {
+   "id": "l21c",
+   "shot": "fire_salute",
+   "at": 0.0,
+   "text": "India marks National Fire Service Day."
   },
   {
    "id": "l22a",
@@ -331,1175 +677,9827 @@
   },
   {
    "id": "l24b",
+   "shot": "grab_rise",
+   "at": 0.0,
+   "text": "As late as 2011,",
+   "style": "tense"
+  },
+  {
+   "id": "l24c",
+   "shot": "dredger_crew",
+   "at": 0.0,
+   "text": "dredgers in Bombay's docks were still pulling"
+  },
+  {
+   "id": "l24d",
    "shot": "grab_bar",
    "at": 0.0,
-   "text": "As late as 2011, dredgers in Bombay's docks were still pulling the ship's gold bars out of the mud.",
-   "style": "tense"
+   "text": "the ship's gold bars out of the mud."
   }
  ],
- "actors": [],
- "gags": [],
- "reveals": [],
+ "actors": [
+  {
+   "id": "gg_0",
+   "character": "toon_market_man",
+   "at": {
+    "anchor": "girgaum",
+    "offset": [
+     2.6,
+     0.0,
+     -9.0
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "girgaum",
+    "offset": [
+     1.56,
+     8.0,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l1",
+      "word": "gold",
+      "offset": 0.15
+     },
+     "expression": "shocked",
+     "head": [
+      -25,
+      0,
+      0
+     ]
+    },
+    {
+     "t": {
+      "line": "l2a",
+      "word": "Real",
+      "offset": 0.1
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "l17a",
+      "word": "Burning",
+      "offset": 0.1
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hook_rain"
+     },
+     {
+      "shot": "bar_wall"
+     }
+    ],
+    [
+     {
+      "shot": "cotton_rain"
+     },
+     {
+      "shot": "second_blast"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "gg_1",
+   "character": "toon_market_woman",
+   "at": {
+    "anchor": "girgaum",
+    "offset": [
+     -1.8,
+     0.0,
+     -12.0
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "girgaum",
+    "offset": [
+     -1.08,
+     8.0,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l1",
+      "word": "gold",
+      "offset": 0.21
+     },
+     "expression": "shocked",
+     "head": [
+      -25,
+      0,
+      0
+     ]
+    },
+    {
+     "t": {
+      "line": "l2a",
+      "word": "Real",
+      "offset": 0.1
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "l17a",
+      "word": "Burning",
+      "offset": 0.15
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hook_rain"
+     },
+     {
+      "shot": "bar_wall"
+     }
+    ],
+    [
+     {
+      "shot": "cotton_rain"
+     },
+     {
+      "shot": "second_blast"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "gg_2",
+   "character": "toon_market_kid",
+   "at": {
+    "anchor": "girgaum",
+    "offset": [
+     1.2,
+     0.0,
+     -14.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "girgaum",
+    "offset": [
+     0.72,
+     8.0,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l1",
+      "word": "gold",
+      "offset": 0.27
+     },
+     "expression": "shocked",
+     "head": [
+      -25,
+      0,
+      0
+     ]
+    },
+    {
+     "t": {
+      "line": "l2a",
+      "word": "Real",
+      "offset": 0.1
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "l17a",
+      "word": "Burning",
+      "offset": 0.2
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hook_rain"
+     },
+     {
+      "shot": "bar_wall"
+     }
+    ],
+    [
+     {
+      "shot": "cotton_rain"
+     },
+     {
+      "shot": "second_blast"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "gg_3",
+   "character": "toon_market_vendor",
+   "at": {
+    "anchor": "girgaum",
+    "offset": [
+     -3.6,
+     0.0,
+     -18.0
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "girgaum",
+    "offset": [
+     -2.16,
+     8.0,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l1",
+      "word": "gold",
+      "offset": 0.33
+     },
+     "expression": "shocked",
+     "head": [
+      -25,
+      0,
+      0
+     ]
+    },
+    {
+     "t": {
+      "line": "l2a",
+      "word": "Real",
+      "offset": 0.1
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "l17a",
+      "word": "Burning",
+      "offset": 0.25
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hook_rain"
+     },
+     {
+      "shot": "bar_wall"
+     }
+    ],
+    [
+     {
+      "shot": "cotton_rain"
+     },
+     {
+      "shot": "second_blast"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "gg_4",
+   "character": "toon_market_elder",
+   "at": {
+    "anchor": "girgaum",
+    "offset": [
+     5.6,
+     4.68,
+     -6.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "girgaum",
+    "offset": [
+     3.36,
+     12.68,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l1",
+      "word": "gold",
+      "offset": 0.39
+     },
+     "expression": "shocked",
+     "head": [
+      -25,
+      0,
+      0
+     ]
+    },
+    {
+     "t": {
+      "line": "l2a",
+      "word": "Real",
+      "offset": 0.1
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "l17a",
+      "word": "Burning",
+      "offset": 0.3
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hook_rain"
+     },
+     {
+      "shot": "bar_wall"
+     }
+    ],
+    [
+     {
+      "shot": "cotton_rain"
+     },
+     {
+      "shot": "second_blast"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "gg_5",
+   "character": "toon_market_woman_b",
+   "at": {
+    "anchor": "girgaum",
+    "offset": [
+     -5.6,
+     4.68,
+     -11.0
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "girgaum",
+    "offset": [
+     -3.36,
+     12.68,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l1",
+      "word": "gold",
+      "offset": 0.45
+     },
+     "expression": "shocked",
+     "head": [
+      -25,
+      0,
+      0
+     ]
+    },
+    {
+     "t": {
+      "line": "l2a",
+      "word": "Real",
+      "offset": 0.1
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "l17a",
+      "word": "Burning",
+      "offset": 0.35
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hook_rain"
+     },
+     {
+      "shot": "bar_wall"
+     }
+    ],
+    [
+     {
+      "shot": "cotton_rain"
+     },
+     {
+      "shot": "second_blast"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "gg_6",
+   "character": "toon_market_vendor_b",
+   "at": {
+    "anchor": "girgaum",
+    "offset": [
+     5.5,
+     4.68,
+     -16.0
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "girgaum",
+    "offset": [
+     3.3,
+     12.68,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l1",
+      "word": "gold",
+      "offset": 0.51
+     },
+     "expression": "shocked",
+     "head": [
+      -25,
+      0,
+      0
+     ]
+    },
+    {
+     "t": {
+      "line": "l2a",
+      "word": "Real",
+      "offset": 0.1
+     },
+     "expression": "star_eyes"
+    },
+    {
+     "t": {
+      "line": "l17a",
+      "word": "Burning",
+      "offset": 0.4
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hook_rain"
+     },
+     {
+      "shot": "bar_wall"
+     }
+    ],
+    [
+     {
+      "shot": "cotton_rain"
+     },
+     {
+      "shot": "second_blast"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "gg_7",
+   "character": "toon_shopkeeper",
+   "at": {
+    "anchor": "girgaum",
+    "offset": [
+     -5.7,
+     8.18,
+     -7.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "girgaum",
+    "offset": [
+     -3.42,
+     16.18,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l1",
+      "word": "gold",
+      "offset": 0.57
+     },
+     "expression": "shocked",
+     "head": [
+      -25,
+      0,
+      0
+     ]
+    },
+    {
+     "t": {
+      "line": "l2a",
+      "word": "Real",
+      "offset": 0.1
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "l17a",
+      "word": "Burning",
+      "offset": 0.45
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "hook_rain"
+     },
+     {
+      "shot": "bar_wall"
+     }
+    ],
+    [
+     {
+      "shot": "cotton_rain"
+     },
+     {
+      "shot": "second_blast"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "parsi",
+   "character": "toon_parsi_gent",
+   "at": {
+    "anchor": "flat",
+    "offset": [
+     -1.0,
+     0.0,
+     -0.9
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "flat",
+    "offset": [
+     -0.6,
+     0.0,
+     -3.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    },
+    {
+     "t": {
+      "line": "l2b",
+      "word": "smashed"
+     },
+     "expression": "shocked",
+     "facing": {
+      "anchor": "flat",
+      "offset": [
+       3.2,
+       0.0,
+       -1.2
+      ]
+     }
+    },
+    {
+     "t": {
+      "line": "l2b",
+      "word": "home."
+     },
+     "expression": "surprised",
+     "facing": {
+      "anchor": "flat",
+      "offset": [
+       -0.2,
+       0.0,
+       -0.6
+      ]
+     }
+    },
+    {
+     "t": {
+      "line": "l3a",
+      "word": "What"
+     },
+     "expression": "strain"
+    },
+    {
+     "t": {
+      "line": "l3a",
+      "word": "nobody"
+     },
+     "expression": "thinking",
+     "head": [
+      10,
+      0,
+      0
+     ]
+    },
+    {
+     "t": {
+      "line": "l3b",
+      "word": "first"
+     },
+     "expression": "nervous",
+     "facing": {
+      "anchor": "flat",
+      "offset": [
+       -0.6,
+       0.0,
+       -3.0
+      ]
+     }
+    },
+    {
+     "t": {
+      "line": "l22a",
+      "word": "And"
+     },
+     "expression": "thinking",
+     "facing": {
+      "anchor": "flat",
+      "offset": [
+       -0.2,
+       0.0,
+       -0.6
+      ]
+     }
+    },
+    {
+     "t": {
+      "line": "l22a",
+      "word": "Girgaum"
+     },
+     "expression": "determined",
+     "facing": {
+      "anchor": "flat",
+      "offset": [
+       2.0,
+       0.0,
+       -1.6
+      ]
+     }
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "bar_wall"
+     },
+     {
+      "shot": "dock_wide"
+     }
+    ],
+    [
+     {
+      "shot": "flat_return"
+     },
+     {
+      "shot": "police_desk"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "crevier_officer",
+   "character": "toon_ship_officer",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -116.0,
+     9.25,
+     -5.0
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -32.0,
+     9.2,
+     1.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "officer_bino"
+     },
+     {
+      "shot": "smoke_hold"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    },
+    {
+     "t": {
+      "line": "l9c",
+      "word": "officer",
+      "offset": 0.2
+     },
+     "expression": "thinking"
+    },
+    {
+     "t": {
+      "line": "l9d",
+      "word": "sees",
+      "offset": -0.1
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l9d",
+      "word": "smoke",
+      "offset": 0.2
+     },
+     "expression": "shocked"
+    }
+   ]
+  },
+  {
+   "id": "dock_officer",
+   "character": "toon_dock_officer",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -3.0,
+     2.6,
+     33.6
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -3.8,
+     2.6,
+     34.5
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "clock_1345"
+     },
+     {
+      "shot": "engines_race"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "nervous"
+    },
+    {
+     "t": {
+      "line": "l10",
+      "word": "alarm",
+      "offset": -0.2
+     },
+     "expression": "panic"
+    }
+   ]
+  },
+  {
+   "id": "dw_a",
+   "character": "toon_dockworker_a",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -34.2,
+     2.6,
+     22.4
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -34.6,
+     2.6,
+     19.5
+    ]
+   },
+   "action": "push",
+   "shown": [
+    [
+     {
+      "shot": "cotton_sling"
+     },
+     {
+      "shot": "gold_crates"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "dw_b",
+   "character": "toon_dockworker_b",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -38.9,
+     2.6,
+     23.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -36.0,
+     6.0,
+     13.5
+    ]
+   },
+   "action": "call_out",
+   "shown": [
+    [
+     {
+      "shot": "cotton_sling"
+     },
+     {
+      "shot": "gold_crates"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "dw_c",
+   "character": "toon_dockworker_c",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -36.4,
+     2.6,
+     22.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -36.4,
+     2.6,
+     19.5
+    ]
+   },
+   "action": "interact",
+   "shown": [
+    [
+     {
+      "shot": "cotton_sling"
+     },
+     {
+      "shot": "gold_crates"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "strain"
+    }
+   ]
+  },
+  {
+   "id": "guard_a",
+   "character": "toon_guard_1944",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -28.2,
+     2.6,
+     15.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -30.0,
+     2.6,
+     17.0
+    ]
+   },
+   "action": "idle_formal",
+   "shown": [
+    [
+     {
+      "shot": "gold_crates"
+     },
+     {
+      "shot": "xray_stack"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "l7",
+      "word": "gold.",
+      "offset": 0.05
+     },
+     "expression": "surprised"
+    }
+   ]
+  },
+  {
+   "id": "guard_b",
+   "character": "toon_guard_1944",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -31.9,
+     2.6,
+     14.9
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -30.0,
+     2.6,
+     17.0
+    ]
+   },
+   "action": "idle_formal",
+   "shown": [
+    [
+     {
+      "shot": "gold_crates"
+     },
+     {
+      "shot": "xray_stack"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "l7",
+      "word": "gold.",
+      "offset": 0.15
+     },
+     "expression": "star_eyes"
+    }
+   ]
+  },
+  {
+   "id": "gold_dw",
+   "character": "toon_dockworker_b",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -30.8,
+     2.6,
+     14.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -30.0,
+     3.4,
+     15.5
+    ]
+   },
+   "action": "interact",
+   "shown": [
+    [
+     {
+      "shot": "gold_crates"
+     },
+     {
+      "shot": "xray_stack"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "hose_a",
+   "character": "toon_bfb_fireman",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -28.5,
+     2.6,
+     13.2
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -33.0,
+     9.0,
+     0.0
+    ]
+   },
+   "action": "torch",
+   "shown": [
+    [
+     {
+      "shot": "hoses_900"
+     },
+     {
+      "shot": "hold_steam"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "strain"
+    }
+   ]
+  },
+  {
+   "id": "hose_b",
+   "character": "toon_bfb_fireman_b",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -32.4,
+     2.6,
+     13.6
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -33.0,
+     9.0,
+     0.0
+    ]
+   },
+   "action": "torch",
+   "shown": [
+    [
+     {
+      "shot": "hoses_900"
+     },
+     {
+      "shot": "hold_steam"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "hose_c",
+   "character": "toon_bfb_fireman",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -36.6,
+     2.6,
+     13.3
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -33.0,
+     9.0,
+     0.0
+    ]
+   },
+   "action": "torch",
+   "shown": [
+    [
+     {
+      "shot": "hoses_900"
+     },
+     {
+      "shot": "hold_steam"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "chief",
+   "character": "toon_bfb_chief",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -20.2,
+     2.6,
+     16.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -24.0,
+     5.0,
+     14.5
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "abandon"
+     },
+     {
+      "shot": "clock_406"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l12b",
+      "word": "abandon",
+      "offset": -0.1
+     },
+     "expression": "furious"
+    }
+   ]
+  },
+  {
+   "id": "porter_0",
+   "character": "toon_dockworker_a",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     18.0,
+     2.6,
+     15.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     8.0,
+     2.6,
+     15.7
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       -6.0,
+       2.6,
+       15.7
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.9
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "porter_1",
+   "character": "toon_dockworker_b",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -14.0,
+     2.6,
+     17.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -4.0,
+     2.6,
+     17.5
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       10.0,
+       2.6,
+       17.5
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.9
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "porter_2",
+   "character": "toon_dockworker_c",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     10.0,
+     2.6,
+     14.9
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -0.0,
+     2.6,
+     14.9
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       -14.0,
+       2.6,
+       14.9
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.9
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "porter_3",
+   "character": "toon_dockworker_a",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -20.0,
+     2.6,
+     18.9
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -10.0,
+     2.6,
+     18.9
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       4.0,
+       2.6,
+       18.9
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.9
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "porter_4",
+   "character": "toon_dockworker_b",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     4.0,
+     2.6,
+     16.3
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -6.0,
+     2.6,
+     16.3
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       -20.0,
+       2.6,
+       16.3
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.9
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "porter_5",
+   "character": "toon_dockworker_c",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -26.0,
+     2.6,
+     20.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -16.0,
+     2.6,
+     20.1
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       -2.0,
+       2.6,
+       20.1
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.9
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "porter_6",
+   "character": "toon_dockworker_a",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     14.0,
+     2.6,
+     20.9
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     4.0,
+     2.6,
+     20.9
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       -10.0,
+       2.6,
+       20.9
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.9
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    }
+   ]
+  },
+  {
+   "id": "porter_7",
+   "character": "toon_dockworker_b",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -8.0,
+     2.6,
+     14.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -18.0,
+     2.6,
+     14.5
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       -32.0,
+       2.6,
+       14.5
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.9
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "effort"
+    }
+   ]
+  },
+  {
+   "id": "runner_0",
+   "character": "toon_bfb_fireman",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -24.0,
+     7.3,
+     8.0
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -24.0,
+     2.6,
+     20.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "abandon"
+     },
+     {
+      "shot": "clock_406"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       -24.0,
+       7.3,
+       8.6
+      ]
+     },
+     {
+      "anchor": "dock",
+      "offset": [
+       -24.0,
+       2.7,
+       13.9
+      ]
+     },
+     {
+      "anchor": "dock",
+      "offset": [
+       -20.0,
+       2.6,
+       27.5
+      ]
+     }
+    ],
+    "gait": "run",
+    "speed": 5.0,
+    "start": {
+     "line": "l12b",
+     "word": "abandon",
+     "offset": 0.1
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "panic"
+    }
+   ]
+  },
+  {
+   "id": "runner_1",
+   "character": "toon_bfb_fireman_b",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -24.45,
+     7.3,
+     7.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -24.0,
+     2.6,
+     20.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "abandon"
+     },
+     {
+      "shot": "clock_406"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       -24.45,
+       7.3,
+       8.6
+      ]
+     },
+     {
+      "anchor": "dock",
+      "offset": [
+       -24.45,
+       2.7,
+       13.9
+      ]
+     },
+     {
+      "anchor": "dock",
+      "offset": [
+       -21.35,
+       2.6,
+       27.5
+      ]
+     }
+    ],
+    "gait": "run",
+    "speed": 5.0,
+    "start": {
+     "line": "l12b",
+     "word": "abandon",
+     "offset": 0.35
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "panic"
+    }
+   ]
+  },
+  {
+   "id": "runner_2",
+   "character": "toon_bfb_fireman",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -23.6,
+     7.3,
+     6.2
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     -24.0,
+     2.6,
+     20.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "abandon"
+     },
+     {
+      "shot": "clock_406"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       -23.6,
+       7.3,
+       8.6
+      ]
+     },
+     {
+      "anchor": "dock",
+      "offset": [
+       -23.6,
+       2.7,
+       13.9
+      ]
+     },
+     {
+      "anchor": "dock",
+      "offset": [
+       -18.8,
+       2.6,
+       27.5
+      ]
+     }
+    ],
+    "gait": "run",
+    "speed": 5.0,
+    "start": {
+     "line": "l12b",
+     "word": "abandon",
+     "offset": 0.6
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "panic"
+    }
+   ]
+  },
+  {
+   "id": "family_0",
+   "character": "toon_market_man",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     30.6,
+     2.6,
+     61.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     26.6,
+     2.6,
+     41.5
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "families_walk"
+     },
+     {
+      "shot": "helmets"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       27.6,
+       2.6,
+       43.5
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.75
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "family_1",
+   "character": "toon_market_woman",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     29.2,
+     2.6,
+     62.7
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     25.2,
+     2.6,
+     41.5
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "families_walk"
+     },
+     {
+      "shot": "helmets"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       26.2,
+       2.6,
+       44.7
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.75
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "family_2",
+   "character": "toon_market_kid",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     30.0,
+     2.6,
+     64.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     26.0,
+     2.6,
+     41.5
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "families_walk"
+     },
+     {
+      "shot": "helmets"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       27.0,
+       2.6,
+       46.1
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.75
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "family_3",
+   "character": "toon_market_elder",
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     32.0,
+     2.6,
+     65.3
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "dock",
+    "offset": [
+     28.0,
+     2.6,
+     41.5
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "families_walk"
+     },
+     {
+      "shot": "helmets"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "dock",
+      "offset": [
+       29.0,
+       2.6,
+       47.3
+      ]
+     }
+    ],
+    "gait": "walk_carry",
+    "speed": 0.75
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    }
+   ]
+  },
+  {
+   "id": "dd_0",
+   "character": "toon_market_man",
+   "at": {
+    "anchor": "city",
+    "offset": [
+     4.0,
+     0.0,
+     -9.0
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "city",
+    "offset": [
+     4.0,
+     0.0,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    },
+    {
+     "t": {
+      "line": "l16a",
+      "word": "Windows"
+     },
+     "expression": "shocked",
+     "facing": {
+      "anchor": "city",
+      "offset": [
+       4.0,
+       0.0,
+       -80.0
+      ]
+     }
+    },
+    {
+     "t": {
+      "line": "l16a",
+      "word": "shatter",
+      "offset": 0.05
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "shockwave_roofs"
+     },
+     {
+      "shot": "shimla_town"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "dd_1",
+   "character": "toon_market_woman",
+   "at": {
+    "anchor": "city",
+    "offset": [
+     -2.5,
+     0.0,
+     -12.0
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "city",
+    "offset": [
+     -2.0,
+     0.0,
+     -60.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    },
+    {
+     "t": {
+      "line": "l16a",
+      "word": "Windows"
+     },
+     "expression": "shocked",
+     "facing": {
+      "anchor": "city",
+      "offset": [
+       -2.5,
+       0.0,
+       -80.0
+      ]
+     }
+    },
+    {
+     "t": {
+      "line": "l16a",
+      "word": "shatter",
+      "offset": 0.05
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "shockwave_roofs"
+     },
+     {
+      "shot": "shimla_town"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "dd_2",
+   "character": "toon_shopkeeper",
+   "at": {
+    "anchor": "city",
+    "offset": [
+     8.2,
+     0.0,
+     -15.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "city",
+    "offset": [
+     2.0,
+     0.0,
+     -14.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    },
+    {
+     "t": {
+      "line": "l16a",
+      "word": "Windows"
+     },
+     "expression": "shocked",
+     "facing": {
+      "anchor": "city",
+      "offset": [
+       8.2,
+       0.0,
+       -80.0
+      ]
+     }
+    },
+    {
+     "t": {
+      "line": "l16a",
+      "word": "shatter",
+      "offset": 0.05
+     },
+     "expression": "panic"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "shockwave_roofs"
+     },
+     {
+      "shot": "shimla_town"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "parsi_p",
+   "character": "toon_parsi_gent",
+   "at": {
+    "anchor": "police",
+    "offset": [
+     -0.2,
+     0.0,
+     0.45
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "police",
+    "offset": [
+     -0.2,
+     0.0,
+     -2.0
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "police_desk"
+     },
+     {
+      "shot": "relief_box"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l23a",
+      "word": "reward"
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l23a",
+      "word": "rupees."
+     },
+     "expression": "thinking"
+    }
+   ]
+  },
+  {
+   "id": "inspector",
+   "character": "toon_inspector_1944",
+   "at": {
+    "anchor": "police",
+    "offset": [
+     -0.6,
+     0.35,
+     -1.9
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "police",
+    "offset": [
+     -0.5,
+     0.0,
+     1.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "deadpan"
+    },
+    {
+     "t": {
+      "line": "l22b",
+      "word": "police."
+     },
+     "expression": "shocked"
+    },
+    {
+     "t": {
+      "line": "l23a",
+      "word": "reward"
+     },
+     "expression": "happy"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "police_desk"
+     },
+     {
+      "shot": "dredger_2011"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "constable",
+   "character": "toon_dockworker_b",
+   "at": {
+    "anchor": "police",
+    "offset": [
+     2.2,
+     0.0,
+     -2.6
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "police",
+    "offset": [
+     -0.2,
+     0.0,
+     0.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    },
+    {
+     "t": {
+      "line": "l22b",
+      "word": "police.",
+      "offset": 0.1
+     },
+     "expression": "star_eyes"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "police_desk"
+     },
+     {
+      "shot": "dredger_2011"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "parsi_out",
+   "character": "toon_parsi_gent",
+   "at": {
+    "anchor": "police",
+    "offset": [
+     -14.6,
+     0.0,
+     0.6
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "police",
+    "offset": [
+     -12.0,
+     0.0,
+     0.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "relief_box"
+     },
+     {
+      "shot": "dredger_2011"
+     }
+    ]
+   ],
+   "route": {
+    "via": [
+     {
+      "anchor": "police",
+      "offset": [
+       -12.75,
+       0.0,
+       0.55
+      ]
+     }
+    ],
+    "gait": "walk",
+    "speed": 1.0,
+    "then_facing": {
+     "anchor": "police",
+     "offset": [
+      -12.0,
+      0.0,
+      1.8
+     ]
+    }
+   },
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "happy"
+    }
+   ]
+  },
+  {
+   "id": "volunteer",
+   "character": "toon_market_woman_b",
+   "at": {
+    "anchor": "police",
+    "offset": [
+     -13.4,
+     0.0,
+     -0.9
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "police",
+    "offset": [
+     -12.4,
+     0.0,
+     0.6
+    ]
+   },
+   "action": "idle",
+   "shown": [
+    [
+     {
+      "shot": "relief_box"
+     },
+     {
+      "shot": "dredger_2011"
+     }
+    ]
+   ],
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "sad"
+    },
+    {
+     "t": {
+      "line": "l23b",
+      "word": "relief",
+      "offset": 0.2
+     },
+     "expression": "love"
+    }
+   ]
+  },
+  {
+   "id": "ff_0",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     2.6,
+     0.0,
+     2.2
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     2.2
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_1",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     3.7,
+     0.0,
+     2.2
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     2.2
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_2",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     2.6,
+     0.0,
+     3.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     3.5
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_3",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     3.7,
+     0.0,
+     3.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     3.5
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_4",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     2.6,
+     0.0,
+     4.8
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     4.8
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_5",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     3.7,
+     0.0,
+     4.8
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     4.8
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_6",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     2.6,
+     0.0,
+     6.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     6.1
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_7",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     3.7,
+     0.0,
+     6.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     6.1
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_8",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     -2.6,
+     0.0,
+     2.2
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     2.2
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_9",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     -3.7,
+     0.0,
+     2.2
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     2.2
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_10",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     -2.6,
+     0.0,
+     3.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     3.5
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_11",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     -3.7,
+     0.0,
+     3.5
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     3.5
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_12",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     -2.6,
+     0.0,
+     4.8
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     4.8
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_13",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     -3.7,
+     0.0,
+     4.8
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     4.8
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_14",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     -2.6,
+     0.0,
+     6.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     6.1
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "ff_15",
+   "character": "toon_fireman_today",
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     -3.7,
+     0.0,
+     6.1
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "firestation",
+    "offset": [
+     -0.0,
+     0.0,
+     6.1
+    ]
+   },
+   "action": "idle_formal",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l21c",
+      "word": "National",
+      "offset": 0.2
+     },
+     "expression": "sad"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "crew_a",
+   "character": "toon_dredger_crew",
+   "at": {
+    "anchor": "port",
+    "offset": [
+     2.6,
+     2.35,
+     4.6
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "port",
+    "offset": [
+     -0.0,
+     6.0,
+     9.0
+    ]
+   },
+   "action": "idle",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "neutral"
+    },
+    {
+     "t": {
+      "line": "l24c",
+      "word": "still"
+     },
+     "expression": "surprised"
+    },
+    {
+     "t": {
+      "line": "l24d",
+      "word": "gold"
+     },
+     "expression": "star_eyes"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "dredger_2011"
+     },
+     {
+      "line": "l24d",
+      "edge": "end",
+      "offset": 30.0
+     }
+    ]
+   ]
+  },
+  {
+   "id": "crew_b",
+   "character": "toon_dredger_crew",
+   "at": {
+    "anchor": "port",
+    "offset": [
+     -2.4,
+     2.35,
+     4.2
+    ]
+   },
+   "keep_y": true,
+   "facing": {
+    "anchor": "port",
+    "offset": [
+     -0.0,
+     6.0,
+     9.0
+    ]
+   },
+   "action": "call_out",
+   "cues": [
+    {
+     "t": 0.0,
+     "expression": "determined"
+    },
+    {
+     "t": {
+      "line": "l24d",
+      "word": "gold",
+      "offset": 0.1
+     },
+     "expression": "shocked"
+    }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "dredger_2011"
+     },
+     {
+      "line": "l24d",
+      "edge": "end",
+      "offset": 30.0
+     }
+    ]
+   ]
+  }
+ ],
+ "gags": [
+  {
+   "id": "girgaum_set",
+   "script": "gags/girgaum.gd",
+   "t": 0,
+   "at": {
+    "anchor": "girgaum",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "variant": "girgaum",
+    "column": true,
+    "gold": {
+     "t0": {
+      "line": "l1",
+      "edge": "start",
+      "offset": -4.0
+     },
+     "hero": {
+      "line": "l1",
+      "word": "gold"
+     },
+     "near": [
+      5.2,
+      4.7,
+      -11.0
+     ]
+    },
+    "cotton": {
+     "t0": {
+      "line": "l17a",
+      "word": "Burning",
+      "offset": -0.6
+     }
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "hook_rain"
+     },
+     {
+      "shot": "bar_wall"
+     }
+    ],
+    [
+     {
+      "shot": "cotton_rain"
+     },
+     {
+      "shot": "second_blast"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "flat_set",
+   "script": "gags/flat.gd",
+   "t": 0,
+   "at": {
+    "anchor": "flat",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "man": "parsi",
+    "burst": {
+     "line": "l2b",
+     "word": "smashed",
+     "offset": -0.05
+    },
+    "land": {
+     "line": "l2b",
+     "word": "smashed",
+     "offset": 0.38
+    },
+    "lift": {
+     "line": "l3a",
+     "word": "What",
+     "offset": -0.1
+    },
+    "dusk": {
+     "shot": "flat_return"
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "bar_wall"
+     },
+     {
+      "shot": "dock_wide"
+     }
+    ],
+    [
+     {
+      "shot": "flat_return"
+     },
+     {
+      "shot": "police_desk"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "dock_set",
+   "script": "gags/dock.gd",
+   "t": 0,
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "smoke": {
+     "shot": "clock_1230"
+    },
+    "alarm": {
+     "line": "l10",
+     "word": "alarm"
+    },
+    "engines": {
+     "line": "l11a",
+     "word": "Firemen"
+    },
+    "boats": {
+     "line": "l11b",
+     "word": "Fireboats"
+    },
+    "hoses": {
+     "line": "l11c",
+     "word": "pour"
+    },
+    "pops": {
+     "line": "l12a",
+     "word": "going"
+    },
+    "abandon": {
+     "line": "l12b",
+     "word": "abandon"
+    },
+    "blast": {
+     "line": "l14c",
+     "word": "explodes"
+    },
+    "surge": {
+     "line": "l15",
+     "word": "throws"
+    },
+    "land": {
+     "line": "l15b",
+     "word": "dock."
+    },
+    "second": {
+     "line": "l18",
+     "word": "second"
+    },
+    "night": {
+     "shot": "night_masts"
+    },
+    "dawn": {
+     "shot": "dawn_ruins"
+    },
+    "helmets": {
+     "shot": "helmets"
+    },
+    "clock": [
+     [
+      0,
+      750
+     ],
+     [
+      {
+       "shot": "clock_1345"
+      },
+      825
+     ],
+     [
+      {
+       "shot": "abandon"
+      },
+      950
+     ],
+     [
+      {
+       "line": "l13",
+       "word": "Sixteen"
+      },
+      966
+     ]
+    ],
+    "bell": {
+     "actor": "dock_officer"
+    },
+    "megaphone": {
+     "actor": "chief",
+     "from": {
+      "line": "l12b",
+      "word": "comes"
+     }
+    },
+    "nozzles": [
+     {
+      "actor": "hose_a",
+      "aim": [
+       30.5,
+       9.8,
+       0.5
+      ]
+     },
+     {
+      "actor": "hose_b",
+      "aim": [
+       32.0,
+       10.2,
+       0.0
+      ]
+     },
+     {
+      "actor": "hose_c",
+      "aim": [
+       33.5,
+       9.8,
+       -0.5
+      ]
+     }
+    ]
+   },
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ],
+    [
+     {
+      "shot": "crane_shells"
+     },
+     {
+      "shot": "xray_stack"
+     }
+    ],
+    [
+     {
+      "shot": "empty_mast"
+     },
+     {
+      "shot": "vent_push"
+     }
+    ],
+    [
+     {
+      "shot": "clock_1345"
+     },
+     {
+      "shot": "hold_steam"
+     }
+    ],
+    [
+     {
+      "shot": "abandon"
+     },
+     {
+      "shot": "shockwave_roofs"
+     }
+    ],
+    [
+     {
+      "shot": "second_blast"
+     },
+     {
+      "shot": "fire_day"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "dock_props",
+   "script": "gags/dock_props.gd",
+   "t": 0,
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "loads": {
+     "t": [
+      {
+       "line": "l5b",
+       "word": "Torpedoes,"
+      },
+      {
+       "line": "l5b",
+       "word": "mines,"
+      },
+      {
+       "line": "l5b",
+       "word": "shells."
+      }
+     ],
+     "until": {
+      "shot": "cotton_sling"
+     }
+    },
+    "cotton": {
+     "lift": {
+      "line": "l6",
+      "word": "bales"
+     },
+     "until": {
+      "shot": "gold_crates"
+     }
+    },
+    "gold": {
+     "land": {
+      "line": "l7",
+      "word": "crates"
+     },
+     "glint": {
+      "line": "l7",
+      "word": "gold."
+     },
+     "until": {
+      "shot": "xray_stack"
+     }
+    },
+    "halyard": true,
+    "binoculars": {
+     "actor": "crevier_officer",
+     "lower": {
+      "line": "l9c",
+      "word": "ship",
+      "offset": -0.15
+     }
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "dock_wide"
+     },
+     {
+      "shot": "xray_munitions"
+     }
+    ],
+    [
+     {
+      "shot": "crane_shells"
+     },
+     {
+      "shot": "xray_stack"
+     }
+    ],
+    [
+     {
+      "shot": "empty_mast"
+     },
+     {
+      "shot": "vent_push"
+     }
+    ],
+    [
+     {
+      "shot": "clock_1345"
+     },
+     {
+      "shot": "hold_steam"
+     }
+    ],
+    [
+     {
+      "shot": "abandon"
+     },
+     {
+      "shot": "shockwave_roofs"
+     }
+    ],
+    [
+     {
+      "shot": "second_blast"
+     },
+     {
+      "shot": "fire_day"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "hold_set",
+   "script": "gags/hold.gd",
+   "t": 0,
+   "at": {
+    "anchor": "hold",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "smoke": {
+     "shot": "vent_push"
+    },
+    "water": {
+     "line": "l11d",
+     "word": "and"
+    },
+    "glow": {
+     "line": "l11d",
+     "word": "fire.",
+     "offset": -0.2
+    },
+    "pops": {
+     "line": "l12a",
+     "word": "going",
+     "offset": -0.1
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "xray_munitions"
+     },
+     {
+      "shot": "crane_shells"
+     }
+    ],
+    [
+     {
+      "shot": "xray_stack"
+     },
+     {
+      "shot": "empty_mast"
+     }
+    ],
+    [
+     {
+      "shot": "vent_push"
+     },
+     {
+      "shot": "clock_1345"
+     }
+    ],
+    [
+     {
+      "shot": "hold_steam"
+     },
+     {
+      "shot": "abandon"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "city_set",
+   "script": "gags/girgaum.gd",
+   "t": 0,
+   "at": {
+    "anchor": "city",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "variant": "dadar",
+    "column": true,
+    "shock": {
+     "line": "l16a",
+     "word": "shatter"
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "shockwave_roofs"
+     },
+     {
+      "shot": "shimla_town"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "shimla_set",
+   "script": "gags/shimla.gd",
+   "t": 0,
+   "at": {
+    "anchor": "shimla",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "shock": {
+     "line": "l16c",
+     "word": "shake.",
+     "offset": -0.1
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "shimla_town"
+     },
+     {
+      "shot": "cotton_rain"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "police_set",
+   "script": "gags/police.gd",
+   "t": 0,
+   "at": {
+    "anchor": "police",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "man": "parsi_p",
+    "inspector": "inspector",
+    "place": {
+     "line": "l22b",
+     "word": "police.",
+     "offset": -0.3
+    },
+    "write": {
+     "line": "l23a",
+     "word": "reward",
+     "offset": -0.2
+    },
+    "hand": {
+     "line": "l23a",
+     "word": "rupees.",
+     "offset": -0.3
+    },
+    "drop": {
+     "line": "l23b",
+     "word": "relief",
+     "offset": 0.1
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "police_desk"
+     },
+     {
+      "shot": "dredger_2011"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "fs_set",
+   "script": "gags/firestation.gd",
+   "t": 0,
+   "at": {
+    "anchor": "firestation",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "salute": {
+     "line": "l21c",
+     "word": "marks"
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "fire_day"
+     },
+     {
+      "shot": "flat_return"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "port_set",
+   "script": "gags/port.gd",
+   "t": 0,
+   "at": {
+    "anchor": "port",
+    "offset": [
+     0,
+     0,
+     0.0
+    ]
+   },
+   "params": {
+    "rise": {
+     "line": "l24a",
+     "word": "kept"
+    },
+    "open": {
+     "line": "l24d",
+     "word": "bars",
+     "offset": -0.6
+    },
+    "bar": {
+     "line": "l24d",
+     "word": "gold",
+     "offset": -0.2
+    }
+   },
+   "shown": [
+    [
+     {
+      "shot": "dredger_2011"
+     },
+     {
+      "line": "l24d",
+      "edge": "end",
+      "offset": 30.0
+     }
+    ]
+   ]
+  }
+ ],
+ "reveals": [
+  {
+   "id": "n_cotton",
+   "t": {
+    "line": "l6",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "gold_crates"
+   },
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -36.0,
+     11.5,
+     17.5
+    ]
+   },
+   "size": 1.0,
+   "counter": {
+    "from": 0,
+    "to": 8700,
+    "land": {
+     "line": "l6",
+     "word": "hundred",
+     "offset": 0.1
+    },
+    "label": "BALES OF COTTON"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "n_gold",
+   "t": {
+    "line": "l7",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "xray_stack"
+   },
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -30.0,
+     5.5,
+     15.9
+    ]
+   },
+   "size": 0.4,
+   "counter": {
+    "from": 0,
+    "to": 31,
+    "land": {
+     "line": "l7",
+     "word": "thirty-one",
+     "offset": 0.15
+    },
+    "label": "CRATES OF GOLD"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "n_water",
+   "t": {
+    "line": "l11c",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "hold_steam"
+   },
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -32.0,
+     19.0,
+     4.0
+    ]
+   },
+   "size": 1.6,
+   "counter": {
+    "from": 0,
+    "to": 900,
+    "land": {
+     "line": "l11c",
+     "word": "hundred",
+     "offset": 0.1
+    },
+    "label": "TONS OF WATER"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "n_ships",
+   "t": {
+    "line": "l19a",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "dock_fire"
+   },
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -20.0,
+     32.0,
+     -30.0
+    ]
+   },
+   "size": 6.0,
+   "counter": {
+    "from": 0,
+    "to": 13,
+    "land": {
+     "line": "l19a",
+     "word": "Thirteen",
+     "offset": 0.2
+    },
+    "label": "SHIPS LOST"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "n_days",
+   "t": {
+    "line": "l19b",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "dawn_ruins"
+   },
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -0.0,
+     120.0,
+     30.0
+    ]
+   },
+   "size": 20.0,
+   "counter": {
+    "from": 0,
+    "to": 3,
+    "land": {
+     "line": "l19b",
+     "word": "three",
+     "offset": 0.1
+    },
+    "label": "DAYS ON FIRE"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "n_dead",
+   "t": {
+    "line": "l20a",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "families_walk"
+   },
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -0.0,
+     22.0,
+     51.5
+    ]
+   },
+   "size": 4.5,
+   "counter": {
+    "from": 0,
+    "to": 700,
+    "suffix": "+",
+    "land": {
+     "line": "l20a",
+     "word": "hundred",
+     "offset": 0.1
+    },
+    "label": "LIVES LOST"
+   }
+  },
+  {
+   "id": "n_homes",
+   "t": {
+    "line": "l20b",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "helmets"
+   },
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     29.0,
+     8.0,
+     55.5
+    ]
+   },
+   "size": 1.2,
+   "counter": {
+    "from": 0,
+    "to": 80000,
+    "land": {
+     "line": "l20b",
+     "word": "thousand",
+     "offset": 0.1
+    },
+    "label": "LOST THEIR HOMES"
+   }
+  },
+  {
+   "id": "n_firemen",
+   "t": {
+    "line": "l21a",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "fire_day"
+   },
+   "at": {
+    "anchor": "dock",
+    "offset": [
+     -28.0,
+     5.4,
+     20.5
+    ]
+   },
+   "size": 1.0,
+   "counter": {
+    "from": 0,
+    "to": 66,
+    "land": {
+     "line": "l21a",
+     "word": "Sixty-six",
+     "offset": 0.2
+    },
+    "label": "FIREMEN"
+   }
+  },
+  {
+   "id": "n_tons",
+   "t": {
+    "line": "l5a",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "crane_shells"
+   },
+   "at": {
+    "anchor": "hold",
+    "offset": [
+     -0.0,
+     5.6,
+     3.0
+    ]
+   },
+   "size": 0.7,
+   "counter": {
+    "from": 0,
+    "to": 1400,
+    "land": {
+     "line": "l5a",
+     "word": "hundred",
+     "offset": 0.1
+    },
+    "label": "TONS OF EXPLOSIVES"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "n_km12",
+   "t": {
+    "line": "l16a",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "shimla_town"
+   },
+   "at": {
+    "anchor": "city",
+    "offset": [
+     4.0,
+     5.6,
+     -16.0
+    ]
+   },
+   "size": 1.1,
+   "counter": {
+    "from": 0,
+    "to": 12,
+    "suffix": " KM",
+    "land": {
+     "line": "l16a",
+     "word": "twelve",
+     "offset": 0.1
+    },
+    "label": "AWAY"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "n_km1700",
+   "t": {
+    "line": "l16b",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "seismograph"
+   },
+   "at": {
+    "anchor": "shimla",
+    "offset": [
+     -10.0,
+     120.0,
+     -120.0
+    ]
+   },
+   "size": 18.0,
+   "counter": {
+    "from": 0,
+    "to": 1700,
+    "suffix": " KM",
+    "land": {
+     "line": "l16b",
+     "word": "hundred",
+     "offset": 0.1
+    },
+    "label": "AWAY"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "n_999",
+   "t": {
+    "line": "l23a",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "relief_box"
+   },
+   "at": {
+    "anchor": "police",
+    "offset": [
+     -0.6,
+     1.45,
+     -0.6
+    ]
+   },
+   "size": 0.15,
+   "counter": {
+    "from": 0,
+    "to": 999,
+    "prefix": "Rs ",
+    "land": {
+     "line": "l23a",
+     "word": "ninety-nine",
+     "offset": 0.15
+    },
+    "label": "REWARD"
+   },
+   "sound": "ding"
+  },
+  {
+   "id": "n_2011",
+   "t": {
+    "line": "l24b",
+    "offset": 0.05
+   },
+   "until": {
+    "shot": "dredger_crew"
+   },
+   "at": {
+    "anchor": "port",
+    "offset": [
+     5.0,
+     12.0,
+     6.0
+    ]
+   },
+   "size": 1.3,
+   "counter": {
+    "from": 1944,
+    "to": 2011,
+    "commas": false,
+    "land": {
+     "line": "l24b",
+     "word": "2011,"
+    },
+    "label": "STILL FINDING GOLD"
+   },
+   "sound": "ding"
+  }
+ ],
  "shots": [
   {
    "name": "hook_rain",
    "camera": {
-    "at": {
-     "anchor": "girgaum",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "girgaum",
+      "offset": [
+       -0.4,
+       1.1,
+       6.0
+      ]
+     },
+     "look_at": {
+      "anchor": "girgaum",
+      "offset": [
+       -0.0,
+       22.0,
+       -60.0
+      ]
+     },
+     "lens_mm": 20
     },
-    "look_at": {
-     "anchor": "girgaum",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "girgaum",
+      "offset": [
+       -0.3,
+       1.3,
+       4.6
+      ]
+     },
+     "look_at": {
+      "anchor": "girgaum",
+      "offset": [
+       -0.0,
+       24.0,
+       -60.0
+      ]
+     },
+     "lens_mm": 20
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:12",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 30,
+     "azimuth": 250,
+     "color": "#ffcf96",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": false,
+     "size": 1.2,
+     "glow": 1.2,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4a6c98",
+     "horizon": "#e8c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a88e70",
+     "energy": 0.3,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 120,
+     "end": 4200,
+     "curve": 1.3,
+     "volumetric": 0.002,
+     "color": "#c8a884",
+     "anisotropy": 0.6,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.08,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "gold_fall",
    "camera": {
-    "at": {
-     "anchor": "girgaum",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "girgaum",
+      "offset": [
+       -3.2,
+       6.2,
+       -15.2
+      ]
+     },
+     "look_at": {
+      "anchor": "girgaum",
+      "offset": [
+       -5.5,
+       6.4,
+       -11.0
+      ]
+     },
+     "lens_mm": 30
     },
-    "look_at": {
-     "anchor": "girgaum",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "girgaum",
+      "offset": [
+       -3.4,
+       6.1,
+       -14.6
+      ]
+     },
+     "look_at": {
+      "anchor": "girgaum",
+      "offset": [
+       -5.5,
+       6.8,
+       -11.0
+      ]
+     },
+     "lens_mm": 30
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:12",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 30,
+     "azimuth": 250,
+     "color": "#ffcf96",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": false,
+     "size": 1.2,
+     "glow": 1.2,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4a6c98",
+     "horizon": "#e8c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a88e70",
+     "energy": 0.3,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 120,
+     "end": 4200,
+     "curve": 1.3,
+     "volumetric": 0.002,
+     "color": "#c8a884",
+     "anisotropy": 0.6,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.08,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "bar_wall",
    "camera": {
-    "at": {
-     "anchor": "flat",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "flat",
+      "offset": [
+       -2.6,
+       1.55,
+       2.4
+      ]
+     },
+     "look_at": {
+      "anchor": "flat",
+      "offset": [
+       0.6,
+       1.25,
+       -1.4
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "flat",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "flat",
+      "offset": [
+       -2.4,
+       1.5,
+       2.0
+      ]
+     },
+     "look_at": {
+      "anchor": "flat",
+      "offset": [
+       0.4,
+       1.1,
+       -1.2
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "16:10",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#6a88b0",
+     "horizon": "#e0c8a8",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#8a7a66",
+     "energy": 0.35,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.018,
+     "color": "#e0c8a0",
+     "anisotropy": 0.75,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l2b",
+      "word": "smashed"
+     },
+     "amount": 0.3
+    }
+   ]
   },
   {
    "name": "man_lift",
    "camera": {
-    "at": {
-     "anchor": "flat",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "flat",
+      "offset": [
+       0.25,
+       1.95,
+       -0.2
+      ]
+     },
+     "look_at": {
+      "anchor": "flat",
+      "offset": [
+       -0.9,
+       0.95,
+       -0.9
+      ]
+     },
+     "lens_mm": 30
     },
-    "look_at": {
-     "anchor": "flat",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "flat",
+      "offset": [
+       0.1,
+       1.9,
+       -0.3
+      ]
+     },
+     "look_at": {
+      "anchor": "flat",
+      "offset": [
+       -0.9,
+       1.0,
+       -0.9
+      ]
+     },
+     "lens_mm": 32
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "16:10",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#6a88b0",
+     "horizon": "#e0c8a8",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#8a7a66",
+     "energy": 0.35,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.018,
+     "color": "#e0c8a0",
+     "anisotropy": 0.75,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "window_whip",
    "camera": {
-    "at": {
-     "anchor": "flat",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "flat",
+      "offset": [
+       -1.9,
+       1.8,
+       0.8
+      ]
+     },
+     "look_at": {
+      "anchor": "flat",
+      "offset": [
+       -0.4,
+       2.6,
+       -12.0
+      ]
+     },
+     "lens_mm": 28
     },
-    "look_at": {
-     "anchor": "flat",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "flat",
+      "offset": [
+       -1.6,
+       1.9,
+       0.2
+      ]
+     },
+     "look_at": {
+      "anchor": "flat",
+      "offset": [
+       -0.4,
+       3.4,
+       -12.0
+      ]
+     },
+     "lens_mm": 30
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "16:10",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#6a88b0",
+     "horizon": "#e0c8a8",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#8a7a66",
+     "energy": 0.35,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.018,
+     "color": "#e0c8a0",
+     "anisotropy": 0.75,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
+   },
+   "whip_out": "up"
   },
   {
    "name": "dock_wide",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -120,
+       46,
+       -92.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -10,
+       10,
+       24.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -100,
+       30,
+       -74.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -14,
+       9,
+       18.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "stikine_bow",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -40,
+       4.0,
+       19.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -62,
+       8.5,
+       6.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -52,
+       3.8,
+       17.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -64,
+       8.2,
+       6.5
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
+   }
+  },
+  {
+   "name": "dock_moor",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       36.0,
+       4.4,
+       19.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -20.0,
+       8.0,
+       2.0
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       31.0,
+       4.8,
+       18.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -24.0,
+       8.5,
+       2.0
+      ]
+     },
+     "lens_mm": 24
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "xray_munitions",
    "camera": {
-    "at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       -0.5,
+       12.0,
+       0.8
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       -0.0,
+       2.0,
+       2.5
+      ]
+     },
+     "lens_mm": 22
     },
-    "look_at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       -1.2,
+       6.2,
+       -2.4
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       -0.5,
+       3.0,
+       4.5
+      ]
+     },
+     "lens_mm": 22
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "12:40",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#0a0a0c",
+     "horizon": "#141210",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#3a3026",
+     "energy": 0.28,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.06,
+     "color": "#c8b898",
+     "anisotropy": 0.75,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.0,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "crane_shells",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -26.4,
+       9.4,
+       5.6
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -31.6,
+       13.6,
+       0.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -26.8,
+       9.3,
+       5.2
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -31.6,
+       13.2,
+       0.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "cotton_sling",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -32.0,
+       4.2,
+       30.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -36.0,
+       5.6,
+       18.5
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -33.0,
+       4.0,
+       28.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -36.0,
+       6.6,
+       18.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "gold_crates",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -28.6,
+       4.3,
+       22.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -30.0,
+       3.7,
+       15.5
+      ]
+     },
+     "lens_mm": 30
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -29.0,
+       4.0,
+       20.7
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -30.0,
+       3.7,
+       15.5
+      ]
+     },
+     "lens_mm": 32
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "xray_stack",
    "camera": {
-    "at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       8.1,
+       0.8,
+       4.6
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       6.6,
+       2.4,
+       -1.5
+      ]
+     },
+     "lens_mm": 22
     },
-    "look_at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       8.1,
+       1.3,
+       3.6
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       6.6,
+       3.0,
+       -1.5
+      ]
+     },
+     "lens_mm": 22
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "12:40",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#0a0a0c",
+     "horizon": "#141210",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#3a3026",
+     "energy": 0.28,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.06,
+     "color": "#c8b898",
+     "anisotropy": 0.75,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.0,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "empty_mast",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -35.0,
+       9.0,
+       6.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -39.5,
+       13.0,
+       0.0
+      ]
+     },
+     "lens_mm": 22
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -35.4,
+       9.0,
+       5.6
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -40.0,
+       23.0,
+       0.0
+      ]
+     },
+     "lens_mm": 22
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "clock_1230",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -2.0,
+       19.5,
+       22.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -6.0,
+       23.0,
+       35.2
+      ]
+     },
+     "lens_mm": 40
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -3.0,
+       20.5,
+       25.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -6.0,
+       23.2,
+       35.2
+      ]
+     },
+     "lens_mm": 42
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
+   }
+  },
+  {
+   "name": "officer_bino",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -113.2,
+       10.75,
+       -1.4
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -116.0,
+       10.65,
+       -5.0
+      ]
+     },
+     "lens_mm": 34
+    },
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -113.5,
+       10.7,
+       -1.8
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -116.0,
+       10.6,
+       -5.0
+      ]
+     },
+     "lens_mm": 36
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
+   }
+  },
+  {
+   "name": "smoke_hold",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -104.0,
+       11.8,
+       -9.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -32.0,
+       13.5,
+       0.0
+      ]
+     },
+     "lens_mm": 55
+    },
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -103.0,
+       11.6,
+       -8.6
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -32.0,
+       15.0,
+       0.0
+      ]
+     },
+     "lens_mm": 60
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "12:30",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 58,
+     "azimuth": 205,
+     "color": "#fff0d6",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d6dde0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a8b0b8",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3200,
+     "curve": 1.4,
+     "volumetric": 0.0,
+     "color": "#c8d2da",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "vent_push",
    "camera": {
-    "at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       5.0,
+       3.75,
+       -3.3
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       5.4,
+       3.0,
+       -4.1
+      ]
+     },
+     "lens_mm": 30
     },
-    "look_at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       5.15,
+       3.6,
+       -3.55
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       5.4,
+       3.0,
+       -4.1
+      ]
+     },
+     "lens_mm": 34
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "12:40",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#0a0a0c",
+     "horizon": "#141210",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#3a3026",
+     "energy": 0.28,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.05,
+     "color": "#7a6a58",
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.0,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "clock_1345",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -0.0,
+       6.0,
+       21.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -6.0,
+       21.0,
+       35.2
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       0.5,
+       5.0,
+       23.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -3.5,
+       4.6,
+       34.5
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "13:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 50,
+     "azimuth": 220,
+     "color": "#ffecd0",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#5184c0",
+     "horizon": "#d8d8d2",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#aaa89e",
+     "energy": 0.34,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3000,
+     "curve": 1.4,
+     "volumetric": 0.001,
+     "color": "#ccd0cc",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "engines_race",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -27.0,
+       3.5,
+       18.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -90.0,
+       5.1,
+       21.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -26.0,
+       3.6,
+       17.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -70.0,
+       4.8,
+       21.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "day",
+    "time": "13:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 50,
+     "azimuth": 220,
+     "color": "#ffecd0",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#5184c0",
+     "horizon": "#d8d8d2",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#aaa89e",
+     "energy": 0.34,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3000,
+     "curve": 1.4,
+     "volumetric": 0.001,
+     "color": "#ccd0cc",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l11a",
+      "word": "race"
+     },
+     "amount": 0.08
+    }
+   ]
   },
   {
    "name": "fireboats",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -58.0,
+       2.4,
+       -34.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -34.0,
+       6.0,
+       -18.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -52.0,
+       2.2,
+       -32.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -30.0,
+       6.5,
+       -19.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "13:45",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 50,
+     "azimuth": 220,
+     "color": "#ffecd0",
+     "energy": 2.7,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#5184c0",
+     "horizon": "#d8d8d2",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#aaa89e",
+     "energy": 0.34,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 3000,
+     "curve": 1.4,
+     "volumetric": 0.001,
+     "color": "#ccd0cc",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "hoses_900",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -31.0,
+       5.0,
+       24.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -31.5,
+       8.5,
+       0.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -31.2,
+       4.8,
+       22.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -31.5,
+       9.0,
+       0.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:50",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 36,
+     "azimuth": 238,
+     "color": "#ffd9a8",
+     "energy": 3.0,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#5d7ea8",
+     "horizon": "#e2c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a88f6e",
+     "energy": 0.28,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 1800,
+     "curve": 1.4,
+     "volumetric": 0.003,
+     "color": "#c8ae88",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.05,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "hold_steam",
    "camera": {
-    "at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       -5.5,
+       3.6,
+       6.5
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       -1.0,
+       4.0,
+       0.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       -5.0,
+       3.2,
+       6.0
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       -2.5,
+       1.4,
+       3.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "12:40",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#0a0a0c",
+     "horizon": "#141210",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#3a3026",
+     "energy": 0.28,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.05,
+     "color": "#7a6a58",
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.0,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "hold_pops",
    "camera": {
-    "at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       6.0,
+       3.8,
+       6.8
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       -1.0,
+       3.0,
+       0.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "hold",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "hold",
+      "offset": [
+       5.5,
+       3.6,
+       6.2
+      ]
+     },
+     "look_at": {
+      "anchor": "hold",
+      "offset": [
+       -1.0,
+       3.2,
+       0.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "12:40",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#0a0a0c",
+     "horizon": "#141210",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#3a3026",
+     "energy": 0.28,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.05,
+     "color": "#7a6a58",
+     "anisotropy": 0.6,
+     "length": 40
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.8,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.0,
+     "vignette": 0.5,
+     "grain": 0.045
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l12a",
+      "word": "going"
+     },
+     "amount": 0.2
+    }
+   ]
   },
   {
    "name": "abandon",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -19.0,
+       4.1,
+       22.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -22.4,
+       4.6,
+       4.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -19.3,
+       4.0,
+       21.3
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -22.4,
+       5.2,
+       4.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "15:50",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 36,
+     "azimuth": 238,
+     "color": "#ffd9a8",
+     "energy": 3.0,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#5d7ea8",
+     "horizon": "#e2c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a88f6e",
+     "energy": 0.28,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 1800,
+     "curve": 1.4,
+     "volumetric": 0.003,
+     "color": "#c8ae88",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.55,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.05,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "clock_406",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -5.0,
+       21.8,
+       26.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -6.0,
+       23.4,
+       35.2
+      ]
+     },
+     "lens_mm": 55
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -5.2,
+       22.1,
+       28.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -6.0,
+       23.4,
+       35.2
+      ]
+     },
+     "lens_mm": 55
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:06",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 33,
+     "azimuth": 240,
+     "color": "#ffd09a",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#56769e",
+     "horizon": "#e6c290",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a48a68",
+     "energy": 0.26,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 2600,
+     "curve": 1.4,
+     "volumetric": 0.0025,
+     "color": "#caa880",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.06,
+     "vignette": 0.48,
+     "grain": 0.04
+    }
+   }
+  },
+  {
+   "name": "calm_406",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       20.0,
+       4.6,
+       37.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -28.0,
+       16.0,
+       0.0
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       17.0,
+       4.4,
+       35.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -28.0,
+       17.0,
+       0.0
+      ]
+     },
+     "lens_mm": 24
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:06",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 33,
+     "azimuth": 240,
+     "color": "#ffd09a",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#56769e",
+     "horizon": "#e6c290",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a48a68",
+     "energy": 0.26,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 2600,
+     "curve": 1.4,
+     "volumetric": 0.0025,
+     "color": "#caa880",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.06,
+     "vignette": 0.48,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "blast_wide",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -190,
+       30,
+       -210.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -25,
+       45,
+       0.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -178,
+       27,
+       -196.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -25,
+       60,
+       0.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "day",
+    "time": "16:06",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 33,
+     "azimuth": 240,
+     "color": "#ffd09a",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#56769e",
+     "horizon": "#e6c290",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a48a68",
+     "energy": 0.26,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 2600,
+     "curve": 1.4,
+     "volumetric": 0.0025,
+     "color": "#caa880",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.06,
+     "vignette": 0.48,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l14c",
+      "word": "explodes",
+      "offset": 0.25
+     },
+     "amount": 0.55
+    }
+   ]
   },
   {
    "name": "hull_split",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -110,
+       14,
+       -95.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -10,
+       14,
+       0.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -104,
+       12,
+       -88.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -10,
+       12,
+       0.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:06",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 33,
+     "azimuth": 240,
+     "color": "#ffd09a",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#56769e",
+     "horizon": "#e6c290",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a48a68",
+     "energy": 0.26,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 2600,
+     "curve": 1.4,
+     "volumetric": 0.0025,
+     "color": "#caa880",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.06,
+     "vignette": 0.48,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l14b",
+      "word": "torn"
+     },
+     "amount": 0.2
+    }
+   ]
+  },
+  {
+   "name": "jala_lift",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       120.0,
+       2.0,
+       -50.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       165.0,
+       8.0,
+       0.0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       124.0,
+       2.4,
+       -46.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       163.0,
+       12.0,
+       6.0
+      ]
+     },
+     "lens_mm": 26
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:06",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 33,
+     "azimuth": 240,
+     "color": "#ffd09a",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#56769e",
+     "horizon": "#e6c290",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a48a68",
+     "energy": 0.26,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 2600,
+     "curve": 1.4,
+     "volumetric": 0.0025,
+     "color": "#caa880",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.06,
+     "vignette": 0.48,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "jalapadma",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       250.0,
+       7.0,
+       37.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       160.0,
+       9.0,
+       19.5
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       246.0,
+       6.6,
+       37.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       160.0,
+       8.0,
+       21.5
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "day",
+    "time": "16:06",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 33,
+     "azimuth": 240,
+     "color": "#ffd09a",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#56769e",
+     "horizon": "#e6c290",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a48a68",
+     "energy": 0.26,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 2600,
+     "curve": 1.4,
+     "volumetric": 0.0025,
+     "color": "#caa880",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.06,
+     "vignette": 0.48,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l15b",
+      "word": "dock.",
+      "offset": 0.05
+     },
+     "amount": 0.4
+    }
+   ]
   },
   {
    "name": "shockwave_roofs",
    "camera": {
-    "at": {
-     "anchor": "city",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "city",
+      "offset": [
+       -5.0,
+       1.4,
+       -6.0
+      ]
+     },
+     "look_at": {
+      "anchor": "city",
+      "offset": [
+       7.0,
+       2.2,
+       -16.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "city",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "city",
+      "offset": [
+       -4.6,
+       1.3,
+       -6.8
+      ]
+     },
+     "look_at": {
+      "anchor": "city",
+      "offset": [
+       7.5,
+       2.0,
+       -15.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:12",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 30,
+     "azimuth": 250,
+     "color": "#ffcf96",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": false,
+     "size": 1.2,
+     "glow": 1.2,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4a6c98",
+     "horizon": "#e8c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a88e70",
+     "energy": 0.3,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 120,
+     "end": 4200,
+     "curve": 1.3,
+     "volumetric": 0.002,
+     "color": "#c8a884",
+     "anisotropy": 0.6,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.08,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l16a",
+      "word": "shatter"
+     },
+     "amount": 0.35
+    }
+   ]
+  },
+  {
+   "name": "shimla_town",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "shimla",
+      "offset": [
+       40.0,
+       10.0,
+       300.0
+      ]
+     },
+     "look_at": {
+      "anchor": "shimla",
+      "offset": [
+       -10.0,
+       40.0,
+       -200.0
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "shimla",
+      "offset": [
+       36.0,
+       8.0,
+       270.0
+      ]
+     },
+     "look_at": {
+      "anchor": "shimla",
+      "offset": [
+       -10.0,
+       44.0,
+       -200.0
+      ]
+     },
+     "lens_mm": 24
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:06",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.2
+    },
+    "sun": {
+     "elevation": 28,
+     "azimuth": 250,
+     "color": "#ffd8a8",
+     "energy": 2.8,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.4,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f78aa",
+     "horizon": "#dfd4c0",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#8a96a0",
+     "energy": 0.32,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 200,
+     "end": 7000,
+     "curve": 1.0,
+     "volumetric": 0.0,
+     "color": "#b4c0cc",
+     "anisotropy": 0.5,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.6,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 1.02,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "seismograph",
    "camera": {
-    "at": {
-     "anchor": "shimla",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "shimla",
+      "offset": [
+       -0.75,
+       1.62,
+       599.45
+      ]
+     },
+     "look_at": {
+      "anchor": "shimla",
+      "offset": [
+       -0.0,
+       1.27,
+       598.25
+      ]
+     },
+     "lens_mm": 36
     },
-    "look_at": {
-     "anchor": "shimla",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "shimla",
+      "offset": [
+       -0.6,
+       1.58,
+       599.25
+      ]
+     },
+     "look_at": {
+      "anchor": "shimla",
+      "offset": [
+       -0.0,
+       1.27,
+       598.25
+      ]
+     },
+     "lens_mm": 42
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "16:06",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#1a1c20",
+     "horizon": "#202226",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#5a5650",
+     "energy": 0.3,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.02,
+     "color": "#d8ccb8",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.0,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "cotton_rain",
    "camera": {
-    "at": {
-     "anchor": "girgaum",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "girgaum",
+      "offset": [
+       -1.5,
+       1.4,
+       4.0
+      ]
+     },
+     "look_at": {
+      "anchor": "girgaum",
+      "offset": [
+       -0.0,
+       18.0,
+       -50.0
+      ]
+     },
+     "lens_mm": 22
     },
-    "look_at": {
-     "anchor": "girgaum",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "girgaum",
+      "offset": [
+       -1.2,
+       1.6,
+       2.5
+      ]
+     },
+     "look_at": {
+      "anchor": "girgaum",
+      "offset": [
+       -0.0,
+       20.0,
+       -50.0
+      ]
+     },
+     "lens_mm": 22
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:12",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 30,
+     "azimuth": 250,
+     "color": "#ffcf96",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": false,
+     "size": 1.2,
+     "glow": 1.2,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4a6c98",
+     "horizon": "#e8c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a88e70",
+     "energy": 0.3,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 120,
+     "end": 4200,
+     "curve": 1.3,
+     "volumetric": 0.002,
+     "color": "#c8a884",
+     "anisotropy": 0.6,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.08,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "gold_rain",
    "camera": {
-    "at": {
-     "anchor": "girgaum",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "girgaum",
+      "offset": [
+       0.4,
+       1.5,
+       0.0
+      ]
+     },
+     "look_at": {
+      "anchor": "girgaum",
+      "offset": [
+       -0.0,
+       26.0,
+       -70.0
+      ]
+     },
+     "lens_mm": 22
     },
-    "look_at": {
-     "anchor": "girgaum",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "girgaum",
+      "offset": [
+       0.3,
+       1.2,
+       -1.5
+      ]
+     },
+     "look_at": {
+      "anchor": "girgaum",
+      "offset": [
+       -0.0,
+       22.0,
+       -70.0
+      ]
+     },
+     "lens_mm": 22
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "16:12",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 30,
+     "azimuth": 250,
+     "color": "#ffcf96",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": false,
+     "size": 1.2,
+     "glow": 1.2,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4a6c98",
+     "horizon": "#e8c49a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a88e70",
+     "energy": 0.3,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 120,
+     "end": 4200,
+     "curve": 1.3,
+     "volumetric": 0.002,
+     "color": "#c8a884",
+     "anisotropy": 0.6,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.2,
+     "saturation": 1.08,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "second_blast",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -60,
+       55,
+       260.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       0,
+       70,
+       0.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -56,
+       50,
+       248.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       0,
+       78,
+       0.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
-   }
+   },
+   "look": {
+    "base": "day",
+    "time": "16:06",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 33,
+     "azimuth": 240,
+     "color": "#ffd09a",
+     "energy": 3.2,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#56769e",
+     "horizon": "#e6c290",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a48a68",
+     "energy": 0.26,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 2600,
+     "curve": 1.4,
+     "volumetric": 0.0025,
+     "color": "#caa880",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.06,
+     "vignette": 0.48,
+     "grain": 0.04
+    }
+   },
+   "shake": [
+    {
+     "t": {
+      "line": "l18",
+      "word": "second",
+      "offset": 0.25
+     },
+     "amount": 0.35
+    }
+   ]
   },
   {
    "name": "night_masts",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -75,
+       3.0,
+       -112.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       5,
+       16,
+       30.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -70,
+       2.6,
+       -108.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       5,
+       17,
+       30.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.2
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#05060a",
+     "horizon": "#3a1a0c",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#3a2418",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 2500,
+     "curve": 1.6,
+     "volumetric": 0.004,
+     "color": "#6a3a20",
+     "anisotropy": 0.6,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.08,
+     "threshold": 1.0
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.08,
+     "vignette": 0.52,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "dock_fire",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -190,
+       120,
+       -260.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       0,
+       10,
+       40.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -176,
+       108,
+       -240.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       0,
+       14,
+       40.0
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "23:00",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.2
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#05060a",
+     "horizon": "#3a1a0c",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#3a2418",
+     "energy": 0.12,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 200,
+     "end": 2500,
+     "curve": 1.6,
+     "volumetric": 0.004,
+     "color": "#6a3a20",
+     "anisotropy": 0.6,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.9,
+     "bloom": 0.08,
+     "threshold": 1.0
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.22,
+     "saturation": 1.08,
+     "vignette": 0.52,
+     "grain": 0.045
+    }
    }
   },
   {
    "name": "dawn_ruins",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       50,
+       14,
+       107.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -10,
+       4,
+       41.5
+      ]
+     },
+     "lens_mm": 24
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       46,
+       12,
+       99.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -10,
+       5,
+       41.5
+      ]
+     },
+     "lens_mm": 24
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "06:10",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 4,
+     "azimuth": 80,
+     "color": "#ffb48a",
+     "energy": 1.6,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4a5e86",
+     "horizon": "#e8a88a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#7a7c8e",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 1600,
+     "curve": 1.4,
+     "volumetric": 0.006,
+     "color": "#b0a4a8",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.6,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 0.9,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "families_walk",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       24.0,
+       4.2,
+       35.5
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       30.0,
+       5.2,
+       63.5
+      ]
+     },
+     "lens_mm": 30
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       24.3,
+       4.1,
+       37.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       30.0,
+       5.2,
+       63.5
+      ]
+     },
+     "lens_mm": 30
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "06:10",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 4,
+     "azimuth": 80,
+     "color": "#ffb48a",
+     "energy": 1.6,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4a5e86",
+     "horizon": "#e8a88a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#7a7c8e",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 1600,
+     "curve": 1.4,
+     "volumetric": 0.006,
+     "color": "#b0a4a8",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.6,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 0.9,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "helmets",
    "camera": {
-    "at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -28.0,
+       3.2,
+       13.9
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -28.0,
+       2.9,
+       21.0
+      ]
+     },
+     "lens_mm": 28
     },
-    "look_at": {
-     "anchor": "dock",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "dock",
+      "offset": [
+       -28.0,
+       10.6,
+       12.0
+      ]
+     },
+     "look_at": {
+      "anchor": "dock",
+      "offset": [
+       -28.0,
+       2.6,
+       20.5
+      ]
+     },
+     "lens_mm": 28
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "06:10",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 4,
+     "azimuth": 80,
+     "color": "#ffb48a",
+     "energy": 1.6,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4a5e86",
+     "horizon": "#e8a88a",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#7a7c8e",
+     "energy": 0.36,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 80,
+     "end": 1600,
+     "curve": 1.4,
+     "volumetric": 0.006,
+     "color": "#b0a4a8",
+     "anisotropy": 0.65,
+     "length": 400
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.6,
+     "bloom": 0.05,
+     "threshold": 1.1
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.12,
+     "saturation": 0.9,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "fire_day",
    "camera": {
-    "at": {
-     "anchor": "firestation",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "firestation",
+      "offset": [
+       -0.6,
+       5.5,
+       12.5
+      ]
+     },
+     "look_at": {
+      "anchor": "firestation",
+      "offset": [
+       -0.0,
+       3.2,
+       -1.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "firestation",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "firestation",
+      "offset": [
+       -0.4,
+       2.2,
+       9.5
+      ]
+     },
+     "look_at": {
+      "anchor": "firestation",
+      "offset": [
+       -0.0,
+       2.6,
+       -1.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "09:00",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 32,
+     "azimuth": 120,
+     "color": "#fff0d8",
+     "energy": 2.1,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d8dcd8",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a0a4a8",
+     "energy": 0.36,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 80,
+     "end": 1500,
+     "curve": 1.4,
+     "volumetric": 0.003,
+     "color": "#d0d4d6",
+     "anisotropy": 0.6,
+     "length": 200
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.45,
+     "bloom": 0.03,
+     "threshold": 1.3
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 1.04,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
+   }
+  },
+  {
+   "name": "fire_salute",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "firestation",
+      "offset": [
+       0.9,
+       1.6,
+       9.0
+      ]
+     },
+     "look_at": {
+      "anchor": "firestation",
+      "offset": [
+       3.0,
+       1.5,
+       3.0
+      ]
+     },
+     "lens_mm": 30
+    },
+    "to": {
+     "at": {
+      "anchor": "firestation",
+      "offset": [
+       0.8,
+       1.6,
+       8.2
+      ]
+     },
+     "look_at": {
+      "anchor": "firestation",
+      "offset": [
+       3.0,
+       1.55,
+       3.0
+      ]
+     },
+     "lens_mm": 32
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "09:00",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.4
+    },
+    "sun": {
+     "elevation": 32,
+     "azimuth": 120,
+     "color": "#fff0d8",
+     "energy": 2.1,
+     "softness": 0.6,
+     "visible": true,
+     "size": 1.2,
+     "glow": 1.3,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#4f86c6",
+     "horizon": "#d8dcd8",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#a0a4a8",
+     "energy": 0.36,
+     "sky": 0.55
+    },
+    "fog": {
+     "begin": 80,
+     "end": 1500,
+     "curve": 1.4,
+     "volumetric": 0.003,
+     "color": "#d0d4d6",
+     "anisotropy": 0.6,
+     "length": 200
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.45,
+     "bloom": 0.03,
+     "threshold": 1.3
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.14,
+     "saturation": 1.04,
+     "vignette": 0.42,
+     "grain": 0.035
+    }
    }
   },
   {
    "name": "flat_return",
    "camera": {
-    "at": {
-     "anchor": "flat",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "flat",
+      "offset": [
+       0.9,
+       1.35,
+       -1.5
+      ]
+     },
+     "look_at": {
+      "anchor": "flat",
+      "offset": [
+       -1.0,
+       1.3,
+       -0.85
+      ]
+     },
+     "lens_mm": 30
     },
-    "look_at": {
-     "anchor": "flat",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "flat",
+      "offset": [
+       0.7,
+       1.35,
+       -1.45
+      ]
+     },
+     "look_at": {
+      "anchor": "flat",
+      "offset": [
+       -1.0,
+       1.35,
+       -0.85
+      ]
+     },
+     "lens_mm": 34
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "19:30",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#6a88b0",
+     "horizon": "#e0c8a8",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#3a3028",
+     "energy": 0.2,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.02,
+     "color": "#c09060",
+     "anisotropy": 0.6,
+     "length": 20
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.7,
+     "bloom": 0.05,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.16,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "police_desk",
    "camera": {
-    "at": {
-     "anchor": "police",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "police",
+      "offset": [
+       1.3,
+       1.65,
+       2.2
+      ]
+     },
+     "look_at": {
+      "anchor": "police",
+      "offset": [
+       -0.35,
+       1.2,
+       -1.1
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "police",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "police",
+      "offset": [
+       1.1,
+       1.6,
+       1.8
+      ]
+     },
+     "look_at": {
+      "anchor": "police",
+      "offset": [
+       -0.35,
+       1.2,
+       -1.1
+      ]
+     },
+     "lens_mm": 28
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "19:40",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#0e1220",
+     "horizon": "#3a2a2a",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#4a4038",
+     "energy": 0.26,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.015,
+     "color": "#d8b890",
+     "anisotropy": 0.6,
+     "length": 24
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "cheque_999",
    "camera": {
-    "at": {
-     "anchor": "police",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "police",
+      "offset": [
+       -0.3,
+       2.25,
+       0.9
+      ]
+     },
+     "look_at": {
+      "anchor": "police",
+      "offset": [
+       -0.75,
+       1.0,
+       -1.3
+      ]
+     },
+     "lens_mm": 30
     },
-    "look_at": {
-     "anchor": "police",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "police",
+      "offset": [
+       -0.35,
+       2.15,
+       0.6
+      ]
+     },
+     "look_at": {
+      "anchor": "police",
+      "offset": [
+       -0.75,
+       1.0,
+       -1.3
+      ]
+     },
+     "lens_mm": 32
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "19:40",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#0e1220",
+     "horizon": "#3a2a2a",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#4a4038",
+     "energy": 0.26,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.015,
+     "color": "#d8b890",
+     "anisotropy": 0.6,
+     "length": 24
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "relief_box",
    "camera": {
-    "at": {
-     "anchor": "police",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "police",
+      "offset": [
+       -13.0,
+       1.6,
+       3.8
+      ]
+     },
+     "look_at": {
+      "anchor": "police",
+      "offset": [
+       -12.4,
+       1.75,
+       -0.4
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "police",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "police",
+      "offset": [
+       -13.0,
+       1.55,
+       3.4
+      ]
+     },
+     "look_at": {
+      "anchor": "police",
+      "offset": [
+       -12.4,
+       1.7,
+       -0.4
+      ]
+     },
+     "lens_mm": 28
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "night_fog",
+    "time": "19:40",
+    "weather": {
+     "fog": 0.0,
+     "rain": 0.0,
+     "clouds": 0.0,
+     "wind": 0.0
+    },
+    "sun": {
+     "elevation": -20,
+     "azimuth": 0,
+     "color": "#000000",
+     "energy": 0.0,
+     "visible": false,
+     "shadows": false
+    },
+    "moon": {
+     "elevation": -20,
+     "visible": false,
+     "energy": 0.0
+    },
+    "sky": {
+     "top": "#0e1220",
+     "horizon": "#3a2a2a",
+     "clouds": 0.0,
+     "stars": 0.0
+    },
+    "ambient": {
+     "color": "#4a4038",
+     "energy": 0.26,
+     "sky": 0.0
+    },
+    "fog": {
+     "begin": 300,
+     "end": 900,
+     "curve": 1.6,
+     "volumetric": 0.015,
+     "color": "#d8b890",
+     "anisotropy": 0.6,
+     "length": 24
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.04,
+     "vignette": 0.5,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "dredger_2011",
    "camera": {
-    "at": {
-     "anchor": "port",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "port",
+      "offset": [
+       -14.0,
+       1.2,
+       22.0
+      ]
+     },
+     "look_at": {
+      "anchor": "port",
+      "offset": [
+       -0.0,
+       5.0,
+       6.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "look_at": {
-     "anchor": "port",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "port",
+      "offset": [
+       -12.0,
+       1.3,
+       19.0
+      ]
+     },
+     "look_at": {
+      "anchor": "port",
+      "offset": [
+       -0.0,
+       7.0,
+       6.0
+      ]
+     },
+     "lens_mm": 26
     },
-    "lens_mm": 35
+    "ease": "in_out"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "18:40",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 5,
+     "azimuth": 250,
+     "color": "#ffa868",
+     "energy": 2.2,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.5,
+     "glow": 1.6,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#32466e",
+     "horizon": "#f0a070",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#6a6478",
+     "energy": 0.34,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 100,
+     "end": 1400,
+     "curve": 1.3,
+     "volumetric": 0.004,
+     "color": "#c89880",
+     "anisotropy": 0.7,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.06,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
+   }
+  },
+  {
+   "name": "grab_rise",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "port",
+      "offset": [
+       -5.0,
+       3.4,
+       18.0
+      ]
+     },
+     "look_at": {
+      "anchor": "port",
+      "offset": [
+       -0.0,
+       9.0,
+       9.0
+      ]
+     },
+     "lens_mm": 28
+    },
+    "to": {
+     "at": {
+      "anchor": "port",
+      "offset": [
+       -4.4,
+       3.2,
+       16.4
+      ]
+     },
+     "look_at": {
+      "anchor": "port",
+      "offset": [
+       -0.0,
+       10.5,
+       9.0
+      ]
+     },
+     "lens_mm": 28
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "18:40",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 5,
+     "azimuth": 250,
+     "color": "#ffa868",
+     "energy": 2.2,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.5,
+     "glow": 1.6,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#32466e",
+     "horizon": "#f0a070",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#6a6478",
+     "energy": 0.34,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 100,
+     "end": 1400,
+     "curve": 1.3,
+     "volumetric": 0.004,
+     "color": "#c89880",
+     "anisotropy": 0.7,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.06,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
+   }
+  },
+  {
+   "name": "dredger_crew",
+   "camera": {
+    "from": {
+     "at": {
+      "anchor": "port",
+      "offset": [
+       -5.2,
+       3.9,
+       0.6
+      ]
+     },
+     "look_at": {
+      "anchor": "port",
+      "offset": [
+       -0.0,
+       5.8,
+       7.5
+      ]
+     },
+     "lens_mm": 24
+    },
+    "to": {
+     "at": {
+      "anchor": "port",
+      "offset": [
+       -5.0,
+       3.9,
+       1.2
+      ]
+     },
+     "look_at": {
+      "anchor": "port",
+      "offset": [
+       -0.0,
+       6.6,
+       7.5
+      ]
+     },
+     "lens_mm": 24
+    },
+    "ease": "in_out"
+   },
+   "duration": {
+    "fit": true,
+    "min": 1.0,
+    "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "18:40",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 5,
+     "azimuth": 250,
+     "color": "#ffa868",
+     "energy": 2.2,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.5,
+     "glow": 1.6,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#32466e",
+     "horizon": "#f0a070",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#6a6478",
+     "energy": 0.34,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 100,
+     "end": 1400,
+     "curve": 1.3,
+     "volumetric": 0.004,
+     "color": "#c89880",
+     "anisotropy": 0.7,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.06,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   },
   {
    "name": "grab_bar",
    "camera": {
-    "at": {
-     "anchor": "port",
-     "offset": [
-      0,
-      1.6,
-      6
-     ]
+    "from": {
+     "at": {
+      "anchor": "port",
+      "offset": [
+       -3.4,
+       8.9,
+       12.8
+      ]
+     },
+     "look_at": {
+      "anchor": "port",
+      "offset": [
+       -0.2,
+       8.3,
+       9.2
+      ]
+     },
+     "lens_mm": 34
     },
-    "look_at": {
-     "anchor": "port",
-     "offset": [
-      0,
-      1.2,
-      0
-     ]
+    "to": {
+     "at": {
+      "anchor": "port",
+      "offset": [
+       -3.3,
+       9.4,
+       12.5
+      ]
+     },
+     "look_at": {
+      "anchor": "port",
+      "offset": [
+       -9.0,
+       45.0,
+       -4.0
+      ]
+     },
+     "lens_mm": 30
     },
-    "lens_mm": 35
+    "ease": "in"
    },
    "duration": {
     "fit": true,
     "min": 1.0,
     "tail": 0.15
+   },
+   "look": {
+    "base": "day",
+    "time": "18:40",
+    "weather": {
+     "fog": 0.0,
+     "clouds": 0.0,
+     "wind": 0.3
+    },
+    "sun": {
+     "elevation": 5,
+     "azimuth": 250,
+     "color": "#ffa868",
+     "energy": 2.2,
+     "softness": 0.7,
+     "visible": true,
+     "size": 1.5,
+     "glow": 1.6,
+     "shadows": true
+    },
+    "sky": {
+     "top": "#32466e",
+     "horizon": "#f0a070",
+     "clouds": 0.0
+    },
+    "ambient": {
+     "color": "#6a6478",
+     "energy": 0.34,
+     "sky": 0.5
+    },
+    "fog": {
+     "begin": 100,
+     "end": 1400,
+     "curve": 1.3,
+     "volumetric": 0.004,
+     "color": "#c89880",
+     "anisotropy": 0.7,
+     "length": 300
+    },
+    "glow": {
+     "enabled": true,
+     "intensity": 0.75,
+     "bloom": 0.06,
+     "threshold": 1.05
+    },
+    "ssao": true,
+    "grade": {
+     "contrast": 1.18,
+     "saturation": 1.06,
+     "vignette": 0.46,
+     "grain": 0.04
+    }
    }
   }
  ]

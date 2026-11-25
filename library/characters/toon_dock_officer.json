@@ -1,0 +1,25 @@
+{
+  "id": "toon_dock_officer",
+  "description": "Bombay Port Trust dock officer, 1944: khaki drill and a khaki sola topee.",
+  "tags": [
+    "toon",
+    "human",
+    "bombay_gold"
+  ],
+  "height": 1.6,
+  "idle": "idle",
+  "gait": "walk",
+  "toon": {
+    "hair": {
+      "style": "hardhat",
+      "color": "#c8b07a"
+    },
+    "outfit": {
+      "style": "safari",
+      "color": "#b8a070"
+    },
+    "shoes": "#3a2a1c",
+    "face": "nervous",
+    "mustache": "#3a2a1c"
+  }
+}
