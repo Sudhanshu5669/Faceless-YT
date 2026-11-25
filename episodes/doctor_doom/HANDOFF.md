@@ -25,6 +25,17 @@ All 114 shots are built and have review clips. The user is reviewing in the shot
   >= 2 cm apart at 40 km and >= 6 cm at 200 km. 29 review clips re-rendered (the four above + every non-approved
   board/shop/reels shot).
 
+- **Round 2 (2026-11-25):** the "shaking" was float precision (cameras stepped 1-2 cm at 100-220 km out). Places now
+  sit within 7.2 km of the origin (`P = frame(...)` in places/*.py) and every gag/actor is drawn only in its own place's
+  shots (gag `shown` spans, added to the pipeline + gags.gd; make_episode.py `_shown_in` / `_actors_in`). Actor IK now
+  maps bone names through the retarget (aim_hand did nothing on the realistic Doom). Fixed: shop_stack, castle_king
+  (Doom stands before the throne), doom_hands (real gauntlets: reactor + spell), beyonder_hand (cups the galaxy),
+  reels_mcmahon (posters thrown on a table), lat_chest/lat_vow/mirror_scar/bw_heal (precision).
+- **Waiting on the user:** Kang's photo for the Kang Dynasty card (board_crack/ticket/blank/flip/plan; the download of
+  the Jonathan Majors premiere photo, Wikimedia CC BY-SA 2.0, was blocked pending their OK); hell_fight rigged Devil
+  (candidate: amaraha "Free Rigged Devil", itch.io, CC BY 4.0); bw_throne God Emperor Doom model (only a paid,
+  editorial-only RenderHub model found); optionally a better throne.
+
 ## Next steps
 
 1. The user re-reviews in the shot UI; fix their next verdicts the same way (storyboard, look, render the clip, notify).
