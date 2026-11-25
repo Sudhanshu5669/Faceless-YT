@@ -4,7 +4,7 @@ CAMPUS 1500, MIRROR 1800.
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 220000.0)
+P = frame("board", 7200.0)   # near the origin (float precision); gags are shown only in their shots
 H, HO, CI, DR, RE, CA, MI = 0.0, 300.0, 600.0, 900.0, 1200.0, 1500.0, 1800.0
 
 _NIGHT = {

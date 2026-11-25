@@ -41,12 +41,77 @@ def placeholder_camera(place):
             "lens_mm": 35}
 
 
+def _shown_in(gags, own):
+    """Each place's gags are drawn only during the place's own shots. The places used to be kept apart by distance
+    (20-220 km out), which cost float precision: cameras stepped in 1-2 cm jumps (the 'shaking') and layered
+    decals z-fought. Now they all sit within ~7 km of the origin and only the active one is visible."""
+    order = [l[1] for l in LINES]
+    spans, i = [], 0
+    while i < len(order):
+        if order[i] in own:
+            j = i
+            while j + 1 < len(order) and order[j + 1] in own:
+                j += 1
+            end = {"shot": order[j + 1]} if j + 1 < len(order) else {"line": LINES[-1][0], "edge": "end", "offset": 30.0}
+            spans.append([{"shot": order[i]}, end])
+            i = j + 1
+        else:
+            i += 1
+    out = []
+    for g in gags:
+        g = dict(g)
+        if spans and "shown" not in g:
+            g["shown"] = spans
+        out.append(g)
+    return out
+
+
+def _runs(order, keep):
+    """[from, to] shot-ref spans covering the shots of `order` whose index is in `keep`."""
+    spans, i = [], 0
+    while i < len(order):
+        if i in keep:
+            j = i
+            while j + 1 in keep:
+                j += 1
+            end = {"shot": order[j + 1]} if j + 1 < len(order) else {"line": LINES[-1][0], "edge": "end", "offset": 30.0}
+            spans.append([{"shot": order[i]}, end])
+            i = j + 1
+        else:
+            i += 1
+    return spans
+
+
+def _actors_in(actors, own):
+    """An actor's "shown" spans clipped to its place's own shots (so it never appears in a neighbouring place now that
+    the places sit close together). Spans must be written as shot references."""
+    order = [l[1] for l in LINES]
+    idx = {n: k for k, n in enumerate(order)}
+    mine = {idx[n] for n in own if n in idx}
+    out = []
+    for a in actors:
+        a = dict(a)
+        if "shown" in a:
+            cover = set()
+            for sp in a["shown"]:
+                if not (isinstance(sp[0], dict) and "shot" in sp[0]):
+                    raise SystemExit(f"actor {a['id']}: 'shown' spans must start on a shot reference to be clipped")
+                # The end: the next shot's start, or anything else (a word in the last shot) = to the end.
+                stop = idx[sp[1]["shot"]] if isinstance(sp[1], dict) and sp[1].get("shot") else len(order)
+                cover |= set(range(idx[sp[0]["shot"]], stop))
+            a["shown"] = _runs(order, cover & mine)
+        else:
+            a["shown"] = _runs(order, mine)
+        out.append(a)
+    return out
+
+
 def build():
     gags, actors, reveals, overrides = [], [], [], {}
     for mod in PLACE_MODULES:
         place = importlib.import_module("places." + mod).PLACE
-        gags += place["gags"]
-        actors += place["actors"]
+        gags += _shown_in(place["gags"], set(place["shots"]))
+        actors += _actors_in(place["actors"], set(place["shots"]))
         reveals += place.get("reveals", [])
         overrides.update(place["shots"])
     shots = []

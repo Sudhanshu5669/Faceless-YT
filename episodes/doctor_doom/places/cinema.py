@@ -9,7 +9,7 @@ the hall erupts), cinema_trailer (r16: the fans lit by the trailer), cinema_marq
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 80000.0)
+P = frame("board", -2400.0)   # near the origin (float precision); gags are shown only in their shots
 ROW0_Z, ROW0_Y = -7.45, 0.35
 
 LOOK_CINEMA = {

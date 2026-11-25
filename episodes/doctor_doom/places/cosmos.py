@@ -6,7 +6,7 @@ Battleworld r 30; GOD (0,0,1800) the throne at (0, 0.55, 1794); EARTH (0,0,2600)
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 180000.0)
+P = frame("board", 6000.0)   # near the origin (float precision); gags are shown only in their shots
 SK = -6000.0
 VO, WO, GO, EA, PA = 600.0, 1200.0, 1800.0, 5000.0, 7000.0
 

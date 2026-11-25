@@ -9,7 +9,7 @@ grows at the tree's foot while the boy stands.
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 140000.0)
+P = frame("board", 4800.0)   # near the origin (float precision); gags are shown only in their shots
 WG, FO, CH, LI = (0.0, 300.0), (300.0, 0.0), (0.0, 600.0), (-3000.0, 0.0)
 
 _BASE = {

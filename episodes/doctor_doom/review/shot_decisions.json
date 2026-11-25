@@ -91,8 +91,8 @@
   },
   "board_plan": {
     "status": "changes",
-    "note": "again, posters",
-    "updated": "2026-11-24 22:33:02",
+    "note": "Put kang's photo in the kang dynasty placeholder there.",
+    "updated": "2026-11-25 10:39:17",
     "fingerprint": "e90aa330294c",
     "history": [
       {
@@ -100,6 +100,12 @@
         "note": "Demo look approved 2026-11-24: 'this is the level of grand I am looking for'. Soft spots in HANDOFF still to fix.",
         "updated": "2026-11-24 16:59:40",
         "fingerprint": "c4fd0875ed88"
+      },
+      {
+        "status": "changes",
+        "note": "again, posters",
+        "updated": "2026-11-24 22:33:02",
+        "fingerprint": "e90aa330294c"
       }
     ]
   },
@@ -153,25 +159,46 @@
     "history": []
   },
   "board_comic": {
-    "status": "changes",
+    "status": "approved",
     "note": "the scene is shaking so much, and, the cover clips white after falling.",
-    "updated": "2026-11-24 22:30:44",
-    "fingerprint": "11bac5c2e137",
-    "history": []
+    "updated": "2026-11-25 10:38:17",
+    "fingerprint": "156d0ed40c26",
+    "history": [
+      {
+        "status": "changes",
+        "note": "the scene is shaking so much, and, the cover clips white after falling.",
+        "updated": "2026-11-24 22:30:44",
+        "fingerprint": "11bac5c2e137"
+      }
+    ]
   },
   "board_crack": {
     "status": "changes",
-    "note": "i want posters here instead of name placeholders",
-    "updated": "2026-11-24 22:31:04",
+    "note": "Put kang's photo in the kang dynasty placeholder there.",
+    "updated": "2026-11-25 10:38:44",
     "fingerprint": "1f347d820ea2",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "i want posters here instead of name placeholders",
+        "updated": "2026-11-24 22:31:04",
+        "fingerprint": "1f347d820ea2"
+      }
+    ]
   },
   "cinema_ticket": {
-    "status": "changes",
+    "status": "approved",
     "note": "This is such a horrible scene",
-    "updated": "2026-11-24 22:31:19",
-    "fingerprint": "9d7105c29e62",
-    "history": []
+    "updated": "2026-11-25 10:25:04",
+    "fingerprint": "6b3a06b93ac8",
+    "history": [
+      {
+        "status": "changes",
+        "note": "This is such a horrible scene",
+        "updated": "2026-11-24 22:31:19",
+        "fingerprint": "9d7105c29e62"
+      }
+    ]
   },
   "cinema_2019": {
     "status": "approved",
@@ -210,17 +237,31 @@
   },
   "board_blank": {
     "status": "changes",
-    "note": "posters, again pls",
-    "updated": "2026-11-24 22:31:59",
+    "note": "Put kang's photo in the kang dynasty placeholder there.",
+    "updated": "2026-11-25 10:39:04",
     "fingerprint": "6c1124e86b94",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "posters, again pls",
+        "updated": "2026-11-24 22:31:59",
+        "fingerprint": "6c1124e86b94"
+      }
+    ]
   },
   "board_flip": {
     "status": "changes",
-    "note": "dont flip the photo, just show it clearly",
-    "updated": "2026-11-24 22:32:23",
+    "note": "Put kang's photo in the kang dynasty placeholder there.",
+    "updated": "2026-11-25 10:39:10",
     "fingerprint": "2ec7c5d21af0",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "dont flip the photo, just show it clearly",
+        "updated": "2026-11-24 22:32:23",
+        "fingerprint": "2ec7c5d21af0"
+      }
+    ]
   },
   "hall_2022": {
     "status": "approved",
@@ -244,22 +285,35 @@
     "history": []
   },
   "board_arrest": {
-    "status": "changes",
+    "status": "approved",
     "note": "why he got 2 glasses",
-    "updated": "2026-11-24 22:33:30",
+    "updated": "2026-11-25 10:26:00",
     "fingerprint": "42af709ae524",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "why he got 2 glasses",
+        "updated": "2026-11-24 22:33:30",
+        "fingerprint": "42af709ae524"
+      }
+    ]
   },
   "shop_cover": {
-    "status": "changes",
+    "status": "approved",
     "note": "cover is not visible. also, show the comic falling on floor in this shot too",
-    "updated": "2026-11-24 22:34:36",
+    "updated": "2026-11-25 10:26:32",
     "fingerprint": "aea2f345f9ea",
     "history": [
       {
         "status": "approved",
         "note": "",
         "updated": "2026-11-24 22:34:03",
+        "fingerprint": "aea2f345f9ea"
+      },
+      {
+        "status": "changes",
+        "note": "cover is not visible. also, show the comic falling on floor in this shot too",
+        "updated": "2026-11-24 22:34:36",
         "fingerprint": "aea2f345f9ea"
       }
     ]
@@ -301,10 +355,17 @@
   },
   "shop_stack": {
     "status": "changes",
-    "note": "images not shown again, and whole shot shaky",
-    "updated": "2026-11-24 22:35:35",
+    "note": "Fix the shakiness again, and make the comic covers bigger so they are more clearly visible",
+    "updated": "2026-11-25 10:27:13",
     "fingerprint": "abe8a07ca0b0",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "images not shown again, and whole shot shaky",
+        "updated": "2026-11-24 22:35:35",
+        "fingerprint": "abe8a07ca0b0"
+      }
+    ]
   },
   "lab_double": {
     "status": "approved",
@@ -314,11 +375,18 @@
     "history": []
   },
   "lat_valley": {
-    "status": "changes",
+    "status": "approved",
     "note": "the peaks are glitching",
-    "updated": "2026-11-24 22:36:05",
+    "updated": "2026-11-25 10:27:19",
     "fingerprint": "79b52d1e4706",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "the peaks are glitching",
+        "updated": "2026-11-24 22:36:05",
+        "fingerprint": "79b52d1e4706"
+      }
+    ]
   },
   "lat_wagon": {
     "status": "approved",
@@ -329,17 +397,31 @@
   },
   "lat_chest": {
     "status": "changes",
-    "note": "green clipping",
-    "updated": "2026-11-24 22:36:46",
+    "note": "The whole shot is shaking",
+    "updated": "2026-11-25 10:29:02",
     "fingerprint": "267a909b04bc",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "green clipping",
+        "updated": "2026-11-24 22:36:46",
+        "fingerprint": "267a909b04bc"
+      }
+    ]
   },
   "lat_vow": {
     "status": "changes",
-    "note": "camera shaky? whats this issue",
-    "updated": "2026-11-24 22:37:00",
+    "note": "Camera is shaky again",
+    "updated": "2026-11-25 10:29:11",
     "fingerprint": "cb95e9dea1db",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "camera shaky? whats this issue",
+        "updated": "2026-11-24 22:37:00",
+        "fingerprint": "cb95e9dea1db"
+      }
+    ]
   },
   "liner_deck": {
     "status": "approved",
@@ -357,24 +439,45 @@
   },
   "mirror_scar": {
     "status": "changes",
-    "note": "everything is shaky again and clipping into itself",
-    "updated": "2026-11-24 22:37:52",
-    "fingerprint": "8a3ee74d98bb",
-    "history": []
+    "note": "Everything is shaking",
+    "updated": "2026-11-25 10:29:26",
+    "fingerprint": "1e792c70b872",
+    "history": [
+      {
+        "status": "changes",
+        "note": "everything is shaky again and clipping into itself",
+        "updated": "2026-11-24 22:37:52",
+        "fingerprint": "8a3ee74d98bb"
+      }
+    ]
   },
   "tibet_cliff": {
-    "status": "changes",
+    "status": "approved",
     "note": "peaks glitching again",
-    "updated": "2026-11-24 22:38:20",
+    "updated": "2026-11-25 10:29:36",
     "fingerprint": "6ea2d1a4c74c",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "peaks glitching again",
+        "updated": "2026-11-24 22:38:20",
+        "fingerprint": "6ea2d1a4c74c"
+      }
+    ]
   },
   "tibet_forge": {
-    "status": "changes",
+    "status": "approved",
     "note": "hammer hitting in the air wtf",
-    "updated": "2026-11-24 22:38:38",
+    "updated": "2026-11-25 10:29:40",
     "fingerprint": "72b98155ed93",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "hammer hitting in the air wtf",
+        "updated": "2026-11-24 22:38:38",
+        "fingerprint": "72b98155ed93"
+      }
+    ]
   },
   "castle_gates": {
     "status": "approved",
@@ -392,10 +495,17 @@
   },
   "castle_king": {
     "status": "changes",
-    "note": "he clipping in the chair? make him sit properly",
-    "updated": "2026-11-24 22:39:26",
+    "note": "Make him stand in front of the throne, facing the throne and looking at it instead of sitting like this. him sitting like this is not looking cool.",
+    "updated": "2026-11-25 10:30:35",
     "fingerprint": "9f027a6171c0",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "he clipping in the chair? make him sit properly",
+        "updated": "2026-11-24 22:39:26",
+        "fingerprint": "9f027a6171c0"
+      }
+    ]
   },
   "throne_wide": {
     "status": "approved",
@@ -419,11 +529,18 @@
     "history": []
   },
   "doom_hands": {
-    "status": "approved",
-    "note": "",
-    "updated": "2026-11-24 22:39:53",
+    "status": "changes",
+    "note": "The model is very weird tbh.",
+    "updated": "2026-11-25 10:31:32",
     "fingerprint": "22c94b7d5315",
-    "history": []
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:39:53",
+        "fingerprint": "22c94b7d5315"
+      }
+    ]
   },
   "doombots_row": {
     "status": "approved",
@@ -440,11 +557,18 @@
     "history": []
   },
   "hell_fight": {
-    "status": "approved",
-    "note": "",
-    "updated": "2026-11-24 22:40:08",
-    "fingerprint": "3d8e1228a178",
-    "history": []
+    "status": "changes",
+    "note": "download some kind of devil's model for this. find a good one. make sure the model is rigged so we can show the devil looking at doom as doom tries to attack him",
+    "updated": "2026-11-25 10:32:35",
+    "fingerprint": "ba2768daa26b",
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:40:08",
+        "fingerprint": "3d8e1228a178"
+      }
+    ]
   },
   "surfer_sky": {
     "status": "approved",
@@ -462,10 +586,17 @@
   },
   "beyonder_hand": {
     "status": "changes",
-    "note": "whhy he shaking?!",
-    "updated": "2026-11-24 22:40:33",
+    "note": "He is shaking, i want it changed and made stable. also, the model is rigged, so why are you not making an animation of him holding the universe in his hands and looking at it",
+    "updated": "2026-11-25 10:33:35",
     "fingerprint": "a932e8c5702b",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "whhy he shaking?!",
+        "updated": "2026-11-24 22:40:33",
+        "fingerprint": "a932e8c5702b"
+      }
+    ]
   },
   "bw_planet": {
     "status": "approved",
@@ -482,18 +613,32 @@
     "history": []
   },
   "bw_throne": {
-    "status": "approved",
-    "note": "",
-    "updated": "2026-11-24 22:40:52",
+    "status": "changes",
+    "note": "Try to find a god emperor doom model",
+    "updated": "2026-11-25 10:34:01",
     "fingerprint": "08a80481537f",
-    "history": []
+    "history": [
+      {
+        "status": "approved",
+        "note": "",
+        "updated": "2026-11-24 22:40:52",
+        "fingerprint": "08a80481537f"
+      }
+    ]
   },
   "bw_heal": {
     "status": "changes",
-    "note": "shaking, wtf",
-    "updated": "2026-11-24 22:41:02",
+    "note": "Its shaking again",
+    "updated": "2026-11-25 10:34:12",
     "fingerprint": "ae8553529a13",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "shaking, wtf",
+        "updated": "2026-11-24 22:41:02",
+        "fingerprint": "ae8553529a13"
+      }
+    ]
   },
   "emp_cloak": {
     "status": "changes",
@@ -503,11 +648,18 @@
     "history": []
   },
   "board_titles": {
-    "status": "changes",
+    "status": "approved",
     "note": "posters pls",
-    "updated": "2026-11-24 22:41:44",
+    "updated": "2026-11-25 10:34:38",
     "fingerprint": "b967bfe99a8a",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "posters pls",
+        "updated": "2026-11-24 22:41:44",
+        "fingerprint": "b967bfe99a8a"
+      }
+    ]
   },
   "hosp_bed": {
     "status": "changes",
@@ -567,10 +719,17 @@
   },
   "reels_mcmahon": {
     "status": "changes",
-    "note": "glitching. i need posters",
-    "updated": "2026-11-24 22:43:00",
-    "fingerprint": "a8a7efde3dc7",
-    "history": []
+    "note": "Just show posters being thrown on table instead of this",
+    "updated": "2026-11-25 10:36:07",
+    "fingerprint": "0a2c106f10f1",
+    "history": [
+      {
+        "status": "changes",
+        "note": "glitching. i need posters",
+        "updated": "2026-11-24 22:43:00",
+        "fingerprint": "a8a7efde3dc7"
+      }
+    ]
   },
   "gal_mirror": {
     "status": "approved",
@@ -601,11 +760,18 @@
     "history": []
   },
   "board_contract": {
-    "status": "rejected",
+    "status": "approved",
     "note": "show rdj swimming in cash here",
-    "updated": "2026-11-24 22:43:50",
-    "fingerprint": "ac352e4a2d3f",
-    "history": []
+    "updated": "2026-11-25 10:36:44",
+    "fingerprint": "bbd36dcf6e67",
+    "history": [
+      {
+        "status": "rejected",
+        "note": "show rdj swimming in cash here",
+        "updated": "2026-11-24 22:43:50",
+        "fingerprint": "ac352e4a2d3f"
+      }
+    ]
   },
   "board_question": {
     "status": "approved",
@@ -643,11 +809,18 @@
     "history": []
   },
   "gal_eye": {
-    "status": "changes",
+    "status": "approved",
     "note": "btw can we get a better doom mask here",
-    "updated": "2026-11-24 22:44:41",
-    "fingerprint": "8658eb00d19f",
-    "history": []
+    "updated": "2026-11-25 10:37:24",
+    "fingerprint": "9b900682deb9",
+    "history": [
+      {
+        "status": "changes",
+        "note": "btw can we get a better doom mask here",
+        "updated": "2026-11-24 22:44:41",
+        "fingerprint": "8658eb00d19f"
+      }
+    ]
   },
   "cinema_marquee": {
     "status": "approved",
@@ -689,6 +862,125 @@
     "note": "",
     "updated": "2026-11-24 22:45:13",
     "fingerprint": "b00d91d2a483",
+    "history": []
+  },
+  "board_loki": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:25:32",
+    "fingerprint": "1f0bcd858312",
+    "history": []
+  },
+  "board_quantum": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:25:35",
+    "fingerprint": "d6237978a806",
+    "history": []
+  },
+  "board_chart": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:25:48",
+    "fingerprint": "8cec6346636a",
+    "history": []
+  },
+  "board_fade": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:25:54",
+    "fingerprint": "e1b5736cfac5",
+    "history": []
+  },
+  "board_fall": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:26:07",
+    "fingerprint": "5a560dd250b5",
+    "history": []
+  },
+  "board_empty": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:26:12",
+    "fingerprint": "ab51d41a4871",
+    "history": []
+  },
+  "board_fast": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:26:16",
+    "fingerprint": "2986bb162cd4",
+    "history": []
+  },
+  "shop_night": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:26:20",
+    "fingerprint": "e2975687e935",
+    "history": []
+  },
+  "shop_box": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:26:24",
+    "fingerprint": "6f3910c8dee3",
+    "history": []
+  },
+  "shop_meet": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:26:37",
+    "fingerprint": "13f1b1f5f919",
+    "history": []
+  },
+  "lat_castle": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:27:26",
+    "fingerprint": "6eec268a3d25",
+    "history": []
+  },
+  "lat_healer": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:27:30",
+    "fingerprint": "e52008cf95db",
+    "history": []
+  },
+  "lat_flee": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:28:47",
+    "fingerprint": "c7732f00cf5e",
+    "history": []
+  },
+  "lat_freeze": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:28:49",
+    "fingerprint": "1505084d69f4",
+    "history": []
+  },
+  "tibet_mask": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:29:46",
+    "fingerprint": "aaef6a28a5bd",
+    "history": []
+  },
+  "emp_globe": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 10:34:33",
+    "fingerprint": "abe338052a7a",
+    "history": []
+  },
+  "board_ticket": {
+    "status": "changes",
+    "note": "Put kang's photo in the kang dynasty placeholder there.",
+    "updated": "2026-11-25 10:38:52",
+    "fingerprint": "8ba1555f5370",
     "history": []
   }
 }

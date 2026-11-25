@@ -10,7 +10,7 @@ gal_eye (r17: the eye behind the slit moves on "different.").
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 60000.0)
+P = frame("board", 2400.0)   # near the origin (float precision); gags are shown only in their shots
 HX, MX, C = -1.1, 1.1, 1.42
 
 LOOK_GALLERY = {

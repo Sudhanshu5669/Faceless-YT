@@ -1745,8 +1745,7 @@
    "shown": [
     [
      {
-      "shot": "hall_wide",
-      "offset": -0.1
+      "shot": "hall_wide"
      },
      {
       "shot": "gal_helmet"
@@ -1754,8 +1753,7 @@
     ],
     [
      {
-      "shot": "hall_why",
-      "offset": -0.1
+      "shot": "hall_why"
      },
      {
       "shot": "dress_oscar"
@@ -1763,8 +1761,7 @@
     ],
     [
      {
-      "shot": "hall_russos",
-      "offset": -0.1
+      "shot": "hall_russos"
      },
      {
       "shot": "board_contract"
@@ -1772,13 +1769,12 @@
     ],
     [
      {
-      "shot": "hall_end",
-      "offset": -0.1
+      "shot": "hall_end"
      },
      {
       "line": "e2",
-      "word": "task.",
-      "offset": 3.0
+      "edge": "end",
+      "offset": 30.0
      }
     ]
    ]
@@ -1836,8 +1832,7 @@
    "shown": [
     [
      {
-      "shot": "hall_wide",
-      "offset": -0.1
+      "shot": "hall_wide"
      },
      {
       "shot": "gal_helmet"
@@ -1845,8 +1840,7 @@
     ],
     [
      {
-      "shot": "hall_why",
-      "offset": -0.1
+      "shot": "hall_why"
      },
      {
       "shot": "dress_oscar"
@@ -1854,8 +1848,7 @@
     ],
     [
      {
-      "shot": "hall_russos",
-      "offset": -0.1
+      "shot": "hall_russos"
      },
      {
       "shot": "board_contract"
@@ -1863,13 +1856,12 @@
     ],
     [
      {
-      "shot": "hall_end",
-      "offset": -0.1
+      "shot": "hall_end"
      },
      {
       "line": "e2",
-      "word": "task.",
-      "offset": 3.0
+      "edge": "end",
+      "offset": 30.0
      }
     ]
    ]
@@ -1927,8 +1919,7 @@
    "shown": [
     [
      {
-      "shot": "hall_wide",
-      "offset": -0.1
+      "shot": "hall_wide"
      },
      {
       "shot": "gal_helmet"
@@ -1936,8 +1927,7 @@
     ],
     [
      {
-      "shot": "hall_why",
-      "offset": -0.1
+      "shot": "hall_why"
      },
      {
       "shot": "dress_oscar"
@@ -1945,8 +1935,7 @@
     ],
     [
      {
-      "shot": "hall_russos",
-      "offset": -0.1
+      "shot": "hall_russos"
      },
      {
       "shot": "board_contract"
@@ -1954,13 +1943,12 @@
     ],
     [
      {
-      "shot": "hall_end",
-      "offset": -0.1
+      "shot": "hall_end"
      },
      {
       "line": "e2",
-      "word": "task.",
-      "offset": 3.0
+      "edge": "end",
+      "offset": 30.0
      }
     ]
    ]
@@ -2018,8 +2006,7 @@
    "shown": [
     [
      {
-      "shot": "hall_wide",
-      "offset": -0.1
+      "shot": "hall_wide"
      },
      {
       "shot": "gal_helmet"
@@ -2027,8 +2014,7 @@
     ],
     [
      {
-      "shot": "hall_why",
-      "offset": -0.1
+      "shot": "hall_why"
      },
      {
       "shot": "dress_oscar"
@@ -2036,8 +2022,7 @@
     ],
     [
      {
-      "shot": "hall_russos",
-      "offset": -0.1
+      "shot": "hall_russos"
      },
      {
       "shot": "board_contract"
@@ -2045,13 +2030,12 @@
     ],
     [
      {
-      "shot": "hall_end",
-      "offset": -0.1
+      "shot": "hall_end"
      },
      {
       "line": "e2",
-      "word": "task.",
-      "offset": 3.0
+      "edge": "end",
+      "offset": 30.0
      }
     ]
    ]
@@ -2109,8 +2093,7 @@
    "shown": [
     [
      {
-      "shot": "hall_wide",
-      "offset": -0.1
+      "shot": "hall_wide"
      },
      {
       "shot": "gal_helmet"
@@ -2118,8 +2101,7 @@
     ],
     [
      {
-      "shot": "hall_why",
-      "offset": -0.1
+      "shot": "hall_why"
      },
      {
       "shot": "dress_oscar"
@@ -2127,8 +2109,7 @@
     ],
     [
      {
-      "shot": "hall_russos",
-      "offset": -0.1
+      "shot": "hall_russos"
      },
      {
       "shot": "board_contract"
@@ -2136,13 +2117,12 @@
     ],
     [
      {
-      "shot": "hall_end",
-      "offset": -0.1
+      "shot": "hall_end"
      },
      {
       "line": "e2",
-      "word": "task.",
-      "offset": 3.0
+      "edge": "end",
+      "offset": 30.0
      }
     ]
    ]
@@ -2200,8 +2180,7 @@
    "shown": [
     [
      {
-      "shot": "hall_wide",
-      "offset": -0.1
+      "shot": "hall_wide"
      },
      {
       "shot": "gal_helmet"
@@ -2209,8 +2188,7 @@
     ],
     [
      {
-      "shot": "hall_why",
-      "offset": -0.1
+      "shot": "hall_why"
      },
      {
       "shot": "dress_oscar"
@@ -2218,8 +2196,7 @@
     ],
     [
      {
-      "shot": "hall_russos",
-      "offset": -0.1
+      "shot": "hall_russos"
      },
      {
       "shot": "board_contract"
@@ -2227,13 +2204,12 @@
     ],
     [
      {
-      "shot": "hall_end",
-      "offset": -0.1
+      "shot": "hall_end"
      },
      {
       "line": "e2",
-      "word": "task.",
-      "offset": 3.0
+      "edge": "end",
+      "offset": 30.0
      }
     ]
    ]
@@ -2291,8 +2267,7 @@
    "shown": [
     [
      {
-      "shot": "hall_wide",
-      "offset": -0.1
+      "shot": "hall_wide"
      },
      {
       "shot": "gal_helmet"
@@ -2300,8 +2275,7 @@
     ],
     [
      {
-      "shot": "hall_why",
-      "offset": -0.1
+      "shot": "hall_why"
      },
      {
       "shot": "dress_oscar"
@@ -2309,8 +2283,7 @@
     ],
     [
      {
-      "shot": "hall_russos",
-      "offset": -0.1
+      "shot": "hall_russos"
      },
      {
       "shot": "board_contract"
@@ -2318,13 +2291,12 @@
     ],
     [
      {
-      "shot": "hall_end",
-      "offset": -0.1
+      "shot": "hall_end"
      },
      {
       "line": "e2",
-      "word": "task.",
-      "offset": 3.0
+      "edge": "end",
+      "offset": 30.0
      }
     ]
    ]
@@ -2353,8 +2325,7 @@
    "shown": [
     [
      {
-      "shot": "hall_2022",
-      "offset": -0.1
+      "shot": "hall_2022"
      },
      {
       "shot": "board_plan"
@@ -2399,8 +2370,7 @@
    "shown": [
     [
      {
-      "shot": "hall_russos",
-      "offset": -0.1
+      "shot": "hall_russos"
      },
      {
       "shot": "board_contract"
@@ -2445,8 +2415,7 @@
    "shown": [
     [
      {
-      "shot": "hall_russos",
-      "offset": -0.1
+      "shot": "hall_russos"
      },
      {
       "shot": "board_contract"
@@ -2475,7 +2444,7 @@
     "offset": [
      -1.5,
      0,
-     19998.85
+     1198.85
     ]
    },
    "facing": {
@@ -2483,7 +2452,7 @@
     "offset": [
      -1.5,
      0,
-     19995.0
+     1195.0
     ]
    },
    "action": "idle",
@@ -2503,7 +2472,7 @@
       "offset": [
        1.0,
        0,
-       19999.4
+       1199.4
       ]
      }
     },
@@ -2525,7 +2494,7 @@
       "offset": [
        -1.5,
        0,
-       19995.0
+       1195.0
       ]
      },
      "expression": "scheming"
@@ -2537,6 +2506,24 @@
      },
      "expression": "shocked"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "lab_double"
+     },
+     {
+      "shot": "lat_valley"
+     }
+    ],
+    [
+     {
+      "shot": "lab_machine"
+     },
+     {
+      "shot": "campus_gates"
+     }
+    ]
    ]
   },
   {
@@ -2547,7 +2534,7 @@
     "offset": [
      2.0,
      0,
-     19997.7
+     1197.7
     ]
    },
    "facing": {
@@ -2555,7 +2542,7 @@
     "offset": [
      -1.5,
      0,
-     19998.85
+     1198.85
     ]
    },
    "action": "idle",
@@ -2582,7 +2569,7 @@
       "offset": [
        -1.5,
        0,
-       19999.0
+       1199.0
       ]
      },
      "expression": "nervous"
@@ -2594,6 +2581,24 @@
      },
      "expression": "shocked"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "lab_double"
+     },
+     {
+      "shot": "lat_valley"
+     }
+    ],
+    [
+     {
+      "shot": "lab_machine"
+     },
+     {
+      "shot": "campus_gates"
+     }
+    ]
    ]
   },
   {
@@ -2604,7 +2609,7 @@
     "offset": [
      -0.75,
      0,
-     39995.15
+     -1204.85
     ]
    },
    "facing": {
@@ -2612,15 +2617,14 @@
     "offset": [
      -0.0,
      0,
-     39994.0
+     -1206.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "board_comic",
-      "offset": -0.1
+      "shot": "board_comic"
      },
      {
       "shot": "cinema_ticket"
@@ -2628,8 +2632,15 @@
     ],
     [
      {
-      "shot": "board_blank",
-      "offset": -0.1
+      "shot": "board_blank"
+     },
+     {
+      "shot": "hall_2022"
+     }
+    ],
+    [
+     {
+      "shot": "board_plan"
      },
      {
       "shot": "shop_night"
@@ -2637,8 +2648,7 @@
     ],
     [
      {
-      "shot": "board_titles",
-      "offset": -0.1
+      "shot": "board_titles"
      },
      {
       "shot": "hosp_bed"
@@ -2674,7 +2684,7 @@
       "offset": [
        -3.3,
        0,
-       39996.4
+       -1203.6
       ]
      },
      "expression": "nervous"
@@ -2696,7 +2706,7 @@
       "offset": [
        -0.75,
        0,
-       40002.0
+       -1198.0
       ]
      },
      "expression": "shocked"
@@ -2711,7 +2721,7 @@
       "offset": [
        -0.75,
        0,
-       40002.0
+       -1198.0
       ]
      },
      "expression": "surprised"
@@ -2733,7 +2743,7 @@
       "offset": [
        -0.0,
        0,
-       39994.0
+       -1206.0
       ]
      },
      "expression": "determined"
@@ -2748,7 +2758,7 @@
       "offset": [
        -0.75,
        0,
-       40002.0
+       -1198.0
       ]
      },
      "expression": "panic"
@@ -2770,7 +2780,7 @@
       "offset": [
        -0.0,
        0,
-       39994.0
+       -1206.0
       ]
      },
      "expression": "scheming"
@@ -2785,7 +2795,7 @@
     "offset": [
      -0.0,
      0,
-     40002.75
+     -1197.25
     ]
    },
    "facing": {
@@ -2793,15 +2803,14 @@
     "offset": [
      -0.0,
      0,
-     39996.0
+     -1204.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "board_contract",
-      "offset": -0.1
+      "shot": "board_contract"
      },
      {
       "shot": "rocket_pad"
@@ -2844,7 +2853,7 @@
     "offset": [
      -2.6,
      0.5,
-     39999.1
+     -1200.9
     ]
    },
    "facing": {
@@ -2852,7 +2861,7 @@
     "offset": [
      -0.6,
      0.5,
-     40001.5
+     -1198.5
     ]
    },
    "keep_y": true,
@@ -2860,8 +2869,7 @@
    "shown": [
     [
      {
-      "shot": "board_contract",
-      "offset": -0.1
+      "shot": "board_contract"
      },
      {
       "shot": "board_question"
@@ -2890,7 +2898,7 @@
     "offset": [
      2.1,
      0.35,
-     79992.55
+     -2407.45
     ]
    },
    "facing": {
@@ -2898,7 +2906,7 @@
     "offset": [
      2.1,
      0.35,
-     79986.0
+     -2414.0
     ]
    },
    "keep_y": true,
@@ -2930,6 +2938,40 @@
      },
      "expression": "shocked"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "cinema_ticket"
+     },
+     {
+      "shot": "gal_farewell"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_2008"
+     },
+     {
+      "shot": "gal_return"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_trailer"
+     },
+     {
+      "shot": "gal_eye"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_marquee"
+     },
+     {
+      "shot": "castle_night"
+     }
+    ]
    ]
   },
   {
@@ -2940,7 +2982,7 @@
     "offset": [
      1.45,
      0.35,
-     79992.55
+     -2407.45
     ]
    },
    "facing": {
@@ -2948,7 +2990,7 @@
     "offset": [
      1.45,
      0.35,
-     79986.0
+     -2414.0
     ]
    },
    "keep_y": true,
@@ -2980,6 +3022,40 @@
      },
      "expression": "shocked"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "cinema_ticket"
+     },
+     {
+      "shot": "gal_farewell"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_2008"
+     },
+     {
+      "shot": "gal_return"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_trailer"
+     },
+     {
+      "shot": "gal_eye"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_marquee"
+     },
+     {
+      "shot": "castle_night"
+     }
+    ]
    ]
   },
   {
@@ -2990,7 +3066,7 @@
     "offset": [
      0.8,
      0.35,
-     79992.55
+     -2407.45
     ]
    },
    "facing": {
@@ -2998,7 +3074,7 @@
     "offset": [
      0.8,
      0.35,
-     79986.0
+     -2414.0
     ]
    },
    "keep_y": true,
@@ -3030,6 +3106,40 @@
      },
      "expression": "shocked"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "cinema_ticket"
+     },
+     {
+      "shot": "gal_farewell"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_2008"
+     },
+     {
+      "shot": "gal_return"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_trailer"
+     },
+     {
+      "shot": "gal_eye"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_marquee"
+     },
+     {
+      "shot": "castle_night"
+     }
+    ]
    ]
   },
   {
@@ -3040,7 +3150,7 @@
     "offset": [
      -0.8,
      0.35,
-     79992.55
+     -2407.45
     ]
    },
    "facing": {
@@ -3048,7 +3158,7 @@
     "offset": [
      -0.8,
      0.35,
-     79986.0
+     -2414.0
     ]
    },
    "keep_y": true,
@@ -3080,6 +3190,40 @@
      },
      "expression": "shocked"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "cinema_ticket"
+     },
+     {
+      "shot": "gal_farewell"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_2008"
+     },
+     {
+      "shot": "gal_return"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_trailer"
+     },
+     {
+      "shot": "gal_eye"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_marquee"
+     },
+     {
+      "shot": "castle_night"
+     }
+    ]
    ]
   },
   {
@@ -3090,7 +3234,7 @@
     "offset": [
      -1.45,
      0.35,
-     79992.55
+     -2407.45
     ]
    },
    "facing": {
@@ -3098,7 +3242,7 @@
     "offset": [
      -1.45,
      0.35,
-     79986.0
+     -2414.0
     ]
    },
    "keep_y": true,
@@ -3130,6 +3274,40 @@
      },
      "expression": "shocked"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "cinema_ticket"
+     },
+     {
+      "shot": "gal_farewell"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_2008"
+     },
+     {
+      "shot": "gal_return"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_trailer"
+     },
+     {
+      "shot": "gal_eye"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_marquee"
+     },
+     {
+      "shot": "castle_night"
+     }
+    ]
    ]
   },
   {
@@ -3140,7 +3318,7 @@
     "offset": [
      0.35,
      0,
-     99999.25
+     3599.25
     ]
    },
    "facing": {
@@ -3148,7 +3326,7 @@
     "offset": [
      0.35,
      0,
-     100003.0
+     3603.0
     ]
    },
    "action": "idle",
@@ -3185,6 +3363,40 @@
      },
      "expression": "star_eyes"
     }
+   ],
+   "shown": [
+    [
+     {
+      "shot": "shop_night"
+     },
+     {
+      "shot": "doom62_kidnap"
+     }
+    ],
+    [
+     {
+      "shot": "shop_stack"
+     },
+     {
+      "shot": "lab_double"
+     }
+    ],
+    [
+     {
+      "shot": "shop_rise"
+     },
+     {
+      "shot": "hall_why"
+     }
+    ],
+    [
+     {
+      "shot": "shop_wait"
+     },
+     {
+      "shot": "gal_mirror"
+     }
+    ]
    ]
   },
   {
@@ -3195,7 +3407,7 @@
     "offset": [
      -0.5,
      0,
-     199997.3
+     -6002.7
     ]
    },
    "facing": {
@@ -3203,15 +3415,14 @@
     "offset": [
      2.2,
      0,
-     199998.5
+     -6001.5
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doom62_kidnap",
-      "offset": -0.1
+      "shot": "doom62_kidnap"
      },
      {
       "shot": "pirate_chest"
@@ -3233,7 +3444,7 @@
     "offset": [
      -0.9,
      0,
-     200000.3
+     -5999.7
     ]
    },
    "facing": {
@@ -3241,15 +3452,14 @@
     "offset": [
      -0.9,
      0,
-     200006.0
+     -5994.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doom62_feet",
-      "offset": -0.1
+      "shot": "doom62_feet"
      },
      {
       "shot": "shop_stack"
@@ -3271,7 +3481,7 @@
     "offset": [
      -2.4,
      0,
-     199998.2
+     -6001.8
     ]
    },
    "facing": {
@@ -3279,15 +3489,14 @@
     "offset": [
      -2.4,
      0,
-     200003.0
+     -5997.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doom62_kidnap",
-      "offset": -0.1
+      "shot": "doom62_kidnap"
      },
      {
       "shot": "pirate_chest"
@@ -3309,7 +3518,7 @@
     "offset": [
      -400.0,
      2.6,
-     199997.8
+     -6002.2
     ]
    },
    "facing": {
@@ -3317,7 +3526,7 @@
     "offset": [
      -400.0,
      2.6,
-     200006.0
+     -5994.0
     ]
    },
    "keep_y": true,
@@ -3325,8 +3534,7 @@
    "shown": [
     [
      {
-      "shot": "pirate_chest",
-      "offset": -0.1
+      "shot": "pirate_chest"
      },
      {
       "shot": "doom62_feet"
@@ -3355,7 +3563,7 @@
     "offset": [
      2.6,
      0.26,
-     199998.8
+     -6001.2
     ]
    },
    "facing": {
@@ -3363,7 +3571,7 @@
     "offset": [
      2.6,
      0.26,
-     200003.0
+     -5997.0
     ]
    },
    "keep_y": true,
@@ -3371,8 +3579,7 @@
    "shown": [
     [
      {
-      "shot": "doom62_kidnap",
-      "offset": -0.1
+      "shot": "doom62_kidnap"
      },
      {
       "shot": "pirate_chest"
@@ -3401,7 +3608,7 @@
     "offset": [
      1.8,
      0.26,
-     199998.8
+     -6001.2
     ]
    },
    "facing": {
@@ -3409,7 +3616,7 @@
     "offset": [
      1.8,
      0.26,
-     200003.0
+     -5997.0
     ]
    },
    "keep_y": true,
@@ -3417,8 +3624,7 @@
    "shown": [
     [
      {
-      "shot": "doom62_kidnap",
-      "offset": -0.1
+      "shot": "doom62_kidnap"
      },
      {
       "shot": "pirate_chest"
@@ -3447,7 +3653,7 @@
     "offset": [
      2.2,
      0.26,
-     199998.1
+     -6001.9
     ]
    },
    "facing": {
@@ -3455,7 +3661,7 @@
     "offset": [
      2.2,
      0.26,
-     200003.0
+     -5997.0
     ]
    },
    "keep_y": true,
@@ -3463,8 +3669,7 @@
    "shown": [
     [
      {
-      "shot": "doom62_kidnap",
-      "offset": -0.1
+      "shot": "doom62_kidnap"
      },
      {
       "shot": "pirate_chest"
@@ -3493,7 +3698,7 @@
     "offset": [
      0.2,
      0,
-     140300.35
+     5100.35
     ]
    },
    "facing": {
@@ -3501,15 +3706,14 @@
     "offset": [
      -0.6,
      0,
-     140299.6
+     5099.6
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "lat_wagon",
-      "offset": -0.1
+      "shot": "lat_wagon"
      },
      {
       "shot": "lat_healer"
@@ -3545,7 +3749,7 @@
     "offset": [
      2.2,
      0,
-     140001.6
+     4801.6
     ]
    },
    "facing": {
@@ -3553,15 +3757,14 @@
     "offset": [
      -0.0,
      0,
-     140000.0
+     4800.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "lat_healer",
-      "offset": -0.1
+      "shot": "lat_healer"
      },
      {
       "shot": "lat_flee"
@@ -3583,7 +3786,7 @@
     "offset": [
      -307.0,
      0,
-     140010.0
+     4810.0
     ]
    },
    "facing": {
@@ -3591,7 +3794,7 @@
     "offset": [
      -300.0,
      0,
-     139992.0
+     4792.0
     ]
    },
    "action": "idle",
@@ -3602,7 +3805,7 @@
       "offset": [
        -301.2,
        0,
-       139992.8
+       4792.8
       ]
      }
     ],
@@ -3621,8 +3824,7 @@
    "shown": [
     [
      {
-      "shot": "lat_flee",
-      "offset": -0.1
+      "shot": "lat_flee"
      },
      {
       "shot": "lat_freeze"
@@ -3644,7 +3846,7 @@
     "offset": [
      -307.6,
      0,
-     140010.6
+     4810.6
     ]
    },
    "facing": {
@@ -3652,7 +3854,7 @@
     "offset": [
      -300.0,
      0,
-     139992.0
+     4792.0
     ]
    },
    "action": "idle",
@@ -3663,7 +3865,7 @@
       "offset": [
        -300.4,
        0,
-       139993.1
+       4793.1
       ]
      }
     ],
@@ -3682,8 +3884,7 @@
    "shown": [
     [
      {
-      "shot": "lat_flee",
-      "offset": -0.1
+      "shot": "lat_flee"
      },
      {
       "shot": "lat_freeze"
@@ -3705,7 +3906,7 @@
     "offset": [
      -299.4,
      0,
-     139993.4
+     4793.4
     ]
    },
    "facing": {
@@ -3713,15 +3914,14 @@
     "offset": [
      -300.6,
      0,
-     139991.6
+     4791.6
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "lat_freeze",
-      "offset": -0.1
+      "shot": "lat_freeze"
      },
      {
       "shot": "lat_chest"
@@ -3744,7 +3944,7 @@
     "offset": [
      -0.0,
      0,
-     140600.85
+     5400.85
     ]
    },
    "facing": {
@@ -3752,15 +3952,14 @@
     "offset": [
      -0.0,
      0,
-     140599.0
+     5399.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "lat_chest",
-      "offset": -0.1
+      "shot": "lat_chest"
      },
      {
       "shot": "liner_deck"
@@ -3796,7 +3995,7 @@
     "offset": [
      2999.0,
      0.2,
-     139975.8
+     4775.8
     ]
    },
    "facing": {
@@ -3804,7 +4003,7 @@
     "offset": [
      3000.0,
      0.2,
-     139940.0
+     4740.0
     ]
    },
    "keep_y": true,
@@ -3812,8 +4011,7 @@
    "shown": [
     [
      {
-      "shot": "liner_deck",
-      "offset": -0.1
+      "shot": "liner_deck"
      },
      {
       "shot": "lab_machine"
@@ -3842,7 +4040,7 @@
     "offset": [
      -1.6,
      0,
-     140001.8
+     4801.8
     ]
    },
    "facing": {
@@ -3850,15 +4048,14 @@
     "offset": [
      -0.0,
      0,
-     140000.0
+     4800.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "lat_valley",
-      "offset": -0.1
+      "shot": "lat_valley"
      },
      {
       "shot": "lat_wagon"
@@ -3866,8 +4063,7 @@
     ],
     [
      {
-      "shot": "lat_healer",
-      "offset": -0.1
+      "shot": "lat_healer"
      },
      {
       "shot": "lat_flee"
@@ -3889,7 +4085,7 @@
     "offset": [
      0.9,
      0,
-     139998.2
+     4798.2
     ]
    },
    "facing": {
@@ -3897,15 +4093,14 @@
     "offset": [
      -0.0,
      0,
-     140000.0
+     4800.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "lat_valley",
-      "offset": -0.1
+      "shot": "lat_valley"
      },
      {
       "shot": "lat_wagon"
@@ -3913,8 +4108,7 @@
     ],
     [
      {
-      "shot": "lat_healer",
-      "offset": -0.1
+      "shot": "lat_healer"
      },
      {
       "shot": "lat_flee"
@@ -3936,7 +4130,7 @@
     "offset": [
      -2.0,
      0,
-     139998.8
+     4798.8
     ]
    },
    "facing": {
@@ -3944,15 +4138,14 @@
     "offset": [
      -0.0,
      0,
-     140000.0
+     4800.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "lat_valley",
-      "offset": -0.1
+      "shot": "lat_valley"
      },
      {
       "shot": "lat_wagon"
@@ -3960,8 +4153,7 @@
     ],
     [
      {
-      "shot": "lat_healer",
-      "offset": -0.1
+      "shot": "lat_healer"
      },
      {
       "shot": "lat_flee"
@@ -3983,7 +4175,7 @@
     "offset": [
      1.0,
      0,
-     160300.55
+     -4499.45
     ]
    },
    "facing": {
@@ -3991,15 +4183,14 @@
     "offset": [
      -0.0,
      0,
-     160300.0
+     -4500.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "tibet_forge",
-      "offset": -0.1
+      "shot": "tibet_forge"
      },
      {
       "shot": "castle_gates"
@@ -4029,7 +4220,7 @@
     "offset": [
      -0.85,
      0,
-     160300.35
+     -4499.65
     ]
    },
    "facing": {
@@ -4037,15 +4228,14 @@
     "offset": [
      -0.0,
      0,
-     160300.0
+     -4500.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "tibet_forge",
-      "offset": -0.1
+      "shot": "tibet_forge"
      },
      {
       "shot": "castle_gates"
@@ -4067,7 +4257,7 @@
     "offset": [
      2.4,
      0,
-     160300.2
+     -4499.8
     ]
    },
    "facing": {
@@ -4075,15 +4265,14 @@
     "offset": [
      1.6,
      0,
-     160299.2
+     -4500.8
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "tibet_forge",
-      "offset": -0.1
+      "shot": "tibet_forge"
      },
      {
       "shot": "castle_gates"
@@ -4105,7 +4294,7 @@
     "offset": [
      -0.0,
      0,
-     120016.0
+     -3584.0
     ]
    },
    "facing": {
@@ -4113,7 +4302,7 @@
     "offset": [
      -0.0,
      0,
-     119974.0
+     -3626.0
     ]
    },
    "action": "idle",
@@ -4124,7 +4313,7 @@
       "offset": [
        -0.0,
        0,
-       120006.0
+       -3594.0
       ]
      }
     ],
@@ -4143,8 +4332,7 @@
    "shown": [
     [
      {
-      "shot": "castle_gates",
-      "offset": -0.1
+      "shot": "castle_gates"
      },
      {
       "shot": "castle_throne"
@@ -4167,7 +4355,7 @@
     "offset": [
      -0.0,
      1.52,
-     119974.28
+     -3625.72
     ]
    },
    "facing": {
@@ -4175,7 +4363,7 @@
     "offset": [
      -0.0,
      1.2,
-     120010.0
+     -3590.0
     ]
    },
    "keep_y": true,
@@ -4183,8 +4371,7 @@
    "shown": [
     [
      {
-      "shot": "castle_throne",
-      "offset": -0.1
+      "shot": "castle_throne"
      },
      {
       "shot": "castle_immunity"
@@ -4192,8 +4379,7 @@
     ],
     [
      {
-      "shot": "doom_hands",
-      "offset": -0.1
+      "shot": "doom_hands"
      },
      {
       "shot": "hell_fight"
@@ -4215,7 +4401,7 @@
     "offset": [
      -0.0,
      12.0,
-     120041.0
+     -3559.0
     ]
    },
    "facing": {
@@ -4223,7 +4409,7 @@
     "offset": [
      -0.0,
      12.0,
-     120060.0
+     -3540.0
     ]
    },
    "keep_y": true,
@@ -4231,8 +4417,7 @@
    "shown": [
     [
      {
-      "shot": "castle_people",
-      "offset": -0.1
+      "shot": "castle_people"
      },
      {
       "shot": "doom_hands"
@@ -4254,7 +4439,7 @@
     "offset": [
      -0.6,
      0,
-     120045.5
+     -3554.5
     ]
    },
    "facing": {
@@ -4262,15 +4447,14 @@
     "offset": [
      -0.0,
      0,
-     120040.0
+     -3560.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "castle_immunity",
-      "offset": -0.1
+      "shot": "castle_immunity"
      },
      {
       "shot": "castle_people"
@@ -4306,7 +4490,7 @@
     "offset": [
      2.0,
      0,
-     120004.0
+     -3596.0
     ]
    },
    "facing": {
@@ -4314,15 +4498,14 @@
     "offset": [
      -0.0,
      0,
-     120004.0
+     -3596.0
     ]
    },
    "action": "crouch",
    "shown": [
     [
      {
-      "shot": "castle_gates",
-      "offset": -0.1
+      "shot": "castle_gates"
      },
      {
       "shot": "castle_immunity"
@@ -4344,7 +4527,7 @@
     "offset": [
      -2.0,
      0,
-     120004.0
+     -3596.0
     ]
    },
    "facing": {
@@ -4352,15 +4535,14 @@
     "offset": [
      -0.0,
      0,
-     120004.0
+     -3596.0
     ]
    },
    "action": "crouch",
    "shown": [
     [
      {
-      "shot": "castle_gates",
-      "offset": -0.1
+      "shot": "castle_gates"
      },
      {
       "shot": "castle_immunity"
@@ -4382,7 +4564,7 @@
     "offset": [
      2.0,
      0,
-     119998.0
+     -3602.0
     ]
    },
    "facing": {
@@ -4390,15 +4572,14 @@
     "offset": [
      -0.0,
      0,
-     119998.0
+     -3602.0
     ]
    },
    "action": "crouch",
    "shown": [
     [
      {
-      "shot": "castle_gates",
-      "offset": -0.1
+      "shot": "castle_gates"
      },
      {
       "shot": "castle_immunity"
@@ -4420,7 +4601,7 @@
     "offset": [
      -2.0,
      0,
-     119998.0
+     -3602.0
     ]
    },
    "facing": {
@@ -4428,15 +4609,14 @@
     "offset": [
      -0.0,
      0,
-     119998.0
+     -3602.0
     ]
    },
    "action": "crouch",
    "shown": [
     [
      {
-      "shot": "castle_gates",
-      "offset": -0.1
+      "shot": "castle_gates"
      },
      {
       "shot": "castle_immunity"
@@ -4458,7 +4638,7 @@
     "offset": [
      2.0,
      0,
-     119992.0
+     -3608.0
     ]
    },
    "facing": {
@@ -4466,15 +4646,14 @@
     "offset": [
      -0.0,
      0,
-     119992.0
+     -3608.0
     ]
    },
    "action": "crouch",
    "shown": [
     [
      {
-      "shot": "castle_gates",
-      "offset": -0.1
+      "shot": "castle_gates"
      },
      {
       "shot": "castle_immunity"
@@ -4496,7 +4675,7 @@
     "offset": [
      -2.0,
      0,
-     119992.0
+     -3608.0
     ]
    },
    "facing": {
@@ -4504,15 +4683,14 @@
     "offset": [
      -0.0,
      0,
-     119992.0
+     -3608.0
     ]
    },
    "action": "crouch",
    "shown": [
     [
      {
-      "shot": "castle_gates",
-      "offset": -0.1
+      "shot": "castle_gates"
      },
      {
       "shot": "castle_immunity"
@@ -4534,7 +4712,7 @@
     "offset": [
      4.2,
      0,
-     119988.0
+     -3612.0
     ]
    },
    "facing": {
@@ -4542,15 +4720,14 @@
     "offset": [
      4.2,
      0,
-     120010.0
+     -3590.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doombots_row",
-      "offset": -0.1
+      "shot": "doombots_row"
      },
      {
       "shot": "hell_fight"
@@ -4572,7 +4749,7 @@
     "offset": [
      2.8,
      0,
-     119988.0
+     -3612.0
     ]
    },
    "facing": {
@@ -4580,15 +4757,14 @@
     "offset": [
      2.8,
      0,
-     120010.0
+     -3590.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doombots_row",
-      "offset": -0.1
+      "shot": "doombots_row"
      },
      {
       "shot": "hell_fight"
@@ -4610,7 +4786,7 @@
     "offset": [
      1.4,
      0,
-     119988.0
+     -3612.0
     ]
    },
    "facing": {
@@ -4618,15 +4794,14 @@
     "offset": [
      1.4,
      0,
-     120010.0
+     -3590.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doombots_row",
-      "offset": -0.1
+      "shot": "doombots_row"
      },
      {
       "shot": "hell_fight"
@@ -4648,7 +4823,7 @@
     "offset": [
      0.0,
      0,
-     119988.0
+     -3612.0
     ]
    },
    "facing": {
@@ -4656,15 +4831,14 @@
     "offset": [
      0.0,
      0,
-     120010.0
+     -3590.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doombots_row",
-      "offset": -0.1
+      "shot": "doombots_row"
      },
      {
       "shot": "hell_fight"
@@ -4686,7 +4860,7 @@
     "offset": [
      -1.4,
      0,
-     119988.0
+     -3612.0
     ]
    },
    "facing": {
@@ -4694,15 +4868,14 @@
     "offset": [
      -1.4,
      0,
-     120010.0
+     -3590.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doombots_row",
-      "offset": -0.1
+      "shot": "doombots_row"
      },
      {
       "shot": "hell_fight"
@@ -4724,7 +4897,7 @@
     "offset": [
      -2.8,
      0,
-     119988.0
+     -3612.0
     ]
    },
    "facing": {
@@ -4732,15 +4905,14 @@
     "offset": [
      -2.8,
      0,
-     120010.0
+     -3590.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doombots_row",
-      "offset": -0.1
+      "shot": "doombots_row"
      },
      {
       "shot": "hell_fight"
@@ -4762,7 +4934,7 @@
     "offset": [
      -4.2,
      0,
-     119988.0
+     -3612.0
     ]
    },
    "facing": {
@@ -4770,15 +4942,14 @@
     "offset": [
      -4.2,
      0,
-     120010.0
+     -3590.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "doombots_row",
-      "offset": -0.1
+      "shot": "doombots_row"
      },
      {
       "shot": "hell_fight"
@@ -4800,7 +4971,7 @@
     "offset": [
      2.0,
      0,
-     120046.0
+     -3554.0
     ]
    },
    "facing": {
@@ -4808,15 +4979,14 @@
     "offset": [
      -0.0,
      6.0,
-     120040.0
+     -3560.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "castle_people",
-      "offset": -0.1
+      "shot": "castle_people"
      },
      {
       "shot": "doom_hands"
@@ -4845,7 +5015,7 @@
     "offset": [
      0.8,
      0,
-     120046.8
+     -3553.2
     ]
    },
    "facing": {
@@ -4853,15 +5023,14 @@
     "offset": [
      -0.0,
      6.0,
-     120040.0
+     -3560.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "castle_people",
-      "offset": -0.1
+      "shot": "castle_people"
      },
      {
       "shot": "doom_hands"
@@ -4890,7 +5059,7 @@
     "offset": [
      -0.4,
      0,
-     120046.2
+     -3553.8
     ]
    },
    "facing": {
@@ -4898,15 +5067,14 @@
     "offset": [
      -0.0,
      6.0,
-     120040.0
+     -3560.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "castle_people",
-      "offset": -0.1
+      "shot": "castle_people"
      },
      {
       "shot": "doom_hands"
@@ -4935,7 +5103,7 @@
     "offset": [
      -1.6,
      0,
-     120047.0
+     -3553.0
     ]
    },
    "facing": {
@@ -4943,15 +5111,14 @@
     "offset": [
      -0.0,
      6.0,
-     120040.0
+     -3560.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "castle_people",
-      "offset": -0.1
+      "shot": "castle_people"
      },
      {
       "shot": "doom_hands"
@@ -4980,7 +5147,7 @@
     "offset": [
      -2.6,
      0,
-     120046.4
+     -3553.6
     ]
    },
    "facing": {
@@ -4988,15 +5155,14 @@
     "offset": [
      -0.0,
      6.0,
-     120040.0
+     -3560.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "castle_people",
-      "offset": -0.1
+      "shot": "castle_people"
      },
      {
       "shot": "doom_hands"
@@ -5025,7 +5191,7 @@
     "offset": [
      3.0,
      0,
-     120047.2
+     -3552.8
     ]
    },
    "facing": {
@@ -5033,15 +5199,14 @@
     "offset": [
      -0.0,
      6.0,
-     120040.0
+     -3560.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "castle_people",
-      "offset": -0.1
+      "shot": "castle_people"
      },
      {
       "shot": "doom_hands"
@@ -5071,7 +5236,7 @@
     "offset": [
      -0.0,
      5.0,
-     174000.0
+     0.0
     ]
    },
    "facing": {
@@ -5079,7 +5244,7 @@
     "offset": [
      -0.0,
      5.0,
-     174010.0
+     10.0
     ]
    },
    "keep_y": true,
@@ -5087,8 +5252,7 @@
    "shown": [
     [
      {
-      "shot": "surfer_sky",
-      "offset": -0.1
+      "shot": "surfer_sky"
      },
      {
       "shot": "beyonder_grab"
@@ -5111,7 +5275,7 @@
     "offset": [
      -0.0,
      0.0,
-     180600.0
+     6600.0
     ]
    },
    "facing": {
@@ -5119,7 +5283,7 @@
     "offset": [
      -0.0,
      0.0,
-     180610.0
+     6610.0
     ]
    },
    "keep_y": true,
@@ -5127,8 +5291,7 @@
    "shown": [
     [
      {
-      "shot": "beyonder_grab",
-      "offset": -0.1
+      "shot": "beyonder_grab"
      },
      {
       "shot": "bw_planet"
@@ -5151,7 +5314,7 @@
     "offset": [
      -0.0,
      0.55,
-     181794.0
+     7794.0
     ]
    },
    "facing": {
@@ -5159,7 +5322,7 @@
     "offset": [
      -0.0,
      0.55,
-     181810.0
+     7810.0
     ]
    },
    "keep_y": true,
@@ -5167,8 +5330,7 @@
    "shown": [
     [
      {
-      "shot": "bw_throne",
-      "offset": -0.1
+      "shot": "bw_throne"
      },
      {
       "shot": "emp_cloak"
@@ -5191,7 +5353,7 @@
     "offset": [
      -0.0,
      -5.0,
-     185052.0
+     11052.0
     ]
    },
    "facing": {
@@ -5199,7 +5361,7 @@
     "offset": [
      -0.0,
      -5.0,
-     185070.0
+     11070.0
     ]
    },
    "keep_y": true,
@@ -5207,8 +5369,7 @@
    "shown": [
     [
      {
-      "shot": "emp_cloak",
-      "offset": -0.1
+      "shot": "emp_cloak"
      },
      {
       "shot": "board_titles"
@@ -5230,7 +5391,7 @@
     "offset": [
      5.0,
      0,
-     220002.0
+     7202.0
     ]
    },
    "facing": {
@@ -5238,15 +5399,14 @@
     "offset": [
      -6.0,
      0,
-     219994.0
+     7194.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "hell_fight",
-      "offset": -0.1
+      "shot": "hell_fight"
      },
      {
       "shot": "surfer_sky"
@@ -5269,7 +5429,7 @@
     "offset": [
      -0.0,
      0.75,
-     220298.4
+     7498.4
     ]
    },
    "facing": {
@@ -5277,7 +5437,7 @@
     "offset": [
      -0.0,
      0.75,
-     220303.0
+     7503.0
     ]
    },
    "keep_y": true,
@@ -5285,8 +5445,7 @@
    "shown": [
     [
      {
-      "shot": "hosp_bed",
-      "offset": -0.1
+      "shot": "hosp_bed"
      },
      {
       "shot": "city_ironman"
@@ -5308,7 +5467,7 @@
     "offset": [
      -1.75,
      0,
-     220299.0
+     7499.0
     ]
    },
    "facing": {
@@ -5316,15 +5475,14 @@
     "offset": [
      -1.0,
      0,
-     220298.1
+     7498.1
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "hosp_helmet",
-      "offset": -0.1
+      "shot": "hosp_helmet"
      },
      {
       "shot": "city_ironman"
@@ -5346,7 +5504,7 @@
     "offset": [
      -0.0,
      0,
-     220604.5
+     7804.5
     ]
    },
    "facing": {
@@ -5354,15 +5512,14 @@
     "offset": [
      -0.0,
      0,
-     220595.0
+     7795.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "city_ironman",
-      "offset": -0.1
+      "shot": "city_ironman"
      },
      {
       "shot": "shop_rise"
@@ -5385,7 +5542,7 @@
     "offset": [
      -0.1,
      0,
-     220899.55
+     8099.55
     ]
    },
    "facing": {
@@ -5393,15 +5550,14 @@
     "offset": [
      -0.1,
      0,
-     220898.0
+     8098.0
     ]
    },
    "action": "sit",
    "shown": [
     [
      {
-      "shot": "dress_oscar",
-      "offset": -0.1
+      "shot": "dress_oscar"
      },
      {
       "shot": "cinema_2008"
@@ -5423,7 +5579,7 @@
     "offset": [
      -0.0,
      0,
-     221493.0
+     8693.0
     ]
    },
    "facing": {
@@ -5431,7 +5587,7 @@
     "offset": [
      -0.0,
      0,
-     221506.0
+     8706.0
     ]
    },
    "action": "idle",
@@ -5442,7 +5598,7 @@
       "offset": [
        -0.4,
        0,
-       221503.0
+       8703.0
       ]
      }
     ],
@@ -5461,8 +5617,7 @@
    "shown": [
     [
      {
-      "shot": "campus_gates",
-      "offset": -0.1
+      "shot": "campus_gates"
      },
      {
       "shot": "mirror_scar"
@@ -5485,7 +5640,7 @@
     "offset": [
      -0.0,
      0,
-     221801.0
+     9001.0
     ]
    },
    "facing": {
@@ -5493,15 +5648,14 @@
     "offset": [
      -0.0,
      0,
-     221797.0
+     8997.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "mirror_scar",
-      "offset": -0.1
+      "shot": "mirror_scar"
      },
      {
       "shot": "tibet_cliff"
@@ -5524,7 +5678,7 @@
     "offset": [
      -0.0,
      0,
-     221799.0
+     8999.0
     ]
    },
    "facing": {
@@ -5532,15 +5686,14 @@
     "offset": [
      -0.0,
      0,
-     221803.0
+     9003.0
     ]
    },
    "action": "idle",
    "shown": [
     [
      {
-      "shot": "mirror_scar",
-      "offset": -0.1
+      "shot": "mirror_scar"
      },
      {
       "shot": "tibet_cliff"
@@ -5681,7 +5834,51 @@
      "x": 0.0,
      "z": -2.8
     }
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "hall_wide"
+     },
+     {
+      "shot": "gal_helmet"
+     }
+    ],
+    [
+     {
+      "shot": "hall_2022"
+     },
+     {
+      "shot": "board_plan"
+     }
+    ],
+    [
+     {
+      "shot": "hall_why"
+     },
+     {
+      "shot": "dress_oscar"
+     }
+    ],
+    [
+     {
+      "shot": "hall_russos"
+     },
+     {
+      "shot": "board_contract"
+     }
+    ],
+    [
+     {
+      "shot": "hall_end"
+     },
+     {
+      "line": "e2",
+      "edge": "end",
+      "offset": 30.0
+     }
+    ]
+   ]
   },
   {
    "id": "suits",
@@ -5728,7 +5925,51 @@
       "actor": "doom_5"
      }
     ]
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "hall_wide"
+     },
+     {
+      "shot": "gal_helmet"
+     }
+    ],
+    [
+     {
+      "shot": "hall_2022"
+     },
+     {
+      "shot": "board_plan"
+     }
+    ],
+    [
+     {
+      "shot": "hall_why"
+     },
+     {
+      "shot": "dress_oscar"
+     }
+    ],
+    [
+     {
+      "shot": "hall_russos"
+     },
+     {
+      "shot": "board_contract"
+     }
+    ],
+    [
+     {
+      "shot": "hall_end"
+     },
+     {
+      "line": "e2",
+      "edge": "end",
+      "offset": 30.0
+     }
+    ]
+   ]
   },
   {
    "id": "lab_set",
@@ -5739,7 +5980,7 @@
     "offset": [
      0,
      0,
-     20000.0
+     1200.0
     ]
    },
    "params": {
@@ -5771,7 +6012,25 @@
      "line": "v4",
      "word": "explodes"
     }
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "lab_double"
+     },
+     {
+      "shot": "lat_valley"
+     }
+    ],
+    [
+     {
+      "shot": "lab_machine"
+     },
+     {
+      "shot": "campus_gates"
+     }
+    ]
+   ]
   },
   {
    "id": "board_set",
@@ -5782,7 +6041,7 @@
     "offset": [
      0,
      0,
-     40000.0
+     -1200.0
     ]
    },
    "params": {
@@ -5846,7 +6105,49 @@
      "word": "bought",
      "offset": 0.2
     }
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "board_comic"
+     },
+     {
+      "shot": "cinema_ticket"
+     }
+    ],
+    [
+     {
+      "shot": "board_blank"
+     },
+     {
+      "shot": "hall_2022"
+     }
+    ],
+    [
+     {
+      "shot": "board_plan"
+     },
+     {
+      "shot": "shop_night"
+     }
+    ],
+    [
+     {
+      "shot": "board_titles"
+     },
+     {
+      "shot": "hosp_bed"
+     }
+    ],
+    [
+     {
+      "shot": "board_contract"
+     },
+     {
+      "shot": "rocket_pad"
+     }
+    ]
+   ]
   },
   {
    "id": "cash_pile",
@@ -5865,7 +6166,7 @@
     "offset": [
      -2.6,
      0,
-     39999.0
+     -1201.0
     ]
    },
    "params": {
@@ -5882,7 +6183,49 @@
     "arc": 0.2,
     "size": 0.17,
     "seed": 11
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "board_comic"
+     },
+     {
+      "shot": "cinema_ticket"
+     }
+    ],
+    [
+     {
+      "shot": "board_blank"
+     },
+     {
+      "shot": "hall_2022"
+     }
+    ],
+    [
+     {
+      "shot": "board_plan"
+     },
+     {
+      "shot": "shop_night"
+     }
+    ],
+    [
+     {
+      "shot": "board_titles"
+     },
+     {
+      "shot": "hosp_bed"
+     }
+    ],
+    [
+     {
+      "shot": "board_contract"
+     },
+     {
+      "shot": "rocket_pad"
+     }
+    ]
+   ]
   },
   {
    "id": "gallery_set",
@@ -5893,7 +6236,7 @@
     "offset": [
      0,
      0,
-     60000.0
+     2400.0
     ]
    },
    "params": {
@@ -5936,7 +6279,49 @@
      "line": "c1d2",
      "word": "Captain"
     }
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "gal_helmet"
+     },
+     {
+      "shot": "board_comic"
+     }
+    ],
+    [
+     {
+      "shot": "gal_farewell"
+     },
+     {
+      "shot": "board_blank"
+     }
+    ],
+    [
+     {
+      "shot": "gal_return"
+     },
+     {
+      "shot": "reels_past"
+     }
+    ],
+    [
+     {
+      "shot": "gal_mirror"
+     },
+     {
+      "shot": "hall_russos"
+     }
+    ],
+    [
+     {
+      "shot": "gal_eye"
+     },
+     {
+      "shot": "cinema_marquee"
+     }
+    ]
+   ]
   },
   {
    "id": "cinema_set",
@@ -5947,7 +6332,7 @@
     "offset": [
      0,
      0,
-     80000.0
+     -2400.0
     ]
    },
    "params": {
@@ -6033,7 +6418,41 @@
      }
     ],
     "poster": "AVENGERS:\nSECRET WARS\nDECEMBER 2027"
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "cinema_ticket"
+     },
+     {
+      "shot": "gal_farewell"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_2008"
+     },
+     {
+      "shot": "gal_return"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_trailer"
+     },
+     {
+      "shot": "gal_eye"
+     }
+    ],
+    [
+     {
+      "shot": "cinema_marquee"
+     },
+     {
+      "shot": "castle_night"
+     }
+    ]
+   ]
   },
   {
    "id": "shop_set",
@@ -6044,7 +6463,7 @@
     "offset": [
      0,
      0,
-     100000.0
+     3600.0
     ]
    },
    "params": {
@@ -6089,7 +6508,41 @@
      }
     ],
     "rise": 1000000000.0
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "shop_night"
+     },
+     {
+      "shot": "doom62_kidnap"
+     }
+    ],
+    [
+     {
+      "shot": "shop_stack"
+     },
+     {
+      "shot": "lab_double"
+     }
+    ],
+    [
+     {
+      "shot": "shop_rise"
+     },
+     {
+      "shot": "hall_why"
+     }
+    ],
+    [
+     {
+      "shot": "shop_wait"
+     },
+     {
+      "shot": "gal_mirror"
+     }
+    ]
+   ]
   },
   {
    "id": "doom62_set",
@@ -6100,7 +6553,7 @@
     "offset": [
      0,
      0,
-     200000.0
+     -6000.0
     ]
    },
    "params": {
@@ -6137,7 +6590,17 @@
       "word": "Thing"
      }
     ]
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "doom62_kidnap"
+     },
+     {
+      "shot": "shop_stack"
+     }
+    ]
+   ]
   },
   {
    "id": "doom62_suits",
@@ -6148,7 +6611,7 @@
     "offset": [
      0,
      0,
-     200000.0
+     -6000.0
     ]
    },
    "params": {
@@ -6160,7 +6623,17 @@
       "actor": "doom62_b"
      }
     ]
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "doom62_kidnap"
+     },
+     {
+      "shot": "shop_stack"
+     }
+    ]
+   ]
   },
   {
    "id": "latveria_set",
@@ -6171,7 +6644,7 @@
     "offset": [
      0,
      0,
-     140000.0
+     4800.0
     ]
    },
    "params": {
@@ -6189,7 +6662,17 @@
      "line": "v0q",
      "word": "secret:"
     }
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "lat_valley"
+     },
+     {
+      "shot": "lab_machine"
+     }
+    ]
+   ]
   },
   {
    "id": "tibet_set",
@@ -6200,7 +6683,7 @@
     "offset": [
      0,
      0,
-     160000.0
+     -4800.0
     ]
    },
    "params": {
@@ -6231,7 +6714,17 @@
       "offset": 0.1
      }
     }
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "tibet_cliff"
+     },
+     {
+      "shot": "castle_gates"
+     }
+    ]
+   ]
   },
   {
    "id": "castle_set",
@@ -6242,7 +6735,7 @@
     "offset": [
      0,
      0,
-     120000.0
+     -3600.0
     ]
    },
    "params": {
@@ -6289,7 +6782,25 @@
       "offset": -0.2
      }
     }
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "castle_gates"
+     },
+     {
+      "shot": "hell_fight"
+     }
+    ],
+    [
+     {
+      "shot": "castle_night"
+     },
+     {
+      "shot": "hall_end"
+     }
+    ]
+   ]
   },
   {
    "id": "castle_suits",
@@ -6300,7 +6811,7 @@
     "offset": [
      0,
      0,
-     120000.0
+     -3600.0
     ]
    },
    "params": {
@@ -6343,7 +6854,25 @@
       "hood": true
      }
     ]
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "castle_gates"
+     },
+     {
+      "shot": "hell_fight"
+     }
+    ],
+    [
+     {
+      "shot": "castle_night"
+     },
+     {
+      "shot": "hall_end"
+     }
+    ]
+   ]
   },
   {
    "id": "cosmos_set",
@@ -6354,7 +6883,7 @@
     "offset": [
      0,
      0,
-     180000.0
+     6000.0
     ]
    },
    "params": {
@@ -6393,7 +6922,25 @@
      "line": "d15",
      "word": "Overnight,"
     }
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "surfer_sky"
+     },
+     {
+      "shot": "board_titles"
+     }
+    ],
+    [
+     {
+      "shot": "rocket_pad"
+     },
+     {
+      "shot": "cinema_trailer"
+     }
+    ]
+   ]
   },
   {
    "id": "cosmos_suits",
@@ -6404,7 +6951,7 @@
     "offset": [
      0,
      0,
-     180000.0
+     6000.0
     ]
    },
    "params": {
@@ -6431,7 +6978,25 @@
       "cloak_color": "#9a1420"
      }
     ]
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "surfer_sky"
+     },
+     {
+      "shot": "board_titles"
+     }
+    ],
+    [
+     {
+      "shot": "rocket_pad"
+     },
+     {
+      "shot": "cinema_trailer"
+     }
+    ]
+   ]
   },
   {
    "id": "misc_suits",
@@ -6442,7 +7007,7 @@
     "offset": [
      0,
      0,
-     220000.0
+     7200.0
     ]
    },
    "params": {
@@ -6458,7 +7023,49 @@
       "hood": false
      }
     ]
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "campus_gates"
+     },
+     {
+      "shot": "tibet_cliff"
+     }
+    ],
+    [
+     {
+      "shot": "hell_fight"
+     },
+     {
+      "shot": "surfer_sky"
+     }
+    ],
+    [
+     {
+      "shot": "hosp_bed"
+     },
+     {
+      "shot": "shop_rise"
+     }
+    ],
+    [
+     {
+      "shot": "dress_oscar"
+     },
+     {
+      "shot": "cinema_2008"
+     }
+    ],
+    [
+     {
+      "shot": "reels_past"
+     },
+     {
+      "shot": "shop_wait"
+     }
+    ]
+   ]
   },
   {
    "id": "misc_set",
@@ -6469,7 +7076,7 @@
     "offset": [
      0,
      0,
-     220000.0
+     7200.0
     ]
    },
    "params": {
@@ -6513,7 +7120,49 @@
     "ironhead": {
      "actor": "doom_iron"
     }
-   }
+   },
+   "shown": [
+    [
+     {
+      "shot": "campus_gates"
+     },
+     {
+      "shot": "tibet_cliff"
+     }
+    ],
+    [
+     {
+      "shot": "hell_fight"
+     },
+     {
+      "shot": "surfer_sky"
+     }
+    ],
+    [
+     {
+      "shot": "hosp_bed"
+     },
+     {
+      "shot": "shop_rise"
+     }
+    ],
+    [
+     {
+      "shot": "dress_oscar"
+     },
+     {
+      "shot": "cinema_2008"
+     }
+    ],
+    [
+     {
+      "shot": "reels_past"
+     },
+     {
+      "shot": "shop_wait"
+     }
+    ]
+   ]
   }
  ],
  "reveals": [
@@ -6533,7 +7182,7 @@
     "offset": [
      -2.6,
      1.75,
-     39999.0
+     -1201.0
     ]
    },
    "size": 0.36,
@@ -6567,7 +7216,7 @@
     "offset": [
      -0.0,
      4.4,
-     79986.4
+     -2413.6
     ]
    },
    "size": 1.4,
@@ -7148,7 +7797,7 @@
       "offset": [
        0.85,
        1.47,
-       60001.9
+       2401.9
       ]
      },
      "look_at": {
@@ -7156,7 +7805,7 @@
       "offset": [
        1.1,
        1.42,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 50,
@@ -7170,7 +7819,7 @@
       "offset": [
        0.9,
        1.44,
-       60001.35
+       2401.35
       ]
      },
      "look_at": {
@@ -7178,7 +7827,7 @@
       "offset": [
        1.1,
        1.42,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 50,
@@ -7259,7 +7908,7 @@
       "offset": [
        -0.1,
        1.0,
-       60001.3
+       2401.3
       ]
      },
      "look_at": {
@@ -7267,7 +7916,7 @@
       "offset": [
        1.1,
        1.42,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 40,
@@ -7281,7 +7930,7 @@
       "offset": [
        2.0,
        1.05,
-       60001.45
+       2401.45
       ]
      },
      "look_at": {
@@ -7289,7 +7938,7 @@
       "offset": [
        1.1,
        1.42,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 40,
@@ -7370,7 +8019,7 @@
       "offset": [
        -0.9,
        1.25,
-       60003.4
+       2403.4
       ]
      },
      "look_at": {
@@ -7378,7 +8027,7 @@
       "offset": [
        1.1,
        1.55,
-       59998.7
+       2398.7
       ]
      },
      "lens_mm": 30,
@@ -7392,7 +8041,7 @@
       "offset": [
        -0.7,
        1.3,
-       60003.0
+       2403.0
       ]
      },
      "look_at": {
@@ -7400,7 +8049,7 @@
       "offset": [
        1.1,
        1.55,
-       59998.5
+       2398.5
       ]
      },
      "lens_mm": 30,
@@ -7481,7 +8130,7 @@
       "offset": [
        -0.1,
        1.85,
-       60000.2
+       2400.2
       ]
      },
      "look_at": {
@@ -7489,7 +8138,7 @@
       "offset": [
        1.1,
        1.95,
-       59997.4
+       2397.4
       ]
      },
      "lens_mm": 30,
@@ -7503,7 +8152,7 @@
       "offset": [
        0.1,
        1.85,
-       59999.7
+       2399.7
       ]
      },
      "look_at": {
@@ -7511,7 +8160,7 @@
       "offset": [
        1.1,
        2.0,
-       59997.4
+       2397.4
       ]
      },
      "lens_mm": 30,
@@ -7592,7 +8241,7 @@
       "offset": [
        -0.0,
        1.45,
-       60004.4
+       2404.4
       ]
      },
      "look_at": {
@@ -7600,7 +8249,7 @@
       "offset": [
        -0.0,
        1.3,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 28,
@@ -7614,7 +8263,7 @@
       "offset": [
        -0.0,
        1.4,
-       60003.6
+       2403.6
       ]
      },
      "look_at": {
@@ -7622,7 +8271,7 @@
       "offset": [
        -0.0,
        1.3,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 28,
@@ -7703,7 +8352,7 @@
       "offset": [
        0.05,
        1.42,
-       39998.75
+       -1201.25
       ]
      },
      "look_at": {
@@ -7711,7 +8360,7 @@
       "offset": [
        0.15,
        0.8,
-       39998.38
+       -1201.62
       ]
      },
      "lens_mm": 40,
@@ -7725,7 +8374,7 @@
       "offset": [
        0.08,
        1.32,
-       39998.67
+       -1201.33
       ]
      },
      "look_at": {
@@ -7733,7 +8382,7 @@
       "offset": [
        0.15,
        0.8,
-       39998.38
+       -1201.62
       ]
      },
      "lens_mm": 40,
@@ -7814,7 +8463,7 @@
       "offset": [
        1.0,
        1.9,
-       39996.6
+       -1203.4
       ]
      },
      "look_at": {
@@ -7822,7 +8471,7 @@
       "offset": [
        -0.2,
        2.3,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 30,
@@ -7836,7 +8485,7 @@
       "offset": [
        0.7,
        2.1,
-       39996.3
+       -1203.7
       ]
      },
      "look_at": {
@@ -7844,7 +8493,7 @@
       "offset": [
        -0.2,
        2.4,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 30,
@@ -7934,7 +8583,7 @@
       "offset": [
        -0.15,
        0.98,
-       39999.1
+       -1200.9
       ]
      },
      "look_at": {
@@ -7942,7 +8591,7 @@
       "offset": [
        0.2,
        1.3,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 30,
@@ -7956,7 +8605,7 @@
       "offset": [
        -0.1,
        1.0,
-       39998.95
+       -1201.05
       ]
      },
      "look_at": {
@@ -7964,7 +8613,7 @@
       "offset": [
        0.2,
        1.35,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 30,
@@ -8045,7 +8694,7 @@
       "offset": [
        -0.4,
        2.6,
-       79998.05
+       -2401.95
       ]
      },
      "look_at": {
@@ -8053,7 +8702,7 @@
       "offset": [
        -0.0,
        4.0,
-       79986.1
+       -2413.9
       ]
      },
      "lens_mm": 24,
@@ -8067,7 +8716,7 @@
       "offset": [
        -0.3,
        2.4,
-       79997.15
+       -2402.85
       ]
      },
      "look_at": {
@@ -8075,7 +8724,7 @@
       "offset": [
        -0.0,
        4.1,
-       79986.1
+       -2413.9
       ]
      },
      "lens_mm": 24,
@@ -8156,7 +8805,7 @@
       "offset": [
        -3.0,
        8.0,
-       80007.4
+       -2392.6
       ]
      },
      "look_at": {
@@ -8164,7 +8813,7 @@
       "offset": [
        -0.0,
        3.5,
-       79987.0
+       -2413.0
       ]
      },
      "lens_mm": 24,
@@ -8178,7 +8827,7 @@
       "offset": [
        -2.2,
        7.4,
-       80006.2
+       -2393.8
       ]
      },
      "look_at": {
@@ -8186,7 +8835,7 @@
       "offset": [
        -0.0,
        3.6,
-       79987.0
+       -2413.0
       ]
      },
      "lens_mm": 24,
@@ -8267,7 +8916,7 @@
       "offset": [
        1.0,
        1.1,
-       79989.0
+       -2411.0
       ]
      },
      "look_at": {
@@ -8275,7 +8924,7 @@
       "offset": [
        0.6,
        2.2,
-       80000.0
+       -2400.0
       ]
      },
      "lens_mm": 28,
@@ -8289,7 +8938,7 @@
       "offset": [
        -0.6,
        1.15,
-       79989.4
+       -2410.6
       ]
      },
      "look_at": {
@@ -8297,7 +8946,7 @@
       "offset": [
        0.2,
        2.2,
-       80000.0
+       -2400.0
       ]
      },
      "lens_mm": 28,
@@ -8378,7 +9027,7 @@
       "offset": [
        -0.0,
        3.8,
-       79998.0
+       -2402.0
       ]
      },
      "look_at": {
@@ -8386,7 +9035,7 @@
       "offset": [
        -0.0,
        4.4,
-       79986.4
+       -2413.6
       ]
      },
      "lens_mm": 30,
@@ -8400,7 +9049,7 @@
       "offset": [
        -0.0,
        3.9,
-       79996.5
+       -2403.5
       ]
      },
      "look_at": {
@@ -8408,7 +9057,7 @@
       "offset": [
        -0.0,
        4.4,
-       79986.4
+       -2413.6
       ]
      },
      "lens_mm": 30,
@@ -8489,7 +9138,7 @@
       "offset": [
        2.5,
        5.0,
-       80003.0
+       -2397.0
       ]
      },
      "look_at": {
@@ -8497,7 +9146,7 @@
       "offset": [
        -0.0,
        3.0,
-       79988.0
+       -2412.0
       ]
      },
      "lens_mm": 26,
@@ -8511,7 +9160,7 @@
       "offset": [
        1.8,
        5.6,
-       80002.2
+       -2397.8
       ]
      },
      "look_at": {
@@ -8519,7 +9168,7 @@
       "offset": [
        -0.0,
        3.2,
-       79988.0
+       -2412.0
       ]
      },
      "lens_mm": 26,
@@ -8610,7 +9259,7 @@
       "offset": [
        0.2,
        0.9,
-       60001.6
+       2401.6
       ]
      },
      "look_at": {
@@ -8618,7 +9267,7 @@
       "offset": [
        1.2,
        0.9,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 32,
@@ -8632,7 +9281,7 @@
       "offset": [
        0.5,
        0.85,
-       60001.3
+       2401.3
       ]
      },
      "look_at": {
@@ -8640,7 +9289,7 @@
       "offset": [
        1.4,
        0.7,
-       60000.1
+       2400.1
       ]
      },
      "lens_mm": 32,
@@ -8721,7 +9370,7 @@
       "offset": [
        -1.4,
        1.7,
-       39997.4
+       -1202.6
       ]
      },
      "look_at": {
@@ -8729,7 +9378,7 @@
       "offset": [
        -0.2,
        2.2,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 32,
@@ -8743,7 +9392,7 @@
       "offset": [
        -1.2,
        1.75,
-       39997.0
+       -1203.0
       ]
      },
      "look_at": {
@@ -8751,7 +9400,7 @@
       "offset": [
        -0.1,
        2.3,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 32,
@@ -8832,7 +9481,7 @@
       "offset": [
        -0.3,
        2.45,
-       39995.6
+       -1204.4
       ]
      },
      "look_at": {
@@ -8840,7 +9489,7 @@
       "offset": [
        -0.0,
        2.75,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 40,
@@ -8854,7 +9503,7 @@
       "offset": [
        -0.25,
        2.5,
-       39995.35
+       -1204.65
       ]
      },
      "look_at": {
@@ -8862,7 +9511,7 @@
       "offset": [
        -0.0,
        2.75,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 40,
@@ -8943,7 +9592,7 @@
       "offset": [
        1.2,
        2.3,
-       39995.9
+       -1204.1
       ]
      },
      "look_at": {
@@ -8951,7 +9600,7 @@
       "offset": [
        1.4,
        2.4,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 35,
@@ -8965,7 +9614,7 @@
       "offset": [
        1.0,
        2.35,
-       39995.7
+       -1204.3
       ]
      },
      "look_at": {
@@ -8973,7 +9622,7 @@
       "offset": [
        1.3,
        2.4,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 35,
@@ -9054,7 +9703,7 @@
       "offset": [
        0.4,
        1.75,
-       39996.0
+       -1204.0
       ]
      },
      "look_at": {
@@ -9062,7 +9711,7 @@
       "offset": [
        1.0,
        1.6,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 35,
@@ -9076,7 +9725,7 @@
       "offset": [
        0.5,
        1.8,
-       39995.8
+       -1204.2
       ]
      },
      "look_at": {
@@ -9084,7 +9733,7 @@
       "offset": [
        1.0,
        1.65,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 35,
@@ -9498,7 +10147,7 @@
       "offset": [
        -0.2,
        1.55,
-       40003.2
+       -1196.8
       ]
      },
      "look_at": {
@@ -9506,7 +10155,7 @@
       "offset": [
        -0.0,
        1.9,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 28,
@@ -9520,7 +10169,7 @@
       "offset": [
        -0.3,
        1.9,
-       39998.6
+       -1201.4
       ]
      },
      "look_at": {
@@ -9528,7 +10177,7 @@
       "offset": [
        -0.0,
        2.55,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 32,
@@ -9609,7 +10258,7 @@
       "offset": [
        -1.2,
        1.6,
-       39998.4
+       -1201.6
       ]
      },
      "look_at": {
@@ -9617,7 +10266,7 @@
       "offset": [
        -3.3,
        1.75,
-       39996.4
+       -1203.6
       ]
      },
      "lens_mm": 35,
@@ -9631,7 +10280,7 @@
       "offset": [
        -1.5,
        1.65,
-       39998.1
+       -1201.9
       ]
      },
      "look_at": {
@@ -9639,7 +10288,7 @@
       "offset": [
        -3.3,
        1.75,
-       39996.4
+       -1203.6
       ]
      },
      "lens_mm": 35,
@@ -9720,7 +10369,7 @@
       "offset": [
        -0.3,
        1.45,
-       39995.9
+       -1204.1
       ]
      },
      "look_at": {
@@ -9728,7 +10377,7 @@
       "offset": [
        -3.3,
        1.65,
-       39996.4
+       -1203.6
       ]
      },
      "lens_mm": 30,
@@ -9742,7 +10391,7 @@
       "offset": [
        -0.4,
        1.45,
-       39995.7
+       -1204.3
       ]
      },
      "look_at": {
@@ -9750,7 +10399,7 @@
       "offset": [
        -3.3,
        1.65,
-       39996.4
+       -1203.6
       ]
      },
      "lens_mm": 30,
@@ -9831,7 +10480,7 @@
       "offset": [
        -1.7,
        1.25,
-       39997.5
+       -1202.5
       ]
      },
      "look_at": {
@@ -9839,7 +10488,7 @@
       "offset": [
        -0.75,
        1.15,
-       39995.15
+       -1204.85
       ]
      },
      "lens_mm": 45,
@@ -9853,7 +10502,7 @@
       "offset": [
        -1.55,
        1.24,
-       39997.25
+       -1202.75
       ]
      },
      "look_at": {
@@ -9861,7 +10510,7 @@
       "offset": [
        -0.75,
        1.15,
-       39995.15
+       -1204.85
       ]
      },
      "lens_mm": 45,
@@ -9942,7 +10591,7 @@
       "offset": [
        -1.6,
        1.3,
-       39997.4
+       -1202.6
       ]
      },
      "look_at": {
@@ -9950,7 +10599,7 @@
       "offset": [
        -1.22,
        1.15,
-       39994.98
+       -1205.02
       ]
      },
      "lens_mm": 40,
@@ -9964,7 +10613,7 @@
       "offset": [
        -1.45,
        1.28,
-       39997.1
+       -1202.9
       ]
      },
      "look_at": {
@@ -9972,7 +10621,7 @@
       "offset": [
        -1.18,
        1.15,
-       39995.0
+       -1205.0
       ]
      },
      "lens_mm": 40,
@@ -10053,7 +10702,7 @@
       "offset": [
        0.6,
        1.75,
-       39996.8
+       -1203.2
       ]
      },
      "look_at": {
@@ -10061,7 +10710,7 @@
       "offset": [
        -0.2,
        2.3,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 30,
@@ -10075,7 +10724,7 @@
       "offset": [
        0.7,
        1.7,
-       39997.1
+       -1202.9
       ]
      },
      "look_at": {
@@ -10083,7 +10732,7 @@
       "offset": [
        -0.2,
        2.2,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 30,
@@ -10164,7 +10813,7 @@
       "offset": [
        1.2,
        1.5,
-       39998.8
+       -1201.2
       ]
      },
      "look_at": {
@@ -10172,7 +10821,7 @@
       "offset": [
        -0.2,
        1.8,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 26,
@@ -10186,7 +10835,7 @@
       "offset": [
        1.4,
        1.45,
-       39999.4
+       -1200.6
       ]
      },
      "look_at": {
@@ -10194,7 +10843,7 @@
       "offset": [
        -0.2,
        1.6,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 26,
@@ -10285,7 +10934,7 @@
       "offset": [
        -1.3,
        1.45,
-       39997.8
+       -1202.2
       ]
      },
      "look_at": {
@@ -10293,7 +10942,7 @@
       "offset": [
        -0.3,
        0.6,
-       39995.0
+       -1205.0
       ]
      },
      "lens_mm": 28,
@@ -10307,7 +10956,7 @@
       "offset": [
        -1.15,
        1.4,
-       39997.4
+       -1202.6
       ]
      },
      "look_at": {
@@ -10315,7 +10964,7 @@
       "offset": [
        -0.3,
        0.6,
-       39995.0
+       -1205.0
       ]
      },
      "lens_mm": 28,
@@ -10396,7 +11045,7 @@
       "offset": [
        -1.6,
        1.2,
-       39997.4
+       -1202.6
       ]
      },
      "look_at": {
@@ -10404,7 +11053,7 @@
       "offset": [
        -0.75,
        1.1,
-       39995.15
+       -1204.85
       ]
      },
      "lens_mm": 35,
@@ -10418,7 +11067,7 @@
       "offset": [
        -1.4,
        1.15,
-       39997.0
+       -1203.0
       ]
      },
      "look_at": {
@@ -10426,7 +11075,7 @@
       "offset": [
        -0.75,
        1.1,
-       39995.15
+       -1204.85
       ]
      },
      "lens_mm": 35,
@@ -10507,7 +11156,7 @@
       "offset": [
        -0.8,
        1.5,
-       100008.5
+       3608.5
       ]
      },
      "look_at": {
@@ -10515,7 +11164,7 @@
       "offset": [
        -0.0,
        1.5,
-       100000.0
+       3600.0
       ]
      },
      "lens_mm": 28,
@@ -10529,7 +11178,7 @@
       "offset": [
        -0.4,
        1.55,
-       100005.0
+       3605.0
       ]
      },
      "look_at": {
@@ -10537,7 +11186,7 @@
       "offset": [
        -0.0,
        1.35,
-       100000.0
+       3600.0
       ]
      },
      "lens_mm": 28,
@@ -10618,7 +11267,7 @@
       "offset": [
        -0.4,
        1.3,
-       100001.0
+       3601.0
       ]
      },
      "look_at": {
@@ -10626,7 +11275,7 @@
       "offset": [
        0.35,
        1.05,
-       99999.8
+       3599.8
       ]
      },
      "lens_mm": 38,
@@ -10640,7 +11289,7 @@
       "offset": [
        -0.3,
        1.28,
-       100000.8
+       3600.8
       ]
      },
      "look_at": {
@@ -10648,7 +11297,7 @@
       "offset": [
        0.35,
        1.1,
-       99999.7
+       3599.7
       ]
      },
      "lens_mm": 38,
@@ -10729,7 +11378,7 @@
       "offset": [
        0.15,
        1.15,
-       100000.6
+       3600.6
       ]
      },
      "look_at": {
@@ -10737,7 +11386,7 @@
       "offset": [
        0.35,
        1.06,
-       99999.63
+       3599.63
       ]
      },
      "lens_mm": 40,
@@ -10751,7 +11400,7 @@
       "offset": [
        0.2,
        1.12,
-       100000.4
+       3600.4
       ]
      },
      "look_at": {
@@ -10759,7 +11408,7 @@
       "offset": [
        0.35,
        1.06,
-       99999.63
+       3599.63
       ]
      },
      "lens_mm": 40,
@@ -10840,7 +11489,7 @@
       "offset": [
        -0.12,
        0.75,
-       100000.62
+       3600.62
       ]
      },
      "look_at": {
@@ -10848,7 +11497,7 @@
       "offset": [
        -0.1,
        0.0,
-       100000.55
+       3600.55
       ]
      },
      "lens_mm": 40,
@@ -10862,7 +11511,7 @@
       "offset": [
        -0.11,
        0.5,
-       100000.6
+       3600.6
       ]
      },
      "look_at": {
@@ -10870,7 +11519,7 @@
       "offset": [
        -0.1,
        0.0,
-       100000.55
+       3600.55
       ]
      },
      "lens_mm": 40,
@@ -10951,7 +11600,7 @@
       "offset": [
        -1.4,
        1.5,
-       200003.2
+       -5996.8
       ]
      },
      "look_at": {
@@ -10959,7 +11608,7 @@
       "offset": [
        -1.6,
        1.2,
-       199998.0
+       -6002.0
       ]
      },
      "lens_mm": 30,
@@ -10973,7 +11622,7 @@
       "offset": [
        -1.0,
        1.55,
-       200002.6
+       -5997.4
       ]
      },
      "look_at": {
@@ -10981,7 +11630,7 @@
       "offset": [
        -1.4,
        1.2,
-       199998.0
+       -6002.0
       ]
      },
      "lens_mm": 30,
@@ -11062,7 +11711,7 @@
       "offset": [
        -0.4,
        1.4,
-       200003.0
+       -5997.0
       ]
      },
      "look_at": {
@@ -11070,7 +11719,7 @@
       "offset": [
        2.2,
        1.3,
-       199998.5
+       -6001.5
       ]
      },
      "lens_mm": 30,
@@ -11084,7 +11733,7 @@
       "offset": [
        -0.0,
        1.4,
-       200002.4
+       -5997.6
       ]
      },
      "look_at": {
@@ -11092,7 +11741,7 @@
       "offset": [
        2.2,
        1.3,
-       199998.5
+       -6001.5
       ]
      },
      "lens_mm": 30,
@@ -11183,7 +11832,7 @@
       "offset": [
        -406.5,
        2.4,
-       200007.5
+       -5992.5
       ]
      },
      "look_at": {
@@ -11191,7 +11840,7 @@
       "offset": [
        -401.5,
        2.4,
-       200001.8
+       -5998.2
       ]
      },
      "lens_mm": 28,
@@ -11205,7 +11854,7 @@
       "offset": [
        -405.0,
        3.0,
-       200006.0
+       -5994.0
       ]
      },
      "look_at": {
@@ -11213,7 +11862,7 @@
       "offset": [
        -401.0,
        2.8,
-       200001.8
+       -5998.2
       ]
      },
      "lens_mm": 28,
@@ -11292,7 +11941,7 @@
       "offset": [
        -401.6,
        3.9,
-       200000.6
+       -5999.4
       ]
      },
      "look_at": {
@@ -11300,7 +11949,7 @@
       "offset": [
        -400.0,
        3.7,
-       199997.8
+       -6002.2
       ]
      },
      "lens_mm": 32,
@@ -11314,7 +11963,7 @@
       "offset": [
        -401.3,
        3.85,
-       200000.2
+       -5999.8
       ]
      },
      "look_at": {
@@ -11322,7 +11971,7 @@
       "offset": [
        -400.0,
        3.7,
-       199997.8
+       -6002.2
       ]
      },
      "lens_mm": 32,
@@ -11401,7 +12050,7 @@
       "offset": [
        -0.9,
        0.7,
-       200003.4
+       -5996.6
       ]
      },
      "look_at": {
@@ -11409,7 +12058,7 @@
       "offset": [
        -0.9,
        0.9,
-       200000.6
+       -5999.4
       ]
      },
      "lens_mm": 30,
@@ -11423,7 +12072,7 @@
       "offset": [
        -0.9,
        0.9,
-       200002.8
+       -5997.2
       ]
      },
      "look_at": {
@@ -11431,7 +12080,7 @@
       "offset": [
        -0.9,
        1.1,
-       200000.4
+       -5999.6
       ]
      },
      "lens_mm": 30,
@@ -11512,7 +12161,7 @@
       "offset": [
        -1.55,
        2.05,
-       99999.75
+       3599.75
       ]
      },
      "look_at": {
@@ -11520,7 +12169,7 @@
       "offset": [
        -1.55,
        1.0,
-       99999.38
+       3599.38
       ]
      },
      "lens_mm": 32,
@@ -11534,7 +12183,7 @@
       "offset": [
        -1.55,
        1.9,
-       99999.7
+       3599.7
       ]
      },
      "look_at": {
@@ -11542,7 +12191,7 @@
       "offset": [
        -1.55,
        1.0,
-       99999.38
+       3599.38
       ]
      },
      "lens_mm": 32,
@@ -11623,7 +12272,7 @@
       "offset": [
        0.3,
        1.25,
-       20001.8
+       1201.8
       ]
      },
      "look_at": {
@@ -11631,7 +12280,7 @@
       "offset": [
        0.3,
        1.1,
-       19998.2
+       1198.2
       ]
      },
      "lens_mm": 30,
@@ -11645,7 +12294,7 @@
       "offset": [
        0.2,
        1.3,
-       20001.2
+       1201.2
       ]
      },
      "look_at": {
@@ -11653,7 +12302,7 @@
       "offset": [
        0.25,
        1.1,
-       19998.2
+       1198.2
       ]
      },
      "lens_mm": 30,
@@ -11734,7 +12383,7 @@
       "offset": [
        -14.0,
        16.0,
-       140046.0
+       4846.0
       ]
      },
      "look_at": {
@@ -11742,7 +12391,7 @@
       "offset": [
        -0.0,
        2.0,
-       139970.0
+       4770.0
       ]
      },
      "lens_mm": 24,
@@ -11756,7 +12405,7 @@
       "offset": [
        -9.0,
        9.0,
-       140032.0
+       4832.0
       ]
      },
      "look_at": {
@@ -11764,7 +12413,7 @@
       "offset": [
        -0.0,
        1.5,
-       139980.0
+       4780.0
       ]
      },
      "lens_mm": 24,
@@ -11845,7 +12494,7 @@
       "offset": [
        9.0,
        1.8,
-       140013.0
+       4813.0
       ]
      },
      "look_at": {
@@ -11853,7 +12502,7 @@
       "offset": [
        -40.0,
        30.0,
-       139850.0
+       4650.0
       ]
      },
      "lens_mm": 32,
@@ -11867,7 +12516,7 @@
       "offset": [
        7.0,
        2.2,
-       140011.0
+       4811.0
       ]
      },
      "look_at": {
@@ -11875,7 +12524,7 @@
       "offset": [
        -45.0,
        33.0,
-       139850.0
+       4650.0
       ]
      },
      "lens_mm": 32,
@@ -11956,7 +12605,7 @@
       "offset": [
        -1.4,
        1.2,
-       140301.1
+       5101.1
       ]
      },
      "look_at": {
@@ -11964,7 +12613,7 @@
       "offset": [
        -0.1,
        0.9,
-       140299.8
+       5099.8
       ]
      },
      "lens_mm": 26,
@@ -11978,7 +12627,7 @@
       "offset": [
        -1.3,
        1.15,
-       140300.95
+       5100.95
       ]
      },
      "look_at": {
@@ -11986,7 +12635,7 @@
       "offset": [
        -0.2,
        0.85,
-       140299.75
+       5099.75
       ]
      },
      "lens_mm": 26,
@@ -12067,7 +12716,7 @@
       "offset": [
        -1.5,
        1.3,
-       140004.6
+       4804.6
       ]
      },
      "look_at": {
@@ -12075,7 +12724,7 @@
       "offset": [
        2.2,
        1.15,
-       140001.6
+       4801.6
       ]
      },
      "lens_mm": 35,
@@ -12089,7 +12738,7 @@
       "offset": [
        -0.8,
        1.3,
-       140004.0
+       4804.0
       ]
      },
      "look_at": {
@@ -12097,7 +12746,7 @@
       "offset": [
        2.2,
        1.15,
-       140001.6
+       4801.6
       ]
      },
      "lens_mm": 35,
@@ -12178,7 +12827,7 @@
       "offset": [
        -309.5,
        1.1,
-       140006.0
+       4806.0
       ]
      },
      "look_at": {
@@ -12186,7 +12835,7 @@
       "offset": [
        -306.5,
        1.0,
-       140008.0
+       4808.0
       ]
      },
      "lens_mm": 28,
@@ -12200,7 +12849,7 @@
       "offset": [
        -304.5,
        1.2,
-       139999.0
+       4799.0
       ]
      },
      "look_at": {
@@ -12208,7 +12857,7 @@
       "offset": [
        -301.0,
        1.0,
-       139993.5
+       4793.5
       ]
      },
      "lens_mm": 28,
@@ -12289,7 +12938,7 @@
       "offset": [
        -302.6,
        1.6,
-       139997.6
+       4797.6
       ]
      },
      "look_at": {
@@ -12297,7 +12946,7 @@
       "offset": [
        -300.0,
        0.8,
-       139992.2
+       4792.2
       ]
      },
      "lens_mm": 32,
@@ -12311,7 +12960,7 @@
       "offset": [
        -302.0,
        1.4,
-       139996.4
+       4796.4
       ]
      },
      "look_at": {
@@ -12319,7 +12968,7 @@
       "offset": [
        -300.0,
        0.75,
-       139992.2
+       4792.2
       ]
      },
      "lens_mm": 32,
@@ -12400,7 +13049,7 @@
       "offset": [
        -1.3,
        0.85,
-       140601.8
+       5401.8
       ]
      },
      "look_at": {
@@ -12408,7 +13057,7 @@
       "offset": [
        -0.0,
        0.55,
-       140600.2
+       5400.2
       ]
      },
      "lens_mm": 32,
@@ -12422,7 +13071,7 @@
       "offset": [
        -1.0,
        0.8,
-       140601.5
+       5401.5
       ]
      },
      "look_at": {
@@ -12430,7 +13079,7 @@
       "offset": [
        -0.0,
        0.6,
-       140600.4
+       5400.4
       ]
      },
      "lens_mm": 32,
@@ -12511,7 +13160,7 @@
       "offset": [
        -0.25,
        0.9,
-       140600.25
+       5400.25
       ]
      },
      "look_at": {
@@ -12519,7 +13168,7 @@
       "offset": [
        -0.0,
        0.88,
-       140600.85
+       5400.85
       ]
      },
      "lens_mm": 40,
@@ -12533,7 +13182,7 @@
       "offset": [
        -0.2,
        0.9,
-       140600.35
+       5400.35
       ]
      },
      "look_at": {
@@ -12541,7 +13190,7 @@
       "offset": [
        -0.0,
        0.88,
-       140600.85
+       5400.85
       ]
      },
      "lens_mm": 40,
@@ -12622,7 +13271,7 @@
       "offset": [
        2997.0,
        1.9,
-       139981.0
+       4781.0
       ]
      },
      "look_at": {
@@ -12630,7 +13279,7 @@
       "offset": [
        3020.0,
        30.0,
-       139100.0
+       3900.0
       ]
      },
      "lens_mm": 30,
@@ -12644,7 +13293,7 @@
       "offset": [
        2997.6,
        1.7,
-       139979.0
+       4779.0
       ]
      },
      "look_at": {
@@ -12652,7 +13301,7 @@
       "offset": [
        3020.0,
        32.0,
-       139100.0
+       3900.0
       ]
      },
      "lens_mm": 30,
@@ -12733,7 +13382,7 @@
       "offset": [
        -0.9,
        1.05,
-       20005.6
+       1205.6
       ]
      },
      "look_at": {
@@ -12741,7 +13390,7 @@
       "offset": [
        -0.0,
        2.0,
-       19995.4
+       1195.4
       ]
      },
      "lens_mm": 24,
@@ -12755,7 +13404,7 @@
       "offset": [
        -0.5,
        1.35,
-       20002.6
+       1202.6
       ]
      },
      "look_at": {
@@ -12763,7 +13412,7 @@
       "offset": [
        -0.2,
        2.0,
-       19995.4
+       1195.4
       ]
      },
      "lens_mm": 24,
@@ -12844,7 +13493,7 @@
       "offset": [
        2.0,
        1.45,
-       20000.35
+       1200.35
       ]
      },
      "look_at": {
@@ -12852,7 +13501,7 @@
       "offset": [
        2.6,
        1.3,
-       19997.8
+       1197.8
       ]
      },
      "lens_mm": 30,
@@ -12866,7 +13515,7 @@
       "offset": [
        2.05,
        1.42,
-       19999.95
+       1199.95
       ]
      },
      "look_at": {
@@ -12874,7 +13523,7 @@
       "offset": [
        2.6,
        1.3,
-       19997.8
+       1197.8
       ]
      },
      "lens_mm": 30,
@@ -12955,7 +13604,7 @@
       "offset": [
        -0.35,
        1.2,
-       19999.25
+       1199.25
       ]
      },
      "look_at": {
@@ -12963,7 +13612,7 @@
       "offset": [
        -1.5,
        1.12,
-       19998.8
+       1198.8
       ]
      },
      "lens_mm": 40,
@@ -12977,7 +13626,7 @@
       "offset": [
        -0.45,
        1.19,
-       19999.2
+       1199.2
       ]
      },
      "look_at": {
@@ -12985,7 +13634,7 @@
       "offset": [
        -1.5,
        1.12,
-       19998.8
+       1198.8
       ]
      },
      "lens_mm": 40,
@@ -13066,7 +13715,7 @@
       "offset": [
        -0.3,
        1.45,
-       19997.7
+       1197.7
       ]
      },
      "look_at": {
@@ -13074,7 +13723,7 @@
       "offset": [
        -1.55,
        1.12,
-       19998.7
+       1198.7
       ]
      },
      "lens_mm": 30,
@@ -13088,7 +13737,7 @@
       "offset": [
        -0.38,
        1.43,
-       19997.82
+       1197.82
       ]
      },
      "look_at": {
@@ -13096,7 +13745,7 @@
       "offset": [
        -1.55,
        1.12,
-       19998.7
+       1198.7
       ]
      },
      "lens_mm": 30,
@@ -13194,7 +13843,7 @@
       "offset": [
        -1.2,
        1.3,
-       221506.0
+       8706.0
       ]
      },
      "look_at": {
@@ -13202,7 +13851,7 @@
       "offset": [
        -0.0,
        1.6,
-       221497.0
+       8697.0
       ]
      },
      "lens_mm": 30,
@@ -13216,7 +13865,7 @@
       "offset": [
        -0.9,
        1.25,
-       221505.0
+       8705.0
       ]
      },
      "look_at": {
@@ -13224,7 +13873,7 @@
       "offset": [
        -0.2,
        1.3,
-       221501.0
+       8701.0
       ]
      },
      "lens_mm": 30,
@@ -13303,7 +13952,7 @@
       "offset": [
        1.5,
        1.4,
-       221803.0
+       9003.0
       ]
      },
      "look_at": {
@@ -13311,7 +13960,7 @@
       "offset": [
        -0.0,
        1.15,
-       221799.0
+       8999.0
       ]
      },
      "lens_mm": 30,
@@ -13325,7 +13974,7 @@
       "offset": [
        1.35,
        1.38,
-       221802.7
+       9002.7
       ]
      },
      "look_at": {
@@ -13333,7 +13982,7 @@
       "offset": [
        -0.0,
        1.15,
-       221799.0
+       8999.0
       ]
      },
      "lens_mm": 30,
@@ -13414,7 +14063,7 @@
       "offset": [
        0.9,
        1.25,
-       221802.4
+       9002.4
       ]
      },
      "look_at": {
@@ -13422,7 +14071,7 @@
       "offset": [
        -0.0,
        1.15,
-       221799.0
+       8999.0
       ]
      },
      "lens_mm": 45,
@@ -13436,7 +14085,7 @@
       "offset": [
        0.8,
        1.22,
-       221802.1
+       9002.1
       ]
      },
      "look_at": {
@@ -13444,7 +14093,7 @@
       "offset": [
        -0.0,
        1.15,
-       221799.0
+       8999.0
       ]
      },
      "lens_mm": 45,
@@ -13525,7 +14174,7 @@
       "offset": [
        26.0,
        6.0,
-       159988.0
+       -4812.0
       ]
      },
      "look_at": {
@@ -13533,7 +14182,7 @@
       "offset": [
        -0.0,
        18.0,
-       159938.0
+       -4862.0
       ]
      },
      "lens_mm": 26,
@@ -13547,7 +14196,7 @@
       "offset": [
        22.0,
        10.0,
-       159982.0
+       -4818.0
       ]
      },
      "look_at": {
@@ -13555,7 +14204,7 @@
       "offset": [
        -0.0,
        19.0,
-       159938.0
+       -4862.0
       ]
      },
      "lens_mm": 26,
@@ -13636,7 +14285,7 @@
       "offset": [
        -0.3,
        1.35,
-       160302.6
+       -4497.4
       ]
      },
      "look_at": {
@@ -13644,7 +14293,7 @@
       "offset": [
        0.05,
        0.85,
-       160300.0
+       -4500.0
       ]
      },
      "lens_mm": 32,
@@ -13658,7 +14307,7 @@
       "offset": [
        -0.2,
        1.3,
-       160302.2
+       -4497.8
       ]
      },
      "look_at": {
@@ -13666,7 +14315,7 @@
       "offset": [
        0.05,
        0.85,
-       160300.0
+       -4500.0
       ]
      },
      "lens_mm": 32,
@@ -13756,7 +14405,7 @@
       "offset": [
        -0.1,
        1.45,
-       160302.6
+       -4497.4
       ]
      },
      "look_at": {
@@ -13764,7 +14413,7 @@
       "offset": [
        1.2,
        1.0,
-       160299.4
+       -4500.6
       ]
      },
      "lens_mm": 30,
@@ -13778,7 +14427,7 @@
       "offset": [
        0.05,
        1.35,
-       160302.2
+       -4497.8
       ]
      },
      "look_at": {
@@ -13786,7 +14435,7 @@
       "offset": [
        0.1,
        1.25,
-       160300.9
+       -4499.1
       ]
      },
      "lens_mm": 30,
@@ -13867,7 +14516,7 @@
       "offset": [
        -0.8,
        1.6,
-       120002.0
+       -3598.0
       ]
      },
      "look_at": {
@@ -13875,7 +14524,7 @@
       "offset": [
        -0.0,
        2.2,
-       120014.0
+       -3586.0
       ]
      },
      "lens_mm": 26,
@@ -13889,7 +14538,7 @@
       "offset": [
        -0.6,
        1.5,
-       119999.5
+       -3600.5
       ]
      },
      "look_at": {
@@ -13897,7 +14546,7 @@
       "offset": [
        -0.0,
        1.6,
-       120006.0
+       -3594.0
       ]
      },
      "lens_mm": 26,
@@ -13978,7 +14627,7 @@
       "offset": [
        -0.0,
        1.6,
-       119986.0
+       -3614.0
       ]
      },
      "look_at": {
@@ -13986,7 +14635,7 @@
       "offset": [
        -0.0,
        2.5,
-       119974.0
+       -3626.0
       ]
      },
      "lens_mm": 30,
@@ -14000,7 +14649,7 @@
       "offset": [
        -0.0,
        1.8,
-       119981.0
+       -3619.0
       ]
      },
      "look_at": {
@@ -14008,7 +14657,7 @@
       "offset": [
        -0.0,
        2.5,
-       119974.0
+       -3626.0
       ]
      },
      "lens_mm": 30,
@@ -14098,7 +14747,7 @@
       "offset": [
        -1.4,
        1.5,
-       119977.5
+       -3622.5
       ]
      },
      "look_at": {
@@ -14106,7 +14755,7 @@
       "offset": [
        -0.0,
        2.5,
-       119974.0
+       -3626.0
       ]
      },
      "lens_mm": 38,
@@ -14120,7 +14769,7 @@
       "offset": [
        -0.9,
        1.45,
-       119977.0
+       -3623.0
       ]
      },
      "look_at": {
@@ -14128,7 +14777,7 @@
       "offset": [
        -0.0,
        2.5,
-       119974.0
+       -3626.0
       ]
      },
      "lens_mm": 38,
@@ -14209,7 +14858,7 @@
       "offset": [
        -3.5,
        11.0,
-       120012.0
+       -3588.0
       ]
      },
      "look_at": {
@@ -14217,7 +14866,7 @@
       "offset": [
        -0.0,
        2.0,
-       119974.0
+       -3626.0
       ]
      },
      "lens_mm": 22,
@@ -14231,7 +14880,7 @@
       "offset": [
        -2.0,
        9.0,
-       120004.0
+       -3596.0
       ]
      },
      "look_at": {
@@ -14239,7 +14888,7 @@
       "offset": [
        -0.0,
        2.0,
-       119974.0
+       -3626.0
       ]
      },
      "lens_mm": 22,
@@ -14320,7 +14969,7 @@
       "offset": [
        3.0,
        1.4,
-       120049.5
+       -3550.5
       ]
      },
      "look_at": {
@@ -14328,7 +14977,7 @@
       "offset": [
        -0.0,
        4.5,
-       120040.0
+       -3560.0
       ]
      },
      "lens_mm": 26,
@@ -14342,7 +14991,7 @@
       "offset": [
        2.5,
        1.5,
-       120048.5
+       -3551.5
       ]
      },
      "look_at": {
@@ -14350,7 +14999,7 @@
       "offset": [
        -0.0,
        5.0,
-       120040.0
+       -3560.0
       ]
      },
      "lens_mm": 26,
@@ -14441,7 +15090,7 @@
       "offset": [
        -2.5,
        1.2,
-       120050.0
+       -3550.0
       ]
      },
      "look_at": {
@@ -14449,7 +15098,7 @@
       "offset": [
        -0.0,
        11.0,
-       120041.0
+       -3559.0
       ]
      },
      "lens_mm": 28,
@@ -14463,7 +15112,7 @@
       "offset": [
        -1.8,
        1.3,
-       120049.0
+       -3551.0
       ]
      },
      "look_at": {
@@ -14471,7 +15120,7 @@
       "offset": [
        -0.0,
        11.5,
-       120041.0
+       -3559.0
       ]
      },
      "lens_mm": 28,
@@ -14552,7 +15201,7 @@
       "offset": [
        -0.0,
        2.75,
-       119977.4
+       -3622.6
       ]
      },
      "look_at": {
@@ -14560,7 +15209,7 @@
       "offset": [
        -0.0,
        2.65,
-       119976.0
+       -3624.0
       ]
      },
      "lens_mm": 40,
@@ -14574,7 +15223,7 @@
       "offset": [
        -0.0,
        2.72,
-       119977.1
+       -3622.9
       ]
      },
      "look_at": {
@@ -14582,7 +15231,7 @@
       "offset": [
        -0.0,
        2.65,
-       119976.0
+       -3624.0
       ]
      },
      "lens_mm": 40,
@@ -14663,7 +15312,7 @@
       "offset": [
        5.5,
        1.3,
-       119991.5
+       -3608.5
       ]
      },
      "look_at": {
@@ -14671,7 +15320,7 @@
       "offset": [
        2.0,
        1.2,
-       119988.0
+       -3612.0
       ]
      },
      "lens_mm": 30,
@@ -14685,7 +15334,7 @@
       "offset": [
        2.0,
        1.3,
-       119991.7
+       -3608.3
       ]
      },
      "look_at": {
@@ -14693,7 +15342,7 @@
       "offset": [
        -1.5,
        1.2,
-       119988.0
+       -3612.0
       ]
      },
      "lens_mm": 30,
@@ -14774,7 +15423,7 @@
       "offset": [
        -0.4,
        1.3,
-       119990.4
+       -3609.6
       ]
      },
      "look_at": {
@@ -14782,7 +15431,7 @@
       "offset": [
        -0.0,
        1.35,
-       119988.0
+       -3612.0
       ]
      },
      "lens_mm": 40,
@@ -14796,7 +15445,7 @@
       "offset": [
        -0.35,
        1.35,
-       119990.1
+       -3609.9
       ]
      },
      "look_at": {
@@ -14804,7 +15453,7 @@
       "offset": [
        -0.0,
        1.45,
-       119988.0
+       -3612.0
       ]
      },
      "lens_mm": 40,
@@ -14894,7 +15543,7 @@
       "offset": [
        7.4,
        0.4,
-       220009.6
+       7209.6
       ]
      },
      "look_at": {
@@ -14902,7 +15551,7 @@
       "offset": [
        -11.0,
        8.0,
-       219992.5
+       7192.5
       ]
      },
      "lens_mm": 45
@@ -14913,7 +15562,7 @@
       "offset": [
        6.9,
        0.45,
-       220008.9
+       7208.9
       ]
      },
      "look_at": {
@@ -14921,7 +15570,7 @@
       "offset": [
        -11.0,
        8.4,
-       219992.5
+       7192.5
       ]
      },
      "lens_mm": 45
@@ -15008,7 +15657,7 @@
       "offset": [
        -2.4,
        5.9,
-       174002.6
+       2.6
       ]
      },
      "look_at": {
@@ -15016,7 +15665,7 @@
       "offset": [
        -0.0,
        5.9,
-       174000.0
+       0.0
       ]
      },
      "lens_mm": 28,
@@ -15030,7 +15679,7 @@
       "offset": [
        2.0,
        5.4,
-       174002.8
+       2.8
       ]
      },
      "look_at": {
@@ -15038,7 +15687,7 @@
       "offset": [
        -0.0,
        6.0,
-       174000.0
+       0.0
       ]
      },
      "lens_mm": 28,
@@ -15118,7 +15767,7 @@
       "offset": [
        -2.2,
        1.5,
-       180602.6
+       6602.6
       ]
      },
      "look_at": {
@@ -15126,7 +15775,7 @@
       "offset": [
        1.0,
        2.2,
-       180594.0
+       6594.0
       ]
      },
      "lens_mm": 24,
@@ -15140,7 +15789,7 @@
       "offset": [
        -1.8,
        1.4,
-       180602.2
+       6602.2
       ]
      },
      "look_at": {
@@ -15148,7 +15797,7 @@
       "offset": [
        0.3,
        1.5,
-       180599.0
+       6599.0
       ]
      },
      "lens_mm": 24,
@@ -15229,7 +15878,7 @@
       "offset": [
        -0.8,
        1.2,
-       180601.7
+       6601.7
       ]
      },
      "look_at": {
@@ -15237,7 +15886,7 @@
       "offset": [
        -0.0,
        1.35,
-       180600.45
+       6600.45
       ]
      },
      "lens_mm": 40,
@@ -15251,7 +15900,7 @@
       "offset": [
        -0.65,
        1.22,
-       180601.45
+       6601.45
       ]
      },
      "look_at": {
@@ -15259,7 +15908,7 @@
       "offset": [
        -0.0,
        1.35,
-       180600.45
+       6600.45
       ]
      },
      "lens_mm": 40,
@@ -15340,7 +15989,7 @@
       "offset": [
        -30.0,
        25.0,
-       181310.0
+       7310.0
       ]
      },
      "look_at": {
@@ -15348,7 +15997,7 @@
       "offset": [
        -0.0,
        0.0,
-       181200.0
+       7200.0
       ]
      },
      "lens_mm": 30,
@@ -15362,7 +16011,7 @@
       "offset": [
        10.0,
        18.0,
-       181300.0
+       7300.0
       ]
      },
      "look_at": {
@@ -15370,7 +16019,7 @@
       "offset": [
        -0.0,
        0.0,
-       181200.0
+       7200.0
       ]
      },
      "lens_mm": 30,
@@ -15451,7 +16100,7 @@
       "offset": [
        20.0,
        10.0,
-       181280.0
+       7280.0
       ]
      },
      "look_at": {
@@ -15459,7 +16108,7 @@
       "offset": [
        -0.0,
        0.0,
-       181200.0
+       7200.0
       ]
      },
      "lens_mm": 32,
@@ -15473,7 +16122,7 @@
       "offset": [
        -10.0,
        6.0,
-       181272.0
+       7272.0
       ]
      },
      "look_at": {
@@ -15481,7 +16130,7 @@
       "offset": [
        -0.0,
        0.0,
-       181200.0
+       7200.0
       ]
      },
      "lens_mm": 32,
@@ -15571,7 +16220,7 @@
       "offset": [
        -3.2,
        0.6,
-       181801.0
+       7801.0
       ]
      },
      "look_at": {
@@ -15579,7 +16228,7 @@
       "offset": [
        -0.0,
        1.6,
-       181794.0
+       7794.0
       ]
      },
      "lens_mm": 28,
@@ -15593,7 +16242,7 @@
       "offset": [
        -2.2,
        0.9,
-       181798.8
+       7798.8
       ]
      },
      "look_at": {
@@ -15601,7 +16250,7 @@
       "offset": [
        -0.0,
        1.7,
-       181794.0
+       7794.0
       ]
      },
      "lens_mm": 28,
@@ -15682,7 +16331,7 @@
       "offset": [
        3.4,
        2.3,
-       181795.0
+       7795.0
       ]
      },
      "look_at": {
@@ -15690,7 +16339,7 @@
       "offset": [
        -0.3,
        1.7,
-       181794.6
+       7794.6
       ]
      },
      "lens_mm": 32,
@@ -15704,7 +16353,7 @@
       "offset": [
        3.0,
        2.2,
-       181795.2
+       7795.2
       ]
      },
      "look_at": {
@@ -15712,7 +16361,7 @@
       "offset": [
        -0.3,
        1.7,
-       181794.6
+       7794.6
       ]
      },
      "lens_mm": 32,
@@ -15793,7 +16442,7 @@
       "offset": [
        -1.5,
        -3.85,
-       185054.4
+       11054.4
       ]
      },
      "look_at": {
@@ -15801,7 +16450,7 @@
       "offset": [
        -0.0,
        -4.15,
-       185052.0
+       11052.0
       ]
      },
      "lens_mm": 35,
@@ -15815,7 +16464,7 @@
       "offset": [
        -1.25,
        -3.9,
-       185054.0
+       11054.0
       ]
      },
      "look_at": {
@@ -15823,7 +16472,7 @@
       "offset": [
        -0.0,
        -4.1,
-       185052.0
+       11052.0
       ]
      },
      "lens_mm": 35,
@@ -15904,7 +16553,7 @@
       "offset": [
        -1.5,
        -3.5,
-       185056.0
+       11056.0
       ]
      },
      "look_at": {
@@ -15912,7 +16561,7 @@
       "offset": [
        -0.0,
        -3.5,
-       185050.0
+       11050.0
       ]
      },
      "lens_mm": 30,
@@ -15926,7 +16575,7 @@
       "offset": [
        -45.0,
        15.0,
-       185150.0
+       11150.0
       ]
      },
      "look_at": {
@@ -15934,7 +16583,7 @@
       "offset": [
        -0.0,
        0.0,
-       185000.0
+       11000.0
       ]
      },
      "lens_mm": 30,
@@ -16015,7 +16664,7 @@
       "offset": [
        -0.0,
        2.0,
-       39997.4
+       -1202.6
       ]
      },
      "look_at": {
@@ -16023,7 +16672,7 @@
       "offset": [
        -0.0,
        2.6,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 32,
@@ -16037,7 +16686,7 @@
       "offset": [
        -0.0,
        2.1,
-       39996.8
+       -1203.2
       ]
      },
      "look_at": {
@@ -16045,7 +16694,7 @@
       "offset": [
        -0.0,
        2.65,
-       39994.0
+       -1206.0
       ]
      },
      "lens_mm": 32,
@@ -16126,7 +16775,7 @@
       "offset": [
        -1.9,
        1.35,
-       220301.4
+       7501.4
       ]
      },
      "look_at": {
@@ -16134,7 +16783,7 @@
       "offset": [
        -0.3,
        1.0,
-       220298.4
+       7498.4
       ]
      },
      "lens_mm": 32,
@@ -16148,7 +16797,7 @@
       "offset": [
        -1.6,
        1.3,
-       220301.0
+       7501.0
       ]
      },
      "look_at": {
@@ -16156,7 +16805,7 @@
       "offset": [
        -0.3,
        1.0,
-       220298.4
+       7498.4
       ]
      },
      "lens_mm": 32,
@@ -16237,7 +16886,7 @@
       "offset": [
        -0.6,
        1.35,
-       220301.0
+       7501.0
       ]
      },
      "look_at": {
@@ -16245,7 +16894,7 @@
       "offset": [
        -1.2,
        1.1,
-       220298.4
+       7498.4
       ]
      },
      "lens_mm": 32,
@@ -16259,7 +16908,7 @@
       "offset": [
        -0.7,
        1.4,
-       220300.8
+       7500.8
       ]
      },
      "look_at": {
@@ -16267,7 +16916,7 @@
       "offset": [
        -1.2,
        1.3,
-       220298.5
+       7498.5
       ]
      },
      "lens_mm": 32,
@@ -16348,7 +16997,7 @@
       "offset": [
        -0.8,
        0.9,
-       220602.4
+       7802.4
       ]
      },
      "look_at": {
@@ -16356,7 +17005,7 @@
       "offset": [
        -0.0,
        1.35,
-       220604.5
+       7804.5
       ]
      },
      "lens_mm": 30,
@@ -16370,7 +17019,7 @@
       "offset": [
        -0.6,
        0.85,
-       220602.8
+       7802.8
       ]
      },
      "look_at": {
@@ -16378,7 +17027,7 @@
       "offset": [
        -0.0,
        1.4,
-       220604.5
+       7804.5
       ]
      },
      "lens_mm": 30,
@@ -16457,7 +17106,7 @@
       "offset": [
        2.5,
        1.5,
-       100001.6
+       3601.6
       ]
      },
      "look_at": {
@@ -16465,7 +17114,7 @@
       "offset": [
        1.5,
        1.6,
-       99996.8
+       3596.8
       ]
      },
      "lens_mm": 28,
@@ -16479,7 +17128,7 @@
       "offset": [
        -0.5,
        1.5,
-       100001.4
+       3601.4
       ]
      },
      "look_at": {
@@ -16487,7 +17136,7 @@
       "offset": [
        -1.0,
        1.6,
-       99996.8
+       3596.8
       ]
      },
      "lens_mm": 28,
@@ -16679,7 +17328,7 @@
       "offset": [
        1.5,
        1.05,
-       220900.05
+       8100.05
       ]
      },
      "look_at": {
@@ -16687,7 +17336,7 @@
       "offset": [
        0.5,
        0.95,
-       220898.9
+       8098.9
       ]
      },
      "lens_mm": 35,
@@ -16701,7 +17350,7 @@
       "offset": [
        1.35,
        1.05,
-       220899.95
+       8099.95
       ]
      },
      "look_at": {
@@ -16709,7 +17358,7 @@
       "offset": [
        0.45,
        0.95,
-       220898.9
+       8098.9
       ]
      },
      "lens_mm": 35,
@@ -16790,7 +17439,7 @@
       "offset": [
        -79.0,
        4.5,
-       80007.5
+       -2392.5
       ]
      },
      "look_at": {
@@ -16798,7 +17447,7 @@
       "offset": [
        -80.0,
        6.6,
-       80002.2
+       -2397.8
       ]
      },
      "lens_mm": 30,
@@ -16812,7 +17461,7 @@
       "offset": [
        -79.3,
        3.6,
-       80007.0
+       -2393.0
       ]
      },
      "look_at": {
@@ -16820,7 +17469,7 @@
       "offset": [
        -80.0,
        6.2,
-       80002.2
+       -2397.8
       ]
      },
      "lens_mm": 30,
@@ -16899,7 +17548,7 @@
       "offset": [
        0.8,
        1.42,
-       60001.3
+       2401.3
       ]
      },
      "look_at": {
@@ -16907,7 +17556,7 @@
       "offset": [
        1.1,
        1.42,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 45,
@@ -16921,7 +17570,7 @@
       "offset": [
        -0.8,
        1.42,
-       60001.3
+       2401.3
       ]
      },
      "look_at": {
@@ -16929,7 +17578,7 @@
       "offset": [
        -1.1,
        1.42,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 45,
@@ -17010,7 +17659,7 @@
       "offset": [
        -0.0,
        0.2,
-       221204.0
+       8404.0
       ]
      },
      "look_at": {
@@ -17018,7 +17667,7 @@
       "offset": [
        -0.0,
        0.0,
-       221200.0
+       8400.0
       ]
      },
      "lens_mm": 30,
@@ -17032,7 +17681,7 @@
       "offset": [
        -0.0,
        0.15,
-       221203.6
+       8403.6
       ]
      },
      "look_at": {
@@ -17040,7 +17689,7 @@
       "offset": [
        -0.0,
        0.0,
-       221200.0
+       8400.0
       ]
      },
      "lens_mm": 30,
@@ -17121,7 +17770,7 @@
       "offset": [
        -0.2,
        0.15,
-       221203.6
+       8403.6
       ]
      },
      "look_at": {
@@ -17129,7 +17778,7 @@
       "offset": [
        -0.0,
        0.0,
-       221200.0
+       8400.0
       ]
      },
      "lens_mm": 32,
@@ -17143,7 +17792,7 @@
       "offset": [
        0.2,
        0.15,
-       221203.5
+       8403.5
       ]
      },
      "look_at": {
@@ -17151,7 +17800,7 @@
       "offset": [
        -0.0,
        0.0,
-       221200.0
+       8400.0
       ]
      },
      "lens_mm": 32,
@@ -17232,7 +17881,7 @@
       "offset": [
        0.2,
        0.15,
-       221203.5
+       8403.5
       ]
      },
      "look_at": {
@@ -17240,7 +17889,7 @@
       "offset": [
        -0.0,
        0.0,
-       221200.0
+       8400.0
       ]
      },
      "lens_mm": 32,
@@ -17254,7 +17903,7 @@
       "offset": [
        -0.0,
        0.1,
-       221203.3
+       8403.3
       ]
      },
      "look_at": {
@@ -17262,7 +17911,7 @@
       "offset": [
        -0.0,
        0.0,
-       221200.0
+       8400.0
       ]
      },
      "lens_mm": 32,
@@ -17343,7 +17992,7 @@
       "offset": [
        -2.6,
        1.35,
-       100000.7
+       3600.7
       ]
      },
      "look_at": {
@@ -17351,7 +18000,7 @@
       "offset": [
        -3.3,
        1.45,
-       100002.0
+       3602.0
       ]
      },
      "lens_mm": 30,
@@ -17365,7 +18014,7 @@
       "offset": [
        -2.45,
        1.35,
-       100000.6
+       3600.6
       ]
      },
      "look_at": {
@@ -17373,7 +18022,7 @@
       "offset": [
        -2.0,
        1.3,
-       99999.7
+       3599.7
       ]
      },
      "lens_mm": 30,
@@ -17454,7 +18103,7 @@
       "offset": [
        -0.0,
        0.75,
-       60001.7
+       2401.7
       ]
      },
      "look_at": {
@@ -17462,7 +18111,7 @@
       "offset": [
        -0.0,
        1.5,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 24,
@@ -17476,7 +18125,7 @@
       "offset": [
        -0.0,
        0.8,
-       60001.35
+       2401.35
       ]
      },
      "look_at": {
@@ -17484,7 +18133,7 @@
       "offset": [
        -0.0,
        1.5,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 24,
@@ -17565,7 +18214,7 @@
       "offset": [
        -0.0,
        1.55,
-       60002.7
+       2402.7
       ]
      },
      "look_at": {
@@ -17573,7 +18222,7 @@
       "offset": [
        -0.0,
        1.4,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 35,
@@ -17587,7 +18236,7 @@
       "offset": [
        -0.0,
        1.5,
-       60002.3
+       2402.3
       ]
      },
      "look_at": {
@@ -17595,7 +18244,7 @@
       "offset": [
        -0.0,
        1.4,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 35,
@@ -17676,7 +18325,7 @@
       "offset": [
        0.6,
        1.4,
-       60001.9
+       2401.9
       ]
      },
      "look_at": {
@@ -17684,7 +18333,7 @@
       "offset": [
        1.1,
        1.42,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 40,
@@ -17698,7 +18347,7 @@
       "offset": [
        -0.6,
        1.4,
-       60001.9
+       2401.9
       ]
      },
      "look_at": {
@@ -17706,7 +18355,7 @@
       "offset": [
        -1.1,
        1.42,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 40,
@@ -17898,7 +18547,7 @@
       "offset": [
        -0.9,
        1.5,
-       40002.0
+       -1198.0
       ]
      },
      "look_at": {
@@ -17906,7 +18555,7 @@
       "offset": [
        -2.6,
        0.8,
-       39999.0
+       -1201.0
       ]
      },
      "lens_mm": 30,
@@ -17920,7 +18569,7 @@
       "offset": [
        -1.2,
        1.7,
-       40001.5
+       -1198.5
       ]
      },
      "look_at": {
@@ -17928,7 +18577,7 @@
       "offset": [
        -2.6,
        1.0,
-       39999.0
+       -1201.0
       ]
      },
      "lens_mm": 30,
@@ -18009,7 +18658,7 @@
       "offset": [
        -0.6,
        1.2,
-       40000.6
+       -1199.4
       ]
      },
      "look_at": {
@@ -18017,7 +18666,7 @@
       "offset": [
        -0.0,
        1.15,
-       40002.75
+       -1197.25
       ]
      },
      "lens_mm": 40,
@@ -18031,7 +18680,7 @@
       "offset": [
        -0.5,
        1.2,
-       40000.9
+       -1199.1
       ]
      },
      "look_at": {
@@ -18039,7 +18688,7 @@
       "offset": [
        -0.0,
        1.15,
-       40002.75
+       -1197.25
       ]
      },
      "lens_mm": 40,
@@ -18120,7 +18769,7 @@
       "offset": [
        0.9,
        1.05,
-       40000.2
+       -1199.8
       ]
      },
      "look_at": {
@@ -18128,7 +18777,7 @@
       "offset": [
        -0.0,
        0.82,
-       40001.6
+       -1198.4
       ]
      },
      "lens_mm": 30,
@@ -18142,7 +18791,7 @@
       "offset": [
        0.8,
        1.05,
-       40000.5
+       -1199.5
       ]
      },
      "look_at": {
@@ -18150,7 +18799,7 @@
       "offset": [
        -0.0,
        0.82,
-       40001.6
+       -1198.4
       ]
      },
      "lens_mm": 30,
@@ -18231,7 +18880,7 @@
       "offset": [
        34.0,
        2.5,
-       187048.0
+       13048.0
       ]
      },
      "look_at": {
@@ -18239,7 +18888,7 @@
       "offset": [
        -0.0,
        16.0,
-       187000.0
+       13000.0
       ]
      },
      "lens_mm": 28,
@@ -18253,7 +18902,7 @@
       "offset": [
        26.0,
        3.5,
-       187040.0
+       13040.0
       ]
      },
      "look_at": {
@@ -18261,7 +18910,7 @@
       "offset": [
        -0.0,
        18.0,
-       187000.0
+       13000.0
       ]
      },
      "lens_mm": 28,
@@ -18342,7 +18991,7 @@
       "offset": [
        -3.0,
        16.5,
-       187012.0
+       13012.0
       ]
      },
      "look_at": {
@@ -18350,7 +18999,7 @@
       "offset": [
        -0.0,
        18.0,
-       187002.3
+       13002.3
       ]
      },
      "lens_mm": 32,
@@ -18364,7 +19013,7 @@
       "offset": [
        -0.6,
        17.9,
-       187004.6
+       13004.6
       ]
      },
      "look_at": {
@@ -18372,7 +19021,7 @@
       "offset": [
        -0.0,
        18.0,
-       187002.3
+       13002.3
       ]
      },
      "lens_mm": 32,
@@ -18453,7 +19102,7 @@
       "offset": [
        2.6,
        1.25,
-       79990.6
+       -2409.4
       ]
      },
      "look_at": {
@@ -18461,7 +19110,7 @@
       "offset": [
        1.6,
        1.0,
-       79992.55
+       -2407.45
       ]
      },
      "lens_mm": 32,
@@ -18475,7 +19124,7 @@
       "offset": [
        -0.2,
        1.25,
-       79990.6
+       -2409.4
       ]
      },
      "look_at": {
@@ -18483,7 +19132,7 @@
       "offset": [
        -0.4,
        1.0,
-       79992.55
+       -2407.45
       ]
      },
      "lens_mm": 32,
@@ -18564,7 +19213,7 @@
       "offset": [
        -1.3,
        1.66,
-       60000.85
+       2400.85
       ]
      },
      "look_at": {
@@ -18572,7 +19221,7 @@
       "offset": [
        -1.1,
        1.62,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 50,
@@ -18586,7 +19235,7 @@
       "offset": [
        -1.25,
        1.65,
-       60000.68
+       2400.68
       ]
      },
      "look_at": {
@@ -18594,7 +19243,7 @@
       "offset": [
        -1.1,
        1.62,
-       60000.0
+       2400.0
       ]
      },
      "lens_mm": 50,
@@ -18675,7 +19324,7 @@
       "offset": [
        -77.5,
        2.2,
-       80009.5
+       -2390.5
       ]
      },
      "look_at": {
@@ -18683,7 +19332,7 @@
       "offset": [
        -80.0,
        5.9,
-       80002.2
+       -2397.8
       ]
      },
      "lens_mm": 28,
@@ -18697,7 +19346,7 @@
       "offset": [
        -78.6,
        2.6,
-       80008.0
+       -2392.0
       ]
      },
      "look_at": {
@@ -18705,7 +19354,7 @@
       "offset": [
        -80.0,
        6.1,
-       80002.2
+       -2397.8
       ]
      },
      "lens_mm": 28,
@@ -18784,7 +19433,7 @@
       "offset": [
        -84.0,
        1.5,
-       80008.0
+       -2392.0
       ]
      },
      "look_at": {
@@ -18792,7 +19441,7 @@
       "offset": [
        -82.0,
        4.5,
-       80001.0
+       -2399.0
       ]
      },
      "lens_mm": 26,
@@ -18806,7 +19455,7 @@
       "offset": [
        -83.0,
        1.8,
-       80007.0
+       -2393.0
       ]
      },
      "look_at": {
@@ -18814,7 +19463,7 @@
       "offset": [
        -81.0,
        5.0,
-       80001.0
+       -2399.0
       ]
      },
      "lens_mm": 26,
@@ -18893,7 +19542,7 @@
       "offset": [
        -430.0,
        -20.0,
-       120160.0
+       -3440.0
       ]
      },
      "look_at": {
@@ -18901,7 +19550,7 @@
       "offset": [
        -400.0,
        25.0,
-       119965.0
+       -3635.0
       ]
      },
      "lens_mm": 28,
@@ -18915,7 +19564,7 @@
       "offset": [
        -420.0,
        -12.0,
-       120120.0
+       -3480.0
       ]
      },
      "look_at": {
@@ -18923,7 +19572,7 @@
       "offset": [
        -400.0,
        27.0,
-       119965.0
+       -3635.0
       ]
      },
      "lens_mm": 28,
@@ -19002,7 +19651,7 @@
       "offset": [
        -405.0,
        20.0,
-       120060.0
+       -3540.0
       ]
      },
      "look_at": {
@@ -19010,7 +19659,7 @@
       "offset": [
        -400.0,
        33.0,
-       119973.0
+       -3627.0
       ]
      },
      "lens_mm": 30,
@@ -19024,7 +19673,7 @@
       "offset": [
        -400.5,
        32.0,
-       119982.0
+       -3618.0
       ]
      },
      "look_at": {
@@ -19032,7 +19681,7 @@
       "offset": [
        -400.0,
        33.0,
-       119973.0
+       -3627.0
       ]
      },
      "lens_mm": 30,

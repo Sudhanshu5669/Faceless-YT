@@ -8,7 +8,7 @@ tibet_mask (v10: the tongs bring the red-hot mask toward the lens; white on "red
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 160000.0)
+P = frame("board", -4800.0)   # near the origin (float precision); gags are shown only in their shots
 F = 300.0
 
 LOOK_DUSK = {

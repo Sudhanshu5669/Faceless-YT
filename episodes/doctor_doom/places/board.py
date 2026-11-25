@@ -14,7 +14,7 @@ Chapter 4: board_contract (r11), board_question (r12), board_fox (r13: the film 
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 40000.0)   # far from the other places
+P = frame("board", -1200.0)   # near the origin (float precision); gags are shown only in their shots
 
 LOOK_BOARD = {
     "base": "night_fog", "time": "23:00",

@@ -11,7 +11,7 @@ Chapter 4: castle_night (r19), castle_window (r20: the push into the lit window)
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 120000.0)
+P = frame("board", -3600.0)   # near the origin (float precision); gags are shown only in their shots
 TH = (0.0, 1.2, -26.0)
 GZ = 40.0
 

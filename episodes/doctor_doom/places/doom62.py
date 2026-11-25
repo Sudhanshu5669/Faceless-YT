@@ -10,7 +10,7 @@ he doesn't look down).
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 200000.0)
+P = frame("board", -6000.0)   # near the origin (float precision); gags are shown only in their shots
 S = 400.0
 
 LOOK_LAB62 = {

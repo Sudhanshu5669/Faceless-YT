@@ -524,6 +524,10 @@ def _finish_resolve(ep: dict, lines: list, forced: dict, verbose: bool, ep_dir: 
         for k in ("t", "until"):
             if k in g:
                 g[k] = round(ref(g[k], "scene", f"{w}.{k}"), 3)
+        # "shown": the gag is visible (and posed) only inside these [from, to] spans, like an actor's.
+        for j, sp_ in enumerate(g.get("shown", [])):
+            g["shown"][j] = [round(ref(sp_[0], "scene", f"{w}.shown[{j}]"), 3),
+                             round(ref(sp_[1], "scene", f"{w}.shown[{j}]"), 3)]
 
         def deep(v, where):
             if isinstance(v, dict) and ("line" in v or "shot" in v):

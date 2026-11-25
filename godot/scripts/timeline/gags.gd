@@ -27,7 +27,7 @@ extends RefCounted
 
 const Shot = preload("res://scripts/camera/shot.gd")
 
-const KEYS := ["id", "script", "t", "until", "at", "face", "params", "note"]
+const KEYS := ["id", "script", "t", "until", "shown", "at", "face", "params", "note"]
 
 static var _scripts := {}
 static var _errors := {}
@@ -78,6 +78,13 @@ static func validate(gags) -> Array:
 			e.append(w + ": needs 'at' (where the gag stands)")
 		if g.has("params") and typeof(g["params"]) != TYPE_DICTIONARY:
 			e.append(w + ": params must be an object")
+		if g.has("shown"):
+			var ok: bool = typeof(g["shown"]) == TYPE_ARRAY
+			if ok:
+				for sp in g["shown"]:
+					ok = ok and typeof(sp) == TYPE_ARRAY and sp.size() == 2 and typeof(sp[0]) in [TYPE_INT, TYPE_FLOAT] 						and typeof(sp[1]) in [TYPE_INT, TYPE_FLOAT]
+			if not ok:
+				e.append(w + ": 'shown' must be [[from, to], ...] (scene seconds or time references)")
 		var s := _load(String(g.get("script", "")))
 		if s == null:
 			e.append("%s: %s" % [w, _errors.get(String(g.get("script", "")), "cannot load the script")])
@@ -137,7 +144,7 @@ static func pose(root: Node3D, gags, t: float, L: Dictionary, actors: Node3D = n
 		out[id] = {"pos": p["pos"], "forward": Vector3(sin(yaw), 0, cos(yaw))}
 		var t0 := float(g["t"])
 		var until := float(g.get("until", INF))
-		holder.visible = t >= t0 and t < until
+		holder.visible = t >= t0 and t < until and _in_spans(g, t)
 		if not holder.visible:
 			continue
 		var ctx := {"point": func(ref): return Shot.point(L, ref), "age": t - t0, "holder": holder}
@@ -152,3 +159,15 @@ static func pose(root: Node3D, gags, t: float, L: Dictionary, actors: Node3D = n
 		if L.has("actor_anchors"):
 			L["actor_anchors"].merge(out, true)
 	return out
+
+
+## "shown": [[from, to], ...] in scene seconds (resolved by the pipeline). Without it the gag is always eligible.
+## Places far apart used to be kept apart by distance (20-220 km), which cost float precision (shaking cameras,
+## z-fighting); with spans, every place can sit near the origin and only the active one is drawn.
+static func _in_spans(g: Dictionary, t: float) -> bool:
+	if not g.has("shown"):
+		return true
+	for sp in g["shown"]:
+		if t >= float(sp[0]) and t < float(sp[1]):
+			return true
+	return false

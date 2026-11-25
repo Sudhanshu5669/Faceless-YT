@@ -12,7 +12,7 @@ lab_blast:   "The machine explodes in his face."  he throws the switch on "machi
 """
 from .common import W, frame, cam, move
 
-P = frame("lab", 20000.0)   # far from Hall H (bays sit close together)   # far from Hall H (bays sit close together)
+P = frame("lab", 1200.0)   # near the origin (float precision); gags are shown only in their shots
 
 LOOK_LAB = {
     "base": "night_fog", "time": "23:30",

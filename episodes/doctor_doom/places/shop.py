@@ -11,7 +11,7 @@ comic behind).
 """
 from .common import W, frame, cam, move
 
-P = frame("board", 100000.0)
+P = frame("board", 3600.0)   # near the origin (float precision); gags are shown only in their shots
 
 LOOK_SHOP = {
     "base": "night_fog", "time": "22:30",
