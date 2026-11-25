@@ -6418,8 +6418,9 @@
        "word": "collide",
        "offset": -0.2
       },
-      "show": "title",
-      "text": "AVENGERS: DOOMSDAY \u00b7 DEC 18"
+      "show": "logo",
+      "text": "DECEMBER 18",
+      "image": "library/logos/doom/posters/doomsday_logo_x4.png"
      },
      {
       "t": {
@@ -8789,8 +8790,8 @@
      "at": {
       "anchor": "board",
       "offset": [
-       -0.4,
-       2.6,
+       -0.9,
+       3.3,
        -2401.95
       ]
      },
@@ -8798,11 +8799,11 @@
       "anchor": "board",
       "offset": [
        -0.0,
-       4.0,
+       4.4,
        -2413.9
       ]
      },
-     "lens_mm": 24,
+     "lens_mm": 32,
      "dof": {
       "strength": 0.03
      }
@@ -8811,20 +8812,20 @@
      "at": {
       "anchor": "board",
       "offset": [
-       -0.3,
-       2.4,
-       -2402.85
+       -0.8,
+       3.2,
+       -2403.05
       ]
      },
      "look_at": {
       "anchor": "board",
       "offset": [
        -0.0,
-       4.1,
+       4.45,
        -2413.9
       ]
      },
-     "lens_mm": 24,
+     "lens_mm": 32,
      "dof": {
       "strength": 0.03
      }

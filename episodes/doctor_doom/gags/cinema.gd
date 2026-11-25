@@ -44,6 +44,9 @@ void fragment() {
 var _p := {}
 var _screen_mat: StandardMaterial3D
 var _title: Label3D
+var _logo: MeshInstance3D       # show "logo": the film's real title logo on the screen
+var _logo_mat: StandardMaterial3D
+var _date: Label3D
 var _spill: SpotLight3D
 var _beam_mat: ShaderMaterial
 var _seats := []
@@ -86,6 +89,16 @@ func build(g: Dictionary) -> Node3D:
 	scr.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_title = Kit.text(root, "", 0.6, Color(1, 1, 1), SCREEN + Vector3(0, 0, 0.05), Vector3.ZERO, true, 1.6)
 	_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	# The logo mode: the real title logo (params.screen[].image, 2.51:1) with a date line under it.
+	_logo_mat = StandardMaterial3D.new()
+	_logo_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	_logo_mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD   # the logo file sits on opaque black: add it, black vanishes
+	_logo_mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+	_logo = Kit.quad(root, Vector2(9.6, 9.6 / 2.514), SCREEN + Vector3(0, 0.55, 0.08), _logo_mat)
+	_logo.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_logo.visible = false
+	_date = Kit.text(root, "", 0.55, Color(1, 1, 1), SCREEN + Vector3(0, -2.05, 0.08), Vector3.ZERO, true, 1.6)
+	_date.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_spill = Kit.spot(root, SCREEN + Vector3(0, 0, 0.5), Vector3(0, 2.5, 6), "#dfe6ff", 14.0, 30.0, 55.0, false, 0.2)
 	# The projector beam.
 	Kit.box(root, Vector3(1.4, 0.8, 0.1), BOOTH + Vector3(0, 0, 0.3), Kit.lit("#fff4dc", 2.0))
@@ -238,11 +251,13 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_p = g.get("params", {})
 	var show := "black"
 	var text := ""
+	var image := ""
 	var since := 0.0
 	for s in _p.get("screen", []):
 		if t >= float(s["t"]):
 			show = String(s.get("show", "black"))
 			text = String(s.get("text", ""))
+			image = String(s.get("image", ""))
 			since = t - float(s["t"])
 	var col := Color(0.03, 0.03, 0.035)
 	var spill := 0.0
@@ -250,6 +265,10 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		"title":
 			col = Color(0.05, 0.22, 0.1) if text.contains("DOOMSDAY") else Color(0.16, 0.12, 0.32)
 			spill = 0.7
+		"logo":
+			# Near-black with a green breath behind the logo; the logo blooms in over 0.8 s.
+			col = Color(0.02, 0.07, 0.04).lerp(Color(0.05, 0.16, 0.08), clampf(since / 0.8, 0.0, 1.0))
+			spill = 0.55
 		"white":
 			col = Color(0.9, 0.92, 1.0)
 			spill = 1.0
@@ -259,6 +278,16 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 			spill = 0.55 + 0.45 * f
 	_screen_mat.albedo_color = col
 	_title.text = text if show == "title" else ""
+	_logo.visible = show == "logo" and image != ""
+	if _logo.visible:
+		if _logo_mat.albedo_texture == null or _logo_mat.get_meta("src", "") != image:
+			_logo_mat.albedo_texture = Kit.texture(image)
+			_logo_mat.set_meta("src", image)
+		var k := Motion.out_cubic(clampf(since / 0.8, 0.0, 1.0))
+		_logo_mat.albedo_color = Color(1.3, 1.3, 1.3) * k
+		_logo.scale = Vector3.ONE * lerpf(0.92, 1.0, k) * (1.0 + 0.01 * since)
+	_date.text = text if show == "logo" else ""
+	_date.modulate = Color(1.5, 1.45, 1.3) * clampf((since - 0.5) / 0.6, 0.0, 1.0)
 	_title.modulate = Color(1.6, 1.5, 1.2) * clampf(since / 0.6, 0.0, 1.0)
 	_spill.light_color = col.lightened(0.3)
 	_spill.light_energy = 14.0 * spill

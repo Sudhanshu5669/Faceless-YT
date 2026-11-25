@@ -47,7 +47,8 @@ for _i, (_ch, _x) in enumerate([("toon_you", -2.1), ("toon_redhead", -1.45), ("t
 GAGS = [
     {"id": "cinema_set", "script": "gags/cinema.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"screen": [{"t": 0.0, "show": "black"},
-                           {"t": W("o9", "collide", -0.2), "show": "title", "text": "AVENGERS: DOOMSDAY · DEC 18"},
+                           {"t": W("o9", "collide", -0.2), "show": "logo", "text": "DECEMBER 18",
+                            "image": "library/logos/doom/posters/doomsday_logo_x4.png"},
                            {"t": W("c1a", 0, -0.3), "show": "title", "text": "AVENGERS: ENDGAME"},
                            {"t": W("c1c", 0, -0.2), "show": "black"},
                            {"t": W("c1d", 0, -0.2), "show": "white"},
@@ -68,8 +69,8 @@ REVEALS = [
 SHOTS = {
     # Low behind the front row, the fans in silhouette; the screen lights up with the date on "collide".
     "cinema_ticket": {"look": LOOK_CINEMA, "camera": move(
-        cam(P(0.4, 2.6, ROW0_Z + 5.5), P(0.0, 4.0, -13.9), 24, {"strength": 0.03}),
-        cam(P(0.3, 2.4, ROW0_Z + 4.6), P(0.0, 4.1, -13.9), 24, {"strength": 0.03}), "in")},
+        cam(P(0.9, 3.3, ROW0_Z + 5.5), P(0.0, 4.4, -13.9), 32, {"strength": 0.03}),
+        cam(P(0.8, 3.2, ROW0_Z + 4.4), P(0.0, 4.45, -13.9), 32, {"strength": 0.03}), "in")},
     # From the back, high: a packed house, the beam, ENDGAME on the screen.
     "cinema_2019": {"look": LOOK_CINEMA, "camera": move(
         cam(P(3.0, 8.0, 7.4), P(0.0, 3.5, -13.0), 24, {"strength": 0.04}),
