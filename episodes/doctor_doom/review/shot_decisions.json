@@ -576,9 +576,9 @@
     "history": []
   },
   "castle_throne": {
-    "status": "changes",
+    "status": "approved",
     "note": "Make doom in this shot stand in the same way as castle_king shot",
-    "updated": "2026-11-25 12:16:10",
+    "updated": "2026-11-25 13:55:39",
     "fingerprint": "ef81bddd7f6b",
     "history": [
       {
@@ -586,6 +586,12 @@
         "note": "",
         "updated": "2026-11-24 22:39:01",
         "fingerprint": "340f0c2691b4"
+      },
+      {
+        "status": "changes",
+        "note": "Make doom in this shot stand in the same way as castle_king shot",
+        "updated": "2026-11-25 12:16:10",
+        "fingerprint": "ef81bddd7f6b"
       }
     ]
   },
@@ -610,9 +616,9 @@
     ]
   },
   "throne_wide": {
-    "status": "changes",
+    "status": "approved",
     "note": "Make his position same as castle_king in this shot as well",
-    "updated": "2026-11-25 12:16:40",
+    "updated": "2026-11-25 13:55:58",
     "fingerprint": "2671f6fdb48d",
     "history": [
       {
@@ -620,6 +626,12 @@
         "note": "",
         "updated": "2026-11-24 22:39:33",
         "fingerprint": "7ffb73fb9964"
+      },
+      {
+        "status": "changes",
+        "note": "Make his position same as castle_king in this shot as well",
+        "updated": "2026-11-25 12:16:40",
+        "fingerprint": "2671f6fdb48d"
       }
     ]
   },
@@ -672,16 +684,22 @@
     "history": []
   },
   "hell_fight": {
-    "status": "changes",
+    "status": "approved",
     "note": "download some kind of devil's model for this. find a good one. make sure the model is rigged so we can show the devil looking at doom as doom tries to attack him",
-    "updated": "2026-11-25 10:32:35",
-    "fingerprint": "ba2768daa26b",
+    "updated": "2026-11-25 13:58:40",
+    "fingerprint": "ae18faf1bb2f",
     "history": [
       {
         "status": "approved",
         "note": "",
         "updated": "2026-11-24 22:40:08",
         "fingerprint": "3d8e1228a178"
+      },
+      {
+        "status": "changes",
+        "note": "download some kind of devil's model for this. find a good one. make sure the model is rigged so we can show the devil looking at doom as doom tries to attack him",
+        "updated": "2026-11-25 10:32:35",
+        "fingerprint": "ba2768daa26b"
       }
     ]
   },
@@ -734,39 +752,58 @@
     "history": []
   },
   "bw_throne": {
-    "status": "changes",
+    "status": "approved",
     "note": "Try to find a god emperor doom model",
-    "updated": "2026-11-25 10:34:01",
-    "fingerprint": "08a80481537f",
+    "updated": "2026-11-25 13:58:56",
+    "fingerprint": "36b1ac6d801e",
     "history": [
       {
         "status": "approved",
         "note": "",
         "updated": "2026-11-24 22:40:52",
         "fingerprint": "08a80481537f"
+      },
+      {
+        "status": "changes",
+        "note": "Try to find a god emperor doom model",
+        "updated": "2026-11-25 10:34:01",
+        "fingerprint": "08a80481537f"
       }
     ]
   },
   "bw_heal": {
-    "status": "changes",
+    "status": "approved",
     "note": "Its shaking again",
-    "updated": "2026-11-25 10:34:12",
-    "fingerprint": "ae8553529a13",
+    "updated": "2026-11-25 13:59:04",
+    "fingerprint": "e91759aa4f2d",
     "history": [
       {
         "status": "changes",
         "note": "shaking, wtf",
         "updated": "2026-11-24 22:41:02",
         "fingerprint": "ae8553529a13"
+      },
+      {
+        "status": "changes",
+        "note": "Its shaking again",
+        "updated": "2026-11-25 10:34:12",
+        "fingerprint": "ae8553529a13"
       }
     ]
   },
   "emp_cloak": {
-    "status": "changes",
+    "status": "approved",
     "note": "the cape is so weird wth",
-    "updated": "2026-11-24 22:41:25",
-    "fingerprint": "5f787bec582d",
-    "history": []
+    "updated": "2026-11-25 13:59:11",
+    "fingerprint": "467745f1b907",
+    "history": [
+      {
+        "status": "changes",
+        "note": "the cape is so weird wth",
+        "updated": "2026-11-24 22:41:25",
+        "fingerprint": "5f787bec582d"
+      }
+    ]
   },
   "board_titles": {
     "status": "approved",
@@ -783,25 +820,46 @@
     ]
   },
   "hosp_bed": {
-    "status": "changes",
+    "status": "approved",
     "note": "shaking",
-    "updated": "2026-11-24 22:41:54",
-    "fingerprint": "459bbe0dba08",
-    "history": []
+    "updated": "2026-11-25 13:59:24",
+    "fingerprint": "a69a2408b647",
+    "history": [
+      {
+        "status": "changes",
+        "note": "shaking",
+        "updated": "2026-11-24 22:41:54",
+        "fingerprint": "459bbe0dba08"
+      }
+    ]
   },
   "city_ironman": {
-    "status": "changes",
+    "status": "approved",
     "note": "looks weird af",
-    "updated": "2026-11-24 22:42:08",
-    "fingerprint": "109bbee5c2fd",
-    "history": []
+    "updated": "2026-11-25 13:59:33",
+    "fingerprint": "19557a5c6821",
+    "history": [
+      {
+        "status": "changes",
+        "note": "looks weird af",
+        "updated": "2026-11-24 22:42:08",
+        "fingerprint": "109bbee5c2fd"
+      }
+    ]
   },
   "shop_rise": {
-    "status": "changes",
+    "status": "approved",
     "note": "wthh",
-    "updated": "2026-11-24 22:42:15",
-    "fingerprint": "4449c8107e4e",
-    "history": []
+    "updated": "2026-11-25 13:59:39",
+    "fingerprint": "fbbadd917cc2",
+    "history": [
+      {
+        "status": "changes",
+        "note": "wthh",
+        "updated": "2026-11-24 22:42:15",
+        "fingerprint": "4449c8107e4e"
+      }
+    ]
   },
   "hall_why": {
     "status": "approved",
@@ -811,11 +869,18 @@
     "history": []
   },
   "dress_oscar": {
-    "status": "changes",
+    "status": "approved",
     "note": "shaking again?!",
-    "updated": "2026-11-24 22:42:29",
-    "fingerprint": "40b26654b74c",
-    "history": []
+    "updated": "2026-11-25 13:59:45",
+    "fingerprint": "ed3c50e42865",
+    "history": [
+      {
+        "status": "changes",
+        "note": "shaking again?!",
+        "updated": "2026-11-24 22:42:29",
+        "fingerprint": "40b26654b74c"
+      }
+    ]
   },
   "cinema_2008": {
     "status": "approved",
@@ -1116,5 +1181,19 @@
         "fingerprint": "8ba1555f5370"
       }
     ]
+  },
+  "hosp_helmet": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 13:59:29",
+    "fingerprint": "9c0f0e421700",
+    "history": []
+  },
+  "shop_wait": {
+    "status": "approved",
+    "note": "",
+    "updated": "2026-11-25 14:00:01",
+    "fingerprint": "208bdf00c52a",
+    "history": []
   }
 }

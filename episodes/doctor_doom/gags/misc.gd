@@ -355,8 +355,8 @@ func build(g: Dictionary) -> Node3D:
 	Kit.cyl(tb, 0.02, 0.3, 0.22, Vector3(0, 2.25, 0), Kit.mat("#1a1a1a", 0.5, 0.6), 24)
 	Kit.ball(tb, 0.05, Vector3(0, 2.15, 0), Kit.lit("#ffe6b8", 6.0), 10)
 	Kit.spot(tb, Vector3(0, 2.15, 0), Vector3(0, TABLE_Y, 0), "#ffdcab", 3.2, 4.0, 48.0, true, 0.05)
-	for i in 2:
-		var pm := Kit.textured("library/logos/doom/posters/" + ["ff2005.jpg", "ff2007.jpg"][i]).duplicate()
+	for i in 3:
+		var pm := Kit.textured("library/logos/doom/posters/" + ["ff2005.jpg", "ff2007.jpg", "ff2015.jpg"][i]).duplicate()
 		pm.roughness = 0.45
 		var pn := Node3D.new()
 		tb.add_child(pn)
@@ -520,15 +520,15 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 		pn.visible = t >= tl - 0.45
 		if not pn.visible:
 			continue
-		var land := Vector3(-0.22 + 0.44 * i, TABLE_Y + 0.004 + 0.01 * i, 0.32 - 0.08 * i)
-		var yaw_rest: float = [0.12, -0.2][i]
-		var start: Vector3 = land + Vector3([-1.4, 1.6][i], 1.3, 1.6)
+		var land: Vector3 = [Vector3(-0.22, 0, 0.32), Vector3(0.22, 0, 0.24), Vector3(0.0, 0, 0.36)][i] + Vector3(0, TABLE_Y + 0.004 + 0.01 * i, 0)
+		var yaw_rest: float = [0.12, -0.2, 0.05][i]
+		var start: Vector3 = land + Vector3([-1.4, 1.6, 0.2][i], 1.3, 1.6)
 		var k := Motion.in_cubic(Motion.seg(t, tl - 0.45, tl))
 		var skid := Motion.out_cubic(Motion.seg(t, tl, tl + 0.3))
-		var pos: Vector3 = start.lerp(land, k) + Vector3([-0.06, 0.07][i], 0, -0.05) * skid
+		var pos: Vector3 = start.lerp(land, k) + Vector3([-0.06, 0.07, 0.0][i], 0, -0.05) * skid
 		pos.y += sin(k * PI) * 0.25
 		var tilt := (1.0 - k) * 0.9
-		var spin: float = yaw_rest + (1.0 - k) * float([2.4, -2.8][i]) + 0.06 * skid
+		var spin: float = yaw_rest + (1.0 - k) * float([2.4, -2.8, 3.1][i]) + 0.06 * skid
 		var sq := Motion.squash(Motion.impact(t - tl, 0.12, 6.0, 12.0)) if t > tl else Vector3.ONE
 		pn.transform = Transform3D(Basis(Vector3.UP, spin) * Basis(Vector3.RIGHT, tilt), pos).scaled_local(Vector3(sq.x, 1.0, sq.z))
 	return {"devil": node.global_transform * (HELL + DEVIL + Vector3(0, 10, 0) * DEVIL_S), "doom_ledge": node.global_transform * (HELL + Vector3(-5, 0, 2)),

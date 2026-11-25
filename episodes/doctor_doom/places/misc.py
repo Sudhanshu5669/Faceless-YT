@@ -61,7 +61,7 @@ GAGS = [
                            {"actor": "doom_iron", "hood": False}]}},
     {"id": "misc_set", "script": "gags/misc.gd", "t": 0, "at": P(0, 0, 0),
      "params": {"clash": W("d6", "Devil", 0.0), "take": {"actor": "doom_hosp", "t": W("d18", "armor,", 0.0)},
-                "slides": [W("r3", 0, 0.2), W("r4", "2007.", 0.0), W("r5", "Kebbell", 0.0)], "thrown": [W("r4", "McMahon", 0.0), W("r4", "2007.", 0.0)], "scar": {"actor": "victor_reflect", "warp": W("v7", 0, -0.1)},
+                "slides": [W("r3", 0, 0.2), W("r4", "2007.", 0.0), W("r5", "Kebbell", 0.0)], "thrown": [W("r4", "McMahon", 0.0), W("r4", "2007.", 0.0), W("r5", "2015.", 0.0)], "scar": {"actor": "victor_reflect", "warp": W("v7", 0, -0.1)},
                 "bandage": {"actor": "victor_gate"}, "ironhead": {"actor": "doom_iron"}}},
 ]
 
@@ -95,9 +95,10 @@ SHOTS = {
     "reels_mcmahon": {"look": _NIGHT, "camera": move(
         cam(P(0.0, 2.05, TB + 1.35), P(0.0, 0.9, TB + 0.05), 32, {"strength": 0.05}),
         cam(P(0.0, 1.95, TB + 1.25), P(0.0, 0.9, TB + 0.05), 32, {"strength": 0.05}), "in")},
+    # The same table: the 2015 one-sheet lands on top of the pile on "2015."
     "reels_kebbell": {"look": _NIGHT, "camera": move(
-        cam(P(-0.2, 0.15, RE + 3.5), P(0.0, 0.0, RE), 32, {"strength": 0.04}),
-        cam(P(0.0, 0.1, RE + 3.3), P(0.0, 0.0, RE), 32, {"strength": 0.04}), "in")},
+        cam(P(0.15, 1.95, TB + 1.25), P(0.0, 0.9, TB + 0.1), 32, {"strength": 0.05}),
+        cam(P(0.1, 1.85, TB + 1.12), P(0.0, 0.9, TB + 0.12), 32, {"strength": 0.05}), "in")},
     # The campus gate at night in the rain: Victor, bandaged, walks out toward us.
     "campus_gates": {"look": LOOK_RAIN, "camera": move(
         cam(P(1.2, 1.3, CA + 6.0), P(0.0, 1.6, CA - 3.0), 30, {"strength": 0.05}),

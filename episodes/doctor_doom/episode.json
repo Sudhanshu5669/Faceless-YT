@@ -7194,6 +7194,10 @@
      {
       "line": "r4",
       "word": "2007."
+     },
+     {
+      "line": "r5",
+      "word": "2015."
      }
     ],
     "scar": {
@@ -17969,44 +17973,44 @@
      "at": {
       "anchor": "board",
       "offset": [
-       0.2,
-       0.15,
-       8403.5
+       -0.15,
+       1.95,
+       9301.25
       ]
      },
      "look_at": {
       "anchor": "board",
       "offset": [
        -0.0,
-       0.0,
-       8400.0
+       0.9,
+       9300.1
       ]
      },
      "lens_mm": 32,
      "dof": {
-      "strength": 0.04
+      "strength": 0.05
      }
     },
     "to": {
      "at": {
       "anchor": "board",
       "offset": [
-       -0.0,
-       0.1,
-       8403.3
+       -0.1,
+       1.85,
+       9301.12
       ]
      },
      "look_at": {
       "anchor": "board",
       "offset": [
        -0.0,
-       0.0,
-       8400.0
+       0.9,
+       9300.12
       ]
      },
      "lens_mm": 32,
      "dof": {
-      "strength": 0.04
+      "strength": 0.05
      }
     },
     "ease": "in"
