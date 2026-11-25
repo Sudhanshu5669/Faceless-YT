@@ -46,7 +46,7 @@ static func suit() -> GDScript:
 func _comic_mesh(parent: Node3D, cover: String, col: Color) -> Node3D:
 	var c := Node3D.new()
 	parent.add_child(c)
-	Kit.box(c, Vector3(0.165, 0.255, 0.002), Vector3.ZERO, Kit.mat("#efe9da", 0.8))
+	# No paper core between the covers: at z 100 km a few mm of gap z-fights (back-culled quads never fight).
 	var m: Material = Kit.textured(cover) if cover != "" else Kit.mat(col, 0.6)
 	var q := Kit.quad(c, Vector2(0.17, 0.26), Vector3(0, 0, 0.006), m)
 	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

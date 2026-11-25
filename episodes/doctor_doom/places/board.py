@@ -132,9 +132,10 @@ SHOTS = {
         cam(P(1.7, 1.25, -2.5), P(0.75, 1.15, -4.85), 45, {"strength": 0.18}),
         cam(P(1.55, 1.24, -2.75), P(0.75, 1.15, -4.85), 45, {"strength": 0.18}), "in")},
     # Feige turns from the wall to us; the wall of titles soft behind him.
+    # Feige framed on the left third: the euronews headline card (overlays/news_verdict) takes the right half.
     "board_news": {"look": LOOK_BOARD, "camera": move(
-        cam(P(1.6, 1.3, -2.6), P(0.75, 1.15, -4.85), 40, {"strength": 0.16}),
-        cam(P(1.45, 1.28, -2.9), P(0.75, 1.15, -4.85), 40, {"strength": 0.18}), "in_out")},
+        cam(P(1.6, 1.3, -2.6), P(1.22, 1.15, -5.02), 40, {"strength": 0.16}),
+        cam(P(1.45, 1.28, -2.9), P(1.18, 1.15, -5.0), 40, {"strength": 0.18}), "in_out")},
     # Close on the wall: Feige tears the Kang card off on "drops".
     "board_collapse": {"look": LOOK_BOARD, "camera": move(
         cam(P(-0.6, 1.75, -3.2), P(0.2, 2.3, -6.0), 30, {"strength": 0.08}),

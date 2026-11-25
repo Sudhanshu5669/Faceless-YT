@@ -49,12 +49,13 @@ func _poster(card: Node3D, title: String, w: float, h: float, col: String, img: 
 	if img != "":
 		var m := Kit.textured(POSTERS + img).duplicate()
 		m.roughness = 0.6
-		var q := Kit.quad(card, Vector2(w, h), Vector3(0, -h * 0.5, 0.0075), m)
+		# 2 cm proud of the backing: at z 40 km a float only resolves ~4 mm, so thinner gaps z-fight (posters flickered black).
+		var q := Kit.quad(card, Vector2(w, h), Vector3(0, -h * 0.5, 0.02), m)
 		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	else:
-		Kit.box(card, Vector3(w - 0.06, h - 0.06, 0.004), Vector3(0, -h * 0.5, 0.007), Kit.mat(col, 0.5))
+		Kit.box(card, Vector3(w - 0.06, h - 0.06, 0.004), Vector3(0, -h * 0.5, 0.016), Kit.mat(col, 0.5))
 		var th := 0.17 if w > 1.0 else 0.1
-		var label := Kit.text(card, title, th, Color("#f2ead8"), Vector3(0, -h * 0.5, 0.012), Vector3.ZERO, true)
+		var label := Kit.text(card, title, th, Color("#f2ead8"), Vector3(0, -h * 0.5, 0.035), Vector3.ZERO, true)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
 var _p := {}
@@ -159,7 +160,7 @@ func build(g: Dictionary) -> Node3D:
 		var sz := Vector2(0.2, 0.13) if big else Vector2(0.11, 0.11)
 		Kit.box(nd, Vector3(sz.x, sz.y, 0.003), Vector3(0, -sz.y * 0.5, 0), Kit.mat(note_cols[i % note_cols.size()], 0.8))
 		for l in 3:
-			Kit.box(nd, Vector3(sz.x * 0.7, 0.006, 0.002), Vector3(0, -0.03 - l * 0.025, 0.002), Kit.mat("#3a3a48", 0.8))
+			Kit.box(nd, Vector3(sz.x * 0.7, 0.006, 0.002), Vector3(0, -0.03 - l * 0.025, 0.012), Kit.mat("#3a3a48", 0.8))
 		var x := rng.randf_range(-3.1, 3.1)
 		var y := rng.randf_range(0.75, 3.45)
 		var xf := Transform3D(Basis.from_euler(Vector3(0, 0, rng.randf_range(-0.12, 0.12))), Vector3(x, y, WALL_Z + 0.015))

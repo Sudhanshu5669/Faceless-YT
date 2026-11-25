@@ -107,3 +107,11 @@ A crowd of identical idle toons reads as dead ("it just added the numbers but it
 - Compare against an approved shot of the same episode side by side. If yours has less depth, less
   contrast or less motion, it is not done.
 - After a power cut or restart, check that JSON and Python still parse before continuing.
+
+## Far bays z-fight: keep layers centimetres apart (2026-11-25, doctor_doom)
+
+Gag bays placed tens of kilometres out (z 40 000 to 220 000) lose float precision: a 32-bit float resolves ~4 mm at
+40 km and ~16 mm at 200 km. A poster 1.5 mm in front of its backing board flickered to black on random frames. Keep any
+layered decal (poster on board, label on card, cover on comic) at least 2 cm proud at 40 km and 6 cm at 200 km, or drop
+the backing (back-face-culled quads back to back never fight). Check flicker by sampling a clip at 6 fps, not from
+three storyboard stills.

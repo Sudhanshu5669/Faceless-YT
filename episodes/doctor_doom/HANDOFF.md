@@ -16,21 +16,21 @@ All 114 shots are built and have review clips. The user is reviewing in the shot
 - **First round of verdicts (66 approved)** were all addressed and re-rendered (see "Verdict fixes" below). The user
   has NOT yet re-reviewed those re-rendered clips; their statuses still read `changes` from round one.
 - **Realistic rigged Doom** (VLTXD, see below) was swapped in and 22 shots re-rendered on 2026-11-25.
-- **Pending, not rendered:** `castle_gates`: the door light was dimmed (castle.gd `_door_light` 900 -> 160) so Doom
-  walks in as a silhouette instead of vanishing in the glare. Storyboard checked; run `tf shot doctor_doom castle_gates`.
+- **Session 2026-11-25 (later):** `castle_gates` rendered (Doom now a silhouette in the door). Soft spots fixed and
+  storyboarded: Marvel Studios logo on the Hall H screens (downloaded); hell_fight rebuilt (Devil 2x, unlit black, fog
+  thinned, glow tightened, worm's-eye camera from behind Doom on the ledge); board_news reframed (Feige on the left
+  third, the euronews card takes the right half); lab_blast camera moved to the console's end (we see Victor's face
+  when it blows up). **Z-fighting fix:** the bays sit 20-220 km out where a float resolves only 4-16 mm, so posters
+  1.5 mm proud of their backing flickered black (board posters, reel posters, shop comic covers). Keep layered decals
+  >= 2 cm apart at 40 km and >= 6 cm at 200 km. 29 review clips re-rendered (the four above + every non-approved
+  board/shop/reels shot).
 
 ## Next steps
 
-1. Render `castle_gates` (above). Push-notify the user that the re-renders are ready.
-2. The user re-reviews; fix their next verdicts the same way (storyboard, look, render the clip, notify).
-3. Known soft spots still open (fix before the final):
-   - Hall H screens show a red box, not the Marvel Studios logo (Wikimedia 429). Retry
-     `https://upload.wikimedia.org/wikipedia/commons/6/63/Marvel_Studios_logo.svg` -> `library/logos/doom/marvel-studios.svg`.
-   - hell_fight: the Devil silhouette is faint. board_news: the headline card covers Feige's face. The boardroom
-     window HDRI (a river and a bridge) is not Burbank.
-   - lab_blast: Victor has his back to the lens at the blast.
-   - Unreviewed shots ("-"): board_ticket/loki/quantum/chart/fade/fall/empty/fast, shop_night/box/meet, lat_castle/
-     healer/flee/freeze, mirror_warp, tibet_mask, emp_globe, hosp_helmet, reels_kebbell, shop_wait.
+1. The user re-reviews in the shot UI; fix their next verdicts the same way (storyboard, look, render the clip, notify).
+2. Still open: the boardroom window HDRI (a river and a bridge) is not Burbank; needs a downloaded CC0 HDRI (ask first).
+3. Unreviewed shots ("-") besides board/shop: lat_castle/healer/flee/freeze, mirror_warp, tibet_mask, emp_globe,
+   hosp_helmet.
 4. When every shot is approved: **final render** `python pipeline/tf.py render doctor_doom` (1920x1080, 60 fps, motion
    blur 2, music + 71 effects + 7 overlays + captions, -14 LUFS). Rebuild the git-ignored inputs first if missing:
    `python episodes/doctor_doom/make_audio.py` (audio/lib) and `python episodes/doctor_doom/make_overlays.py`

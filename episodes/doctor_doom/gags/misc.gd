@@ -23,6 +23,8 @@ const Motion = preload("res://scripts/timeline/motion.gd")
 const Paths = preload("res://scripts/core/paths.gd")
 
 const HELL := Vector3(0, 0, 0)
+const DEVIL := Vector3(9.0, -6.0, -11.0)   # the Devil's foot (in the lava), HELL-relative
+const DEVIL_S := 2.0
 const HOSP := Vector3(0, 0, 300)
 const CITY := Vector3(0, 0, 600)
 const DRESS := Vector3(0, 0, 900)
@@ -143,18 +145,23 @@ func build(g: Dictionary) -> Node3D:
 	Kit.spot(root, HELL + Vector3(2, -5, 4), HELL + Vector3(6, 6, -6), "#ff6a2a", 40.0, 30.0, 35.0, true, 0.6)
 	Kit.spot(root, HELL + Vector3(10, 14, -14), HELL + Vector3(6, 7, -6), "#ffb08a", 30.0, 30.0, 25.0, false, 1.0)
 	# A furnace glow behind the shadow so his silhouette reads against it.
-	Kit.omni(root, HELL + Vector3(8, 4, -16), "#ff6a1a", 60.0, 30.0, false, 6.0)
-	var back := Kit.quad(root, Vector2(40, 24), HELL + Vector3(6, 6, -18), Kit.lit("#ff4a10", 1.6))
+	Kit.omni(root, HELL + Vector3(8, 4, -16), "#ff6a1a", 60.0, 30.0, false, 3.0)
+	var back := Kit.quad(root, Vector2(40, 24), HELL + Vector3(6, 6, -18), Kit.lit("#ff4a10", 0.9))   # dimmer: its bloom ate Doom's silhouette
 	back.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	# The horned shadow: a towering silhouette, red eyes.
-	var shadow := Kit.mat("#050203", 0.9)
-	var dv := HELL + Vector3(6.0, -6.0, -6.0)
-	Kit.cyl(root, 1.2, 2.6, 9.0, dv + Vector3(0, 4.5, 0), shadow, 12)
-	Kit.ball(root, 1.4, dv + Vector3(0, 10.0, 0), shadow, 16)
+	# The horned shadow: a towering silhouette (twice the old size, pure unlit black so the haze and the lava light
+	# can't grey it out), red eyes. DEVIL = its foot, DEVIL_S = its scale.
+	var shadow := StandardMaterial3D.new()
+	shadow.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	shadow.albedo_color = Color(0.0, 0.0, 0.0)
+	shadow.disable_fog = true
+	var dv := DEVIL
+	var dk := DEVIL_S
+	Kit.cyl(root, 1.2 * dk, 2.6 * dk, 9.0 * dk, dv + Vector3(0, 4.5, 0) * dk, shadow, 12)
+	Kit.ball(root, 1.4 * dk, dv + Vector3(0, 10.0, 0) * dk, shadow, 16)
 	for s: float in [-1.0, 1.0]:
-		Kit.rod(root, dv + Vector3(s * 0.8, 10.8, 0), dv + Vector3(s * 2.0, 13.0, 0.4), 0.3, shadow, 8, 0.02)
-		Kit.ball(root, 0.16, dv + Vector3(s * 0.45, 10.1, 1.25), Kit.lit("#ff2a1a", 8.0), 8)
-		Kit.rod(root, dv + Vector3(s * 2.0, 7.5, 0), dv + Vector3(s * 3.4, 4.0, 2.0), 0.5, shadow, 8, 0.2)
+		Kit.rod(root, dv + Vector3(s * 0.8, 10.8, 0) * dk, dv + Vector3(s * 2.0, 13.0, 0.4) * dk, 0.3 * dk, shadow, 8, 0.02 * dk)
+		Kit.ball(root, 0.2 * dk, dv + Vector3(s * 0.45, 10.1, 1.25) * dk, Kit.lit("#ff2a1a", 12.0), 8)
+		Kit.rod(root, dv + Vector3(s * 2.0, 7.5, 0) * dk, dv + Vector3(s * 3.4, 4.0, 2.0) * dk, 0.5 * dk, shadow, 8, 0.2 * dk)
 	# The beams.
 	var gb := CylinderMesh.new()
 	gb.top_radius = 0.12
@@ -273,9 +280,9 @@ func build(g: Dictionary) -> Node3D:
 		# The film's real poster (Wikipedia, commentary use) on the frame.
 		var pm := Kit.textured("library/logos/doom/posters/" + ["ff2005.jpg", "ff2007.jpg", "ff2015.jpg"][i]).duplicate()
 		pm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		var pq := Kit.quad(fr, Vector2(1.5, 2.22), Vector3(0, 0, 0.02), pm)
+		var pq := Kit.quad(fr, Vector2(1.5, 2.22), Vector3(0, 0, 0.06), pm)   # >= 4 float steps proud at z 221 km
 		pq.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		var yr := Kit.text(fr, ["2005", "2007", "2015"][i], 0.18, Color("#f2e6c8"), Vector3(1.2, -1.35, 0.03), Vector3.ZERO, true, 1.2)
+		var yr := Kit.text(fr, ["2005", "2007", "2015"][i], 0.18, Color("#f2e6c8"), Vector3(1.2, -1.35, 0.08), Vector3.ZERO, true, 1.2)
 		yr.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		_frames.append(fr)
 	Kit.spot(root, REELS + Vector3(0, 3, 6), REELS, "#fff0d8", 8.0, 14.0, 40.0, false, 0.4)
@@ -351,7 +358,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 	_lava_mat.set_shader_parameter("time", t)
 	# HELL: beams from Doom's hand (the ledge) and the shadow's hand, meeting in the middle.
 	var from_g := HELL + Vector3(-4.6, 1.4, 2.4)
-	var from_r := HELL + Vector3(2.8, 3.8, -4.0)
+	var from_r := HELL + DEVIL + Vector3(-3.4, 4.0, 2.0) * DEVIL_S   # the Devil's near hand
 	var meet := (from_g + from_r) * 0.5 + Vector3(0.3 * sin(t * 3.0), 0.2 * sin(t * 4.1), 0)
 	for pair in [[_green_beam, from_g], [_red_beam, from_r]]:
 		var b: MeshInstance3D = pair[0]
@@ -478,7 +485,7 @@ func pose(node: Node3D, g: Dictionary, t: float, ctx: Dictionary) -> Dictionary:
 					b.position = Vector3(0, hr * 0.35, 0)
 					b.rotation = Vector3(0.25, 0, 0.1)
 					head.add_child(b))
-	return {"devil": node.global_transform * (HELL + Vector3(6, 4, -6)), "doom_ledge": node.global_transform * (HELL + Vector3(-5, 0, 2)),
+	return {"devil": node.global_transform * (HELL + DEVIL + Vector3(0, 10, 0) * DEVIL_S), "doom_ledge": node.global_transform * (HELL + Vector3(-5, 0, 2)),
 		"bed": node.global_transform * (HOSP + Vector3(0, 0.8, -1.2)), "helmet": node.global_transform * (HOSP + _helmet.position),
 		"roof": node.global_transform * CITY, "statue": node.global_transform * (DRESS + Vector3(-0.6, 1.0, -1.1)),
 		"reels": node.global_transform * REELS, "gate": node.global_transform * (CAMPUS + Vector3(0, 2, -2)),

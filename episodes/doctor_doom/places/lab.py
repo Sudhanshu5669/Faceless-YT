@@ -72,11 +72,12 @@ SHOTS = {
     "lab_ignore": {"look": LOOK_LAB, "camera": move(
         cam(P(0.35, 1.2, -0.75), P(1.5, 1.12, -1.2), 40, {"strength": 0.12}),
         cam(P(0.45, 1.19, -0.8), P(1.5, 1.12, -1.2), 40, {"strength": 0.14}), "out")},
-    # Side on: he throws the switch, the ring spins up and arcs, and the console blows up in his face.
+    # From the machine side, over the console: Victor's face lit by the portal; he throws the switch and the console
+    # blows up between him and the lens, in his face (the old side-on angle showed only his back).
     "lab_blast": {"look": LOOK_LAB, "shake": [{"t": BLAST, "amount": 0.35}, {"t": OVER, "amount": 0.06}], "slowmo": None,
                   "camera": move(
-        cam(P(3.9, 1.35, 0.4), P(1.0, 1.5, -2.6), 28, {"strength": 0.08}),
-        cam(P(3.6, 1.4, 0.0), P(1.0, 1.5, -2.6), 28, {"strength": 0.08}), "out")},
+        cam(P(0.3, 1.45, -2.3), P(1.55, 1.12, -1.3), 30, {"strength": 0.1}),
+        cam(P(0.38, 1.43, -2.18), P(1.55, 1.12, -1.3), 30, {"strength": 0.1}), "out")},
 }
 SHOTS["lab_blast"].pop("slowmo")
 

@@ -20,8 +20,9 @@ _NIGHT = {
     "grade": {"contrast": 1.2, "saturation": 1.02, "vignette": 0.5, "grain": 0.045},
 }
 LOOK_HELL = dict(_NIGHT, ambient={"color": "#3a1008", "energy": 0.25, "sky": 0.0},
-                 fog={"begin": 400, "end": 3000, "curve": 1.8, "volumetric": 0.01, "color": "#ff5a2a", "anisotropy": 0.4,
-                      "length": 40})
+                 fog={"begin": 400, "end": 3000, "curve": 1.8, "volumetric": 0.0012, "color": "#ff5a2a", "anisotropy": 0.4,
+                      "length": 40},
+                 glow={"enabled": True, "intensity": 0.5, "bloom": 0.0, "threshold": 1.3})   # thin haze, tight glow: thicker fog washed the Devil's silhouette out
 LOOK_CITY = dict(_NIGHT, sky={"top": "#06080e", "horizon": "#1a2234", "clouds": 0.0, "stars": 0.0},
                  fog={"begin": 30, "end": 400, "curve": 1.3, "volumetric": 0.004, "color": "#2a3448"})
 LOOK_RAIN = dict(_NIGHT, ambient={"color": "#2a3448", "energy": 0.25, "sky": 0.0},
@@ -64,10 +65,11 @@ GAGS = [
 ]
 
 SHOTS = {
-    # Hell: on a ledge over the lava, Doom's green spell meets the horned shadow's red; sparks where they meet.
+    # Hell: low behind Doom's shoulder on the ledge, the horned Devil towering black against the furnace; their
+    # spells meet with sparks on "Devil". (The old wide made Doom a speck and fogged the Devil out.)
     "hell_fight": {"look": LOOK_HELL, "shake": [{"t": W("d6", "Devil", 0.0), "amount": 0.1}], "camera": move(
-        cam(P(-13.0, 3.0, H + 12.0), P(0.5, 3.5, H - 2.0), 22, {"strength": 0.03}),
-        cam(P(-11.5, 3.5, H + 10.5), P(0.5, 4.0, H - 2.0), 22, {"strength": 0.03}), "in")},
+        cam(P(-7.4, 0.4, H + 9.6), P(11.0, 8.0, H - 7.5), 45),
+        cam(P(-6.9, 0.45, H + 8.9), P(11.0, 8.4, H - 7.5), 45), "in")},
     # The hospital at night: Tony asleep, the monitor beeping, the helmet on the table.
     "hosp_bed": {"look": _NIGHT, "camera": move(
         cam(P(1.9, 1.35, HO + 1.4), P(0.3, 1.0, HO - 1.6), 32, {"strength": 0.12}),
