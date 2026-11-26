@@ -30,7 +30,26 @@
   {
    "sound": "drone",
    "gain": -26,
-   "duck": 0.5
+   "duck": 0.5,
+   "curve": [
+    [
+     0,
+     0.0
+    ],
+    [
+     {
+      "shot": "bar_wall"
+     },
+     0.0
+    ],
+    [
+     {
+      "shot": "bar_wall",
+      "at": 1.0
+     },
+     1.0
+    ]
+   ]
   }
  ],
  "music": [
@@ -116,15 +135,15 @@
   {
    "file": "audio/lib/music/penumbra.wav",
    "at": {
-    "line": "l1"
+    "shot": "bar_wall"
    },
    "until": {
     "line": "l14c",
     "word": "explodes"
    },
-   "offset": 24.0,
+   "offset": 30.0,
    "gain": -16,
-   "fade_in": 0.3,
+   "fade_in": 1.2,
    "fade_out": 0.15,
    "duck": 0.55
   },
@@ -141,13 +160,6 @@
   }
  ],
  "sfx": [
-  {
-   "file": "audio/lib/sfx/braam.wav",
-   "at": {
-    "line": "l1"
-   },
-   "gain": -5.0
-  },
   {
    "file": "audio/lib/sfx/smash.wav",
    "at": {

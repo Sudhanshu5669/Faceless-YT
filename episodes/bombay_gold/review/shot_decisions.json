@@ -301,66 +301,129 @@
     "history": []
   },
   "gold_fall": {
-    "status": "changes",
+    "status": "approved",
     "note": "The guys are clipping into the railings",
-    "updated": "2026-11-25 22:07:38",
-    "fingerprint": "50c1cfe5d42d",
-    "history": []
+    "updated": "2026-11-25 22:37:27",
+    "fingerprint": "5e191cf8f211",
+    "history": [
+      {
+        "status": "changes",
+        "note": "The guys are clipping into the railings",
+        "updated": "2026-11-25 22:07:38",
+        "fingerprint": "50c1cfe5d42d"
+      }
+    ]
   },
   "man_lift": {
-    "status": "changes",
+    "status": "approved",
     "note": "The angle is weird, plus he is clipping into the table",
-    "updated": "2026-11-25 22:08:07",
-    "fingerprint": "0ca01fe10b92",
-    "history": []
+    "updated": "2026-11-25 22:37:37",
+    "fingerprint": "a299af010f3e",
+    "history": [
+      {
+        "status": "changes",
+        "note": "The angle is weird, plus he is clipping into the table",
+        "updated": "2026-11-25 22:08:07",
+        "fingerprint": "0ca01fe10b92"
+      }
+    ]
   },
   "stikine_bow": {
-    "status": "changes",
+    "status": "approved",
     "note": "The ground is glitching",
-    "updated": "2026-11-25 22:08:23",
+    "updated": "2026-11-25 22:37:43",
     "fingerprint": "4ebfa5c2fae4",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "The ground is glitching",
+        "updated": "2026-11-25 22:08:23",
+        "fingerprint": "4ebfa5c2fae4"
+      }
+    ]
   },
   "dock_moor": {
-    "status": "changes",
+    "status": "approved",
     "note": "Ground is glitching",
-    "updated": "2026-11-25 22:08:35",
+    "updated": "2026-11-25 22:37:46",
     "fingerprint": "9cd5bcb33f43",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "Ground is glitching",
+        "updated": "2026-11-25 22:08:35",
+        "fingerprint": "9cd5bcb33f43"
+      }
+    ]
   },
   "engines_race": {
-    "status": "changes",
+    "status": "approved",
     "note": "ground is glitching",
-    "updated": "2026-11-25 22:08:52",
+    "updated": "2026-11-25 22:37:49",
     "fingerprint": "d04bf5c3670e",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "ground is glitching",
+        "updated": "2026-11-25 22:08:52",
+        "fingerprint": "d04bf5c3670e"
+      }
+    ]
   },
   "helmets": {
-    "status": "changes",
+    "status": "approved",
     "note": "Ground is glitching",
-    "updated": "2026-11-25 22:09:21",
+    "updated": "2026-11-25 22:37:55",
     "fingerprint": "fbb75102254e",
-    "history": []
+    "history": [
+      {
+        "status": "changes",
+        "note": "Ground is glitching",
+        "updated": "2026-11-25 22:09:21",
+        "fingerprint": "fbb75102254e"
+      }
+    ]
   },
   "flat_return": {
-    "status": "changes",
+    "status": "approved",
     "note": "This shot should've been the gold bar's silhouette visible in front of burning fire",
-    "updated": "2026-11-25 22:09:43",
-    "fingerprint": "f7ce79dc515f",
-    "history": []
+    "updated": "2026-11-25 22:37:59",
+    "fingerprint": "bc135535d9eb",
+    "history": [
+      {
+        "status": "changes",
+        "note": "This shot should've been the gold bar's silhouette visible in front of burning fire",
+        "updated": "2026-11-25 22:09:43",
+        "fingerprint": "f7ce79dc515f"
+      }
+    ]
   },
   "police_desk": {
-    "status": "changes",
+    "status": "approved",
     "note": "The policeman's head is served on a table bruh",
-    "updated": "2026-11-25 22:09:59",
-    "fingerprint": "4ca03dc551fe",
-    "history": []
+    "updated": "2026-11-25 22:38:04",
+    "fingerprint": "4a5c7b8ffe78",
+    "history": [
+      {
+        "status": "changes",
+        "note": "The policeman's head is served on a table bruh",
+        "updated": "2026-11-25 22:09:59",
+        "fingerprint": "4ca03dc551fe"
+      }
+    ]
   },
   "cheque_999": {
-    "status": "changes",
+    "status": "approved",
     "note": "Policeman's head bruh",
-    "updated": "2026-11-25 22:10:07",
-    "fingerprint": "6a152d5d7e44",
-    "history": []
+    "updated": "2026-11-25 22:38:08",
+    "fingerprint": "34c70a53242d",
+    "history": [
+      {
+        "status": "changes",
+        "note": "Policeman's head bruh",
+        "updated": "2026-11-25 22:10:07",
+        "fingerprint": "6a152d5d7e44"
+      }
+    ]
   }
 }

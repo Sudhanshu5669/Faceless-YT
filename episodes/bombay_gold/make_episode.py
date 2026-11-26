@@ -133,7 +133,6 @@ def W(line, word=None, offset=0.0):
 
 # Recorded effects (Sonniss GDC bundle, built by make_audio.py), each placed on its word.
 SFX = [
-    _fx("braam", W("l1"), -5.0),
     _fx("smash", W("l2b", "smashed"), -3.0), _fx("woosh_debris", W("l2b", "smashed", 0.05), -10.0),
     _fx("crane", W("l5b", "Torpedoes,", -0.3), -14.0),
     _fx("clock_tick", {"shot": "clock_1230"}, -11.0),
@@ -161,8 +160,8 @@ MUSIC = [
     {"file": "audio/lib/sfx/fire_crackle.wav", "at": {"shot": "night_masts"}, "until": {"shot": "dawn_ruins"}, "gain": -16, "fade_in": 0.5, "fade_out": 1.5, "duck": 0.6},
     {"file": "audio/lib/sfx/wind.wav", "at": {"shot": "shimla_town"}, "until": {"shot": "cotton_rain"}, "gain": -22, "fade_in": 0.5, "fade_out": 0.5, "duck": 0.6},
     {"file": "audio/lib/sfx/wind.wav", "at": {"shot": "dawn_ruins"}, "until": {"shot": "fire_day"}, "gain": -24, "fade_in": 1.0, "fade_out": 1.0, "duck": 0.6},
-    {"file": "audio/lib/music/penumbra.wav", "at": W("l1"), "until": W("l14c", "explodes"), "offset": 24.0, "gain": -16,
-     "fade_in": 0.3, "fade_out": 0.15, "duck": 0.55},
+    {"file": "audio/lib/music/penumbra.wav", "at": {"shot": "bar_wall"}, "until": W("l14c", "explodes"), "offset": 30.0, "gain": -16,
+     "fade_in": 1.2, "fade_out": 0.15, "duck": 0.55},
     {"file": "audio/lib/music/memories_of_stone.wav", "at": W("l19a"), "offset": 0.0, "gain": -15, "fade_in": 2.5, "fade_out": 2.0,
      "duck": 0.55},
 ]
@@ -247,7 +246,9 @@ def build():
         "format": {"resolution": [1080, 1920], "fps": 60, "motion_blur": 2},
         "narration": NARRATION,
         "captions": {"enabled": True, "max_words": 2, "position": 0.87},
-        "ambience": [{"sound": "drone", "gain": -26, "duck": 0.5}],
+        # The drone stays out of the hook (the user found it creepy there): it fades in on the third shot.
+        "ambience": [{"sound": "drone", "gain": -26, "duck": 0.5,
+                      "curve": [[0, 0.0], [{"shot": "bar_wall"}, 0.0], [{"shot": "bar_wall", "at": 1.0}, 1.0]]}],
         "music": MUSIC,
         "sfx": SFX,
         "lines": lines,
