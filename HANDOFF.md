@@ -25,9 +25,23 @@ Older session notes (detailed per-shot history, plans, gotchas) are in
 | `doctor_doom` | **Long-form (16:9, ~8.5 min) for Avengers: Doomsday, upload Dec 12-15.** All 114 shots built; round 2 of verdicts fixed (shaking = float precision, fixed at the root: places near the origin + per-shot gag visibility), witches, Kang poster, cinema logos. **Full handoff: [`episodes/doctor_doom/HANDOFF.md`](episodes/doctor_doom/HANDOFF.md).** | The user reviews round 2 in `tf shot doctor_doom --serve`; answer the 4 open questions in the episode handoff (Devil, God Emperor Doom, throne, Kimodo); then the final render. |
 | `mangalyaan` | **Final rendered (2026-11-19).** All 49 shots approved (21 in the shot loop, the rest by the user in chat). `renders/mangalyaan.mp4`: 1080x1920, 60 fps, motion blur 2, 154.1 s, -14.0 LUFS, Gemini single take (Charon). Effects are the built-in synthesised ones (no recorded audio to license). | Description credits: "Planet textures: Solar System Scope (solarsystemscope.com), CC BY 4.0" and "Curiosity and MAVEN 3D models: NASA/JPL-Caltech". Thumbnail, title and description if the user asks. |
 | `bombay_gold` | **New Short (2026-11-25):** "It rained gold on Bombay" (1944 Fort Stikine explosion). Research, pitch and script v1 done. **Full handoff: [`episodes/bombay_gold/HANDOFF.md`](episodes/bombay_gold/HANDOFF.md).** | User approves the script; then beats, asset request, voice, hook shot. |
+| `adani` | **Script v3 written (2026-11-26)**, a rewrite the user asked for: `script.md` (34 lines, three-blow structure, brisk 165 wpm, sources, omissions; v2 in `script_v2.md`). `motions.json` has two Kimodo prompts whose first results were weak (not imported). Replaces Chasnala as the next Short; the 1987 Opera House heist is queued after it. Research: `docs/research/replacement_scan_2026-11-26.md`. | User approves the script; then beats and a batched asset request. |
+| `chasnala` | Dropped (2026-11-26): the user found the story not interesting enough. | — |
 | `supermarket_silence`, `blackwood_333` | Early pipeline tests, parked. | — |
 
 ## Practical notes
+
+- **Kimodo works** (`E:\AgentTools\kimodo`, tested 2026-11-26; supersedes the "won't build" note in the Bombay
+  Gold handoff). Models are in `E:\AgentTools\kimodo\hf` (17 GB). Run
+  `venv\Scripts\python.exe -m kimodo.scripts.generate "<prompt>" --model Kimodo-SOMA-RP-v1.2 --duration 4 --bvh
+  --output <path>` with `HF_HOME` set to that folder, `HF_HUB_OFFLINE=1`, `TEXT_ENCODER_DEVICE=cpu`,
+  `TEXT_ENCODER_MODE=local`. No compression needed: a 4 s clip took 161 s (diffusion ~12 s), peak 19.4 GB private
+  memory, 1.4 GB GPU, with other apps closed. Drain its output as UTF-8 (a stalled pipe hangs it). Sample:
+  `test_out\walk_wave.bvh` / `_strip.png`. It plays on toons
+  (`pipeline/import_motion.py`, `godot/scripts/actors/mocap.gd`, test clip `episodes/mocap_test/`; see
+  docs/ACTOR_SPEC.md "Generated motions"). The model card allows
+  commercial use (checked 2026-11-26). The user approved the test clip ("i love it") and made Kimodo the first
+  choice for character motion (AGENTS.md rule 12).
 
 - Run `python pipeline/tf.py test` before committing (42 Godot + 20 Python tests). If the sandbox
   temp dir causes `os.replace` errors on Windows, set TEMP/TMP to `output/test_temp`.

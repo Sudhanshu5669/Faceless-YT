@@ -1,0 +1,16 @@
+{
+  "motions": [
+    {
+      "name": "adani_flag_stamp",
+      "prompt": "A person lifts a long pole high above their head with both hands and drives it down hard into the ground",
+      "duration": 4,
+      "seed": 42
+    },
+    {
+      "name": "adani_haul_rope",
+      "prompt": "A person leans back and pulls a very heavy rope hand over hand, stepping backwards",
+      "duration": 5,
+      "seed": 42
+    }
+  ]
+}
