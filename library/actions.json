@@ -6,6 +6,11 @@
       "loop": true,
       "description": "Standing, breathing."
     },
+    "walk_wave": {
+      "anim": "mocap_walk_wave",
+      "loop": false,
+      "description": "Kimodo motion: walks about 4 s forward from the spot and waves the right hand on the way (travel is in the clip; do not give a route)."
+    },
     "idle_formal": {
       "anim": "Idle_Rail",
       "loop": true,

@@ -217,6 +217,13 @@ static func _anchor_yaw(L: Dictionary, at) -> float:
 	return atan2(f.x, f.z)
 
 
+## Idles start out of sync (an offset from the id); a generated motion starts at its beginning.
+static func _default_phase(id: String, action_id: String) -> float:
+	if String(Cast.action(action_id).get("anim", "")).begins_with("mocap_"):
+		return 0.0
+	return (absi(hash(id)) % 1000) / 1000.0 * 2.0
+
+
 static func _facing(L: Dictionary, spec_facing, at, pos: Vector3, starts: Dictionary = {}) -> Dictionary:
 	var base := _anchor_yaw(L, at)
 	if spec_facing == null:
@@ -336,7 +343,7 @@ static func _plan_one(a: Dictionary, L: Dictionary, offset: Vector3, yaw_jitter:
 		"face": String(f.get("track", "")),
 		"action": String(a.get("action", chr.get("idle", "idle"))),
 		"freeze": Cast.freeze_fraction(String(a.get("action", chr.get("idle", "idle"))), a.get("freeze")),
-		"phase": float(a.get("phase", (absi(hash(id)) % 1000) / 1000.0 * 2.0)),
+		"phase": float(a.get("phase", _default_phase(id, String(a.get("action", chr.get("idle", "idle")))))),
 		"keep_y": bool(a.get("keep_y", false)),
 		# "shown": [[t0, t1], ...] scene windows when the actor exists (always, if absent): a scene that happens
 		# years apart in the same place (the 1995 team at the shaft, gone by 1998).

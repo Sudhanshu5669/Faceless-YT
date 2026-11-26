@@ -63,6 +63,9 @@ to make; the docs tell you how to write it.
     shafts in haze), the subject cut out by backlight, a camera that sells the size (a high wide before the
     close-up), and set pieces that pay off big (a portal that swirls, a wall that comes down). Never a small
     empty room with one lamp. How: references/cinematics.md section 10.
+12. **Kimodo first for character animation** (user, 2026-11-26): if Kimodo can make the motion, generate it there
+    before posing by code, downloading or reusing a clip. What counts as feasible: AGENTS.md rule 12; how:
+    docs/ACTOR_SPEC.md "Generated motions".
 
 ## The workflow
 

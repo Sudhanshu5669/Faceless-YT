@@ -9,6 +9,7 @@ const Paths = preload("res://scripts/core/paths.gd")
 const KitDB = preload("res://scripts/world/kit_db.gd")
 const Retarget = preload("res://scripts/actors/retarget.gd")
 const Toon = preload("res://scripts/actors/toon.gd")
+const Mocap = preload("res://scripts/actors/mocap.gd")
 
 const BODIES := {
 	"male": "res://assets/quaternius_ual/UAL1_Standard.glb",
@@ -48,6 +49,9 @@ static func anim_library() -> AnimationLibrary:
 					if anim_name != &"RESET" and not _library.has_animation(anim_name):
 						_library.add_animation(anim_name, ap.get_animation(anim_name))
 			inst.free()
+		var mannequin := (load(BODIES["male"]) as PackedScene).instantiate() as Node3D
+		Mocap.add_to(_library, mannequin, mannequin.get_node(MANNEQUIN_SKELETON) as Skeleton3D)
+		mannequin.free()
 	return _library
 
 

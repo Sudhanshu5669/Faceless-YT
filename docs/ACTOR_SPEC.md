@@ -85,6 +85,38 @@ A shot's `"t"` is the moment the still is taken. When a tree or house blocks the
 camera to the subject, the render log prints `WARN shot <name>: subject hidden behind ...`.
 Move the actor or the camera.
 
+## Generated motions (Kimodo)
+
+**Kimodo is the first choice for a new character motion** whenever it is feasible (AGENTS.md rule 12). Generate it
+in `E:\AgentTools\kimodo` with these environment variables: `HF_HOME=E:\AgentTools\kimodo\hf`,
+`HF_HUB_OFFLINE=1`, `TEXT_ENCODER_DEVICE=cpu`, `TEXT_ENCODER_MODE=local`.
+
+```
+venv\Scripts\python.exe -m kimodo.scripts.generate "A person slips and falls on their back."     --model Kimodo-SOMA-RP-v1.2 --duration 4 --seed 42 --bvh --output <folder>\<name>
+```
+
+Close heavy apps first (it peaked at 19.4 GB of reserved memory and took 161 s for one clip). Read its output as
+UTF-8: an undrained pipe hangs it. Describe the body physically and neutrally. The model card says commercial use is
+allowed under the NVIDIA Open Model License, which claims no ownership of outputs (checked 2026-11-26).
+
+`python pipeline/import_motion.py <motion.npz> <name> --prompt "..."` writes `library/motions/<name>.json`
+from a Kimodo SOMA motion. It plays as the animation `mocap_<name>`; add an action for it in
+`library/actions.json` with `"loop": false`. It retargets to toons and models like any other clip.
+
+- The travel is inside the clip: place the actor with `at` and give **no route**. Switching to another action
+  snaps the actor back to `at`, so cut away or end the shot first.
+- It starts at its first frame (no id-based offset) and holds the last frame.
+- Fingers are not transferred. Planted feet slide somewhat (about 30 % of body speed on a toon walk).
+- A toon's big head hides hand gestures made in front of the face: film them from the side, or prompt for
+  the arm "raised high" or "out to the side".
+
+**Several motions at once** (preferred): list them in `episodes/<id>/motions.json` and run
+`python pipeline/kimodo_batch.py episodes/<id>/motions.json` (`--only a,b`, `--force`). It loads the models once,
+writes a stick-figure strip per motion to `E:\AgentTools\kimodo\out\` and imports each into `library/motions/`.
+Measured 2026-11-26: 65 s to load, then 93-112 s per motion. **Look at every strip**: the first two attempts at
+object actions (drive a pole into the ground, haul a rope hand over hand) came out weak; delete such a motion from
+`library/motions/`, reword the prompt or change the seed.
+
 ## Characters
 
 `library/characters/<id>.json`:

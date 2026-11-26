@@ -66,6 +66,7 @@ These come from the user's own feedback; they override defaults. The `toon-short
    a free Godot add-on (Godot Asset Library, MIT/CC0) or a CC0 asset pack (Kenney, Quaternius, Poly
    Pizza CC0) before writing one. Check the licence allows commercial video, keep its LICENSE, and
    ask the user before downloading (list name, source, size, licence). Build from primitives last.
+   (For character motion, rule 12 comes first.)
    **Download first, build last** (user, 2026-11-23): before spending effort modelling, sculpting (Blender) or
    hand-animating anything (a vehicle, an aircraft, a building, a creature, a motion), the FIRST step is to search for
    a ready-made model or animation to download (Poly Pizza, Sketchfab CC0/CC-BY with downloads, Kenney, Quaternius,
@@ -83,6 +84,14 @@ These come from the user's own feedback; they override defaults. The `toon-short
    for"). Every place at full film-set scale: crowds that fill it, light you can see (beams and shafts in haze),
    backlit subjects, a high wide that sells the size, payoffs that fill the frame. How: the `toon-short` skill,
    references/cinematics.md section 10.
+12. **Kimodo first for character animation** (user, 2026-11-26, after approving the walk-and-wave test). For a new
+    character motion, first judge whether Kimodo can make it; if it can, generate it with Kimodo before hand-coding
+    poses, downloading an animation or settling for a library clip. **Feasible:** one person's realistic full-body
+    motion up to 10 s (fall, slip, jump, haul, push, throw, climb down, dance, gesture, walk while doing something).
+    **Not feasible:** cartoon or non-physical motion (squash, flying), finger work, two characters in contact, exact
+    contact with a prop or the scenery (it cannot see them), clips over 10 s, looping idles and walks along a
+    `route` (keep the library clips). Look at the result on the toon; if it does not read, say so and fall back.
+    How: docs/ACTOR_SPEC.md "Generated motions".
 
 ## Commands
 

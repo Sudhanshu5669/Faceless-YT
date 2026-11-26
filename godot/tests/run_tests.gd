@@ -68,6 +68,7 @@ func _run_all() -> void:
 	_run("kit houses take their size from the model", _t_kit_houses)
 	_run("primitive kit still builds without assets", _t_primitive_kit)
 	_run("every action maps to an animation; gaits have speeds", _t_actions)
+	_run("generated motions: limbs point where the source did, travel is in the clip", _t_mocap)
 	_run("all characters are valid", _t_characters)
 	_run("actor validation catches bad characters, actions, keys", _t_actor_validation)
 	_run("pose_at(t) is a pure function of t", _t_actor_pose_deterministic)
@@ -473,6 +474,43 @@ func _t_actions() -> Array:
 			e.append("action %s -> animation '%s' not in the library" % [id, a["anim"]])
 		if a.get("gait", false) and float(a.get("speed", 0.0)) <= 0.0:
 			e.append("gait %s has no measured speed" % id)
+	return e
+
+
+func _t_mocap() -> Array:
+	var e := []
+	var r := Paths.load_json(Paths.repo_path("library/motions/walk_wave.json"))
+	if not r["ok"]:
+		return ["library/motions/walk_wave.json could not be read"]
+	var clip: Dictionary = r["data"]
+	var L := _actor_layout()
+	var res := ActorDirector.plan_all([{"id": "m", "character": "you", "at": "town_center", "action": "walk_wave"}], L)
+	if res.has("error"):
+		return [res["error"]]
+	var node := ActorDirector.build(res["plans"], L)
+	root.add_child(node)
+	var man = node.get_child(0)
+	var sk: Skeleton3D = man.skeleton
+	var to_body: Basis = Cast.Retarget._chain(sk, man.body).basis.orthonormalized()
+	for f in [0, 40, 80, 119]:
+		man.pose_at(f / float(clip["fps"]))
+		for pair in [["upperarm_r", "lowerarm_r"], ["lowerarm_r", "hand_r"], ["thigh_l", "calf_l"], ["calf_l", "foot_l"]]:
+			var a: Vector3 = Cast.bone_global(sk, sk.find_bone(pair[0])).origin
+			var b: Vector3 = Cast.bone_global(sk, sk.find_bone(pair[1])).origin
+			var got: Vector3 = (to_body * (b - a)).normalized()
+			var q: Array = clip["rotations"][pair[0]][f]
+			var d: Array = clip["rest_dir"][pair[0]]
+			var want: Vector3 = Quaternion(q[0], q[1], q[2], q[3]).normalized() * Vector3(d[0], d[1], d[2]).normalized()
+			if got.angle_to(want) > deg_to_rad(1.0):
+				e.append("frame %d %s is %.1f degrees off" % [f, pair[0], rad_to_deg(got.angle_to(want))])
+	man.pose_at(0.0)
+	var start: Vector3 = man.bone_world("pelvis")
+	man.pose_at(10.0)  # past the end: the last frame holds
+	var travel: Vector3 = man.bone_world("pelvis") - start
+	var flat := Vector2(travel.x, travel.z).length()
+	if flat < 4.0 or flat > 6.5:
+		e.append("hips travelled %.2f m (the clip walks about 5.9 m at source scale)" % flat)
+	node.free()
 	return e
 
 
